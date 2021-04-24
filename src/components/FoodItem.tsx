@@ -6,13 +6,15 @@ export const FoodItem = (props: { food: Food; }) => {
   const { name, serving } = props.food;
   return (
     <ListGroup.Item className="d-flex">
-      <div>{name}</div>
-      <FoodGroupServingBadge foodGroup="vegetable" serving={serving} />
-      <FoodGroupServingBadge foodGroup={"fruit"} serving={serving} />
-      <FoodGroupServingBadge foodGroup={"carbohydrate"} serving={serving} />
-      <FoodGroupServingBadge foodGroup={"protein"} serving={serving} />
-      <FoodGroupServingBadge foodGroup={"fat"} serving={serving} />
-      <FoodGroupServingBadge foodGroup={"sweeet"} serving={serving} />
+      <div className="mr-auto">{name}</div>
+      <div>
+        <FoodGroupServingBadge foodGroup="vegetable" serving={serving} />
+        <FoodGroupServingBadge foodGroup={"fruit"} serving={serving} />
+        <FoodGroupServingBadge foodGroup={"carbohydrate"} serving={serving} />
+        <FoodGroupServingBadge foodGroup={"protein"} serving={serving} />
+        <FoodGroupServingBadge foodGroup={"fat"} serving={serving} />
+        <FoodGroupServingBadge foodGroup={"sweeet"} serving={serving} />
+      </div>
     </ListGroup.Item>
   );
 }
