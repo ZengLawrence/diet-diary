@@ -4,18 +4,19 @@ import { FoodItem } from "./FoodItem";
 
 interface Props {
   mealTime: string;
-  food: Food;
+  foods: Food[];
 }
 
 export const MealCard = (props: Props) => {
-  const { mealTime, food } = props;
+  const { mealTime, foods } = props;
+  const foodItems = foods.map((food, index) => <FoodItem key={index} food={food} />);
   return (
     <Card>
       <Card.Body>
         <Card.Title>{mealTime}</Card.Title>
       </Card.Body>
       <ListGroup>
-        <FoodItem food={food} />
+        {foodItems}
       </ListGroup>
     </Card>
   );

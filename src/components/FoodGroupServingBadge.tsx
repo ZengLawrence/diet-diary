@@ -20,7 +20,8 @@ function backgroundColor(foodGroup: FoodGroup) {
 export const FoodGroupServingBadge = (props: { foodGroup: FoodGroup; serving: Serving; }) => {
   const { foodGroup, serving } = props;
   const style: React.CSSProperties = {
-    backgroundColor: backgroundColor(foodGroup)
+    backgroundColor: backgroundColor(foodGroup),
+    fontFamily: "Arial Narrow, Arial, sans-serif",
   };
   return (<Badge className="text-white m-1" style={style}>{_.get(serving, foodGroup)}</Badge>);
 };
