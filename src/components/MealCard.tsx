@@ -29,7 +29,7 @@ const ServingSummary = (props: { servings: Serving[] }) => {
       <FoodGroupServingBadge foodGroup="carbohydrate" serving={servingSummary} />
       <FoodGroupServingBadge foodGroup="protein" serving={servingSummary} />
       <FoodGroupServingBadge foodGroup="fat" serving={servingSummary} />
-      <FoodGroupServingBadge foodGroup="sweeet" serving={servingSummary} />
+      <FoodGroupServingBadge foodGroup="sweet" serving={servingSummary} />
     </Card.Footer>
   );
 }

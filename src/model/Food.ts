@@ -16,3 +16,5 @@ export interface Meal {
   mealTime: string;
   foods: Food[];
 }
+
+export type FoodGroup = "vegetable" | "fruit" | "carbohydrate" | "protein" | "fat" | "sweet";

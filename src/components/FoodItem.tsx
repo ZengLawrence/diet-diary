@@ -13,7 +13,7 @@ export const FoodItem = (props: { food: Food; }) => {
         <FoodGroupServingBadge foodGroup={"carbohydrate"} serving={serving} />
         <FoodGroupServingBadge foodGroup={"protein"} serving={serving} />
         <FoodGroupServingBadge foodGroup={"fat"} serving={serving} />
-        <FoodGroupServingBadge foodGroup={"sweeet"} serving={serving} />
+        <FoodGroupServingBadge foodGroup={"sweet"} serving={serving} />
       </div>
     </ListGroup.Item>
   );

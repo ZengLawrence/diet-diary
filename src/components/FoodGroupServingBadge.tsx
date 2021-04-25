@@ -1,8 +1,6 @@
 import _ from "lodash";
 import { Badge } from "react-bootstrap";
-import { Serving } from "../model/Food";
-
-type FoodGroup = "vegetable" | "fruit" | "carbohydrate" | "protein" | "fat" | "sweeet";
+import { FoodGroup, Serving } from "../model/Food";
 
 const BACKGROUND_COLORS = {
   "vegetable": "green",
@@ -10,7 +8,7 @@ const BACKGROUND_COLORS = {
   "carbohydrate": "cyan",
   "protein": "blue",
   "fat": "orange",
-  "sweeet": "red",
+  "sweet": "red",
 };
 
 function backgroundColor(foodGroup: FoodGroup) {

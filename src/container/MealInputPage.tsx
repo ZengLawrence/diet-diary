@@ -1,6 +1,7 @@
 import { Col, Form, Row } from "react-bootstrap"
+import { FoodGroup } from "../model/Food";
 
-const ServingInputControl = (props: { foodGroup: string }) => {
+const ServingInputControl = (props: { foodGroup: FoodGroup }) => {
   const { foodGroup } = props;
   const controlId = "formServing" + foodGroup;
   return (
@@ -29,12 +30,12 @@ export const MealInputPage = () => {
         <Form.Label>Servings</Form.Label>
       </Form.Group>
       <Form.Group controlId="formServings">
-        <ServingInputControl foodGroup="Vegetable" />
-        <ServingInputControl foodGroup="Fruit" />
-        <ServingInputControl foodGroup="Carbohydrate" />
-        <ServingInputControl foodGroup="Protein" />
-        <ServingInputControl foodGroup="Fat" />
-        <ServingInputControl foodGroup="Sweet" />
+        <ServingInputControl foodGroup="vegetable" />
+        <ServingInputControl foodGroup="fruit" />
+        <ServingInputControl foodGroup="carbohydrate" />
+        <ServingInputControl foodGroup="protein" />
+        <ServingInputControl foodGroup="fat" />
+        <ServingInputControl foodGroup="sweet" />
       </Form.Group>
 
     </Form>
