@@ -1,6 +1,6 @@
 import { ListGroup } from "react-bootstrap";
 import { Food } from "../model/Food";
-import { FoodGroupServingBadge } from "./FoodGroupServingBadge";
+import { FoodGroupServingBadge } from "./FoodGroupBadge";
 
 export const FoodItem = (props: { food: Food; }) => {
   const { name, serving } = props.food;

@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { Card, ListGroup } from "react-bootstrap";
 import { Meal, Serving } from "../model/Food";
-import { FoodGroupServingBadge } from "./FoodGroupServingBadge";
+import { FoodGroupServingBadge } from "./FoodGroupBadge";
 import { FoodItem } from "./FoodItem";
 
 function add(n1: number | undefined, n2: number | undefined) {

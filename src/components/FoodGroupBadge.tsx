@@ -15,11 +15,17 @@ function backgroundColor(foodGroup: FoodGroup) {
   return _.get(BACKGROUND_COLORS, foodGroup, '');
 }
 
-export const FoodGroupServingBadge = (props: { foodGroup: FoodGroup; serving: Serving; }) => {
-  const { foodGroup, serving } = props;
+export const FoodGroupBadge = (props: { foodGroup: FoodGroup; value: string | number | undefined; }) => {
+  const { foodGroup, value } = props;
   const style: React.CSSProperties = {
     backgroundColor: backgroundColor(foodGroup),
     fontFamily: "Arial Narrow, Arial, sans-serif",
   };
-  return (<Badge className="text-white m-1" style={style}>{_.get(serving, foodGroup)}</Badge>);
-};
+  return (<Badge className="text-white m-1" style={style}>{value}</Badge>);
+}
+
+export const FoodGroupServingBadge = (props: { foodGroup: FoodGroup; serving: Serving; }) => {
+  const { foodGroup, serving } = props;
+  const value = _.get(serving, foodGroup);
+  return (<FoodGroupBadge foodGroup={foodGroup} value={value} />);
+}
