@@ -15,7 +15,7 @@ function sumServings(s1: Serving, s2: Serving): Serving {
     carbohydrate: add(s1.carbohydrate, s2.carbohydrate),
     protein: add(s1.protein, s2.protein),
     fat: add(s1.fat, s2.fat),
-    sweeet: add(s1.sweeet, s2.sweeet),
+    sweet: add(s1.sweet, s2.sweet),
   };
 }
 

@@ -4,7 +4,7 @@ export interface Serving {
   carbohydrate?: number;
   protein?: number;
   fat?: number;
-  sweeet?: number;
+  sweet?: number;
 }
 
 export interface Food {
