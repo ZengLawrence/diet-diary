@@ -6,7 +6,7 @@ import { MealCard } from "../components/MealCard";
 import { Meal } from "../model/Food";
 
 const ToolBar = () => (
-  <div className="d-flex justify-content-end" >
+  <div className="d-flex justify-content-end text-primary" >
     <FontAwesomeIcon icon={faPlusSquare} size="3x" />
   </div>
 );
