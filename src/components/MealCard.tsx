@@ -1,13 +1,8 @@
 import _ from "lodash";
 import { Card, ListGroup } from "react-bootstrap";
-import { Food, Serving } from "../model/Food";
+import { Meal, Serving } from "../model/Food";
 import { FoodGroupServingBadge } from "./FoodGroupServingBadge";
 import { FoodItem } from "./FoodItem";
-
-interface Props {
-  mealTime: string;
-  foods: Food[];
-}
 
 function add(n1: number | undefined, n2: number | undefined) {
   return _.defaultTo(n1, 0) + _.defaultTo(n2, 0);
@@ -39,8 +34,8 @@ const ServingSummary = (props: { servings: Serving[] }) => {
   );
 }
 
-export const MealCard = (props: Props) => {
-  const { mealTime, foods } = props;
+export const MealCard = (props: { meal: Meal }) => {
+  const { mealTime, foods } = props.meal;
   const foodItems = foods.map((food, index) => <FoodItem key={index} food={food} />);
   const servings = _.map(foods, "serving");
   return (

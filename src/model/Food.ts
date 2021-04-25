@@ -11,3 +11,8 @@ export interface Food {
   name: string;
   serving: Serving;
 }
+
+export interface Meal {
+  mealTime: string;
+  foods: Food[];
+}
