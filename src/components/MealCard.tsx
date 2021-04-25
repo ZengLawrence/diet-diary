@@ -39,10 +39,8 @@ export const MealCard = (props: { meal: Meal }) => {
   const foodItems = foods.map((food, index) => <FoodItem key={index} food={food} />);
   const servings = _.map(foods, "serving");
   return (
-    <Card>
-      <Card.Body>
-        <Card.Title>{mealTime}</Card.Title>
-      </Card.Body>
+    <Card className="mt-1">
+      <Card.Header>{mealTime}</Card.Header>
       <ListGroup>
         {foodItems}
       </ListGroup>
