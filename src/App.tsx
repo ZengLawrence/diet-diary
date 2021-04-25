@@ -1,6 +1,12 @@
 import { Container } from "react-bootstrap";
 import { DayPage } from "./container/DayPage";
 import { Meal } from "./model/Food";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import { MealInputPage } from "./container/MealInputPage";
 
 const breakfast: Meal = {
   mealTime: "10am",
@@ -29,9 +35,23 @@ const meals = [breakfast, lunch];
 function App() {
   return (
     <Container>
-      <DayPage meals={meals} />
+      <Router>
+        <Switch>
+          <Route path="/meal">
+            <MealInputPage />
+          </Route>
+          <Route path="/">
+            <HomeRoute />
+          </Route>
+        </Switch>
+      </Router>
+
     </Container>
   );
+}
+
+function HomeRoute() {
+  return <DayPage meals={meals} />;
 }
 
 export default App;
