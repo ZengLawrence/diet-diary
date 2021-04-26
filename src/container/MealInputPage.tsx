@@ -1,38 +1,8 @@
 import _ from "lodash";
 import { useReducer } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
-import { FoodGroupBadge } from "../components/FoodGroupBadge";
-import { FoodGroup, Serving } from "../model/Food";
-
-const FOOD_GROUP_CALORIES = {
-  "vegetable": 25,
-  "fruit": 60,
-  "carbohydrate": 70,
-  "protein": 110,
-  "fat": 45,
-  "sweet": 75,
-};
-
-function getCalories(foodGroup: FoodGroup) {
-  return _.get(FOOD_GROUP_CALORIES, foodGroup, 0);
-}
-
-const ServingInputControl = (props: { foodGroup: FoodGroup; onChange: (foodGroup: FoodGroup, serving: number) => void }) => {
-  const { foodGroup, onChange } = props;
-  const controlId = "formServing" + foodGroup;
-  const calories = _.toString(getCalories(foodGroup)) + " Cal.";
-
-  return (
-    <Form.Group as={Row} controlId={controlId}>
-      <Form.Label column sm={4}>
-        {_.capitalize(foodGroup)}{' '}<FoodGroupBadge foodGroup={foodGroup} value={calories} />
-      </Form.Label>
-      <Col sm={2}>
-        <Form.Control type="text" onChange={e => onChange(foodGroup, parseFloat(e.target.value))} />
-      </Col>
-    </Form.Group>
-  )
-}
+import { Button, Form, Row } from "react-bootstrap";
+import { FoodGroup, Serving, totalCalories } from "../model/Food";
+import { ServingInputControl } from "../components/ServingInputControl";
 
 function reducer(state: Serving, action: { type: string; foodGroup: FoodGroup; serving: number | undefined }) {
   switch (action.type) {
@@ -41,11 +11,6 @@ function reducer(state: Serving, action: { type: string; foodGroup: FoodGroup; s
     default:
       throw new Error();
   }
-}
-
-function totalCalories(serving: Serving) {
-  const calcCalories = (foodGroup: FoodGroup) => getCalories(foodGroup) * _.get(serving, foodGroup, 0);
-  return _.sum(_.map(_.keys(serving), calcCalories));
 }
 
 export const MealInputPage = () => {
