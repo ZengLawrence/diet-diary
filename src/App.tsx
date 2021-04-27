@@ -6,7 +6,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import { FoodInputForm } from "./components/FoodInputForm";
+import { MealInputPage } from "./container/MealInputPage";
 
 const breakfast: Meal = {
   mealTime: "10am",
@@ -30,28 +30,34 @@ const lunch: Meal = {
   ]
 };
 
-const meals = [breakfast, lunch];
+
+const INITIAL_STATE: Meal[] = [breakfast, lunch];
+
+function newMeal(): Meal {
+  return {
+    mealTime: new Date().toLocaleTimeString(),
+    foods: [],
+  };
+}
 
 function App() {
+  const meals = INITIAL_STATE;
+  
   return (
     <Container>
       <Router>
         <Switch>
           <Route path="/meal">
-            <FoodInputForm />
+            <MealInputPage meal={newMeal()} />
           </Route>
           <Route path="/">
-            <HomeRoute />
+            <DayPage meals={meals} />
           </Route>
         </Switch>
       </Router>
 
     </Container>
   );
-}
-
-function HomeRoute() {
-  return <DayPage meals={meals} />;
 }
 
 export default App;

@@ -10,7 +10,7 @@ interface Action {
 
 interface SetServingAction extends Action {
   type: "set-serving";
-  foodGroup: FoodGroup; 
+  foodGroup: FoodGroup;
   serving: number | undefined;
 }
 
@@ -33,12 +33,14 @@ function setName(food: Food, action: SetNameAction) {
   };
 }
 
-function reducer(state: Food, action: SetNameAction | SetServingAction) {
+function reducer(state: Food, action: Action | SetNameAction | SetServingAction) {
   switch (action.type) {
     case 'set-name':
       return setName(state, action as SetNameAction);
     case 'set-serving':
       return setServing(state, action as SetServingAction);
+    case 'reset':
+      return INITIAL_STATE;
     default:
       throw new Error();
   }
@@ -49,7 +51,7 @@ const INITIAL_STATE: Food = {
   serving: {}
 }
 
-export const FoodInputForm = () => {
+export const FoodInputForm = (props: { onAddFood: (food: Food) => void }) => {
   const [food, dispatch] = useReducer(reducer, INITIAL_STATE);
   const handleNameChange = (name: string) => {
     dispatch({
@@ -64,6 +66,13 @@ export const FoodInputForm = () => {
       foodGroup,
       serving
     });
+  }
+
+  const handleAdd = () => {
+    props.onAddFood(food);
+    dispatch({
+      type: "reset"
+    })
   }
 
   return (
@@ -90,7 +99,7 @@ export const FoodInputForm = () => {
         <ServingInputControl foodGroup="sweet" onChange={handleServingChange} />
       </Form.Group>
 
-      <Button type="submit" variant="primary">Add</Button>{' '}
+      <Button variant="primary" onClick={handleAdd}>Add</Button>{' '}
       <Button variant="secondary">Close</Button>
     </Form>
   )
