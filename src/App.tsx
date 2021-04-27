@@ -6,7 +6,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import { MealInputPage } from "./container/MealInputPage";
+import { FoodInputForm } from "./components/FoodInputForm";
 
 const breakfast: Meal = {
   mealTime: "10am",
@@ -38,7 +38,7 @@ function App() {
       <Router>
         <Switch>
           <Route path="/meal">
-            <MealInputPage />
+            <FoodInputForm />
           </Route>
           <Route path="/">
             <HomeRoute />

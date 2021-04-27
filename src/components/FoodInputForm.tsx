@@ -1,23 +1,31 @@
 import _ from "lodash";
 import { useReducer } from "react";
 import { Button, Form, Row } from "react-bootstrap";
-import { FoodGroup, Serving, totalCalories } from "../model/Food";
-import { ServingInputControl } from "../components/ServingInputControl";
+import { ServingInputControl } from "./ServingInputControl";
+import { Food, FoodGroup, totalCalories } from "../model/Food";
 
-function reducer(state: Serving, action: { type: string; foodGroup: FoodGroup; serving: number | undefined }) {
+function reducer(state: Food, action: { type: string; foodGroup: FoodGroup; serving: number | undefined }) {
   switch (action.type) {
-    case 'set':
-      return _.set(_.clone(state), action.foodGroup, action.serving);
+    case 'set-serving':
+      return {
+        ...state,
+        serving: _.set(state.serving, action.foodGroup, action.serving)
+      };
     default:
       throw new Error();
   }
 }
 
-export const MealInputPage = () => {
-  const [serving, dispatch] = useReducer(reducer, {} as Serving);
+const INITIAL_STATE: Food = {
+  name: "",
+  serving: {}
+}
+
+export const FoodInputForm = () => {
+  const [food, dispatch] = useReducer(reducer, INITIAL_STATE);
   const handleChange = (foodGroup: FoodGroup, serving: number) => {
     dispatch({
-      type: "set",
+      type: "set-serving",
       foodGroup,
       serving
     });
@@ -35,7 +43,7 @@ export const MealInputPage = () => {
       </Form.Group>
 
       <Form.Group as={Row}>
-        <Form.Label>Servings (Total Calories: {totalCalories(serving)})</Form.Label>
+        <Form.Label>Servings (Total Calories: {totalCalories(food.serving)})</Form.Label>
       </Form.Group>
       <Form.Group controlId="formServings">
         <ServingInputControl foodGroup="vegetable" onChange={handleChange} />
