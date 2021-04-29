@@ -40,19 +40,21 @@ function reducer(state: Food, action: Action | SetNameAction | SetServingAction)
     case 'set-serving':
       return setServing(state, action as SetServingAction);
     case 'reset':
-      return INITIAL_STATE;
+      return initialState();
     default:
       throw new Error();
   }
 }
 
-const INITIAL_STATE: Food = {
-  name: "",
-  serving: {}
+function initialState(): Food {
+  return {
+    name: "",
+    serving: {}
+  }
 }
 
 export const FoodInputForm = (props: { onAddFood: (food: Food) => void }) => {
-  const [food, dispatch] = useReducer(reducer, INITIAL_STATE);
+  const [food, dispatch] = useReducer(reducer, initialState());
   const handleNameChange = (name: string) => {
     dispatch({
       type: "set-name",
@@ -68,11 +70,12 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void }) => {
     });
   }
 
-  const handleAdd = () => {
+  const handleAdd = (e: React.MouseEvent<HTMLElement>) => {
     props.onAddFood(food);
     dispatch({
       type: "reset"
-    })
+    });
+    e.preventDefault();
   }
 
   return (
@@ -81,8 +84,9 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void }) => {
         <Form.Label>Food name</Form.Label>
         <Form.Control
           type="text"
+          value={food.name}
           required
-          placeholder="Bread, brocolli, steak, hamburger..."
+          placeholder="Bread, broccoli, steak, hamburger..."
           onChange={e => handleNameChange(e.target.value)}
         />
       </Form.Group>
@@ -91,15 +95,15 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void }) => {
         <Form.Label>Servings (Total Calories: {totalFoodCalories(food)})</Form.Label>
       </Form.Group>
       <Form.Group controlId="formServings">
-        <ServingInputControl foodGroup="vegetable" onChange={handleServingChange} />
-        <ServingInputControl foodGroup="fruit" onChange={handleServingChange} />
-        <ServingInputControl foodGroup="carbohydrate" onChange={handleServingChange} />
-        <ServingInputControl foodGroup="protein" onChange={handleServingChange} />
-        <ServingInputControl foodGroup="fat" onChange={handleServingChange} />
-        <ServingInputControl foodGroup="sweet" onChange={handleServingChange} />
+        <ServingInputControl foodGroup="vegetable" serving={food.serving} onChange={handleServingChange} />
+        <ServingInputControl foodGroup="fruit" serving={food.serving} onChange={handleServingChange} />
+        <ServingInputControl foodGroup="carbohydrate" serving={food.serving} onChange={handleServingChange} />
+        <ServingInputControl foodGroup="protein" serving={food.serving} onChange={handleServingChange} />
+        <ServingInputControl foodGroup="fat" serving={food.serving} onChange={handleServingChange} />
+        <ServingInputControl foodGroup="sweet" serving={food.serving} onChange={handleServingChange} />
       </Form.Group>
 
-      <Button variant="primary" onClick={handleAdd}>Add</Button>{' '}
+      <Button type="submit" variant="primary" onClick={handleAdd}>Add</Button>{' '}
       <Button variant="secondary">Close</Button>
     </Form>
   )
