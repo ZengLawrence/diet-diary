@@ -4,17 +4,8 @@ import { Col, Form, Row } from "react-bootstrap";
 import { FoodGroup, getCalories, Serving } from "../model/Food";
 import { FoodGroupBadge } from "./FoodGroupBadge";
 
-interface Props {
-  foodGroup: FoodGroup;
-  serving: Serving;
-  onChange: (foodGroup: FoodGroup, serving: number) => void;
-}
-
-export const ServingInputControl = (props: Props) => {
+function useSyncedLocalState(props: Props) {
   const { foodGroup, serving } = props;
-  const controlId = "formServing" + foodGroup;
-  const calories = _.toString(getCalories(foodGroup)) + " Cal.";
-
   const [servingStr, setServingStr] = useState(_.get(serving, foodGroup) || '');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +20,22 @@ export const ServingInputControl = (props: Props) => {
       setServingStr(_.get(serving, foodGroup) || '');
     }
   }, [foodGroup, serving]);
+
+  return { servingStr, handleChange };
+}
+
+interface Props {
+  foodGroup: FoodGroup;
+  serving: Serving;
+  onChange: (foodGroup: FoodGroup, serving: number) => void;
+}
+
+export const ServingInputControl = (props: Props) => {
+  const { foodGroup, serving } = props;
+  const controlId = "formServing" + foodGroup;
+  const calories = _.toString(getCalories(foodGroup)) + " Cal.";
+
+  const { servingStr, handleChange } = useSyncedLocalState(props);
 
   return (
     <Form.Group as={Row} controlId={controlId}>
