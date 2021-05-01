@@ -15,10 +15,8 @@ function useSyncedLocalState(props: Props) {
   }
 
   useEffect(() => {
-    if (_.get(serving, foodGroup) !== _.toNumber(servingStr)) {
-      // reset happens
+      // syncing with parent state
       setServingStr(_.get(serving, foodGroup) || '');
-    }
   }, [foodGroup, serving]);
 
   return { servingStr, handleChange };
