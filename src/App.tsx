@@ -1,12 +1,15 @@
 import { Container } from "react-bootstrap";
 import { DayPage } from "./container/DayPage";
-import { Meal } from "./model/Food";
+import { Food, Meal } from "./model/Food";
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
-import { MealInputPage } from "./container/MealInputPage";
+import { useReducer } from "react";
+import { Action, AddFoodAction } from "./Action";
+import { MealDispatch } from "./MealDispatch";
+import _ from "lodash";
 
 const breakfast: Meal = {
   mealTime: "10am",
@@ -31,7 +34,9 @@ const lunch: Meal = {
 };
 
 
-const INITIAL_STATE: Meal[] = [breakfast, lunch];
+const INITIAL_STATE: AppState = {
+  meals: [breakfast, lunch],
+};
 
 function newMeal(): Meal {
   return {
@@ -40,22 +45,54 @@ function newMeal(): Meal {
   };
 }
 
+interface AppState {
+  meals: Meal[];
+  editState?: string;
+}
+
+function reducer(state: AppState, action: Action) {
+  switch (action.type) {
+    case 'new-meal':
+      return {
+        ...state,
+        meals: [...state.meals, newMeal()],
+        editState: "add"
+      };
+    case 'add-food':
+      const addFoodAction = action as AddFoodAction;
+      const {mealIndex} = addFoodAction;
+      const meals = _.clone(state.meals);
+      const updatedMeal = mealReducer(meals[mealIndex], addFoodAction);
+      meals[mealIndex] = updatedMeal;
+      return {
+        ...state,
+        meals
+      }
+    default:
+      return state;
+  }
+}
+
+function mealReducer(state: Meal, action: {type: string; food: Food}) {
+  switch (action.type) {
+    case 'add-food':
+      return {
+        ...state,
+        foods: [...state.foods, action.food],
+      };
+    default:
+      return state;
+  }
+}
+
 function App() {
-  const meals = INITIAL_STATE;
-  
+  const [appState, dispatch] = useReducer(reducer, INITIAL_STATE);
+
   return (
     <Container>
-      <Router>
-        <Switch>
-          <Route path="/meal">
-            <MealInputPage meal={newMeal()} />
-          </Route>
-          <Route path="/">
-            <DayPage meals={meals} />
-          </Route>
-        </Switch>
-      </Router>
-
+      <MealDispatch.Provider value={dispatch} >
+        <DayPage meals={appState.meals} editState={appState.editState} />
+      </MealDispatch.Provider>
     </Container>
   );
 }

@@ -15,7 +15,7 @@ function useSyncedLocalState(props: Props) {
   }
 
   useEffect(() => {
-    if (_.get(serving, foodGroup) != _.toNumber(servingStr)) {
+    if (_.get(serving, foodGroup) !== _.toNumber(servingStr)) {
       // reset happens
       setServingStr(_.get(serving, foodGroup) || '');
     }
@@ -31,7 +31,7 @@ interface Props {
 }
 
 export const ServingInputControl = (props: Props) => {
-  const { foodGroup, serving } = props;
+  const { foodGroup } = props;
   const controlId = "formServing" + foodGroup;
   const calories = _.toString(getCalories(foodGroup)) + " Cal.";
 
