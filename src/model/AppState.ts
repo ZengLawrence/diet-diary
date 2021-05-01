@@ -1,6 +1,10 @@
 import { Meal } from "./Food";
 
 export interface AppState {
-  meals: Meal[];
+  mealStates: MealState[];
+}
+
+export interface MealState {
+  meal: Meal;
   editState?: string;
 }

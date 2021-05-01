@@ -1,14 +1,21 @@
 import _ from "lodash";
 import { Action, AddFoodAction } from "../actions";
-import { AppState } from "../model/AppState";
+import { AppState, MealState } from "../model/AppState";
 import { Food, Meal } from "../model/Food";
 
-function newMeal(): Meal {
+function newMealState(): MealState {
   return {
-    mealTime: new Date().toLocaleTimeString(),
-    foods: [],
+    meal: {
+      mealTime: new Date().toLocaleTimeString(),
+      foods: [],
+    },
+    editState: "add",
   };
 }
+
+export const INITIAL_STATE: AppState = {
+  mealStates: [newMealState()],
+};
 
 function mealReducer(state: Meal, action: { type: string; food: Food; }) {
   switch (action.type) {
@@ -22,23 +29,35 @@ function mealReducer(state: Meal, action: { type: string; food: Food; }) {
   }
 }
 
+function mealStateReducer(state: MealState, action: { type: string }) {
+  switch (action.type) {
+    case 'add-food':
+      const addFoodAction = action as AddFoodAction;
+      return {
+        ...state,
+        meal: mealReducer(state.meal, addFoodAction),
+      };
+    default:
+      return state;
+  }
+}
+
 export function reducer(state: AppState, action: Action) {
   switch (action.type) {
     case 'new-meal':
       return {
         ...state,
-        meals: [...state.meals, newMeal()],
-        editState: "add"
+        mealStates: [...state.mealStates, newMealState()],
       };
     case 'add-food':
       const addFoodAction = action as AddFoodAction;
       const { mealIndex } = addFoodAction;
-      const meals = _.clone(state.meals);
-      const updatedMeal = mealReducer(meals[mealIndex], addFoodAction);
-      meals[mealIndex] = updatedMeal;
+      const mealStates = _.clone(state.mealStates);
+      const updatedMeal = mealStateReducer(mealStates[mealIndex], addFoodAction);
+      mealStates[mealIndex] = updatedMeal;
       return {
         ...state,
-        meals
+        mealStates
       };
     default:
       return state;

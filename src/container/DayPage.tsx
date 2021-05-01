@@ -6,24 +6,25 @@ import { MealCard } from "../components/MealCard";
 import { AddMealToolBar } from "../components/AddMealToolBar";
 import { MealDispatch } from "../components/MealDispatch";
 import { Food, Meal } from "../model/Food";
+import { AppState } from "../model/AppState";
 
-export const DayPage = (props: { meals: Meal[]; editState?: string }) => {
-  const { meals, editState } = props;
-  const mealCards = _.map(meals, (meal, index) => <MealCard key={index} meal={meal} />);
+export const DayPage = (props: { state: AppState }) => {
+  const { mealStates } = props.state;
+  const mealCards = _.map(mealStates, (mealState, index) => <MealCard key={index} state={mealState} />);
 
   const dispatch: React.Dispatch<AddFoodAction> = useContext(MealDispatch);
   const handlAddFood = (food: Food) => {
     dispatch({
       type: "add-food",
       food,
-      mealIndex: _.size(meals) - 1
+      mealIndex: _.size(mealStates) - 1
     })
   }
 
   return (
     <Fragment>
       {mealCards}
-      {editState === "add" && <FoodInputForm onAddFood={handlAddFood} />}
+      <FoodInputForm onAddFood={handlAddFood} />
       <AddMealToolBar />
     </Fragment>
   )

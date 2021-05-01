@@ -3,9 +3,11 @@ import { Card, ListGroup } from "react-bootstrap";
 import { Meal } from "../model/Food";
 import { ServingSummary } from "./ServingSummary";
 import { FoodItem } from "./FoodItem";
+import { MealState } from "../model/AppState";
 
-export const MealCard = (props: { meal: Meal }) => {
-  const { mealTime, foods } = props.meal;
+export const MealCard = (props: { state: MealState }) => {
+  const { meal } = props.state;
+  const { mealTime, foods } = meal;
   const foodItems = foods.map((food, index) => <FoodItem key={index} food={food} />);
   const servings = _.map(foods, "serving");
   return (
