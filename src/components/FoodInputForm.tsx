@@ -1,8 +1,8 @@
 import _ from "lodash";
 import { useReducer } from "react";
-import { Button, Form, Row } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
+import { calcFoodCalories, Food, FoodGroup } from "../model/Food";
 import { ServingInputControl } from "./ServingInputControl";
-import { Food, FoodGroup, calcFoodCalories } from "../model/Food";
 
 interface Action {
   type: string;
@@ -79,8 +79,8 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void }) => {
   }
 
   return (
-    <Form>
-      <Form.Group as={Row} controlId="formFoodName">
+    <Form className="border p-1">
+      <Form.Group as={Form.Row} controlId="formFoodName" className="ml-1 mr-1">
         <Form.Label>Food name</Form.Label>
         <Form.Control
           type="text"
@@ -91,20 +91,20 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void }) => {
         />
       </Form.Group>
 
-      <Form.Group as={Row}>
+      <Form.Group>
         <Form.Label>Servings (Calories: {calcFoodCalories(food)})</Form.Label>
-      </Form.Group>
-      <Form.Group controlId="formServings">
-        <ServingInputControl foodGroup="vegetable" serving={food.serving} onChange={handleServingChange} />
-        <ServingInputControl foodGroup="fruit" serving={food.serving} onChange={handleServingChange} />
-        <ServingInputControl foodGroup="carbohydrate" serving={food.serving} onChange={handleServingChange} />
-        <ServingInputControl foodGroup="protein" serving={food.serving} onChange={handleServingChange} />
-        <ServingInputControl foodGroup="fat" serving={food.serving} onChange={handleServingChange} />
-        <ServingInputControl foodGroup="sweet" serving={food.serving} onChange={handleServingChange} />
+        <Form.Group controlId="formServings" className="border p-1">
+          <ServingInputControl foodGroup="vegetable" serving={food.serving} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="fruit" serving={food.serving} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="carbohydrate" serving={food.serving} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="protein" serving={food.serving} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="fat" serving={food.serving} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="sweet" serving={food.serving} onChange={handleServingChange} />
+        </Form.Group>
       </Form.Group>
 
       <Button type="submit" variant="primary" onClick={handleAdd}>Add</Button>{' '}
-      <Button variant="secondary">Close</Button>
+      <Button variant="secondary">Cancel</Button>
     </Form>
   )
 }
