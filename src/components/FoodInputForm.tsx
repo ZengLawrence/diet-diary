@@ -92,7 +92,7 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void }) => {
       </Form.Group>
 
       <Form.Group as={Row}>
-        <Form.Label>Servings (Total Calories: {calcFoodCalories(food)})</Form.Label>
+        <Form.Label>Servings (Calories: {calcFoodCalories(food)})</Form.Label>
       </Form.Group>
       <Form.Group controlId="formServings">
         <ServingInputControl foodGroup="vegetable" serving={food.serving} onChange={handleServingChange} />
