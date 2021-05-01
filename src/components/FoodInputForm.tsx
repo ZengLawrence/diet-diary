@@ -2,7 +2,7 @@ import _ from "lodash";
 import { useReducer } from "react";
 import { Button, Form, Row } from "react-bootstrap";
 import { ServingInputControl } from "./ServingInputControl";
-import { Food, FoodGroup, totalFoodCalories } from "../model/Food";
+import { Food, FoodGroup, calcFoodCalories } from "../model/Food";
 
 interface Action {
   type: string;
@@ -92,7 +92,7 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void }) => {
       </Form.Group>
 
       <Form.Group as={Row}>
-        <Form.Label>Servings (Total Calories: {totalFoodCalories(food)})</Form.Label>
+        <Form.Label>Servings (Total Calories: {calcFoodCalories(food)})</Form.Label>
       </Form.Group>
       <Form.Group controlId="formServings">
         <ServingInputControl foodGroup="vegetable" serving={food.serving} onChange={handleServingChange} />
