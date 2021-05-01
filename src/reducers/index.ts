@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Action, AddFoodAction, CancelAddFoodAction } from "../actions";
+import { Action, AddFoodAction, FoodAction } from "../actions";
 import { AppState, MealState } from "../model/AppState";
 import { Meal } from "../model/Food";
 
@@ -34,7 +34,7 @@ function clearMealEditStatus(state: MealState) {
   if (state.editState) {
     const updatedState = _.clone(state);
     _.unset(updatedState, 'editState');
-    return updatedState;  
+    return updatedState;
   } else {
     return state;
   }
@@ -54,10 +54,10 @@ function mealStateReducer(state: MealState, action: { type: string }) {
   }
 }
 
-function updateMealState(mealStates: MealState[], addFoodAction: { type: string; mealIndex: number }) {
-  const { mealIndex } = addFoodAction;
+function updateMealState(mealStates: MealState[], foodAction: FoodAction) {
+  const { mealIndex } = foodAction;
   const updatedMealStates = _.clone(mealStates);
-  const updatedMeal = mealStateReducer(updatedMealStates[mealIndex], addFoodAction);
+  const updatedMeal = mealStateReducer(updatedMealStates[mealIndex], foodAction);
   updatedMealStates[mealIndex] = updatedMeal;
   return updatedMealStates;
 }
@@ -70,14 +70,10 @@ export function reducer(state: AppState, action: Action) {
         mealStates: _.concat(_.map(state.mealStates, clearMealEditStatus), newMealState()),
       };
     case 'add-food':
-      return {
-        ...state,
-        mealStates: updateMealState(state.mealStates, action as AddFoodAction)
-      };
     case 'cancel-add-food':
       return {
         ...state,
-        mealStates: updateMealState(state.mealStates, action as CancelAddFoodAction)
+        mealStates: updateMealState(state.mealStates, action as FoodAction)
       };
     default:
       return state;
