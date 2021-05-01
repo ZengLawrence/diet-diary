@@ -3,7 +3,7 @@ import { Fragment, useContext } from "react";
 import { AddFoodAction } from "../actions";
 import { FoodInputForm } from "../components/FoodInputForm";
 import { MealCard } from "../components/MealCard";
-import { ToolBar } from "../components/ToolBar";
+import { AddMealToolBar } from "../components/AddMealToolBar";
 import { MealDispatch } from "../components/MealDispatch";
 import { Food, Meal } from "../model/Food";
 
@@ -22,9 +22,9 @@ export const DayPage = (props: { meals: Meal[]; editState?: string }) => {
 
   return (
     <Fragment>
-      <ToolBar />
       {mealCards}
       {editState === "add" && <FoodInputForm onAddFood={handlAddFood} />}
+      <AddMealToolBar />
     </Fragment>
   )
 }

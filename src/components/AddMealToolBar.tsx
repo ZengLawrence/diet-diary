@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { MealDispatch } from "./MealDispatch";
 
-export const ToolBar = () => {
+export const AddMealToolBar = () => {
   const dispatch = useContext(MealDispatch);
   
   return (
-    <div className="d-flex justify-content-end text-primary">
+    <div className="text-primary">
       <FontAwesomeIcon
         icon={faPlus}
         size="2x" 
