@@ -6,31 +6,8 @@ import { DayPage } from "./container/DayPage";
 import { MealDispatch } from "./MealDispatch";
 import { Food, Meal } from "./model/Food";
 
-const breakfast: Meal = {
-  mealTime: "10am",
-  foods: [
-    { name: "breakfast", serving: { vegetable: 1, fruit: 2, carbohydrate: 3, protein: 4, fat: 5, sweet: 6 } },
-    { name: "coffee", serving: { protein: 0.25 } },
-    { name: "bread", serving: { carbohydrate: 1.5 } },
-    { name: "humus", serving: { protein: 0.75 } },
-    { name: "cucumber", serving: { vegetable: 1 } },
-    { name: "cantaloupe", serving: { fruit: 1 }, }
-  ]
-};
-
-const lunch: Meal = {
-  mealTime: "12pm",
-  foods: [
-    { name: "rice", serving: { carbohydrate: 1.5 } },
-    { name: "chicken", serving: { protein: 2 } },
-    { name: "vege", serving: { vegetable: 2 } },
-    { name: "pear", serving: { fruit: 1 }, }
-  ]
-};
-
-
 const INITIAL_STATE: AppState = {
-  meals: [breakfast, lunch],
+  meals: [],
 };
 
 function newMeal(): Meal {
@@ -55,7 +32,7 @@ function reducer(state: AppState, action: Action) {
       };
     case 'add-food':
       const addFoodAction = action as AddFoodAction;
-      const {mealIndex} = addFoodAction;
+      const { mealIndex } = addFoodAction;
       const meals = _.clone(state.meals);
       const updatedMeal = mealReducer(meals[mealIndex], addFoodAction);
       meals[mealIndex] = updatedMeal;
@@ -68,7 +45,7 @@ function reducer(state: AppState, action: Action) {
   }
 }
 
-function mealReducer(state: Meal, action: {type: string; food: Food}) {
+function mealReducer(state: Meal, action: { type: string; food: Food }) {
   switch (action.type) {
     case 'add-food':
       return {
