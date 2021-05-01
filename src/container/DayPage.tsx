@@ -1,12 +1,12 @@
 import _ from "lodash";
 import { Fragment, useContext } from "react";
 import { AddFoodAction } from "../actions";
+import { AddMealToolBar } from "../components/AddMealToolBar";
 import { FoodInputForm } from "../components/FoodInputForm";
 import { MealCard } from "../components/MealCard";
-import { AddMealToolBar } from "../components/AddMealToolBar";
 import { MealDispatch } from "../components/MealDispatch";
-import { Food, Meal } from "../model/Food";
 import { AppState } from "../model/AppState";
+import { Food } from "../model/Food";
 
 export const DayPage = (props: { state: AppState }) => {
   const { mealStates } = props.state;

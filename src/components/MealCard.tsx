@@ -1,9 +1,8 @@
 import _ from "lodash";
 import { Card, ListGroup } from "react-bootstrap";
-import { Meal } from "../model/Food";
-import { ServingSummary } from "./ServingSummary";
-import { FoodItem } from "./FoodItem";
 import { MealState } from "../model/AppState";
+import { FoodItem } from "./FoodItem";
+import { ServingSummary } from "./ServingSummary";
 
 export const MealCard = (props: { state: MealState }) => {
   const { meal } = props.state;
