@@ -30,6 +30,16 @@ function mealReducer(state: Meal, action: Action) {
   }
 }
 
+function clearMealEditStatus(state: MealState) {
+  if (state.editState) {
+    const updatedState = _.clone(state);
+    _.unset(updatedState, 'editState');
+    return updatedState;  
+  } else {
+    return state;
+  }
+}
+
 function mealStateReducer(state: MealState, action: { type: string }) {
   switch (action.type) {
     case 'add-food':
@@ -38,9 +48,7 @@ function mealStateReducer(state: MealState, action: { type: string }) {
         meal: mealReducer(state.meal, action),
       };
     case 'cancel-add-food':
-      const updatedState = _.clone(state);
-      _.unset(updatedState, 'editState');
-      return updatedState;
+      return clearMealEditStatus(state);
     default:
       return state;
   }
@@ -59,7 +67,7 @@ export function reducer(state: AppState, action: Action) {
     case 'new-meal':
       return {
         ...state,
-        mealStates: [...state.mealStates, newMealState()],
+        mealStates: _.concat(_.map(state.mealStates, clearMealEditStatus), newMealState()),
       };
     case 'add-food':
       return {
