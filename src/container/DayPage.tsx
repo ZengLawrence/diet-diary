@@ -4,7 +4,7 @@ import { AddFoodAction } from "../actions";
 import { FoodInputForm } from "../components/FoodInputForm";
 import { MealCard } from "../components/MealCard";
 import { ToolBar } from "../components/ToolBar";
-import { MealDispatch } from "../MealDispatch";
+import { MealDispatch } from "../components/MealDispatch";
 import { Food, Meal } from "../model/Food";
 
 export const DayPage = (props: { meals: Meal[]; editState?: string }) => {

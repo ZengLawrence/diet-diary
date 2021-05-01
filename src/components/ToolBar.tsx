@@ -1,7 +1,7 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
-import { MealDispatch } from "../MealDispatch";
+import { MealDispatch } from "./MealDispatch";
 
 export const ToolBar = () => {
   const dispatch = useContext(MealDispatch);
