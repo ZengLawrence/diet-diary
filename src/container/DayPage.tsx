@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { Fragment, useContext } from "react";
-import { AddFoodAction } from "../Action";
+import { AddFoodAction } from "../actions";
 import { FoodInputForm } from "../components/FoodInputForm";
 import { MealCard } from "../components/MealCard";
 import { ToolBar } from "../components/ToolBar";

@@ -1,4 +1,4 @@
-import { Food } from "./model/Food";
+import { Food } from "../model/Food";
 
 export interface Action {
   type: string;

@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { useReducer } from "react";
 import { Container } from "react-bootstrap";
-import { Action, AddFoodAction } from "./Action";
+import { Action, AddFoodAction } from "./actions";
 import { DayPage } from "./container/DayPage";
 import { MealDispatch } from "./MealDispatch";
 import { Food, Meal } from "./model/Food";
