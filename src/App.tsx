@@ -1,15 +1,10 @@
-import { Container } from "react-bootstrap";
-import { DayPage } from "./container/DayPage";
-import { Food, Meal } from "./model/Food";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
-import { useReducer } from "react";
-import { Action, AddFoodAction } from "./Action";
-import { MealDispatch } from "./MealDispatch";
 import _ from "lodash";
+import { useReducer } from "react";
+import { Container } from "react-bootstrap";
+import { Action, AddFoodAction } from "./Action";
+import { DayPage } from "./container/DayPage";
+import { MealDispatch } from "./MealDispatch";
+import { Food, Meal } from "./model/Food";
 
 const breakfast: Meal = {
   mealTime: "10am",
