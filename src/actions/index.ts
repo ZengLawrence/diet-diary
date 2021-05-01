@@ -9,3 +9,8 @@ export interface AddFoodAction extends Action {
   food: Food;
   mealIndex: number
 }
+
+export interface CancelAddFoodAction extends Action {
+  type: "cancel-add-food";
+  mealIndex: number
+}

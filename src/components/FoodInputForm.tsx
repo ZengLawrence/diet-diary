@@ -53,7 +53,7 @@ function initialState(): Food {
   }
 }
 
-export const FoodInputForm = (props: { onAddFood: (food: Food) => void }) => {
+export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel: () => void }) => {
   const [food, dispatch] = useReducer(reducer, initialState());
   const handleNameChange = (name: string) => {
     dispatch({
@@ -104,7 +104,7 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void }) => {
       </Form.Group>
 
       <Button type="submit" variant="primary" onClick={handleAdd}>Add</Button>{' '}
-      <Button variant="secondary">Cancel</Button>
+      <Button variant="secondary" onClick={props.onCancel}>Cancel</Button>
     </Form>
   )
 }

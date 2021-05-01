@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { useContext } from "react";
 import { Card, ListGroup } from "react-bootstrap";
-import { AddFoodAction } from "../actions";
+import { Action, AddFoodAction, CancelAddFoodAction } from "../actions";
 import { MealState } from "../model/AppState";
 import { Food } from "../model/Food";
 import { FoodInputForm } from "./FoodInputForm";
@@ -11,18 +11,25 @@ import { ServingSummary } from "./ServingSummary";
 
 const FoodInputFormItem = (props: { mealIndex: number }) => {
   const { mealIndex } = props;
-  const dispatch: React.Dispatch<AddFoodAction> = useContext(MealDispatch);
+  const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
   const handlAddFood = (food: Food) => {
     dispatch({
       type: "add-food",
       food,
       mealIndex,
-    })
+    } as AddFoodAction)
+  }
+
+  const handleCancelAddFood = () => {
+    dispatch({
+      type: "cancel-add-food",
+      mealIndex,
+    } as CancelAddFoodAction)
   }
 
   return (
     <ListGroup.Item>
-      <FoodInputForm onAddFood={handlAddFood} />
+      <FoodInputForm onAddFood={handlAddFood} onCancel={handleCancelAddFood} />
     </ListGroup.Item>
   );
 }
