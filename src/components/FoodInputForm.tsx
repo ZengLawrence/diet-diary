@@ -126,12 +126,7 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel
   }
 
   function checkValidity(failedValidation : FailedValidation) {
-    const failed = _.defaultTo(failedValidation.vegetable, false)
-      || _.defaultTo(failedValidation.fruit, false)
-      || _.defaultTo(failedValidation.carbohydrate, false)
-      || _.defaultTo(failedValidation.protein, false)
-      || _.defaultTo(failedValidation.fat, false)
-      || _.defaultTo(failedValidation.sweet, false);
+    const failed = _.reduce(_.values(failedValidation), (res, val) => (res || _.defaultTo(val, false)), false);
     return !failed;
     }
 
@@ -184,11 +179,11 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel
         <Form.Label>Servings (Calories: {calcFoodCalories(food)})</Form.Label>
         <Form.Group controlId="formServings" className="border p-1">
           <ServingInputControl foodGroup="vegetable" serving={food.serving} isInvalid={isInvalid(failedValidation, "vegetable")} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="fruit" serving={food.serving} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="carbohydrate" serving={food.serving} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="protein" serving={food.serving} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="fat" serving={food.serving} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="sweet" serving={food.serving} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="fruit" serving={food.serving} isInvalid={isInvalid(failedValidation, "fruit")} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="carbohydrate" serving={food.serving} isInvalid={isInvalid(failedValidation, "carbohydrate")} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="protein" serving={food.serving} isInvalid={isInvalid(failedValidation, "protein")} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="fat" serving={food.serving} isInvalid={isInvalid(failedValidation, "fat")} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="sweet" serving={food.serving} isInvalid={isInvalid(failedValidation, "sweet")} onChange={handleServingChange} />
         </Form.Group>
       </Form.Group>
 
