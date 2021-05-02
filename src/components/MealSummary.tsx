@@ -1,5 +1,7 @@
 import { Fragment } from "react";
-import { calcMealCalories, calcServingSummary, Meal } from "../model/Food";
+import { Meal } from "../model/Food";
+import { calcServingSummary } from "../model/servingFunction";
+import { calcMealCalories } from "../model/calorieFunction";
 import { FoodGroupServingBadge } from "./FoodGroupBadge";
 
 export const MealSummary = (props: { meal: Meal; }) => {
