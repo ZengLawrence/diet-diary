@@ -6,13 +6,12 @@ import { MealCard } from "../components/MealCard";
 import { AppState } from "../model/AppState";
 
 export const DayPage = (props: { state: AppState }) => {
-  const { mealStates } = props.state;
+  const { date, mealStates } = props.state;
   const mealCards = _.map(mealStates, (mealState, index) => <MealCard key={index} mealIndex={index} state={mealState} />);
-  const today = new Date().toLocaleDateString();
 
   return (
     <Fragment>
-      <h1 className="text-center">{today}</h1>
+      <h1 className="text-center">{date}</h1>
       <CalorieServingSummary meals={_.map(mealStates, 'meal')} />
       {mealCards}
       <AddMealToolBar />

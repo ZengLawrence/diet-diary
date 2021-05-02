@@ -1,6 +1,7 @@
 import { Meal } from "./Food";
 
 export interface AppState {
+  date: string;
   mealStates: MealState[];
 }
 
