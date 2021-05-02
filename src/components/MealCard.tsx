@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { useContext } from "react";
 import { Card, ListGroup } from "react-bootstrap";
 import { Action, addFoodAction, cancelAddFoodAction } from "../actions";
@@ -7,7 +6,7 @@ import { Food } from "../model/Food";
 import { FoodInputForm } from "./FoodInputForm";
 import { FoodItem } from "./FoodItem";
 import { MealDispatch } from "./MealDispatch";
-import { ServingSummary } from "./ServingSummary";
+import { MealSummary } from "./MealSummary";
 
 const FoodInputFormItem = (props: { mealIndex: number }) => {
   const { mealIndex } = props;
@@ -32,8 +31,6 @@ export const MealCard = (props: { state: MealState; mealIndex: number }) => {
   const { meal, editState } = state;
   const { mealTime, foods } = meal;
   const foodItems = foods.map((food, index) => <FoodItem key={index} food={food} />);
-  const servings = _.map(foods, "serving");
-
 
   return (
     <Card className="mt-1">
@@ -43,7 +40,7 @@ export const MealCard = (props: { state: MealState; mealIndex: number }) => {
         {editState === 'add' && <FoodInputFormItem mealIndex={mealIndex} />}
       </ListGroup>
       <Card.Footer className="d-flex justify-content-end" >
-        <ServingSummary servings={servings} />
+        <MealSummary meal={meal} />
       </Card.Footer>
     </Card>
   );

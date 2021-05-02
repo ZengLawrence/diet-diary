@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { Fragment } from "react";
-import { calcServingCalories, Serving } from "../model/Food";
+import { calcServingCalories, Meal, Serving } from "../model/Food";
 import { FoodGroupServingBadge } from "./FoodGroupBadge";
 
 function add(n1: number | undefined, n2: number | undefined) {
@@ -18,8 +18,12 @@ function addServings(s1: Serving, s2: Serving): Serving {
   };
 }
 
-export const ServingSummary = (props: { servings: Serving[]; }) => {
-  const { servings } = props;
+function mealServings(meal: Meal) {
+  return _.map(meal.foods, 'serving');
+}
+
+export const MealSummary = (props: { meal: Meal; }) => {
+  const servings = mealServings(props.meal);
   const servingSummary = _.reduce(servings, addServings, {});
   const totalCalories = _.sum(_.map(servings, calcServingCalories));
   return (
