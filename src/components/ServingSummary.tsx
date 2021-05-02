@@ -24,7 +24,7 @@ export const ServingSummary = (props: { servings: Serving[]; }) => {
   const totalCalories = _.sum(_.map(servings, calcServingCalories));
   return (
     <Fragment>
-      <div className="mr-auto">{totalCalories} Cal.</div>
+      <div className="mr-1">{totalCalories} Cal.</div>
       <FoodGroupServingBadge foodGroup="vegetable" serving={servingSummary} />
       <FoodGroupServingBadge foodGroup="fruit" serving={servingSummary} />
       <FoodGroupServingBadge foodGroup="carbohydrate" serving={servingSummary} />
