@@ -3,19 +3,30 @@ import { Action, AddFoodAction, FoodAction } from "../actions";
 import { AppState, MealState } from "../model/AppState";
 import { Meal } from "../model/Food";
 
+function currentTime() {
+  return new Date().toLocaleTimeString();
+}
+
 function newMealState(): MealState {
   return {
     meal: {
-      mealTime: new Date().toLocaleTimeString(),
+      mealTime: currentTime(),
       foods: [],
     },
     editState: "add",
   };
 }
 
-export const INITIAL_STATE: AppState = {
-  mealStates: [newMealState()],
-};
+function today() {
+  return new Date().toLocaleDateString();
+}
+
+export function initialState(): AppState {
+  return {
+    date: today(),
+    mealStates: [newMealState()],
+  };
+}
 
 function mealReducer(state: Meal, action: Action) {
   switch (action.type) {

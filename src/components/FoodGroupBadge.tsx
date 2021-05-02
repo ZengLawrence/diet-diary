@@ -1,19 +1,7 @@
 import _ from "lodash";
 import { Badge } from "react-bootstrap";
 import { FoodGroup, Serving } from "../model/Food";
-
-const BACKGROUND_COLORS = {
-  "vegetable": "green",
-  "fruit": "teal",
-  "carbohydrate": "cyan",
-  "protein": "blue",
-  "fat": "orange",
-  "sweet": "red",
-};
-
-function backgroundColor(foodGroup: FoodGroup) {
-  return _.get(BACKGROUND_COLORS, foodGroup, '');
-}
+import { backgroundColor } from "./backgroundColor";
 
 export const FoodGroupBadge = (props: { foodGroup: FoodGroup; value: string | number | undefined; }) => {
   const { foodGroup, value } = props;

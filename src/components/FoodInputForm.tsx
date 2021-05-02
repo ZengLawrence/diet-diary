@@ -1,7 +1,8 @@
 import _ from "lodash";
 import { useReducer } from "react";
 import { Button, Form } from "react-bootstrap";
-import { calcFoodCalories, Food, FoodGroup } from "../model/Food";
+import { calcFoodCalories } from "../model/calorieFunction";
+import { Food, FoodGroup } from "../model/Food";
 import { ServingInputControl } from "./ServingInputControl";
 
 interface Action {
@@ -33,28 +34,48 @@ function setName(food: Food, action: SetNameAction) {
   };
 }
 
-function reducer(state: Food, action: Action | SetNameAction | SetServingAction) {
+interface State {
+  food: Food;
+  validated: boolean;
+}
+
+function reducer(state: State, action: Action | SetNameAction | SetServingAction) {
   switch (action.type) {
     case 'set-name':
-      return setName(state, action as SetNameAction);
+      return {
+        ...state,
+        food: setName(state.food, action as SetNameAction)
+      };
     case 'set-serving':
-      return setServing(state, action as SetServingAction);
+      return {
+        ...state,
+        food: setServing(state.food, action as SetServingAction)
+      }
     case 'reset':
       return initialState();
+    case 'validation-failed':
+      return {
+        ...state,
+        validated: true,
+      }
     default:
       throw new Error();
   }
 }
 
-function initialState(): Food {
+function initialState(): State {
   return {
-    name: "",
-    serving: {}
+    food: {
+      name: "",
+      serving: {}
+    },
+    validated: false,
   }
 }
 
 export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel: () => void }) => {
-  const [food, dispatch] = useReducer(reducer, initialState());
+  const [state, dispatch] = useReducer(reducer, initialState());
+  const { food, validated} = state;
   const handleNameChange = (name: string) => {
     dispatch({
       type: "set-name",
@@ -70,16 +91,31 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel
     });
   }
 
-  const handleAdd = (e: React.MouseEvent<HTMLElement>) => {
-    props.onAddFood(food);
-    dispatch({
-      type: "reset"
-    });
-    e.preventDefault();
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+      dispatch({
+        type: "validation-failed"
+      });
+    } else {
+      props.onAddFood(food);
+      dispatch({
+        type: "reset"
+      });
+      event.preventDefault();
+    }
   }
 
   return (
-    <Form className="border p-1">
+    <Form
+      noValidate
+      validated={validated}
+      onSubmit={handleSubmit}
+      className="border p-1"
+    >
+
       <Form.Group as={Form.Row} controlId="formFoodName" className="ml-1 mr-1">
         <Form.Label>Food name</Form.Label>
         <Form.Control
@@ -89,6 +125,9 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel
           placeholder="Bread, broccoli, steak, hamburger..."
           onChange={e => handleNameChange(e.target.value)}
         />
+        <Form.Control.Feedback type="invalid">
+          Please enter food name.
+        </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group>
@@ -103,7 +142,7 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel
         </Form.Group>
       </Form.Group>
 
-      <Button type="submit" variant="primary" onClick={handleAdd}>Add</Button>{' '}
+      <Button type="submit" variant="primary">Add</Button>{' '}
       <Button variant="secondary" onClick={props.onCancel}>Cancel</Button>
     </Form>
   )
