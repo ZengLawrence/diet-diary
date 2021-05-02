@@ -2,7 +2,7 @@ import _ from "lodash";
 import { useReducer } from "react";
 import { Button, Form } from "react-bootstrap";
 import { calcFoodCalories } from "../model/calorieFunction";
-import { Food, FoodGroup } from "../model/Food";
+import { Food, FoodGroup, Serving } from "../model/Food";
 import { ServingInputControl } from "./ServingInputControl";
 
 interface Action {
@@ -20,6 +20,11 @@ interface SetNameAction extends Action {
   name: string;
 }
 
+interface ValidationFailedAction extends Action {
+  type: "validation-failed";
+  failedValidation: FailedValidation;
+}
+
 function setServing(food: Food, action: SetServingAction) {
   return {
     ...food,
@@ -34,12 +39,26 @@ function setName(food: Food, action: SetNameAction) {
   };
 }
 
+interface FailedValidation {
+  vegetable?: boolean,
+  fruit?: boolean,
+  carbohydrate?: boolean,
+  protein?: boolean,
+  fat?: boolean,
+  sweet?: boolean,
+}
+
+function isInvalid(failedValidation: FailedValidation, foodGroup: FoodGroup) {
+  return _.get(failedValidation, foodGroup, false);
+}
+
 interface State {
   food: Food;
   validated: boolean;
+  failedValidation: FailedValidation;
 }
 
-function reducer(state: State, action: Action | SetNameAction | SetServingAction) {
+function reducer(state: State, action: Action | SetNameAction | SetServingAction | ValidationFailedAction) {
   switch (action.type) {
     case 'set-name':
       return {
@@ -54,9 +73,11 @@ function reducer(state: State, action: Action | SetNameAction | SetServingAction
     case 'reset':
       return initialState();
     case 'validation-failed':
+      const validationFailedAction = action as ValidationFailedAction;
       return {
         ...state,
         validated: true,
+        failedValidation: validationFailedAction.failedValidation,
       }
     default:
       throw new Error();
@@ -70,12 +91,25 @@ function initialState(): State {
       serving: {}
     },
     validated: false,
+    failedValidation: {},
+  }
+}
+
+function validateServing(serving: Serving) : FailedValidation{
+  const lessThanZero = (val?: number) => (_.toNumber(val) < 0);
+  return {
+    vegetable: lessThanZero(serving.vegetable),
+    fruit: lessThanZero(serving.fruit),
+    carbohydrate: lessThanZero(serving.carbohydrate),
+    protein: lessThanZero(serving.protein),
+    fat: lessThanZero(serving.fruit),
+    sweet: lessThanZero(serving.sweet),  
   }
 }
 
 export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel: () => void }) => {
   const [state, dispatch] = useReducer(reducer, initialState());
-  const { food, validated} = state;
+  const { food, validated, failedValidation } = state;
   const handleNameChange = (name: string) => {
     dispatch({
       type: "set-name",
@@ -91,13 +125,29 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel
     });
   }
 
+  function checkValidity(failedValidation : FailedValidation) {
+    const failed = _.defaultTo(failedValidation.vegetable, false)
+      || _.defaultTo(failedValidation.fruit, false)
+      || _.defaultTo(failedValidation.carbohydrate, false)
+      || _.defaultTo(failedValidation.protein, false)
+      || _.defaultTo(failedValidation.fat, false)
+      || _.defaultTo(failedValidation.sweet, false);
+    return !failed;
+    }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
+    const failedValidation = validateServing(food.serving);
+    console.log(JSON.stringify(food));
+    console.log(JSON.stringify(failedValidation));
+    console.log(checkValidity(failedValidation));
+    if (form.checkValidity() === false ||
+      checkValidity(failedValidation) === false) {
       event.preventDefault();
       event.stopPropagation();
       dispatch({
-        type: "validation-failed"
+        type: "validation-failed",
+        failedValidation
       });
     } else {
       props.onAddFood(food);
@@ -133,7 +183,7 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel
       <Form.Group>
         <Form.Label>Servings (Calories: {calcFoodCalories(food)})</Form.Label>
         <Form.Group controlId="formServings" className="border p-1">
-          <ServingInputControl foodGroup="vegetable" serving={food.serving} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="vegetable" serving={food.serving} isInvalid={isInvalid(failedValidation, "vegetable")} onChange={handleServingChange} />
           <ServingInputControl foodGroup="fruit" serving={food.serving} onChange={handleServingChange} />
           <ServingInputControl foodGroup="carbohydrate" serving={food.serving} onChange={handleServingChange} />
           <ServingInputControl foodGroup="protein" serving={food.serving} onChange={handleServingChange} />
