@@ -6,10 +6,10 @@ import { calcMealsServingSummary } from "../model/servingFunction";
 import { backgroundColor } from "./backgroundColor";
 
 const CalorieSummary = (props: { calories: number }) => (
-  <div>
-    <div className="text-center fw-bold" style={{ fontSize: '40px' }}>{props.calories}</div>
-    <div className="text-center">calories</div>
-  </div>
+  <Col xs={2} xl={1} className="d-flex flex-column justify-content-center border rounded bg-info text-white text-center">
+    <div style={{ fontSize: '40px' }}>{props.calories}</div>
+    <div>calories</div>
+  </Col>
 )
 
 const FoodGroupLabel = (props: { foodGroup: FoodGroup }) => {
@@ -18,26 +18,28 @@ const FoodGroupLabel = (props: { foodGroup: FoodGroup }) => {
     backgroundColor: backgroundColor(foodGroup),
   };
   return (
-    <div className="text-center text-white font-weight-bold"style={style}>{foodGroup}</div>
+    <div className="text-center text-white font-weight-bold" style={style}>{foodGroup}</div>
   )
 }
 
 const ServingCell = (props: { foodGroup: FoodGroup; amount?: number }) => (
-  <Col xs={3} className="d-flex flex-column justify-content-end">
+  <Col sm={3} lg={2} className="d-flex flex-column justify-content-end">
     <div className="text-center" style={{ fontSize: '32px' }}>{props.amount}</div>
-    <FoodGroupLabel foodGroup={props.foodGroup}/>
+    <FoodGroupLabel foodGroup={props.foodGroup} />
   </Col>
 )
 
 const ServingSummary = (props: { serving: Serving }) => (
-  <div className="d-flex">
-    <ServingCell foodGroup="vegetable" amount={props.serving.vegetable} />
-    <ServingCell foodGroup="fruit" amount={props.serving.fruit} />
-    <ServingCell foodGroup="carbohydrate" amount={props.serving.carbohydrate} />
-    <ServingCell foodGroup="protein" amount={props.serving.protein} />
-    <ServingCell foodGroup="fat" amount={props.serving.fat} />
-    <ServingCell foodGroup="sweet" amount={props.serving.sweet} />
-  </div>
+  <Col>
+    <Row>
+      <ServingCell foodGroup="vegetable" amount={props.serving.vegetable} />
+      <ServingCell foodGroup="fruit" amount={props.serving.fruit} />
+      <ServingCell foodGroup="carbohydrate" amount={props.serving.carbohydrate} />
+      <ServingCell foodGroup="protein" amount={props.serving.protein} />
+      <ServingCell foodGroup="fat" amount={props.serving.fat} />
+      <ServingCell foodGroup="sweet" amount={props.serving.sweet} />
+    </Row>
+  </Col>
 )
 
 function calcCaloriesSummary(meals: Meal[]) {
