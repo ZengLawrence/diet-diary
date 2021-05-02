@@ -1,6 +1,7 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
+import { newMealAction } from "../actions";
 import { MealDispatch } from "./MealDispatch";
 
 export const AddMealToolBar = () => {
@@ -11,7 +12,7 @@ export const AddMealToolBar = () => {
       <FontAwesomeIcon
         icon={faPlus}
         size="2x" 
-        onClick={() => dispatch({type: 'new-meal'})} 
+        onClick={() => dispatch(newMealAction())} 
         />
     </div>
   );
