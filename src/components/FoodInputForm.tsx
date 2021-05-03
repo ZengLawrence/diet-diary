@@ -133,9 +133,6 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
     const failedValidation = validateServing(food.serving);
-    console.log(JSON.stringify(food));
-    console.log(JSON.stringify(failedValidation));
-    console.log(checkValidity(failedValidation));
     if (form.checkValidity() === false ||
       checkValidity(failedValidation) === false) {
       event.preventDefault();
