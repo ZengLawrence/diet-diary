@@ -133,10 +133,8 @@ function useStateFunction(onAddFood: (food: Food) => void) {
   }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    const form = event.currentTarget;
     const error = validateFood(food);
-    if (form.checkValidity() === false ||
-      checkValidity(error) === false) {
+    if (checkValidity(error) === false) {
       event.preventDefault();
       event.stopPropagation();
       dispatch({
