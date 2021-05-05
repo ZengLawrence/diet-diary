@@ -114,9 +114,9 @@ function checkValidity(error: ValidationError) {
   return !failed;
 }
 
-export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel: () => void }) => {
+function useStateFunction(onAddFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialState());
-  const { food, error } = state;
+  const { food } = state;
   const handleNameChange = (name: string) => {
     dispatch({
       type: "set-name",
@@ -144,13 +144,20 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel
         error
       });
     } else {
-      props.onAddFood(food);
+      onAddFood(food);
       dispatch({
         type: "reset"
       });
       event.preventDefault();
     }
   }
+
+  return { state, handleNameChange, handleServingChange, handleSubmit };
+}
+
+export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel: () => void }) => {
+  const { state, handleNameChange, handleServingChange, handleSubmit } = useStateFunction(props.onAddFood);
+  const { food, error } = state;
 
   return (
     <Form
