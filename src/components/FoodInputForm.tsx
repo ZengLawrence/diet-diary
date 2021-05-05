@@ -22,7 +22,7 @@ interface SetNameAction extends Action {
 
 interface ValidationFailedAction extends Action {
   type: "validation-failed";
-  failedValidation: FailedValidation;
+  error: ValidationError;
 }
 
 function setServing(food: Food, action: SetServingAction) {
@@ -39,7 +39,8 @@ function setName(food: Food, action: SetNameAction) {
   };
 }
 
-interface FailedValidation {
+interface ValidationError {
+  foodName?: boolean,
   vegetable?: boolean,
   fruit?: boolean,
   carbohydrate?: boolean,
@@ -48,14 +49,9 @@ interface FailedValidation {
   sweet?: boolean,
 }
 
-function isInvalid(failedValidation: FailedValidation, foodGroup: FoodGroup) {
-  return _.get(failedValidation, foodGroup, false);
-}
-
 interface State {
   food: Food;
-  validated: boolean;
-  failedValidation: FailedValidation;
+  error: ValidationError;
 }
 
 function reducer(state: State, action: Action | SetNameAction | SetServingAction | ValidationFailedAction) {
@@ -77,7 +73,7 @@ function reducer(state: State, action: Action | SetNameAction | SetServingAction
       return {
         ...state,
         validated: true,
-        failedValidation: validationFailedAction.failedValidation,
+        error: validationFailedAction.error,
       }
     default:
       throw new Error();
@@ -90,26 +86,37 @@ function initialState(): State {
       name: "",
       serving: {}
     },
-    validated: false,
-    failedValidation: {},
+    error: {},
   }
 }
 
-function validateServing(serving: Serving) : FailedValidation{
+function validateServing(serving: Serving): ValidationError {
   const lessThanZero = (val?: number) => (_.toNumber(val) < 0);
   return {
     vegetable: lessThanZero(serving.vegetable),
     fruit: lessThanZero(serving.fruit),
     carbohydrate: lessThanZero(serving.carbohydrate),
     protein: lessThanZero(serving.protein),
-    fat: lessThanZero(serving.fruit),
-    sweet: lessThanZero(serving.sweet),  
+    fat: lessThanZero(serving.fat),
+    sweet: lessThanZero(serving.sweet),
   }
+}
+
+function validateFood(food: Food): ValidationError {
+  return {
+    foodName: (food.name === ''),
+    ...validateServing(food.serving)
+  }
+}
+
+function checkValidity(error: ValidationError) {
+  const failed = _.reduce(_.values(error), (res, val) => (res || _.defaultTo(val, false)), false);
+  return !failed;
 }
 
 export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel: () => void }) => {
   const [state, dispatch] = useReducer(reducer, initialState());
-  const { food, validated, failedValidation } = state;
+  const { food, error } = state;
   const handleNameChange = (name: string) => {
     dispatch({
       type: "set-name",
@@ -125,21 +132,16 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel
     });
   }
 
-  function checkValidity(failedValidation : FailedValidation) {
-    const failed = _.reduce(_.values(failedValidation), (res, val) => (res || _.defaultTo(val, false)), false);
-    return !failed;
-    }
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
-    const failedValidation = validateServing(food.serving);
+    const error = validateFood(food);
     if (form.checkValidity() === false ||
-      checkValidity(failedValidation) === false) {
+      checkValidity(error) === false) {
       event.preventDefault();
       event.stopPropagation();
       dispatch({
         type: "validation-failed",
-        failedValidation
+        error
       });
     } else {
       props.onAddFood(food);
@@ -153,7 +155,6 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel
   return (
     <Form
       noValidate
-      validated={validated}
       onSubmit={handleSubmit}
       className="border p-1"
     >
@@ -165,6 +166,7 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel
           value={food.name}
           required
           placeholder="Bread, broccoli, steak, hamburger..."
+          isInvalid={error.foodName}
           onChange={e => handleNameChange(e.target.value)}
         />
         <Form.Control.Feedback type="invalid">
@@ -175,12 +177,12 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel
       <Form.Group>
         <Form.Label>Servings (Calories: {calcFoodCalories(food)})</Form.Label>
         <Form.Group controlId="formServings" className="border p-1">
-          <ServingInputControl foodGroup="vegetable" serving={food.serving} isInvalid={isInvalid(failedValidation, "vegetable")} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="fruit" serving={food.serving} isInvalid={isInvalid(failedValidation, "fruit")} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="carbohydrate" serving={food.serving} isInvalid={isInvalid(failedValidation, "carbohydrate")} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="protein" serving={food.serving} isInvalid={isInvalid(failedValidation, "protein")} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="fat" serving={food.serving} isInvalid={isInvalid(failedValidation, "fat")} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="sweet" serving={food.serving} isInvalid={isInvalid(failedValidation, "sweet")} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="vegetable" serving={food.serving} isInvalid={error.vegetable} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="fruit" serving={food.serving} isInvalid={error.fruit} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="carbohydrate" serving={food.serving} isInvalid={error.carbohydrate} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="protein" serving={food.serving} isInvalid={error.protein} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="fat" serving={food.serving} isInvalid={error.fat} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="sweet" serving={food.serving} isInvalid={error.sweet} onChange={handleServingChange} />
         </Form.Group>
       </Form.Group>
 
