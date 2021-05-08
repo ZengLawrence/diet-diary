@@ -217,8 +217,8 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel
         </Form.Group>
       </Form.Group>
 
-      <Button type="submit" variant="primary">Add</Button>{' '}
-      <Button variant="secondary" onClick={props.onCancel}>Cancel</Button>
+      <Button type="submit" variant="outline-primary">Add</Button>{' '}
+      <Button variant="outline-secondary" onClick={props.onCancel}>Cancel</Button>
     </Form>
   )
 }
