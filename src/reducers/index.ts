@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Action, AddFoodAction, FoodAction } from "../actions";
+import { Action, AddFoodAction, FoodAction, MealAction } from "../actions";
 import { AppState, MealState } from "../model/AppState";
 import { Meal } from "../model/Food";
 
@@ -15,6 +15,15 @@ function newMealState(): MealState {
     },
     editState: "add",
   };
+}
+
+function deleteMeal(state: AppState, action: MealAction) {
+  const mealIndexToDelete  = action.mealIndex;
+  const mealStates = _.filter(state.mealStates, (_, index) => (index !== mealIndexToDelete));
+  return {
+    ...state,
+    mealStates,
+  }
 }
 
 function today() {
@@ -75,7 +84,7 @@ function updateMealState(mealStates: MealState[], foodAction: FoodAction) {
 }
 
 function clearMealEditState(mealStates: MealState[]) {
-  return _.map(mealStates, state => mealStateReducer(state, {type: 'cancel-add-food'}));
+  return _.map(mealStates, state => mealStateReducer(state, { type: 'cancel-add-food' }));
 }
 
 export function reducer(state: AppState, action: Action) {
@@ -87,6 +96,8 @@ export function reducer(state: AppState, action: Action) {
         ...state,
         mealStates: _.concat(_.map(state.mealStates, clearMealEditStatus), newMealState()),
       };
+    case 'delete-meal':
+      return deleteMeal(state, action as MealAction);
     case 'enter-edit-mode':
       return {
         ...state,

@@ -4,12 +4,24 @@ export interface Action {
   type: string;
 }
 
+export interface MealAction extends Action {
+  type: string;
+  mealIndex: number;
+}
+
 export function newDayAction(): Action {
   return { type: 'new-day' };
 }
 
 export function newMealAction(): Action {
   return { type: 'new-meal' };
+}
+
+export function deleteMealAction(mealIndex: number): MealAction {
+  return {
+    type: 'delete-meal',
+    mealIndex,
+  };
 }
 
 export function enterEditModeAction(): Action {

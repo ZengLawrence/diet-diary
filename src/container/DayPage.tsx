@@ -9,7 +9,7 @@ import { EditModeButton } from "../components/EditModeButton";
 
 export const DayPage = (props: { state: AppState }) => {
   const { date, mealStates, editMode } = props.state;
-  const mealCards = _.map(mealStates, (mealState, index) => <MealCard key={index} mealIndex={index} state={mealState} />);
+  const mealCards = _.map(mealStates, (mealState, index) => <MealCard key={index} mealIndex={index} state={mealState} showDeleteButton={editMode} />);
   const toolbars = editMode &&
     (<Fragment>
       <AddMealToolBar />
