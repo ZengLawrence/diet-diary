@@ -1,11 +1,21 @@
 import _ from "lodash";
-import { Fragment } from "react";
-import { AddMealToolBar } from "../components/AddMealToolBar";
+import { Fragment, useContext } from "react";
+import { newMealAction } from "../actions";
+import { AddButton } from "../components/AddButton";
 import { CalorieServingSummary } from "../components/CalorieServingSummary";
-import { MealCard } from "../components/MealCard";
-import { AppState } from "../model/AppState";
-import { NewDayToolBar } from "../components/NewDayToolBar";
 import { EditModeButton } from "../components/EditModeButton";
+import { MealCard } from "../components/MealCard";
+import { MealDispatch } from "../components/MealDispatch";
+import { NewDayToolBar } from "../components/NewDayToolBar";
+import { AppState } from "../model/AppState";
+
+const AddMealToolBar = () => {
+  const dispatch = useContext(MealDispatch);
+
+  return (
+    <AddButton onClick={() => dispatch(newMealAction())} />
+  );
+}
 
 export const DayPage = (props: { state: AppState }) => {
   const { date, mealStates, editMode } = props.state;
