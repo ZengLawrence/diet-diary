@@ -12,7 +12,12 @@ interface Action {
 interface SetServingAction extends Action {
   type: "set-serving";
   foodGroup: FoodGroup;
-  serving: number | undefined;
+  serving: number;
+}
+
+interface UnsetServingAction extends Action {
+  type: "unset-serving";
+  foodGroup: FoodGroup;
 }
 
 interface SetNameAction extends Action {
@@ -29,6 +34,15 @@ function setServing(food: Food, action: SetServingAction) {
   return {
     ...food,
     serving: _.set(food.serving, action.foodGroup, action.serving),
+  };
+}
+
+function unsetServing(food: Food, action: UnsetServingAction) {
+  const { serving } = food;
+  _.unset(food.serving, action.foodGroup);
+  return {
+    ...food,
+    serving,
   };
 }
 
@@ -54,7 +68,7 @@ interface State {
   error: ValidationError;
 }
 
-function reducer(state: State, action: Action | SetNameAction | SetServingAction | ValidationFailedAction) {
+function reducer(state: State, action: Action | SetNameAction | SetServingAction | UnsetServingAction | ValidationFailedAction) {
   switch (action.type) {
     case 'set-name':
       return {
@@ -65,6 +79,11 @@ function reducer(state: State, action: Action | SetNameAction | SetServingAction
       return {
         ...state,
         food: setServing(state.food, action as SetServingAction)
+      }
+    case 'unset-serving':
+      return {
+        ...state,
+        food: unsetServing(state.food, action as UnsetServingAction)
       }
     case 'reset':
       return initialState();
@@ -125,11 +144,18 @@ function useStateFunction(onAddFood: (food: Food) => void) {
   }
 
   const handleServingChange = (foodGroup: FoodGroup, serving: number) => {
-    dispatch({
-      type: "set-serving",
-      foodGroup,
-      serving
-    });
+    if (serving > 0) {
+      dispatch({
+        type: "set-serving",
+        foodGroup,
+        serving
+      });
+    } else {
+      dispatch({
+        type: "unset-serving",
+        foodGroup,
+      });
+    }
   }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
