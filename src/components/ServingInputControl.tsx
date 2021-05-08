@@ -26,11 +26,12 @@ function useSyncedLocalState(props: Props) {
 interface Props {
   foodGroup: FoodGroup;
   serving: Serving;
+  isInvalid?: boolean;
   onChange: (foodGroup: FoodGroup, serving: number) => void;
 }
 
 export const ServingInputControl = (props: Props) => {
-  const { foodGroup } = props;
+  const { foodGroup, isInvalid} = props;
   const controlId = "formServing" + foodGroup;
   const calories = _.toString(getCalories(foodGroup)) + " Cal.";
 
@@ -45,8 +46,10 @@ export const ServingInputControl = (props: Props) => {
         <Form.Control
           type="text"
           value={servingStr}
+          isInvalid={isInvalid}
           onChange={handleChange}
         />
+        <Form.Control.Feedback type="invalid">Good one!  Please enter a positive number.</Form.Control.Feedback>
       </Col>
     </Form.Group>
   );

@@ -75,6 +75,8 @@ function updateMealState(mealStates: MealState[], foodAction: FoodAction) {
 
 export function reducer(state: AppState, action: Action) {
   switch (action.type) {
+    case 'new-day':
+      return initialState();
     case 'new-meal':
       return {
         ...state,

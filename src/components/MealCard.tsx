@@ -34,14 +34,14 @@ export const MealCard = (props: { state: MealState; mealIndex: number }) => {
 
   return (
     <Card className="mt-1">
-      <Card.Header>{mealTime}</Card.Header>
+      <Card.Header className="d-flex">
+        <div className="mr-auto">{mealTime}</div>
+        <MealSummary meal={meal} />
+      </Card.Header>
       <ListGroup>
         {foodItems}
         {editState === 'add' && <FoodInputFormItem mealIndex={mealIndex} />}
       </ListGroup>
-      <Card.Footer className="d-flex justify-content-end" >
-        <MealSummary meal={meal} />
-      </Card.Footer>
     </Card>
   );
 }

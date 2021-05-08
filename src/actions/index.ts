@@ -4,6 +4,10 @@ export interface Action {
   type: string;
 }
 
+export function newDayAction(): Action {
+  return { type: 'new-day' };
+}
+
 export function newMealAction(): Action {
   return { type: 'new-meal' };
 }

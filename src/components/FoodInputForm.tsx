@@ -2,7 +2,7 @@ import _ from "lodash";
 import { useReducer } from "react";
 import { Button, Form } from "react-bootstrap";
 import { calcFoodCalories } from "../model/calorieFunction";
-import { Food, FoodGroup } from "../model/Food";
+import { Food, FoodGroup, Serving } from "../model/Food";
 import { ServingInputControl } from "./ServingInputControl";
 
 interface Action {
@@ -12,7 +12,12 @@ interface Action {
 interface SetServingAction extends Action {
   type: "set-serving";
   foodGroup: FoodGroup;
-  serving: number | undefined;
+  serving: number;
+}
+
+interface UnsetServingAction extends Action {
+  type: "unset-serving";
+  foodGroup: FoodGroup;
 }
 
 interface SetNameAction extends Action {
@@ -20,10 +25,24 @@ interface SetNameAction extends Action {
   name: string;
 }
 
+interface ValidationFailedAction extends Action {
+  type: "validation-failed";
+  error: ValidationError;
+}
+
 function setServing(food: Food, action: SetServingAction) {
   return {
     ...food,
     serving: _.set(food.serving, action.foodGroup, action.serving),
+  };
+}
+
+function unsetServing(food: Food, action: UnsetServingAction) {
+  const { serving } = food;
+  _.unset(food.serving, action.foodGroup);
+  return {
+    ...food,
+    serving,
   };
 }
 
@@ -34,12 +53,22 @@ function setName(food: Food, action: SetNameAction) {
   };
 }
 
-interface State {
-  food: Food;
-  validated: boolean;
+interface ValidationError {
+  foodName?: boolean,
+  vegetable?: boolean,
+  fruit?: boolean,
+  carbohydrate?: boolean,
+  protein?: boolean,
+  fat?: boolean,
+  sweet?: boolean,
 }
 
-function reducer(state: State, action: Action | SetNameAction | SetServingAction) {
+interface State {
+  food: Food;
+  error: ValidationError;
+}
+
+function reducer(state: State, action: Action | SetNameAction | SetServingAction | UnsetServingAction | ValidationFailedAction) {
   switch (action.type) {
     case 'set-name':
       return {
@@ -51,12 +80,19 @@ function reducer(state: State, action: Action | SetNameAction | SetServingAction
         ...state,
         food: setServing(state.food, action as SetServingAction)
       }
+    case 'unset-serving':
+      return {
+        ...state,
+        food: unsetServing(state.food, action as UnsetServingAction)
+      }
     case 'reset':
       return initialState();
     case 'validation-failed':
+      const validationFailedAction = action as ValidationFailedAction;
       return {
         ...state,
         validated: true,
+        error: validationFailedAction.error,
       }
     default:
       throw new Error();
@@ -69,13 +105,37 @@ function initialState(): State {
       name: "",
       serving: {}
     },
-    validated: false,
+    error: {},
   }
 }
 
-export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel: () => void }) => {
+function validateServing(serving: Serving): ValidationError {
+  const lessThanZero = (val?: number) => (_.toNumber(val) < 0);
+  return {
+    vegetable: lessThanZero(serving.vegetable),
+    fruit: lessThanZero(serving.fruit),
+    carbohydrate: lessThanZero(serving.carbohydrate),
+    protein: lessThanZero(serving.protein),
+    fat: lessThanZero(serving.fat),
+    sweet: lessThanZero(serving.sweet),
+  }
+}
+
+function validateFood(food: Food): ValidationError {
+  return {
+    foodName: (food.name === ''),
+    ...validateServing(food.serving)
+  }
+}
+
+function checkValidity(error: ValidationError) {
+  const failed = _.reduce(_.values(error), (res, val) => (res || _.defaultTo(val, false)), false);
+  return !failed;
+}
+
+function useStateFunction(onAddFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialState());
-  const { food, validated} = state;
+  const { food } = state;
   const handleNameChange = (name: string) => {
     dispatch({
       type: "set-name",
@@ -84,23 +144,31 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel
   }
 
   const handleServingChange = (foodGroup: FoodGroup, serving: number) => {
-    dispatch({
-      type: "set-serving",
-      foodGroup,
-      serving
-    });
+    if (serving > 0) {
+      dispatch({
+        type: "set-serving",
+        foodGroup,
+        serving
+      });
+    } else {
+      dispatch({
+        type: "unset-serving",
+        foodGroup,
+      });
+    }
   }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
+    const error = validateFood(food);
+    if (checkValidity(error) === false) {
       event.preventDefault();
       event.stopPropagation();
       dispatch({
-        type: "validation-failed"
+        type: "validation-failed",
+        error
       });
     } else {
-      props.onAddFood(food);
+      onAddFood(food);
       dispatch({
         type: "reset"
       });
@@ -108,10 +176,16 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel
     }
   }
 
+  return { state, handleNameChange, handleServingChange, handleSubmit };
+}
+
+export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel: () => void }) => {
+  const { state, handleNameChange, handleServingChange, handleSubmit } = useStateFunction(props.onAddFood);
+  const { food, error } = state;
+
   return (
     <Form
       noValidate
-      validated={validated}
       onSubmit={handleSubmit}
       className="border p-1"
     >
@@ -123,6 +197,7 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel
           value={food.name}
           required
           placeholder="Bread, broccoli, steak, hamburger..."
+          isInvalid={error.foodName}
           onChange={e => handleNameChange(e.target.value)}
         />
         <Form.Control.Feedback type="invalid">
@@ -133,12 +208,12 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel
       <Form.Group>
         <Form.Label>Servings (Calories: {calcFoodCalories(food)})</Form.Label>
         <Form.Group controlId="formServings" className="border p-1">
-          <ServingInputControl foodGroup="vegetable" serving={food.serving} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="fruit" serving={food.serving} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="carbohydrate" serving={food.serving} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="protein" serving={food.serving} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="fat" serving={food.serving} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="sweet" serving={food.serving} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="vegetable" serving={food.serving} isInvalid={error.vegetable} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="fruit" serving={food.serving} isInvalid={error.fruit} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="carbohydrate" serving={food.serving} isInvalid={error.carbohydrate} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="protein" serving={food.serving} isInvalid={error.protein} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="fat" serving={food.serving} isInvalid={error.fat} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="sweet" serving={food.serving} isInvalid={error.sweet} onChange={handleServingChange} />
         </Form.Group>
       </Form.Group>
 
