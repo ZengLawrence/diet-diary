@@ -31,6 +31,13 @@ export function enterMealEditModelAction(mealIndex: number): MealAction {
   };
 }
 
+export function enterMealAddModelAction(mealIndex: number): MealAction {
+  return {
+    type: 'enter-meal-add-mode',
+    mealIndex,
+  };
+}
+
 export function exitMealEditModelAction(mealIndex: number): MealAction {
   return {
     type: 'exit-meal-edit-mode',

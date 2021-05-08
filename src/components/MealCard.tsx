@@ -1,9 +1,10 @@
 import _ from "lodash";
 import { useContext } from "react";
 import { Card, ListGroup } from "react-bootstrap";
-import { Action, addFoodAction, cancelAddFoodAction, deleteMealAction, enterMealEditModelAction, exitMealEditModelAction } from "../actions";
+import { Action, addFoodAction, cancelAddFoodAction, deleteMealAction, enterMealAddModelAction, enterMealEditModelAction, exitMealEditModelAction } from "../actions";
 import { MealState } from "../model/AppState";
 import { Food } from "../model/Food";
+import { AddButton } from "./AddButton";
 import { DeleteButton } from "./DeleteButton";
 import { EditModeButton } from "./EditModeButton";
 import { FoodInputForm } from "./FoodInputForm";
@@ -52,20 +53,23 @@ export const MealCard = (props: Props) => {
   const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
   const deleteMeal = () => dispatch(deleteMealAction(mealIndex));
   const toggleMealEditMode = () => editState === "edit" ? dispatch(exitMealEditModelAction(mealIndex)) : dispatch(enterMealEditModelAction(mealIndex));
+  const enterAddState = () => dispatch(enterMealAddModelAction(mealIndex));
 
   return (
     <Card className="mt-1">
       <Card.Header className="d-flex align-items-center">
-        {editMode && 
-        !_.isUndefined(editState) &&
-          <DeleteButton onClick={deleteMeal} />}
         <div className="mr-auto">{mealTime}</div>
         <MealSummary meal={meal} />
         {editMode &&
+          !_.isUndefined(editState) &&
+          <DeleteButton onClick={deleteMeal} />}
+        {editMode &&
           <EditModeButton editMode={editState === "edit"} onClick={toggleMealEditMode} />}
       </Card.Header>
+
       <ListGroup>
         {foodItems}
+        {editState === 'edit' && <AddButton onClick={enterAddState} />}
         {editState === 'add' && <FoodInputFormItem mealIndex={mealIndex} />}
       </ListGroup>
     </Card>

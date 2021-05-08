@@ -73,6 +73,11 @@ function mealStateReducer(state: MealState, action: Action): MealState {
         ...state,
         editState: "edit",
       };
+    case 'enter-meal-add-mode':
+      return {
+        ...state,
+        editState: "add",
+      };
     case 'cancel-add-food':
     case 'exit-meal-edit-mode':
     case 'exit-edit-mode':
@@ -117,6 +122,7 @@ export function reducer(state: AppState, action: Action) {
         mealStates: clearMealEditState(state.mealStates, action),
       }
     case 'enter-meal-edit-mode':
+    case 'enter-meal-add-mode':
     case 'exit-meal-edit-mode':
     case 'add-food':
     case 'cancel-add-food':
