@@ -74,6 +74,10 @@ function updateMealState(mealStates: MealState[], foodAction: FoodAction) {
   return updatedMealStates;
 }
 
+function clearMealEditState(mealStates: MealState[]) {
+  return _.map(mealStates, state => mealStateReducer(state, {type: 'cancel-add-food'}));
+}
+
 export function reducer(state: AppState, action: Action) {
   switch (action.type) {
     case 'new-day':
@@ -92,6 +96,7 @@ export function reducer(state: AppState, action: Action) {
       return {
         ...state,
         editMode: false,
+        mealStates: clearMealEditState(state.mealStates),
       }
     case 'add-food':
     case 'cancel-add-food':
