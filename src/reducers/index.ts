@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Action, AddFoodAction, FoodAction, MealAction } from "../actions";
+import { Action, AddFoodAction, EnterFoodEditModeAction, MealAction } from "../actions";
 import { AppState, MealState } from "../model/AppState";
 import { Meal } from "../model/Food";
 
@@ -78,6 +78,16 @@ function mealStateReducer(state: MealState, action: Action): MealState {
         ...state,
         editState: "add",
       };
+    case 'enter-food-edit-mode':
+      const enterFoodEditModeAction = action as EnterFoodEditModeAction;
+      return {
+        ...state,
+        foodEditIndex: enterFoodEditModeAction.foodIndex,
+      };
+    case 'exit-food-edit-mode':
+      const updatedState = _.clone(state)
+      _.unset(updatedState, 'foodEditIndex');
+      return updatedState;
     case 'cancel-add-food':
     case 'exit-meal-edit-mode':
     case 'exit-edit-mode':
@@ -124,6 +134,8 @@ export function reducer(state: AppState, action: Action) {
     case 'enter-meal-edit-mode':
     case 'enter-meal-add-mode':
     case 'exit-meal-edit-mode':
+    case 'enter-food-edit-mode':
+    case 'exit-food-edit-mode':
     case 'add-food':
     case 'cancel-add-food':
       return {

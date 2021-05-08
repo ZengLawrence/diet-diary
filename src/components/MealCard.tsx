@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { useContext } from "react";
 import { Card, ListGroup } from "react-bootstrap";
-import { Action, addFoodAction, cancelAddFoodAction, deleteMealAction, enterMealAddModelAction, enterMealEditModelAction, exitMealEditModelAction } from "../actions";
+import { Action, addFoodAction, cancelAddFoodAction, deleteMealAction, enterFoodEditModeAction, enterMealAddModelAction, enterMealEditModelAction, exitFoodEditModeAction, exitMealEditModelAction } from "../actions";
 import { MealState } from "../model/AppState";
 import { Food } from "../model/Food";
 import { AddButton } from "./AddButton";
@@ -36,24 +36,26 @@ interface Props {
   editMode: boolean;
 }
 
-const FoodListGroupItem = (props: { food: Food, editMode: boolean }) => {
-  return (
-    <ListGroup.Item className="d-flex align-items-center">
-      <FoodItem food={props.food} />
-    </ListGroup.Item>
-  )
-}
-
 export const MealCard = (props: Props) => {
   const { state, mealIndex, editMode } = props;
-  const { meal, editState } = state;
+  const { meal, editState, foodEditIndex } = state;
   const { mealTime, foods } = meal;
-  const foodItems = foods.map((food, index) => <FoodListGroupItem key={index} food={food} editMode={editMode && !_.isUndefined(editState)} />);
 
   const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
   const deleteMeal = () => dispatch(deleteMealAction(mealIndex));
   const toggleMealEditMode = () => editState === "edit" ? dispatch(exitMealEditModelAction(mealIndex)) : dispatch(enterMealEditModelAction(mealIndex));
   const enterAddState = () => dispatch(enterMealAddModelAction(mealIndex));
+
+  const foodItems = foods.map((food, index) => {
+    const toggleFoodEditMode = () => index === foodEditIndex ? dispatch(exitFoodEditModeAction(mealIndex)) : dispatch(enterFoodEditModeAction(mealIndex, index));
+    return (
+      <ListGroup.Item key={index} className="d-flex align-items-center">
+        <FoodItem food={food} />
+        {editState === 'edit'
+          && <EditModeButton editMode={index === foodEditIndex} onClick={toggleFoodEditMode} />}
+      </ListGroup.Item>
+    )
+  });
 
   return (
     <Card className="mt-1">

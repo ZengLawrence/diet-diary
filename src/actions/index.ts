@@ -80,3 +80,23 @@ export function cancelAddFoodAction(mealIndex: number): CancelAddFoodAction {
     mealIndex,
   }
 }
+
+export interface EnterFoodEditModeAction extends FoodAction {
+  type: "enter-food-edit-mode";
+  foodIndex: number;
+}
+
+export function enterFoodEditModeAction(mealIndex: number, foodIndex: number): EnterFoodEditModeAction {
+  return {
+    type: "enter-food-edit-mode",
+    mealIndex,
+    foodIndex,
+  }
+}
+
+export function exitFoodEditModeAction(mealIndex: number): FoodAction {
+  return {
+    type: "exit-food-edit-mode",
+    mealIndex,
+  }
+}

@@ -9,4 +9,5 @@ export interface AppState {
 export interface MealState {
   meal: Meal;
   editState?: "add" | "edit" | undefined;
+  foodEditIndex?: number;
 }
