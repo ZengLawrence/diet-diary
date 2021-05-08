@@ -1,7 +1,5 @@
-import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
-import { Card, ListGroup } from "react-bootstrap";
+import { Button, Card, ListGroup } from "react-bootstrap";
 import { Action, addFoodAction, cancelAddFoodAction, deleteMealAction } from "../actions";
 import { MealState } from "../model/AppState";
 import { Food } from "../model/Food";
@@ -38,12 +36,13 @@ const DeleteButton = (props: { mealIndex: number }) => {
   const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
   const handleClick = () => dispatch(deleteMealAction(props.mealIndex));
   return (
-    <FontAwesomeIcon
-      icon={faMinusCircle}
-      className="text-danger mr-1"
-      size="2x"
+    <Button
+      variant="outline-danger"
+      className="mr-1"
       onClick={handleClick}
-    />
+    >
+      Delete
+    </Button>
   );
 }
 
