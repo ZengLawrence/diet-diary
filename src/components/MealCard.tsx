@@ -50,7 +50,11 @@ export const MealCard = (props: Props) => {
   const { state, mealIndex, showDeleteButton } = props;
   const { meal, editState } = state;
   const { mealTime, foods } = meal;
-  const foodItems = foods.map((food, index) => <FoodItem key={index} food={food} />);
+  const foodItems = foods.map((food, index) => (
+    <ListGroup.Item key={index} >
+      <FoodItem food={food} />
+    </ListGroup.Item>
+  ));
 
   return (
     <Card className="mt-1">

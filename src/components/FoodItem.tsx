@@ -1,11 +1,10 @@
-import { ListGroup } from "react-bootstrap";
 import { Food } from "../model/Food";
 import { FoodGroupServingBadge } from "./FoodGroupBadge";
 
 export const FoodItem = (props: { food: Food; }) => {
   const { name, serving } = props.food;
   return (
-    <ListGroup.Item className="d-flex">
+    <div className="d-flex">
       <div className="mr-auto">{name}</div>
       <div>
         <FoodGroupServingBadge foodGroup="vegetable" serving={serving} />
@@ -15,6 +14,6 @@ export const FoodItem = (props: { food: Food; }) => {
         <FoodGroupServingBadge foodGroup={"fat"} serving={serving} />
         <FoodGroupServingBadge foodGroup={"sweet"} serving={serving} />
       </div>
-    </ListGroup.Item>
+    </div>
   );
 }
