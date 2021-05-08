@@ -12,6 +12,14 @@ export function newMealAction(): Action {
   return { type: 'new-meal' };
 }
 
+export function enterEditModeAction(): Action {
+  return { type: 'enter-edit-mode' };
+}
+
+export function exitEditModeAction(): Action {
+  return { type: 'exit-edit-mode' };
+}
+
 export interface FoodAction extends Action {
   mealIndex: number;
 }

@@ -25,6 +25,7 @@ export function initialState(): AppState {
   return {
     date: today(),
     mealStates: [newMealState()],
+    editMode: true,
   };
 }
 
@@ -82,6 +83,16 @@ export function reducer(state: AppState, action: Action) {
         ...state,
         mealStates: _.concat(_.map(state.mealStates, clearMealEditStatus), newMealState()),
       };
+    case 'enter-edit-mode':
+      return {
+        ...state,
+        editMode: true,
+      }
+    case 'exit-edit-mode':
+      return {
+        ...state,
+        editMode: false,
+      }
     case 'add-food':
     case 'cancel-add-food':
       return {
