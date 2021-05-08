@@ -29,7 +29,7 @@ const FoodInputFormItem = (props: { mealIndex: number }) => {
 interface Props {
   state: MealState;
   mealIndex: number;
-  showDeleteButton: boolean;
+  editMode: boolean;
 }
 
 const DeleteButton = (props: { mealIndex: number }) => {
@@ -46,20 +46,32 @@ const DeleteButton = (props: { mealIndex: number }) => {
   );
 }
 
+const EditButton = () => {
+  return (
+    <Button variant="outline-primary">Edit</Button>
+  )
+}
+
+const FoodListGroupItem = (props: { food: Food, editMode: boolean }) => {
+  const { food, editMode } = props;
+  return (
+    <ListGroup.Item className="d-flex align-items-center">
+      <FoodItem food={food} />
+      {editMode && <EditButton />}
+    </ListGroup.Item>
+  )
+}
+
 export const MealCard = (props: Props) => {
-  const { state, mealIndex, showDeleteButton } = props;
+  const { state, mealIndex, editMode } = props;
   const { meal, editState } = state;
   const { mealTime, foods } = meal;
-  const foodItems = foods.map((food, index) => (
-    <ListGroup.Item key={index} >
-      <FoodItem food={food} />
-    </ListGroup.Item>
-  ));
+  const foodItems = foods.map((food, index) => <FoodListGroupItem key={index} food={food} editMode={editMode} />);
 
   return (
     <Card className="mt-1">
       <Card.Header className="d-flex align-items-center">
-        {showDeleteButton &&
+        {editMode &&
           <DeleteButton mealIndex={mealIndex} />}
         <div className="mr-auto">{mealTime}</div>
         <MealSummary meal={meal} />

@@ -4,7 +4,7 @@ import { FoodGroupServingBadge } from "./FoodGroupBadge";
 export const FoodItem = (props: { food: Food; }) => {
   const { name, serving } = props.food;
   return (
-    <div className="d-flex">
+    <div className="d-flex flex-fill">
       <div className="mr-auto">{name}</div>
       <div>
         <FoodGroupServingBadge foodGroup="vegetable" serving={serving} />
