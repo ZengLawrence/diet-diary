@@ -18,7 +18,7 @@ function newMealState(): MealState {
 }
 
 function deleteMeal(state: AppState, action: MealAction) {
-  const mealIndexToDelete  = action.mealIndex;
+  const mealIndexToDelete = action.mealIndex;
   const mealStates = _.filter(state.mealStates, (_, index) => (index !== mealIndexToDelete));
   return {
     ...state,
@@ -69,6 +69,7 @@ function mealStateReducer(state: MealState, action: { type: string }) {
         meal: mealReducer(state.meal, action),
       };
     case 'cancel-add-food':
+    case 'exit-edit-mode':
       return clearMealEditStatus(state);
     default:
       return state;
@@ -83,8 +84,8 @@ function updateMealState(mealStates: MealState[], foodAction: FoodAction) {
   return updatedMealStates;
 }
 
-function clearMealEditState(mealStates: MealState[]) {
-  return _.map(mealStates, state => mealStateReducer(state, { type: 'cancel-add-food' }));
+function clearMealEditState(mealStates: MealState[], action: Action) {
+  return _.map(mealStates, state => mealStateReducer(state, action));
 }
 
 export function reducer(state: AppState, action: Action) {
@@ -107,7 +108,7 @@ export function reducer(state: AppState, action: Action) {
       return {
         ...state,
         editMode: false,
-        mealStates: clearMealEditState(state.mealStates),
+        mealStates: clearMealEditState(state.mealStates, action),
       }
     case 'add-food':
     case 'cancel-add-food':
