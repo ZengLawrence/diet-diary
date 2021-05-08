@@ -61,14 +61,20 @@ function clearMealEditStatus(state: MealState) {
   }
 }
 
-function mealStateReducer(state: MealState, action: { type: string }) {
+function mealStateReducer(state: MealState, action: Action): MealState {
   switch (action.type) {
     case 'add-food':
       return {
         ...state,
         meal: mealReducer(state.meal, action),
       };
+    case 'enter-meal-edit-mode':
+      return {
+        ...state,
+        editState: "edit",
+      };
     case 'cancel-add-food':
+    case 'exit-meal-edit-mode':
     case 'exit-edit-mode':
       return clearMealEditStatus(state);
     default:
@@ -76,10 +82,10 @@ function mealStateReducer(state: MealState, action: { type: string }) {
   }
 }
 
-function updateMealState(mealStates: MealState[], foodAction: FoodAction) {
-  const { mealIndex } = foodAction;
+function updateMealState(mealStates: MealState[], action: MealAction) {
+  const { mealIndex } = action;
   const updatedMealStates = _.clone(mealStates);
-  const updatedMeal = mealStateReducer(updatedMealStates[mealIndex], foodAction);
+  const updatedMeal = mealStateReducer(updatedMealStates[mealIndex], action);
   updatedMealStates[mealIndex] = updatedMeal;
   return updatedMealStates;
 }
@@ -110,11 +116,13 @@ export function reducer(state: AppState, action: Action) {
         editMode: false,
         mealStates: clearMealEditState(state.mealStates, action),
       }
+    case 'enter-meal-edit-mode':
+    case 'exit-meal-edit-mode':
     case 'add-food':
     case 'cancel-add-food':
       return {
         ...state,
-        mealStates: updateMealState(state.mealStates, action as FoodAction)
+        mealStates: updateMealState(state.mealStates, action as MealAction),
       };
     default:
       return state;

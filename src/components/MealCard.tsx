@@ -1,9 +1,11 @@
+import _ from "lodash";
 import { useContext } from "react";
-import { Button, Card, ListGroup } from "react-bootstrap";
-import { Action, addFoodAction, cancelAddFoodAction, deleteMealAction } from "../actions";
+import { Card, ListGroup } from "react-bootstrap";
+import { Action, addFoodAction, cancelAddFoodAction, deleteMealAction, enterMealEditModelAction, exitMealEditModelAction } from "../actions";
 import { MealState } from "../model/AppState";
 import { Food } from "../model/Food";
 import { DeleteButton } from "./DeleteButton";
+import { EditModeButton } from "./EditModeButton";
 import { FoodInputForm } from "./FoodInputForm";
 import { FoodItem } from "./FoodItem";
 import { MealDispatch } from "./MealDispatch";
@@ -33,18 +35,10 @@ interface Props {
   editMode: boolean;
 }
 
-const EditButton = () => {
-  return (
-    <Button variant="outline-primary">Edit</Button>
-  )
-}
-
 const FoodListGroupItem = (props: { food: Food, editMode: boolean }) => {
-  const { food, editMode } = props;
   return (
     <ListGroup.Item className="d-flex align-items-center">
-      <FoodItem food={food} />
-      {editMode && <EditButton />}
+      <FoodItem food={props.food} />
     </ListGroup.Item>
   )
 }
@@ -53,18 +47,22 @@ export const MealCard = (props: Props) => {
   const { state, mealIndex, editMode } = props;
   const { meal, editState } = state;
   const { mealTime, foods } = meal;
-  const foodItems = foods.map((food, index) => <FoodListGroupItem key={index} food={food} editMode={editMode} />);
+  const foodItems = foods.map((food, index) => <FoodListGroupItem key={index} food={food} editMode={editMode && !_.isUndefined(editState)} />);
 
   const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
   const deleteMeal = () => dispatch(deleteMealAction(mealIndex));
+  const toggleMealEditMode = () => editState === "edit" ? dispatch(exitMealEditModelAction(mealIndex)) : dispatch(enterMealEditModelAction(mealIndex));
 
   return (
     <Card className="mt-1">
       <Card.Header className="d-flex align-items-center">
-        {editMode &&
+        {editMode && 
+        !_.isUndefined(editState) &&
           <DeleteButton onClick={deleteMeal} />}
         <div className="mr-auto">{mealTime}</div>
         <MealSummary meal={meal} />
+        {editMode &&
+          <EditModeButton editMode={editState === "edit"} onClick={toggleMealEditMode} />}
       </Card.Header>
       <ListGroup>
         {foodItems}

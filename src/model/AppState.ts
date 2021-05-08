@@ -8,5 +8,5 @@ export interface AppState {
 
 export interface MealState {
   meal: Meal;
-  editState?: "add" | undefined;
+  editState?: "add" | "edit" | undefined;
 }

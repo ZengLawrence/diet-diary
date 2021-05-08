@@ -24,6 +24,20 @@ export function deleteMealAction(mealIndex: number): MealAction {
   };
 }
 
+export function enterMealEditModelAction(mealIndex: number): MealAction {
+  return {
+    type: 'enter-meal-edit-mode',
+    mealIndex,
+  };
+}
+
+export function exitMealEditModelAction(mealIndex: number): MealAction {
+  return {
+    type: 'exit-meal-edit-mode',
+    mealIndex,
+  };
+}
+
 export function enterEditModeAction(): Action {
   return { type: 'enter-edit-mode' };
 }
