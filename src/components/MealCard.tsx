@@ -3,6 +3,7 @@ import { Button, Card, ListGroup } from "react-bootstrap";
 import { Action, addFoodAction, cancelAddFoodAction, deleteMealAction } from "../actions";
 import { MealState } from "../model/AppState";
 import { Food } from "../model/Food";
+import { DeleteButton } from "./DeleteButton";
 import { FoodInputForm } from "./FoodInputForm";
 import { FoodItem } from "./FoodItem";
 import { MealDispatch } from "./MealDispatch";
@@ -32,20 +33,6 @@ interface Props {
   editMode: boolean;
 }
 
-const DeleteButton = (props: { mealIndex: number }) => {
-  const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
-  const handleClick = () => dispatch(deleteMealAction(props.mealIndex));
-  return (
-    <Button
-      variant="outline-danger"
-      className="mr-1"
-      onClick={handleClick}
-    >
-      Delete
-    </Button>
-  );
-}
-
 const EditButton = () => {
   return (
     <Button variant="outline-primary">Edit</Button>
@@ -68,11 +55,14 @@ export const MealCard = (props: Props) => {
   const { mealTime, foods } = meal;
   const foodItems = foods.map((food, index) => <FoodListGroupItem key={index} food={food} editMode={editMode} />);
 
+  const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
+  const deleteMeal = () => dispatch(deleteMealAction(mealIndex));
+
   return (
     <Card className="mt-1">
       <Card.Header className="d-flex align-items-center">
         {editMode &&
-          <DeleteButton mealIndex={mealIndex} />}
+          <DeleteButton onClick={deleteMeal} />}
         <div className="mr-auto">{mealTime}</div>
         <MealSummary meal={meal} />
       </Card.Header>
