@@ -1,40 +1,11 @@
 import _ from "lodash";
-import { Fragment, useContext } from "react";
-import { Button } from "react-bootstrap";
-import { Action, enterEditModeAction, exitEditModeAction, newDayAction } from "../actions";
+import { Fragment } from "react";
 import { AddMealToolBar } from "../components/AddMealToolBar";
 import { CalorieServingSummary } from "../components/CalorieServingSummary";
 import { MealCard } from "../components/MealCard";
-import { MealDispatch } from "../components/MealDispatch";
 import { AppState } from "../model/AppState";
-
-const NewDayToolBar = () => {
-  const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
-  return (
-    <Button
-      variant="outline-danger"
-      className="w-100"
-      onClick={() => dispatch(newDayAction())}
-    >
-      New Day
-    </Button>
-  );
-}
-
-const EditModeButton = (props: { editMode: boolean }) => {
-  const { editMode } = props;
-  const lable = editMode ? 'Done' : "Edit";
-  const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
-  const handleClick = () => editMode ? dispatch(exitEditModeAction()) : dispatch(enterEditModeAction());
-  return (
-    <Button
-      variant="outline-primary"
-      onClick={handleClick}
-    >
-      {lable}
-    </Button>
-  );
-}
+import { NewDayToolBar } from "../components/NewDayToolBar";
+import { EditModeButton } from "../components/EditModeButton";
 
 export const DayPage = (props: { state: AppState }) => {
   const { date, mealStates, editMode } = props.state;
