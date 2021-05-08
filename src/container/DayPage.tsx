@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { Fragment, useContext } from "react";
-import { newMealAction } from "../actions";
+import { Action, enterEditModeAction, exitEditModeAction, newMealAction } from "../actions";
 import { AddButton } from "../components/AddButton";
 import { CalorieServingSummary } from "../components/CalorieServingSummary";
 import { EditModeButton } from "../components/EditModeButton";
@@ -8,6 +8,16 @@ import { MealCard } from "../components/MealCard";
 import { MealDispatch } from "../components/MealDispatch";
 import { NewDayToolBar } from "../components/NewDayToolBar";
 import { AppState } from "../model/AppState";
+
+const DayEditModeButton = (props: { editMode: boolean }) => {
+  const { editMode } = props;
+  const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
+  const handleClick = () => editMode ? dispatch(exitEditModeAction()) : dispatch(enterEditModeAction());
+
+  return (
+    <EditModeButton editMode={editMode} onClick={handleClick} />
+  )
+}
 
 const AddMealToolBar = () => {
   const dispatch = useContext(MealDispatch);
@@ -27,13 +37,12 @@ export const DayPage = (props: { state: AppState }) => {
     </Fragment>
     );
 
-
   return (
     <Fragment>
       <div className="d-flex justify-content-between align-items-center">
         <div />
         <h1 className="text-center">{date}</h1>
-        <EditModeButton editMode={editMode} />
+        <DayEditModeButton editMode={editMode} />
       </div>
       <CalorieServingSummary meals={_.map(mealStates, 'meal')} />
       {mealCards}
