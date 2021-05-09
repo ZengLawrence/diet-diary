@@ -49,6 +49,16 @@ const UpdateFoodFormGroupItem = (props: { food: Food; mealIndex: number; foodInd
   );
 }
 
+const AddButtonGroupItem = (props: { mealIndex: number }) => {
+  const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
+  const enterAddState = () => dispatch(enterMealAddModeAction(props.mealIndex));
+  return (
+    <ListGroup.Item>
+      <AddButton onClick={enterAddState} />
+    </ListGroup.Item>
+  );
+}
+
 interface Props {
   state: MealState;
   mealIndex: number;
@@ -67,7 +77,6 @@ export const MealCard = (props: Props) => {
       ? dispatch(exitMealEditModeAction(mealIndex))
       : dispatch(enterMealEditModelAction(mealIndex));
   }
-  const enterAddState = () => dispatch(enterMealAddModeAction(mealIndex));
 
   const foodItems = foods.map((food, index) => {
     const toggleFoodEditMode = () => {
@@ -105,7 +114,7 @@ export const MealCard = (props: Props) => {
 
       <ListGroup>
         {foodItems}
-        {editState === 'edit' && <AddButton onClick={enterAddState} />}
+        {editState === 'edit' && <AddButtonGroupItem mealIndex={mealIndex} />}
         {editState === 'add' && <AddFoodFormGroupItem mealIndex={mealIndex} />}
       </ListGroup>
     </Card>

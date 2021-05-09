@@ -1,10 +1,9 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "react-bootstrap";
 
 export const AddButton = (props: { onClick: () => void; }) => (
-  <FontAwesomeIcon
-    icon={faPlus}
-    size="2x"
-    className="text-primary"
-    onClick={props.onClick} />
+  <Button variant="outline-primary" onClick={props.onClick}>
+    <FontAwesomeIcon icon={faPlus} />
+  </Button>
 );

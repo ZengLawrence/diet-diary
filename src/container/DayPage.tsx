@@ -23,7 +23,9 @@ const MealAddButton = () => {
   const dispatch = useContext(MealDispatch);
 
   return (
-    <AddButton onClick={() => dispatch(newMealAction())} />
+    <div className="p-2">
+      <AddButton onClick={() => dispatch(newMealAction())} />
+    </div>
   );
 }
 
