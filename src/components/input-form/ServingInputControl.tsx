@@ -1,9 +1,9 @@
 import _ from "lodash";
 import { useEffect, useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
-import { FoodGroup, Serving } from "../model/Food";
-import { getCalories } from "../model/calorieFunction";
-import { FoodGroupBadge } from "./FoodGroupBadge";
+import { FoodGroup, Serving } from "../../model/Food";
+import { getCalories } from "../../model/calorieFunction";
+import { FoodGroupBadge } from "../FoodGroupBadge";
 
 function useSyncedLocalState(props: Props) {
   const { foodGroup, serving } = props;

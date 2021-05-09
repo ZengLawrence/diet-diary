@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ListGroup } from "react-bootstrap";
 import { Action, addFoodAction, cancelAddFoodAction } from "../../actions";
 import { Food, newFood } from "../../model/Food";
-import { FoodInputForm } from "../FoodInputForm";
+import { FoodInputForm } from "../input-form/FoodInputForm";
 import { MealDispatch } from "../MealDispatch";
 
 export const AddFoodFormGroupItem = (props: { mealIndex: number; }) => {

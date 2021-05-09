@@ -1,8 +1,8 @@
 import _ from "lodash";
 import { useReducer } from "react";
 import { Button, Form } from "react-bootstrap";
-import { calcFoodCalories } from "../model/calorieFunction";
-import { Food, FoodGroup, newFood, Serving } from "../model/Food";
+import { calcFoodCalories } from "../../model/calorieFunction";
+import { Food, FoodGroup, newFood, Serving } from "../../model/Food";
 import { ServingInputControl } from "./ServingInputControl";
 
 interface Action {
