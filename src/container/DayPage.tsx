@@ -8,6 +8,7 @@ import { MealCard } from "../components/meal-card/MealCard";
 import { MealDispatch } from "../components/MealDispatch";
 import { NewDayButton } from "../components/NewDayButton";
 import { AppState } from "../model/AppState";
+import { Footer } from "../components/Footer";
 
 const DayEditModeButton = (props: { editMode: boolean }) => {
   const { editMode } = props;
@@ -52,6 +53,7 @@ export const DayPage = (props: { state: AppState }) => {
       <CalorieServingSummary meals={_.map(mealStates, 'meal')} />
       {mealCards}
       { editMode && <MealAddButton />}
+      <Footer />
     </div>
   )
 }
