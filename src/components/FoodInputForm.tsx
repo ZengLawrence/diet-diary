@@ -2,7 +2,7 @@ import _ from "lodash";
 import { useReducer } from "react";
 import { Button, Form } from "react-bootstrap";
 import { calcFoodCalories } from "../model/calorieFunction";
-import { Food, FoodGroup, Serving } from "../model/Food";
+import { Food, FoodGroup, newFood, Serving } from "../model/Food";
 import { ServingInputControl } from "./ServingInputControl";
 
 interface Action {
@@ -86,7 +86,7 @@ function reducer(state: State, action: Action | SetNameAction | SetServingAction
         food: unsetServing(state.food, action as UnsetServingAction)
       }
     case 'reset':
-      return initialState();
+      return initialState(newFood());
     case 'validation-failed':
       const validationFailedAction = action as ValidationFailedAction;
       return {
@@ -99,12 +99,9 @@ function reducer(state: State, action: Action | SetNameAction | SetServingAction
   }
 }
 
-function initialState(): State {
+function initialState(food: Food): State {
   return {
-    food: {
-      name: "",
-      serving: {}
-    },
+    food,
     error: {},
   }
 }
@@ -133,8 +130,8 @@ function checkValidity(error: ValidationError) {
   return !failed;
 }
 
-function useStateFunction(onAddFood: (food: Food) => void) {
-  const [state, dispatch] = useReducer(reducer, initialState());
+function useStateFunction(initialFood: Food, onAddFood: (food: Food) => void) {
+  const [state, dispatch] = useReducer(reducer, initialState(initialFood));
   const { food } = state;
   const handleNameChange = (name: string) => {
     dispatch({
@@ -179,8 +176,15 @@ function useStateFunction(onAddFood: (food: Food) => void) {
   return { state, handleNameChange, handleServingChange, handleSubmit };
 }
 
-export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel: () => void }) => {
-  const { state, handleNameChange, handleServingChange, handleSubmit } = useStateFunction(props.onAddFood);
+interface Props {
+  food: Food;
+  buttonLabel: string;
+  onAddFood: (food: Food) => void;
+  onCancel: () => void
+}
+
+export const FoodInputForm = (props: Props) => {
+  const { state, handleNameChange, handleServingChange, handleSubmit } = useStateFunction(props.food, props.onAddFood);
   const { food, error } = state;
 
   return (
@@ -217,7 +221,7 @@ export const FoodInputForm = (props: { onAddFood: (food: Food) => void; onCancel
         </Form.Group>
       </Form.Group>
 
-      <Button type="submit" variant="outline-primary">Add</Button>{' '}
+      <Button type="submit" variant="outline-primary">{props.buttonLabel}</Button>{' '}
       <Button variant="outline-secondary" onClick={props.onCancel}>Cancel</Button>
     </Form>
   )

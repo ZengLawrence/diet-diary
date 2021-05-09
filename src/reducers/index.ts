@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Action, AddFoodAction, EnterFoodEditModeAction, MealAction } from "../actions";
+import { Action, AddFoodAction, EnterFoodEditModeAction, MealAction, UpdateFoodAction } from "../actions";
 import { AppState, MealState } from "../model/AppState";
 import { Meal } from "../model/Food";
 
@@ -38,6 +38,15 @@ export function initialState(): AppState {
   };
 }
 
+function updateFood(meal: Meal, action: UpdateFoodAction) {
+  const foods = _.clone(meal.foods);
+  foods[action.foodIndex] = action.food;
+  return {
+    ...meal,
+    foods,
+  }
+}
+
 function mealReducer(state: Meal, action: Action) {
   switch (action.type) {
     case 'add-food':
@@ -46,6 +55,8 @@ function mealReducer(state: Meal, action: Action) {
         ...state,
         foods: [...state.foods, addFoodAction.food],
       };
+      case "update-food":
+        return updateFood(state, action as UpdateFoodAction);
     default:
       return state;
   }
@@ -64,6 +75,7 @@ function clearMealEditStatus(state: MealState) {
 function mealStateReducer(state: MealState, action: Action): MealState {
   switch (action.type) {
     case 'add-food':
+    case "update-food":
       return {
         ...state,
         meal: mealReducer(state.meal, action),
@@ -138,6 +150,7 @@ export function reducer(state: AppState, action: Action) {
     case 'exit-food-edit-mode':
     case 'add-food':
     case 'cancel-add-food':
+    case 'update-food':
       return {
         ...state,
         mealStates: updateMealState(state.mealStates, action as MealAction),

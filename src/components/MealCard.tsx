@@ -1,9 +1,9 @@
 import _ from "lodash";
-import { useContext } from "react";
+import { Fragment, useContext } from "react";
 import { Card, ListGroup } from "react-bootstrap";
-import { Action, addFoodAction, cancelAddFoodAction, deleteMealAction, enterFoodEditModeAction, enterMealAddModelAction, enterMealEditModelAction, exitFoodEditModeAction, exitMealEditModelAction } from "../actions";
+import { Action, addFoodAction, cancelAddFoodAction, deleteMealAction, enterFoodEditModeAction, enterMealAddModelAction, enterMealEditModelAction, exitFoodEditModeAction, exitMealEditModelAction, updateFoodAction } from "../actions";
 import { MealState } from "../model/AppState";
-import { Food } from "../model/Food";
+import { Food, newFood } from "../model/Food";
 import { AddButton } from "./AddButton";
 import { DeleteButton } from "./DeleteButton";
 import { EditModeButton } from "./EditModeButton";
@@ -12,7 +12,7 @@ import { FoodItem } from "./FoodItem";
 import { MealDispatch } from "./MealDispatch";
 import { MealSummary } from "./MealSummary";
 
-const FoodInputFormItem = (props: { mealIndex: number }) => {
+const AddFoodFormGroupItem = (props: { mealIndex: number }) => {
   const { mealIndex } = props;
   const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
   const handlAddFood = (food: Food) => {
@@ -25,7 +25,26 @@ const FoodInputFormItem = (props: { mealIndex: number }) => {
 
   return (
     <ListGroup.Item>
-      <FoodInputForm onAddFood={handlAddFood} onCancel={handleCancelAddFood} />
+      <FoodInputForm food={newFood()} buttonLabel="Add" onAddFood={handlAddFood} onCancel={handleCancelAddFood} />
+    </ListGroup.Item>
+  );
+}
+
+const UpdateFoodFormGroupItem = (props: { food: Food; mealIndex: number; foodIndex: number }) => {
+  const { food, mealIndex, foodIndex } = props;
+  const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
+  const handlUpdateFood = (food: Food) => {
+    dispatch(updateFoodAction(mealIndex, foodIndex, food));
+    dispatch(exitFoodEditModeAction(mealIndex));
+  }
+
+  const handleCancelAddFood = () => {
+    dispatch(exitFoodEditModeAction(mealIndex));
+  }
+
+  return (
+    <ListGroup.Item>
+      <FoodInputForm food={food} buttonLabel="Update" onAddFood={handlUpdateFood} onCancel={handleCancelAddFood} />
     </ListGroup.Item>
   );
 }
@@ -49,11 +68,18 @@ export const MealCard = (props: Props) => {
   const foodItems = foods.map((food, index) => {
     const toggleFoodEditMode = () => index === foodEditIndex ? dispatch(exitFoodEditModeAction(mealIndex)) : dispatch(enterFoodEditModeAction(mealIndex, index));
     return (
-      <ListGroup.Item key={index} className="d-flex align-items-center">
-        <FoodItem food={food} />
+      <Fragment>
+        <ListGroup.Item key={index} className="d-flex align-items-center">
+          <FoodItem food={food} />
+          {editState === 'edit'
+            && <EditModeButton editMode={index === foodEditIndex} onClick={toggleFoodEditMode} />}
+        </ListGroup.Item>
         {editState === 'edit'
-          && <EditModeButton editMode={index === foodEditIndex} onClick={toggleFoodEditMode} />}
-      </ListGroup.Item>
+          && index === foodEditIndex
+          &&
+          <UpdateFoodFormGroupItem food={food} mealIndex={mealIndex} foodIndex={index} />
+        }
+      </Fragment>
     )
   });
 
@@ -72,7 +98,7 @@ export const MealCard = (props: Props) => {
       <ListGroup>
         {foodItems}
         {editState === 'edit' && <AddButton onClick={enterAddState} />}
-        {editState === 'add' && <FoodInputFormItem mealIndex={mealIndex} />}
+        {editState === 'add' && <AddFoodFormGroupItem mealIndex={mealIndex} />}
       </ListGroup>
     </Card>
   );

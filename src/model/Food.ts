@@ -19,4 +19,9 @@ export interface Meal {
 
 export type FoodGroup = "vegetable" | "fruit" | "carbohydrate" | "protein" | "fat" | "sweet";
 
-
+export function newFood(): Food {
+  return {
+    name: "",
+    serving: {}
+  }
+}
