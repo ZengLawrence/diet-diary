@@ -6,7 +6,7 @@ import { CalorieServingSummary } from "../components/CalorieServingSummary";
 import { EditModeButton } from "../components/EditModeButton";
 import { MealCard } from "../components/MealCard";
 import { MealDispatch } from "../components/MealDispatch";
-import { NewDayToolBar } from "../components/NewDayToolBar";
+import { NewDayButton } from "../components/NewDayButton";
 import { AppState } from "../model/AppState";
 
 const DayEditModeButton = (props: { editMode: boolean }) => {
@@ -19,7 +19,7 @@ const DayEditModeButton = (props: { editMode: boolean }) => {
   )
 }
 
-const AddMealToolBar = () => {
+const MealAddButton = () => {
   const dispatch = useContext(MealDispatch);
 
   return (
@@ -29,24 +29,27 @@ const AddMealToolBar = () => {
 
 export const DayPage = (props: { state: AppState }) => {
   const { date, mealStates, editMode } = props.state;
-  const mealCards = _.map(mealStates, (mealState, index) => <MealCard key={index} mealIndex={index} state={mealState} editMode={editMode} />);
-  const toolbars = editMode &&
-    (<Fragment>
-      <AddMealToolBar />
-      <NewDayToolBar />
-    </Fragment>
-    );
+  const mealCards = _.map(mealStates, (mealState, index) => (
+    <MealCard
+      key={index}
+      mealIndex={index}
+      state={mealState}
+      editMode={editMode} />)
+  );
 
   return (
     <Fragment>
       <div className="d-flex justify-content-between align-items-center">
         <div />
         <h1 className="text-center">{date}</h1>
-        <DayEditModeButton editMode={editMode} />
+        <div>
+          {editMode && <NewDayButton />}{' '}
+          <DayEditModeButton editMode={editMode} />
+        </div>
       </div>
       <CalorieServingSummary meals={_.map(mealStates, 'meal')} />
       {mealCards}
-      {toolbars}
+      { editMode && <MealAddButton />}
     </Fragment>
   )
 }
