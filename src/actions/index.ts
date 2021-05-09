@@ -31,14 +31,14 @@ export function enterMealEditModelAction(mealIndex: number): MealAction {
   };
 }
 
-export function enterMealAddModelAction(mealIndex: number): MealAction {
+export function enterMealAddModeAction(mealIndex: number): MealAction {
   return {
     type: 'enter-meal-add-mode',
     mealIndex,
   };
 }
 
-export function exitMealEditModelAction(mealIndex: number): MealAction {
+export function exitMealEditModeAction(mealIndex: number): MealAction {
   return {
     type: 'exit-meal-edit-mode',
     mealIndex,

@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { Fragment, useContext } from "react";
 import { Card, ListGroup } from "react-bootstrap";
-import { Action, addFoodAction, cancelAddFoodAction, deleteMealAction, enterFoodEditModeAction, enterMealAddModelAction, enterMealEditModelAction, exitFoodEditModeAction, exitMealEditModelAction, updateFoodAction } from "../actions";
+import { Action, addFoodAction, cancelAddFoodAction, deleteMealAction, enterFoodEditModeAction, enterMealAddModeAction, enterMealEditModelAction, exitFoodEditModeAction, exitMealEditModeAction, updateFoodAction } from "../actions";
 import { MealState } from "../model/AppState";
 import { Food, newFood } from "../model/Food";
 import { AddButton } from "./AddButton";
@@ -62,11 +62,19 @@ export const MealCard = (props: Props) => {
 
   const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
   const deleteMeal = () => dispatch(deleteMealAction(mealIndex));
-  const toggleMealEditMode = () => editState === "edit" ? dispatch(exitMealEditModelAction(mealIndex)) : dispatch(enterMealEditModelAction(mealIndex));
-  const enterAddState = () => dispatch(enterMealAddModelAction(mealIndex));
+  const toggleMealEditMode = () => {
+    editState === "edit"
+      ? dispatch(exitMealEditModeAction(mealIndex))
+      : dispatch(enterMealEditModelAction(mealIndex));
+  }
+  const enterAddState = () => dispatch(enterMealAddModeAction(mealIndex));
 
   const foodItems = foods.map((food, index) => {
-    const toggleFoodEditMode = () => index === foodEditIndex ? dispatch(exitFoodEditModeAction(mealIndex)) : dispatch(enterFoodEditModeAction(mealIndex, index));
+    const toggleFoodEditMode = () => {
+      index === foodEditIndex
+        ? dispatch(exitFoodEditModeAction(mealIndex))
+        : dispatch(enterFoodEditModeAction(mealIndex, index));
+    }
     return (
       <Fragment>
         <ListGroup.Item key={index} className="d-flex align-items-center">
