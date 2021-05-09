@@ -50,7 +50,7 @@ export const DayPage = (props: { state: AppState }) => {
           <DayEditModeButton editMode={editMode} />
         </div>
       </div>
-      <CalorieServingSummary meals={_.map(mealStates, 'meal')} />
+      <CalorieServingSummary meals={_.map(mealStates, 'meal')} goalCalorie={1400} />
       {mealCards}
       { editMode && <MealAddButton />}
       <Footer />
