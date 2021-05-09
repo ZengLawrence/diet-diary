@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Fragment, useContext } from "react";
+import { useContext } from "react";
 import { Action, enterEditModeAction, exitEditModeAction, newMealAction } from "../actions";
 import { AddButton } from "../components/AddButton";
 import { CalorieServingSummary } from "../components/CalorieServingSummary";
@@ -40,7 +40,7 @@ export const DayPage = (props: { state: AppState }) => {
   );
 
   return (
-    <Fragment>
+    <div>
       <div className="d-flex justify-content-between align-items-center">
         <div />
         <h1 className="text-center">{date}</h1>
@@ -52,6 +52,6 @@ export const DayPage = (props: { state: AppState }) => {
       <CalorieServingSummary meals={_.map(mealStates, 'meal')} />
       {mealCards}
       { editMode && <MealAddButton />}
-    </Fragment>
+    </div>
   )
 }
