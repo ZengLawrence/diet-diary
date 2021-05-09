@@ -2,7 +2,7 @@ import _ from "lodash";
 import { useContext } from "react";
 import { Action, enterEditModeAction, exitEditModeAction, newMealAction } from "../actions";
 import { AddButton } from "../components/AddButton";
-import { CalorieServingSummary } from "../components/CalorieServingSummary";
+import { CalorieServingSummary } from "../components/summary/CalorieServingSummary";
 import { EditModeButton } from "../components/EditModeButton";
 import { MealCard } from "../components/meal-card/MealCard";
 import { MealDispatch } from "../components/MealDispatch";
