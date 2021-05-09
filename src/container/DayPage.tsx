@@ -4,7 +4,7 @@ import { Action, enterEditModeAction, exitEditModeAction, newMealAction } from "
 import { AddButton } from "../components/AddButton";
 import { CalorieServingSummary } from "../components/CalorieServingSummary";
 import { EditModeButton } from "../components/EditModeButton";
-import { MealCard } from "../components/MealCard";
+import { MealCard } from "../components/meal-card/MealCard";
 import { MealDispatch } from "../components/MealDispatch";
 import { NewDayButton } from "../components/NewDayButton";
 import { AppState } from "../model/AppState";
