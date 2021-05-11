@@ -9,7 +9,7 @@ function calcCaloriesSummary(meals: Meal[]) {
   return _.sum(_.map(meals, calcMealCalories));
 }
 
-export const CalorieServingSummary = (props: { meals: Meal[]; goalCalorie: number }) => (
+export const CalorieServingSummary = (props: { meals: Meal[] }) => (
   <div className="d-flex">
     <CalorieSummary calories={calcCaloriesSummary(props.meals)} />
     <ServingSummary serving={calcMealsServingSummary(props.meals)} />
