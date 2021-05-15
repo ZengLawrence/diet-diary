@@ -53,6 +53,14 @@ export function exitEditModeAction(): Action {
   return { type: 'exit-edit-mode' };
 }
 
+export function enterEditGoalAction(): Action {
+  return { type: 'enter-edit-goal' };
+}
+
+export function exitEditGoalAction(): Action {
+  return { type: 'exit-edit-goal' };
+}
+
 export interface FoodAction extends Action {
   mealIndex: number;
 }

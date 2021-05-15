@@ -37,6 +37,7 @@ export function initialState(): AppState {
     mealStates: [newMealState()],
     editMode: true,
     goal: DEFAULT_GOAL,
+    editGoal: false,
   };
 }
 
@@ -57,8 +58,8 @@ function mealReducer(state: Meal, action: Action) {
         ...state,
         foods: [...state.foods, addFoodAction.food],
       };
-      case "update-food":
-        return updateFood(state, action as UpdateFoodAction);
+    case "update-food":
+      return updateFood(state, action as UpdateFoodAction);
     default:
       return state;
   }
@@ -144,6 +145,17 @@ export function reducer(state: AppState, action: Action) {
         ...state,
         editMode: false,
         mealStates: clearMealEditState(state.mealStates, action),
+        editGoal: false,
+      }
+    case 'enter-edit-goal':
+      return {
+        ...state,
+        editGoal: true,
+      }
+    case 'exit-edit-goal':
+      return {
+        ...state,
+        editGoal: false,
       }
     case 'enter-meal-edit-mode':
     case 'enter-meal-add-mode':

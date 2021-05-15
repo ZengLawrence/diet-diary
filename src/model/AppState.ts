@@ -6,6 +6,7 @@ export interface AppState {
   mealStates: MealState[];
   editMode: boolean;
   goal: Goal;
+  editGoal: boolean;
 }
 
 export interface MealState {
