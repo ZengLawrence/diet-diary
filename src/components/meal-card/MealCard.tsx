@@ -6,7 +6,7 @@ import { MealState } from "../../model/AppState";
 import { DeleteButton } from "../DeleteButton";
 import { EditModeButton } from "../EditModeButton";
 import { MealDispatch } from "../MealDispatch";
-import { MealSummary } from "../MealSummary";
+import { MealSummary } from "./MealSummary";
 import { AddButtonGroupItem } from "./AddButtonGroupItem";
 import { AddFoodFormGroupItem } from "./AddFoodFormGroupItem";
 import { FoodGroupItems } from "./FoodGroupItems";

@@ -1,8 +1,8 @@
 import { Fragment } from "react";
-import { Meal } from "../model/Food";
-import { calcServingSummary } from "../model/servingFunction";
-import { calcMealCalories } from "../model/calorieFunction";
-import { FoodGroupServingBadge } from "./FoodGroupBadge";
+import { Meal } from "../../model/Food";
+import { calcServingSummary } from "../../model/servingFunction";
+import { calcMealCalories } from "../../model/calorieFunction";
+import { FoodGroupServingBadge } from "../FoodGroupBadge";
 
 export const MealSummary = (props: { meal: Meal; }) => {
   const { meal } = props;
