@@ -12,7 +12,7 @@ const GoalLabel = (props: { goal: Goal; }) => {
   return (
     <div>
       <div className="d-flex flex-nowrap  align-items-end">
-        Goal:&nbsp;<span className="text-white bg-primary border rounded px-1" style={{ fontSize: '24px' }}>{goal.calorie}</span>&nbsp;Cal.
+        Goal:&nbsp;<span className="text-white bg-info border rounded px-1" style={{ fontSize: '24px' }}>{goal.calorie}</span>&nbsp;Cal.
     </div>
       <FoodGroupServingBadgePanel serving={goal.serving} goal />
     </div>
