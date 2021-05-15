@@ -1,16 +1,23 @@
 import { useContext } from "react";
 import { Action, enterEditModeAction, exitEditModeAction } from "../../actions";
-import { EditModeButton } from "../EditModeButton";
-import { MealDispatch } from "../MealDispatch";
-import { NewDayButton } from "./NewDayButton";
 import { AppState } from "../../model/AppState";
 import { Goal } from "../../model/Goal";
+import { EditModeButton } from "../EditModeButton";
+import { FoodGroupServingBadgePanel } from "../FoodGroupServingBadgePanel";
+import { MealDispatch } from "../MealDispatch";
+import { NewDayButton } from "./NewDayButton";
 
-const GoalLabel = (props: { goal: Goal; }) => (
-  <div className="d-flex flex-nowrap  align-items-end">
-    Goal:&nbsp;<span className="text-white bg-primary border rounded px-1" style={{ fontSize: '24px' }}>{props.goal.calorie}</span>&nbsp;Cal.
-  </div>
-);
+const GoalLabel = (props: { goal: Goal; }) => {
+  const { goal } = props;
+  return (
+    <div>
+      <div className="d-flex flex-nowrap  align-items-end">
+        Goal:&nbsp;<span className="text-white bg-primary border rounded px-1" style={{ fontSize: '24px' }}>{goal.calorie}</span>&nbsp;Cal.
+    </div>
+      <FoodGroupServingBadgePanel serving={goal.serving} goal />
+    </div>
+  );
+}
 
 const DayEditModeButton = (props: { editMode: boolean; }) => {
   const { editMode } = props;

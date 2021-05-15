@@ -1,3 +1,5 @@
+import { FoodGroup } from "./Food";
+
 const GOAL_1400_CALORIE: Goal = {
   calorie: 1400,
   serving: {
@@ -22,4 +24,8 @@ export interface Goal {
     fat: number;
     sweet: number;
   };
+}
+
+export function isMinLimit(foodGroup: FoodGroup) {
+  return (foodGroup === "vegetable" || foodGroup === "fruit");
 }
