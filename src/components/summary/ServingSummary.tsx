@@ -7,7 +7,7 @@ const FoodGroupLabel = (props: { foodGroup: FoodGroup; }) => {
     backgroundColor: backgroundColor(foodGroup),
   };
   return (
-    <div className="text-center text-white font-weight-bold" style={style}>{foodGroup}</div>
+    <div className="border rounded text-center text-white font-weight-bold" style={style}>{foodGroup}</div>
   );
 };
 
