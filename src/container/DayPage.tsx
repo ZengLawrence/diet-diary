@@ -66,14 +66,16 @@ export const DayPage = (props: { state: AppState }) => {
         </div>
       </div>
 
-      <Tabs defaultActiveKey="total" id="tab-summary">
-        <Tab eventKey="total" title="Total" className="border">
-          <CalorieServingSummary meals={meals} />
-        </Tab>
-        <Tab eventKey="difference" title="Difference" className="border">
-          <DifferenceSummary calories={calcCaloriesDifference(meals, 1400)} serving={calcServingDifference(meals, SERVING_GOAL)} />
-        </Tab>
-      </Tabs>
+      <div className="border rounded p-1">
+        <Tabs defaultActiveKey="total" id="tab-summary">
+          <Tab eventKey="total" title="Total">
+            <CalorieServingSummary meals={meals} />
+          </Tab>
+          <Tab eventKey="difference" title="Difference">
+            <DifferenceSummary calories={calcCaloriesDifference(meals, 1400)} serving={calcServingDifference(meals, SERVING_GOAL)} />
+          </Tab>
+        </Tabs>
+      </div>
 
       {mealCards}
       { editMode && <MealAddButton />}
