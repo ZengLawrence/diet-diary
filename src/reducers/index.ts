@@ -2,6 +2,7 @@ import _ from "lodash";
 import { Action, AddFoodAction, EnterFoodEditModeAction, MealAction, UpdateFoodAction } from "../actions";
 import { AppState, MealState } from "../model/AppState";
 import { Meal } from "../model/Food";
+import { DEFAULT_GOAL } from "../model/Goal";
 
 function currentTime() {
   return new Date().toLocaleTimeString();
@@ -35,6 +36,7 @@ export function initialState(): AppState {
     date: today(),
     mealStates: [newMealState()],
     editMode: true,
+    goal: DEFAULT_GOAL,
   };
 }
 

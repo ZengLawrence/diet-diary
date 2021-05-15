@@ -11,7 +11,6 @@ import { NewDayButton } from "../components/NewDayButton";
 import { CalorieServingSummary } from "../components/summary/CalorieServingSummary";
 import { DifferenceSummary } from "../components/summary/DifferenceSummary";
 import { AppState } from "../model/AppState";
-import { DEFAULT_GOAL } from "../model/Goal";
 
 const DayEditModeButton = (props: { editMode: boolean }) => {
   const { editMode } = props;
@@ -34,7 +33,7 @@ const MealAddButton = () => {
 }
 
 export const DayPage = (props: { state: AppState }) => {
-  const { date, mealStates, editMode } = props.state;
+  const { date, mealStates, editMode, goal } = props.state;
   const mealCards = _.map(mealStates, (mealState, index) => (
     <MealCard
       key={index}
@@ -61,7 +60,7 @@ export const DayPage = (props: { state: AppState }) => {
             <CalorieServingSummary meals={meals} />
           </Tab>
           <Tab eventKey="difference" title="Difference">
-            <DifferenceSummary meals={meals} goal={DEFAULT_GOAL} />
+            <DifferenceSummary meals={meals} goal={goal} />
           </Tab>
         </Tabs>
       </div>
