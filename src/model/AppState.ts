@@ -1,12 +1,12 @@
 import { Meal } from "./Food";
-import { Goal } from "./Goal";
+import { Target } from "./Target";
 
 export interface AppState {
   date: string;
   mealStates: MealState[];
   editMode: boolean;
-  goal: Goal;
-  editGoal: boolean;
+  target: Target;
+  editTarget: boolean;
 }
 
 export interface MealState {

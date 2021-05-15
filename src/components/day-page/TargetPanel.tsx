@@ -1,21 +1,21 @@
 import { useContext } from "react";
 import { Button, Dropdown } from "react-bootstrap";
-import { Action, enterEditGoalAction } from "../../actions";
-import { Goal } from "../../model/Goal";
+import { Action, enterEditTargetAction } from "../../actions";
+import { Target } from "../../model/Target";
 import { FoodGroupServingBadgePanel } from "../FoodGroupServingBadgePanel";
 import { MealDispatch } from "../MealDispatch";
 
-const GoalLabel = (props: { calorie: number; }) => (
+const TargetLabel = (props: { calorie: number; }) => (
   <span className="text-white bg-info border rounded px-1" style={{ fontSize: '24px' }}>{props.calorie}</span>
 )
 
-const ChangeGoalButton = (props: { onClick: () => void; }) => {
+const ChangeTargetButton = (props: { onClick: () => void; }) => {
   return (
     <Button variant="outline-secondary" onClick={props.onClick}>Change</Button>
   );
 };
 
-const GoalDropDown = (props: { calorie: number; }) => (
+const TargetDropDown = (props: { calorie: number; }) => (
   <Dropdown>
     <Dropdown.Toggle variant="outline-info" id="dropdown-goal">
       {props.calorie}
@@ -29,24 +29,24 @@ const GoalDropDown = (props: { calorie: number; }) => (
   </Dropdown>
 )
 
-export const GoalPanel = (props: { goal: Goal; editMode: boolean; editGoal: boolean }) => {
-  const { editMode, goal, editGoal } = props;
-  const showChangeGoalButton = (editMode && !editGoal);
+export const TargetPanel = (props: { target: Target; editMode: boolean; editTarget: boolean }) => {
+  const { editMode, target, editTarget } = props;
+  const showChangeTargetButton = (editMode && !editTarget);
   const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
-  const handleClick = () => dispatch(enterEditGoalAction());
-  const caloriePanel = (editGoal
-    ? <GoalDropDown calorie={goal.calorie} />
-    : <GoalLabel calorie={goal.calorie} />);
+  const handleClick = () => dispatch(enterEditTargetAction());
+  const caloriePanel = (editTarget
+    ? <TargetDropDown calorie={target.calorie} />
+    : <TargetLabel calorie={target.calorie} />);
 
   return (
     <div className="d-flex align-items-center">
       <div>
         <div className="d-flex flex-nowrap  align-items-end">
-          Goal:&nbsp; {caloriePanel} &nbsp;Cal.
+          Target:&nbsp; {caloriePanel} &nbsp;Cal.
         </div>
-        <FoodGroupServingBadgePanel serving={goal.serving} goal />
+        <FoodGroupServingBadgePanel serving={target.serving} goal />
       </div>&nbsp;
-      {showChangeGoalButton && <ChangeGoalButton onClick={handleClick} />}
+      {showChangeTargetButton && <ChangeTargetButton onClick={handleClick} />}
     </div>
   );
 };

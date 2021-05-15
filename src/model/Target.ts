@@ -1,6 +1,6 @@
 import { FoodGroup } from "./Food";
 
-const GOAL_1400_CALORIE: Goal = {
+const TARGET_1400_CALORIE: Target = {
   calorie: 1400,
   serving: {
     vegetable: 4,
@@ -12,9 +12,9 @@ const GOAL_1400_CALORIE: Goal = {
   }
 }
 
-export const DEFAULT_GOAL = GOAL_1400_CALORIE;
+export const DEFAULT_TARGET = TARGET_1400_CALORIE;
 
-export interface Goal {
+export interface Target {
   calorie: number;
   serving: {
     vegetable: number;

@@ -53,12 +53,12 @@ export function exitEditModeAction(): Action {
   return { type: 'exit-edit-mode' };
 }
 
-export function enterEditGoalAction(): Action {
-  return { type: 'enter-edit-goal' };
+export function enterEditTargetAction(): Action {
+  return { type: 'enter-edit-target' };
 }
 
-export function exitEditGoalAction(): Action {
-  return { type: 'exit-edit-goal' };
+export function exitEditTargetAction(): Action {
+  return { type: 'exit-edit-target' };
 }
 
 export interface FoodAction extends Action {

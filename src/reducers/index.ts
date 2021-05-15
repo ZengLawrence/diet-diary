@@ -2,7 +2,7 @@ import _ from "lodash";
 import { Action, AddFoodAction, EnterFoodEditModeAction, MealAction, UpdateFoodAction } from "../actions";
 import { AppState, MealState } from "../model/AppState";
 import { Meal } from "../model/Food";
-import { DEFAULT_GOAL } from "../model/Goal";
+import { DEFAULT_TARGET } from "../model/Target";
 
 function currentTime() {
   return new Date().toLocaleTimeString();
@@ -36,8 +36,8 @@ export function initialState(): AppState {
     date: today(),
     mealStates: [newMealState()],
     editMode: true,
-    goal: DEFAULT_GOAL,
-    editGoal: false,
+    target: DEFAULT_TARGET,
+    editTarget: false,
   };
 }
 
@@ -145,17 +145,17 @@ export function reducer(state: AppState, action: Action) {
         ...state,
         editMode: false,
         mealStates: clearMealEditState(state.mealStates, action),
-        editGoal: false,
+        editTarget: false,
       }
-    case 'enter-edit-goal':
+    case 'enter-edit-target':
       return {
         ...state,
-        editGoal: true,
+        editTarget: true,
       }
-    case 'exit-edit-goal':
+    case 'exit-edit-target':
       return {
         ...state,
-        editGoal: false,
+        editTarget: false,
       }
     case 'enter-meal-edit-mode':
     case 'enter-meal-add-mode':

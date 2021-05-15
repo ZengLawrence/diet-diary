@@ -22,7 +22,7 @@ const MealAddButton = () => {
 };
 
 export const DayPage = (props: { state: AppState }) => {
-  const { mealStates, editMode, goal } = props.state;
+  const { mealStates, editMode, target } = props.state;
   const mealCards = _.map(mealStates, (mealState, index) => (
     <MealCard
       key={index}
@@ -42,7 +42,7 @@ export const DayPage = (props: { state: AppState }) => {
             <CalorieServingSummary meals={meals} />
           </Tab>
           <Tab eventKey="difference" title="Difference">
-            <DifferenceSummary meals={meals} goal={goal} />
+            <DifferenceSummary meals={meals} target={target} />
           </Tab>
         </Tabs>
       </div>

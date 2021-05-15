@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { Badge } from "react-bootstrap";
 import { FoodGroup, Serving } from "../model/Food";
-import { isMinLimit } from "../model/Goal";
+import { isMinLimit } from "../model/Target";
 import { backgroundColor } from "./backgroundColor";
 
 export const FoodGroupBadge = (props: { foodGroup: FoodGroup; value: string | number | undefined; }) => {
