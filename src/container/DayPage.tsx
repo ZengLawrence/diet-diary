@@ -11,6 +11,13 @@ import { NewDayButton } from "../components/NewDayButton";
 import { CalorieServingSummary } from "../components/summary/CalorieServingSummary";
 import { DifferenceSummary } from "../components/summary/DifferenceSummary";
 import { AppState } from "../model/AppState";
+import { Goal } from "../model/Goal";
+
+const GoalLabel = (props: { goal: Goal }) => (
+  <div className="d-flex flex-nowrap  align-items-end">
+    Goal:&nbsp;<span className="text-white bg-primary border rounded px-1" style={{fontSize: '24px'}}>{props.goal.calorie}</span>&nbsp;Cal.
+  </div>
+)
 
 const DayEditModeButton = (props: { editMode: boolean }) => {
   const { editMode } = props;
@@ -46,7 +53,7 @@ export const DayPage = (props: { state: AppState }) => {
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center">
-        <div />
+        <GoalLabel goal={goal} />
         <h1 className="text-center">{date}</h1>
         <div>
           {editMode && <NewDayButton />}{' '}
