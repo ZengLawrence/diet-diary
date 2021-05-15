@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Button, Dropdown } from "react-bootstrap";
 import { Action, enterEditTargetAction } from "../../actions";
-import { Target } from "../../model/Target";
+import { allTargets, Target } from "../../model/Target";
 import { FoodGroupServingBadgePanel } from "../FoodGroupServingBadgePanel";
 import { MealDispatch } from "../MealDispatch";
 
@@ -15,19 +15,25 @@ const ChangeTargetButton = (props: { onClick: () => void; }) => {
   );
 };
 
-const TargetDropDown = (props: { calorie: number; }) => (
-  <Dropdown>
-    <Dropdown.Toggle variant="outline-info" id="dropdown-goal">
-      {props.calorie}
-    </Dropdown.Toggle>
+const TargetDropDown = (props: { selectedCalorie: number; targets: Target[] }) => {
+  const menuItems = props.targets.map(target => (
+    <Dropdown.Item>
+      {target.calorie}{' '} Cal.<FoodGroupServingBadgePanel serving={target.serving} goal />
+    </Dropdown.Item>
+  ));
 
-    <Dropdown.Menu>
-      <Dropdown.Item>1200</Dropdown.Item>
-      <Dropdown.Item>1400</Dropdown.Item>
-      <Dropdown.Item>1600</Dropdown.Item>
-    </Dropdown.Menu>
-  </Dropdown>
-)
+  return (
+    <Dropdown>
+      <Dropdown.Toggle variant="outline-info" id="dropdown-goal">
+        {props.selectedCalorie}
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        {menuItems}
+      </Dropdown.Menu>
+    </Dropdown>
+  )
+}
 
 export const TargetPanel = (props: { target: Target; editMode: boolean; editTarget: boolean }) => {
   const { editMode, target, editTarget } = props;
@@ -35,7 +41,7 @@ export const TargetPanel = (props: { target: Target; editMode: boolean; editTarg
   const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
   const handleClick = () => dispatch(enterEditTargetAction());
   const caloriePanel = (editTarget
-    ? <TargetDropDown calorie={target.calorie} />
+    ? <TargetDropDown selectedCalorie={target.calorie} targets={allTargets()} />
     : <TargetLabel calorie={target.calorie} />);
 
   return (
