@@ -1,4 +1,5 @@
 import { Food } from "../model/Food";
+import { Target } from "../model/Target";
 
 export interface Action {
   type: string;
@@ -59,6 +60,15 @@ export function enterEditTargetAction(): Action {
 
 export function exitEditTargetAction(): Action {
   return { type: 'exit-edit-target' };
+}
+
+export interface ChangeTargetAction extends Action {
+  type: 'change-target';
+  target: Target;
+}
+
+export function changeTargetAction(target: Target): ChangeTargetAction {
+  return { type: 'change-target', target };
 }
 
 export interface FoodAction extends Action {

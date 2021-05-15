@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Action, AddFoodAction, EnterFoodEditModeAction, MealAction, UpdateFoodAction } from "../actions";
+import { Action, AddFoodAction, ChangeTargetAction, EnterFoodEditModeAction, MealAction, UpdateFoodAction } from "../actions";
 import { AppState, MealState } from "../model/AppState";
 import { Meal } from "../model/Food";
 import { DEFAULT_TARGET } from "../model/Target";
@@ -157,7 +157,12 @@ export function reducer(state: AppState, action: Action) {
         ...state,
         editTarget: false,
       }
-    case 'enter-meal-edit-mode':
+      case 'change-target':
+        return {
+          ...state,
+          target: (action as ChangeTargetAction).target
+        }
+      case 'enter-meal-edit-mode':
     case 'enter-meal-add-mode':
     case 'exit-meal-edit-mode':
     case 'enter-food-edit-mode':
