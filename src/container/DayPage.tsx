@@ -11,18 +11,7 @@ import { NewDayButton } from "../components/NewDayButton";
 import { CalorieServingSummary } from "../components/summary/CalorieServingSummary";
 import { DifferenceSummary } from "../components/summary/DifferenceSummary";
 import { AppState } from "../model/AppState";
-import { calcCaloriesDifference } from "../model/calorieFunction";
-import { Serving } from "../model/Food";
-import { calcServingDifference } from "../model/servingFunction";
-
-const SERVING_GOAL: Serving = {
-  vegetable: 4,
-  fruit: 4,
-  carbohydrate: 5,
-  protein: 4,
-  fat: 3,
-  sweet: 1,
-}
+import { DEFAULT_GOAL } from "../model/Goal";
 
 const DayEditModeButton = (props: { editMode: boolean }) => {
   const { editMode } = props;
@@ -72,7 +61,7 @@ export const DayPage = (props: { state: AppState }) => {
             <CalorieServingSummary meals={meals} />
           </Tab>
           <Tab eventKey="difference" title="Difference">
-            <DifferenceSummary calories={calcCaloriesDifference(meals, 1400)} serving={calcServingDifference(meals, SERVING_GOAL)} />
+            <DifferenceSummary meals={meals} goal={DEFAULT_GOAL} />
           </Tab>
         </Tabs>
       </div>
