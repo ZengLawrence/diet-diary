@@ -67,7 +67,7 @@ export const DayPage = (props: { state: AppState }) => {
       </div>
 
       <div className="border rounded p-1">
-        <Tabs defaultActiveKey="total" id="tab-summary">
+        <Tabs defaultActiveKey="total" id="tab-summary" variant="pills">
           <Tab eventKey="total" title="Total">
             <CalorieServingSummary meals={meals} />
           </Tab>
