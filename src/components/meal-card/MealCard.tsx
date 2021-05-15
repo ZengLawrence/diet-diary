@@ -6,10 +6,12 @@ import { MealState } from "../../model/AppState";
 import { DeleteButton } from "../DeleteButton";
 import { EditModeButton } from "../EditModeButton";
 import { MealDispatch } from "../MealDispatch";
-import { MealSummary } from "./MealSummary";
 import { AddButtonGroupItem } from "./AddButtonGroupItem";
 import { AddFoodFormGroupItem } from "./AddFoodFormGroupItem";
 import { FoodGroupItems } from "./FoodGroupItems";
+import { FoodGroupServingBadgePanel } from "../FoodGroupServingBadgePanel";
+import { calcServingSummary } from "../../model/servingFunction";
+import { calcMealCalories } from "../../model/calorieFunction";
 
 interface Props {
   state: MealState;
@@ -21,6 +23,7 @@ export const MealCard = (props: Props) => {
   const { state, mealIndex, editMode } = props;
   const { meal, editState, foodEditIndex } = state;
   const { mealTime, foods } = meal;
+  const totalCalories = calcMealCalories(meal);
 
   const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
   const deleteMeal = () => dispatch(deleteMealAction(mealIndex));
@@ -34,7 +37,8 @@ export const MealCard = (props: Props) => {
     <Card className="mt-1">
       <Card.Header className="d-flex align-items-center">
         <div className="mr-auto">{mealTime}</div>
-        <MealSummary meal={meal} />
+        <div>{totalCalories}{' '}Cal.</div>
+        <FoodGroupServingBadgePanel serving={calcServingSummary(meal)} />
         {editMode &&
           !_.isUndefined(editState) &&
           <DeleteButton onClick={deleteMeal} />}
