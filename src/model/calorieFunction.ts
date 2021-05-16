@@ -25,3 +25,11 @@ export function calcFoodCalories(food: Food) {
 export function calcMealCalories(meal: Meal) {
   return _.sum(_.map(meal.foods, calcFoodCalories));
 }
+
+export function calcCaloriesTotal(meals: Meal[]) {
+  return _.sum(_.map(meals, calcMealCalories));
+}
+
+export function calcCaloriesDifference(meals: Meal[], calorieGoal: number) {
+  return calcCaloriesTotal(meals) - calorieGoal;
+}

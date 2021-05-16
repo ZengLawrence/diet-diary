@@ -19,8 +19,8 @@ export const FoodGroupItems = (props: { foods: Food[]; mealIndex: number; foodEd
     };
 
     return (
-      <Fragment>
-        <ListGroup.Item key={index} className="d-flex align-items-center">
+      <Fragment key={index}>
+        <ListGroup.Item className="d-flex align-items-center">
           <FoodItem food={food} />
           {editState === 'edit'
             && <EditModeButton editMode={index === foodEditIndex} onClick={toggleFoodEditMode} />}

@@ -1,7 +1,8 @@
 import _ from "lodash";
-import { Action, AddFoodAction, EnterFoodEditModeAction, MealAction, UpdateFoodAction } from "../actions";
+import { Action, AddFoodAction, ChangeTargetAction, EnterFoodEditModeAction, MealAction, UpdateFoodAction } from "../actions";
 import { AppState, MealState } from "../model/AppState";
 import { Meal } from "../model/Food";
+import { DEFAULT_TARGET } from "../model/Target";
 
 function currentTime() {
   return new Date().toLocaleTimeString();
@@ -35,6 +36,8 @@ export function initialState(): AppState {
     date: today(),
     mealStates: [newMealState()],
     editMode: true,
+    target: DEFAULT_TARGET,
+    editTarget: false,
   };
 }
 
@@ -55,8 +58,8 @@ function mealReducer(state: Meal, action: Action) {
         ...state,
         foods: [...state.foods, addFoodAction.food],
       };
-      case "update-food":
-        return updateFood(state, action as UpdateFoodAction);
+    case "update-food":
+      return updateFood(state, action as UpdateFoodAction);
     default:
       return state;
   }
@@ -142,8 +145,24 @@ export function reducer(state: AppState, action: Action) {
         ...state,
         editMode: false,
         mealStates: clearMealEditState(state.mealStates, action),
+        editTarget: false,
       }
-    case 'enter-meal-edit-mode':
+    case 'enter-edit-target':
+      return {
+        ...state,
+        editTarget: true,
+      }
+    case 'exit-edit-target':
+      return {
+        ...state,
+        editTarget: false,
+      }
+      case 'change-target':
+        return {
+          ...state,
+          target: (action as ChangeTargetAction).target
+        }
+      case 'enter-meal-edit-mode':
     case 'enter-meal-add-mode':
     case 'exit-meal-edit-mode':
     case 'enter-food-edit-mode':

@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import { Container } from "react-bootstrap";
-import { DayPage } from "./container/DayPage";
+import { DayPage } from "./components/day-page/DayPage";
 import { MealDispatch } from "./components/MealDispatch";
 import { initialState, reducer } from "./reducers";
 
