@@ -38,12 +38,12 @@ function mealStateReducer(state: MealState, action: Action): MealState {
   }
 }
 
-function updateMealState(mealStates: MealState[], action: MealAction) {
-  const { mealIndex } = action;
-  const updatedMealStates = _.clone(mealStates);
-  const updatedMeal = mealStateReducer(updatedMealStates[mealIndex], action);
-  updatedMealStates[mealIndex] = updatedMeal;
-  return updatedMealStates;
+function updateMealState(mealState: MealState, index: number, action: MealAction) {
+  if (index === action.mealIndex) {
+    return mealStateReducer(mealState, action);
+  } else {
+    return mealState;
+  }
 }
 
 export function mealStatesReducer(state: MealState[], action: Action) {
@@ -56,7 +56,7 @@ export function mealStatesReducer(state: MealState[], action: Action) {
       return _.filter(state, (_, index) => (index !== (action as MealAction).mealIndex));
     default:
       if (_.has(action, 'mealIndex')) {
-        return updateMealState(state, action as MealAction);
+        return _.map(state, (mealState, index) => updateMealState(mealState, index, action as MealAction));
       } else {
         return state;
       }
