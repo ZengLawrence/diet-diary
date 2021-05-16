@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { useReducer } from "react";
-import { Food, FoodGroup, newFood, Serving } from "../../model/Food";
+import { Food, FoodGroup, newFood } from "../../model/Food";
 
 interface Action {
   type: string;
@@ -103,22 +103,18 @@ function initialState(food: Food): State {
   };
 }
 
-function validateServing(serving: Serving): ValidationError {
-  const lessThanZero = (val?: number) => (_.toNumber(val) < 0);
+function lessThanZero(val?: number) { return (_.toNumber(val) < 0); }
+
+function validateFood(food: Food): ValidationError {
+  const { name, serving } = food;
   return {
+    foodName: (name === ''),
     vegetable: lessThanZero(serving.vegetable),
     fruit: lessThanZero(serving.fruit),
     carbohydrate: lessThanZero(serving.carbohydrate),
     protein: lessThanZero(serving.protein),
     fat: lessThanZero(serving.fat),
     sweet: lessThanZero(serving.sweet),
-  };
-}
-
-function validateFood(food: Food): ValidationError {
-  return {
-    foodName: (food.name === ''),
-    ...validateServing(food.serving)
   };
 }
 
@@ -138,16 +134,16 @@ export function useInputFormStateFunction(initialFood: Food, onAddFood: (food: F
   };
 
   const handleServingChange = (foodGroup: FoodGroup, serving: number) => {
-    if (serving > 0) {
+    if (serving === 0) {
+      dispatch({
+        type: "unset-serving",
+        foodGroup,
+      });
+    } else {
       dispatch({
         type: "set-serving",
         foodGroup,
         serving
-      });
-    } else {
-      dispatch({
-        type: "unset-serving",
-        foodGroup,
       });
     }
   };
