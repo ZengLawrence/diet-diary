@@ -41,22 +41,13 @@ function mealReducer(state: Meal, action: Action) {
   }
 }
 
-function clearMealEditStatus(state: MealState) {
-  if (state.editState) {
-    const updatedState = _.clone(state);
-    _.unset(updatedState, 'editState');
-    return updatedState;
-  } else {
-    return state;
-  }
-}
-
 function editStateReducer(state: MealEditState, action: Action): MealEditState {
   switch (action.type) {
     case 'enter-meal-edit-mode':
       return "edit";
     case 'enter-meal-add-mode':
       return "add";
+    case 'new-meal':
     case 'exit-meal-edit-mode':
     case 'cancel-add-food':
     case 'exit-edit-mode':
@@ -98,7 +89,7 @@ export function mealStatesReducer(state: MealState[], action: Action) {
     case 'new-day':
       return [newMealState()];
     case 'new-meal':
-      return _.concat(_.map(state, clearMealEditStatus), newMealState());
+      return _.concat(_.map(state, mealState => mealStateReducer(mealState, action)), newMealState());
     case 'delete-meal':
       return _.filter(state, (_, index) => (index !== (action as MealAction).mealIndex));
     default:
