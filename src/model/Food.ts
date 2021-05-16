@@ -25,3 +25,14 @@ export function newFood(): Food {
     serving: {}
   }
 }
+
+function currentTime() {
+  return new Date().toLocaleTimeString();
+}
+
+export function newMeal(): Meal {
+  return {
+    mealTime: currentTime(),
+    foods: [],
+  }
+}

@@ -1,44 +1,14 @@
 import _ from "lodash";
-import { Action, AddFoodAction, EnterFoodEditModeAction, MealAction, UpdateFoodAction } from "../../actions";
+import { Action, EnterFoodEditModeAction, MealAction } from "../../actions";
 import { MealEditState, MealState } from "../../model/AppState";
-import { Meal } from "../../model/Food";
-
-function currentTime() {
-  return new Date().toLocaleTimeString();
-}
+import { newMeal } from "../../model/Food";
+import { mealReducer } from "./mealReducer";
 
 export function newMealState(): MealState {
   return {
-    meal: {
-      mealTime: currentTime(),
-      foods: [],
-    },
+    meal: newMeal(),
     editState: "add",
   };
-}
-
-function updateFood(meal: Meal, action: UpdateFoodAction) {
-  const foods = _.clone(meal.foods);
-  foods[action.foodIndex] = action.food;
-  return {
-    ...meal,
-    foods,
-  };
-}
-
-function mealReducer(state: Meal, action: Action) {
-  switch (action.type) {
-    case 'add-food':
-      const addFoodAction = action as AddFoodAction;
-      return {
-        ...state,
-        foods: [...state.foods, addFoodAction.food],
-      };
-    case "update-food":
-      return updateFood(state, action as UpdateFoodAction);
-    default:
-      return state;
-  }
 }
 
 function editStateReducer(state: MealEditState, action: Action): MealEditState {
