@@ -200,7 +200,7 @@ export const FoodInputForm = (props: Props) => {
           type="text"
           value={food.name}
           required
-          placeholder="Bread, broccoli, steak, hamburger..."
+          placeholder="Broccoli, apple, bread, turkey, olive oil, cake..."
           isInvalid={error.foodName}
           onChange={e => handleNameChange(e.target.value)}
         />
