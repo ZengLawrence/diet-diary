@@ -1,7 +1,7 @@
 import { Action, ChangeTargetAction } from "../actions";
 import { AppState } from "../model/AppState";
 import { DEFAULT_TARGET, Target } from "../model/Target";
-import { newMealState, mealStatesReducer } from "./meal-state/mealStatesReducer";
+import { newMealState, mealStatesReducer } from "./meal-state";
 
 function today() {
   return new Date().toLocaleDateString();

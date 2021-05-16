@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { Action, AddFoodAction, EnterFoodEditModeAction, MealAction, UpdateFoodAction } from "../../actions";
-import { MealState } from "../../model/AppState";
+import { MealEditState, MealState } from "../../model/AppState";
 import { Meal } from "../../model/Food";
 
 function currentTime() {
@@ -51,40 +51,37 @@ function clearMealEditStatus(state: MealState) {
   }
 }
 
-function mealStateReducer(state: MealState, action: Action): MealState {
+function editStateReducer(state: MealEditState, action: Action): MealEditState {
   switch (action.type) {
-    case 'add-food':
-    case "update-food":
-      return {
-        ...state,
-        meal: mealReducer(state.meal, action),
-      };
     case 'enter-meal-edit-mode':
-      return {
-        ...state,
-        editState: "edit",
-      };
+      return "edit";
     case 'enter-meal-add-mode':
-      return {
-        ...state,
-        editState: "add",
-      };
-    case 'enter-food-edit-mode':
-      const enterFoodEditModeAction = action as EnterFoodEditModeAction;
-      return {
-        ...state,
-        foodEditIndex: enterFoodEditModeAction.foodIndex,
-      };
-    case 'exit-food-edit-mode':
-      const updatedState = _.clone(state);
-      _.unset(updatedState, 'foodEditIndex');
-      return updatedState;
-    case 'cancel-add-food':
+      return "add";
     case 'exit-meal-edit-mode':
+    case 'cancel-add-food':
     case 'exit-edit-mode':
-      return clearMealEditStatus(state);
+      return undefined;
     default:
       return state;
+  }
+}
+
+function foodEditIndexReducer(state: number | undefined, action: Action) {
+  switch (action.type) {
+    case 'enter-food-edit-mode':
+      return (action as EnterFoodEditModeAction).foodIndex;
+    case 'exit-food-edit-mode':
+      return undefined;
+    default:
+      return state;
+  }
+}
+
+function mealStateReducer(state: MealState, action: Action): MealState {
+  return {
+    meal: mealReducer(state.meal, action),
+    editState: editStateReducer(state.editState, action),
+    foodEditIndex: foodEditIndexReducer(state.foodEditIndex, action),
   }
 }
 

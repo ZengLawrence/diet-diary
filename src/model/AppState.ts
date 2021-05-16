@@ -9,8 +9,10 @@ export interface AppState {
   editTarget: boolean;
 }
 
+export type MealEditState = "add" | "edit" | undefined;
+
 export interface MealState {
   meal: Meal;
-  editState?: "add" | "edit" | undefined;
+  editState?: MealEditState;
   foodEditIndex?: number;
 }
