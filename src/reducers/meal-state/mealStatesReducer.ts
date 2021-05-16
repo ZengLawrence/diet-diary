@@ -1,32 +1,12 @@
 import _ from "lodash";
-import { Action, AddFoodAction, EnterFoodEditModeAction, MealAction, UpdateFoodAction } from "../actions";
-import { MealState } from "../model/AppState";
-import { Meal } from "../model/Food";
+import { Action, AddFoodAction, EnterFoodEditModeAction, MealAction, UpdateFoodAction } from "../../actions";
+import { MealState } from "../../model/AppState";
+import { Meal } from "../../model/Food";
 
-export function mealStatesReducer(state: MealState[], action: Action) {
-  switch (action.type) {
-    case 'new-day':
-      return [newMealState()];
-    case 'new-meal':
-      return _.concat(_.map(state, clearMealEditStatus), newMealState());
-    case 'delete-meal':
-      return _.filter(state, (_, index) => (index !== (action as MealAction).mealIndex));
-    case 'enter-meal-edit-mode':
-    case 'enter-meal-add-mode':
-    case 'exit-meal-edit-mode':
-    case 'enter-food-edit-mode':
-    case 'exit-food-edit-mode':
-    case 'add-food':
-    case 'cancel-add-food':
-    case 'update-food':
-      return updateMealState(state, action as MealAction);
-    default:
-      return state;
-  }
-}
 function currentTime() {
   return new Date().toLocaleTimeString();
 }
+
 export function newMealState(): MealState {
   return {
     meal: {
@@ -36,6 +16,7 @@ export function newMealState(): MealState {
     editState: "add",
   };
 }
+
 function updateFood(meal: Meal, action: UpdateFoodAction) {
   const foods = _.clone(meal.foods);
   foods[action.foodIndex] = action.food;
@@ -44,6 +25,7 @@ function updateFood(meal: Meal, action: UpdateFoodAction) {
     foods,
   };
 }
+
 function mealReducer(state: Meal, action: Action) {
   switch (action.type) {
     case 'add-food':
@@ -58,6 +40,7 @@ function mealReducer(state: Meal, action: Action) {
       return state;
   }
 }
+
 function clearMealEditStatus(state: MealState) {
   if (state.editState) {
     const updatedState = _.clone(state);
@@ -67,6 +50,7 @@ function clearMealEditStatus(state: MealState) {
     return state;
   }
 }
+
 function mealStateReducer(state: MealState, action: Action): MealState {
   switch (action.type) {
     case 'add-food':
@@ -103,10 +87,28 @@ function mealStateReducer(state: MealState, action: Action): MealState {
       return state;
   }
 }
+
 function updateMealState(mealStates: MealState[], action: MealAction) {
   const { mealIndex } = action;
   const updatedMealStates = _.clone(mealStates);
   const updatedMeal = mealStateReducer(updatedMealStates[mealIndex], action);
   updatedMealStates[mealIndex] = updatedMeal;
   return updatedMealStates;
+}
+
+export function mealStatesReducer(state: MealState[], action: Action) {
+  switch (action.type) {
+    case 'new-day':
+      return [newMealState()];
+    case 'new-meal':
+      return _.concat(_.map(state, clearMealEditStatus), newMealState());
+    case 'delete-meal':
+      return _.filter(state, (_, index) => (index !== (action as MealAction).mealIndex));
+    default:
+      if (_.has(action, 'mealIndex')) {
+        return updateMealState(state, action as MealAction);
+      } else {
+        return state;
+      }
+  }
 }
