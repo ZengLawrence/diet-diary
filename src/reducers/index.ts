@@ -2,7 +2,7 @@ import _ from "lodash";
 import { Action, AddFoodAction, ChangeTargetAction, EnterFoodEditModeAction, MealAction, UpdateFoodAction } from "../actions";
 import { AppState, MealState } from "../model/AppState";
 import { Meal } from "../model/Food";
-import { DEFAULT_TARGET } from "../model/Target";
+import { DEFAULT_TARGET, Target } from "../model/Target";
 
 function currentTime() {
   return new Date().toLocaleTimeString();
@@ -16,15 +16,6 @@ function newMealState(): MealState {
     },
     editState: "add",
   };
-}
-
-function deleteMeal(state: AppState, action: MealAction) {
-  const mealIndexToDelete = action.mealIndex;
-  const mealStates = _.filter(state.mealStates, (_, index) => (index !== mealIndexToDelete));
-  return {
-    ...state,
-    mealStates,
-  }
 }
 
 function today() {
@@ -120,49 +111,25 @@ function updateMealState(mealStates: MealState[], action: MealAction) {
   return updatedMealStates;
 }
 
-function clearMealEditState(mealStates: MealState[], action: Action) {
-  return _.map(mealStates, state => mealStateReducer(state, action));
-}
 
-export function reducer(state: AppState, action: Action) {
+function dateReducer(state: string, action: Action) {
   switch (action.type) {
     case 'new-day':
-      return initialState();
+      return today();
+    default:
+      return state;
+  }
+}
+
+function mealStatesReducer(state: MealState[], action: Action) {
+  switch (action.type) {
+    case 'new-day':
+      return [newMealState()];
     case 'new-meal':
-      return {
-        ...state,
-        mealStates: _.concat(_.map(state.mealStates, clearMealEditStatus), newMealState()),
-      };
+      return _.concat(_.map(state, clearMealEditStatus), newMealState());
     case 'delete-meal':
-      return deleteMeal(state, action as MealAction);
-    case 'enter-edit-mode':
-      return {
-        ...state,
-        editMode: true,
-      }
-    case 'exit-edit-mode':
-      return {
-        ...state,
-        editMode: false,
-        mealStates: clearMealEditState(state.mealStates, action),
-        editTarget: false,
-      }
-    case 'enter-edit-target':
-      return {
-        ...state,
-        editTarget: true,
-      }
-    case 'exit-edit-target':
-      return {
-        ...state,
-        editTarget: false,
-      }
-      case 'change-target':
-        return {
-          ...state,
-          target: (action as ChangeTargetAction).target
-        }
-      case 'enter-meal-edit-mode':
+      return _.filter(state, (_, index) => (index !== (action as MealAction).mealIndex));
+    case 'enter-meal-edit-mode':
     case 'enter-meal-add-mode':
     case 'exit-meal-edit-mode':
     case 'enter-food-edit-mode':
@@ -170,11 +137,53 @@ export function reducer(state: AppState, action: Action) {
     case 'add-food':
     case 'cancel-add-food':
     case 'update-food':
-      return {
-        ...state,
-        mealStates: updateMealState(state.mealStates, action as MealAction),
-      };
+      return updateMealState(state, action as MealAction);
     default:
       return state;
+  }
+}
+
+function editModeReducer(state: boolean, action: Action) {
+  switch (action.type) {
+    case 'new-day':
+    case 'enter-edit-mode':
+      return true;
+    case 'exit-edit-mode':
+      return false;
+    default:
+      return state;
+  }
+}
+
+function targetReducer(state: Target, action: Action) {
+  switch (action.type) {
+    case 'new-day':
+      return DEFAULT_TARGET;
+    case 'change-target':
+      return (action as ChangeTargetAction).target;
+    default:
+      return state;
+  }
+}
+
+
+function editTargetReducer(state: boolean, action: Action) {
+  switch (action.type) {
+    case 'enter-edit-target':
+      return true;
+    case 'exit-edit-target':
+      return false;
+    default:
+      return state;
+  }
+}
+
+export function reducer(state: AppState, action: Action): AppState {
+  return {
+    date: dateReducer(state.date, action),
+    mealStates: mealStatesReducer(state.mealStates, action),
+    editMode: editModeReducer(state.editMode, action),
+    target: targetReducer(state.target, action),
+    editTarget: editTargetReducer(state.editTarget, action),
   }
 }
