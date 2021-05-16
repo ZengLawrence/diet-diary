@@ -1,5 +1,5 @@
-import { Meal } from "./Food";
-import { Target } from "./Target";
+import { Meal, newMeal } from "./Food";
+import { DEFAULT_TARGET, Target } from "./Target";
 
 export interface AppState {
   date: string;
@@ -15,4 +15,25 @@ export interface MealState {
   meal: Meal;
   editState?: MealEditState;
   foodEditIndex?: number;
+}
+
+export function newMealState(): MealState {
+  return {
+    meal: newMeal(),
+    editState: "add",
+  };
+}
+
+export function today() {
+  return new Date().toLocaleDateString();
+}
+
+export function initialState(): AppState {
+  return {
+    date: today(),
+    mealStates: [newMealState()],
+    editMode: true,
+    target: DEFAULT_TARGET,
+    editTarget: false,
+  };
 }

@@ -1,22 +1,7 @@
 import { Action, ChangeTargetAction } from "../actions";
-import { AppState } from "../model/AppState";
+import { AppState, today } from "../model/AppState";
 import { DEFAULT_TARGET, Target } from "../model/Target";
-import { newMealState, mealStatesReducer } from "./meal-state";
-
-function today() {
-  return new Date().toLocaleDateString();
-}
-
-export function initialState(): AppState {
-  return {
-    date: today(),
-    mealStates: [newMealState()],
-    editMode: true,
-    target: DEFAULT_TARGET,
-    editTarget: false,
-  };
-}
-
+import { mealStatesReducer } from "./meal-state";
 
 function dateReducer(state: string, action: Action) {
   switch (action.type) {
