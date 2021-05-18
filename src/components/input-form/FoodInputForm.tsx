@@ -22,9 +22,10 @@ export const FoodInputForm = (props: Props) => {
       className="border p-1"
     >
 
-      <Form.Group as={Form.Row} controlId="formFoodName" className="ml-1 mr-1">
-        <Form.Label>Food name</Form.Label>
+      <Form.Group as={Form.Row} className="ml-1 mr-1">
+        <Form.Label htmlFor="inputFoodName" srOnly>Food name</Form.Label>
         <Form.Control
+          id="inputFoodName"
           type="text"
           value={food.name}
           required
@@ -39,7 +40,7 @@ export const FoodInputForm = (props: Props) => {
 
       <Form.Group>
         <Form.Label>Servings (Calories: {calcFoodCalories(food)})</Form.Label>
-        <Form.Group controlId="formServings" className="border p-1">
+        <Form.Group as={Form.Row} controlId="f Servings" className="d-flex justify-content-between border p-1">
           <ServingInputControl foodGroup="vegetable" serving={food.serving} isInvalid={error.vegetable} onChange={handleServingChange} />
           <ServingInputControl foodGroup="fruit" serving={food.serving} isInvalid={error.fruit} onChange={handleServingChange} />
           <ServingInputControl foodGroup="carbohydrate" serving={food.serving} isInvalid={error.carbohydrate} onChange={handleServingChange} />
