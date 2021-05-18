@@ -38,20 +38,22 @@ export const ServingInputControl = (props: Props) => {
   const { servingStr, handleChange } = useSyncedLocalState(props);
 
   return (
-    <Form.Group controlId={controlId} className="mr-1">
-      <Form.Label>
-        {_.capitalize(foodGroup)}{' '}<FoodGroupBadge foodGroup={foodGroup} value={calories} />
+    <Form.Group controlId={controlId} className="d-flex flex-column align-items-end mr-1">
+      <Form.Label className="mr-auto">
+        {_.capitalize(foodGroup)}
       </Form.Label>
-      <Form.Control
-        type="number"
-        min={0}
-        max={99}
-        value={servingStr}
-        isInvalid={isInvalid}
-        onChange={handleChange}
-        style={{ maxWidth: "80px" }}
-      />
-      <Form.Control.Feedback type="invalid">Good one!  Please enter a positive number.</Form.Control.Feedback>
+      <FoodGroupBadge foodGroup={foodGroup} value={calories} />
+      <div style={{ maxWidth: "80px" }}>
+        <Form.Control
+          type="number"
+          min={0}
+          max={99}
+          value={servingStr}
+          isInvalid={isInvalid}
+          onChange={handleChange}
+        />
+        <Form.Control.Feedback type="invalid">Good one!  Please enter a positive number.</Form.Control.Feedback>
+      </div>
     </Form.Group>
   );
 };
