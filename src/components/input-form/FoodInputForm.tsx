@@ -40,7 +40,7 @@ export const FoodInputForm = (props: Props) => {
 
       <Form.Group>
         <Form.Label>Servings (Calories: {calcFoodCalories(food)})</Form.Label>
-        <Form.Group as={Form.Row} controlId="f Servings" className="d-flex justify-content-between border p-1">
+        <Form.Group as={Form.Row} controlId="formServings" className="d-flex justify-content-between">
           <ServingInputControl foodGroup="vegetable" serving={food.serving} isInvalid={error.vegetable} onChange={handleServingChange} />
           <ServingInputControl foodGroup="fruit" serving={food.serving} isInvalid={error.fruit} onChange={handleServingChange} />
           <ServingInputControl foodGroup="carbohydrate" serving={food.serving} isInvalid={error.carbohydrate} onChange={handleServingChange} />
