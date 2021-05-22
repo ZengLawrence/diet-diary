@@ -1,4 +1,4 @@
-import { abbreviation, displayName, FoodGroup, Serving } from "../../model/Food";
+import { abbreviation, FoodGroup, Serving } from "../../model/Food";
 import { FoodGroupBadge } from "../badge";
 
 const FoodGroupLabel = (props: { foodGroup: FoodGroup; }) => (
