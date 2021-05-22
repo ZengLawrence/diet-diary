@@ -10,7 +10,9 @@ export const DifferenceSummary = (props: { meals: Meal[]; target: Target; }) => 
   return (
     <div className="d-flex">
       <CalorieSummary calories={calcCaloriesDifference(meals, target.calorie)} />
-      <ServingSummary serving={calcServingDifference(meals, target.serving)} />
+      <div className="flex-fill">
+        <ServingSummary serving={calcServingDifference(meals, target.serving)} />
+      </div>
     </div>
   )
 }
