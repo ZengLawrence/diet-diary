@@ -1,4 +1,3 @@
-import { createReducer } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import { Action, ChangeTargetAction } from "../actions";
 import { today } from "../model/AppState";
@@ -49,10 +48,6 @@ function editTargetReducer(state: boolean = false, action: Action) {
   }
 }
 
-const compactView = createReducer(false, {
-
-})
-
 export const rootReducer = combineReducers(
   {
     date: dateReducer,
@@ -60,6 +55,5 @@ export const rootReducer = combineReducers(
     editMode: editModeReducer,
     target: targetReducer,
     editTarget: editTargetReducer,
-    compactView,
   }
 )
