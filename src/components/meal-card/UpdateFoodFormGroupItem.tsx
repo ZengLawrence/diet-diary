@@ -1,13 +1,12 @@
-import { useContext } from "react";
 import { ListGroup } from "react-bootstrap";
-import { Action, exitFoodEditModeAction, updateFoodAction } from "../../actions";
+import { exitFoodEditModeAction, updateFoodAction } from "../../actions";
+import { useAppDispatch } from "../../app/hooks";
 import { Food } from "../../model/Food";
 import { FoodInputForm } from "../input-form/FoodInputForm";
-import { MealDispatch } from "../MealDispatch";
 
 export const UpdateFoodFormGroupItem = (props: { food: Food; mealIndex: number; foodIndex: number; }) => {
   const { food, mealIndex, foodIndex } = props;
-  const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
+  const dispatch = useAppDispatch();
   const handlUpdateFood = (food: Food) => {
     dispatch(updateFoodAction(mealIndex, foodIndex, food));
     dispatch(exitFoodEditModeAction(mealIndex));

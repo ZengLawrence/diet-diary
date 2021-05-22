@@ -2,8 +2,9 @@ import { Action, ChangeTargetAction } from "../actions";
 import { AppState, today } from "../model/AppState";
 import { DEFAULT_TARGET, Target } from "../model/Target";
 import { mealStatesReducer } from "./meal-state";
+import { combineReducers } from "redux";
 
-function dateReducer(state: string, action: Action) {
+function dateReducer(state: string = "05/22/2021", action: Action) {
   switch (action.type) {
     case 'new-day':
       return today();
@@ -12,7 +13,7 @@ function dateReducer(state: string, action: Action) {
   }
 }
 
-function editModeReducer(state: boolean, action: Action) {
+function editModeReducer(state: boolean = true, action: Action) {
   switch (action.type) {
     case 'new-day':
     case 'enter-edit-mode':
@@ -24,7 +25,7 @@ function editModeReducer(state: boolean, action: Action) {
   }
 }
 
-function targetReducer(state: Target, action: Action) {
+function targetReducer(state: Target = DEFAULT_TARGET, action: Action) {
   switch (action.type) {
     case 'new-day':
       return DEFAULT_TARGET;
@@ -36,7 +37,7 @@ function targetReducer(state: Target, action: Action) {
 }
 
 
-function editTargetReducer(state: boolean, action: Action) {
+function editTargetReducer(state: boolean = false, action: Action) {
   switch (action.type) {
     case 'enter-edit-target':
       return true;
@@ -57,3 +58,14 @@ export function reducer(state: AppState, action: Action): AppState {
     compactView: state.compactView,
   }
 }
+
+export const rootReducer = combineReducers(
+  {
+    date: dateReducer,
+    mealStates: mealStatesReducer,
+    editMode: editModeReducer,
+    target: targetReducer,
+    editTarget: editTargetReducer,
+    compactView: () => false,
+  }
+)

@@ -1,17 +1,16 @@
 import _ from "lodash";
-import { useContext } from "react";
 import { Card, ListGroup } from "react-bootstrap";
-import { Action, deleteMealAction, enterMealEditModelAction, exitMealEditModeAction } from "../../actions";
+import { deleteMealAction, enterMealEditModelAction, exitMealEditModeAction } from "../../actions";
+import { useAppDispatch } from "../../app/hooks";
 import { MealState } from "../../model/AppState";
+import { calcMealCalories } from "../../model/calorieFunction";
+import { calcServingSummary } from "../../model/servingFunction";
 import { DeleteButton } from "../DeleteButton";
 import { EditModeButton } from "../EditModeButton";
-import { MealDispatch } from "../MealDispatch";
+import { FoodGroupServingBadgePanel } from "../FoodGroupServingBadgePanel";
 import { AddButtonGroupItem } from "./AddButtonGroupItem";
 import { AddFoodFormGroupItem } from "./AddFoodFormGroupItem";
 import { FoodGroupItems } from "./FoodGroupItems";
-import { FoodGroupServingBadgePanel } from "../FoodGroupServingBadgePanel";
-import { calcServingSummary } from "../../model/servingFunction";
-import { calcMealCalories } from "../../model/calorieFunction";
 
 interface Props {
   state: MealState;
@@ -25,7 +24,7 @@ export const MealCard = (props: Props) => {
   const { mealTime, foods } = meal;
   const totalCalories = calcMealCalories(meal);
 
-  const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
+  const dispatch = useAppDispatch();
   const deleteMeal = () => dispatch(deleteMealAction(mealIndex));
   const toggleMealEditMode = () => {
     editState === "edit"

@@ -46,7 +46,7 @@ function updateMealState(mealState: MealState, index: number, action: MealAction
   }
 }
 
-export function mealStatesReducer(state: MealState[], action: Action) {
+export function mealStatesReducer(state: MealState[] = [newMealState()], action: Action) {
   switch (action.type) {
     case 'new-day':
       return [newMealState()];

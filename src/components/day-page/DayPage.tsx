@@ -1,18 +1,17 @@
 import _ from "lodash";
-import { useContext } from "react";
 import { Tab, Tabs } from "react-bootstrap";
 import { newMealAction } from "../../actions";
+import { useAppDispatch } from "../../app/hooks";
+import { AppState } from "../../model/AppState";
 import { AddButton } from "../AddButton";
 import { Footer } from "../Footer";
 import { MealCard } from "../meal-card/MealCard";
-import { MealDispatch } from "../MealDispatch";
 import { CalorieServingSummary } from "../summary/CalorieServingSummary";
 import { DifferenceSummary } from "../summary/DifferenceSummary";
-import { AppState } from "../../model/AppState";
 import { Header } from "./Header";
 
 const MealAddButton = () => {
-  const dispatch = useContext(MealDispatch);
+  const dispatch = useAppDispatch();
 
   return (
     <div className="p-2">

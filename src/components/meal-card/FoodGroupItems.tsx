@@ -1,15 +1,15 @@
-import { Fragment, useContext } from "react";
+import { Fragment } from "react";
 import { ListGroup } from "react-bootstrap";
-import { Action, enterFoodEditModeAction, exitFoodEditModeAction } from "../../actions";
+import { enterFoodEditModeAction, exitFoodEditModeAction } from "../../actions";
+import { useAppDispatch } from "../../app/hooks";
 import { Food } from "../../model/Food";
 import { EditModeButton } from "../EditModeButton";
 import { FoodItem } from "../FoodItem";
-import { MealDispatch } from "../MealDispatch";
 import { UpdateFoodFormGroupItem } from "./UpdateFoodFormGroupItem";
 
 export const FoodGroupItems = (props: { foods: Food[]; mealIndex: number; foodEditIndex?: number; editState?: string; }) => {
   const { foods, mealIndex, foodEditIndex, editState } = props;
-  const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
+  const dispatch = useAppDispatch();
 
   const groupItems = foods.map((food, index) => {
     const toggleFoodEditMode = () => {
