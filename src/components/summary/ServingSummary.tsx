@@ -1,5 +1,4 @@
-import _ from "lodash";
-import { abbreviation, FoodGroup, Serving } from "../../model/Food";
+import { abbreviation, displayName, FoodGroup, Serving } from "../../model/Food";
 import { FoodGroupBadge } from "../badge";
 
 const FoodGroupLabel = (props: { foodGroup: FoodGroup; }) => {
@@ -7,7 +6,7 @@ const FoodGroupLabel = (props: { foodGroup: FoodGroup; }) => {
   return (
     <div className="d-flex justify-content-center border-0 rounded bg-light">
       <FoodGroupBadge foodGroup={foodGroup} value={abbreviation(foodGroup)} />
-      <div>{_.capitalize(foodGroup)}</div>
+      <div>{displayName(foodGroup)}</div>
     </div>
   );
 };

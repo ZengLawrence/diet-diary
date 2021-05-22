@@ -51,3 +51,16 @@ const FOOD_GROUP_ABBREVIATIONS = {
 export function abbreviation(foodGroup: FoodGroup) {
   return _.get(FOOD_GROUP_ABBREVIATIONS, foodGroup);
 }
+
+const FOOD_GROUP_DISPAY_NAMES = {
+  "vegetable": "Vegetable",
+  "fruit": "Fruit",
+  "carbohydrate": "Carbohydrate",
+  "protein": "Protein/Diary",
+  "fat": "Fat",
+  "sweet": "Sweet",
+}
+
+export function displayName(foodGroup: FoodGroup) {
+  return _.get(FOOD_GROUP_DISPAY_NAMES, foodGroup);
+}
