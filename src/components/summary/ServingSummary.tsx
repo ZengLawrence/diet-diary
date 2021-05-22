@@ -1,13 +1,14 @@
-import { FoodGroup, Serving } from "../../model/Food";
-import { backgroundColor } from "../backgroundColor";
+import _ from "lodash";
+import { abbreviation, FoodGroup, Serving } from "../../model/Food";
+import { FoodGroupBadge } from "../badge";
 
 const FoodGroupLabel = (props: { foodGroup: FoodGroup; }) => {
   const { foodGroup } = props;
-  const style: React.CSSProperties = {
-    backgroundColor: backgroundColor(foodGroup),
-  };
   return (
-    <div className="border rounded text-center text-white font-weight-bold" style={style}>{foodGroup}</div>
+    <div className="d-flex justify-content-center border-0 rounded bg-light">
+      <FoodGroupBadge foodGroup={foodGroup} value={abbreviation(foodGroup)} />
+      <div>{_.capitalize(foodGroup)}</div>
+    </div>
   );
 };
 
