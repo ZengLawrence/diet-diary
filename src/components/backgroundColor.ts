@@ -10,6 +10,8 @@ const BACKGROUND_COLORS = {
   "sweet": "red",
 };
 
-export function backgroundColor(foodGroup: FoodGroup) {
-  return _.get(BACKGROUND_COLORS, foodGroup, '');
+export type BadgeBackgroundColor = "green" | "teal" | "cyan"| "blue" | "orange" | "red" ;
+
+export function backgroundColor(foodGroup: FoodGroup)  {
+  return _.get(BACKGROUND_COLORS, foodGroup, '') as BadgeBackgroundColor;
 }
