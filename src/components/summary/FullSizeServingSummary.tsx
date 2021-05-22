@@ -18,7 +18,7 @@ const ServingCell = (props: { foodGroup: FoodGroup; amount?: number; }) => (
   </div>
 );
 
-export const ServingSummary = (props: { serving: Serving; }) => (
+export const FullSizeServingSummary = (props: { serving: Serving; }) => (
   <div className="d-flex justify-content-between flex-fill flex-wrap">
     <ServingCell foodGroup="vegetable" amount={props.serving.vegetable} />
     <ServingCell foodGroup="fruit" amount={props.serving.fruit} />
