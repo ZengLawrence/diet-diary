@@ -2,7 +2,7 @@ import _ from "lodash";
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { getCalories } from "../../model/calorieFunction";
-import { FoodGroup, Serving } from "../../model/Food";
+import { abbreviation, FoodGroup, Serving } from "../../model/Food";
 import { FoodGroupBadge, InfoLabelBadge } from "../badge";
 
 function useSyncedLocalState(props: Props) {
@@ -40,7 +40,7 @@ export const ServingInputControl = (props: Props) => {
   return (
     <Form.Group controlId={controlId} className="d-flex flex-column align-items-end border rounded mx-1">
       <div>
-        <FoodGroupBadge foodGroup={foodGroup} value={foodGroup.substring(0, 1)} />
+        <FoodGroupBadge foodGroup={foodGroup} value={abbreviation(foodGroup)} />
         <InfoLabelBadge value={calories} />
       </div>
       <Form.Control
