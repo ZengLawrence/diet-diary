@@ -1,13 +1,13 @@
-import { FoodGroup, Serving } from "../../model/Food";
-import { backgroundColor } from "../backgroundColor";
+import { abbreviation, displayName, FoodGroup, Serving } from "../../model/Food";
+import { FoodGroupBadge } from "../badge";
 
 const FoodGroupLabel = (props: { foodGroup: FoodGroup; }) => {
   const { foodGroup } = props;
-  const style: React.CSSProperties = {
-    backgroundColor: backgroundColor(foodGroup),
-  };
   return (
-    <div className="border rounded text-center text-white font-weight-bold" style={style}>{foodGroup}</div>
+    <div className="d-flex justify-content-center border-0 rounded bg-light">
+      <FoodGroupBadge foodGroup={foodGroup} value={abbreviation(foodGroup)} />
+      <div>{displayName(foodGroup)}</div>
+    </div>
   );
 };
 
@@ -23,7 +23,7 @@ export const ServingSummary = (props: { serving: Serving; }) => (
     <ServingCell foodGroup="vegetable" amount={props.serving.vegetable} />
     <ServingCell foodGroup="fruit" amount={props.serving.fruit} />
     <ServingCell foodGroup="carbohydrate" amount={props.serving.carbohydrate} />
-    <ServingCell foodGroup="protein" amount={props.serving.protein} />
+    <ServingCell foodGroup="proteinDiary" amount={props.serving.proteinDiary} />
     <ServingCell foodGroup="fat" amount={props.serving.fat} />
     <ServingCell foodGroup="sweet" amount={props.serving.sweet} />
   </div>

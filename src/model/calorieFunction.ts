@@ -5,7 +5,7 @@ const FOOD_GROUP_CALORIES = {
   "vegetable": 25,
   "fruit": 60,
   "carbohydrate": 70,
-  "protein": 110,
+  "proteinDiary": 110,
   "fat": 45,
   "sweet": 75,
 };

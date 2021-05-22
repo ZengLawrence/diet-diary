@@ -5,11 +5,13 @@ const BACKGROUND_COLORS = {
   "vegetable": "green",
   "fruit": "teal",
   "carbohydrate": "cyan",
-  "protein": "blue",
+  "proteinDiary": "blue",
   "fat": "orange",
   "sweet": "red",
 };
 
-export function backgroundColor(foodGroup: FoodGroup) {
-  return _.get(BACKGROUND_COLORS, foodGroup, '');
+export type BadgeBackgroundColor = "green" | "teal" | "cyan"| "blue" | "orange" | "red" ;
+
+export function backgroundColor(foodGroup: FoodGroup)  {
+  return _.get(BACKGROUND_COLORS, foodGroup, '') as BadgeBackgroundColor;
 }
