@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { getCalories } from "../../model/calorieFunction";
 import { FoodGroup, Serving } from "../../model/Food";
-import { FoodGroupBadge, InfoLabelBadge } from "../FoodGroupBadge";
+import { FoodGroupBadge, InfoLabelBadge } from "../badge";
 
 function useSyncedLocalState(props: Props) {
   const { foodGroup, serving } = props;
