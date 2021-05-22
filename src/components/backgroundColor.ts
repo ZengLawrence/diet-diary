@@ -5,7 +5,7 @@ const BACKGROUND_COLORS = {
   "vegetable": "green",
   "fruit": "teal",
   "carbohydrate": "cyan",
-  "protein": "blue",
+  "proteinDiary": "blue",
   "fat": "orange",
   "sweet": "red",
 };

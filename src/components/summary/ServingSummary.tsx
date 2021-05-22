@@ -23,7 +23,7 @@ export const ServingSummary = (props: { serving: Serving; }) => (
     <ServingCell foodGroup="vegetable" amount={props.serving.vegetable} />
     <ServingCell foodGroup="fruit" amount={props.serving.fruit} />
     <ServingCell foodGroup="carbohydrate" amount={props.serving.carbohydrate} />
-    <ServingCell foodGroup="protein" amount={props.serving.protein} />
+    <ServingCell foodGroup="proteinDiary" amount={props.serving.proteinDiary} />
     <ServingCell foodGroup="fat" amount={props.serving.fat} />
     <ServingCell foodGroup="sweet" amount={props.serving.sweet} />
   </div>

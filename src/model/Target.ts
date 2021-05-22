@@ -6,7 +6,7 @@ const TARGET_1200_CALORIE: Target = {
     vegetable: 4,
     fruit: 3,
     carbohydrate: 4,
-    protein: 3,
+    proteinDiary: 3,
     fat: 3,
     sweet: 1,
   }
@@ -18,7 +18,7 @@ const TARGET_1400_CALORIE: Target = {
     vegetable: 4,
     fruit: 4,
     carbohydrate: 5,
-    protein: 4,
+    proteinDiary: 4,
     fat: 3,
     sweet: 1,
   }
@@ -30,7 +30,7 @@ const TARGET_1600_CALORIE: Target = {
     vegetable: 5,
     fruit: 5,
     carbohydrate: 6,
-    protein: 5,
+    proteinDiary: 5,
     fat: 3,
     sweet: 1,
   }
@@ -42,7 +42,7 @@ const TARGET_1800_CALORIE: Target = {
     vegetable: 5,
     fruit: 5,
     carbohydrate: 7,
-    protein: 6,
+    proteinDiary: 6,
     fat: 4,
     sweet: 1,
   }
@@ -54,7 +54,7 @@ const TARGET_2000_CALORIE: Target = {
     vegetable: 5,
     fruit: 5,
     carbohydrate: 8,
-    protein: 7,
+    proteinDiary: 7,
     fat: 5,
     sweet: 1,
   }
@@ -68,7 +68,7 @@ export interface Target {
     vegetable: number;
     fruit: number;
     carbohydrate: number;
-    protein: number;
+    proteinDiary: number;
     fat: number;
     sweet: number;
   };

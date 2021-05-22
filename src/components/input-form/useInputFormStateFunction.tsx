@@ -55,7 +55,7 @@ interface ValidationError {
   vegetable?: boolean;
   fruit?: boolean;
   carbohydrate?: boolean;
-  protein?: boolean;
+  proteinDiary?: boolean;
   fat?: boolean;
   sweet?: boolean;
 }
@@ -112,7 +112,7 @@ function validateFood(food: Food): ValidationError {
     vegetable: lessThanZero(serving.vegetable),
     fruit: lessThanZero(serving.fruit),
     carbohydrate: lessThanZero(serving.carbohydrate),
-    protein: lessThanZero(serving.protein),
+    proteinDiary: lessThanZero(serving.proteinDiary),
     fat: lessThanZero(serving.fat),
     sweet: lessThanZero(serving.sweet),
   };

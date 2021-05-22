@@ -10,7 +10,7 @@ function addServings(s1: Serving, s2: Serving): Serving {
     vegetable: add(s1.vegetable, s2.vegetable),
     fruit: add(s1.fruit, s2.fruit),
     carbohydrate: add(s1.carbohydrate, s2.carbohydrate),
-    protein: add(s1.protein, s2.protein),
+    proteinDiary: add(s1.proteinDiary, s2.proteinDiary),
     fat: add(s1.fat, s2.fat),
     sweet: add(s1.sweet, s2.sweet),
   };
@@ -37,7 +37,7 @@ function minusServings(s1: Serving, s2: Serving): Serving {
     vegetable: minus(s1.vegetable, s2.vegetable),
     fruit: minus(s1.fruit, s2.fruit),
     carbohydrate: minus(s1.carbohydrate, s2.carbohydrate),
-    protein: minus(s1.protein, s2.protein),
+    proteinDiary: minus(s1.proteinDiary, s2.proteinDiary),
     fat: minus(s1.fat, s2.fat),
     sweet: minus(s1.sweet, s2.sweet),
   };

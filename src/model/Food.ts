@@ -4,7 +4,7 @@ export interface Serving {
   vegetable?: number;
   fruit?: number;
   carbohydrate?: number;
-  protein?: number;
+  proteinDiary?: number;
   fat?: number;
   sweet?: number;
 }
@@ -19,7 +19,7 @@ export interface Meal {
   foods: Food[];
 }
 
-export type FoodGroup = "vegetable" | "fruit" | "carbohydrate" | "protein" | "fat" | "sweet";
+export type FoodGroup = "vegetable" | "fruit" | "carbohydrate" | "proteinDiary" | "fat" | "sweet";
 
 export function newFood(): Food {
   return {
@@ -43,7 +43,7 @@ const FOOD_GROUP_ABBREVIATIONS = {
   "vegetable": "V",
   "fruit": "F",
   "carbohydrate": "C",
-  "protein": "PD",
+  "proteinDiary": "PD",
   "fat": "Ft",
   "sweet": "S",
 }
@@ -56,7 +56,7 @@ const FOOD_GROUP_DISPAY_NAMES = {
   "vegetable": "Vegetable",
   "fruit": "Fruit",
   "carbohydrate": "Carbohydrate",
-  "protein": "Protein/Diary",
+  "proteinDiary": "Protein/Diary",
   "fat": "Fat",
   "sweet": "Sweet",
 }
