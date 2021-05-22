@@ -7,6 +7,7 @@ export interface AppState {
   editMode: boolean;
   target: Target;
   editTarget: boolean;
+  compactView: boolean;
 }
 
 export type MealEditState = "add" | "edit" | undefined;
@@ -35,5 +36,6 @@ export function initialState(): AppState {
     editMode: true,
     target: DEFAULT_TARGET,
     editTarget: false,
+    compactView: true,
   };
 }

@@ -54,5 +54,6 @@ export function reducer(state: AppState, action: Action): AppState {
     editMode: editModeReducer(state.editMode, action),
     target: targetReducer(state.target, action),
     editTarget: editTargetReducer(state.editTarget, action),
+    compactView: state.compactView,
   }
 }
