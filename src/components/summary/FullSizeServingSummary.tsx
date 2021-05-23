@@ -1,20 +1,10 @@
-import { abbreviation, displayName, FoodGroup, Serving } from "../../model/Food";
-import { FoodGroupBadge } from "../badge";
-
-const FoodGroupLabel = (props: { foodGroup: FoodGroup; }) => {
-  const { foodGroup } = props;
-  return (
-    <div className="d-flex justify-content-center border-0 rounded bg-light">
-      <FoodGroupBadge foodGroup={foodGroup} value={abbreviation(foodGroup)} />
-      <div>{displayName(foodGroup)}</div>
-    </div>
-  );
-};
+import { FoodGroup, Serving } from "../../model/Food";
+import { FoodGroupLegend } from "../FoodGroupLegend";
 
 const ServingCell = (props: { foodGroup: FoodGroup; amount?: number; }) => (
   <div className="d-flex flex-column justify-content-end m-1">
     <div className="text-center" style={{ fontSize: '32px', minWidth: '110px' }}>{props.amount}</div>
-    <FoodGroupLabel foodGroup={props.foodGroup} />
+    <FoodGroupLegend foodGroup={props.foodGroup} />
   </div>
 );
 
