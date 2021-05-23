@@ -1,5 +1,5 @@
 import { Button, Form } from "react-bootstrap";
-import { calcFoodCalories } from "../../model/calorieFunction";
+import { calcFoodCalories, displayCalorieValue } from "../../model/calorieFunction";
 import { Food } from "../../model/Food";
 import { ServingInputControl } from "./ServingInputControl";
 import { useInputFormStateFunction } from "./useInputFormStateFunction";
@@ -39,7 +39,7 @@ export const FoodInputForm = (props: Props) => {
       </Form.Group>
 
       <Form.Group>
-        <Form.Label>Servings (Calories: {calcFoodCalories(food)})</Form.Label>
+        <Form.Label>Servings (Calories: {displayCalorieValue(calcFoodCalories(food))})</Form.Label>
         <Form.Group as={Form.Row} controlId="formServings" className="d-flex justify-content-between">
           <ServingInputControl foodGroup="vegetable" serving={food.serving} isInvalid={error.vegetable} onChange={handleServingChange} />
           <ServingInputControl foodGroup="fruit" serving={food.serving} isInvalid={error.fruit} onChange={handleServingChange} />
