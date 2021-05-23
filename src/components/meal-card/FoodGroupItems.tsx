@@ -5,7 +5,7 @@ import { useAppDispatch } from "../../app/hooks";
 import { Food } from "../../model/Food";
 import { EditModeButton } from "../EditModeButton";
 import { FoodItem } from "../FoodItem";
-import { UpdateFoodFormGroupItem } from "./UpdateFoodFormGroupItem";
+import { UpdateFoodForm } from "./UpdateFoodForm";
 
 export const FoodGroupItems = (props: { foods: Food[]; mealIndex: number; foodEditIndex?: number; editState?: string; }) => {
   const { foods, mealIndex, foodEditIndex, editState } = props;
@@ -18,18 +18,22 @@ export const FoodGroupItems = (props: { foods: Food[]; mealIndex: number; foodEd
         : dispatch(enterFoodEditModeAction(mealIndex, index));
     };
 
-    return (
-      <Fragment key={index}>
-        <ListGroup.Item className="d-flex align-items-center">
-          <FoodItem food={food} />
-          {editState === 'edit'
-            && <EditModeButton editMode={index === foodEditIndex} onClick={toggleFoodEditMode} />}
-        </ListGroup.Item>
+    const showForm = (editState === 'edit' && index === foodEditIndex);
+    const foodReadOnlyGroupItem = (
+      <div className="d-flex align-items-center">
+        <FoodItem food={food} />
         {editState === 'edit'
-          && index === foodEditIndex
-          &&
-          <UpdateFoodFormGroupItem food={food} mealIndex={mealIndex} foodIndex={index} />}
-      </Fragment>
+          && <EditModeButton editMode={index === foodEditIndex} onClick={toggleFoodEditMode} />}
+      </div>
+    );
+
+    return (
+      <ListGroup.Item key={index}>
+        {showForm
+          ? <UpdateFoodForm food={food} mealIndex={mealIndex} foodIndex={index} />
+          : foodReadOnlyGroupItem
+        }
+      </ListGroup.Item>
     );
   });
 
