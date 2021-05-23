@@ -1,9 +1,10 @@
+import { combineReducers } from "redux";
 import { Action, ChangeTargetAction } from "../actions";
-import { AppState, today } from "../model/AppState";
+import { today } from "../model/AppState";
 import { DEFAULT_TARGET, Target } from "../model/Target";
 import { mealStatesReducer } from "./meal-state";
 
-function dateReducer(state: string, action: Action) {
+function dateReducer(state: string = "05/22/2021", action: Action) {
   switch (action.type) {
     case 'new-day':
       return today();
@@ -12,7 +13,7 @@ function dateReducer(state: string, action: Action) {
   }
 }
 
-function editModeReducer(state: boolean, action: Action) {
+function editModeReducer(state: boolean = true, action: Action) {
   switch (action.type) {
     case 'new-day':
     case 'enter-edit-mode':
@@ -24,7 +25,7 @@ function editModeReducer(state: boolean, action: Action) {
   }
 }
 
-function targetReducer(state: Target, action: Action) {
+function targetReducer(state: Target = DEFAULT_TARGET, action: Action) {
   switch (action.type) {
     case 'new-day':
       return DEFAULT_TARGET;
@@ -36,7 +37,7 @@ function targetReducer(state: Target, action: Action) {
 }
 
 
-function editTargetReducer(state: boolean, action: Action) {
+function editTargetReducer(state: boolean = false, action: Action) {
   switch (action.type) {
     case 'enter-edit-target':
       return true;
@@ -47,12 +48,12 @@ function editTargetReducer(state: boolean, action: Action) {
   }
 }
 
-export function reducer(state: AppState, action: Action): AppState {
-  return {
-    date: dateReducer(state.date, action),
-    mealStates: mealStatesReducer(state.mealStates, action),
-    editMode: editModeReducer(state.editMode, action),
-    target: targetReducer(state.target, action),
-    editTarget: editTargetReducer(state.editTarget, action),
+export const rootReducer = combineReducers(
+  {
+    date: dateReducer,
+    mealStates: mealStatesReducer,
+    editMode: editModeReducer,
+    target: targetReducer,
+    editTarget: editTargetReducer,
   }
-}
+)

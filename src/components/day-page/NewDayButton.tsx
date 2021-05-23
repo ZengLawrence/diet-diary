@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import { Button } from "react-bootstrap";
-import { Action, newDayAction } from "../../actions";
-import { MealDispatch } from "../MealDispatch";
+import { newDayAction } from "../../actions";
+import { useAppDispatch } from "../../app/hooks";
 
 export const NewDayButton = () => {
-  const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
+  const dispatch = useAppDispatch();
   return (
     <Button
       variant="outline-danger"

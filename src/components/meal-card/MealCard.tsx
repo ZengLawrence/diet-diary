@@ -1,17 +1,16 @@
 import _ from "lodash";
-import { useContext } from "react";
 import { Card, ListGroup } from "react-bootstrap";
-import { Action, deleteMealAction, enterMealEditModelAction, exitMealEditModeAction } from "../../actions";
+import { deleteMealAction, enterMealEditModelAction, exitMealEditModeAction } from "../../actions";
+import { useAppDispatch } from "../../app/hooks";
 import { MealState } from "../../model/AppState";
+import { calcMealCalories, displayCalorieValue } from "../../model/calorieFunction";
+import { calcServingSummary } from "../../model/servingFunction";
 import { DeleteButton } from "../DeleteButton";
 import { EditModeButton } from "../EditModeButton";
-import { MealDispatch } from "../MealDispatch";
+import { FoodGroupServingBadgePanel } from "../badge/FoodGroupServingBadgePanel";
 import { AddButtonGroupItem } from "./AddButtonGroupItem";
 import { AddFoodFormGroupItem } from "./AddFoodFormGroupItem";
 import { FoodGroupItems } from "./FoodGroupItems";
-import { FoodGroupServingBadgePanel } from "../FoodGroupServingBadgePanel";
-import { calcServingSummary } from "../../model/servingFunction";
-import { calcMealCalories } from "../../model/calorieFunction";
 
 interface Props {
   state: MealState;
@@ -25,7 +24,7 @@ export const MealCard = (props: Props) => {
   const { mealTime, foods } = meal;
   const totalCalories = calcMealCalories(meal);
 
-  const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
+  const dispatch = useAppDispatch();
   const deleteMeal = () => dispatch(deleteMealAction(mealIndex));
   const toggleMealEditMode = () => {
     editState === "edit"
@@ -33,17 +32,25 @@ export const MealCard = (props: Props) => {
       : dispatch(enterMealEditModelAction(mealIndex));
   }
 
+  const deletButton = editMode &&
+    !_.isUndefined(editState) &&
+    <DeleteButton onClick={deleteMeal} />;
+
+  const editModeButton = editMode &&
+    <EditModeButton editMode={editState === "edit"} onClick={toggleMealEditMode} />;
+
   return (
     <Card className="mt-1">
-      <Card.Header className="d-flex align-items-center">
-        <div className="mr-auto">{mealTime}</div>
-        <div>{totalCalories}{' '}Cal.</div>
-        <FoodGroupServingBadgePanel serving={calcServingSummary(meal)} />
-        {editMode &&
-          !_.isUndefined(editState) &&
-          <DeleteButton onClick={deleteMeal} />}
-        {editMode &&
-          <EditModeButton editMode={editState === "edit"} onClick={toggleMealEditMode} />}
+      <Card.Header className="d-flex flex-wrap align-items-center">
+        <div className="flex-fill order-sm-0">{mealTime}</div>
+        <div className="order-sm-2">
+          {deletButton}
+          {editModeButton}
+        </div>
+        <div className="d-flex justify-content-between align-items-center order-sm-1">
+          <div className="mr-1">{displayCalorieValue(totalCalories)}{' '}Cal.</div>
+          <FoodGroupServingBadgePanel serving={calcServingSummary(meal)} />
+        </div>
       </Card.Header>
 
       <ListGroup>

@@ -1,3 +1,5 @@
+import { FoodGroupLegend } from "./FoodGroupLegend";
+
 const IconReferLink = () => (
   <a
     target="_blank"
@@ -20,8 +22,22 @@ const Icons8Referral = () => {
   );
 };
 
+const FoodGroupLegends = () => (
+  <div className="d-flex justify-content-between flex-fill flex-wrap">
+    <FoodGroupLegend foodGroup="vegetable" />
+    <FoodGroupLegend foodGroup="fruit" />
+    <FoodGroupLegend foodGroup="carbohydrate" />
+    <FoodGroupLegend foodGroup="proteinDiary" />
+    <FoodGroupLegend foodGroup="fat" />
+    <FoodGroupLegend foodGroup="sweet" />
+  </div>
+);
+
 export const Footer = () => (
-  <div className="d-flex justify-content-center">
+  <div className="d-flex flex-column align-items-center">
+    <div className="d-block d-sm-none">
+      <FoodGroupLegends />
+    </div>
     <Icons8Referral />
   </div>
 );

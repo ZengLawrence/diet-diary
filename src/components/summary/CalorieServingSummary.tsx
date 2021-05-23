@@ -7,6 +7,8 @@ import { ServingSummary } from "./ServingSummary";
 export const CalorieServingSummary = (props: { meals: Meal[] }) => (
   <div className="d-flex">
     <CalorieSummary calories={calcCaloriesTotal(props.meals)} />
-    <ServingSummary serving={calcMealsServingSummary(props.meals)} />
+    <div className="flex-fill">
+      <ServingSummary serving={calcMealsServingSummary(props.meals)} />
+    </div>
   </div>
 )

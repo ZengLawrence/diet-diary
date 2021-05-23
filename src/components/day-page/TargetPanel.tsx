@@ -1,10 +1,9 @@
 import _ from "lodash";
-import { useContext } from "react";
 import { Button, Dropdown } from "react-bootstrap";
-import { Action, changeTargetAction, enterEditTargetAction, exitEditTargetAction } from "../../actions";
+import { changeTargetAction, enterEditTargetAction, exitEditTargetAction } from "../../actions";
+import { useAppDispatch } from "../../app/hooks";
 import { allTargets, Target } from "../../model/Target";
-import { FoodGroupServingBadgePanel } from "../FoodGroupServingBadgePanel";
-import { MealDispatch } from "../MealDispatch";
+import { FoodGroupServingGoalBadgePanel } from "../badge/FoodGroupServingGoalBadgePanel";
 
 const TargetLabel = (props: { calorie: number; }) => (
   <span className="text-white bg-info border rounded px-1" style={{ fontSize: '24px' }}>{props.calorie}</span>
@@ -19,12 +18,12 @@ const ChangeTargetButton = (props: { onClick: () => void; }) => {
 const TargetDropDown = (props: { selectedCalorie: number; targets: Target[], onSelect: (target: Target) => void; }) => {
   const menuItems = props.targets.map(target => (
     <Dropdown.Item eventKey={target.calorie}>
-      {target.calorie}{' '} Cal.<FoodGroupServingBadgePanel serving={target.serving} goal />
+      {target.calorie}{' '} Cal.<FoodGroupServingGoalBadgePanel serving={target.serving} />
     </Dropdown.Item>
   ));
   const handleSelect = (eventKey: any) => {
     const selectedCalorie = _.toNumber(eventKey);
-    const selectedTarget = _.find(props.targets, {'calorie': selectedCalorie});
+    const selectedTarget = _.find(props.targets, { 'calorie': selectedCalorie });
     if (selectedTarget) {
       props.onSelect(selectedTarget);
     }
@@ -47,7 +46,7 @@ export const TargetPanel = (props: { target: Target; editMode: boolean; editTarg
   const { editMode, target, editTarget } = props;
   const showChangeTargetButton = (editMode && !editTarget);
 
-  const dispatch: React.Dispatch<Action> = useContext(MealDispatch);
+  const dispatch = useAppDispatch();
   const handleChangeTargetButtonClick = () => dispatch(enterEditTargetAction());
   const handleChangeTargetDropDownSelect = (target: Target) => { dispatch(changeTargetAction(target)); dispatch(exitEditTargetAction()); };
 
@@ -61,7 +60,7 @@ export const TargetPanel = (props: { target: Target; editMode: boolean; editTarg
         <div className="d-flex flex-nowrap  align-items-end">
           Target:&nbsp; {caloriePanel} &nbsp;Cal.
         </div>
-        <FoodGroupServingBadgePanel serving={target.serving} goal />
+        <FoodGroupServingGoalBadgePanel serving={target.serving} />
       </div>&nbsp;
       {showChangeTargetButton && <ChangeTargetButton onClick={handleChangeTargetButtonClick} />}
     </div>

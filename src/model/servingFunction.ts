@@ -1,5 +1,6 @@
 import _ from "lodash";
-import { Serving, Meal } from "./Food";
+import numeral from "numeral";
+import { Meal, Serving } from "./Food";
 
 function add(n1: number | undefined, n2: number | undefined) {
   return _.defaultTo(n1, 0) + _.defaultTo(n2, 0);
@@ -45,4 +46,12 @@ function minusServings(s1: Serving, s2: Serving): Serving {
 
 export function calcServingDifference(meals: Meal[], servingGoal: Serving) {
   return minusServings(calcMealsServingSummary(meals), servingGoal);
+}
+
+export function displayServingValue(val: number | undefined) {
+  if (val) {
+    return numeral(val).format('0[.][00]');
+  } else {
+    return val;
+  }
 }

@@ -30,13 +30,13 @@ interface ValidationFailedAction extends Action {
 function setServing(food: Food, action: SetServingAction) {
   return {
     ...food,
-    serving: _.set(food.serving, action.foodGroup, action.serving),
+    serving: _.set(_.clone(food.serving), action.foodGroup, action.serving),
   };
 }
 
 function unsetServing(food: Food, action: UnsetServingAction) {
-  const { serving } = food;
-  _.unset(food.serving, action.foodGroup);
+  const serving = _.clone(food.serving);
+  _.unset(serving, action.foodGroup);
   return {
     ...food,
     serving,

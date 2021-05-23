@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { Badge } from "react-bootstrap";
-import { FoodGroup, Serving } from "../../model/Food";
+import { abbreviation, FoodGroup, Serving } from "../../model/Food";
+import { displayServingValue } from "../../model/servingFunction";
 import { isMinLimit } from "../../model/Target";
 import { backgroundColor, BadgeBackgroundColor } from "../backgroundColor";
 
@@ -19,13 +20,23 @@ export const InfoLabelBadge = (props: { value: string; }) => (
   <Badge className="bg-light m-1" style={{ fontFamily }}>{props.value}</Badge>
 );
 
-export const FoodGroupBadge = (props: { foodGroup: FoodGroup; value: string | number | undefined; }) => (
+const FoodGroupBadge = (props: { foodGroup: FoodGroup; value: string | number | undefined; }) => (
   <LabelBadge backgroundColor={backgroundColor(props.foodGroup)} value={props.value} />
 )
 
-export const FoodGroupServingBadge = (props: { foodGroup: FoodGroup; serving: Serving; goal?: boolean }) => {
-  const { foodGroup, serving, goal } = props;
+export const FoodGroupLabelBadge = (props: { foodGroup: FoodGroup; }) => (
+  <LabelBadge backgroundColor={backgroundColor(props.foodGroup)} value={abbreviation(props.foodGroup)} />
+)
+
+export const FoodGroupServingBadge = (props: { foodGroup: FoodGroup; serving: Serving; }) => {
+  const { foodGroup, serving } = props;
+  const displayValue = displayServingValue(_.get(serving, foodGroup))
+  return (<FoodGroupBadge foodGroup={foodGroup} value={displayValue} />);
+}
+
+export const FoodGroupServingGoalBadge = (props: { foodGroup: FoodGroup; serving: Serving;}) => {
+  const { foodGroup, serving } = props;
   const value = _.get(serving, foodGroup);
-  const displayValue = (goal && isMinLimit(foodGroup)) ? value + "+" : value;
+  const displayValue = isMinLimit(foodGroup) ? value + "+" : value;
   return (<FoodGroupBadge foodGroup={foodGroup} value={displayValue} />);
 }
