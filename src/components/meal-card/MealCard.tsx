@@ -32,17 +32,25 @@ export const MealCard = (props: Props) => {
       : dispatch(enterMealEditModelAction(mealIndex));
   }
 
+  const deletButton = editMode &&
+    !_.isUndefined(editState) &&
+    <DeleteButton onClick={deleteMeal} />;
+
+  const editModeButton = editMode &&
+    <EditModeButton editMode={editState === "edit"} onClick={toggleMealEditMode} />;
+
   return (
     <Card className="mt-1">
-      <Card.Header className="d-flex align-items-center">
-        <div className="mr-auto">{mealTime}</div>
-        <div>{totalCalories}{' '}Cal.</div>
-        <FoodGroupServingBadgePanel serving={calcServingSummary(meal)} />
-        {editMode &&
-          !_.isUndefined(editState) &&
-          <DeleteButton onClick={deleteMeal} />}
-        {editMode &&
-          <EditModeButton editMode={editState === "edit"} onClick={toggleMealEditMode} />}
+      <Card.Header className="d-flex flex-wrap align-items-center">
+        <div className="flex-fill order-sm-0">{mealTime}</div>
+        <div className="order-sm-2">
+          {deletButton}
+          {editModeButton}
+        </div>
+        <div className="d-flex justify-content-between align-items-center order-sm-1">
+          <div className="mr-1">{totalCalories}{' '}Cal.</div>
+          <FoodGroupServingBadgePanel serving={calcServingSummary(meal)} />
+        </div>
       </Card.Header>
 
       <ListGroup>
