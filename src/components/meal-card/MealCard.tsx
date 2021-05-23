@@ -3,7 +3,7 @@ import { Card, ListGroup } from "react-bootstrap";
 import { deleteMealAction, enterMealEditModelAction, exitMealEditModeAction } from "../../actions";
 import { useAppDispatch } from "../../app/hooks";
 import { MealState } from "../../model/AppState";
-import { calcMealCalories } from "../../model/calorieFunction";
+import { calcMealCalories, displayCalorieValue } from "../../model/calorieFunction";
 import { calcServingSummary } from "../../model/servingFunction";
 import { DeleteButton } from "../DeleteButton";
 import { EditModeButton } from "../EditModeButton";
@@ -48,7 +48,7 @@ export const MealCard = (props: Props) => {
           {editModeButton}
         </div>
         <div className="d-flex justify-content-between align-items-center order-sm-1">
-          <div className="mr-1">{totalCalories}{' '}Cal.</div>
+          <div className="mr-1">{displayCalorieValue(totalCalories)}{' '}Cal.</div>
           <FoodGroupServingBadgePanel serving={calcServingSummary(meal)} />
         </div>
       </Card.Header>
