@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { Badge } from "react-bootstrap";
-import { FoodGroup, Serving } from "../../model/Food";
+import { abbreviation, FoodGroup, Serving } from "../../model/Food";
 import { isMinLimit } from "../../model/Target";
 import { backgroundColor, BadgeBackgroundColor } from "../backgroundColor";
 
@@ -19,8 +19,12 @@ export const InfoLabelBadge = (props: { value: string; }) => (
   <Badge className="bg-light m-1" style={{ fontFamily }}>{props.value}</Badge>
 );
 
-export const FoodGroupBadge = (props: { foodGroup: FoodGroup; value: string | number | undefined; }) => (
+const FoodGroupBadge = (props: { foodGroup: FoodGroup; value: string | number | undefined; }) => (
   <LabelBadge backgroundColor={backgroundColor(props.foodGroup)} value={props.value} />
+)
+
+export const FoodGroupLabelBadge = (props: { foodGroup: FoodGroup; }) => (
+  <LabelBadge backgroundColor={backgroundColor(props.foodGroup)} value={abbreviation(props.foodGroup)} />
 )
 
 export const FoodGroupServingBadge = (props: { foodGroup: FoodGroup; serving: Serving; goal?: boolean }) => {

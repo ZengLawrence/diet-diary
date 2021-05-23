@@ -1,8 +1,8 @@
-import { abbreviation, FoodGroup, Serving } from "../../model/Food";
-import { FoodGroupBadge } from "../badge";
+import { FoodGroup, Serving } from "../../model/Food";
+import { FoodGroupLabelBadge } from "../badge";
 
 const FoodGroupLabel = (props: { foodGroup: FoodGroup; }) => (
-  <FoodGroupBadge foodGroup={props.foodGroup} value={abbreviation(props.foodGroup)} />
+  <FoodGroupLabelBadge foodGroup={props.foodGroup} />
 )
 
 const ServingCell = (props: { foodGroup: FoodGroup; amount?: number; }) => (
