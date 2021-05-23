@@ -58,7 +58,7 @@ export function mealStatesReducer(state: MealState[] = [newMealState()], action:
       if (_.has(action, 'mealIndex')) {
         return _.map(state, (mealState, index) => updateMealState(mealState, index, action as MealAction));
       } else {
-        return state;
+        return _.map(state, mealState => mealStateReducer(mealState, action));
       }
   }
 }
