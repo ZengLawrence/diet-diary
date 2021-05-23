@@ -1,4 +1,5 @@
 import { FoodGroup, Serving } from "../../model/Food";
+import { displayServingValue } from "../../model/servingFunction";
 import { FoodGroupLabelBadge } from "../badge";
 
 const FoodGroupLabel = (props: { foodGroup: FoodGroup; }) => (
@@ -7,7 +8,7 @@ const FoodGroupLabel = (props: { foodGroup: FoodGroup; }) => (
 
 const ServingCell = (props: { foodGroup: FoodGroup; amount?: number; }) => (
   <div className="d-flex flex-column align-items-center">
-    <div>{props.amount}</div>
+    <div>{displayServingValue(props.amount)}</div>
     <FoodGroupLabel foodGroup={props.foodGroup} />
   </div>
 );

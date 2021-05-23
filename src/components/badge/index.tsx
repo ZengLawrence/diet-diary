@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { Badge } from "react-bootstrap";
 import { abbreviation, FoodGroup, Serving } from "../../model/Food";
+import { displayServingValue } from "../../model/servingFunction";
 import { isMinLimit } from "../../model/Target";
 import { backgroundColor, BadgeBackgroundColor } from "../backgroundColor";
 
@@ -27,10 +28,9 @@ export const FoodGroupLabelBadge = (props: { foodGroup: FoodGroup; }) => (
   <LabelBadge backgroundColor={backgroundColor(props.foodGroup)} value={abbreviation(props.foodGroup)} />
 )
 
-export const FoodGroupServingBadge = (props: { foodGroup: FoodGroup; serving: Serving; goal?: boolean }) => {
-  const { foodGroup, serving, goal } = props;
-  const value = _.get(serving, foodGroup);
-  const displayValue = (goal && isMinLimit(foodGroup)) ? value + "+" : value;
+export const FoodGroupServingBadge = (props: { foodGroup: FoodGroup; serving: Serving; }) => {
+  const { foodGroup, serving } = props;
+  const displayValue = displayServingValue(_.get(serving, foodGroup))
   return (<FoodGroupBadge foodGroup={foodGroup} value={displayValue} />);
 }
 

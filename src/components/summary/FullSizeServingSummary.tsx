@@ -1,9 +1,10 @@
 import { FoodGroup, Serving } from "../../model/Food";
+import { displayServingValue } from "../../model/servingFunction";
 import { FoodGroupLegend } from "../FoodGroupLegend";
 
 const ServingCell = (props: { foodGroup: FoodGroup; amount?: number; }) => (
   <div className="d-flex flex-column justify-content-end m-1">
-    <div className="text-center" style={{ fontSize: '32px', minWidth: '110px' }}>{props.amount}</div>
+    <div className="text-center" style={{ fontSize: '32px', minWidth: '110px' }}>{displayServingValue(props.amount)}</div>
     <FoodGroupLegend foodGroup={props.foodGroup} />
   </div>
 );
