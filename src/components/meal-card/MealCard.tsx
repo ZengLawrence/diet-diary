@@ -7,7 +7,7 @@ import { calcMealCalories } from "../../model/calorieFunction";
 import { calcServingSummary } from "../../model/servingFunction";
 import { DeleteButton } from "../DeleteButton";
 import { EditModeButton } from "../EditModeButton";
-import { FoodGroupServingBadgePanel } from "../FoodGroupServingBadgePanel";
+import { FoodGroupServingBadgePanel } from "../badge/FoodGroupServingBadgePanel";
 import { AddButtonGroupItem } from "./AddButtonGroupItem";
 import { AddFoodFormGroupItem } from "./AddFoodFormGroupItem";
 import { FoodGroupItems } from "./FoodGroupItems";
