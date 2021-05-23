@@ -7,7 +7,7 @@ const FoodGroupLabel = (props: { foodGroup: FoodGroup; }) => (
 )
 
 const ServingCell = (props: { foodGroup: FoodGroup; amount?: number; }) => (
-  <div className="d-flex flex-column align-items-center">
+  <div className="d-flex flex-column align-items-center mx-1">
     <div>{displayServingValue(props.amount)}</div>
     <FoodGroupLabel foodGroup={props.foodGroup} />
   </div>

@@ -47,7 +47,7 @@ export const MealCard = (props: Props) => {
           {deletButton}
           {editModeButton}
         </div>
-        <div className="d-flex justify-content-between align-items-center order-sm-1">
+        <div className="d-flex justify-content-between align-items-center order-sm-1 flex-grow-1 flex-md-grow-0">
           <div className="mr-1">{displayCalorieValue(totalCalories)}{' '}Cal.</div>
           <FoodGroupServingBadgePanel serving={calcServingSummary(meal)} />
         </div>
