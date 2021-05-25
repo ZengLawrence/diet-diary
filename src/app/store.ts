@@ -1,10 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit'
+import _ from 'lodash';
 import { rootReducer } from '../reducers'
+import { loadState, saveState } from './localStorage';
 // ...
 
+const persistedState = loadState();
 export const store = configureStore({
-  reducer: rootReducer
+  reducer: rootReducer,
+  preloadedState: persistedState,
 })
+
+store.subscribe(_.throttle(() => {
+  saveState(store.getState());
+}, 1000));
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>
