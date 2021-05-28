@@ -4,7 +4,7 @@ import { today } from "../model/AppState";
 import { DEFAULT_TARGET, Target } from "../model/Target";
 import { mealStatesReducer } from "./meal-state";
 
-function dateReducer(state: string = "05/22/2021", action: Action) {
+function dateReducer(state: string = today(), action: Action) {
   switch (action.type) {
     case 'new-day':
       return today();
@@ -27,8 +27,6 @@ function editModeReducer(state: boolean = true, action: Action) {
 
 function targetReducer(state: Target = DEFAULT_TARGET, action: Action) {
   switch (action.type) {
-    case 'new-day':
-      return DEFAULT_TARGET;
     case 'change-target':
       return (action as ChangeTargetAction).target;
     default:
