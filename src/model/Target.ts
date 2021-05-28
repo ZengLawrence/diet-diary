@@ -60,7 +60,7 @@ const TARGET_2000_CALORIE: Target = {
   }
 }
 
-export const DEFAULT_TARGET = TARGET_1400_CALORIE;
+export const DEFAULT_TARGET = TARGET_1800_CALORIE;
 
 export interface Target {
   calorie: number;

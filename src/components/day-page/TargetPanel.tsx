@@ -17,7 +17,7 @@ const ChangeTargetButton = (props: { onClick: () => void; }) => {
 
 const TargetDropDown = (props: { selectedCalorie: number; targets: Target[], onSelect: (target: Target) => void; }) => {
   const menuItems = props.targets.map(target => (
-    <Dropdown.Item eventKey={target.calorie}>
+    <Dropdown.Item key={target.calorie} eventKey={target.calorie}>
       {target.calorie}{' '} Cal.<FoodGroupServingGoalBadgePanel serving={target.serving} />
     </Dropdown.Item>
   ));

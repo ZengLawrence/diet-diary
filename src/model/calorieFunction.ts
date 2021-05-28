@@ -37,7 +37,7 @@ export function calcCaloriesDifference(meals: Meal[], calorieGoal: number) {
 
 export function displayCalorieValue(val: number | undefined) {
   if (val) {
-    return numeral(val).format('0,0');
+    return numeral(val).format('0');
   } else {
     return val;
   }
