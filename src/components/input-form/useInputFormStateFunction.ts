@@ -6,46 +6,36 @@ interface Action {
   type: string;
 }
 
-function setServingAction(foodGroup: FoodGroup, serving: number) {
-  return {
-    type: "set-serving",
-    foodGroup,
-    serving,
-  }
-}
+const setServingAction = (foodGroup: FoodGroup, serving: number) => ({
+  type: "set-serving",
+  foodGroup,
+  serving,
+})
 
 type SetServingAction = ReturnType<typeof setServingAction>;
 
-function unsetServingAction(foodGroup: FoodGroup) {
-  return {
-    type: "unset-serving",
-    foodGroup,
-  }
-}
+const unsetServingAction = (foodGroup: FoodGroup) => ({
+  type: "unset-serving",
+  foodGroup,
+})
 
 type UnsetServingAction = ReturnType<typeof unsetServingAction>;
 
-function setNameAction(name: string) {
-  return {
-    type: "set-name",
-    name,
-  }
-}
+const setNameAction = (name: string) => ({
+  type: "set-name",
+  name,
+})
 
 type SetNameAction = ReturnType<typeof setNameAction>;
 
-function validationFailedAction(error: ValidationError) {
-  return {
-    type: "validation-failed",
+const validationFailedAction = (error: ValidationError) => ({
+  type: "validation-failed",
   error
-  }
-}
+})
 
 type ValidationFailedAction = ReturnType<typeof validationFailedAction>;
 
-function resetAction() {
-  return {type: "reset"}
-}
+const resetAction = () => ({ type: "reset" });
 
 function setServing(food: Food, action: SetServingAction) {
   return {
@@ -153,9 +143,8 @@ export function useInputFormStateFunction(initialFood: Food, onAddFood: (food: F
   const { food, error } = state;
   const handleNameChange = (name: string) => dispatch(setNameAction(name));
 
-  const handleServingChange = (foodGroup: FoodGroup, serving: number) => 
-    serving ? dispatch(setServingAction(foodGroup,serving)) : dispatch(unsetServingAction(foodGroup));
-
+  const handleServingChange = (foodGroup: FoodGroup, serving: number) =>
+    serving ? dispatch(setServingAction(foodGroup, serving)) : dispatch(unsetServingAction(foodGroup));
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const error = validateFood(food);
