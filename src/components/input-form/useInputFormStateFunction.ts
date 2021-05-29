@@ -65,7 +65,9 @@ interface State {
   error: ValidationError;
 }
 
-function reducer(state: State, action: Action | SetNameAction | SetServingAction | UnsetServingAction | ValidationFailedAction) {
+type ActionType = Action | SetNameAction | SetServingAction | UnsetServingAction | ValidationFailedAction;
+
+function reducer(state: State, action: ActionType) {
   switch (action.type) {
     case 'set-name':
       return {
@@ -125,7 +127,7 @@ function checkValidity(error: ValidationError) {
 
 export function useInputFormStateFunction(initialFood: Food, onAddFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialState(initialFood));
-  const { food } = state;
+  const { food, error } = state;
   const handleNameChange = (name: string) => {
     dispatch({
       type: "set-name",
@@ -166,5 +168,5 @@ export function useInputFormStateFunction(initialFood: Food, onAddFood: (food: F
     }
   };
 
-  return { state, handleNameChange, handleServingChange, handleSubmit };
+  return { food, error, handleNameChange, handleServingChange, handleSubmit };
 }

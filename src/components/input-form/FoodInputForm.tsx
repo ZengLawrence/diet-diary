@@ -12,8 +12,7 @@ interface Props {
 }
 
 export const FoodInputForm = (props: Props) => {
-  const { state, handleNameChange, handleServingChange, handleSubmit } = useInputFormStateFunction(props.food, props.onAddFood);
-  const { food, error } = state;
+  const { food, error, handleNameChange, handleServingChange, handleSubmit } = useInputFormStateFunction(props.food, props.onAddFood);
 
   return (
     <Form
