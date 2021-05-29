@@ -72,12 +72,14 @@ function reducer(state: State, action: ActionType) {
     case 'set-name':
       return {
         ...state,
-        food: setName(state.food, action as SetNameAction)
+        food: setName(state.food, action as SetNameAction),
+        error: validateFood(setName(state.food, action as SetNameAction)),
       };
     case 'set-serving':
       return {
         ...state,
-        food: setServing(state.food, action as SetServingAction)
+        food: setServing(state.food, action as SetServingAction),
+        error: validateFood(setServing(state.food, action as SetServingAction)),
       };
     case 'unset-serving':
       return {
