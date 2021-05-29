@@ -103,7 +103,6 @@ function reducer(state: State, action: ActionType) {
       const validationFailedAction = action as ValidationFailedAction;
       return {
         ...state,
-        validated: true,
         error: validationFailedAction.error,
       };
     default:
