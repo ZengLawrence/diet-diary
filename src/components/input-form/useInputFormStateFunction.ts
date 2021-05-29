@@ -6,25 +6,45 @@ interface Action {
   type: string;
 }
 
-interface SetServingAction extends Action {
-  type: "set-serving";
-  foodGroup: FoodGroup;
-  serving: number;
+function setServingAction(foodGroup: FoodGroup, serving: number) {
+  return {
+    type: "set-serving",
+    foodGroup,
+    serving,
+  }
 }
 
-interface UnsetServingAction extends Action {
-  type: "unset-serving";
-  foodGroup: FoodGroup;
+type SetServingAction = ReturnType<typeof setServingAction>;
+
+function unsetServingAction(foodGroup: FoodGroup) {
+  return {
+    type: "unset-serving",
+    foodGroup,
+  }
 }
 
-interface SetNameAction extends Action {
-  type: "set-name";
-  name: string;
+type UnsetServingAction = ReturnType<typeof unsetServingAction>;
+
+function setNameAction(name: string) {
+  return {
+    type: "set-name",
+    name,
+  }
 }
 
-interface ValidationFailedAction extends Action {
-  type: "validation-failed";
-  error: ValidationError;
+type SetNameAction = ReturnType<typeof setNameAction>;
+
+function validationFailedAction(error: ValidationError) {
+  return {
+    type: "validation-failed",
+  error
+  }
+}
+
+type ValidationFailedAction = ReturnType<typeof validationFailedAction>;
+
+function resetAction() {
+  return {type: "reset"}
 }
 
 function setServing(food: Food, action: SetServingAction) {
@@ -84,7 +104,8 @@ function reducer(state: State, action: ActionType) {
     case 'unset-serving':
       return {
         ...state,
-        food: unsetServing(state.food, action as UnsetServingAction)
+        food: unsetServing(state.food, action as UnsetServingAction),
+        error: validateFood(unsetServing(state.food, action as UnsetServingAction)),
       };
     case 'reset':
       return initialState(newFood());
@@ -130,42 +151,21 @@ function checkValidity(error: ValidationError) {
 export function useInputFormStateFunction(initialFood: Food, onAddFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialState(initialFood));
   const { food, error } = state;
-  const handleNameChange = (name: string) => {
-    dispatch({
-      type: "set-name",
-      name
-    });
-  };
+  const handleNameChange = (name: string) => dispatch(setNameAction(name));
 
-  const handleServingChange = (foodGroup: FoodGroup, serving: number) => {
-    if (serving === 0) {
-      dispatch({
-        type: "unset-serving",
-        foodGroup,
-      });
-    } else {
-      dispatch({
-        type: "set-serving",
-        foodGroup,
-        serving
-      });
-    }
-  };
+  const handleServingChange = (foodGroup: FoodGroup, serving: number) => 
+    serving ? dispatch(setServingAction(foodGroup,serving)) : dispatch(unsetServingAction(foodGroup));
+
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const error = validateFood(food);
     if (checkValidity(error) === false) {
       event.preventDefault();
       event.stopPropagation();
-      dispatch({
-        type: "validation-failed",
-        error
-      });
+      dispatch(validationFailedAction(error));
     } else {
       onAddFood(food);
-      dispatch({
-        type: "reset"
-      });
+      dispatch(resetAction());
       event.preventDefault();
     }
   };
