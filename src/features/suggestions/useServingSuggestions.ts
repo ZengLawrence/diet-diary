@@ -1,3 +1,4 @@
+import Fuse from "fuse.js";
 import _ from "lodash";
 import { useState } from "react";
 
@@ -17,9 +18,29 @@ const SERVING_SUGGESTIONS: ServingSuggestion[] = [
   },
 ]
 
-const matchFoodName = (word: string) => _.filter(SERVING_SUGGESTIONS, { "foodName": word });
+const options = {
+  // isCaseSensitive: false,
+  // includeScore: false,
+  shouldSort: true,
+  // includeMatches: false,
+  // findAllMatches: false,
+  minMatchCharLength: 3,
+  // location: 0,
+  // threshold: 0.6,
+  // distance: 100,
+  // useExtendedSearch: false,
+  // ignoreLocation: false,
+  // ignoreFieldNorm: false,
+  keys: [
+    "foodName",
+  ]
+};
 
-const findFoodServingSuggestions = (foodName: string) => _.flatMap(_.words(foodName), matchFoodName);
+const fuse = new Fuse(SERVING_SUGGESTIONS, options);
+
+const matchFoodName = (word: string) => _.map(_.slice(fuse.search(word), 0, 2), "item");
+
+const findFoodServingSuggestions = (foodName: string) => _.uniq(_.flatMap(_.words(foodName), matchFoodName));
 
 export const useServingSuggestions = () => {
   const [suggestions, setSuggestions] = useState([] as ServingSuggestion[]);
