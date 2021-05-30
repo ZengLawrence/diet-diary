@@ -5,7 +5,7 @@ import { ServingSuggestion, useServingSuggestions } from "../../features/suggest
 import { calcFoodCalories, displayCalorieValue } from "../../model/calorieFunction";
 import { Food } from "../../model/Food";
 import { ServingInputControl } from "./ServingInputControl";
-import { useInputFormStateFunction } from "./useInputFormStateFunction";
+import { useFoodInputFormStateReducer } from "./useFoodInputFormStateReducer";
 
 const ServingHintsText = (props: { suggestions: ServingSuggestion[] }) => (
   <Fragment>
@@ -25,12 +25,12 @@ interface Props {
 }
 
 export const FoodInputForm = (props: Props) => {
-  const { food, error, handleNameChange, handleServingChange, handleSubmit } = useInputFormStateFunction(props.food, props.onAddFood);
+  const { food, error, updateFoodName, updateServing, handleSubmit } = useFoodInputFormStateReducer(props.food, props.onAddFood);
   const { suggestions, generateSuggestions } = useServingSuggestions();
 
   const handleFoodNameChangeEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
     const foodName = event.target.value;
-    handleNameChange(foodName);
+    updateFoodName(foodName);
 
     const debouncedGenerateSuggestions = _.debounce(() => generateSuggestions(foodName), 500);
     debouncedGenerateSuggestions();
@@ -66,12 +66,12 @@ export const FoodInputForm = (props: Props) => {
       <Form.Group>
         <Form.Label>Servings (Calories: {displayCalorieValue(calcFoodCalories(food))})</Form.Label>
         <Form.Group as={Form.Row} controlId="formServings" className="d-flex justify-content-between">
-          <ServingInputControl foodGroup="vegetable" serving={food.serving} isInvalid={error.vegetable} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="fruit" serving={food.serving} isInvalid={error.fruit} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="carbohydrate" serving={food.serving} isInvalid={error.carbohydrate} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="proteinDiary" serving={food.serving} isInvalid={error.proteinDiary} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="fat" serving={food.serving} isInvalid={error.fat} onChange={handleServingChange} />
-          <ServingInputControl foodGroup="sweet" serving={food.serving} isInvalid={error.sweet} onChange={handleServingChange} />
+          <ServingInputControl foodGroup="vegetable" serving={food.serving} isInvalid={error.vegetable} onChange={updateServing} />
+          <ServingInputControl foodGroup="fruit" serving={food.serving} isInvalid={error.fruit} onChange={updateServing} />
+          <ServingInputControl foodGroup="carbohydrate" serving={food.serving} isInvalid={error.carbohydrate} onChange={updateServing} />
+          <ServingInputControl foodGroup="proteinDiary" serving={food.serving} isInvalid={error.proteinDiary} onChange={updateServing} />
+          <ServingInputControl foodGroup="fat" serving={food.serving} isInvalid={error.fat} onChange={updateServing} />
+          <ServingInputControl foodGroup="sweet" serving={food.serving} isInvalid={error.sweet} onChange={updateServing} />
         </Form.Group>
       </Form.Group>
 

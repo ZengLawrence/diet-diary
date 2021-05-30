@@ -137,12 +137,12 @@ function checkValidity(error: ValidationError) {
   return !failed;
 }
 
-export function useInputFormStateFunction(initialFood: Food, onAddFood: (food: Food) => void) {
+export function useFoodInputFormStateReducer(initialFood: Food, onAddFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialState(initialFood));
   const { food, error } = state;
-  const handleNameChange = (name: string) => dispatch(setNameAction(name));
+  const updateFoodName = (name: string) => dispatch(setNameAction(name));
 
-  const handleServingChange = (foodGroup: FoodGroup, serving: number) =>
+  const updateServing = (foodGroup: FoodGroup, serving: number) =>
     serving ? dispatch(setServingAction(foodGroup, serving)) : dispatch(unsetServingAction(foodGroup));
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -158,5 +158,5 @@ export function useInputFormStateFunction(initialFood: Food, onAddFood: (food: F
     }
   };
 
-  return { food, error, handleNameChange, handleServingChange, handleSubmit };
+  return { food, error, updateFoodName, updateServing, handleSubmit };
 }
