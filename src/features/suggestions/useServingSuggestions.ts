@@ -18,7 +18,7 @@ const options = {
   // findAllMatches: false,
   minMatchCharLength: 3,
   // location: 0,
-  // threshold: 0.6,
+  threshold: 0.1,
   // distance: 100,
   // useExtendedSearch: false,
   // ignoreLocation: false,
@@ -30,14 +30,18 @@ const options = {
 
 const fuse = new Fuse(servings, options);
 
-const matchFoodName = (word: string) => _.map(_.slice(fuse.search(word), 0, 2), "item");
+const foodName = (phrase: string) => _.map(_.split(phrase, /\d/, 1), _.trim);
 
-const findFoodServingSuggestions = (foodName: string) => _.uniq(_.flatMap(_.words(foodName), matchFoodName));
+const foodNames = (foodDescription: string) => _.flatMap(_.split(foodDescription, ","), foodName);
+
+const matchFoodName = (name: string) => _.map(_.slice(fuse.search(name), 0, 2), "item");
+
+const findFoodServingSuggestions = (foodDescription: string) => _.uniq(_.flatMap(foodNames(foodDescription), matchFoodName));
 
 export const useServingSuggestions = () => {
   const [suggestions, setSuggestions] = useState([] as ServingSuggestion[]);
-  const generateSuggestions = (foodName: string) => {
-    setSuggestions(findFoodServingSuggestions(foodName));
+  const generateSuggestions = (foodDescription: string) => {
+    setSuggestions(findFoodServingSuggestions(foodDescription));
   }
 
   return {
