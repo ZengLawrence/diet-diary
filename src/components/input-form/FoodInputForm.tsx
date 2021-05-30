@@ -4,18 +4,22 @@ import { Button, Form } from "react-bootstrap";
 import { ServingSuggestion, useServingSuggestions } from "../../features/suggestions/useServingSuggestions";
 import { calcFoodCalories, displayCalorieValue } from "../../model/calorieFunction";
 import { Food } from "../../model/Food";
+import { FoodGroupLabelBadge } from "../badge";
 import { ServingInputControl } from "./ServingInputControl";
 import { useFoodInputFormStateReducer } from "./useFoodInputFormStateReducer";
 
-const ServingHintsText = (props: { suggestions: ServingSuggestion[] }) => (
-  <Fragment>
-    {props.suggestions.map(({ foodName, servingSize }, index) => (
-      <div key={index}>
-        {index > 0 && ', '}<span className="mr-1 font-weight-bolder">{foodName}</span><span>{servingSize}</span>
-      </div>
-    ))}
-  </Fragment>
-)
+const ServingHintsText = (props: { suggestions: ServingSuggestion[] }) => {
+  const appendComma = (i : number) => i < (_.size(props.suggestions) - 1);
+  return (
+    <Fragment>
+      {props.suggestions.map(({ foodName, foodGroup, servingSize }, index) => (
+        <div key={index}>
+          <span className="font-weight-bolder">{foodName}</span><FoodGroupLabelBadge foodGroup={foodGroup} /><span>{servingSize}{appendComma(index) && ","}&nbsp;</span>
+        </div>
+      ))}
+    </Fragment>
+  )
+}
 
 interface Props {
   food: Food;
@@ -57,9 +61,11 @@ export const FoodInputForm = (props: Props) => {
         <Form.Control.Feedback type="invalid">
           Please enter food name.
         </Form.Control.Feedback>
-        <Form.Text className="d-flex">
+        <Form.Text className="d-flex flex-column">
           {_.size(suggestions) > 0 && <div>One Serving is&nbsp;</div>}
-          <ServingHintsText suggestions={suggestions} />
+          <div className="d-flex flex-column flex-sm-row flex-wrap w-100">
+            <ServingHintsText suggestions={suggestions} />
+          </div>
         </Form.Text>
       </Form.Group>
 
