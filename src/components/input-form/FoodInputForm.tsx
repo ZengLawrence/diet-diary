@@ -26,12 +26,12 @@ interface Props {
 
 export const FoodInputForm = (props: Props) => {
   const { food, error, handleNameChange, handleServingChange, handleSubmit } = useInputFormStateFunction(props.food, props.onAddFood);
-  const { suggestions, foodNameChanged } = useServingSuggestions();
+  const { suggestions, generateSuggestions } = useServingSuggestions();
 
   const handleFoodNameChangeEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
     const foodName = event.target.value;
     handleNameChange(foodName);
-    foodNameChanged(foodName);
+    generateSuggestions(foodName);
   }
 
   return (

@@ -23,12 +23,12 @@ const findFoodServingSuggestions = (foodName: string) => _.flatMap(_.words(foodN
 
 export const useServingSuggestions = () => {
   const [suggestions, setSuggestions] = useState([] as ServingSuggestion[]);
-  const foodNameChanged = (foodName: string) => {
+  const generateSuggestions = (foodName: string) => {
     setSuggestions(findFoodServingSuggestions(foodName));
   }
 
   return {
     suggestions,
-    foodNameChanged
+    generateSuggestions
   };
 }
