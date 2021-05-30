@@ -1,22 +1,12 @@
 import Fuse from "fuse.js";
 import _ from "lodash";
 import { useState } from "react";
+import servings from "./servings";
 
 export interface ServingSuggestion {
   foodName: string;
   servingSize: string;
 }
-
-const SERVING_SUGGESTIONS: ServingSuggestion[] = [
-  {
-    foodName: "Cucumber",
-    servingSize: "1 cup sliced / 1 medium"
-  },
-  {
-    foodName: "Lettuce",
-    servingSize: "2 cups chopped"
-  },
-]
 
 const options = {
   // isCaseSensitive: false,
@@ -36,7 +26,7 @@ const options = {
   ]
 };
 
-const fuse = new Fuse(SERVING_SUGGESTIONS, options);
+const fuse = new Fuse(servings, options);
 
 const matchFoodName = (word: string) => _.map(_.slice(fuse.search(word), 0, 2), "item");
 

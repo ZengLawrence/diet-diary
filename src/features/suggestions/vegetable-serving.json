@@ -1,0 +1,12 @@
+{
+  "servings": [
+    {
+      "foodName": "Cucumber",
+      "servingSize": "1 cup sliced or 1 medium"
+    },
+    {
+      "foodName": "Lettuce",
+      "servingSize": "2 cups chopped"
+    }
+  ]
+}
