@@ -1,11 +1,13 @@
 import Fuse from "fuse.js";
 import _ from "lodash";
 import { useState } from "react";
+import { FoodGroup } from "../../model/Food";
 import servings from "./servings";
 
 export interface ServingSuggestion {
   foodName: string;
   servingSize: string;
+  foodGroup: FoodGroup;
 }
 
 const options = {

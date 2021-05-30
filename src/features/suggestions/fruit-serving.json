@@ -1,0 +1,16 @@
+{
+  "servings": [
+    {
+      "foodName": "Apple",
+      "servingSize": "1 small"
+    },
+    {
+      "foodName": "Banana",
+      "servingSize": "1 small"
+    },
+    {
+      "foodName": "Cantaloupe",
+      "servingSize": "1 cup cubed or 1/2 small melon"
+    }
+  ]
+}
