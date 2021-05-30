@@ -9,8 +9,16 @@
       "servingSize": "1 small"
     },
     {
-      "foodName": "Cantaloupe",
+      "foodName": "Cantaloupe (muskmelon)",
       "servingSize": "1 cup cubed or 1/2 small melon"
+    },
+    {
+      "foodName": "Orange",
+      "servingSize": "3/4 cup sections or 1 medium"
+    },
+    {
+      "foodName": "Watermelon",
+      "servingSize": "1 1/4 cup cubed or small wedge"
     }
   ]
 }
