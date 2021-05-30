@@ -31,7 +31,9 @@ export const FoodInputForm = (props: Props) => {
   const handleFoodNameChangeEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
     const foodName = event.target.value;
     handleNameChange(foodName);
-    generateSuggestions(foodName);
+
+    const debouncedGenerateSuggestions = _.debounce(() => generateSuggestions(foodName), 500);
+    debouncedGenerateSuggestions();
   }
 
   return (
