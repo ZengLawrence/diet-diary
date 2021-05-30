@@ -1,0 +1,20 @@
+{
+  "servings": [
+    {
+      "foodName": "Hard candy",
+      "servingSize": "4 pieces"
+    },
+    {
+      "foodName": "Honey",
+      "servingSize": "1 tablespoon"
+    },
+    {
+      "foodName": "Sugar, granulated, white",
+      "servingSize": "4 teaspoons"
+    },
+    {
+      "foodName": "Syrup, maple",
+      "servingSize": "1 1/2 tablespoons"
+    }
+  ]
+}

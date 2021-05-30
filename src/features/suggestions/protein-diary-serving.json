@@ -1,0 +1,28 @@
+{
+  "servings": [
+    {
+      "foodName": "Beans, black",
+      "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Beef, tenderloin, trimmed of fat",
+      "servingSize": "2 ounce"
+    },
+    {
+      "foodName": "Burger, vegetarian",
+      "servingSize": "3-ounce patty"
+    },
+    {
+      "foodName": "Cheese, Muenster, low-fat",
+      "servingSize": "1 1/2 ounces"
+    },
+    {
+      "foodName": "Chicken breast, boneless, skinless",
+      "servingSize": "2 1/2 ounces"
+    },
+    {
+      "foodName": "Soy milk, low-fat",
+      "servingSize": "8 ounces or 1 cup"
+    }
+  ]
+}

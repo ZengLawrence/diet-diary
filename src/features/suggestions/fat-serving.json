@@ -1,0 +1,24 @@
+{
+  "servings": [
+    {
+      "foodName": "Avocado",
+      "servingSize": "1/6 section of fruit"
+    },
+    {
+      "foodName": "Cream cheese, fat-free",
+      "servingSize": "3 tablespoons"
+    },
+    {
+      "foodName": "Nuts, peanuts",
+      "servingSize": "8 wholes"
+    },
+    {
+      "foodName": "Peanut butter, chunky or smooth",
+      "servingSize": "1 1/2 teaspoons"
+    },
+    {
+      "foodName": "Seeds, pumpkin",
+      "servingSize": "1 tablespoon"
+    }
+  ]
+}
