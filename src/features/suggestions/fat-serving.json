@@ -13,11 +13,23 @@
       "servingSize": "8 wholes"
     },
     {
+      "foodName": "Nuts, pecans",
+      "servingSize": "4 halves"
+    },
+    {
+      "foodName": "Nuts, walnuts",
+      "servingSize": "4 halves"
+    },
+    {
       "foodName": "Peanut butter, chunky or smooth",
       "servingSize": "1 1/2 teaspoons"
     },
     {
       "foodName": "Seeds, pumpkin",
+      "servingSize": "1 tablespoon"
+    },
+    {
+      "foodName": "Seeds, sunflower",
       "servingSize": "1 tablespoon"
     }
   ]

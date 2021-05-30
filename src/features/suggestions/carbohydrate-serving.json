@@ -1,12 +1,52 @@
 {
   "servings": [
     {
+      "foodName": "Animal crackers",
+      "servingSize": "6 crackers"
+    },
+    {
+      "foodName": "Biscuits, plain or buttermilk",
+      "servingSize": "1 small"
+    },
+    {
       "foodName": "Bagel, whole-grain",
       "servingSize": "1/2 bagel (3-inch)"
     },
     {
       "foodName": "Bread, whole-grain",
       "servingSize": "1 slice"
+    },
+    {
+      "foodName": "Breadsticks, crispy",
+      "servingSize": "2 sticks (6 to 8 inches)"
+    },
+    {
+      "foodName": "Bun or roll, whole-grain",
+      "servingSize": "1 small"
+    },
+    {
+      "foodName": "Cereal, bran-type",
+      "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Cereal, flake-type",
+      "servingSize": "3/4 cup"
+    },
+    {
+      "foodName": "Cereal, granola, low-fat",
+      "servingSize": "1/4 cup"
+    },
+    {
+      "foodName": "Cereal, hot (with water), unsweetened",
+      "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Corn, canned or frozen",
+      "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Corn, refresh",
+      "servingSize": "1/2 cup"
     },
     {
       "foodName": "Corn on the cob",

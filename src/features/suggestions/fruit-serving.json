@@ -5,16 +5,124 @@
       "servingSize": "1 small"
     },
     {
+      "foodName": "Apple, dried",
+      "servingSize": "1/3 cup"
+    },
+    {
+      "foodName": "Apricot",
+      "servingSize": "4 whole or 8 dried halves"
+    },
+    {
       "foodName": "Banana",
       "servingSize": "1 small"
+    },
+    {
+      "foodName": "Berries, mixed",
+      "servingSize": "3/4 cup"
+    },
+    {
+      "foodName": "Blueberries",
+      "servingSize": "3/4 cup"
     },
     {
       "foodName": "Cantaloupe (muskmelon)",
       "servingSize": "1 cup cubed or 1/2 small melon"
     },
     {
+      "foodName": "Cherries",
+      "servingSize": "15 fruits"
+    },
+    {
+      "foodName": "Clementine",
+      "servingSize": "2 small"
+    },
+    {
+      "foodName": "Dates",
+      "servingSize": "3 fruits"
+    },
+    {
+      "foodName": "Grapes, seedless, red or green",
+      "servingSize": "1 cup (about 30)"
+    },
+    {
+      "foodName": "Guava",
+      "servingSize": "2 fruits or 1/2 cup"
+    },
+    {
+      "foodName": "Honeydew melon",
+      "servingSize": "1 cup cubed"
+    },
+    {
+      "foodName": "Kiwi",
+      "servingSize": "1 large"
+    },
+    {
+      "foodName": "Lemon",
+      "servingSize": "3 medium"
+    },
+    {
+      "foodName": "Litchi (lychee)",
+      "servingSize": "10 fruits or 1/2 cup"
+    },
+    {
+      "foodName": "Mango",
+      "servingSize": "1/2 cup diced"
+    },
+    {
+      "foodName": "Mixed fruit, dried",
+      "servingSize": "3 tablespoons"
+    },
+    {
+      "foodName": "Nectarine",
+      "servingSize": "1 fruit"
+    },
+    {
       "foodName": "Orange",
       "servingSize": "3/4 cup sections or 1 medium"
+    },
+    {
+      "foodName": "Papaya",
+      "servingSize": "1 cup cubes or 1/2 medium"
+    },
+    {
+      "foodName": "Peach",
+      "servingSize": "3/4 cup sections or 1 medium"
+    },
+    {
+      "foodName": "Pear",
+      "servingSize": "1 small"
+    },
+    {
+      "foodName": "Pineapple",
+      "servingSize": "1/2 cup cubed or 2 rings"
+    },
+    {
+      "foodName": "Plums",
+      "servingSize": "2 fruits"
+    },
+    {
+      "foodName": "Pomegranate",
+      "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Prunes",
+      "servingSize": "3 fruits"
+    },
+    {
+      "foodName": "Raisins",
+      "servingSize": "2 tablespoons"
+    },
+    {
+      "foodName": "Star fruit",
+      "servingSize": "2 medium to large"
+    },
+    {
+      "foodName": "Strawberries",
+      "servingSize": "1 1/2 cups whole"
+    },
+    {
+      "foodName": "Tangerine",
+      "servingSize": "1 large or 2 small"
     },
     {
       "foodName": "Watermelon",
