@@ -1,8 +1,21 @@
+import _ from "lodash";
+import { Fragment } from "react";
 import { Button, Form } from "react-bootstrap";
+import { ServingSuggestion, useServingSuggestions } from "../../features/suggestions/useServingSuggestions";
 import { calcFoodCalories, displayCalorieValue } from "../../model/calorieFunction";
 import { Food } from "../../model/Food";
 import { ServingInputControl } from "./ServingInputControl";
 import { useInputFormStateFunction } from "./useInputFormStateFunction";
+
+const ServingHintsText = (props: { suggestions: ServingSuggestion[] }) => (
+  <Fragment>
+    {props.suggestions.map(({ foodName, servingSize }, index) => (
+      <div key={index}>
+        {index > 0 && ', '}<span className="mr-1 font-weight-bolder">{foodName}</span><span>{servingSize}</span>
+      </div>
+    ))}
+  </Fragment>
+)
 
 interface Props {
   food: Food;
@@ -13,6 +26,12 @@ interface Props {
 
 export const FoodInputForm = (props: Props) => {
   const { food, error, handleNameChange, handleServingChange, handleSubmit } = useInputFormStateFunction(props.food, props.onAddFood);
+  const { suggestions, foodNameChanged } = useServingSuggestions();
+
+  const handleFoodNameChanged = (foodName: string) => {
+    handleNameChange(foodName);
+    foodNameChanged(foodName);
+  }
 
   return (
     <Form
@@ -30,11 +49,15 @@ export const FoodInputForm = (props: Props) => {
           required
           placeholder="Broccoli, apple, bread, turkey, olive oil, cake..."
           isInvalid={error.foodName}
-          onChange={e => handleNameChange(e.target.value)}
+          onChange={e => handleFoodNameChanged(e.target.value)}
         />
         <Form.Control.Feedback type="invalid">
           Please enter food name.
         </Form.Control.Feedback>
+        <Form.Text className="d-flex">
+          { _.size(suggestions) > 0 && <div>One Serving is&nbsp;</div>}
+          <ServingHintsText suggestions={suggestions} />
+        </Form.Text>
       </Form.Group>
 
       <Form.Group>
