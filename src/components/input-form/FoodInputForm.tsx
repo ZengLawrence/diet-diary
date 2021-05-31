@@ -1,5 +1,5 @@
 import _ from "lodash";
-import React, { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { ServingSuggestion, useServingSuggestions } from "../../features/suggestions/useServingSuggestions";
 import { calcFoodCalories, displayCalorieValue } from "../../model/calorieFunction";
@@ -32,13 +32,10 @@ export const FoodInputForm = (props: Props) => {
   const { food, error, updateFoodName, updateServing, handleSubmit } = useFoodInputFormStateReducer(props.food, props.onAddFood);
   const { suggestions, generateSuggestions } = useServingSuggestions();
 
-  const handleFoodNameChangeEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const foodName = event.target.value;
-    updateFoodName(foodName);
-
-    const debouncedGenerateSuggestions = _.debounce(() => generateSuggestions(foodName), 500);
+  useEffect(() => {
+    const debouncedGenerateSuggestions = _.debounce(() => generateSuggestions(food.name), 500);
     debouncedGenerateSuggestions();
-  }
+  }, [food, generateSuggestions]);
 
   return (
     <Form
@@ -56,7 +53,7 @@ export const FoodInputForm = (props: Props) => {
           required
           placeholder="Broccoli, apple, bread, turkey, olive oil, cake..."
           isInvalid={error.foodName}
-          onChange={handleFoodNameChangeEvent}
+          onChange={e => updateFoodName(e.target.value)}
         />
         <Form.Control.Feedback type="invalid">
           Please enter food name.
