@@ -18,7 +18,7 @@ const options = {
   // findAllMatches: false,
   minMatchCharLength: 3,
   // location: 0,
-  threshold: 0.1,
+  threshold: 0.2,
   // distance: 100,
   // useExtendedSearch: false,
   // ignoreLocation: false,
