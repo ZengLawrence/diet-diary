@@ -38,9 +38,11 @@ const foodServings = (name: string) => _.map(fuse.search(name), "item");
 
 function findFoodServingSuggestions(foodDescription: string) {
   const _ingredients = ingredients(foodDescription);
-  const maxItems = (items: any[]) => _.slice(items, 0, _.size(_ingredients) > 1 ? 2 : 5);
-  const result = _.map(_.map(_ingredients, foodServings), maxItems);
-  return _.uniq(_.flatMap(result));
+  const lastIngredient = (index: number) => (index === _.size(_ingredients) - 1);
+  const maxItems = (items: any[], index: number) => _.slice(items, 0, lastIngredient(index) ? 5 : 2);
+
+  const results = _.map(_ingredients, foodServings);
+  return _.uniq(_.flatMap(_.map(results, maxItems)));
 }
 
 export const useServingSuggestions = () => {
