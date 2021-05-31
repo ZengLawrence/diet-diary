@@ -1,6 +1,26 @@
 {
   "servings": [
     {
+      "foodName": "Chocolate chips, semisweet",
+      "servingSize": "4 tablespoons"
+    },
+    {
+      "foodName": "Cranberry sauce, canned, sweetened",
+      "servingSize": "3 tablespoons"
+    },
+    {
+      "foodName": "Frosting, chocolate, ready-to-eat",
+      "servingSize": "1 tablespoon"
+    },
+    {
+      "foodName": "Fruit butter, apple",
+      "servingSize": "2 1/2 tablespoons"
+    },
+    {
+      "foodName": "Gelatin dessert",
+      "servingSize": "1/2 cup"
+    },
+    {
       "foodName": "Hard candy",
       "servingSize": "4 pieces"
     },
@@ -9,11 +29,51 @@
       "servingSize": "1 tablespoon"
     },
     {
+      "foodName": "Jellies, jams and perserves",
+      "servingSize": "1 1/2 tablespoons"
+    },
+    {
+      "foodName": "Jellies, jams and perserves, reduced-sugar",
+      "servingSize": "4 tablespoons"
+    },
+    {
+      "foodName": "Jelly beans",
+      "servingSize": "20 small or 8 large"
+    },
+    {
+      "foodName": "Molasses",
+      "servingSize": "1 1/2 tablespoons"
+    },
+    {
+      "foodName": "Brown sugar",
+      "servingSize": "2 teaspoons"
+    },
+    {
       "foodName": "Sugar, granulated, white",
       "servingSize": "4 teaspoons"
     },
     {
-      "foodName": "Syrup, maple",
+      "foodName": "Powdered sugar",
+      "servingSize": "2 teaspoons"
+    },
+    {
+      "foodName": "Syrup, light corn",
+      "servingSize": "1 tablespoon"
+    },
+    {
+      "foodName": "Maple syrup",
+      "servingSize": "1 1/2 tablespoons"
+    },
+    {
+      "foodName": "Topping, butterscotch or caramel",
+      "servingSize": "1 1/2 tablespoons"
+    },
+    {
+      "foodName": "Topping, chocolate syrup",
+      "servingSize": "1 1/2 tablespoons"
+    },
+    {
+      "foodName": "Topping, strawberry",
       "servingSize": "1 1/2 tablespoons"
     }
   ]

@@ -5,8 +5,112 @@
       "servingSize": "1/6 section of fruit"
     },
     {
+      "foodName": "Bacon, pork",
+      "servingSize": "1 slice"
+    },
+    {
+      "foodName": "Bacon, turkey",
+      "servingSize": "1 slice"
+    },
+    {
+      "foodName": "Butter, regular",
+      "servingSize": "1 teaspoon"
+    },
+    {
+      "foodName": "Butter, whipped",
+      "servingSize": "1 1/2 teaspoon"
+    },
+    {
+      "foodName": "Shredded Coconut, sweetened",
+      "servingSize": "1 1/2 teaspoon"
+    },
+    {
+      "foodName": "Heavy cream, liquid",
+      "servingSize": "1 tablespoon"
+    },
+    {
+      "foodName": "Heavy cream, whipped",
+      "servingSize": "4 tablespoon"
+    },
+    {
       "foodName": "Cream cheese, fat-free",
       "servingSize": "3 tablespoons"
+    },
+    {
+      "foodName": "Cream cheese, regular",
+      "servingSize": "1 tablespoon"
+    },
+    {
+      "foodName": "Creamer, nondairy, flavored",
+      "servingSize": "1 tablespoon"
+    },
+    {
+      "foodName": "Creamer, nondairy, reduced-fat, flavored",
+      "servingSize": "1 1/2 tablespoons"
+    },
+    {
+      "foodName": "Creamer, nondairy, plain",
+      "servingSize": "2 tablespoons"
+    },
+    {
+      "foodName": "Creamer, nondairy, plain, light",
+      "servingSize": "2 1/2 tablespoons"
+    },
+    {
+      "foodName": "Gravy, canned (average of all varieties)",
+      "servingSize": "1/3 cup"
+    },
+    {
+      "foodName": "Guacomole",
+      "servingSize": "2 tablespoons"
+    },
+    {
+      "foodName": "Half-and-half",
+      "servingSize": "2 tablespoons"
+    },
+    {
+      "foodName": "Honey mustard dressing",
+      "servingSize": "1 1/2 tablespoons"
+    },
+    {
+      "foodName": "Margarine, regular or butter-blend",
+      "servingSize": "1 teaspoon"
+    },
+    {
+      "foodName": "Margarine, tub, reduced-fat",
+      "servingSize": "1 tablespoon"
+    },
+    {
+      "foodName": "Margarine, tub, regular",
+      "servingSize": "2 teaspoons"
+    },
+    {
+      "foodName": "Mayonnaise, fat-free",
+      "servingSize": "4 tablespoons"
+    },
+    {
+      "foodName": "Mayonnaise, low-calorie",
+      "servingSize": "1 tablespoon"
+    },
+    {
+      "foodName": "Mayonnaise, regular",
+      "servingSize": "2 teaspoons"
+    },
+    {
+      "foodName": "Nuts, almonds",
+      "servingSize": "4 teaspoons slivered or 7 wholes"
+    },
+    {
+      "foodName": "Brazil nuts",
+      "servingSize": "1 whole"
+    },
+    {
+      "foodName": "Nuts, cashew",
+      "servingSize": "4 wholes"
+    },
+    {
+      "foodName": "Nuts, hickory",
+      "servingSize": "2 wholes"
     },
     {
       "foodName": "Nuts, peanuts",
@@ -21,16 +125,100 @@
       "servingSize": "4 halves"
     },
     {
+      "foodName": "Canola oil",
+      "servingSize": "1 teaspoon"
+    },
+    {
+      "foodName": "Corn oil",
+      "servingSize": "1 teaspoon"
+    },
+    {
+      "foodName": "Olive oil",
+      "servingSize": "1 teaspoon"
+    },
+    {
+      "foodName": "Peanut oil",
+      "servingSize": "1 teaspoon"
+    },
+    {
+      "foodName": "Safflower oil",
+      "servingSize": "1 teaspoon"
+    },
+    {
+      "foodName": "Olives, black or green",
+      "servingSize": "9 large or 12 small"
+    },
+    {
       "foodName": "Peanut butter, chunky or smooth",
       "servingSize": "1 1/2 teaspoons"
     },
     {
-      "foodName": "Seeds, pumpkin",
+      "foodName": "French salad dressing, fat-free",
+      "servingSize": "2 tablespoons"
+    },
+    {
+      "foodName": "French salad dressing, regular",
+      "servingSize": "2 teaspoons"
+    },
+    {
+      "foodName": "Italian salad dressing, fat-free",
+      "servingSize": "4 tablespoons"
+    },
+    {
+      "foodName": "Italian salad dressing, regular",
+      "servingSize": "1 teaspoons"
+    },
+    {
+      "foodName": "Ranch salad dressing, fat-free",
+      "servingSize": "3 tablespoons"
+    },
+    {
+      "foodName": "Ranch salad dressing, regular",
+      "servingSize": "2 teaspoons"
+    },
+    {
+      "foodName": "Salad dressing, fat-free, mayonnaise-type",
+      "servingSize": "3 tablespoons"
+    },
+    {
+      "foodName": "Salad dressing, regular, mayonnaise-type",
+      "servingSize": "2 teaspoons"
+    },
+    {
+      "foodName": "Flaxseed seeds, ground",
       "servingSize": "1 tablespoon"
     },
     {
-      "foodName": "Seeds, sunflower",
+      "foodName": "Pumpkin seeds",
       "servingSize": "1 tablespoon"
+    },
+    {
+      "foodName": "Seasame seeds",
+      "servingSize": "1 tablespoon"
+    },
+    {
+      "foodName": "Sunflower Seeds",
+      "servingSize": "1 tablespoon"
+    },
+    {
+      "foodName": "Vegetable shortening",
+      "servingSize": "1 tablespoon"
+    },
+    {
+      "foodName": "Sour cream, fat-free",
+      "servingSize": "4 tablespoons"
+    },
+    {
+      "foodName": "Sour cream, regular",
+      "servingSize": "2 tablespoons"
+    },
+    {
+      "foodName": "Tartar sauce",
+      "servingSize": "1 tablespoon"
+    },
+    {
+      "foodName": "Tartar sauce, fat-free",
+      "servingSize": "2 tablespoons"
     }
   ]
 }

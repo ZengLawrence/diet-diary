@@ -1,28 +1,208 @@
 {
   "servings": [
     {
-      "foodName": "Beans, black",
+      "foodName": "Canadian Bacon",
+      "servingSize": "2 1/2 ounces"
+    },
+    {
+      "foodName": "Black Beans",
       "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Chickpeas (garbanzos)",
+      "servingSize": "1/3 cup"
+    },
+    {
+      "foodName": "Edamame",
+      "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Kidney beans",
+      "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Beef, ground",
+      "servingSize": "2-ounce patty"
+    },
+    {
+      "foodName": "Beef, steak",
+      "servingSize": "2 ounce"
     },
     {
       "foodName": "Beef, tenderloin, trimmed of fat",
       "servingSize": "2 ounce"
     },
     {
+      "foodName": "Beef jerky",
+      "servingSize": "1 ounce"
+    },
+    {
       "foodName": "Burger, vegetarian",
       "servingSize": "3-ounce patty"
     },
     {
-      "foodName": "Cheese, Muenster, low-fat",
+      "foodName": "American cheese, fat-free",
+      "servingSize": "3 ounces"
+    },
+    {
+      "foodName": "Cheddar cheese, low-fat",
+      "servingSize": "2 ounces or 1/2 cup shredded"
+    },
+    {
+      "foodName": "Cottage cheese, low-fat",
+      "servingSize": "2/3 cup"
+    },
+    {
+      "foodName": "Feta cheese",
+      "servingSize": "1 1/2 ounce or 1/4 cup"
+    },
+    {
+      "foodName": "Gouda cheese",
+      "servingSize": "1 ounce"
+    },
+    {
+      "foodName": "Mozzarella cheese, part-skim",
+      "servingSize": "1 1/2 ounce or 1/2 cup shredded"
+    },
+    {
+      "foodName": "Muenster cheese, low-fat",
       "servingSize": "1 1/2 ounces"
+    },
+    {
+      "foodName": "Parmesan cheese",
+      "servingSize": "1/4 cup grated"
+    },
+    {
+      "foodName": "Swiss cheese, low-fat",
+      "servingSize": "2 ounces"
     },
     {
       "foodName": "Chicken breast, boneless, skinless",
       "servingSize": "2 1/2 ounces"
     },
     {
+      "foodName": "Clams, refresh or canned",
+      "servingSize": "3 ounces (about 10 small)"
+    },
+    {
+      "foodName": "Crab, refresh, imitation or canned",
+      "servingSize": "4 ounces"
+    },
+    {
+      "foodName": "Duck, breast, skinless, trimmed of fat",
+      "servingSize": "4 ounces"
+    },
+    {
+      "foodName": "Egg, whole",
+      "servingSize": "1 large"
+    },
+    {
+      "foodName": "Egg white",
+      "servingSize": "1 cup (about 6)"
+    },
+    {
+      "foodName": "Salmon, grilled or boiled",
+      "servingSize": "2 ounces"
+    },
+    {
+      "foodName": "Cod, grilled or boiled",
+      "servingSize": "3 ounces"
+    },
+    {
+      "foodName": "Halibut, grilled or boiled",
+      "servingSize": "3 ounces"
+    },
+    {
+      "foodName": "Ham",
+      "servingSize": "3 ounces"
+    },
+    {
+      "foodName": "Lamb, lean, trimmed of fat",
+      "servingSize": "3 ounces"
+    },
+    {
+      "foodName": "Lentil",
+      "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Lobster, boiled",
+      "servingSize": "4 ounces"
+    },
+    {
+      "foodName": "Milk, buttermilk, low-fat or reduced-fat",
+      "servingSize": "8 ounces or 1 cup"
+    },
+    {
+      "foodName": "Mussels",
+      "servingSize": "2 ounces"
+    },
+    {
+      "foodName": "Peas, green, canned",
+      "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Peas, green, fresh or frozen",
+      "servingSize": "3/4 cup"
+    },
+    {
+      "foodName": "Pork chops, boneless, trimmed of fat",
+      "servingSize": "3 ounces"
+    },
+    {
+      "foodName": "Pork sausages, smoked",
+      "servingSize": "2 small links"
+    },
+    {
+      "foodName": "Pork tenderloin, roasted, trimmed of fat",
+      "servingSize": "3 ounces"
+    },
+    {
+      "foodName": "Scallops",
+      "servingSize": "3 ounces"
+    },
+    {
+      "foodName": "Shrimp, fresh or canned",
+      "servingSize": "4 ounces"
+    },
+    {
       "foodName": "Soy milk, low-fat",
       "servingSize": "8 ounces or 1 cup"
+    },
+    {
+      "foodName": "Tofu, firm or silken soft",
+      "servingSize": "2 slices (1-inch width)"
+    },
+    {
+      "foodName": "Tuna, fresh or canned in water",
+      "servingSize": "3 ounces or 1/2 cup"
+    },
+    {
+      "foodName": "Turkey, dark meat, skinless",
+      "servingSize": "2 ounces"
+    },
+    {
+      "foodName": "Turkey, white meat, skinless",
+      "servingSize": "3 ounces"
+    },
+    {
+      "foodName": "Turkey breast luncheon meeat, fat-free",
+      "servingSize": "4 ounces"
+    },
+    {
+      "foodName": "Turkey meeat, ground, cooked",
+      "servingSize": "2 ounces"
+    },
+    {
+      "foodName": "Veal",
+      "servingSize": "2 ounces"
+    },
+    {
+      "foodName": "Yogurt, fat-free, plain, unsweetened or reduced-calorie with fruit",
+      "servingSize": "8 ounces or 1 cup"
+    },
+    {
+      "foodName": "Yogurt, soy, plain, unsweetened",
+      "servingSize": "6 ounces or 2/3 cup"
     }
   ]
 }
