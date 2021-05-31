@@ -30,16 +30,16 @@ const options = {
 
 const fuse = new Fuse(servings, options);
 
-const foodName = (phrase: string) => _.map(_.split(phrase, /\d/, 1), _.trim);
+const ingredientName = (phrase: string) => _.map(_.split(phrase, /\d/, 1), _.trim);
 
-const foodNames = (foodDescription: string) => _.flatMap(_.split(foodDescription, ","), foodName);
+const ingredients = (foodDescription: string) => _.flatMap(_.split(foodDescription, ","), ingredientName);
 
 const foodServings = (name: string) => _.map(fuse.search(name), "item");
 
 function findFoodServingSuggestions(foodDescription: string) {
-  const names = foodNames(foodDescription);
-  const maxItems = (items: any[]) => _.slice(items, 0, _.size(names) > 1 ? 2 : 5);
-  const result = _.map(_.map(names, foodServings), maxItems);
+  const _ingredients = ingredients(foodDescription);
+  const maxItems = (items: any[]) => _.slice(items, 0, _.size(_ingredients) > 1 ? 2 : 5);
+  const result = _.map(_.map(_ingredients, foodServings), maxItems);
   return _.uniq(_.flatMap(result));
 }
 
