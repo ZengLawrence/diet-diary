@@ -34,10 +34,19 @@ const ingredientName = (phrase: string) => _.map(_.split(phrase, /\d/, 1), _.tri
 
 const ingredients = (foodDescription: string) => _.flatMap(_.split(foodDescription, ","), ingredientName);
 
-const foodServings = (name: string) => _.map(fuse.search(searchExpression(name)), "item");
+const foodServings = (name: string) => _.map(search(_.words(name)), "item");
 
-const searchExpression = (name: string) => ({
-  $and: _.map(_.words(name), w => ({ "foodName": w }))
+const search = (words: string[]) => {
+  const res = fuse.search(searchExpression(words));
+  if (_.size(res) === 0) {
+    const dropLastWord = () => _.take(words, _.size(words) - 1);
+    return fuse.search(searchExpression(dropLastWord()));
+  }
+  return res;
+}
+
+const searchExpression = (words: string[]) => ({
+  $and: _.map(words, w => ({ "foodName": w }))
 })
 
 function findFoodServingSuggestions(foodDescription: string) {
