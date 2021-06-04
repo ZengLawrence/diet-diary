@@ -34,7 +34,11 @@ const ingredientName = (phrase: string) => _.map(_.split(phrase, /\d/, 1), _.tri
 
 const ingredients = (foodDescription: string) => _.flatMap(_.split(foodDescription, ","), ingredientName);
 
-const foodServings = (name: string) => _.map(fuse.search(name), "item");
+const foodServings = (name: string) => _.map(fuse.search(searchExpression(name)), "item");
+
+const searchExpression = (name: string) => ({
+  $and: _.map(_.words(name), w => ({ "foodName": w }))
+})
 
 function findFoodServingSuggestions(foodDescription: string) {
   const _ingredients = ingredients(foodDescription);
