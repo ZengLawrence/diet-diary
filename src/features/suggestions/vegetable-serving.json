@@ -1,0 +1,88 @@
+{
+  "servings": [
+    {
+      "foodName": "Bamboo shoots",
+      "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Broccoli",
+      "servingSize": "1 cup florets"
+    },
+    {
+      "foodName": "Brussels sprouts",
+      "servingSize": "1/2 cup or 4 sprouts"
+    },
+    {
+      "foodName": "Cabbage, bok choy, Chinese",
+      "servingSize": "2 cup chopped or 1 cup cooked"
+    },
+    {
+      "foodName": "Cabbage, green or red",
+      "servingSize": "1 cup chopped or 1/2 cup cooked"
+    },
+    {
+      "foodName": "Carrots",
+      "servingSize": "1/2 cup baby or 1 medium"
+    },
+    {
+      "foodName": "Cauliflower",
+      "servingSize": "1 cup florets (about 8)"
+    },
+    {
+      "foodName": "Cucumber",
+      "servingSize": "1 cup sliced or 1 medium"
+    },
+    {
+      "foodName": "Eggplant, cooked",
+      "servingSize": "1 cup cubed"
+    },
+    {
+      "foodName": "Lettuce, iceberg",
+      "servingSize": "2 cups shredded"
+    },
+    {
+      "foodName": "Lettuce, romaine",
+      "servingSize": "2 cups chopped"
+    },
+    {
+      "foodName": "Mushrooms",
+      "servingSize": "1 cup whole (about 6 medium)"
+    },
+    {
+      "foodName": "Mushrooms, canned",
+      "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Okra",
+      "servingSize": "1/2 cup or 3 pods"
+    },
+    {
+      "foodName": "Onions, sweet, white or red",
+      "servingSize": "1/2 cup sliced"
+    },
+    {
+      "foodName": "Scallions",
+      "servingSize": "3/4 cup or 8 shoots"
+    },
+    {
+      "foodName": "Spinach",
+      "servingSize": "2 cups"
+    },
+    {
+      "foodName": "Spinach, cooked",
+      "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Tomato",
+      "servingSize": "1 medium"
+    },
+    {
+      "foodName": "Tomato, cherry or grape",
+      "servingSize": "1 cup (about 8)"
+    },
+    {
+      "foodName": "Water chestnuts, sliced, canned",
+      "servingSize": "3/4 cup"
+    }
+  ]
+}

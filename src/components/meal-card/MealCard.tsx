@@ -2,14 +2,14 @@ import _ from "lodash";
 import { Card, ListGroup } from "react-bootstrap";
 import { deleteMealAction, enterMealEditModelAction, exitMealEditModeAction } from "../../actions";
 import { useAppDispatch } from "../../app/hooks";
+import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
 import { MealState } from "../../model/AppState";
 import { calcMealCalories, displayCalorieValue } from "../../model/calorieFunction";
 import { calcServingSummary } from "../../model/servingFunction";
+import { FoodGroupServingBadgePanel } from "../badge/FoodGroupServingBadgePanel";
 import { DeleteButton } from "../DeleteButton";
 import { EditModeButton } from "../EditModeButton";
-import { FoodGroupServingBadgePanel } from "../badge/FoodGroupServingBadgePanel";
 import { AddButtonGroupItem } from "./AddButtonGroupItem";
-import { AddFoodFormGroupItem } from "./AddFoodFormGroupItem";
 import { FoodGroupItems } from "./FoodGroupItems";
 
 interface Props {
@@ -56,8 +56,12 @@ export const MealCard = (props: Props) => {
       <ListGroup>
         <FoodGroupItems foods={foods} mealIndex={mealIndex} foodEditIndex={foodEditIndex} editState={editState} />
         {editState === 'edit' && <AddButtonGroupItem mealIndex={mealIndex} />}
-        {editState === 'add' && <AddFoodFormGroupItem mealIndex={mealIndex} />}
+        {editState === 'add' &&
+          <ListGroup.Item>
+            <AddFoodInputForm mealIndex={mealIndex} />
+          </ListGroup.Item>
+        }
       </ListGroup>
-    </Card>
+    </Card >
   );
 }

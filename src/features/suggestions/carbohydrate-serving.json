@@ -1,0 +1,144 @@
+{
+  "servings": [
+    {
+      "foodName": "Animal crackers",
+      "servingSize": "6 crackers"
+    },
+    {
+      "foodName": "Biscuits, plain or buttermilk",
+      "servingSize": "1 small"
+    },
+    {
+      "foodName": "Bagel, whole-grain",
+      "servingSize": "1/2 bagel (3-inch)"
+    },
+    {
+      "foodName": "Bread, whole-grain",
+      "servingSize": "1 slice"
+    },
+    {
+      "foodName": "Breadsticks, crispy",
+      "servingSize": "2 sticks (6 to 8 inches)"
+    },
+    {
+      "foodName": "Bun or roll, whole-grain",
+      "servingSize": "1 small"
+    },
+    {
+      "foodName": "Cereal, bran-type",
+      "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Cereal, flake-type",
+      "servingSize": "3/4 cup"
+    },
+    {
+      "foodName": "Cereal, granola, low-fat",
+      "servingSize": "1/4 cup"
+    },
+    {
+      "foodName": "Cereal, hot (with water), unsweetened",
+      "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Corn, canned or frozen",
+      "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Corn, refresh",
+      "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Corn on the cob",
+      "servingSize": "1/2 large ear"
+    },
+    {
+      "foodName": "Crackers, cheese",
+      "servingSize": "14 small"
+    },
+    {
+      "foodName": "Crackers, saltine",
+      "servingSize": "5 squares"
+    },
+    {
+      "foodName": "English muffin, whole-train",
+      "servingSize": "1/2 muffin"
+    },
+    {
+      "foodName": "Graham crackers, plain or honey",
+      "servingSize": "1 rectangle"
+    },
+    {
+      "foodName": "Muffin, any flavor",
+      "servingSize": "1 small"
+    },
+    {
+      "foodName": "Soba",
+      "servingSize": "2/3 cup"
+    },
+    {
+      "foodName": "Rice noodles",
+      "servingSize": "1/3 cup"
+    },
+    {
+      "foodName": "Pancake",
+      "servingSize": "1 cake (4-inch)"
+    },
+    {
+      "foodName": "Macaroni, cooked",
+      "servingSize": "1/3 cup"
+    },
+    {
+      "foodName": "Spaghetti, cooked",
+      "servingSize": "1/3 cup"
+    },
+    {
+      "foodName": "Pasta, whole-grain, cooked",
+      "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Pita bread, whole-grain",
+      "servingSize": "1/2 round (6-inch)"
+    },
+    {
+      "foodName": "Potatoes, baby, red or white",
+      "servingSize": "3"
+    },
+    {
+      "foodName": "Baked potatoes",
+      "servingSize": "1/2 medium"
+    },
+    {
+      "foodName": "Mashed potatoes",
+      "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Pumkin, cooked",
+      "servingSize": "1 1/2 cups"
+    },
+    {
+      "foodName": "Brown rice, cooked",
+      "servingSize": "1/3 cup"
+    },
+    {
+      "foodName": "Rice, white, cooked",
+      "servingSize": "1/3 cup"
+    },
+    {
+      "foodName": "Sweet potatoes, baked",
+      "servingSize": "1/2 large"
+    },
+    {
+      "foodName": "Taco shell, hard",
+      "servingSize": "1 medium shell (5-inch)"
+    },
+    {
+      "foodName": "Tortilla, corn",
+      "servingSize": "1 round (6-inch)"
+    },
+    {
+      "foodName": "Waffle, frozen",
+      "servingSize": "1 waffle (4-inch)"
+    }
+  ]
+}
