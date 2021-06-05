@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { useState } from "react";
 import { FoodGroup } from "../../model/Food";
-import searchFoodServingSize from "./search";
+import { searchFoodServingSize } from "./search";
 
 export interface ServingSuggestion {
   foodName: string;

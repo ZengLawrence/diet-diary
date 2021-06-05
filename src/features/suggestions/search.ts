@@ -28,11 +28,11 @@ const searchExpression = (words: string[]) => ({
 
 const match = (words: string[]) => fuse.search(searchExpression(words));
 
-const rawSearch = (words: string[]) => {
-  const res = match(words);
+const search = (words: string[], confidenceLevel: (res: { score: number; }) => boolean) => {
+  const res = _.filter(match(words), confidenceLevel);
   if (_.size(res) === 0 && _.size(words) > 1) {
     const dropLastWord = () => _.take(words, _.size(words) - 1);
-    return match(dropLastWord());
+    return _.filter(match(dropLastWord()), confidenceLevel);
   }
   return res;
 };
@@ -43,6 +43,5 @@ const confidence = (level: number) => {
   };
 };
 
-export default function (words: string[]) {
-  return _.map(_.filter(rawSearch(words), confidence(0.60)), "item");
-};
+export const searchFoodServingSize = (words: string[]) =>
+  _.map(search(words, confidence(0.60)), "item");
