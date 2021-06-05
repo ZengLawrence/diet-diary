@@ -2,7 +2,8 @@
   "servings": [
     {
       "foodName": "Apple",
-      "servingSize": "1 small"
+      "servingSize": "1 small",
+      "bestChoice": true
     },
     {
       "foodName": "Apple, dried",
@@ -10,31 +11,38 @@
     },
     {
       "foodName": "Apricot",
-      "servingSize": "4 whole or 8 dried halves"
+      "servingSize": "4 whole or 8 dried halves",
+      "bestChoice": true
     },
     {
       "foodName": "Banana",
-      "servingSize": "1 small"
+      "servingSize": "1 small",
+      "bestChoice": true
     },
     {
       "foodName": "Berries, mixed",
-      "servingSize": "3/4 cup"
+      "servingSize": "3/4 cup",
+      "bestChoice": true
     },
     {
       "foodName": "Blueberries",
-      "servingSize": "3/4 cup"
+      "servingSize": "3/4 cup",
+      "bestChoice": true
     },
     {
       "foodName": "Cantaloupe (muskmelon)",
-      "servingSize": "1 cup cubed or 1/2 small melon"
+      "servingSize": "1 cup cubed or 1/2 small melon",
+      "bestChoice": true
     },
     {
       "foodName": "Cherries",
-      "servingSize": "15 fruits"
+      "servingSize": "15 fruits",
+      "bestChoice": true
     },
     {
       "foodName": "Clementine",
-      "servingSize": "2 small"
+      "servingSize": "2 small",
+      "bestChoice": true
     },
     {
       "foodName": "Dates",
@@ -42,31 +50,38 @@
     },
     {
       "foodName": "Grapes, seedless, red or green",
-      "servingSize": "1 cup (about 30)"
+      "servingSize": "1 cup (about 30)",
+      "bestChoice": true
     },
     {
       "foodName": "Guava",
-      "servingSize": "2 fruits or 1/2 cup"
+      "servingSize": "2 fruits or 1/2 cup",
+      "bestChoice": true
     },
     {
       "foodName": "Honeydew melon",
-      "servingSize": "1 cup cubed"
+      "servingSize": "1 cup cubed",
+      "bestChoice": true
     },
     {
       "foodName": "Kiwi",
-      "servingSize": "1 large"
+      "servingSize": "1 large",
+      "bestChoice": true
     },
     {
       "foodName": "Lemon",
-      "servingSize": "3 medium"
+      "servingSize": "3 medium",
+      "bestChoice": true
     },
     {
       "foodName": "Litchi (lychee)",
-      "servingSize": "10 fruits or 1/2 cup"
+      "servingSize": "10 fruits or 1/2 cup",
+      "bestChoice": true
     },
     {
       "foodName": "Mango",
-      "servingSize": "1/2 cup diced"
+      "servingSize": "1/2 cup diced",
+      "bestChoice": true
     },
     {
       "foodName": "Mixed fruit, dried",
@@ -74,35 +89,43 @@
     },
     {
       "foodName": "Nectarine",
-      "servingSize": "1 fruit"
+      "servingSize": "1 fruit",
+      "bestChoice": true
     },
     {
       "foodName": "Orange",
-      "servingSize": "3/4 cup sections or 1 medium"
+      "servingSize": "3/4 cup sections or 1 medium",
+      "bestChoice": true
     },
     {
       "foodName": "Papaya",
-      "servingSize": "1 cup cubes or 1/2 medium"
+      "servingSize": "1 cup cubes or 1/2 medium",
+      "bestChoice": true
     },
     {
       "foodName": "Peach",
-      "servingSize": "3/4 cup sections or 1 medium"
+      "servingSize": "3/4 cup sections or 1 medium",
+      "bestChoice": true
     },
     {
       "foodName": "Pear",
-      "servingSize": "1 small"
+      "servingSize": "1 small",
+      "bestChoice": true
     },
     {
       "foodName": "Pineapple",
-      "servingSize": "1/2 cup cubed or 2 rings"
+      "servingSize": "1/2 cup cubed or 2 rings",
+      "bestChoice": true
     },
     {
       "foodName": "Plums",
-      "servingSize": "2 fruits"
+      "servingSize": "2 fruits",
+      "bestChoice": true
     },
     {
       "foodName": "Pomegranate",
-      "servingSize": "1/2 cup"
+      "servingSize": "1/2 cup",
+      "bestChoice": true
     },
     {
       "foodName": "Prunes",
@@ -113,20 +136,24 @@
       "servingSize": "2 tablespoons"
     },
     {
-      "foodName": "Star fruit",
-      "servingSize": "2 medium to large"
+      "foodName": "Star fruit (carambola)",
+      "servingSize": "2 medium to large",
+      "bestChoice": true
     },
     {
       "foodName": "Strawberries",
-      "servingSize": "1 1/2 cups whole"
+      "servingSize": "1 1/2 cups whole",
+      "bestChoice": true
     },
     {
       "foodName": "Tangerine",
-      "servingSize": "1 large or 2 small"
+      "servingSize": "1 large or 2 small",
+      "bestChoice": true
     },
     {
       "foodName": "Watermelon",
-      "servingSize": "1 1/4 cup cubed or small wedge"
+      "servingSize": "1 1/4 cup cubed or small wedge",
+      "bestChoice": true
     }
   ]
 }

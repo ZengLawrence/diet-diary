@@ -2,7 +2,8 @@
   "servings": [
     {
       "foodName": "Avocado",
-      "servingSize": "1/6 section of fruit"
+      "servingSize": "1/6 section of fruit",
+      "bestChoice": true
     },
     {
       "foodName": "Bacon, pork",
@@ -61,7 +62,7 @@
       "servingSize": "1/3 cup"
     },
     {
-      "foodName": "Guacomole",
+      "foodName": "Guacamole",
       "servingSize": "2 tablespoons"
     },
     {
@@ -98,50 +99,59 @@
     },
     {
       "foodName": "Nuts, almonds",
-      "servingSize": "4 teaspoons slivered or 7 wholes"
+      "servingSize": "4 teaspoons slivered or 7 wholes",
+      "bestChoice": true
     },
     {
-      "foodName": "Brazil nuts",
-      "servingSize": "1 whole"
+      "foodName": "Nuts, Brazil",
+      "servingSize": "1 whole",
+      "bestChoice": true
     },
     {
       "foodName": "Nuts, cashew",
-      "servingSize": "4 wholes"
+      "servingSize": "4 wholes",
+      "bestChoice": true
     },
     {
       "foodName": "Nuts, hickory",
-      "servingSize": "2 wholes"
+      "servingSize": "2 wholes",
+      "bestChoice": true
     },
     {
       "foodName": "Nuts, peanuts",
-      "servingSize": "8 wholes"
+      "servingSize": "8 wholes",
+      "bestChoice": true
     },
     {
       "foodName": "Nuts, pecans",
-      "servingSize": "4 halves"
+      "servingSize": "4 halves",
+      "bestChoice": true
     },
     {
       "foodName": "Nuts, walnuts",
-      "servingSize": "4 halves"
+      "servingSize": "4 halves",
+      "bestChoice": true
     },
     {
-      "foodName": "Canola oil",
+      "foodName": "Oil, canola",
+      "servingSize": "1 teaspoon",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Oil, corn",
       "servingSize": "1 teaspoon"
     },
     {
-      "foodName": "Corn oil",
+      "foodName": "Oil, olive",
+      "servingSize": "1 teaspoon",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Oil, peanut",
       "servingSize": "1 teaspoon"
     },
     {
-      "foodName": "Olive oil",
-      "servingSize": "1 teaspoon"
-    },
-    {
-      "foodName": "Peanut oil",
-      "servingSize": "1 teaspoon"
-    },
-    {
-      "foodName": "Safflower oil",
+      "foodName": "Oil, safflower",
       "servingSize": "1 teaspoon"
     },
     {
@@ -153,27 +163,27 @@
       "servingSize": "1 1/2 teaspoons"
     },
     {
-      "foodName": "French salad dressing, fat-free",
+      "foodName": "Salad dressing, French, fat-free",
       "servingSize": "2 tablespoons"
     },
     {
-      "foodName": "French salad dressing, regular",
+      "foodName": "Salad dressing, French, regular",
       "servingSize": "2 teaspoons"
     },
     {
-      "foodName": "Italian salad dressing, fat-free",
+      "foodName": "Salad dressing, Italian, fat-free",
       "servingSize": "4 tablespoons"
     },
     {
-      "foodName": "Italian salad dressing, regular",
+      "foodName": "Salad dressing, Italian, regular",
       "servingSize": "1 teaspoons"
     },
     {
-      "foodName": "Ranch salad dressing, fat-free",
+      "foodName": "Salad dressing, ranch, fat-free",
       "servingSize": "3 tablespoons"
     },
     {
-      "foodName": "Ranch salad dressing, regular",
+      "foodName": "Salad dressing, ranch, regular",
       "servingSize": "2 teaspoons"
     },
     {
@@ -185,19 +195,22 @@
       "servingSize": "2 teaspoons"
     },
     {
-      "foodName": "Flaxseed seeds, ground",
-      "servingSize": "1 tablespoon"
+      "foodName": "Seeds, flaxseed, ground",
+      "servingSize": "1 tablespoon",
+      "bestChoice": true
     },
     {
-      "foodName": "Pumpkin seeds",
-      "servingSize": "1 tablespoon"
+      "foodName": "Seeds, pumpkin",
+      "servingSize": "1 tablespoon",
+      "bestChoice": true
     },
     {
-      "foodName": "Seasame seeds",
-      "servingSize": "1 tablespoon"
+      "foodName": "Seeds, sesame",
+      "servingSize": "1 tablespoon",
+      "bestChoice": true
     },
     {
-      "foodName": "Sunflower Seeds",
+      "foodName": "Seeds, sunflower",
       "servingSize": "1 tablespoon"
     },
     {
