@@ -28,7 +28,7 @@ const searchExpression = (words: string[]) => ({
 
 const match = (words: string[]) => fuse.search(searchExpression(words));
 
-export const search = (words: string[]) => {
+const rawSearch = (words: string[]) => {
   const res = match(words);
   if (_.size(res) === 0 && _.size(words) > 1) {
     const dropLastWord = () => _.take(words, _.size(words) - 1);
@@ -37,8 +37,12 @@ export const search = (words: string[]) => {
   return res;
 };
 
-export const confidence = (level: number) => {
+const confidence = (level: number) => {
   return function (res: { score: number; }) {
     return res.score < (1 - level);
   };
+};
+
+export default function (words: string[]) {
+  return _.map(_.filter(rawSearch(words), confidence(0.60)), "item");
 };

@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { useState } from "react";
 import { FoodGroup } from "../../model/Food";
-import { search, confidence } from "./search";
+import searchFoodServingSize from "./search";
 
 export interface ServingSuggestion {
   foodName: string;
@@ -14,14 +14,12 @@ const ingredientName = (phrase: string) => _.map(_.split(phrase, /\d/, 1), _.tri
 
 const ingredients = (foodDescription: string) => _.flatMap(_.split(foodDescription, ","), ingredientName);
 
-const foodServings = (name: string) => _.map(_.filter(search(_.words(name)), confidence(0.60)), "item");
-
 function findFoodServingSuggestions(foodDescription: string) {
   const _ingredients = ingredients(foodDescription);
   const lastIngredient = (index: number) => (index === _.size(_ingredients) - 1);
   const maxItems = (items: any[], index: number) => _.slice(items, 0, lastIngredient(index) ? 5 : 2);
 
-  const results = _.map(_ingredients, foodServings);
+  const results = _.map(_ingredients, ingredient => searchFoodServingSize(_.words(ingredient)));
   return _.uniq(_.flatMap(_.map(results, maxItems)));
 }
 
