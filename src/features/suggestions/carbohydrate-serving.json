@@ -10,11 +10,22 @@
     },
     {
       "foodName": "Bagel, whole-grain",
-      "servingSize": "1/2 bagel (3-inch)"
+      "servingSize": "1/2 bagel (3-inch)",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Bread, white or sourdough",
+      "servingSize": "1 slice"
     },
     {
       "foodName": "Bread, whole-grain",
-      "servingSize": "1 slice"
+      "servingSize": "1 slice",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Bread, whole-wheat white",
+      "servingSize": "1 slice",
+      "bestChoice": true
     },
     {
       "foodName": "Breadsticks, crispy",
@@ -22,23 +33,26 @@
     },
     {
       "foodName": "Bun or roll, whole-grain",
-      "servingSize": "1 small"
+      "servingSize": "1 small",
+      "bestChoice": true
     },
     {
-      "foodName": "Cereal, bran-type",
-      "servingSize": "1/2 cup"
+      "foodName": "Cereal, cold, bran-type",
+      "servingSize": "1/2 cup",
+      "bestChoice": true
     },
     {
-      "foodName": "Cereal, flake-type",
+      "foodName": "Cereal, cold, flake-type",
       "servingSize": "3/4 cup"
     },
     {
-      "foodName": "Cereal, granola, low-fat",
+      "foodName": "Cereal, cold, granola, low-fat",
       "servingSize": "1/4 cup"
     },
     {
-      "foodName": "Cereal, hot (with water), unsweetened",
-      "servingSize": "1/2 cup"
+      "foodName": "Cereal or oatmeal, hot (with water), unsweetened",
+      "servingSize": "1/2 cup",
+      "bestChoice": true
     },
     {
       "foodName": "Corn, canned or frozen",
@@ -46,11 +60,21 @@
     },
     {
       "foodName": "Corn, refresh",
-      "servingSize": "1/2 cup"
+      "servingSize": "1/2 cup",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Cornbread, from dry mix",
+      "servingSize": "1 ounce"
     },
     {
       "foodName": "Corn on the cob",
-      "servingSize": "1/2 large ear"
+      "servingSize": "1/2 large ear",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Couscous, cooked",
+      "servingSize": "1/3 cup"
     },
     {
       "foodName": "Crackers, cheese",
@@ -62,7 +86,8 @@
     },
     {
       "foodName": "English muffin, whole-train",
-      "servingSize": "1/2 muffin"
+      "servingSize": "1/2 muffin",
+      "bestChoice": true
     },
     {
       "foodName": "Graham crackers, plain or honey",
@@ -94,11 +119,13 @@
     },
     {
       "foodName": "Pasta, whole-grain, cooked",
-      "servingSize": "1/2 cup"
+      "servingSize": "1/2 cup",
+      "bestChoice": true
     },
     {
-      "foodName": "Pita bread, whole-grain",
-      "servingSize": "1/2 round (6-inch)"
+      "foodName": "Pita bread, whole-wheat",
+      "servingSize": "1/2 round (6-inch)",
+      "bestChoice": true
     },
     {
       "foodName": "Potatoes, baby, red or white",
@@ -113,12 +140,13 @@
       "servingSize": "1/2 cup"
     },
     {
-      "foodName": "Pumkin, cooked",
+      "foodName": "Pumpkin, cooked",
       "servingSize": "1 1/2 cups"
     },
     {
-      "foodName": "Brown rice, cooked",
-      "servingSize": "1/3 cup"
+      "foodName": "Rice, brown, cooked",
+      "servingSize": "1/3 cup",
+      "bestChoice": true
     },
     {
       "foodName": "Rice, white, cooked",
@@ -126,7 +154,8 @@
     },
     {
       "foodName": "Sweet potatoes, baked",
-      "servingSize": "1/2 large"
+      "servingSize": "1/2 large",
+      "bestChoice": true
     },
     {
       "foodName": "Taco shell, hard",

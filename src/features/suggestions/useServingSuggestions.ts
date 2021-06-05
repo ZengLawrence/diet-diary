@@ -8,6 +8,7 @@ export interface ServingSuggestion {
   foodName: string;
   servingSize: string;
   foodGroup: FoodGroup;
+  bestChoice?: boolean;
 }
 
 const options = {
@@ -18,7 +19,7 @@ const options = {
   // findAllMatches: false,
   minMatchCharLength: 3,
   // location: 0,
-  threshold: 0.3,
+  // threshold: 0.6,
   // distance: 100,
   // useExtendedSearch: false,
   // ignoreLocation: false,
