@@ -39,6 +39,10 @@ export const FoodInputForm = (props: Props) => {
   useEffect(() => {
     const debouncedGenerateSuggestions = _.debounce(() => generateSuggestions(food.name), 500);
     debouncedGenerateSuggestions();
+
+    return function cleanup() {
+      debouncedGenerateSuggestions.cancel();
+    };
   }, [food, generateSuggestions]);
 
   return (
