@@ -13,7 +13,7 @@ export interface ServingSuggestion {
 
 const options = {
   // isCaseSensitive: false,
-  // includeScore: false,
+  includeScore: true,
   shouldSort: true,
   // includeMatches: false,
   // findAllMatches: false,
@@ -35,20 +35,28 @@ const ingredientName = (phrase: string) => _.map(_.split(phrase, /\d/, 1), _.tri
 
 const ingredients = (foodDescription: string) => _.flatMap(_.split(foodDescription, ","), ingredientName);
 
-const foodServings = (name: string) => _.map(search(_.words(name)), "item");
-
-const search = (words: string[]) => {
-  const res = fuse.search(searchExpression(words));
-  if (_.size(res) === 0) {
-    const dropLastWord = () => _.take(words, _.size(words) - 1);
-    return fuse.search(searchExpression(dropLastWord()));
+const confidence = (level: number) => {
+  return function (res: { score: number }) {
+    return res.score < (1 - level);
   }
-  return res;
 }
+
+const foodServings = (name: string) => _.map(_.filter(search(_.words(name)), confidence(0.60)), "item");
 
 const searchExpression = (words: string[]) => ({
   $and: _.map(words, w => ({ "foodName": w }))
 })
+
+const match = (words: string[]) => fuse.search(searchExpression(words));
+
+const search = (words: string[]) => {
+  const res = match(words);
+  if (_.size(res) === 0 && _.size(words) > 1) {
+    const dropLastWord = () => _.take(words, _.size(words) - 1);
+    return match(dropLastWord());
+  }
+  return res;
+}
 
 function findFoodServingSuggestions(foodDescription: string) {
   const _ingredients = ingredients(foodDescription);
