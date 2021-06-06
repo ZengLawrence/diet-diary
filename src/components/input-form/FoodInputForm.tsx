@@ -1,7 +1,8 @@
 import _ from "lodash";
 import { Fragment } from "react";
 import { Button, Form } from "react-bootstrap";
-import { ServingSuggestion, useServingSuggestions } from "../../features/suggestions/useServingSuggestions";
+import { useServingSuggestions } from "../../features/suggestions/useServingSuggestions";
+import { ServingSuggestion } from "../../features/suggestions/ServingSuggestion";
 import { calcFoodCalories, displayCalorieValue } from "../../model/calorieFunction";
 import { Food } from "../../model/Food";
 import { FoodGroupLabelBadge } from "../badge";

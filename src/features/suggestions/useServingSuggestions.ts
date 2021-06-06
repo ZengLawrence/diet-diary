@@ -1,14 +1,7 @@
 import _ from "lodash";
 import { useState } from "react";
-import { FoodGroup } from "../../model/Food";
 import { searchFoodServingSize } from "./search";
-
-export interface ServingSuggestion {
-  foodName: string;
-  servingSize: string;
-  foodGroup: FoodGroup;
-  bestChoice?: boolean;
-}
+import { ServingSuggestion } from "./ServingSuggestion";
 
 const ingredientName = (phrase: string) => _.map(_.split(phrase, /\d/, 1), _.trim);
 
