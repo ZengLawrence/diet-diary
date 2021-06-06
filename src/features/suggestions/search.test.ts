@@ -24,3 +24,9 @@ test("exact search term appears in the middle of name e.g. peanuts should return
   expect(_.size(results)).toBe(1);
   expect(results[0]).toMatchObject({ "foodName": "Nuts, peanuts" });
 })
+
+test("drop last word - last search term not found e.g. 'coconut chew' should return exact one row contain 'coconut'", () => {
+  const results = searchFoodServingSize("coconut chew");
+  expect(_.size(results)).toBe(1);
+  expect(results[0]).toMatchObject({ "foodName": "Coconut, shredded, sweetened" });
+})
