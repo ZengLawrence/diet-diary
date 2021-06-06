@@ -23,10 +23,17 @@ function findFoodServingSuggestions(foodDescription: string) {
   return _.uniq(_.flatMap(_.map(results, maxItems)));
 }
 
+let foodDescription = "";
+
+const debouncedGenerateSuggestions = _.debounce((callback: (suggestions: ServingSuggestion[]) => void) => {
+  callback(findFoodServingSuggestions(foodDescription));
+}, 500, { maxWait: 2000 });
+
 export const useServingSuggestions = () => {
   const [suggestions, setSuggestions] = useState([] as ServingSuggestion[]);
-  const generateSuggestions = (foodDescription: string) => {
-    setSuggestions(findFoodServingSuggestions(foodDescription));
+  const generateSuggestions = (desc: string) => { 
+    foodDescription = desc; 
+    debouncedGenerateSuggestions(setSuggestions); 
   }
 
   return {
