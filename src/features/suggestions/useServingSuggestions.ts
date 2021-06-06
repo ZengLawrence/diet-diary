@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { searchFoodServingSize } from "./search";
 import { ServingSuggestion } from "./ServingSuggestion";
 
@@ -21,15 +21,20 @@ const _generateSuggestions = (descRef: React.MutableRefObject<String>, callback:
 
 const debouncedGenerateSuggestions = _.debounce(_generateSuggestions, 500, { maxWait: 2000 });
 
-export const useServingSuggestions = () => {
+export const useServingSuggestions = (initialDescription: string) => {
   const [suggestions, setSuggestions] = useState([] as ServingSuggestion[]);
-  const descRef = useRef("");
+  const descRef = useRef(initialDescription);
 
   const generateSuggestions = (desc: string) => {
     descRef.current = desc;
     debouncedGenerateSuggestions(descRef, setSuggestions);
   }
 
+  // initialize suggestions
+  useEffect(() => {
+    _generateSuggestions(descRef, setSuggestions);
+  }, [descRef, setSuggestions])
+  
   return {
     suggestions,
     generateSuggestions

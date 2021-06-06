@@ -138,7 +138,7 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
   const [state, dispatch] = useReducer(reducer, initialState(initialFood));
   const { food, error } = state;
 
-  const { suggestions, generateSuggestions } = useServingSuggestions();
+  const { suggestions, generateSuggestions } = useServingSuggestions(initialFood.name);
 
   const updateFoodName = (name: string) => {
     dispatch(setNameAction(name));
