@@ -16,9 +16,10 @@ function findFoodServingSuggestions(foodDescription: string) {
   return _.uniq(_.flatMap(_.map(results, maxItems)));
 }
 
-const debouncedGenerateSuggestions = _.debounce((descRef: React.MutableRefObject<String>, callback: (suggestions: ServingSuggestion[]) => void) => {
+const _generateSuggestions = (descRef: React.MutableRefObject<String>, callback: (suggestions: ServingSuggestion[]) => void) => 
   callback(findFoodServingSuggestions(descRef.current + ""));
-}, 500, { maxWait: 2000 });
+
+const debouncedGenerateSuggestions = _.debounce(_generateSuggestions, 500, { maxWait: 2000 });
 
 export const useServingSuggestions = () => {
   const [suggestions, setSuggestions] = useState([] as ServingSuggestion[]);
