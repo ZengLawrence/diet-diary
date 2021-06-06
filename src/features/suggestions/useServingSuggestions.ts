@@ -19,7 +19,7 @@ function findFoodServingSuggestions(foodDescription: string) {
   const lastIngredient = (index: number) => (index === _.size(_ingredients) - 1);
   const maxItems = (items: any[], index: number) => _.slice(items, 0, lastIngredient(index) ? 5 : 2);
 
-  const results = _.map(_ingredients, ingredient => searchFoodServingSize(_.words(ingredient)));
+  const results = _.map(_ingredients, ingredient => searchFoodServingSize(ingredient));
   return _.uniq(_.flatMap(_.map(results, maxItems)));
 }
 

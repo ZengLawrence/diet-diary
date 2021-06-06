@@ -43,5 +43,5 @@ const scoreLessThan = (limit: number) => {
   };
 };
 
-export const searchFoodServingSize = (words: string[]) =>
-  _.map(search(words, scoreLessThan(0.40)), "item");
+export const searchFoodServingSize = (foodName: string) =>
+  _.map(search(_.words(foodName), scoreLessThan(0.40)), "item");
