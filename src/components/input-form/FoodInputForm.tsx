@@ -28,12 +28,12 @@ const ServingHintsText = (props: { suggestions: ServingSuggestion[] }) => {
 interface Props {
   food: Food;
   buttonLabel: string;
-  onAddFood: (food: Food) => void;
+  onSaveFood: (food: Food) => void;
   onCancel: () => void
 }
 
 export const FoodInputForm = (props: Props) => {
-  const { food, error, suggestions, updateFoodName, updateServing, handleSubmit } = useFoodInputFormStateReducer(props.food, props.onAddFood);
+  const { food, error, suggestions, updateFoodName, updateServing, handleSubmit } = useFoodInputFormStateReducer(props.food, props.onSaveFood);
 
   return (
     <Form

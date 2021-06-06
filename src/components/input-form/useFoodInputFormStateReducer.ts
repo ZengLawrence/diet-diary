@@ -138,7 +138,7 @@ function checkValidity(error: ValidationError) {
   return !failed;
 }
 
-export function useFoodInputFormStateReducer(initialFood: Food, onAddFood: (food: Food) => void) {
+export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialState(initialFood));
   const { food, error } = state;
 
@@ -159,7 +159,7 @@ export function useFoodInputFormStateReducer(initialFood: Food, onAddFood: (food
       event.stopPropagation();
       dispatch(validationFailedAction(error));
     } else {
-      onAddFood(food);
+      onSaveFood(food);
       dispatch(resetAction());
       event.preventDefault();
     }
