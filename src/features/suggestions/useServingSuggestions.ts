@@ -29,14 +29,9 @@ export const useServingSuggestions = () => {
     descRef.current = desc;
     debouncedGenerateSuggestions(descRef, setSuggestions);
   }
-  const resetSuggestions = () => {
-    descRef.current = "";
-    setSuggestions([]);
-  }
 
   return {
     suggestions,
-    generateSuggestions,
-    resetSuggestions
+    generateSuggestions
   };
 }
