@@ -31,13 +31,18 @@ const debouncedGenerateSuggestions = _.debounce((callback: (suggestions: Serving
 
 export const useServingSuggestions = () => {
   const [suggestions, setSuggestions] = useState([] as ServingSuggestion[]);
-  const generateSuggestions = (desc: string) => { 
-    foodDescription = desc; 
-    debouncedGenerateSuggestions(setSuggestions); 
+  const generateSuggestions = (desc: string) => {
+    foodDescription = desc;
+    debouncedGenerateSuggestions(setSuggestions);
+  }
+  const resetSuggestions = () => {
+    foodDescription = "";
+    setSuggestions([]);
   }
 
   return {
     suggestions,
-    generateSuggestions
+    generateSuggestions,
+    resetSuggestions
   };
 }

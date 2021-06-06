@@ -10,10 +10,10 @@ import { BlueStar } from "../BlueStar";
 import { ServingInputControl } from "./ServingInputControl";
 import { useFoodInputFormStateReducer } from "./useFoodInputFormStateReducer";
 
-const hasBestChoice = (suggestions: ServingSuggestion[]) => _.findIndex(suggestions, {'bestChoice': true}) >= 0;
+const hasBestChoice = (suggestions: ServingSuggestion[]) => _.findIndex(suggestions, { 'bestChoice': true }) >= 0;
 
 const ServingHintsText = (props: { suggestions: ServingSuggestion[] }) => {
-  const appendComma = (i : number) => i < (_.size(props.suggestions) - 1);
+  const appendComma = (i: number) => i < (_.size(props.suggestions) - 1);
   return (
     <Fragment>
       {props.suggestions.map(({ foodName, foodGroup, servingSize, bestChoice }, index) => (
@@ -34,7 +34,7 @@ interface Props {
 
 export const FoodInputForm = (props: Props) => {
   const { food, error, updateFoodName, updateServing, handleSubmit } = useFoodInputFormStateReducer(props.food, props.onAddFood);
-  const { suggestions, generateSuggestions } = useServingSuggestions();
+  const { suggestions, generateSuggestions, resetSuggestions } = useServingSuggestions();
 
   const handleFoodNameChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     const foodName = e.target.value;
@@ -45,7 +45,7 @@ export const FoodInputForm = (props: Props) => {
   return (
     <Form
       noValidate
-      onSubmit={handleSubmit}
+      onSubmit={e => { handleSubmit(e); resetSuggestions(); }}
       className="border p-1"
     >
 
@@ -68,7 +68,7 @@ export const FoodInputForm = (props: Props) => {
           <div className="d-flex flex-column flex-sm-row flex-wrap w-100">
             <ServingHintsText suggestions={suggestions} />
           </div>
-          <div style={{maxWidth: "100px"}}>
+          <div style={{ maxWidth: "100px" }}>
             {hasBestChoice(suggestions) && <BestChoiceLegend />}
           </div>
         </Form.Text>
@@ -87,7 +87,7 @@ export const FoodInputForm = (props: Props) => {
       </Form.Group>
 
       <div className="d-flex justify-content-end">
-        <Button className="mr-1 order-sm-1" variant="outline-secondary" onClick={props.onCancel}>Cancel</Button>
+        <Button className="mr-1 order-sm-1" variant="outline-secondary" onClick={() => { props.onCancel(); resetSuggestions() }}>Cancel</Button>
         <Button className="mr-1 order-sm-0" type="submit" variant="outline-primary">{props.buttonLabel}</Button>
       </div>
     </Form>
