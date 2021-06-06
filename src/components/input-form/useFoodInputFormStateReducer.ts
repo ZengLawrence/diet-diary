@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { useReducer } from "react";
 import { useServingSuggestions } from "../../features/suggestions/useServingSuggestions";
-import { Food, FoodGroup, newFood } from "../../model/Food";
+import { Food, FoodGroup } from "../../model/Food";
 
 interface Action {
   type: string;
@@ -35,8 +35,6 @@ const validationFailedAction = (error: ValidationError) => ({
 })
 
 type ValidationFailedAction = ReturnType<typeof validationFailedAction>;
-
-const resetAction = () => ({ type: "reset" });
 
 function setServing(food: Food, action: SetServingAction) {
   return {
@@ -98,8 +96,6 @@ function reducer(state: State, action: ActionType) {
         food: unsetServing(state.food, action as UnsetServingAction),
         error: validateFood(unsetServing(state.food, action as UnsetServingAction)),
       };
-    case 'reset':
-      return initialState(newFood());
     case 'validation-failed':
       const validationFailedAction = action as ValidationFailedAction;
       return {
@@ -160,7 +156,6 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
       dispatch(validationFailedAction(error));
     } else {
       onSaveFood(food);
-      dispatch(resetAction());
       event.preventDefault();
     }
   };
