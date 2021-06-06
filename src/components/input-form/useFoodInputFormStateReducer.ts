@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { useReducer } from "react";
+import { useServingSuggestions } from "../../features/suggestions/useServingSuggestions";
 import { Food, FoodGroup, newFood } from "../../model/Food";
 
 interface Action {
@@ -140,7 +141,13 @@ function checkValidity(error: ValidationError) {
 export function useFoodInputFormStateReducer(initialFood: Food, onAddFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialState(initialFood));
   const { food, error } = state;
-  const updateFoodName = (name: string) => dispatch(setNameAction(name));
+
+  const { suggestions, generateSuggestions } = useServingSuggestions();
+
+  const updateFoodName = (name: string) => {
+    dispatch(setNameAction(name));
+    generateSuggestions(name);
+  }
 
   const updateServing = (foodGroup: FoodGroup, serving: number) =>
     serving ? dispatch(setServingAction(foodGroup, serving)) : dispatch(unsetServingAction(foodGroup));
@@ -158,5 +165,5 @@ export function useFoodInputFormStateReducer(initialFood: Food, onAddFood: (food
     }
   };
 
-  return { food, error, updateFoodName, updateServing, handleSubmit };
+  return { food, error, suggestions, updateFoodName, updateServing, handleSubmit };
 }

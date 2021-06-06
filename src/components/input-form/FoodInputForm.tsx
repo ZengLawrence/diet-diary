@@ -1,7 +1,6 @@
 import _ from "lodash";
 import { Fragment } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useServingSuggestions } from "../../features/suggestions/useServingSuggestions";
 import { ServingSuggestion } from "../../features/suggestions/ServingSuggestion";
 import { calcFoodCalories, displayCalorieValue } from "../../model/calorieFunction";
 import { Food } from "../../model/Food";
@@ -34,19 +33,12 @@ interface Props {
 }
 
 export const FoodInputForm = (props: Props) => {
-  const { food, error, updateFoodName, updateServing, handleSubmit } = useFoodInputFormStateReducer(props.food, props.onAddFood);
-  const { suggestions, generateSuggestions, resetSuggestions } = useServingSuggestions();
-
-  const handleFoodNameChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const foodName = e.target.value;
-    updateFoodName(foodName);
-    generateSuggestions(foodName);
-  }
+  const { food, error, suggestions, updateFoodName, updateServing, handleSubmit } = useFoodInputFormStateReducer(props.food, props.onAddFood);
 
   return (
     <Form
       noValidate
-      onSubmit={e => { handleSubmit(e); resetSuggestions(); }}
+      onSubmit={handleSubmit}
       className="border p-1"
     >
 
@@ -59,7 +51,7 @@ export const FoodInputForm = (props: Props) => {
           required
           placeholder="Broccoli 1 cup, apple 1 small, bread 1 slice, turkey white meat 3 oz, olive oil 1 tsp, maple syrup 1 1/2 tbsp..."
           isInvalid={error.foodName}
-          onChange={handleFoodNameChanged}
+          onChange={e => updateFoodName(e.target.value)}
         />
         <Form.Control.Feedback type="invalid">
           Please enter food name.
@@ -88,7 +80,7 @@ export const FoodInputForm = (props: Props) => {
       </Form.Group>
 
       <div className="d-flex justify-content-end">
-        <Button className="mr-1 order-sm-1" variant="outline-secondary" onClick={() => { props.onCancel(); resetSuggestions() }}>Cancel</Button>
+        <Button className="mr-1 order-sm-1" variant="outline-secondary" onClick={props.onCancel}>Cancel</Button>
         <Button className="mr-1 order-sm-0" type="submit" variant="outline-primary">{props.buttonLabel}</Button>
       </div>
     </Form>
