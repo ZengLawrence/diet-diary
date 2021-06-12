@@ -17,7 +17,7 @@ export const FoodInputForm = (props: Props) => {
   const { 
     food, 
     error, 
-    suggestions, 
+    servingSuggestions, 
     portionSuggestions, 
     updateFoodName, 
     updateServing, 
@@ -46,7 +46,7 @@ export const FoodInputForm = (props: Props) => {
           Please enter food name.
         </Form.Control.Feedback>
         <div className="d-flex flex-column w-100">
-          <ServingSuggestionFormText suggestions={suggestions} />
+          <ServingSuggestionFormText suggestions={servingSuggestions} />
           <PortionSuggestionFormText suggestions={portionSuggestions} />
         </div>
       </Form.Group>

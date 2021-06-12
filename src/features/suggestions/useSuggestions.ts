@@ -23,21 +23,21 @@ const _generateSuggestions = (descRef: React.MutableRefObject<String>, callback:
 const debouncedGenerateSuggestions = _.debounce(_generateSuggestions, 500, { maxWait: 2000 });
 
 export const useSuggestions = (initialDescription: string) => {
-  const [suggestions, setSuggestions] = useState([] as ServingSuggestion[]);
+  const [servingSuggestions, setServingSuggestions] = useState([] as ServingSuggestion[]);
   const descRef = useRef(initialDescription);
 
   const generateSuggestions = (desc: string) => {
     descRef.current = desc;
-    debouncedGenerateSuggestions(descRef, setSuggestions);
+    debouncedGenerateSuggestions(descRef, setServingSuggestions);
   }
 
   // initialize suggestions
   useEffect(() => {
-    _generateSuggestions(descRef, setSuggestions);
-  }, [descRef, setSuggestions])
+    _generateSuggestions(descRef, setServingSuggestions);
+  }, [descRef, setServingSuggestions])
   
   return {
-    suggestions,
+    servingSuggestions,
     portionSuggestions,
     generateSuggestions
   };
