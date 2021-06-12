@@ -23,7 +23,7 @@ const ServingHintsText = (props: { suggestions: ServingSuggestion[]; }) => {
 
 export const ServingSuggestionFormText = (props: { suggestions: ServingSuggestion[]; }) => (
   <Form.Text className="d-flex flex-column">
-    {_.size(props.suggestions) > 0 && <div>One Serving is</div>}
+    {_.size(props.suggestions) > 0 && <div>One serving is</div>}
     <div className="d-flex flex-column flex-sm-row flex-wrap w-100">
       <ServingHintsText suggestions={props.suggestions} />
     </div>
