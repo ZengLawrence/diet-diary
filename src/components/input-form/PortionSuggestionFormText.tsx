@@ -2,7 +2,7 @@ import _ from "lodash";
 import { Fragment } from "react";
 import { Form } from "react-bootstrap";
 import { FoodGroupServingBadgePanel } from "../badge/FoodGroupServingBadgePanel";
-import { PortionSuggestion } from "../../features/suggestions/PortionSuggestion";
+import { PortionSuggestion } from "../../features/suggestions";
 
 const ServingHintsText = (props: { suggestions: PortionSuggestion[]; }) => {
   const appendComma = (i: number) => i < (_.size(props.suggestions) - 1);

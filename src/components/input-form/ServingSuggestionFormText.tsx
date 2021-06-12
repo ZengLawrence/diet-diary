@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { Fragment } from "react";
 import { Form } from "react-bootstrap";
-import { ServingSuggestion } from "../../features/suggestions/ServingSuggestion";
+import { ServingSuggestion } from "../../features/suggestions";
 import { FoodGroupLabelBadge } from "../badge";
 import { BestChoiceLegend } from "../BestChoiceLegend";
 import { BlueStar } from "../BlueStar";

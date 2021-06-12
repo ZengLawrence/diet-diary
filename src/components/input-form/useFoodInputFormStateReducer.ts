@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { useReducer } from "react";
-import { useSuggestions } from "../../features/suggestions/useSuggestions";
+import { useSuggestions } from "../../features/suggestions";
 import { Food, FoodGroup } from "../../model/Food";
 
 interface Action {
