@@ -8,7 +8,7 @@ const ingredientName = (phrase: string) => _.map(_.split(phrase, /\d/, 1), _.tri
 
 const ingredients = (foodDescription: string) => _.flatMap(_.split(foodDescription, ","), ingredientName);
 
-function findFoodServingSuggestions(foodDescription: string) {
+function findServingSuggestions(foodDescription: string) {
   const _ingredients = ingredients(foodDescription);
   const lastIngredient = (index: number) => (index === _.size(_ingredients) - 1);
   const maxItems = (items: any[], index: number) => _.slice(items, 0, lastIngredient(index) ? 5 : 2);
@@ -18,7 +18,7 @@ function findFoodServingSuggestions(foodDescription: string) {
 }
 
 const _generateSuggestions = (descRef: React.MutableRefObject<String>, callback: (suggestions: ServingSuggestion[]) => void) => 
-  callback(findFoodServingSuggestions(descRef.current + ""));
+  callback(findServingSuggestions(descRef.current + ""));
 
 const debouncedGenerateSuggestions = _.debounce(_generateSuggestions, 500, { maxWait: 2000 });
 
