@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { useEffect, useRef, useState } from "react";
-import { searchFoodServingSize } from "./search";
+import { searchFoodServingSize } from "./serving/search";
 import { ServingSuggestion } from "./ServingSuggestion";
 
 const ingredientName = (phrase: string) => _.map(_.split(phrase, /\d/, 1), _.trim);
