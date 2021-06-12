@@ -2,6 +2,7 @@ import _ from "lodash";
 import { useEffect, useRef, useState } from "react";
 import { searchFoodServingSize } from "./serving/search";
 import { ServingSuggestion } from "./ServingSuggestion";
+import { servings as portionSuggestions } from "./portion/portion-serving.json";
 
 const ingredientName = (phrase: string) => _.map(_.split(phrase, /\d/, 1), _.trim);
 
@@ -37,6 +38,7 @@ export const useSuggestions = (initialDescription: string) => {
   
   return {
     suggestions,
+    portionSuggestions,
     generateSuggestions
   };
 }

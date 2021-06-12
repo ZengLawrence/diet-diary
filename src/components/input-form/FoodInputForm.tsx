@@ -1,6 +1,7 @@
 import { Button, Form } from "react-bootstrap";
 import { calcFoodCalories, displayCalorieValue } from "../../model/calorieFunction";
 import { Food } from "../../model/Food";
+import { PortionSuggestionFormText } from "./PortionSuggestionFormText";
 import { ServingInputControl } from "./ServingInputControl";
 import { ServingSuggestionFormText } from "./ServingSuggestionFormText";
 import { useFoodInputFormStateReducer } from "./useFoodInputFormStateReducer";
@@ -13,7 +14,15 @@ interface Props {
 }
 
 export const FoodInputForm = (props: Props) => {
-  const { food, error, suggestions, updateFoodName, updateServing, handleSubmit } = useFoodInputFormStateReducer(props.food, props.onSaveFood);
+  const { 
+    food, 
+    error, 
+    suggestions, 
+    portionSuggestions, 
+    updateFoodName, 
+    updateServing, 
+    handleSubmit 
+  } = useFoodInputFormStateReducer(props.food, props.onSaveFood);
 
   return (
     <Form
@@ -36,7 +45,10 @@ export const FoodInputForm = (props: Props) => {
         <Form.Control.Feedback type="invalid">
           Please enter food name.
         </Form.Control.Feedback>
-        <ServingSuggestionFormText suggestions={suggestions} />
+        <div className="d-flex flex-column w-100">
+          <ServingSuggestionFormText suggestions={suggestions} />
+          <PortionSuggestionFormText suggestions={portionSuggestions} />
+        </div>
       </Form.Group>
 
       <Form.Group>
