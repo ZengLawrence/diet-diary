@@ -1,7 +1,7 @@
 import _ from "lodash";
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import { Button, Form } from "react-bootstrap";
-import { ServingSuggestion, useServingSuggestions } from "../../features/suggestions/useServingSuggestions";
+import { ServingSuggestion } from "../../features/suggestions/ServingSuggestion";
 import { calcFoodCalories, displayCalorieValue } from "../../model/calorieFunction";
 import { Food } from "../../model/Food";
 import { FoodGroupLabelBadge } from "../badge";
@@ -10,10 +10,10 @@ import { BlueStar } from "../BlueStar";
 import { ServingInputControl } from "./ServingInputControl";
 import { useFoodInputFormStateReducer } from "./useFoodInputFormStateReducer";
 
-const hasBestChoice = (suggestions: ServingSuggestion[]) => _.findIndex(suggestions, {'bestChoice': true}) >= 0;
+const hasBestChoice = (suggestions: ServingSuggestion[]) => _.findIndex(suggestions, { 'bestChoice': true }) >= 0;
 
 const ServingHintsText = (props: { suggestions: ServingSuggestion[] }) => {
-  const appendComma = (i : number) => i < (_.size(props.suggestions) - 1);
+  const appendComma = (i: number) => i < (_.size(props.suggestions) - 1);
   return (
     <Fragment>
       {props.suggestions.map(({ foodName, foodGroup, servingSize, bestChoice }, index) => (
@@ -28,18 +28,12 @@ const ServingHintsText = (props: { suggestions: ServingSuggestion[] }) => {
 interface Props {
   food: Food;
   buttonLabel: string;
-  onAddFood: (food: Food) => void;
+  onSaveFood: (food: Food) => void;
   onCancel: () => void
 }
 
 export const FoodInputForm = (props: Props) => {
-  const { food, error, updateFoodName, updateServing, handleSubmit } = useFoodInputFormStateReducer(props.food, props.onAddFood);
-  const { suggestions, generateSuggestions } = useServingSuggestions();
-
-  useEffect(() => {
-    const debouncedGenerateSuggestions = _.debounce(() => generateSuggestions(food.name), 500);
-    debouncedGenerateSuggestions();
-  }, [food, generateSuggestions]);
+  const { food, error, suggestions, updateFoodName, updateServing, handleSubmit } = useFoodInputFormStateReducer(props.food, props.onSaveFood);
 
   return (
     <Form
@@ -67,7 +61,7 @@ export const FoodInputForm = (props: Props) => {
           <div className="d-flex flex-column flex-sm-row flex-wrap w-100">
             <ServingHintsText suggestions={suggestions} />
           </div>
-          <div style={{maxWidth: "100px"}}>
+          <div style={{ maxWidth: "100px" }}>
             {hasBestChoice(suggestions) && <BestChoiceLegend />}
           </div>
         </Form.Text>

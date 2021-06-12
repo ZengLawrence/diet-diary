@@ -50,7 +50,12 @@
       "servingSize": "1/4 cup"
     },
     {
-      "foodName": "Cereal or oatmeal, hot (with water), unsweetened",
+      "foodName": "Cereal, hot (with water), unsweetened",
+      "servingSize": "1/2 cup",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Oatmeal, with water, unsweetened",
       "servingSize": "1/2 cup",
       "bestChoice": true
     },

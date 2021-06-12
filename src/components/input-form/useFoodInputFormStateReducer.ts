@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { useReducer } from "react";
-import { Food, FoodGroup, newFood } from "../../model/Food";
+import { useServingSuggestions } from "../../features/suggestions/useServingSuggestions";
+import { Food, FoodGroup } from "../../model/Food";
 
 interface Action {
   type: string;
@@ -34,8 +35,6 @@ const validationFailedAction = (error: ValidationError) => ({
 })
 
 type ValidationFailedAction = ReturnType<typeof validationFailedAction>;
-
-const resetAction = () => ({ type: "reset" });
 
 function setServing(food: Food, action: SetServingAction) {
   return {
@@ -97,8 +96,6 @@ function reducer(state: State, action: ActionType) {
         food: unsetServing(state.food, action as UnsetServingAction),
         error: validateFood(unsetServing(state.food, action as UnsetServingAction)),
       };
-    case 'reset':
-      return initialState(newFood());
     case 'validation-failed':
       const validationFailedAction = action as ValidationFailedAction;
       return {
@@ -137,10 +134,16 @@ function checkValidity(error: ValidationError) {
   return !failed;
 }
 
-export function useFoodInputFormStateReducer(initialFood: Food, onAddFood: (food: Food) => void) {
+export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialState(initialFood));
   const { food, error } = state;
-  const updateFoodName = (name: string) => dispatch(setNameAction(name));
+
+  const { suggestions, generateSuggestions } = useServingSuggestions(initialFood.name);
+
+  const updateFoodName = (name: string) => {
+    dispatch(setNameAction(name));
+    generateSuggestions(name);
+  }
 
   const updateServing = (foodGroup: FoodGroup, serving: number) =>
     serving ? dispatch(setServingAction(foodGroup, serving)) : dispatch(unsetServingAction(foodGroup));
@@ -152,11 +155,10 @@ export function useFoodInputFormStateReducer(initialFood: Food, onAddFood: (food
       event.stopPropagation();
       dispatch(validationFailedAction(error));
     } else {
-      onAddFood(food);
-      dispatch(resetAction());
+      onSaveFood(food);
       event.preventDefault();
     }
   };
 
-  return { food, error, updateFoodName, updateServing, handleSubmit };
+  return { food, error, suggestions, updateFoodName, updateServing, handleSubmit };
 }

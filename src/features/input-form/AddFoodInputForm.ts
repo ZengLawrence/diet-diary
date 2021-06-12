@@ -10,7 +10,7 @@ const mapStateToProps = () => ({
 })
 
 const mapDispatchToProps = (dispatch : AppDispatch, ownProps: {mealIndex: number}) => ({
-  onAddFood: (food: Food) => dispatch(addFoodAction(ownProps.mealIndex, food)),
+  onSaveFood: (food: Food) => dispatch(addFoodAction(ownProps.mealIndex, food)),
   onCancel: () => dispatch(cancelAddFoodAction(ownProps.mealIndex)),
 })
 

@@ -32,7 +32,7 @@ export const MealCard = (props: Props) => {
       : dispatch(enterMealEditModelAction(mealIndex));
   }
 
-  const deletButton = editMode &&
+  const deleteButton = editMode &&
     !_.isUndefined(editState) &&
     <DeleteButton onClick={deleteMeal} />;
 
@@ -44,7 +44,7 @@ export const MealCard = (props: Props) => {
       <Card.Header className="d-flex flex-wrap align-items-center">
         <div className="flex-fill order-sm-0">{mealTime}</div>
         <div className="order-sm-2">
-          {deletButton}
+          {deleteButton}
           {editModeButton}
         </div>
         <div className="d-flex justify-content-between align-items-center order-sm-1 flex-grow-1 flex-md-grow-0">
@@ -57,7 +57,7 @@ export const MealCard = (props: Props) => {
         <FoodGroupItems foods={foods} mealIndex={mealIndex} foodEditIndex={foodEditIndex} editState={editState} />
         {editState === 'edit' && <AddButtonGroupItem mealIndex={mealIndex} />}
         {editState === 'add' &&
-          <ListGroup.Item>
+          <ListGroup.Item key={_.size(foods)}>
             <AddFoodInputForm mealIndex={mealIndex} />
           </ListGroup.Item>
         }
