@@ -1,14 +1,8 @@
 import _ from "lodash";
 import { Fragment } from "react";
 import { Form } from "react-bootstrap";
-import { Serving } from "../../model/Food";
 import { FoodGroupServingBadgePanel } from "../badge/FoodGroupServingBadgePanel";
-
-export interface PortionSuggestion {
-  foodName: string;
-  portionSize: string;
-  serving: Serving;
-}
+import { PortionSuggestion } from "../../features/suggestions/PortionSuggestion";
 
 const ServingHintsText = (props: { suggestions: PortionSuggestion[]; }) => {
   const appendComma = (i: number) => i < (_.size(props.suggestions) - 1);
