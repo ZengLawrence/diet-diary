@@ -21,7 +21,7 @@ const _generateSuggestions = (descRef: React.MutableRefObject<String>, callback:
 
 const debouncedGenerateSuggestions = _.debounce(_generateSuggestions, 500, { maxWait: 2000 });
 
-export const useServingSuggestions = (initialDescription: string) => {
+export const useSuggestions = (initialDescription: string) => {
   const [suggestions, setSuggestions] = useState([] as ServingSuggestion[]);
   const descRef = useRef(initialDescription);
 
