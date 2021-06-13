@@ -1,6 +1,6 @@
 import Fuse from "fuse.js";
 import _ from "lodash";
-import { scoreLessThan, search } from "../fuzzySearch";
+import { search } from "../fuzzySearch";
 import { PortionSuggestion } from "../PortionSuggestion";
 import { servings } from "./portion-serving.json";
 
@@ -25,4 +25,4 @@ const options = {
 const fuse = new Fuse<PortionSuggestion>(servings, options);
 
 export const searchFoodPortionSize = (foodName: string) =>
-  _.map(search(fuse, _.words(foodName), scoreLessThan(0.40)), "item");
+  _.map(search(fuse, _.words(foodName)), "item");

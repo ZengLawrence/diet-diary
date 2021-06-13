@@ -5,7 +5,13 @@ const searchExpression = (words: string[]) => ({
   $and: _.map(words, w => ({ "foodName": w }))
 })
 
-export function search<T>(fuse: Fuse<T>, words: string[], scorePredicate: (res: { score: number; }) => boolean): { item: T; score?: number; }[] {
+type ScorePredicate = (res: { score: number; }) => boolean;
+
+export function search<T>(
+  fuse: Fuse<T>,
+  words: string[],
+  scorePredicate: ScorePredicate = () => true
+): { item: T; score?: number; }[] {
   const match = (words: string[]) => fuse.search(searchExpression(words));
 
   const res = _.filter(match(words), scorePredicate) as { item: T; score?: number; }[];
