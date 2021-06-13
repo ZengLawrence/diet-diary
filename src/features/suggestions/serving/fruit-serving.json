@@ -49,6 +49,11 @@
       "servingSize": "3 fruits"
     },
     {
+      "foodName": "Grapefruit",
+      "servingSize": "3/4 cup sections or 1/2 large",
+      "bestChoice": true
+    },
+    {
       "foodName": "Grapes, seedless, red or green",
       "servingSize": "1 cup (about 30)",
       "bestChoice": true
@@ -81,6 +86,11 @@
     {
       "foodName": "Mango",
       "servingSize": "1/2 cup diced",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Melon balls",
+      "servingSize": "1 cup (about 8 balls)",
       "bestChoice": true
     },
     {

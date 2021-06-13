@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { useReducer } from "react";
-import { useServingSuggestions } from "../../features/suggestions/useServingSuggestions";
+import { useSuggestions } from "../../features/suggestions";
 import { Food, FoodGroup } from "../../model/Food";
 
 interface Action {
@@ -138,7 +138,7 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
   const [state, dispatch] = useReducer(reducer, initialState(initialFood));
   const { food, error } = state;
 
-  const { suggestions, generateSuggestions } = useServingSuggestions(initialFood.name);
+  const { servingSuggestions, portionSuggestions, generateSuggestions } = useSuggestions(initialFood.name);
 
   const updateFoodName = (name: string) => {
     dispatch(setNameAction(name));
@@ -160,5 +160,13 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
     }
   };
 
-  return { food, error, suggestions, updateFoodName, updateServing, handleSubmit };
+  return {
+    food,
+    error,
+    servingSuggestions,
+    portionSuggestions,
+    updateFoodName,
+    updateServing,
+    handleSubmit
+  };
 }
