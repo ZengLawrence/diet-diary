@@ -25,4 +25,4 @@ const options = {
 const fuse = new Fuse<PortionSuggestion>(servings, options);
 
 export const searchFoodPortionSize = (foodName: string) =>
-  _.map(search(fuse, _.words(foodName)), "item");
+  _.slice(_.map(search(fuse, _.words(foodName)), "item"), 0, 2);
