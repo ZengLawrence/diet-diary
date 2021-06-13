@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Tab, Tabs } from "react-bootstrap";
+import { Button, Tab, Tabs } from "react-bootstrap";
 import { newMealAction } from "../../actions";
 import { useAppDispatch } from "../../app/hooks";
 import { AppState } from "../../model/AppState";
@@ -8,6 +8,7 @@ import { Footer } from "../Footer";
 import { MealCard } from "../meal-card/MealCard";
 import { CalorieServingSummary } from "../summary/CalorieServingSummary";
 import { DifferenceSummary } from "../summary/DifferenceSummary";
+import exportCsv from "./exportCsv";
 import { Header } from "./Header";
 
 const MealAddButton = () => {
@@ -48,6 +49,7 @@ export const DayPage = (props: { state: AppState }) => {
 
       {mealCards}
       { editMode && <MealAddButton />}
+      <Button onClick={() => exportCsv(props.state.date, meals)}>Export</Button>
       <Footer />
     </div>
   )
