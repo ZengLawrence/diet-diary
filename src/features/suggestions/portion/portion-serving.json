@@ -269,6 +269,24 @@
         "fruit": 1,
         "proteinDiary": 1
       }
+    },
+    {
+      "foodName": "Sandwich, bacon, lettuce and tomato",
+      "portionSize": "1 sandwich",
+      "serving": {
+        "vegetable": 1,
+        "carbohydrate": 2,
+        "fat": 4
+      }
+    },
+    {
+      "foodName": "Cheeseburger, single patty with condiments",
+      "portionSize": "1 sandwich",
+      "serving": {
+        "carbohydrate": 3,
+        "proteinDiary": 2,
+        "fat": 2
+      }
     }
   ]
 }
