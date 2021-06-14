@@ -1,6 +1,7 @@
+import DoneButton from "../../features/day-page/DoneButton";
+import EditButton from "../../features/day-page/EditButton";
 import { DownloadButton } from "../../features/download/DownloadButton";
 import { AppState } from "../../model/AppState";
-import { DayEditModeButton } from "./DayEditModeButton";
 import { NewDayButton } from "./NewDayButton";
 import { TargetPanel } from "./TargetPanel";
 
@@ -16,7 +17,7 @@ export const Header = (props: { state: AppState; }) => {
       <div className="order-md-2">
         {editMode && <NewDayButton />}{' '}
         {!editMode && <DownloadButton />}{' '}
-        <DayEditModeButton editMode={editMode} />
+        {editMode ? <DoneButton /> : <EditButton />}
       </div>
     </div>
   );
