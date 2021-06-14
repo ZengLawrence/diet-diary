@@ -1,8 +1,8 @@
 import DoneButton from "../../features/day-page/DoneButton";
 import EditButton from "../../features/day-page/EditButton";
+import NewDayButton from "../../features/day-page/NewDayButton";
 import { DownloadButton } from "../../features/download/DownloadButton";
 import { AppState } from "../../model/AppState";
-import { NewDayButton } from "./NewDayButton";
 import { TargetPanel } from "./TargetPanel";
 
 export const Header = (props: { state: AppState; }) => {
