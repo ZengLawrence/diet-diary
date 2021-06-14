@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { DownloadButton } from "../../features/download/DownloadButton";
 import { AppState } from "../../model/AppState";
 import { DayEditModeButton } from "./DayEditModeButton";
@@ -16,7 +15,7 @@ export const Header = (props: { state: AppState; }) => {
       </div>
       <div className="order-md-2">
         {editMode && <NewDayButton />}{' '}
-        {!editMode && <DownloadButton date={date} meals={_.map(props.state.mealStates, 'meal')} />}{' '}
+        {!editMode && <DownloadButton />}{' '}
         <DayEditModeButton editMode={editMode} />
       </div>
     </div>
