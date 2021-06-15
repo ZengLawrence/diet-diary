@@ -2,13 +2,13 @@ import _ from "lodash";
 import { Tab, Tabs } from "react-bootstrap";
 import { newMealAction } from "../../actions";
 import { useAppDispatch } from "../../app/hooks";
+import Header from "../../features/day-page/Header";
 import { AppState } from "../../model/AppState";
 import { AddButton } from "../AddButton";
 import { Footer } from "../Footer";
 import { MealCard } from "../meal-card/MealCard";
 import { CalorieServingSummary } from "../summary/CalorieServingSummary";
 import { DifferenceSummary } from "../summary/DifferenceSummary";
-import { Header } from "./Header";
 
 const MealAddButton = () => {
   const dispatch = useAppDispatch();
@@ -33,7 +33,7 @@ export const DayPage = (props: { state: AppState }) => {
 
   return (
     <div>
-      <Header state={props.state} />
+      <Header />
 
       <div className="border rounded p-1">
         <Tabs defaultActiveKey="total" id="tab-summary" variant="pills">
