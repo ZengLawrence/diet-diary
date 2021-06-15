@@ -1,20 +1,15 @@
-import { changeTargetAction, exitEditTargetAction } from "../../actions";
-import { useAppDispatch } from "../../app/hooks";
 import ChangeTargetButton from "../../features/target/ChangeTargetButton";
-import { allTargets, Target } from "../../model/Target";
+import TargetDropDown from "../../features/target/TargetDropDown";
+import { Target } from "../../model/Target";
 import { FoodGroupServingGoalBadgePanel } from "../badge/FoodGroupServingGoalBadgePanel";
-import { TargetDropDown } from "./TargetDropDown";
 import { TargetLabel } from "./TargetLabel";
 
 export const TargetPanel = (props: { target: Target; editMode: boolean; editTarget: boolean }) => {
   const { editMode, target, editTarget } = props;
   const showChangeTargetButton = (editMode && !editTarget);
 
-  const dispatch = useAppDispatch();
-  const handleChangeTargetDropDownSelect = (target: Target) => { dispatch(changeTargetAction(target)); dispatch(exitEditTargetAction()); };
-
   const caloriePanel = (editTarget
-    ? <TargetDropDown selectedCalorie={target.calorie} targets={allTargets()} onSelect={handleChangeTargetDropDownSelect} />
+    ? <TargetDropDown />
     : <TargetLabel calorie={target.calorie} />);
 
   return (
