@@ -1,24 +1,12 @@
 import _ from "lodash";
 import { Tab, Tabs } from "react-bootstrap";
-import { newMealAction } from "../../actions";
-import { useAppDispatch } from "../../app/hooks";
+import AddMealButton from "../../features/day-page/AddMealButton";
 import Header from "../../features/day-page/Header";
 import { AppState } from "../../model/AppState";
-import { AddButton } from "../AddButton";
 import { Footer } from "../Footer";
 import { MealCard } from "../meal-card/MealCard";
 import { CalorieServingSummary } from "../summary/CalorieServingSummary";
 import { DifferenceSummary } from "../summary/DifferenceSummary";
-
-const MealAddButton = () => {
-  const dispatch = useAppDispatch();
-
-  return (
-    <div className="p-2">
-      <AddButton onClick={() => dispatch(newMealAction())} />
-    </div>
-  );
-};
 
 export const DayPage = (props: { state: AppState }) => {
   const { mealStates, editMode, target } = props.state;
@@ -47,7 +35,7 @@ export const DayPage = (props: { state: AppState }) => {
       </div>
 
       {mealCards}
-      { editMode && <MealAddButton />}
+      {editMode && <div className="p-2"><AddMealButton /></div>}
       <Footer />
     </div>
   )

@@ -9,7 +9,7 @@ import { calcServingSummary } from "../../model/servingFunction";
 import { FoodGroupServingBadgePanel } from "../badge/FoodGroupServingBadgePanel";
 import { DeleteButton } from "../DeleteButton";
 import { EditModeButton } from "../EditModeButton";
-import { AddButtonGroupItem } from "./AddButtonGroupItem";
+import NewFoodButton from "../../features/meal-card/NewFoodButton";
 import { FoodGroupItems } from "./FoodGroupItems";
 
 interface Props {
@@ -55,7 +55,11 @@ export const MealCard = (props: Props) => {
 
       <ListGroup>
         <FoodGroupItems foods={foods} mealIndex={mealIndex} foodEditIndex={foodEditIndex} editState={editState} />
-        {editState === 'edit' && <AddButtonGroupItem mealIndex={mealIndex} />}
+        {editState === 'edit' &&
+          <ListGroup.Item>
+            <NewFoodButton mealIndex={mealIndex} />
+          </ListGroup.Item>
+        }
         {editState === 'add' &&
           <ListGroup.Item key={_.size(foods)}>
             <AddFoodInputForm mealIndex={mealIndex} />
