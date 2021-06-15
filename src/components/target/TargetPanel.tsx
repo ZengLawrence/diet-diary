@@ -1,19 +1,14 @@
 import _ from "lodash";
-import { Button, Dropdown } from "react-bootstrap";
-import { changeTargetAction, enterEditTargetAction, exitEditTargetAction } from "../../actions";
+import { Dropdown } from "react-bootstrap";
+import { changeTargetAction, exitEditTargetAction } from "../../actions";
 import { useAppDispatch } from "../../app/hooks";
+import ChangeTargetButton from "../../features/target/ChangeTargetButton";
 import { allTargets, Target } from "../../model/Target";
 import { FoodGroupServingGoalBadgePanel } from "../badge/FoodGroupServingGoalBadgePanel";
 
 const TargetLabel = (props: { calorie: number; }) => (
   <span className="text-white bg-info border rounded px-1" style={{ fontSize: '24px' }}>{props.calorie}</span>
 )
-
-const ChangeTargetButton = (props: { onClick: () => void; }) => {
-  return (
-    <Button variant="outline-secondary" onClick={props.onClick}>Change</Button>
-  );
-};
 
 const TargetDropDown = (props: { selectedCalorie: number; targets: Target[], onSelect: (target: Target) => void; }) => {
   const menuItems = props.targets.map(target => (
@@ -47,7 +42,6 @@ export const TargetPanel = (props: { target: Target; editMode: boolean; editTarg
   const showChangeTargetButton = (editMode && !editTarget);
 
   const dispatch = useAppDispatch();
-  const handleChangeTargetButtonClick = () => dispatch(enterEditTargetAction());
   const handleChangeTargetDropDownSelect = (target: Target) => { dispatch(changeTargetAction(target)); dispatch(exitEditTargetAction()); };
 
   const caloriePanel = (editTarget
@@ -62,7 +56,7 @@ export const TargetPanel = (props: { target: Target; editMode: boolean; editTarg
         </div>
         <FoodGroupServingGoalBadgePanel serving={target.serving} />
       </div>&nbsp;
-      {showChangeTargetButton && <ChangeTargetButton onClick={handleChangeTargetButtonClick} />}
+      {showChangeTargetButton && <ChangeTargetButton />}
     </div>
   );
 };
