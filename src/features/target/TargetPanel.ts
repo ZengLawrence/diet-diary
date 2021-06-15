@@ -3,7 +3,6 @@ import { RootState } from "../../app/store";
 import { TargetPanel } from "../../components/target/TargetPanel";
 
 const mapStateToProps = (state: RootState) => ({
-  target: state.target,
   editMode: state.editMode,
   editTarget: state.editTarget,
 })
