@@ -3,12 +3,13 @@ import { Dropdown } from "react-bootstrap";
 import { Target } from "../../model/Target";
 import { FoodGroupServingGoalBadgePanel } from "../badge/FoodGroupServingGoalBadgePanel";
 
+const menuItem = (target: Target) => (
+  <Dropdown.Item key={target.calorie} eventKey={target.calorie}>
+    {target.calorie}{' '} Cal.<FoodGroupServingGoalBadgePanel serving={target.serving} />
+  </Dropdown.Item>
+)
+
 export const TargetDropDown = (props: { selectedCalorie: number; targets: Target[]; onSelect: (target: Target) => void; }) => {
-  const menuItems = props.targets.map(target => (
-    <Dropdown.Item key={target.calorie} eventKey={target.calorie}>
-      {target.calorie}{' '} Cal.<FoodGroupServingGoalBadgePanel serving={target.serving} />
-    </Dropdown.Item>
-  ));
   const handleSelect = (eventKey: any) => {
     const selectedCalorie = _.toNumber(eventKey);
     const selectedTarget = _.find(props.targets, { 'calorie': selectedCalorie });
@@ -24,7 +25,7 @@ export const TargetDropDown = (props: { selectedCalorie: number; targets: Target
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        {menuItems}
+        {_.map(props.targets, menuItem)}
       </Dropdown.Menu>
     </Dropdown>
   );
