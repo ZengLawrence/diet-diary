@@ -1,10 +1,10 @@
 import { Fragment } from "react";
 import { ListGroup } from "react-bootstrap";
-import { enterFoodEditModeAction, exitFoodEditModeAction } from "../../actions";
 import { useAppDispatch } from "../../app/hooks";
 import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
+import DoneButton from "../../features/meal-card/DoneButton";
+import EditButton from "../../features/meal-card/EditButton";
 import { Food } from "../../model/Food";
-import { EditModeButton } from "../EditModeButton";
 import { FoodItem } from "../FoodItem";
 
 export const FoodGroupItems = (props: { foods: Food[]; mealIndex: number; foodEditIndex?: number; editState?: string; }) => {
@@ -12,18 +12,13 @@ export const FoodGroupItems = (props: { foods: Food[]; mealIndex: number; foodEd
   const dispatch = useAppDispatch();
 
   const groupItems = foods.map((food, index) => {
-    const toggleFoodEditMode = () => {
-      index === foodEditIndex
-        ? dispatch(exitFoodEditModeAction(mealIndex))
-        : dispatch(enterFoodEditModeAction(mealIndex, index));
-    };
 
     const showForm = (editState === 'edit' && index === foodEditIndex);
     const foodReadOnlyGroupItem = (
       <div className="d-flex align-items-center">
         <FoodItem food={food} />
         {editState === 'edit'
-          && <EditModeButton editMode={index === foodEditIndex} onClick={toggleFoodEditMode} />}
+          && (index === foodEditIndex ? <DoneButton mealIndex={mealIndex} /> : <EditButton mealIndex={mealIndex} foodIndex={index} />)}
       </div>
     );
 
