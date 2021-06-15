@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { RootState } from "../../app/store";
-import { TargetPanel } from "../../components/day-page/TargetPanel";
+import { TargetPanel } from "../../components/target/TargetPanel";
 
 const mapStateToProps = (state: RootState) => ({
   target: state.target,
