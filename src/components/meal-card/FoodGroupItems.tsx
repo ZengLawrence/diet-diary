@@ -4,7 +4,7 @@ import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
 import DoneButton from "../../features/meal-card/DoneButton";
 import EditButton from "../../features/meal-card/EditButton";
 import { Food } from "../../model/Food";
-import { FoodItem } from "../FoodItem";
+import { FoodItem } from "./FoodItem";
 
 export const FoodGroupItems = (props: { foods: Food[]; mealIndex: number; foodEditIndex?: number; editState?: string; }) => {
   const { foods, mealIndex, foodEditIndex, editState } = props;
