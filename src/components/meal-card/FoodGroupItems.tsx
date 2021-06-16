@@ -14,8 +14,7 @@ export const FoodGroupItems = (props: { foods: Food[]; mealIndex: number; foodEd
     const foodReadOnlyGroupItem = (
       <div className="d-flex align-items-center">
         <FoodItem food={food} />
-        {editState === 'edit'
-          && (index !== foodEditIndex && <EditFoodButton mealIndex={mealIndex} foodIndex={index} />)}
+        {editState === 'edit' && <EditFoodButton mealIndex={mealIndex} foodIndex={index} />}
       </div>
     );
 
