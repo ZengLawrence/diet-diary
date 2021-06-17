@@ -1,15 +1,15 @@
 import _ from "lodash";
 import { Card, ListGroup } from "react-bootstrap";
-import { deleteMealAction, enterMealEditModelAction, exitMealEditModeAction } from "../../actions";
+import { enterMealEditModelAction, exitMealEditModeAction } from "../../actions";
 import { useAppDispatch } from "../../app/hooks";
 import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
+import DeleteButton from "../../features/meal-card/DeleteButton";
+import NewFoodButton from "../../features/meal-card/NewFoodButton";
 import { MealState } from "../../model/AppState";
 import { calcMealCalories, displayCalorieValue } from "../../model/calorieFunction";
 import { calcServingSummary } from "../../model/servingFunction";
 import { FoodGroupServingBadgePanel } from "../badge/FoodGroupServingBadgePanel";
-import { DeleteButton } from "../DeleteButton";
 import { EditModeButton } from "../EditModeButton";
-import NewFoodButton from "../../features/meal-card/NewFoodButton";
 import { FoodGroupItems } from "./FoodGroupItems";
 
 interface Props {
@@ -25,7 +25,6 @@ export const MealCard = (props: Props) => {
   const totalCalories = calcMealCalories(meal);
 
   const dispatch = useAppDispatch();
-  const deleteMeal = () => dispatch(deleteMealAction(mealIndex));
   const toggleMealEditMode = () => {
     editState === "edit"
       ? dispatch(exitMealEditModeAction(mealIndex))
@@ -34,7 +33,7 @@ export const MealCard = (props: Props) => {
 
   const deleteButton = editMode &&
     !_.isUndefined(editState) &&
-    <DeleteButton onClick={deleteMeal} />;
+    <DeleteButton mealIndex={mealIndex} />;
 
   const editModeButton = editMode &&
     <EditModeButton editMode={editState === "edit"} onClick={toggleMealEditMode} />;
