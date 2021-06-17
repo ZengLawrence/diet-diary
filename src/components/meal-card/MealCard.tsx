@@ -3,6 +3,8 @@ import { Card, ListGroup } from "react-bootstrap";
 import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
 import NewFoodButton from "../../features/meal-card/NewFoodButton";
 import { MealState } from "../../model/AppState";
+import { calcMealCalories } from "../../model/calorieFunction";
+import { calcServingSummary } from "../../model/servingFunction";
 import { FoodGroupItems } from "./FoodGroupItems";
 import { MealCardHeader } from "./MealCardHeader";
 
@@ -15,11 +17,17 @@ interface Props {
 export const MealCard = (props: Props) => {
   const { state, mealIndex, editMode } = props;
   const { meal, editState, foodEditIndex } = state;
-  const { foods } = meal;
+  const { mealTime, foods } = meal;
 
   return (
     <Card className="mt-1">
-      <MealCardHeader meal={meal} editState={editState} mealIndex={mealIndex} editMode={editMode} />
+      <MealCardHeader 
+        mealTime={mealTime} 
+        calories={calcMealCalories(meal)} 
+        serving={calcServingSummary(meal)} 
+        editState={editState} 
+        mealIndex={mealIndex} 
+        editMode={editMode} />
 
       <ListGroup>
         <FoodGroupItems foods={foods} mealIndex={mealIndex} foodEditIndex={foodEditIndex} editState={editState} />
