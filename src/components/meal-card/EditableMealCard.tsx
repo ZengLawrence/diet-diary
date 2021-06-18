@@ -1,34 +1,96 @@
 import _ from "lodash";
 import { Card, ListGroup } from "react-bootstrap";
 import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
+import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
+import EditFoodButton from "../../features/meal-card/EditFoodButton";
 import NewFoodButton from "../../features/meal-card/NewFoodButton";
 import { MealState } from "../../model/AppState";
-import { FoodGroupItems } from "./FoodGroupItems";
-import { MealCardHeader } from "./MealCardHeader";
+import { Meal } from "../../model/Food";
+import { FoodItem } from "./FoodItem";
+import { AddMealCardHeader, DefaultMealCardHeader, EditMealCardHeader } from "./MealCardHeader";
+
+const DefaultMealCard = (props: { meal: Meal; mealIndex: number; }) => {
+  const { foods } = props.meal;
+
+  return (
+    <Card className="mt-1">
+      <DefaultMealCardHeader meal={props.meal} mealIndex={props.mealIndex} />
+
+      <ListGroup>
+        {
+          foods.map((food, index) => (
+            <ListGroup.Item key={index}>
+              <FoodItem food={food} />
+            </ListGroup.Item>
+          ))
+        }
+      </ListGroup>
+    </Card>
+  );
+};
+
+const EditMealCard = (props: { meal: Meal; mealIndex: number; foodEditIndex?: number; }) => {
+  const { foods } = props.meal;
+
+  return (
+    <Card className="mt-1">
+      <EditMealCardHeader meal={props.meal} mealIndex={props.mealIndex} />
+
+      <ListGroup>
+        {
+          foods.map((food, index) => (
+            <ListGroup.Item key={index}>
+              {index === props.foodEditIndex
+                ? <UpdateFoodInputForm food={food} mealIndex={props.mealIndex} foodIndex={index} />
+                : <div className="d-flex align-items-center">
+                  <FoodItem food={food} />
+                  <EditFoodButton mealIndex={props.mealIndex} foodIndex={index} />
+                </div>
+              }
+            </ListGroup.Item>
+          ))
+        }
+        <ListGroup.Item>
+          <NewFoodButton mealIndex={props.mealIndex} />
+        </ListGroup.Item>
+      </ListGroup>
+    </Card>
+  );
+};
+
+const AddMealCard = (props: { meal: Meal; mealIndex: number; }) => {
+  const { foods } = props.meal;
+
+  return (
+    <Card className="mt-1">
+      <AddMealCardHeader meal={props.meal} mealIndex={props.mealIndex} />
+
+      <ListGroup>
+        {
+          foods.map((food, index) => (
+            <ListGroup.Item key={index}>
+              <FoodItem food={food} />
+            </ListGroup.Item>
+          ))
+        }
+        <ListGroup.Item key={_.size(foods)}>
+          <AddFoodInputForm mealIndex={props.mealIndex} />
+        </ListGroup.Item>
+      </ListGroup>
+    </Card>
+  );
+};
 
 export const EditableMealCard = (props: { state: MealState; mealIndex: number; }) => {
   const { state, mealIndex } = props;
   const { meal, editState, foodEditIndex } = state;
-  const { foods } = meal;
 
-  return (
-    <Card className="mt-1">
-      <MealCardHeader
-        meal={meal}
-        editState={editState}
-        mealIndex={mealIndex} />
-
-      <ListGroup>
-        <FoodGroupItems foods={foods} mealIndex={mealIndex} foodEditIndex={foodEditIndex} editState={editState} />
-        {editState === 'edit' &&
-          <ListGroup.Item>
-            <NewFoodButton mealIndex={mealIndex} />
-          </ListGroup.Item>}
-        {editState === 'add' &&
-          <ListGroup.Item key={_.size(foods)}>
-            <AddFoodInputForm mealIndex={mealIndex} />
-          </ListGroup.Item>}
-      </ListGroup>
-    </Card>
-  );
+  switch (editState) {
+    case "add":
+      return <AddMealCard meal={meal} mealIndex={mealIndex} />
+    case "edit":
+      return <EditMealCard meal={meal} mealIndex={mealIndex} foodEditIndex={foodEditIndex} />
+    default:
+      return <DefaultMealCard meal={meal} mealIndex={mealIndex} />
+  }
 };

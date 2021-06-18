@@ -2,11 +2,10 @@ import { Card } from "react-bootstrap";
 import DeleteButton from "../../features/meal-card/DeleteButton";
 import DoneButton from "../../features/meal-card/DoneButton";
 import EditButton from "../../features/meal-card/EditButton";
-import { MealEditState } from "../../model/AppState";
 import { Meal } from "../../model/Food";
 import { MealCalorieServingPanel } from "./MealCalorieServingPanel";
 
-const DefaultMealCardHeader = (props: {
+export const DefaultMealCardHeader = (props: {
   meal: Meal;
   mealIndex: number;
 }) => (
@@ -21,7 +20,7 @@ const DefaultMealCardHeader = (props: {
   </Card.Header>
 )
 
-const AddMealCardHeader = (props: {
+export const AddMealCardHeader = (props: {
   meal: Meal;
   mealIndex: number;
 }) => (
@@ -37,7 +36,7 @@ const AddMealCardHeader = (props: {
   </Card.Header>
 )
 
-const EditMealCardHeader = (props: {
+export const EditMealCardHeader = (props: {
   meal: Meal;
   mealIndex: number;
 }) => (
@@ -52,18 +51,3 @@ const EditMealCardHeader = (props: {
     </div>
   </Card.Header>
 )
-
-export const MealCardHeader = (props: {
-  meal: Meal;
-  editState: MealEditState;
-  mealIndex: number;
-}) => {
-  switch (props.editState) {
-    case "edit":
-      return <EditMealCardHeader meal={props.meal} mealIndex={props.mealIndex} />;
-    case "add":
-      return <AddMealCardHeader meal={props.meal} mealIndex={props.mealIndex} />;
-    default:
-      return <DefaultMealCardHeader meal={props.meal} mealIndex={props.mealIndex} />;
-  }
-};
