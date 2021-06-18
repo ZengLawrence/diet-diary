@@ -7,19 +7,16 @@ import { FoodGroupItems } from "./FoodGroupItems";
 import { MealCardHeader } from "./MealCardHeader";
 
 export const EditableMealCard = (props: { state: MealState; mealIndex: number; }) => {
-  const editMode = true;
   const { state, mealIndex } = props;
   const { meal, editState, foodEditIndex } = state;
-  const { mealTime, foods } = meal;
+  const { foods } = meal;
 
   return (
     <Card className="mt-1">
       <MealCardHeader
-        mealTime={mealTime}
         meal={meal}
         editState={editState}
-        mealIndex={mealIndex}
-        editMode={editMode} />
+        mealIndex={mealIndex} />
 
       <ListGroup>
         <FoodGroupItems foods={foods} mealIndex={mealIndex} foodEditIndex={foodEditIndex} editState={editState} />
