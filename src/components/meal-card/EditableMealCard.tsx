@@ -3,8 +3,6 @@ import { Card, ListGroup } from "react-bootstrap";
 import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
 import NewFoodButton from "../../features/meal-card/NewFoodButton";
 import { MealState } from "../../model/AppState";
-import { calcMealCalories } from "../../model/calorieFunction";
-import { calcServingSummary } from "../../model/servingFunction";
 import { FoodGroupItems } from "./FoodGroupItems";
 import { MealCardHeader } from "./MealCardHeader";
 
@@ -18,8 +16,7 @@ export const EditableMealCard = (props: { state: MealState; mealIndex: number; }
     <Card className="mt-1">
       <MealCardHeader
         mealTime={mealTime}
-        calories={calcMealCalories(meal)}
-        serving={calcServingSummary(meal)}
+        meal={meal}
         editState={editState}
         mealIndex={mealIndex}
         editMode={editMode} />
