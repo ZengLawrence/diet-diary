@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import _ from "lodash";
-import { calcCaloriesTotal } from "../model/calorieFunction";
+import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunction";
 import { calcMealsServingSummary } from "../model/servingFunction";
 import { RootState } from "./store";
 
@@ -26,4 +26,12 @@ export const totalCaloriesSelector = createSelector(
 export const totalServingSelector = createSelector(
   mealsSelector,
   (meals) => calcMealsServingSummary(meals)
+)
+
+const targetSelector = (state: RootState) => state.target;
+
+export const calorieDifferenceSelector = createSelector(
+  mealsSelector,
+  targetSelector,
+  (meals, target) => calcCaloriesDifference(meals, target.calorie)
 )
