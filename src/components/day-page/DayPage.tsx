@@ -1,12 +1,11 @@
-import { mealsSelector } from "../../app/selectors";
+import EditableDayPage from "../../features/day-page/EditableDayPage";
+import UneditableDayPage from "../../features/day-page/UneditableDayPage";
 import { AppState } from "../../model/AppState";
-import { EditableDayPage } from "./EditableDayPage";
-import { UneditableDayPage } from "./UneditableDayPage";
 
 export const DayPage = (props: { state: AppState }) => {
-  const { mealStates, editMode } = props.state;
+  const { editMode } = props.state;
 
   return (
-      editMode ? <EditableDayPage mealStates={mealStates}/> : <UneditableDayPage meals={mealsSelector(props.state)}/>
+    editMode ? <EditableDayPage /> : <UneditableDayPage />
   )
 }

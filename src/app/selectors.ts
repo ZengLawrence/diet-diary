@@ -5,7 +5,7 @@ import { calcMealsServingSummary, calcServingDifference } from "../model/serving
 import { RootState } from "./store";
 
 const dateSelector = (state: RootState) => state.date;
-const mealStatesSelector = (state: RootState) => state.mealStates;
+export const mealStatesSelector = (state: RootState) => state.mealStates;
 
 export const diarySelector = createSelector(
   dateSelector,
