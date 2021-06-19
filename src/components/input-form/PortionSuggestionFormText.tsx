@@ -3,6 +3,8 @@ import { Fragment } from "react";
 import { Form } from "react-bootstrap";
 import { FoodGroupServingBadgePanel } from "../badge/FoodGroupServingBadgePanel";
 import { PortionSuggestion } from "../../features/suggestions";
+import { calcServingCalories } from "../../model/calorieFunction";
+import { CalorieSpan } from "../CalorieSpan";
 
 const ServingHintsText = (props: { suggestions: PortionSuggestion[]; }) => {
   const appendComma = (i: number) => i < (_.size(props.suggestions) - 1);
@@ -10,7 +12,11 @@ const ServingHintsText = (props: { suggestions: PortionSuggestion[]; }) => {
     <Fragment>
       {props.suggestions.map(({ foodName, portionSize, serving }, index) => (
         <div key={index}>
-          <span className="font-weight-bolder">{foodName}</span><span>&nbsp;{portionSize}</span><FoodGroupServingBadgePanel serving={serving} />{appendComma(index) && ","}&nbsp;
+          <span className="font-weight-bolder">{foodName}</span>&nbsp;
+          <span>{portionSize}</span>
+          <FoodGroupServingBadgePanel serving={serving} />
+          (<CalorieSpan value={calcServingCalories(serving)} />)
+          {appendComma(index) && ","}&nbsp;
         </div>
       ))}
     </Fragment>
