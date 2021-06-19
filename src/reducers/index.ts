@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { Action, ChangeTargetAction } from "../actions";
-import { today } from "../model/AppState";
+import { today } from "../model/MealState";
 import { DEFAULT_TARGET, Target } from "../model/Target";
 import { mealStatesReducer } from "./meal-state";
 

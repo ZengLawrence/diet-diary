@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { Action, EnterFoodEditModeAction, MealAction } from "../../actions";
-import { MealEditState, MealState, newMealState } from "../../model/AppState";
+import { MealEditState, MealState, newMealState } from "../../model/MealState";
 import { mealReducer } from "./mealReducer";
 
 function editStateReducer(state: MealEditState, action: Action): MealEditState {
