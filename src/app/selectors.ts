@@ -4,8 +4,10 @@ import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunct
 import { calcMealsServingSummary, calcServingDifference } from "../model/servingFunction";
 import { RootState } from "./store";
 
-const dateSelector = (state: RootState) => state.date;
+export const dateSelector = (state: RootState) => state.date;
+export const editModeSelector = (state: RootState) => state.editMode;
 export const mealStatesSelector = (state: RootState) => state.mealStates;
+export const targetSelector = (state: RootState) => state.target;
 
 export const diarySelector = createSelector(
   dateSelector,
@@ -27,8 +29,6 @@ export const totalServingSelector = createSelector(
   mealsSelector,
   (meals) => calcMealsServingSummary(meals)
 )
-
-const targetSelector = (state: RootState) => state.target;
 
 export const calorieDifferenceSelector = createSelector(
   mealsSelector,
