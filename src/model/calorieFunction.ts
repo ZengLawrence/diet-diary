@@ -14,7 +14,8 @@ const FOOD_GROUP_CALORIES = {
 export function getCalories(foodGroup: FoodGroup) {
   return _.get(FOOD_GROUP_CALORIES, foodGroup, 0);
 }
-function calcServingCalories(serving: Serving) {
+
+export function calcServingCalories(serving: Serving) {
   const calcCalories = (foodGroup: FoodGroup) => getCalories(foodGroup) * _.get(serving, foodGroup, 0);
   return _.sum(_.map(_.keys(serving), calcCalories));
 }
