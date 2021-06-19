@@ -13,7 +13,7 @@ export const diarySelector = createSelector(
   (date, mealStates) => ({ date, meals: _.map(mealStates, 'meal') })
 )
 
-const mealsSelector = createSelector(
+export const mealsSelector = createSelector(
   mealStatesSelector,
   (mealStates) => _.map(mealStates, 'meal')
 )
