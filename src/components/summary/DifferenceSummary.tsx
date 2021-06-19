@@ -1,16 +1,12 @@
 import CalorieDifference from "../../features/summary/CalorieDifference";
-import { Meal } from "../../model/Food";
-import { calcServingDifference } from "../../model/servingFunction";
-import { Target } from "../../model/Target";
-import { ServingSummary } from "./ServingSummary";
+import ServingDifference from "../../features/summary/ServingDifference";
 
-export const DifferenceSummary = (props: { meals: Meal[]; target: Target; }) => {
-  const { meals, target } = props;
+export const DifferenceSummary = () => {
   return (
     <div className="d-flex">
       <CalorieDifference />
       <div className="flex-fill">
-        <ServingSummary serving={calcServingDifference(meals, target.serving)} />
+        <ServingDifference />
       </div>
     </div>
   )

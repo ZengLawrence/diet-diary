@@ -9,7 +9,7 @@ import { CalorieServingSummary } from "../summary/CalorieServingSummary";
 import { DifferenceSummary } from "../summary/DifferenceSummary";
 
 export const DayPage = (props: { state: AppState }) => {
-  const { mealStates, editMode, target } = props.state;
+  const { mealStates, editMode } = props.state;
   const mealCards = _.map(mealStates, (mealState, index) => (
     <MealCard
       key={index}
@@ -17,7 +17,6 @@ export const DayPage = (props: { state: AppState }) => {
       state={mealState}
       editMode={editMode} />)
   );
-  const meals = _.map(mealStates, 'meal');
 
   return (
     <div>
@@ -29,7 +28,7 @@ export const DayPage = (props: { state: AppState }) => {
             <CalorieServingSummary />
           </Tab>
           <Tab eventKey="difference" title="Difference">
-            <DifferenceSummary meals={meals} target={target} />
+            <DifferenceSummary />
           </Tab>
         </Tabs>
       </div>
