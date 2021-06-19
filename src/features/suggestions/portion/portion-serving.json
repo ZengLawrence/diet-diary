@@ -287,6 +287,189 @@
         "proteinDiary": 2,
         "fat": 2
       }
+    },
+    {
+      "foodName": "Sandwich, chicken, grilled",
+      "portionSize": "1 sandwich",
+      "serving": {
+        "carbohydrate": 2,
+        "proteinDiary": 1
+      }
+    },
+    {
+      "foodName": "Sandwich, chicken cordon bleu, restaurant-prepared",
+      "portionSize": "1 sandwich",
+      "serving": {
+        "carbohydrate": 3,
+        "proteinDiary": 2.5,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Sandwich, chicken fillet, grilled, with mayonnaise",
+      "portionSize": "1 sandwich",
+      "serving": {
+        "carbohydrate": 3,
+        "proteinDiary": 2,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Chicken wrap with cranberry sauce",
+      "portionSize": "1 wrap",
+      "serving": {
+        "carbohydrate": 1,
+        "proteinDiary": 1,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Sandwich, fish, with tartar sauce",
+      "portionSize": "1 sandwich",
+      "serving": {
+        "carbohydrate": 3,
+        "proteinDiary": 1.5,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Sandwich, French dip, restaurant-prepared",
+      "portionSize": "1 sandwich",
+      "serving": {
+        "carbohydrate": 4,
+        "proteinDiary": 2,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Sandwich, ham and cheese, hot",
+      "portionSize": "1 sandwich",
+      "serving": {
+        "carbohydrate": 2,
+        "proteinDiary": 1.5,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Sandwich, ham and cheese, stuffed pocket, microwave",
+      "portionSize": "1 sandwich",
+      "serving": {
+        "carbohydrate": 3,
+        "proteinDiary": 3,
+        "fat": 3
+      }
+    },
+    {
+      "foodName": "Hamburger, California (vegetables, mayonnaise)",
+      "portionSize": "1 sandwich",
+      "serving": {
+        "vegetable": 1,
+        "carbohydrate": 2,
+        "proteinDiary": 2,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Hamburger, single patty with condiments",
+      "portionSize": "1 sandwich",
+      "serving": {
+        "carbohydrate": 2,
+        "proteinDiary": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Sandwich, hot dog (frankfurter), beef",
+      "portionSize": "1 1/2-ounce dog",
+      "serving": {
+        "carbohydrate": 2,
+        "proteinDiary": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Sandwich, peanut butter and jelly",
+      "portionSize": "1 sandwich",
+      "serving": {
+        "carbohydrate": 2,
+        "fat": 2,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Sandwich, roast beef, plain, restaurant-prepared",
+      "portionSize": "1 regular",
+      "serving": {
+        "carbohydrate": 2,
+        "proteinDiary": 1.5,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Sandwich, steak",
+      "portionSize": "1 sandwich",
+      "serving": {
+        "carbohydrate": 2,
+        "proteinDiary": 2
+      }
+    },
+    {
+      "foodName": "Submarine with cold cuts and veggies",
+      "portionSize": "about 6 inches",
+      "serving": {
+        "vegetable": 1,
+        "carbohydrate": 3,
+        "proteinDiary": 1.5,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Submarine with tuna salad and veggies",
+      "portionSize": "about 6 inches",
+      "serving": {
+        "vegetable": 1,
+        "carbohydrate": 3,
+        "proteinDiary": 2,
+        "fat": 3
+      }
+    },
+    {
+      "foodName": "Tuna salad pita",
+      "portionSize": "1 sandwich",
+      "serving": {
+        "carbohydrate": 1,
+        "proteinDiary": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Sandwich, turkey (vegetables, mayonnaise)",
+      "portionSize": "1 sandwich",
+      "serving": {
+        "vegetable": 1,
+        "carbohydrate": 2,
+        "proteinDiary": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Sandwich, turkey with ranch, bacon and veggies",
+      "portionSize": "1 sandwich",
+      "serving": {
+        "vegetable": 3,
+        "carbohydrate": 4,
+        "proteinDiary": 3,
+        "fat": 3
+      }
+    },
+    {
+      "foodName": "Turkey wrap, smoked",
+      "portionSize": "1 wrap",
+      "serving": {
+        "carbohydrate": 1,
+        "proteinDiary": 1,
+        "fat": 1
+      }
     }
   ]
 }
