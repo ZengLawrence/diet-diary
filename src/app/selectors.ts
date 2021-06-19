@@ -1,6 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { calcCaloriesTotal } from "../model/calorieFunction";
+import { calcMealsServingSummary } from "../model/servingFunction";
 import { RootState } from "./store";
 
 const dateSelector = (state: RootState) => state.date;
@@ -20,4 +21,9 @@ const mealsSelector = createSelector(
 export const totalCaloriesSelector = createSelector(
   mealsSelector,
   (meals) => calcCaloriesTotal(meals)
+)
+
+export const totalServingSelector = createSelector(
+  mealsSelector,
+  (meals) => calcMealsServingSummary(meals)
 )

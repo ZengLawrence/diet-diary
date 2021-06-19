@@ -1,13 +1,11 @@
 import CalorieSummary from "../../features/summary/CalorieSummary";
-import { Meal } from "../../model/Food";
-import { calcMealsServingSummary } from "../../model/servingFunction";
-import { ServingSummary } from "./ServingSummary";
+import ServingSummary from "../../features/summary/ServingSummary";
 
-export const CalorieServingSummary = (props: { meals: Meal[] }) => (
+export const CalorieServingSummary = () => (
   <div className="d-flex">
     <CalorieSummary />
     <div className="flex-fill">
-      <ServingSummary serving={calcMealsServingSummary(props.meals)} />
+      <ServingSummary />
     </div>
   </div>
 )
