@@ -1,7 +1,7 @@
 import _ from "lodash";
 import AddMealButton from "../../features/day-page/AddMealButton";
 import Header from "../../features/day-page/Header";
-import { MealState } from "../../model/AppState";
+import { MealState } from "../../model/MealState";
 import { Footer } from "../Footer";
 import { EditableMealCard } from "../meal-card/EditableMealCard";
 import { Summary } from "./Summary";

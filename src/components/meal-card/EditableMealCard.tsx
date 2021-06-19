@@ -4,7 +4,7 @@ import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
 import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
 import EditFoodButton from "../../features/meal-card/EditFoodButton";
 import NewFoodButton from "../../features/meal-card/NewFoodButton";
-import { MealState } from "../../model/AppState";
+import { MealState } from "../../model/MealState";
 import { Meal } from "../../model/Food";
 import { FoodItem } from "./FoodItem";
 import { AddMealCardHeader, DefaultMealCardHeader, EditMealCardHeader } from "./MealCardHeader";

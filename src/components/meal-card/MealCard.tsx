@@ -1,4 +1,4 @@
-import { MealState } from "../../model/AppState";
+import { MealState } from "../../model/MealState";
 import { EditableMealCard } from "./EditableMealCard";
 import { UneditableMealCard } from "./UneditableMealCard";
 
