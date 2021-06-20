@@ -1,4 +1,4 @@
-import { combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AnyAction, combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { useEffect, useReducer, useRef } from "react";
 import { generatePortionSuggestions, generateServingSuggestions, PortionSuggestion, ServingSuggestion } from "../../features/suggestions";
@@ -110,6 +110,32 @@ function checkValidity(error: ValidationError) {
 const debouncedGenerateServingSuggestions = _.debounce(generateServingSuggestions, 500, { maxWait: 2000 });
 const debouncedGeneratePortionSuggestions = _.debounce(generatePortionSuggestions, 500, { maxWait: 2000 });
 
+const updateFoodName = (dispatch: React.Dispatch<AnyAction>, generateSuggestions: (desc: string) => void, name: string) => {
+  dispatch(setName(name));
+  generateSuggestions(name);
+}
+
+const updateServing = (dispatch: React.Dispatch<AnyAction>, foodGroup: FoodGroup, serving: number) =>
+  serving ? dispatch(setServing({ foodGroup, serving })) : dispatch(unsetServing(foodGroup));
+
+
+const handleSubmit = (
+  dispatch: React.Dispatch<AnyAction>,
+  state: { food: Food },
+  onSaveFood: (food: Food) => void,
+  event: React.FormEvent<HTMLFormElement>
+) => {
+  const error = validateFood(state.food);
+  if (checkValidity(error) === false) {
+    event.preventDefault();
+    event.stopPropagation();
+    dispatch(validationFailed(error));
+  } else {
+    onSaveFood(state.food);
+    event.preventDefault();
+  }
+}
+
 export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialFood, initialState);
 
@@ -122,26 +148,6 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
     debouncedGeneratePortionSuggestions(descRef, setPortionSuggestionsCallback);
   }
 
-  const updateFoodName = (name: string) => {
-    dispatch(setName(name));
-    generateSuggestions(name);
-  }
-
-  const updateServing = (foodGroup: FoodGroup, serving: number) =>
-    serving ? dispatch(setServing({ foodGroup, serving })) : dispatch(unsetServing(foodGroup));
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    const error = validateFood(state.food);
-    if (checkValidity(error) === false) {
-      event.preventDefault();
-      event.stopPropagation();
-      dispatch(validationFailed(error));
-    } else {
-      onSaveFood(state.food);
-      event.preventDefault();
-    }
-  };
-
   useEffect(() => {
     debouncedGenerateServingSuggestions(descRef, setServingSuggestionsCallback);
     debouncedGeneratePortionSuggestions(descRef, setPortionSuggestionsCallback);
@@ -149,8 +155,8 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
 
   return {
     ...state,
-    updateFoodName,
-    updateServing,
-    handleSubmit
+    updateFoodName: _.partial(updateFoodName, dispatch, generateSuggestions),
+    updateServing: _.partial(updateServing, dispatch),
+    handleSubmit: _.partial(handleSubmit, dispatch, state, onSaveFood),
   };
 }
