@@ -1,13 +1,8 @@
-import { createAction, createReducer } from "@reduxjs/toolkit";
+import { combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { useReducer } from "react";
 import { useSuggestions } from "../../features/suggestions";
 import { Food, FoodGroup } from "../../model/Food";
-
-const setServing = createAction<{ foodGroup: FoodGroup, serving: number }>("set-serving");
-const unsetServing = createAction<FoodGroup>("unset-serving");
-const setName = createAction<string>("set-name");
-const validationFailed = createAction<ValidationError>("validation-failed");
 
 interface ValidationError {
   foodName?: boolean;
@@ -24,28 +19,47 @@ interface State {
   error: ValidationError;
 }
 
-const INITIAL_STATE: State = {
-  food: { name: "", serving: {} },
-  error: {}
-}
+const food = createSlice({
+  name: "food",
+  initialState: { name: "", serving: {} } as Food,
+  reducers: {
+    setName(state, action: PayloadAction<string>) {
+      state.name = action.payload
+    },
+    setServing(state, action: PayloadAction<{ foodGroup: FoodGroup; serving: number }>) {
+      _.set(state.serving, action.payload.foodGroup, action.payload.serving)
+    },
+    unsetServing(state, action: PayloadAction<FoodGroup>) {
+      _.unset(state.serving, action.payload)
+    },
+  }
+})
+const { setName, setServing, unsetServing } = food.actions;
 
-const reducer = createReducer(INITIAL_STATE, builder => {
-  builder
-    .addCase(setName, (state, action) => {
-      state.food.name = action.payload;
-      state.error = validateFood(state.food);
-    })
-    .addCase(setServing, (state, action) => {
-      _.set(state.food.serving, action.payload.foodGroup, action.payload.serving);
-      state.error = validateFood(state.food);
-    })
-    .addCase(unsetServing, (state, action) => {
-      _.unset(state.food.serving, action.payload);
-      state.error = validateFood(state.food);
-    })
-    .addCase(validationFailed, (state, action) => {
-      state.error = action.payload;
-    })
+const error = createSlice({
+  name: "error",
+  initialState: {} as ValidationError,
+  reducers: {
+    validationFailed: (state, action) => _.assign(state, action.payload),
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(setName, (state, action) => {
+        state.foodName = (action.payload === '');
+      })
+      .addCase(setServing, (state, action) => {
+        state[action.payload.foodGroup] = lessThanZero(action.payload.serving);
+      })
+      .addCase(unsetServing, (state, action) => {
+        state[action.payload] = false;
+      })
+  }
+})
+const { validationFailed } = error.actions;
+
+const reducer = combineReducers({
+  food: food.reducer,
+  error: error.reducer,
 })
 
 function initialState(food: Food): State {
