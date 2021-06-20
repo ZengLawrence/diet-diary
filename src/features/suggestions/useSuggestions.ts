@@ -38,7 +38,7 @@ function reducer(state: State, action: Action) {
   }
 }
 
-export const useSuggestions = (initialDescription: string) => {
+export const useSuggestions = (initialDescription: string): [State, (desc: string) => void] => {
   const [state, dispatch] = useReducer(reducer, initialState());
   const setServingSuggestions = (servingSuggestions: ServingSuggestion[]) => dispatch(setServingSuggestionsAction(servingSuggestions));
   const setPortionSuggestions = (portionSuggestions: PortionSuggestion[]) => dispatch(setPortionSuggestionsAction(portionSuggestions));
@@ -57,8 +57,5 @@ export const useSuggestions = (initialDescription: string) => {
     generatePortionSuggestions(descRef, setPortionSuggestions);
   }, [descRef, dispatch])
 
-  return {
-    ...state,
-    generateSuggestions
-  };
+  return [state, generateSuggestions];
 }
