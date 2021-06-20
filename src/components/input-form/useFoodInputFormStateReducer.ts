@@ -14,11 +14,6 @@ interface ValidationError {
   sweet?: boolean;
 }
 
-interface State {
-  food: Food;
-  error: ValidationError;
-}
-
 const food = createSlice({
   name: "food",
   initialState: { name: "", serving: {} } as Food,
@@ -62,7 +57,7 @@ const reducer = combineReducers({
   error: error.reducer,
 })
 
-function initialState(food: Food): State {
+function initialState(food: Food) {
   return {
     food,
     error: {},
