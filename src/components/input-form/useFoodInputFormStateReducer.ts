@@ -153,10 +153,10 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
     debouncedGeneratePortionSuggestions(descRef, setPortionSuggestionsCallback);
   }, [descRef, dispatch])
 
-  return {
-    ...state,
+  const fns = {
     updateFoodName: _.partial(updateFoodName, dispatch, generateSuggestions),
     updateServing: _.partial(updateServing, dispatch),
     handleSubmit: _.partial(handleSubmit, dispatch, state, onSaveFood),
-  };
+  }
+  return [state, fns] as [typeof state, typeof fns];
 }
