@@ -4,10 +4,10 @@ import { useReducer } from "react";
 import { useSuggestions } from "../../features/suggestions";
 import { Food, FoodGroup } from "../../model/Food";
 
-const setServingAction = createAction<{ foodGroup: FoodGroup, serving: number }>("set-serving");
-const unsetServingAction = createAction<FoodGroup>("unset-serving");
-const setNameAction = createAction<string>("set-name");
-const validationFailedAction = createAction<ValidationError>("validation-failed");
+const setServing = createAction<{ foodGroup: FoodGroup, serving: number }>("set-serving");
+const unsetServing = createAction<FoodGroup>("unset-serving");
+const setName = createAction<string>("set-name");
+const validationFailed = createAction<ValidationError>("validation-failed");
 
 interface ValidationError {
   foodName?: boolean;
@@ -24,28 +24,28 @@ interface State {
   error: ValidationError;
 }
 
-const INITIAL_STATE : State = {
-  food: {name: "", serving: {}},
+const INITIAL_STATE: State = {
+  food: { name: "", serving: {} },
   error: {}
 }
 
 const reducer = createReducer(INITIAL_STATE, builder => {
   builder
-  .addCase(setNameAction, (state, action) => {
-    state.food.name = action.payload;
-    state.error = validateFood(state.food);
-  })
-  .addCase(setServingAction, (state, action) => {
-    _.set(state.food.serving, action.payload.foodGroup, action.payload.serving);
-    state.error = validateFood(state.food);
-  })
-  .addCase(unsetServingAction, (state, action) => {
-    _.unset(state.food.serving, action.payload);
-    state.error = validateFood(state.food);
-  })
-  .addCase(validationFailedAction, (state, action) => {
-    state.error = action.payload;
-  })
+    .addCase(setName, (state, action) => {
+      state.food.name = action.payload;
+      state.error = validateFood(state.food);
+    })
+    .addCase(setServing, (state, action) => {
+      _.set(state.food.serving, action.payload.foodGroup, action.payload.serving);
+      state.error = validateFood(state.food);
+    })
+    .addCase(unsetServing, (state, action) => {
+      _.unset(state.food.serving, action.payload);
+      state.error = validateFood(state.food);
+    })
+    .addCase(validationFailed, (state, action) => {
+      state.error = action.payload;
+    })
 })
 
 function initialState(food: Food): State {
@@ -82,19 +82,19 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
   const [suggestions, generateSuggestions] = useSuggestions(initialFood.name);
 
   const updateFoodName = (name: string) => {
-    dispatch(setNameAction(name));
+    dispatch(setName(name));
     generateSuggestions(name);
   }
 
   const updateServing = (foodGroup: FoodGroup, serving: number) =>
-    serving ? dispatch(setServingAction({foodGroup, serving})) : dispatch(unsetServingAction(foodGroup));
+    serving ? dispatch(setServing({ foodGroup, serving })) : dispatch(unsetServing(foodGroup));
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const error = validateFood(food);
     if (checkValidity(error) === false) {
       event.preventDefault();
       event.stopPropagation();
-      dispatch(validationFailedAction(error));
+      dispatch(validationFailed(error));
     } else {
       onSaveFood(food);
       event.preventDefault();
