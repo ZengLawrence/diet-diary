@@ -143,8 +143,8 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
   };
 
   useEffect(() => {
-    generateServingSuggestions(descRef, setServingSuggestionsCallback);
-    generatePortionSuggestions(descRef, setPortionSuggestionsCallback);
+    debouncedGenerateServingSuggestions(descRef, setServingSuggestionsCallback);
+    debouncedGeneratePortionSuggestions(descRef, setPortionSuggestionsCallback);
   }, [descRef, dispatch])
 
   return {
