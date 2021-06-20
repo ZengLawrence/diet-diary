@@ -45,7 +45,7 @@ const error = createSlice({
   extraReducers: builder => {
     builder
       .addCase(setName, (state, action) => {
-        state.foodName = (action.payload === '');
+        state.foodName = _.isEmpty(action.payload);
       })
       .addCase(setServing, (state, action) => {
         state[action.payload.foodGroup] = lessThanZero(action.payload.serving);
@@ -74,7 +74,7 @@ function lessThanZero(val?: number) { return (_.toNumber(val) < 0); }
 function validateFood(food: Food): ValidationError {
   const { name, serving } = food;
   return {
-    foodName: (name === ''),
+    foodName: _.isEmpty(name),
     vegetable: lessThanZero(serving.vegetable),
     fruit: lessThanZero(serving.fruit),
     carbohydrate: lessThanZero(serving.carbohydrate),
@@ -85,7 +85,8 @@ function validateFood(food: Food): ValidationError {
 }
 
 function checkValidity(error: ValidationError) {
-  const failed = _.reduce(_.values(error), (res, val) => (res || _.defaultTo(val, false)), false);
+  const or = (res: boolean, val: boolean | undefined) => res || _.defaultTo(val, false);
+  const failed = _.reduce(_.values(error), or, false);
   return !failed;
 }
 
