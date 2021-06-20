@@ -23,7 +23,10 @@ export const PortionSuggestionFormText = (props: { suggestions: PortionSuggestio
     {_.size(props.suggestions) > 0 && <div>One portion is</div>}
     <div className="d-flex flex-column flex-wrap w-100">
       {props.suggestions.map((suggestion, index) => (
-        <PortionServingHint key={index} suggestion={suggestion} />
+        <span key={index}>
+          <PortionServingHint suggestion={suggestion} />&nbsp;
+          <Form.Check inline type="checkbox" aria-label="fill servings" onChange={e => console.log(e.target.checked)} />
+        </span>
       ))}
     </div>
   </Form.Text>
