@@ -1,4 +1,4 @@
-import { createAction } from "@reduxjs/toolkit";
+import { createAction, createReducer } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { useEffect, useReducer, useRef } from "react";
 import { generatePortionSuggestions, generateServingSuggestions } from "./generateServingSuggestions";
@@ -14,29 +14,23 @@ interface State {
   portionSuggestions: PortionSuggestion[],
 }
 
-const setServingSuggestionsAction = createAction<ServingSuggestion[]>("setServingSuggestions");
-type SetServingSuggestionsAction = ReturnType<typeof setServingSuggestionsAction>;
-
-const setPortionSuggestionsAction = createAction<PortionSuggestion[]>("portionSuggestions");
-type SetPortionSuggestionsAction = ReturnType<typeof setPortionSuggestionsAction>;
-
-type Action = SetServingSuggestionsAction | SetPortionSuggestionsAction;
-
-const initialState = {
+const initialState: State = {
   servingSuggestions: [],
   portionSuggestions: [],
 }
 
-function reducer(state: State, action: Action) {
-  switch (action.type) {
-    case _.toString(setServingSuggestionsAction):
-      return { ...state, servingSuggestions: (action as SetServingSuggestionsAction).payload };
-    case _.toString(setPortionSuggestionsAction):
-      return { ...state, portionSuggestions: (action as SetPortionSuggestionsAction).payload };
-    default:
-      throw new Error();
-  }
-}
+const setServingSuggestionsAction = createAction<ServingSuggestion[]>("setServingSuggestions");
+const setPortionSuggestionsAction = createAction<PortionSuggestion[]>("portionSuggestions");
+
+const reducer = createReducer(initialState, builder => {
+  builder
+    .addCase(setServingSuggestionsAction, (state, action) => {
+      state.servingSuggestions = action.payload;
+    })
+    .addCase(setPortionSuggestionsAction, (state, action) => {
+      state.portionSuggestions = action.payload;
+    })
+});
 
 export const useSuggestions = (initialDescription: string): [State, (desc: string) => void] => {
   const [state, dispatch] = useReducer(reducer, initialState);
