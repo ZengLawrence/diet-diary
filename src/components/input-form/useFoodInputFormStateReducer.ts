@@ -1,47 +1,13 @@
-import { createAction } from "@reduxjs/toolkit";
+import { createAction, createReducer } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { useReducer } from "react";
 import { useSuggestions } from "../../features/suggestions";
 import { Food, FoodGroup } from "../../model/Food";
 
 const setServingAction = createAction<{ foodGroup: FoodGroup, serving: number }>("set-serving");
-
-type SetServingAction = ReturnType<typeof setServingAction>;
-
 const unsetServingAction = createAction<FoodGroup>("unset-serving");
-
-type UnsetServingAction = ReturnType<typeof unsetServingAction>;
-
 const setNameAction = createAction<string>("set-name");
-
-type SetNameAction = ReturnType<typeof setNameAction>;
-
 const validationFailedAction = createAction<ValidationError>("validation-failed");
-
-type ValidationFailedAction = ReturnType<typeof validationFailedAction>;
-
-function setServing(food: Food, action: SetServingAction) {
-  return {
-    ...food,
-    serving: _.set(_.clone(food.serving), action.payload.foodGroup, action.payload.serving),
-  };
-}
-
-function unsetServing(food: Food, action: UnsetServingAction) {
-  const serving = _.clone(food.serving);
-  _.unset(serving, action.payload);
-  return {
-    ...food,
-    serving,
-  };
-}
-
-function setName(food: Food, action: SetNameAction) {
-  return {
-    ...food,
-    name: action.payload,
-  };
-}
 
 interface ValidationError {
   foodName?: boolean;
@@ -58,38 +24,29 @@ interface State {
   error: ValidationError;
 }
 
-type ActionType = SetNameAction | SetServingAction | UnsetServingAction | ValidationFailedAction;
-
-function reducer(state: State, action: ActionType) {
-  switch (action.type) {
-    case 'set-name':
-      return {
-        ...state,
-        food: setName(state.food, action as SetNameAction),
-        error: validateFood(setName(state.food, action as SetNameAction)),
-      };
-    case 'set-serving':
-      return {
-        ...state,
-        food: setServing(state.food, action as SetServingAction),
-        error: validateFood(setServing(state.food, action as SetServingAction)),
-      };
-    case 'unset-serving':
-      return {
-        ...state,
-        food: unsetServing(state.food, action as UnsetServingAction),
-        error: validateFood(unsetServing(state.food, action as UnsetServingAction)),
-      };
-    case 'validation-failed':
-      const validationFailedAction = action as ValidationFailedAction;
-      return {
-        ...state,
-        error: validationFailedAction.payload,
-      };
-    default:
-      throw new Error();
-  }
+const INITIAL_STATE : State = {
+  food: {name: "", serving: {}},
+  error: {}
 }
+
+const reducer = createReducer(INITIAL_STATE, builder => {
+  builder
+  .addCase(setNameAction, (state, action) => {
+    state.food.name = action.payload;
+    state.error = validateFood(state.food);
+  })
+  .addCase(setServingAction, (state, action) => {
+    _.set(state.food.serving, action.payload.foodGroup, action.payload.serving);
+    state.error = validateFood(state.food);
+  })
+  .addCase(unsetServingAction, (state, action) => {
+    _.unset(state.food.serving, action.payload);
+    state.error = validateFood(state.food);
+  })
+  .addCase(validationFailedAction, (state, action) => {
+    state.error = action.payload;
+  })
+})
 
 function initialState(food: Food): State {
   return {
