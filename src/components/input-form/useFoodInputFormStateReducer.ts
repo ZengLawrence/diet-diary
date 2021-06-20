@@ -1,7 +1,7 @@
 import { combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { useReducer } from "react";
-import { PortionSuggestion, ServingSuggestion, useSuggestions } from "../../features/suggestions";
+import { PortionSuggestion, ServingSuggestion, useGenerateSuggestions } from "../../features/suggestions";
 import { Food, FoodGroup } from "../../model/Food";
 
 interface ValidationError {
@@ -110,7 +110,7 @@ function checkValidity(error: ValidationError) {
 export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialFood, initialState);
 
-  const generateSuggestions = useSuggestions(
+  const generateSuggestions = useGenerateSuggestions(
     initialFood.name, 
     suggestions => dispatch(setServingSuggestions(suggestions)), 
     suggestions => dispatch(setPortionSuggestions(suggestions))
