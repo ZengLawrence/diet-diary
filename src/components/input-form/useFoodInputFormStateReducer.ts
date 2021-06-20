@@ -1,51 +1,35 @@
+import { createAction } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { useReducer } from "react";
 import { useSuggestions } from "../../features/suggestions";
 import { Food, FoodGroup } from "../../model/Food";
 
-interface Action {
-  type: string;
-}
-
-const setServingAction = (foodGroup: FoodGroup, serving: number) => ({
-  type: "set-serving",
-  foodGroup,
-  serving,
-})
+const setServingAction = createAction<{ foodGroup: FoodGroup, serving: number }>("set-serving");
 
 type SetServingAction = ReturnType<typeof setServingAction>;
 
-const unsetServingAction = (foodGroup: FoodGroup) => ({
-  type: "unset-serving",
-  foodGroup,
-})
+const unsetServingAction = createAction<FoodGroup>("unset-serving");
 
 type UnsetServingAction = ReturnType<typeof unsetServingAction>;
 
-const setNameAction = (name: string) => ({
-  type: "set-name",
-  name,
-})
+const setNameAction = createAction<string>("set-name");
 
 type SetNameAction = ReturnType<typeof setNameAction>;
 
-const validationFailedAction = (error: ValidationError) => ({
-  type: "validation-failed",
-  error
-})
+const validationFailedAction = createAction<ValidationError>("validation-failed");
 
 type ValidationFailedAction = ReturnType<typeof validationFailedAction>;
 
 function setServing(food: Food, action: SetServingAction) {
   return {
     ...food,
-    serving: _.set(_.clone(food.serving), action.foodGroup, action.serving),
+    serving: _.set(_.clone(food.serving), action.payload.foodGroup, action.payload.serving),
   };
 }
 
 function unsetServing(food: Food, action: UnsetServingAction) {
   const serving = _.clone(food.serving);
-  _.unset(serving, action.foodGroup);
+  _.unset(serving, action.payload);
   return {
     ...food,
     serving,
@@ -55,7 +39,7 @@ function unsetServing(food: Food, action: UnsetServingAction) {
 function setName(food: Food, action: SetNameAction) {
   return {
     ...food,
-    name: action.name,
+    name: action.payload,
   };
 }
 
@@ -74,7 +58,7 @@ interface State {
   error: ValidationError;
 }
 
-type ActionType = Action | SetNameAction | SetServingAction | UnsetServingAction | ValidationFailedAction;
+type ActionType = SetNameAction | SetServingAction | UnsetServingAction | ValidationFailedAction;
 
 function reducer(state: State, action: ActionType) {
   switch (action.type) {
@@ -100,7 +84,7 @@ function reducer(state: State, action: ActionType) {
       const validationFailedAction = action as ValidationFailedAction;
       return {
         ...state,
-        error: validationFailedAction.error,
+        error: validationFailedAction.payload,
       };
     default:
       throw new Error();
@@ -146,7 +130,7 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
   }
 
   const updateServing = (foodGroup: FoodGroup, serving: number) =>
-    serving ? dispatch(setServingAction(foodGroup, serving)) : dispatch(unsetServingAction(foodGroup));
+    serving ? dispatch(setServingAction({foodGroup, serving})) : dispatch(unsetServingAction(foodGroup));
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const error = validateFood(food);
