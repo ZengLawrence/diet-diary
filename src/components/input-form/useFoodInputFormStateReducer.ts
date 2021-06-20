@@ -1,7 +1,8 @@
 import { combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash";
-import { useReducer } from "react";
-import { PortionSuggestion, ServingSuggestion, useGenerateSuggestions } from "../../features/suggestions";
+import { useEffect, useReducer, useRef } from "react";
+import { PortionSuggestion, ServingSuggestion } from "../../features/suggestions";
+import { generatePortionSuggestions, generateServingSuggestions } from "../../features/suggestions/generateServingSuggestions";
 import { Food, FoodGroup } from "../../model/Food";
 
 interface ValidationError {
@@ -55,7 +56,7 @@ const { validationFailed } = error.actions;
 const suggestions = createSlice({
   name: "suggestions",
   initialState: {
-    servingSuggestions: [] as ServingSuggestion[],  
+    servingSuggestions: [] as ServingSuggestion[],
     portionSuggestions: [] as PortionSuggestion[],
   },
   reducers: {
@@ -67,7 +68,7 @@ const suggestions = createSlice({
     },
   }
 })
-const {setServingSuggestions, setPortionSuggestions} = suggestions.actions;
+const { setServingSuggestions, setPortionSuggestions } = suggestions.actions;
 
 const reducer = combineReducers({
   food: food.reducer,
@@ -107,14 +108,20 @@ function checkValidity(error: ValidationError) {
   return !failed;
 }
 
+const debouncedGenerateServingSuggestions = _.debounce(generateServingSuggestions, 500, { maxWait: 2000 });
+const debouncedGeneratePortionSuggestions = _.debounce(generatePortionSuggestions, 500, { maxWait: 2000 });
+
 export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialFood, initialState);
 
-  const generateSuggestions = useGenerateSuggestions(
-    initialFood.name, 
-    suggestions => dispatch(setServingSuggestions(suggestions)), 
-    suggestions => dispatch(setPortionSuggestions(suggestions))
-    );
+  const descRef = useRef(initialFood.name);
+  const setServingSuggestionsCallback = (suggestions: ServingSuggestion[]) => dispatch(setServingSuggestions(suggestions));
+  const setPortionSuggestionsCallback = (suggestions: PortionSuggestion[]) => dispatch(setPortionSuggestions(suggestions));
+  const generateSuggestions = (desc: string) => {
+    descRef.current = desc;
+    debouncedGenerateServingSuggestions(descRef, setServingSuggestionsCallback);
+    debouncedGeneratePortionSuggestions(descRef, setPortionSuggestionsCallback);
+  }
 
   const updateFoodName = (name: string) => {
     dispatch(setName(name));
@@ -135,6 +142,11 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
       event.preventDefault();
     }
   };
+
+  useEffect(() => {
+    generateServingSuggestions(descRef, setServingSuggestionsCallback);
+    generatePortionSuggestions(descRef, setPortionSuggestionsCallback);
+  }, [descRef, dispatch])
 
   return {
     ...state,
