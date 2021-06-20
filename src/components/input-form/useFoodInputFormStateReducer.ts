@@ -1,7 +1,7 @@
 import { combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { useReducer } from "react";
-import { useSuggestions } from "../../features/suggestions";
+import { PortionSuggestion, ServingSuggestion, useSuggestions } from "../../features/suggestions";
 import { Food, FoodGroup } from "../../model/Food";
 
 interface ValidationError {
@@ -52,15 +52,37 @@ const error = createSlice({
 })
 const { validationFailed } = error.actions;
 
+const suggestions = createSlice({
+  name: "suggestions",
+  initialState: {
+    servingSuggestions: [] as ServingSuggestion[],  
+    portionSuggestions: [] as PortionSuggestion[],
+  },
+  reducers: {
+    setServingSuggestions: (state, action: PayloadAction<ServingSuggestion[]>) => {
+      state.servingSuggestions = action.payload;
+    },
+    setPortionSuggestions: (state, action: PayloadAction<PortionSuggestion[]>) => {
+      state.portionSuggestions = action.payload;
+    },
+  }
+})
+const {setServingSuggestions, setPortionSuggestions} = suggestions.actions;
+
 const reducer = combineReducers({
   food: food.reducer,
   error: error.reducer,
+  suggestions: suggestions.reducer,
 })
 
 function initialState(food: Food) {
   return {
     food,
     error: {},
+    suggestions: {
+      servingSuggestions: [],
+      portionSuggestions: [],
+    }
   };
 }
 
@@ -86,10 +108,13 @@ function checkValidity(error: ValidationError) {
 }
 
 export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (food: Food) => void) {
-  const [state, dispatch] = useReducer(reducer, initialState(initialFood));
-  const { food, error } = state;
+  const [state, dispatch] = useReducer(reducer, initialFood, initialState);
 
-  const [suggestions, generateSuggestions] = useSuggestions(initialFood.name);
+  const generateSuggestions = useSuggestions(
+    initialFood.name, 
+    suggestions => dispatch(setServingSuggestions(suggestions)), 
+    suggestions => dispatch(setPortionSuggestions(suggestions))
+    );
 
   const updateFoodName = (name: string) => {
     dispatch(setName(name));
@@ -100,21 +125,19 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
     serving ? dispatch(setServing({ foodGroup, serving })) : dispatch(unsetServing(foodGroup));
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    const error = validateFood(food);
+    const error = validateFood(state.food);
     if (checkValidity(error) === false) {
       event.preventDefault();
       event.stopPropagation();
       dispatch(validationFailed(error));
     } else {
-      onSaveFood(food);
+      onSaveFood(state.food);
       event.preventDefault();
     }
   };
 
   return {
-    food,
-    error,
-    suggestions,
+    ...state,
     updateFoodName,
     updateServing,
     handleSubmit
