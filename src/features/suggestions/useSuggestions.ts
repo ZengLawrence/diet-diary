@@ -22,10 +22,10 @@ type SetPortionSuggestionsAction = ReturnType<typeof setPortionSuggestionsAction
 
 type Action = SetServingSuggestionsAction | SetPortionSuggestionsAction;
 
-const initialState = (): State => ({
+const initialState = {
   servingSuggestions: [],
   portionSuggestions: [],
-})
+}
 
 function reducer(state: State, action: Action) {
   switch (action.type) {
@@ -39,7 +39,7 @@ function reducer(state: State, action: Action) {
 }
 
 export const useSuggestions = (initialDescription: string): [State, (desc: string) => void] => {
-  const [state, dispatch] = useReducer(reducer, initialState());
+  const [state, dispatch] = useReducer(reducer, initialState);
   const setServingSuggestions = (servingSuggestions: ServingSuggestion[]) => dispatch(setServingSuggestionsAction(servingSuggestions));
   const setPortionSuggestions = (portionSuggestions: PortionSuggestion[]) => dispatch(setPortionSuggestionsAction(portionSuggestions));
 
