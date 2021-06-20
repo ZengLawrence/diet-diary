@@ -1,8 +1,7 @@
 import { combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { useEffect, useReducer, useRef } from "react";
-import { PortionSuggestion, ServingSuggestion } from "../../features/suggestions";
-import { generatePortionSuggestions, generateServingSuggestions } from "../../features/suggestions/generateServingSuggestions";
+import { generatePortionSuggestions, generateServingSuggestions, PortionSuggestion, ServingSuggestion } from "../../features/suggestions";
 import { Food, FoodGroup } from "../../model/Food";
 
 interface ValidationError {
