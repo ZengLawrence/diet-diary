@@ -16,7 +16,7 @@ interface Props {
 export const FoodInputForm = (props: Props) => {
   const [state, fns] = useFoodInputFormStateReducer(props.food, props.onSaveFood);
   const { food, error, suggestions } = state;
-  const { updateFoodName, updateServing, handleSubmit } = fns;
+  const { updateFoodName, updateServing, handleSubmit, handleSelectPortionSuggestion } = fns;
 
   return (
     <Form
@@ -41,7 +41,10 @@ export const FoodInputForm = (props: Props) => {
         </Form.Control.Feedback>
         <div className="d-flex flex-column w-100">
           <ServingSuggestionFormText suggestions={suggestions.servingSuggestions} />
-          <PortionSuggestionFormText suggestions={suggestions.portionSuggestions} />
+          <PortionSuggestionFormText 
+            suggestions={suggestions.portionSuggestions} 
+            onSelected={handleSelectPortionSuggestion}
+            />
         </div>
       </Form.Group>
 

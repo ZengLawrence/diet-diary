@@ -27,7 +27,6 @@ export const ServingSuggestionFormText = (props: { suggestions: ServingSuggestio
       {props.suggestions.map((suggestion, index) => (
         <span key={index}>
           <ServingHint suggestion={suggestion} />&nbsp;
-          <Form.Check inline type="checkbox" aria-label="fill servings" onChange={e => console.log(e.target.checked)} />
         </span>
       ))}
     </div>
