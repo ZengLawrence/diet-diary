@@ -68,13 +68,13 @@ const food = createSlice({
   extraReducers: builder => {
     builder
       .addCase(selectPortionSuggestion, (state, action) => {
-        state.serving = add(state.serving, action.payload.serving);
+        state.serving = positiveServing(add(state.serving, action.payload.serving));
       })
       .addCase(unselectPortionSuggestion, (state, action) => {
         state.serving = positiveServing(minus(state.serving, action.payload.serving));
       })
       .addCase(selectServingSuggestion, (state, action) => {
-        state.serving = add(state.serving, oneServingOf(action.payload.foodGroup));
+        state.serving = positiveServing(add(state.serving, oneServingOf(action.payload.foodGroup)));
       })
       .addCase(unselectServingSuggestion, (state, action) => {
         state.serving = positiveServing(minus(state.serving, oneServingOf(action.payload.foodGroup)));
