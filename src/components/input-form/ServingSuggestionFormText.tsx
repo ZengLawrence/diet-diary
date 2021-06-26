@@ -1,34 +1,51 @@
 import _ from "lodash";
-import { Fragment } from "react";
 import { Form } from "react-bootstrap";
 import { ServingSuggestion } from "../../features/suggestions";
 import { FoodGroupLabelBadge } from "../badge";
 import { BestChoiceLegend } from "../BestChoiceLegend";
 import { BlueStar } from "../BlueStar";
+import { Selectable } from "./Selectable";
 
 const hasBestChoice = (suggestions: ServingSuggestion[]) => _.findIndex(suggestions, { 'bestChoice': true }) >= 0;
 
-const ServingHintsText = (props: { suggestions: ServingSuggestion[]; }) => {
-  const appendComma = (i: number) => i < (_.size(props.suggestions) - 1);
+const ServingHint = (props: { suggestion: ServingSuggestion }) => {
+  const { foodName, foodGroup, servingSize, bestChoice } = props.suggestion;
   return (
-    <Fragment>
-      {props.suggestions.map(({ foodName, foodGroup, servingSize, bestChoice }, index) => (
-        <div key={index}>
-          {bestChoice && <BlueStar />}<span className="font-weight-bolder">{foodName}</span><FoodGroupLabelBadge foodGroup={foodGroup} /><span>{servingSize}{appendComma(index) && ","}&nbsp;</span>
-        </div>
-      ))}
-    </Fragment>
-  );
-};
+    <span>
+      {bestChoice && <BlueStar />}
+      <span className="font-weight-bolder">{foodName}</span>
+      <FoodGroupLabelBadge foodGroup={foodGroup} />
+      <span>{servingSize}</span>
+    </span>
+  )
+}
 
-export const ServingSuggestionFormText = (props: { suggestions: ServingSuggestion[]; }) => (
+interface Props {
+  suggestions: (ServingSuggestion & Selectable)[];
+  onSelected: (suggestion: ServingSuggestion, selected: boolean) => void;
+}
+
+export const ServingSuggestionFormText = (props: Props) => (
   <Form.Text className="d-flex flex-column">
     {_.size(props.suggestions) > 0 && <div>One serving is</div>}
+
     <div className="d-flex flex-column flex-sm-row flex-wrap w-100">
-      <ServingHintsText suggestions={props.suggestions} />
+      {props.suggestions.map((suggestion, index) => (
+        <span key={index}>
+          <ServingHint suggestion={suggestion} />&nbsp;
+          <Form.Check
+            inline
+            type="checkbox"
+            aria-label="fill servings"
+            checked={suggestion.selected}
+            onChange={e => props.onSelected(suggestion, e.target.checked)}
+          />
+        </span>
+      ))}
     </div>
+
     <div style={{ maxWidth: "100px" }}>
       {hasBestChoice(props.suggestions) && <BestChoiceLegend />}
     </div>
   </Form.Text>
-);
+)

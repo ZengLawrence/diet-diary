@@ -1,63 +1,10 @@
+import { AnyAction, combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash";
-import { useReducer } from "react";
-import { useSuggestions } from "../../features/suggestions";
+import { useEffect, useReducer, useRef } from "react";
+import { generatePortionSuggestions, generateServingSuggestions, PortionSuggestion, ServingSuggestion } from "../../features/suggestions";
 import { Food, FoodGroup } from "../../model/Food";
-
-interface Action {
-  type: string;
-}
-
-const setServingAction = (foodGroup: FoodGroup, serving: number) => ({
-  type: "set-serving",
-  foodGroup,
-  serving,
-})
-
-type SetServingAction = ReturnType<typeof setServingAction>;
-
-const unsetServingAction = (foodGroup: FoodGroup) => ({
-  type: "unset-serving",
-  foodGroup,
-})
-
-type UnsetServingAction = ReturnType<typeof unsetServingAction>;
-
-const setNameAction = (name: string) => ({
-  type: "set-name",
-  name,
-})
-
-type SetNameAction = ReturnType<typeof setNameAction>;
-
-const validationFailedAction = (error: ValidationError) => ({
-  type: "validation-failed",
-  error
-})
-
-type ValidationFailedAction = ReturnType<typeof validationFailedAction>;
-
-function setServing(food: Food, action: SetServingAction) {
-  return {
-    ...food,
-    serving: _.set(_.clone(food.serving), action.foodGroup, action.serving),
-  };
-}
-
-function unsetServing(food: Food, action: UnsetServingAction) {
-  const serving = _.clone(food.serving);
-  _.unset(serving, action.foodGroup);
-  return {
-    ...food,
-    serving,
-  };
-}
-
-function setName(food: Food, action: SetNameAction) {
-  return {
-    ...food,
-    name: action.name,
-  };
-}
+import { add, minus, oneServingOf, positiveServing } from "../../model/servingFunction";
+import { Selectable } from "./Selectable";
 
 interface ValidationError {
   foodName?: boolean;
@@ -69,48 +16,108 @@ interface ValidationError {
   sweet?: boolean;
 }
 
-interface State {
-  food: Food;
-  error: ValidationError;
-}
+function setSelected<T>(suggestion: T, selected: boolean) { return { ...suggestion, selected } };
+function initializeSelectable<T>(suggestion: T) { return { ...suggestion, selected: false }; }
 
-type ActionType = Action | SetNameAction | SetServingAction | UnsetServingAction | ValidationFailedAction;
-
-function reducer(state: State, action: ActionType) {
-  switch (action.type) {
-    case 'set-name':
-      return {
-        ...state,
-        food: setName(state.food, action as SetNameAction),
-        error: validateFood(setName(state.food, action as SetNameAction)),
-      };
-    case 'set-serving':
-      return {
-        ...state,
-        food: setServing(state.food, action as SetServingAction),
-        error: validateFood(setServing(state.food, action as SetServingAction)),
-      };
-    case 'unset-serving':
-      return {
-        ...state,
-        food: unsetServing(state.food, action as UnsetServingAction),
-        error: validateFood(unsetServing(state.food, action as UnsetServingAction)),
-      };
-    case 'validation-failed':
-      const validationFailedAction = action as ValidationFailedAction;
-      return {
-        ...state,
-        error: validationFailedAction.error,
-      };
-    default:
-      throw new Error();
+const suggestions = createSlice({
+  name: "suggestions",
+  initialState: {
+    servingSuggestions: [] as (ServingSuggestion & Selectable)[],
+    portionSuggestions: [] as (PortionSuggestion & Selectable)[],
+  },
+  reducers: {
+    setServingSuggestions: (state, action: PayloadAction<ServingSuggestion[]>) => {
+      state.servingSuggestions = _.map(action.payload, initializeSelectable);
+    },
+    selectServingSuggestion: (state, action: PayloadAction<ServingSuggestion>) => {
+      state.servingSuggestions = _.map(state.servingSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, true) : suggestion);
+    },
+    unselectServingSuggestion: (state, action: PayloadAction<ServingSuggestion>) => {
+      state.servingSuggestions = _.map(state.servingSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, false) : suggestion);
+    },
+    setPortionSuggestions: (state, action: PayloadAction<PortionSuggestion[]>) => {
+      state.portionSuggestions = _.map(action.payload, initializeSelectable);
+    },
+    selectPortionSuggestion: (state, action: PayloadAction<PortionSuggestion>) => {
+      state.portionSuggestions = _.map(state.portionSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, true) : suggestion);
+    },
+    unselectPortionSuggestion: (state, action: PayloadAction<PortionSuggestion>) => {
+      state.portionSuggestions = _.map(state.portionSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, false) : suggestion);
+    },
   }
-}
+})
+const { 
+  setServingSuggestions, selectServingSuggestion, unselectServingSuggestion,
+  setPortionSuggestions, selectPortionSuggestion, unselectPortionSuggestion,
+ } = suggestions.actions;
 
-function initialState(food: Food): State {
+const food = createSlice({
+  name: "food",
+  initialState: { name: "", serving: {} } as Food,
+  reducers: {
+    setName(state, action: PayloadAction<string>) {
+      state.name = action.payload
+    },
+    setServing(state, action: PayloadAction<{ foodGroup: FoodGroup; serving: number }>) {
+      _.set(state.serving, action.payload.foodGroup, action.payload.serving)
+    },
+    unsetServing(state, action: PayloadAction<FoodGroup>) {
+      _.unset(state.serving, action.payload)
+    },
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(selectPortionSuggestion, (state, action) => {
+        state.serving = add(state.serving, action.payload.serving);
+      })
+      .addCase(unselectPortionSuggestion, (state, action) => {
+        state.serving = positiveServing(minus(state.serving, action.payload.serving));
+      })
+      .addCase(selectServingSuggestion, (state, action) => {
+        state.serving = add(state.serving, oneServingOf(action.payload.foodGroup));
+      })
+      .addCase(unselectServingSuggestion, (state, action) => {
+        state.serving = positiveServing(minus(state.serving, oneServingOf(action.payload.foodGroup)));
+      })
+  }
+})
+const { setName, setServing, unsetServing } = food.actions;
+
+const error = createSlice({
+  name: "error",
+  initialState: {} as ValidationError,
+  reducers: {
+    validationFailed: (state, action) => _.assign(state, action.payload),
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(setName, (state, action) => {
+        state.foodName = _.isEmpty(action.payload);
+      })
+      .addCase(setServing, (state, action) => {
+        state[action.payload.foodGroup] = lessThanZero(action.payload.serving);
+      })
+      .addCase(unsetServing, (state, action) => {
+        state[action.payload] = false;
+      })
+  }
+})
+const { validationFailed } = error.actions;
+
+const reducer = combineReducers({
+  food: food.reducer,
+  error: error.reducer,
+  suggestions: suggestions.reducer,
+})
+
+function initialState(food: Food) {
   return {
     food,
     error: {},
+    suggestions: {
+      servingSuggestions: [],
+      portionSuggestions: [],
+    }
   };
 }
 
@@ -119,7 +126,7 @@ function lessThanZero(val?: number) { return (_.toNumber(val) < 0); }
 function validateFood(food: Food): ValidationError {
   const { name, serving } = food;
   return {
-    foodName: (name === ''),
+    foodName: _.isEmpty(name),
     vegetable: lessThanZero(serving.vegetable),
     fruit: lessThanZero(serving.fruit),
     carbohydrate: lessThanZero(serving.carbohydrate),
@@ -130,43 +137,67 @@ function validateFood(food: Food): ValidationError {
 }
 
 function checkValidity(error: ValidationError) {
-  const failed = _.reduce(_.values(error), (res, val) => (res || _.defaultTo(val, false)), false);
+  const or = (res: boolean, val: boolean | undefined) => res || _.defaultTo(val, false);
+  const failed = _.reduce(_.values(error), or, false);
   return !failed;
 }
 
-export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (food: Food) => void) {
-  const [state, dispatch] = useReducer(reducer, initialState(initialFood));
-  const { food, error } = state;
+const debouncedGenerateServingSuggestions = _.debounce(generateServingSuggestions, 500, { maxWait: 2000 });
+const debouncedGeneratePortionSuggestions = _.debounce(generatePortionSuggestions, 500, { maxWait: 2000 });
 
-  const { servingSuggestions, portionSuggestions, generateSuggestions } = useSuggestions(initialFood.name);
+const updateFoodName = (dispatch: React.Dispatch<AnyAction>, generateSuggestions: (desc: string) => void, name: string) => {
+  dispatch(setName(name));
+  generateSuggestions(name);
+}
 
-  const updateFoodName = (name: string) => {
-    dispatch(setNameAction(name));
-    generateSuggestions(name);
+const updateServing = (dispatch: React.Dispatch<AnyAction>, foodGroup: FoodGroup, serving: number) =>
+  serving ? dispatch(setServing({ foodGroup, serving })) : dispatch(unsetServing(foodGroup));
+
+
+const handleSubmit = (
+  dispatch: React.Dispatch<AnyAction>,
+  state: { food: Food },
+  onSaveFood: (food: Food) => void,
+  event: React.FormEvent<HTMLFormElement>
+) => {
+  const error = validateFood(state.food);
+  if (checkValidity(error) === false) {
+    event.preventDefault();
+    event.stopPropagation();
+    dispatch(validationFailed(error));
+  } else {
+    onSaveFood(state.food);
+    event.preventDefault();
   }
+}
 
-  const updateServing = (foodGroup: FoodGroup, serving: number) =>
-    serving ? dispatch(setServingAction(foodGroup, serving)) : dispatch(unsetServingAction(foodGroup));
+export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (food: Food) => void) {
+  const [state, dispatch] = useReducer(reducer, initialFood, initialState);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    const error = validateFood(food);
-    if (checkValidity(error) === false) {
-      event.preventDefault();
-      event.stopPropagation();
-      dispatch(validationFailedAction(error));
-    } else {
-      onSaveFood(food);
-      event.preventDefault();
-    }
-  };
+  const descRef = useRef(initialFood.name);
+  const setServingSuggestionsCallback = (suggestions: ServingSuggestion[]) => dispatch(setServingSuggestions(suggestions));
+  const setPortionSuggestionsCallback = (suggestions: PortionSuggestion[]) => dispatch(setPortionSuggestions(suggestions));
+  const generateSuggestions = (desc: string) => {
+    descRef.current = desc;
+    debouncedGenerateServingSuggestions(descRef, setServingSuggestionsCallback);
+    debouncedGeneratePortionSuggestions(descRef, setPortionSuggestionsCallback);
+  }
+  const handleSelectPortionSuggestion = (suggestion: PortionSuggestion, selected: boolean) =>
+    selected ? dispatch(selectPortionSuggestion(suggestion)) : dispatch(unselectPortionSuggestion(suggestion));
+    const handleSelectServingSuggestion = (suggestion: ServingSuggestion, selected: boolean) =>
+    selected ? dispatch(selectServingSuggestion(suggestion)) : dispatch(unselectServingSuggestion(suggestion));
 
-  return {
-    food,
-    error,
-    servingSuggestions,
-    portionSuggestions,
-    updateFoodName,
-    updateServing,
-    handleSubmit
-  };
+  useEffect(() => {
+    debouncedGenerateServingSuggestions(descRef, setServingSuggestionsCallback);
+    debouncedGeneratePortionSuggestions(descRef, setPortionSuggestionsCallback);
+  }, [descRef, dispatch])
+
+  const fns = {
+    updateFoodName: _.partial(updateFoodName, dispatch, generateSuggestions),
+    updateServing: _.partial(updateServing, dispatch),
+    handleSubmit: _.partial(handleSubmit, dispatch, state, onSaveFood),
+    handleSelectPortionSuggestion,
+    handleSelectServingSuggestion,
+  }
+  return [state, fns] as [typeof state, typeof fns];
 }
