@@ -45,6 +45,7 @@ export const ServingInputControl = (props: Props) => {
       </div>
       <Form.Control
         type="number"
+        inputMode="decimal"
         min={0}
         max={9.99}
         value={servingStr}
