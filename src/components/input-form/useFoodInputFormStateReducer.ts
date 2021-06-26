@@ -3,7 +3,7 @@ import _ from "lodash";
 import { useEffect, useReducer, useRef } from "react";
 import { generatePortionSuggestions, generateServingSuggestions, PortionSuggestion, ServingSuggestion } from "../../features/suggestions";
 import { Food, FoodGroup } from "../../model/Food";
-import { addServings, minusServings } from "../../model/servingFunction";
+import { addServings, minusServings, positiveServing } from "../../model/servingFunction";
 import { Selectable } from "./Selectable";
 
 interface ValidationError {
@@ -62,7 +62,7 @@ const food = createSlice({
         state.serving = addServings(state.serving, action.payload.serving);
       })
       .addCase(unselectPortionSuggestion, (state, action) => {
-        state.serving = minusServings(state.serving, action.payload.serving);
+        state.serving = positiveServing(minusServings(state.serving, action.payload.serving));
       });
   }
 })

@@ -55,3 +55,7 @@ export function displayServingValue(val: number | undefined) {
     return val;
   }
 }
+
+export function positiveServing(serving: Serving) {
+  return _.pickBy(serving, val => _.defaultTo(val, 0) > 0);
+}
