@@ -21,7 +21,7 @@ const PortionServingHint = (props: { suggestion: PortionSuggestion }) => {
 
 interface Props {
   suggestions: (PortionSuggestion & Selectable)[];
-  onSelected: (foodName: string, selected: boolean) => void;
+  onSelected: (suggestion: PortionSuggestion, selected: boolean) => void;
 }
 
 export const PortionSuggestionFormText = (props: Props) => (
@@ -36,7 +36,7 @@ export const PortionSuggestionFormText = (props: Props) => (
           type="checkbox" 
           aria-label="fill servings" 
           checked={suggestion.selected}
-          onChange={e => props.onSelected(suggestion.foodName, e.target.checked)} 
+          onChange={e => props.onSelected(suggestion, e.target.checked)} 
           />
         </span>
       ))}

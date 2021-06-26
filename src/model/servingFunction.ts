@@ -6,7 +6,7 @@ function add(n1: number | undefined, n2: number | undefined) {
   return _.defaultTo(n1, 0) + _.defaultTo(n2, 0);
 }
 
-function addServings(s1: Serving, s2: Serving): Serving {
+export function addServings(s1: Serving, s2: Serving): Serving {
   return {
     vegetable: add(s1.vegetable, s2.vegetable),
     fruit: add(s1.fruit, s2.fruit),
@@ -33,7 +33,7 @@ function minus(n1: number | undefined, n2: number | undefined) {
   return _.defaultTo(n1, 0) - _.defaultTo(n2, 0);
 }
 
-function minusServings(s1: Serving, s2: Serving): Serving {
+export function minusServings(s1: Serving, s2: Serving): Serving {
   return {
     vegetable: minus(s1.vegetable, s2.vegetable),
     fruit: minus(s1.fruit, s2.fruit),
