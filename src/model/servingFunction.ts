@@ -1,6 +1,6 @@
 import _ from "lodash";
 import numeral from "numeral";
-import { Meal, Serving } from "./Food";
+import { FoodGroup, Meal, Serving } from "./Food";
 
 function _add(n1: number | undefined, n2: number | undefined) {
   return _.defaultTo(n1, 0) + _.defaultTo(n2, 0);
@@ -58,4 +58,8 @@ export function displayServingValue(val: number | undefined) {
 
 export function positiveServing(serving: Serving) {
   return _.pickBy(serving, val => _.defaultTo(val, 0) > 0);
+}
+
+export function oneServingOf(foodGroup: FoodGroup) {
+  return _.set({} as Serving, foodGroup, 1);
 }
