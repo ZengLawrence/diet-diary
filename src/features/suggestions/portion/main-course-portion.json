@@ -1,0 +1,339 @@
+{
+  "portions": [
+    {
+      "foodName": "Beef, round roast",
+      "portionSize": "2 ounces",
+      "serving": {
+        "proteinDiary": 1
+      }
+    },
+    {
+      "foodName": "Beef, sirloin steak, trimmed of fat",
+      "portionSize": "2 ounces",
+      "serving": {
+        "proteinDiary": 1
+      }
+    },
+    {
+      "foodName": "Burrito, beef, beans and cheese",
+      "portionSize": "1 burrito",
+      "serving": {
+        "carbohydrate": 1,
+        "proteinDiary": 2,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Burrito, chicken supreme with veggies",
+      "portionSize": "1 burrito",
+      "serving": {
+        "vegetable": 1,
+        "carbohydrate": 2,
+        "proteinDiary": 1.5,
+        "fat": 3
+      }
+    },
+    {
+      "foodName": "Chicken, dark meat, fried (fast food)",
+      "portionSize": "2 pieces",
+      "serving": {
+        "carbohydrate": 1,
+        "proteinDiary": 2.5,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Chicken, white meat, fried (fast food)",
+      "portionSize": "2 pieces",
+      "serving": {
+        "carbohydrate": 1,
+        "proteinDiary": 3,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Chicken breast or drumstick, grilled",
+      "portionSize": "2 1/2 ounces",
+      "serving": {
+        "proteinDiary": 1
+      }
+    },
+    {
+      "foodName": "Chicken patty, breaded and fried (fast food)",
+      "portionSize": "3-ounce patty",
+      "serving": {
+        "carbohydrate": 1,
+        "proteinDiary": 1,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Chicken stir-fry with veggies",
+      "portionSize": "1 entree",
+      "serving": {
+        "vegetable": 3,
+        "carbohydrate": 1,
+        "proteinDiary": 1
+      }
+    },
+    {
+      "foodName": "Crab cake, breaded adn fried",
+      "portionSize": "1 entree",
+      "serving": {
+        "vegetable": 3,
+        "carbohydrate": 1,
+        "proteinDiary": 1
+      }
+    },
+    {
+      "foodName": "Fajita, beef, pork or chicken with veggies",
+      "portionSize": "2 fajitas",
+      "serving": {
+        "vegetable": 3,
+        "carbohydrate": 2,
+        "proteinDiary": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Fish, cod, haddock or halibut, grilled or boiled",
+      "portionSize": "3-ounce fillet",
+      "serving": {
+        "proteinDiary": 3
+      }
+    },
+    {
+      "foodName": "Fish fillet, breaded and fried",
+      "portionSize": "3-ounce fillet",
+      "serving": {
+        "carbohydrate": 1,
+        "proteinDiary": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Fish sticks, breaded and fried",
+      "portionSize": "3 sticks",
+      "serving": {
+        "carbohydrate": 1,
+        "proteinDiary": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Kebabs, beef with veggies",
+      "portionSize": "1 skewer",
+      "serving": {
+        "carbohydrate": 2,
+        "proteinDiary": 2
+      }
+    },
+    {
+      "foodName": "Kebabs, chicken with veggies",
+      "portionSize": "1 skewer",
+      "serving": {
+        "carbohydrate": 2,
+        "proteinDiary": 1
+      }
+    },
+    {
+      "foodName": "Kielbasa, Polish, smoked",
+      "portionSize": "3 ounces",
+      "serving": {
+        "proteinDiary": 1,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Lasagna with meat",
+      "portionSize": "2 1/2-x-4-inch piece",
+      "serving": {
+        "vegetable": 2,
+        "carbohydrate": 1,
+        "proteinDiary": 1.5,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Macaroni and cheese, from mix",
+      "portionSize": "1 cup",
+      "serving": {
+        "carbohydrate": 2,
+        "proteinDiary": 2,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Meatballs, Swedish with cream or white sauce",
+      "portionSize": "1 cup (about 5 meatballs)",
+      "serving": {
+        "carbohydrate": 2,
+        "proteinDiary": 2,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Meatloaf, lean ground beef",
+      "portionSize": "3-ounce slice",
+      "serving": {
+        "vegetable": 1,
+        "proteinDiary": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Pasta primavera",
+      "portionSize": "1 entree",
+      "serving": {
+        "vegetable": 2,
+        "carbohydrate": 2,
+        "proteinDiary": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Pizza, cheese, regular crust",
+      "portionSize": "1/9 of 14-inch",
+      "serving": {
+        "vegetable": 1,
+        "carbohydrate": 1,
+        "proteinDiary": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Pizza, cheese, regular crust, frozen",
+      "portionSize": "1/3 of 12-inch",
+      "serving": {
+        "vegetable": 2,
+        "carbohydrate": 2,
+        "proteinDiary": 1,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Pizza, pepperoni, regular crust",
+      "portionSize": "1/9 of 14-inch",
+      "serving": {
+        "vegetable": 1,
+        "carbohydrate": 1.5,
+        "proteinDiary": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Pizza, pepperoni, regular crust, frozen",
+      "portionSize": "1/3 of 12-inch",
+      "serving": {
+        "vegetable": 2,
+        "carbohydrate": 2,
+        "proteinDiary": 1.5,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Pizza, pepperoni, thick crust",
+      "portionSize": "1/9 of 14-inch",
+      "serving": {
+        "vegetable": 1,
+        "carbohydrate": 2,
+        "proteinDiary": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Pork ribs, country-style, lean",
+      "portionSize": "2 1/2 ounces",
+      "serving": {
+        "proteinDiary": 1,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Potpie, beef, frozen",
+      "portionSize": "1 pie (9 ounces)",
+      "serving": {
+        "vegetable": 2,
+        "carbohydrate": 2,
+        "proteinDiary": 1,
+        "fat": 3
+      }
+    },
+    {
+      "foodName": "Potpie, chicken or turkey, frozen",
+      "portionSize": "1 pie (9 ounces)",
+      "serving": {
+        "vegetable": 2,
+        "carbohydrate": 2,
+        "proteinDiary": 1,
+        "fat": 3
+      }
+    },
+    {
+      "foodName": "Shrimp, breaded and fried",
+      "portionSize": "4 ounces",
+      "serving": {
+        "carbohydrate": 2,
+        "proteinDiary": 1,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Skillet meal, \"helper,\" with lean ground beef, chicken or tuna and veggies",
+      "portionSize": "1 cup",
+      "serving": {
+        "vegetable": 1,
+        "carbohydrate": 1,
+        "proteinDiary": 1.5,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Spaghetti with meatballs adn tomato sauce, canned",
+      "portionSize": "1 cup",
+      "serving": {
+        "vegetable": 2,
+        "carbohydrate": 2,
+        "proteinDiary": 0.5,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Spaghetti with marinara sauce",
+      "portionSize": "1 cup",
+      "serving": {
+        "vegetable": 2,
+        "carbohydrate": 2,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Taco, beef or chicken, hard shell with lettuce and tomato",
+      "portionSize": "1 taco",
+      "serving": {
+        "vegetable": 1,
+        "carbohydrate": 1,
+        "proteinDiary": 0.5,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Taco, beef, soft shell with lettuce and tomato",
+      "portionSize": "1 taco",
+      "serving": {
+        "vegetable": 1,
+        "carbohydrate": 1,
+        "proteinDiary": 0.5,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Tortellini with cheese filling",
+      "portionSize": "3/4 cup",
+      "serving": {
+        "carbohydrate": 2,
+        "proteinDiary": 2
+      }
+    }
+  ]
+}

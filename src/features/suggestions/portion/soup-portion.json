@@ -1,0 +1,97 @@
+{
+  "portions": [
+    {
+      "foodName": "Soup, bean with pork, canned (made with water)",
+      "portionSize": "1 cup",
+      "serving": {
+        "carbohydrate": 1,
+        "proteinDiary": 1
+      }
+    },
+    {
+      "foodName": "Beef stew, canned",
+      "portionSize": "1 cup",
+      "serving": {
+        "vegetable": 2,
+        "carbohydrate": 0.5,
+        "proteinDiary": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Soup, broccoli, cream of, canned (made with low-fat milk)",
+      "portionSize": "1 cup",
+      "serving": {
+        "vegetable": 1,
+        "proteinDiary": 1
+      }
+    },
+    {
+      "foodName": "Soup, chicken noodle, canned (broth-based)",
+      "portionSize": "1 cup",
+      "serving": {
+        "carbohydrate": 1
+      }
+    },
+    {
+      "foodName": "Soup, chilli con carne, with beans",
+      "portionSize": "1 cup",
+      "serving": {
+        "vegetable": 1,
+        "proteinDiary": 2
+      }
+    },
+    {
+      "foodName": "Soup, clam chowder, New England, canned",
+      "portionSize": "1 cup",
+      "serving": {
+        "proteinDiary": 1.5
+      }
+    },
+    {
+      "foodName": "Soup, hot and sour",
+      "portionSize": "1 cup",
+      "serving": {
+        "carbohydrate": 0.5,
+        "proteinDiary": 0.5
+      }
+    },
+    {
+      "foodName": "Soup, miso (from 1 tablespoon of miso)",
+      "portionSize": "1 cup",
+      "serving": {
+        "proteinDiary": 0.5
+      }
+    },
+    {
+      "foodName": "Soup, mushroom, cream of, canned (made with water)",
+      "portionSize": "1 cup",
+      "serving": {
+        "proteinDiary": 1
+      }
+    },
+    {
+      "foodName": "Soup, split pea with ham, canned (made with water)",
+      "portionSize": "1 cup",
+      "serving": {
+        "proteinDiary": 2
+      }
+    },
+    {
+      "foodName": "Soup, tomato or tomato-based, canned (made with water)",
+      "portionSize": "1 cup",
+      "serving": {
+        "carbohydrate": 1
+      }
+    },
+    {
+      "foodName": "Soup, vegetable or vegetable beef, canned (broth-based)",
+      "portionSize": "1 cup",
+      "serving": {
+        "vegetable": 1,
+        "carbohydrate": 1,
+        "proteinDiary": 0.5
+      }
+    }
+  ]
+}
