@@ -4,6 +4,7 @@ import { ServingSuggestion } from "../../features/suggestions";
 import { FoodGroupLabelBadge } from "../badge";
 import { BestChoiceLegend } from "../BestChoiceLegend";
 import { BlueStar } from "../BlueStar";
+import { Selectable } from "./Selectable";
 
 const hasBestChoice = (suggestions: ServingSuggestion[]) => _.findIndex(suggestions, { 'bestChoice': true }) >= 0;
 
@@ -19,7 +20,12 @@ const ServingHint = (props: { suggestion: ServingSuggestion }) => {
   )
 }
 
-export const ServingSuggestionFormText = (props: { suggestions: ServingSuggestion[]; }) => (
+interface Props {
+  suggestions: (ServingSuggestion & Selectable)[];
+  onSelected: (suggestion: ServingSuggestion, selected: boolean) => void;
+}
+
+export const ServingSuggestionFormText = (props: Props) => (
   <Form.Text className="d-flex flex-column">
     {_.size(props.suggestions) > 0 && <div>One serving is</div>}
 
@@ -27,6 +33,13 @@ export const ServingSuggestionFormText = (props: { suggestions: ServingSuggestio
       {props.suggestions.map((suggestion, index) => (
         <span key={index}>
           <ServingHint suggestion={suggestion} />&nbsp;
+          <Form.Check
+            inline
+            type="checkbox"
+            aria-label="fill servings"
+            checked={suggestion.selected}
+            onChange={e => props.onSelected(suggestion, e.target.checked)}
+          />
         </span>
       ))}
     </div>

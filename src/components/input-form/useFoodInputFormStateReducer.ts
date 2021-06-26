@@ -16,18 +16,24 @@ interface ValidationError {
   sweet?: boolean;
 }
 
-const setSelected = (suggestion: (PortionSuggestion & Selectable), selected: boolean) => ({ ...suggestion, selected });
-const initializeSelectable = (suggestion: PortionSuggestion) => ({ ...suggestion, selected: false });
+function setSelected<T>(suggestion: T, selected: boolean) { return { ...suggestion, selected } };
+function initializeSelectable<T>(suggestion: T) { return { ...suggestion, selected: false }; }
 
 const suggestions = createSlice({
   name: "suggestions",
   initialState: {
-    servingSuggestions: [] as ServingSuggestion[],
+    servingSuggestions: [] as (ServingSuggestion & Selectable)[],
     portionSuggestions: [] as (PortionSuggestion & Selectable)[],
   },
   reducers: {
     setServingSuggestions: (state, action: PayloadAction<ServingSuggestion[]>) => {
-      state.servingSuggestions = action.payload;
+      state.servingSuggestions = _.map(action.payload, initializeSelectable);
+    },
+    selectServingSuggestion: (state, action: PayloadAction<ServingSuggestion>) => {
+      state.servingSuggestions = _.map(state.servingSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, true) : suggestion);
+    },
+    unselectServingSuggestion: (state, action: PayloadAction<ServingSuggestion>) => {
+      state.servingSuggestions = _.map(state.servingSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, false) : suggestion);
     },
     setPortionSuggestions: (state, action: PayloadAction<PortionSuggestion[]>) => {
       state.portionSuggestions = _.map(action.payload, initializeSelectable);
@@ -40,7 +46,10 @@ const suggestions = createSlice({
     },
   }
 })
-const { setServingSuggestions, setPortionSuggestions, selectPortionSuggestion, unselectPortionSuggestion } = suggestions.actions;
+const { 
+  setServingSuggestions, selectServingSuggestion, unselectServingSuggestion,
+  setPortionSuggestions, selectPortionSuggestion, unselectPortionSuggestion,
+ } = suggestions.actions;
 
 const food = createSlice({
   name: "food",
@@ -169,6 +178,8 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
   }
   const handleSelectPortionSuggestion = (suggestion: PortionSuggestion, selected: boolean) =>
     selected ? dispatch(selectPortionSuggestion(suggestion)) : dispatch(unselectPortionSuggestion(suggestion));
+    const handleSelectServingSuggestion = (suggestion: ServingSuggestion, selected: boolean) =>
+    selected ? dispatch(selectServingSuggestion(suggestion)) : dispatch(unselectServingSuggestion(suggestion));
 
   useEffect(() => {
     debouncedGenerateServingSuggestions(descRef, setServingSuggestionsCallback);
@@ -180,6 +191,7 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
     updateServing: _.partial(updateServing, dispatch),
     handleSubmit: _.partial(handleSubmit, dispatch, state, onSaveFood),
     handleSelectPortionSuggestion,
+    handleSelectServingSuggestion,
   }
   return [state, fns] as [typeof state, typeof fns];
 }
