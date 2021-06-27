@@ -1,5 +1,5 @@
 import { Serving } from "../../model/Food";
-import { FoodGroupServingBadgePanel } from "../badge/FoodGroupServingBadgePanel";
+import { FoodGroupServingBadgePanel } from "./FoodGroupServingBadgePanel";
 import { CalorieSpan } from "../CalorieSpan";
 
 export const CalorieServingPanel = (props: { calorie: number; serving: Serving}) => (
