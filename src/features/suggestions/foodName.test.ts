@@ -16,3 +16,8 @@ test("search for food description with no serving size e.g. 'banana'", () => {
 test("search for food description with number in its name e.g. '1% milk 1 cup'", () => {
   expect(foodName("1% milk 1 cup")).toBe("1% milk");
 })
+
+
+test("search for food description with number in its name with alternative name e.g. 'milk 1% 1 cup'", () => {
+  expect(foodName("milk 1% 1 cup")).toBe("milk 1%");
+})
