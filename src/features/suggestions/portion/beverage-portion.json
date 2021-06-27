@@ -1,0 +1,32 @@
+{
+  "portions": [
+    {
+      "foodName": "Beer, light",
+      "portionSize": "12 fluid onces",
+      "serving": {
+        "sweet": 1.5
+      }
+    },
+    {
+      "foodName": "Beer, regular",
+      "portionSize": "12 fluid onces",
+      "serving": {
+        "sweet": 2
+      }
+    },
+    {
+      "foodName": "Distilled spirits (gin, rum, vodka, whiskey",
+      "portionSize": "1 fluid once",
+      "serving": {
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Wine, red or white",
+      "portionSize": "5 fluid onces",
+      "serving": {
+        "sweet": 1.5
+      }
+    }
+  ]
+}
