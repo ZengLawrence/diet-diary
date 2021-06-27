@@ -50,6 +50,7 @@ export const FoodInputForm = (props: Props) => {
           <PortionSuggestionFormText
             suggestions={suggestions.portionSuggestions}
             onSelected={handleSelectPortionSuggestion}
+            showSelect={props.buttonLabel === "Add"}
           />
         </div>
       </Form.Group>
