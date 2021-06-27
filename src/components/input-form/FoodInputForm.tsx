@@ -6,9 +6,11 @@ import { ServingInputControl } from "./ServingInputControl";
 import { ServingSuggestionFormText } from "./ServingSuggestionFormText";
 import { useFoodInputFormStateReducer } from "./useFoodInputFormStateReducer";
 
+export type ButtonLabel = "Add" | "Update";
+
 interface Props {
   food: Food;
-  buttonLabel: string;
+  buttonLabel: ButtonLabel;
   onSaveFood: (food: Food) => void;
   onCancel: () => void
 }
