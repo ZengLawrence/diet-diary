@@ -1,0 +1,152 @@
+{
+  "portions": [
+    {
+      "foodName": "Bread, banana",
+      "portionSize": "1 slice",
+      "serving": {
+        "vegetable": 0.5,
+        "carbohydrate": 1,
+        "fat": 1,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Cereal bar, granola-type or fruit-filled",
+      "portionSize": "1 bar",
+      "serving": {
+        "carbohydrate": 1,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Cheese puff or twist",
+      "portionSize": "1 ounce",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Cereal-based snack mix",
+      "portionSize": "1/2 cup",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Cracker, sandwich, with peanut butter filling",
+      "portionSize": "6 crackers",
+      "serving": {
+        "carbohydrate": 1.5,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Fruit leather pieces",
+      "portionSize": "1 pack (3/4 ounce)",
+      "serving": {
+        "fruit": 1
+      }
+    },
+    {
+      "foodName": "Popcorn, microwave, buttered",
+      "portionSize": "3 cups",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Popcorn, plain, air-popped",
+      "portionSize": "3 cups",
+      "serving": {
+        "carbohydrate": 1
+      }
+    },
+    {
+      "foodName": "Popcorn, plain, oil-popped",
+      "portionSize": "3 cups",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Potato chips, regular",
+      "portionSize": "1 ounce",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Potato chips, baked",
+      "portionSize": "1 ounce",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Pretzel sticks, small",
+      "portionSize": "about 30",
+      "serving": {
+        "carbohydrate": 1
+      }
+    },
+    {
+      "foodName": "Pretzel twists",
+      "portionSize": "about 3",
+      "serving": {
+        "carbohydrate": 1
+      }
+    },
+    {
+      "foodName": "Rice cakes, most type",
+      "portionSize": "2 cakes",
+      "serving": {
+        "carbohydrate": 1
+      }
+    },
+    {
+      "foodName": "Soybeans, dry roasted",
+      "portionSize": "2 tablespoons",
+      "serving": {
+        "proteinDiary": 1
+      }
+    },
+    {
+      "foodName": "Strawberry smoothie",
+      "portionSize": "1 smoothie",
+      "serving": {
+        "fruit": 1,
+        "proteinDiary": 1
+      }
+    },
+    {
+      "foodName": "Tortilla chips or corn chips, baked",
+      "portionSize": "1 ounce",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Tortilla chips or corn chips, regular",
+      "portionSize": "1 ounce",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Trail mix, with chocolate chips, nuts and seeds",
+      "portionSize": "1 ounce",
+      "serving": {
+        "fat": 5,
+        "sweet": 2
+      }
+    }
+  ]
+}

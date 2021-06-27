@@ -1,0 +1,256 @@
+{
+  "portions": [
+    {
+      "foodName": "Bar, brownie",
+      "portionSize": "3-inch square",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 2,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Bar, lemon",
+      "portionSize": "1 1/2-ounce bar",
+      "serving": {
+        "fat": 1,
+        "sweet": 1.5
+      }
+    },
+    {
+      "foodName": "Cake, angel food",
+      "portionSize": "1/12 of 12-ounce cake",
+      "serving": {
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Cake, chocolate, no frosting",
+      "portionSize": "1/12 of 9-inch dia. cake",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 3,
+        "sweet": 2
+      }
+    },
+    {
+      "foodName": "Cake, cinnamon, with crumb topping",
+      "portionSize": "1/8 of 8-x-6-inch cake",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 1,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Cake, gingerbread",
+      "portionSize": "1/8 of 8-x-6-inch cake",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 1,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Cake, pound, fat-free",
+      "portionSize": "1-ounce slice",
+      "serving": {
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Cake, white, no frosting",
+      "portionSize": "1/12 of 9-inch dia. cake",
+      "serving": {
+        "carbohydrate": 1.5,
+        "fat": 2,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Chocolate bar, dark",
+      "portionSize": "1 ounce",
+      "serving": {
+        "fat": 2,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Chocolate bar, milk",
+      "portionSize": "1 bar (1 1/2 ounces)",
+      "serving": {
+        "fat": 2,
+        "sweet": 1.5
+      }
+    },
+    {
+      "foodName": "Cookie, chocolate chip",
+      "portionSize": "2 medium",
+      "serving": {
+        "fat": 1,
+        "sweet": 0.5
+      }
+    },
+    {
+      "foodName": "Cookie, chocolate sandwich with cream filling",
+      "portionSize": "2 standard",
+      "serving": {
+        "fat": 1,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Cookie, fig bar",
+      "portionSize": "2 standard",
+      "serving": {
+        "fruit": 0.5,
+        "fat": 1,
+        "sweet": 0.5
+      }
+    },
+    {
+      "foodName": "Cookie, gingersnap",
+      "portionSize": "3 medium",
+      "serving": {
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Cookie, oatmeal raisin, peanut butter or sugar",
+      "portionSize": "1 3-inch dia.",
+      "serving": {
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Custard",
+      "portionSize": "1/2 cup",
+      "serving": {
+        "proteinDiary": 0.5,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Ice cream, light (most flavor)",
+      "portionSize": "1/2 cup",
+      "serving": {
+        "fat": 1,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Ice cream, regular (most flavor)",
+      "portionSize": "1/2 cup",
+      "serving": {
+        "fat": 2,
+        "sweet": 0.5
+      }
+    },
+    {
+      "foodName": "Ice cream, soft serve, vanilla, light",
+      "portionSize": "1/2 cup",
+      "serving": {
+        "fat": 1,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Juice bar, frozen",
+      "portionSize": "1 bar (3 ounce)",
+      "serving": {
+        "fruit": 1
+      }
+    },
+    {
+      "foodName": "Pudding, instant, sugar-sweetened, 2% milk",
+      "portionSize": "1/2 cup",
+      "serving": {
+        "proteinDiary": 0.5,
+        "fat": 0.5,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Pudding, tapioca, sugar-sweetened, 2% milk",
+      "portionSize": "1/2 cup",
+      "serving": {
+        "proteinDiary": 0.5,
+        "fat": 0.5,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Shake, vanilla or chocolate (fast food)",
+      "portionSize": "12 fluid ounces",
+      "serving": {
+        "proteinDiary": 2,
+        "sweet": 2
+      }
+    },
+    {
+      "foodName": "Sherbert (sorbet)",
+      "portionSize": "1/3 cup",
+      "serving": {
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Pie, chocolate cream, commercially prepared",
+      "portionSize": "1/8 of 9-inch dia. pie",
+      "serving": {
+        "carbohydrate": 1,
+        "proteinDiary": 1,
+        "fat": 4,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Pie, fruit (apple, blueberry, or cherry), from recipe",
+      "portionSize": "1/8 of 9-inch dia. pie",
+      "serving": {
+        "fruit": 1,
+        "carbohydrate": 1,
+        "fat": 4,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Pie, lemon meringue, commercially prepared",
+      "portionSize": "1/8 of 8-inch dia. pie",
+      "serving": {
+        "fruit": 0.5,
+        "carbohydrate": 0.5,
+        "fat": 2,
+        "sweet": 2
+      }
+    },
+    {
+      "foodName": "Pie, pecan",
+      "portionSize": "1/8 of 9-inch dia. pie",
+      "serving": {
+        "carbohydrate": 1,
+        "proteinDiary": 1,
+        "fat": 4,
+        "sweet": 2
+      }
+    },
+    {
+      "foodName": "Pie, pumpkin",
+      "portionSize": "1/8 of 9-inch dia. pie",
+      "serving": {
+        "vegetable": 1,
+        "carbohydrate": 1,
+        "fat": 3,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Yogurt, frozen, fat-free",
+      "portionSize": "1/2 cup",
+      "serving": {
+        "proteinDiary": 0.5,
+        "sweet": 1
+      }
+    }
+  ]
+}
