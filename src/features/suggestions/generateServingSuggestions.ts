@@ -1,10 +1,9 @@
 import _ from "lodash";
+import { foodName } from "./foodName";
 import { searchFoodPortionSize } from "./portion/search";
 import { PortionSuggestion } from "./PortionSuggestion";
 import { searchFoodServingSize } from "./serving/search";
 import { ServingSuggestion } from "./ServingSuggestion";
-
-const foodName = (phrase: string) => _.trim(_.head(_.split(phrase, /\d/, 1)));
 
 function findServingSuggestions(foodDescription: string) {
   const results = searchFoodServingSize(foodName(foodDescription));
