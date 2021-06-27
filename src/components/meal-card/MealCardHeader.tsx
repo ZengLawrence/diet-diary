@@ -3,7 +3,7 @@ import DeleteButton from "../../features/meal-card/DeleteButton";
 import DoneButton from "../../features/meal-card/DoneButton";
 import EditButton from "../../features/meal-card/EditButton";
 import { Meal } from "../../model/Food";
-import { MealCalorieServingPanel } from "./MealCalorieServingPanel";
+import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
 
 export const DefaultMealCardHeader = (props: {
   meal: Meal;
