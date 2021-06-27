@@ -1,0 +1,163 @@
+{
+  "portions": [
+    {
+      "foodName": "Beans, baked, with pork, franks or beef, canned",
+      "portionSize": "1 cup",
+      "serving": {
+        "carbohydrate": 1,
+        "proteinDiary": 2,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Biscuit (fast food)",
+      "portionSize": "1 large",
+      "serving": {
+        "carbohydrate": 2,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Bread, garlic",
+      "portionSize": "1 slice",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Breadstick, soft (fast food)",
+      "portionSize": "1 stick",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Buffalo wings",
+      "portionSize": "4 pieces",
+      "serving": {
+        "proteinDiary": 1,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Chicken tenders",
+      "portionSize": "4 pieces",
+      "serving": {
+        "carbohydrate": 1,
+        "proteinDiary": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Chow mein noodles",
+      "portionSize": "1/3 cup",
+      "serving": {
+        "carbohydrate": 0.5,
+        "proteinDiary": 1
+      }
+    },
+    {
+      "foodName": "Crescent roll, from refrigerated dough",
+      "portionSize": "1 roll",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Egg rolls, vegetable, chicken or pork",
+      "portionSize": "3-ounce roll",
+      "serving": {
+        "vegetable": 1,
+        "carbohydrate": 1,
+        "proteinDiary": 0.5
+      }
+    },
+    {
+      "foodName": "French fries",
+      "portionSize": "1 small serving",
+      "serving": {
+        "carbohydrate": 2,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Hummus, home-prepared",
+      "portionSize": "4 tablespoons",
+      "serving": {
+        "proteinDiary": 1
+      }
+    },
+    {
+      "foodName": "Mozzarella sticks, deep-fried (fast food)",
+      "portionSize": "4 sticks",
+      "serving": {
+        "carbohydrate": 1,
+        "proteinDiary": 2,
+        "fat": 3
+      }
+    },
+    {
+      "foodName": "Onion rings, breaded (fast food)",
+      "portionSize": "8-9 rings",
+      "serving": {
+        "vegetable": 2,
+        "carbohydrate": 1.5,
+        "proteinDiary": 2,
+        "fat": 3
+      }
+    },
+    {
+      "foodName": "Potato, baked, with cheese adn broccoli (fast food)",
+      "portionSize": "1 potato",
+      "serving": {
+        "vegetable": 1,
+        "carbohydrate": 3,
+        "proteinDiary": 1,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Potato, mashed, with gravy",
+      "portionSize": "about 1/2 cup",
+      "serving": {
+        "carbohydrate": 1.5,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Potatoes, au gratin, with trans-free margarine",
+      "portionSize": "1/2 cup",
+      "serving": {
+        "carbohydrate": 1,
+        "proteinDiary": 0.5,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Potatoes, scalloped, with trans-free margarine",
+      "portionSize": "1/2 cup",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Salsa",
+      "portionSize": "1/4 cup",
+      "serving": {
+        "vegetable": 1
+      }
+    },
+    {
+      "foodName": "Tortilla, flour",
+      "portionSize": "1 round (6-inch)",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 0.5
+      }
+    }
+  ]
+}

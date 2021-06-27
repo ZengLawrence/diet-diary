@@ -1,0 +1,75 @@
+{
+  "portions": [
+    {
+      "foodName": "Caesar salad with grilled chicken",
+      "portionSize": "11 ounces",
+      "serving": {
+        "vegetable": 3,
+        "proteinDiary": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Coleslaw, home-prepared",
+      "portionSize": "1 cup",
+      "serving": {
+        "vegetable": 2,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Potato salad, home-prepared",
+      "portionSize": "1 cup",
+      "serving": {
+        "vegetable": 1,
+        "carbohydrate": 2,
+        "fat": 4
+      }
+    },
+    {
+      "foodName": "Spinach salad with fruit",
+      "portionSize": "2 cups",
+      "serving": {
+        "vegetable": 2,
+        "fruit": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Taco salad (fast food)",
+      "portionSize": "1 1/2 cups",
+      "serving": {
+        "vegetable": 1,
+        "carbohydrate": 1,
+        "proteinDiary": 1,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Tossed salad with cheese and egg, no dressing",
+      "portionSize": "2 cups",
+      "serving": {
+        "vegetable": 2,
+        "proteinDiary": 1.5
+      }
+    },
+    {
+      "foodName": "Tossed salad with pasta and seafood, no dressing",
+      "portionSize": "1 1/2 cups",
+      "serving": {
+        "vegetable": 2,
+        "carbohydrate": 1,
+        "proteinDiary": 2,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Tossed salad with turkey, ham and cheese, no dressing",
+      "portionSize": "1 1/2 cups",
+      "serving": {
+        "vegetable": 2,
+        "proteinDiary": 2
+      }
+    }
+  ]
+}

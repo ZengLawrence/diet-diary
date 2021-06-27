@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { ExportToCsv } from 'export-to-csv';
 import { Food, Meal } from "../../model/Food";
+import { calcFoodCalories } from "../../model/calorieFunction";
 
 const denormalizeFood = (food: Food) => ({
   foodName: food.name,
@@ -10,6 +11,7 @@ const denormalizeFood = (food: Food) => ({
   proteinDiary: _.defaultTo(food.serving.proteinDiary, ""),
   fat: _.defaultTo(food.serving.fat, ""),
   sweet: _.defaultTo(food.serving.sweet, ""),
+  calorie: calcFoodCalories(food),
 });
 
 export default function exportCsv(date: string, meals: Meal[]) {

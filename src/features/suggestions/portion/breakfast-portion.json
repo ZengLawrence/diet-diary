@@ -1,0 +1,274 @@
+{
+  "portions": [
+    {
+      "foodName": "Bacon, Canadian-style",
+      "portionSize": "2 1/2 ounces",
+      "serving": {
+        "proteinDiary": 1
+      }
+    },
+    {
+      "foodName": "Bacon, fried",
+      "portionSize": "1 strip",
+      "serving": {
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Bagel with egg and cheese",
+      "portionSize": "1 sandwich",
+      "serving": {
+        "carbohydrate": 3,
+        "proteinDiary": 2,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Biscuit with egg",
+      "portionSize": "1 biscuit",
+      "serving": {
+        "carbohydrate": 2,
+        "proteinDiary": 1,
+        "fat": 3
+      }
+    },
+    {
+      "foodName": "Biscuit with egg and meat",
+      "portionSize": "1 biscuit",
+      "serving": {
+        "carbohydrate": 2,
+        "proteinDiary": 2,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Cereal, cold, shredded wheat, sweetened",
+      "portionSize": "3/4 cup",
+      "serving": {
+        "carbohydrate": 1,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Croissant, plain",
+      "portionSize": "1 medium croissant",
+      "serving": {
+        "carbohydrate": 2,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Croissant with egg and cheese",
+      "portionSize": "1 croissant",
+      "serving": {
+        "carbohydrate": 2,
+        "proteinDiary": 1,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Croissant with egg, cheese and bacon",
+      "portionSize": "1 croissant",
+      "serving": {
+        "carbohydrate": 2,
+        "proteinDiary": 1.5,
+        "fat": 3
+      }
+    },
+    {
+      "foodName": "Doughnut, cake (plain)",
+      "portionSize": "1 (3 1/4 inch dia.)",
+      "serving": {
+        "carbohydrate": 0.5,
+        "fat": 3,
+        "sweet": 0.5
+      }
+    },
+    {
+      "foodName": "Doughnut, raised (glazed)",
+      "portionSize": "1 (3 1/4 inch dia.)",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 2,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Egg, omelet, western",
+      "portionSize": "1 large egg",
+      "serving": {
+        "vegetable": 1,
+        "proteinDiary": 1
+      }
+    },
+    {
+      "foodName": "Egg, scrambled",
+      "portionSize": "1 large egg",
+      "serving": {
+        "proteinDiary": 1
+      }
+    },
+    {
+      "foodName": "English muffin with egg, cheese and Canadian bacon",
+      "portionSize": "1 muffin",
+      "serving": {
+        "carbohydrate": 2,
+        "proteinDiary": 2,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "French toast",
+      "portionSize": "1 slice",
+      "serving": {
+        "carbohydrate": 1,
+        "proteinDiary": 0.5,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "French toast sticks",
+      "portionSize": "5 sticks",
+      "serving": {
+        "carbohydrate": 2,
+        "proteinDiary": 1,
+        "fat": 1,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Granola, home-prepared",
+      "portionSize": "1/4 cup",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 2
+      }
+    },
+    {
+      "foodName": "Granola, low-fat",
+      "portionSize": "1/4 cup",
+      "serving": {
+        "carbohydrate": 1
+      }
+    },
+    {
+      "foodName": "Hash brown potatoes",
+      "portionSize": "1/2 cup",
+      "serving": {
+        "carbohydrate": 1.5
+      }
+    },
+    {
+      "foodName": "Muffin, blueberry (made with low-fat milk)",
+      "portionSize": "1 (2 ounces)",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 1,
+        "sweet": 0.5
+      }
+    },
+    {
+      "foodName": "Muffin, cranberry-orange",
+      "portionSize": "1 large (4 ounces)",
+      "serving": {
+        "fruit": 1,
+        "carbohydrate": 2,
+        "fat": 4,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Oatmeal, instant, plain (made with water)",
+      "portionSize": "1 packet",
+      "serving": {
+        "carbohydrate": 1.5
+      }
+    },
+    {
+      "foodName": "Oatmeal, instant, sweeten (made with water)",
+      "portionSize": "1 packet",
+      "serving": {
+        "carbohydrate": 1,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Pancake with berries, syrup and trans-free margarine",
+      "portionSize": "1 pancake",
+      "serving": {
+        "fruit": 1,
+        "carbohydrate": 1,
+        "fat": 1,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Pastry, cinnamon Danish",
+      "portionSize": "1 (4-inch dia.)",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 3,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Pastry, cinnamon roll with frosting",
+      "portionSize": "1 (2-inch dia.)",
+      "serving": {
+        "carbohydrate": 0.5,
+        "fat": 1,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Pastry, toaster-type",
+      "portionSize": "1 item",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 2,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Quiche with broccoli and Cheddar cheese",
+      "portionSize": "6 ounces",
+      "serving": {
+        "vegetable": 1,
+        "carbohydrate": 0.5,
+        "fat": 4
+      }
+    },
+    {
+      "foodName": "Scone with fruit (no frosting)",
+      "portionSize": "1 (4 ounces)",
+      "serving": {
+        "carbohydrate": 2,
+        "fat": 4,
+        "sweet": 2
+      }
+    },
+    {
+      "foodName": "Waffle, plain, from recipe",
+      "portionSize": "1 (4-inch dia.)",
+      "serving": {
+        "carbohydrate": 1,
+        "fat": 1
+      }
+    },
+    {
+      "foodName": "Yogurt, plain, low-fat, low-calorie sweetener",
+      "portionSize": "1 cup (8 ounces)",
+      "serving": {
+        "proteinDiary": 1
+      }
+    },
+    {
+      "foodName": "Yogurt with fruit, low-fat, low-calorie sweetener",
+      "portionSize": "1 cup (8 ounces)",
+      "serving": {
+        "fruit": 1,
+        "proteinDiary": 1
+      }
+    }
+  ]
+}

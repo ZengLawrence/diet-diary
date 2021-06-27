@@ -6,9 +6,11 @@ import { ServingInputControl } from "./ServingInputControl";
 import { ServingSuggestionFormText } from "./ServingSuggestionFormText";
 import { useFoodInputFormStateReducer } from "./useFoodInputFormStateReducer";
 
+export type ButtonLabel = "Add" | "Update";
+
 interface Props {
   food: Food;
-  buttonLabel: string;
+  buttonLabel: ButtonLabel;
   onSaveFood: (food: Food) => void;
   onCancel: () => void
 }
@@ -43,10 +45,12 @@ export const FoodInputForm = (props: Props) => {
           <ServingSuggestionFormText
             suggestions={suggestions.servingSuggestions}
             onSelected={handleSelectServingSuggestion}
+            showSelect={props.buttonLabel === "Add"}
           />
           <PortionSuggestionFormText
             suggestions={suggestions.portionSuggestions}
             onSelected={handleSelectPortionSuggestion}
+            showSelect={props.buttonLabel === "Add"}
           />
         </div>
       </Form.Group>

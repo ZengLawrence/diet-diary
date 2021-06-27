@@ -22,24 +22,30 @@ const PortionServingHint = (props: { suggestion: PortionSuggestion }) => {
 interface Props {
   suggestions: (PortionSuggestion & Selectable)[];
   onSelected: (suggestion: PortionSuggestion, selected: boolean) => void;
+  showSelect: boolean;
 }
 
 export const PortionSuggestionFormText = (props: Props) => (
-  <Form.Text className="d-flex flex-column">
-    {_.size(props.suggestions) > 0 && <div>One portion is</div>}
-    <div className="d-flex flex-column flex-wrap w-100">
-      {props.suggestions.map((suggestion, index) => (
-        <span key={index}>
-          <PortionServingHint suggestion={suggestion} />&nbsp;
-          <Form.Check 
-          inline 
-          type="checkbox" 
-          aria-label="fill servings" 
-          checked={suggestion.selected}
-          onChange={e => props.onSelected(suggestion, e.target.checked)} 
-          />
-        </span>
-      ))}
-    </div>
-  </Form.Text>
+  _.size(props.suggestions) === 0
+    ? <div />
+    :
+    <Form.Text className="d-flex flex-column">
+      <div>One portion is</div>
+      <div className="d-flex flex-column flex-wrap w-100">
+        {props.suggestions.map((suggestion, index) => (
+          <span key={index}>
+            <PortionServingHint suggestion={suggestion} />&nbsp;
+            {props.showSelect &&
+              <Form.Check
+                inline
+                type="checkbox"
+                aria-label="fill servings"
+                checked={suggestion.selected}
+                onChange={e => props.onSelected(suggestion, e.target.checked)}
+              />
+            }
+          </span>
+        ))}
+      </div>
+    </Form.Text>
 )
