@@ -6,6 +6,7 @@ import { portions as saladPortions } from "./salad-portion.json";
 import { portions as soupPortions } from "./soup-portion.json";
 import { portions as mainCoursePortions } from "./main-course-portion.json";
 import { portions as sideDishPortions } from "./side-dish-portion.json";
+import { portions as snackPortions } from "./snack-portion.json";
 
 export default _.concat<PortionSuggestion>(
   breakfastPortions,
@@ -13,5 +14,6 @@ export default _.concat<PortionSuggestion>(
   saladPortions,
   soupPortions,
   mainCoursePortions,
-  sideDishPortions
+  sideDishPortions,
+  snackPortions,
 );
