@@ -23,29 +23,35 @@ const ServingHint = (props: { suggestion: ServingSuggestion }) => {
 interface Props {
   suggestions: (ServingSuggestion & Selectable)[];
   onSelected: (suggestion: ServingSuggestion, selected: boolean) => void;
+  allowSelect: boolean;
 }
 
 export const ServingSuggestionFormText = (props: Props) => (
-  <Form.Text className="d-flex flex-column">
-    {_.size(props.suggestions) > 0 && <div>One serving is</div>}
+  _.size(props.suggestions) === 0
+    ? <div />
+    :
+    <Form.Text className="d-flex flex-column">
+      <div>One serving is</div>
 
-    <div className="d-flex flex-column flex-sm-row flex-wrap w-100">
-      {props.suggestions.map((suggestion, index) => (
-        <span key={index}>
-          <ServingHint suggestion={suggestion} />&nbsp;
-          <Form.Check
-            inline
-            type="checkbox"
-            aria-label="fill servings"
-            checked={suggestion.selected}
-            onChange={e => props.onSelected(suggestion, e.target.checked)}
-          />
-        </span>
-      ))}
-    </div>
+      <div className="d-flex flex-column flex-sm-row flex-wrap w-100">
+        {props.suggestions.map((suggestion, index) => (
+          <span key={index}>
+            <ServingHint suggestion={suggestion} />&nbsp;
+            {props.allowSelect &&
+              <Form.Check
+                inline
+                type="checkbox"
+                aria-label="fill servings"
+                checked={suggestion.selected}
+                onChange={e => props.onSelected(suggestion, e.target.checked)}
+              />
+            }
+          </span>
+        ))}
+      </div>
 
-    <div style={{ maxWidth: "100px" }}>
-      {hasBestChoice(props.suggestions) && <BestChoiceLegend />}
-    </div>
-  </Form.Text>
+      <div style={{ maxWidth: "100px" }}>
+        {hasBestChoice(props.suggestions) && <BestChoiceLegend />}
+      </div>
+    </Form.Text>
 )
