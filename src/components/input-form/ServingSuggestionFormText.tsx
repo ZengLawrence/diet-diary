@@ -23,7 +23,7 @@ const ServingHint = (props: { suggestion: ServingSuggestion }) => {
 interface Props {
   suggestions: (ServingSuggestion & Selectable)[];
   onSelected: (suggestion: ServingSuggestion, selected: boolean) => void;
-  allowSelect: boolean;
+  showSelect: boolean;
 }
 
 export const ServingSuggestionFormText = (props: Props) => (
@@ -37,7 +37,7 @@ export const ServingSuggestionFormText = (props: Props) => (
         {props.suggestions.map((suggestion, index) => (
           <span key={index}>
             <ServingHint suggestion={suggestion} />&nbsp;
-            {props.allowSelect &&
+            {props.showSelect &&
               <Form.Check
                 inline
                 type="checkbox"

@@ -45,7 +45,7 @@ export const FoodInputForm = (props: Props) => {
           <ServingSuggestionFormText
             suggestions={suggestions.servingSuggestions}
             onSelected={handleSelectServingSuggestion}
-            allowSelect={props.buttonLabel === "Add"}
+            showSelect={props.buttonLabel === "Add"}
           />
           <PortionSuggestionFormText
             suggestions={suggestions.portionSuggestions}
