@@ -1,21 +1,12 @@
 import { combineReducers } from "redux";
 import { Action, ChangeTargetAction } from "../actions";
-import { today } from "../model/MealState";
+import date, { newDay } from "../features/day-page/dateSlice";
 import { DEFAULT_TARGET, Target } from "../model/Target";
 import { mealStatesReducer } from "./meal-state";
 
-function dateReducer(state: string = today(), action: Action) {
-  switch (action.type) {
-    case 'new-day':
-      return today();
-    default:
-      return state;
-  }
-}
-
 function editModeReducer(state: boolean = true, action: Action) {
   switch (action.type) {
-    case 'new-day':
+    case newDay.type:
     case 'enter-edit-mode':
       return true;
     case 'exit-edit-mode':
@@ -48,7 +39,7 @@ function editTargetReducer(state: boolean = false, action: Action) {
 
 export const rootReducer = combineReducers(
   {
-    date: dateReducer,
+    date,
     mealStates: mealStatesReducer,
     editMode: editModeReducer,
     target: targetReducer,

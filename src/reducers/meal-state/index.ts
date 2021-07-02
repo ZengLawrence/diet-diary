@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { Action, EnterFoodEditModeAction, MealAction } from "../../actions";
+import { newDay } from "../../features/day-page/dateSlice";
 import { MealEditState, MealState, newMealState } from "../../model/MealState";
 import { mealReducer } from "./mealReducer";
 
@@ -48,7 +49,7 @@ function updateMealState(mealState: MealState, index: number, action: MealAction
 
 export function mealStatesReducer(state: MealState[] = [newMealState()], action: Action) {
   switch (action.type) {
-    case 'new-day':
+    case newDay.type:
       return [newMealState()];
     case 'new-meal':
       return _.concat(_.map(state, mealState => mealStateReducer(mealState, action)), newMealState());
