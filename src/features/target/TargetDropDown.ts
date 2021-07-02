@@ -1,8 +1,9 @@
 import { connect } from "react-redux";
-import { changeTargetAction, exitEditTargetAction } from "../../actions";
+import { exitEditTargetAction } from "../../actions";
 import { AppDispatch, RootState } from "../../app/store";
 import { TargetDropDown } from "../../components/target/TargetDropDown";
 import { allTargets, Target } from "../../model/Target";
+import { changeTarget } from "./targetSlice";
 
 const mapStateToProps = (state: RootState) => ({
   selectedCalorie: state.target.calorie,
@@ -10,7 +11,7 @@ const mapStateToProps = (state: RootState) => ({
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  onSelect: (target: Target) => { dispatch(changeTargetAction(target)); dispatch(exitEditTargetAction()); },
+  onSelect: (target: Target) => { dispatch(changeTarget(target)); dispatch(exitEditTargetAction()); },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TargetDropDown);
