@@ -1,14 +1,14 @@
 import { connect } from "react-redux";
-import { enterEditTargetAction } from "../../actions";
 import { AppDispatch } from "../../app/store";
 import { SecondaryButton } from "../../components/buttons/SecondaryButton";
+import { enterEditTarget } from "./editTargetSlice";
 
 const mapStateToProps = () => ({
   label: "Change",
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  onClick: () => dispatch(enterEditTargetAction()),
+  onClick: () => dispatch(enterEditTarget()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SecondaryButton);

@@ -41,14 +41,6 @@ export function exitMealEditModeAction(mealIndex: number): MealAction {
   };
 }
 
-export function enterEditTargetAction(): Action {
-  return { type: 'enter-edit-target' };
-}
-
-export function exitEditTargetAction(): Action {
-  return { type: 'exit-edit-target' };
-}
-
 export interface FoodAction extends Action {
   mealIndex: number;
 }
