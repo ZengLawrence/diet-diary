@@ -42,14 +42,6 @@ export function exitMealEditModeAction(mealIndex: number): MealAction {
   };
 }
 
-export function enterEditModeAction(): Action {
-  return { type: 'enter-edit-mode' };
-}
-
-export function exitEditModeAction(): Action {
-  return { type: 'exit-edit-mode' };
-}
-
 export function enterEditTargetAction(): Action {
   return { type: 'enter-edit-target' };
 }

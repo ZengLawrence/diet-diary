@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { Action, EnterFoodEditModeAction, MealAction } from "../../actions";
 import { newDay } from "../../features/day-page/dateSlice";
+import { exitEditMode } from "../../features/day-page/editModeSlice";
 import { MealEditState, MealState, newMealState } from "../../model/MealState";
 import { mealReducer } from "./mealReducer";
 
@@ -13,7 +14,7 @@ function editStateReducer(state: MealEditState, action: Action): MealEditState {
     case 'new-meal':
     case 'exit-meal-edit-mode':
     case 'cancel-add-food':
-    case 'exit-edit-mode':
+    case exitEditMode.type:
       return undefined;
     default:
       return state;
