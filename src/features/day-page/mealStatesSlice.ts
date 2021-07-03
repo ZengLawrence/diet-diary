@@ -1,0 +1,55 @@
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import _ from "lodash";
+import { Food } from "../../model/Food";
+import { newMealState } from "../../model/MealState";
+
+const initialState = [newMealState()];
+
+const mealStatesSlice = createSlice({
+  name: "mealStates",
+  initialState,
+  reducers: {
+    newMeal(state) {
+      state.push(newMealState())
+    },
+    deleteMeal(state, action: PayloadAction<number>) {
+      return _.filter(state, (_, index) => (index !== action.payload));
+    },
+    addFood(state, action: PayloadAction<{ mealIndex: number; food: Food }>) {
+      const { mealIndex, food } = action.payload;
+      state[mealIndex].meal.foods.push(food);
+    },
+    updateFood(state, action: PayloadAction<{ mealIndex: number; foodIndex: number; food: Food }>) {
+      const { mealIndex, foodIndex, food } = action.payload;
+      state[mealIndex].meal.foods[foodIndex] = food;
+    },
+    cancelAddFood(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
+      state[mealIndex].editState = undefined;
+    },
+    enterMealEditMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
+      state[mealIndex].editState = "edit";
+    },
+    enterMealAddMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
+      state[mealIndex].editState = "add";
+    },
+    exitMealEditMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
+      state[mealIndex].editState = undefined;
+    },
+    enterFoodEditMode(state, action: PayloadAction<{ mealIndex: number; foodIndex: number }>) {
+      const { mealIndex, foodIndex } = action.payload;
+      state[mealIndex].foodEditIndex = foodIndex;
+    },
+    exitFoodEditMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
+      state[mealIndex].foodEditIndex = undefined;
+    },
+  }
+})
+
+export const {
+  newMeal, deleteMeal,
+  addFood, updateFood, cancelAddFood,
+  enterMealEditMode, enterMealAddMode, exitMealEditMode,
+  enterFoodEditMode, exitFoodEditMode,
+} = mealStatesSlice.actions;
+
+export default mealStatesSlice.reducer;
