@@ -5,7 +5,7 @@ import mealStates from "../features/day-page/mealStatesSlice";
 import editTarget from "../features/target/editTargetSlice";
 import target from "../features/target/targetSlice";
 
-export const rootReducer = combineReducers(
+export default combineReducers(
   {
     date,
     mealStates,
