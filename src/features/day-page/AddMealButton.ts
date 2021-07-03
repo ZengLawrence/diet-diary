@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
 import { AppDispatch } from "../../app/store";
 import { AddButton } from "../../components/buttons/AddButton";
-import { newMeal } from "./mealStatesSlice";
+import { addMeal } from "./mealStatesSlice";
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  onClick: () => dispatch(newMeal()),
+  onClick: () => dispatch(addMeal()),
 })
 
 export default connect(null, mapDispatchToProps)(AddButton);

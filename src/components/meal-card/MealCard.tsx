@@ -1,4 +1,4 @@
-import { MealState } from "../../model/MealState";
+import { MealState } from "../../features/day-page/mealStatesSlice";
 import { EditableMealCard } from "./EditableMealCard";
 import { UneditableMealCard } from "./UneditableMealCard";
 

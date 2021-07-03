@@ -1,8 +1,22 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash";
-import { Food } from "../../model/Food";
-import { newMealState } from "../../model/MealState";
+import { Food, Meal, newMeal  } from "../../model/Food";
 import { newDay } from "./dateSlice";
+
+type MealEditState = "add" | "edit" | undefined;
+
+export interface MealState {
+  meal: Meal;
+  editState?: MealEditState;
+  foodEditIndex?: number;
+}
+
+function newMealState(): MealState {
+  return {
+    meal: newMeal(),
+    editState: "add",
+  };
+}
 
 const initialState = [newMealState()];
 
@@ -10,7 +24,7 @@ const mealStatesSlice = createSlice({
   name: "mealStates",
   initialState,
   reducers: {
-    newMeal(state) {
+    addMeal(state) {
       state.push(newMealState())
     },
     deleteMeal(state, action: PayloadAction<number>) {
@@ -50,7 +64,7 @@ const mealStatesSlice = createSlice({
 })
 
 export const {
-  newMeal, deleteMeal,
+  addMeal, deleteMeal,
   addFood, updateFood, cancelAddFood,
   enterMealEditMode, enterMealAddMode, exitMealEditMode,
   enterFoodEditMode, exitFoodEditMode,
