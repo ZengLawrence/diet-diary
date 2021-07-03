@@ -25,6 +25,7 @@ const mealStatesSlice = createSlice({
   initialState,
   reducers: {
     addMeal(state) {
+      _.forEach(state, mealState => mealState.editState = undefined);
       state.push(newMealState())
     },
     deleteMeal(state, action: PayloadAction<number>) {
