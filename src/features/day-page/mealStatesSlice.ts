@@ -20,12 +20,16 @@ function newMealState(): MealState {
 
 const initialState = [newMealState()];
 
+const reset = (mealState: MealState) => mealState.editState = undefined;
+
+const resetAll = (state: MealState[]) => _.forEach(state, reset);
+
 const mealStatesSlice = createSlice({
   name: "mealStates",
   initialState,
   reducers: {
     addMeal(state) {
-      _.forEach(state, mealState => mealState.editState = undefined);
+      resetAll(state);
       state.push(newMealState())
     },
     deleteMeal(state, action: PayloadAction<number>) {
@@ -43,6 +47,7 @@ const mealStatesSlice = createSlice({
       state[mealIndex].editState = undefined;
     },
     enterMealEditMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
+      resetAll(state);
       state[mealIndex].editState = "edit";
     },
     enterMealAddMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
