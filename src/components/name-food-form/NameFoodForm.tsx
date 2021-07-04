@@ -6,6 +6,7 @@ import { SubmitButton } from "../buttons/SubmitButton";
 
 interface Props {
   food: Food;
+  onCancel: () => void;
 }
 
 export const NameFoodForm = (props: Props) => (
@@ -31,10 +32,10 @@ export const NameFoodForm = (props: Props) => (
       </div>
       <div className="d-flex justify-content-end">
         <div className="mr-1 order-sm-1">
-          <SecondaryButton label="Cancel" onClick={() => { }} />
+          <SecondaryButton label="Cancel" onClick={props.onCancel} />
         </div>
         <div className="mr-1 order-sm-0" >
-          <SubmitButton label="Add" />
+          <SubmitButton label="Save" />
         </div>
       </div>
     </div>
