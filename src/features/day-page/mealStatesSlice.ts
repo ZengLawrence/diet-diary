@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash";
-import { Food, Meal, newMeal  } from "../../model/Food";
+import { Food, Meal, newMeal } from "../../model/Food";
 import { newDay } from "./dateSlice";
 
 type MealEditState = "add" | "edit" | "name" | undefined;
@@ -46,6 +46,10 @@ const mealStatesSlice = createSlice({
     cancelAddFood(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
       state[mealIndex].editState = undefined;
     },
+    replaceAllFoods(state, { payload: { mealIndex, food } }: PayloadAction<{ mealIndex: number; food: Food; }>) {
+      state[mealIndex].meal.foods = [food];
+      state[mealIndex].editState = undefined;
+    },
     enterMealEditMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
       resetAll(state);
       state[mealIndex].editState = "edit";
@@ -74,7 +78,7 @@ const mealStatesSlice = createSlice({
 
 export const {
   addMeal, deleteMeal,
-  addFood, updateFood, cancelAddFood,
+  addFood, updateFood, cancelAddFood, replaceAllFoods,
   enterMealEditMode, enterMealAddMode, enterMealNameMode, exitMealEditMode,
   enterFoodEditMode, exitFoodEditMode,
 } = mealStatesSlice.actions;

@@ -6,13 +6,14 @@ import { SubmitButton } from "../buttons/SubmitButton";
 
 interface Props {
   food: Food;
+  onSaveFood: (food: Food) => void;
   onCancel: () => void;
 }
 
 export const NameFoodForm = (props: Props) => (
   <Form
     noValidate
-    onSubmit={() => { }}
+    onSubmit={() => props.onSaveFood(props.food)}
     className="border p-1"
   >
 
