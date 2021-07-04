@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { Dropdown } from "react-bootstrap";
 import { Target } from "../../model/Target";
-import { FoodGroupServingGoalBadgePanel } from "../badge/FoodGroupServingGoalBadgePanel";
+import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
 
 const menuItem = (target: Target) => (
   <Dropdown.Item key={target.calorie} eventKey={target.calorie}>

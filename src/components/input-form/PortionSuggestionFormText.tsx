@@ -2,7 +2,7 @@ import _ from "lodash";
 import { Form } from "react-bootstrap";
 import { PortionSuggestion } from "../../features/suggestions";
 import { calcServingCalories } from "../../model/calorieFunction";
-import { FoodGroupServingBadgePanel } from "../badge/FoodGroupServingBadgePanel";
+import { FoodGroupServingBadgePanel } from "../panels/FoodGroupServingBadgePanel";
 import { CalorieSpan } from "../CalorieSpan";
 import { Selectable } from "./Selectable";
 

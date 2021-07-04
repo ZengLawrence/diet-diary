@@ -1,14 +1,14 @@
 import { connect } from "react-redux";
 import { AppDispatch } from "../../app/store";
 import { SecondaryButton } from "../../components/buttons/SecondaryButton";
-import { enterEditTarget } from "./editTargetSlice";
+import { enterMealNameMode } from "../day-page/mealStatesSlice";
 
 const mapStateToProps = () => ({
-  label: "Change",
+  label: "Name",
 })
 
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  onClick: () => dispatch(enterEditTarget()),
+const mapDispatchToProps = (dispatch: AppDispatch, ownProps: { mealIndex: number }) => ({
+  onClick: () => dispatch(enterMealNameMode(ownProps)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SecondaryButton);

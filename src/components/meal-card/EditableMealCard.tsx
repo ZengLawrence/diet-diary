@@ -1,13 +1,14 @@
 import _ from "lodash";
 import { Card, ListGroup } from "react-bootstrap";
+import { MealState } from "../../features/day-page/mealStatesSlice";
+import NameFoodForm from "../../features/day-page/NameFoodForm";
 import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
 import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
 import EditFoodButton from "../../features/meal-card/EditFoodButton";
 import NewFoodButton from "../../features/meal-card/NewFoodButton";
-import { MealState } from "../../model/MealState";
 import { Meal } from "../../model/Food";
 import { FoodItem } from "./FoodItem";
-import { AddMealCardHeader, DefaultMealCardHeader, EditMealCardHeader } from "./MealCardHeader";
+import { AddMealCardHeader, DefaultMealCardHeader, EditMealCardHeader, NameMealCardHeader } from "./MealCardHeader";
 
 const DefaultMealCard = (props: { meal: Meal; mealIndex: number; }) => {
   const { foods } = props.meal;
@@ -81,6 +82,21 @@ const AddMealCard = (props: { meal: Meal; mealIndex: number; }) => {
   );
 };
 
+const NameMealCard = (props: { meal: Meal; mealIndex: number; }) => {
+
+  return (
+    <Card className="mt-1">
+      <NameMealCardHeader meal={props.meal} mealIndex={props.mealIndex} />
+
+      <ListGroup>
+        <ListGroup.Item >
+          <NameFoodForm mealIndex={props.mealIndex} />
+        </ListGroup.Item>
+      </ListGroup>
+    </Card>
+  );
+};
+
 export const EditableMealCard = (props: { state: MealState; mealIndex: number; }) => {
   const { state, mealIndex } = props;
   const { meal, editState, foodEditIndex } = state;
@@ -90,6 +106,8 @@ export const EditableMealCard = (props: { state: MealState; mealIndex: number; }
       return <AddMealCard meal={meal} mealIndex={mealIndex} />
     case "edit":
       return <EditMealCard meal={meal} mealIndex={mealIndex} foodEditIndex={foodEditIndex} />
+    case "name":
+      return <NameMealCard meal={meal} mealIndex={mealIndex} />
     default:
       return <DefaultMealCard meal={meal} mealIndex={mealIndex} />
   }

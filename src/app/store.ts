@@ -1,12 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit';
 import _ from 'lodash';
-import { rootReducer } from '../reducers'
 import { loadState, saveState } from './localStorage';
+import reducer from './reducers';
 // ...
 
 const persistedState = loadState();
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer,
   preloadedState: persistedState,
 })
 

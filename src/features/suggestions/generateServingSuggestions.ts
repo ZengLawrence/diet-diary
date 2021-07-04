@@ -1,32 +1,20 @@
 import _ from "lodash";
+import { foodName } from "./foodName";
 import { searchFoodPortionSize } from "./portion/search";
 import { PortionSuggestion } from "./PortionSuggestion";
 import { searchFoodServingSize } from "./serving/search";
 import { ServingSuggestion } from "./ServingSuggestion";
 
-const ingredientName = (phrase: string) => _.map(_.split(phrase, /\d/, 1), _.trim);
-
-const ingredients = (foodDescription: string) => _.flatMap(_.split(foodDescription, ","), ingredientName);
-
 function findServingSuggestions(foodDescription: string) {
-  const _ingredients = ingredients(foodDescription);
-  const lastIngredient = (index: number) => (index === _.size(_ingredients) - 1);
-  const maxItems = (items: any[], index: number) => _.slice(items, 0, lastIngredient(index) ? 5 : 2);
-
-  const results = _.map(_ingredients, ingredient => searchFoodServingSize(ingredient));
-  return _.uniq(_.flatMap(_.map(results, maxItems)));
+  const results = searchFoodServingSize(foodName(foodDescription));
+  return _.slice(results, 0, 3);
 }
 
 export const generateServingSuggestions = (descRef: React.MutableRefObject<String>, callback: (suggestions: ServingSuggestion[]) => void) =>
   callback(findServingSuggestions(descRef.current + ""));
 
 function findPortionSuggestions(foodDescription: string) {
-  const _ingredients = ingredients(foodDescription);
-  if (_.size(_ingredients) === 1) {
-    return searchFoodPortionSize(_.head(_ingredients) || "");
-  } else {
-    return [];
-  }
+  return searchFoodPortionSize(foodName(foodDescription));
 }
 
 export const generatePortionSuggestions = (descRef: React.MutableRefObject<String>, callback: (suggestions: PortionSuggestion[]) => void) =>
