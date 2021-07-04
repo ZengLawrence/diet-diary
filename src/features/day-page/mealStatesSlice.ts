@@ -3,7 +3,7 @@ import _ from "lodash";
 import { Food, Meal, newMeal  } from "../../model/Food";
 import { newDay } from "./dateSlice";
 
-type MealEditState = "add" | "edit" | undefined;
+type MealEditState = "add" | "edit" | "name" | undefined;
 
 export interface MealState {
   meal: Meal;
@@ -53,6 +53,9 @@ const mealStatesSlice = createSlice({
     enterMealAddMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
       state[mealIndex].editState = "add";
     },
+    enterMealNameMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
+      state[mealIndex].editState = "name";
+    },
     exitMealEditMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
       state[mealIndex].editState = undefined;
     },
@@ -72,7 +75,7 @@ const mealStatesSlice = createSlice({
 export const {
   addMeal, deleteMeal,
   addFood, updateFood, cancelAddFood,
-  enterMealEditMode, enterMealAddMode, exitMealEditMode,
+  enterMealEditMode, enterMealAddMode, enterMealNameMode, exitMealEditMode,
   enterFoodEditMode, exitFoodEditMode,
 } = mealStatesSlice.actions;
 

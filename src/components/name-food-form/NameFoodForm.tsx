@@ -8,7 +8,7 @@ interface Props {
   food: Food;
 }
 
-export const NameFoodFrom = (props: Props) => (
+export const NameFoodForm = (props: Props) => (
   <Form
     noValidate
     onSubmit={() => { }}
