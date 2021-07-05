@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { Card, ListGroup } from "react-bootstrap";
 import { MealState } from "../../features/day-page/mealStatesSlice";
-import NameFoodForm from "../../features/day-page/NameFoodForm";
+import NameFoodForm from "../../features/name-food/NameFoodForm";
 import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
 import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
 import EditFoodButton from "../../features/meal-card/EditFoodButton";

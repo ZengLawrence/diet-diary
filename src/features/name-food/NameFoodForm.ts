@@ -3,7 +3,7 @@ import { mealsSelector } from "../../app/selectors";
 import { AppDispatch, RootState } from "../../app/store";
 import { NameFoodForm } from "../../components/name-food-form/NameFoodForm";
 import { Food } from "../../model/Food";
-import { exitMealEditMode, replaceAllFoods } from "./mealStatesSlice";
+import { exitMealEditMode, replaceAllFoods } from "../day-page/mealStatesSlice";
 
 const mapStateToProps = (state: RootState, ownProps: { mealIndex: number }) => ({
   foods: mealsSelector(state)[ownProps.mealIndex].foods,
