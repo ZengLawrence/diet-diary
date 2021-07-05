@@ -7,7 +7,7 @@ import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
 import EditFoodButton from "../../features/meal-card/EditFoodButton";
 import NewFoodButton from "../../features/meal-card/NewFoodButton";
 import { Meal } from "../../model/Food";
-import { FoodItem } from "./FoodItem";
+import { FoodItem } from "../FoodItem";
 import { AddMealCardHeader, DefaultMealCardHeader, EditMealCardHeader, NameMealCardHeader } from "./MealCardHeader";
 
 const DefaultMealCard = (props: { meal: Meal; mealIndex: number; }) => {
