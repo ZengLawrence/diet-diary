@@ -4,7 +4,7 @@ import { useEffect, useReducer, useRef } from "react";
 import { generatePortionSuggestions, generateServingSuggestions, PortionSuggestion, ServingSuggestion } from "../../features/suggestions";
 import { Food, FoodGroup } from "../../model/Food";
 import { add, minus, oneServingOf, positiveServing } from "../../model/servingFunction";
-import { Selectable } from "../../model/Selectable";
+import { initSelectable, Selectable, setSelected } from "../../model/Selectable";
 
 interface ValidationError {
   foodName?: boolean;
@@ -16,9 +16,6 @@ interface ValidationError {
   sweet?: boolean;
 }
 
-function setSelected<T>(suggestion: T, selected: boolean) { return { ...suggestion, selected } };
-function initializeSelectable<T>(suggestion: T) { return { ...suggestion, selected: false }; }
-
 const suggestions = createSlice({
   name: "suggestions",
   initialState: {
@@ -27,7 +24,7 @@ const suggestions = createSlice({
   },
   reducers: {
     setServingSuggestions: (state, action: PayloadAction<ServingSuggestion[]>) => {
-      state.servingSuggestions = _.map(action.payload, initializeSelectable);
+      state.servingSuggestions = _.map(action.payload, initSelectable);
     },
     selectServingSuggestion: (state, action: PayloadAction<ServingSuggestion>) => {
       state.servingSuggestions = _.map(state.servingSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, true) : suggestion);
@@ -36,7 +33,7 @@ const suggestions = createSlice({
       state.servingSuggestions = _.map(state.servingSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, false) : suggestion);
     },
     setPortionSuggestions: (state, action: PayloadAction<PortionSuggestion[]>) => {
-      state.portionSuggestions = _.map(action.payload, initializeSelectable);
+      state.portionSuggestions = _.map(action.payload, initSelectable);
     },
     selectPortionSuggestion: (state, action: PayloadAction<PortionSuggestion>) => {
       state.portionSuggestions = _.map(state.portionSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, true) : suggestion);

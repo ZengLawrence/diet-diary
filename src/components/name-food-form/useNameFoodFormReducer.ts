@@ -2,7 +2,7 @@ import { combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { useReducer } from "react";
 import { Food, newFood } from "../../model/Food";
-import { Selectable } from "../../model/Selectable";
+import { initSelectable, Selectable } from "../../model/Selectable";
 import { calcFoodsServingSummary, positiveServing } from "../../model/servingFunction";
 
 const renamedFoodSlice = createSlice({
@@ -56,7 +56,7 @@ const combine = (foods: Food[]) => ({
 
 const initialState = (foods: Food[]) => ({
   renamedFood: combine(foods),
-  foods: _.map(foods, food => ({ ...food, selected: false })),
+  foods: _.map(foods, initSelectable),
   errors: {}
 })
 
