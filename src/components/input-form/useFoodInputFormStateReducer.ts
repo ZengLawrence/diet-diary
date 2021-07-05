@@ -4,7 +4,7 @@ import { useEffect, useReducer, useRef } from "react";
 import { generatePortionSuggestions, generateServingSuggestions, PortionSuggestion, ServingSuggestion } from "../../features/suggestions";
 import { Food, FoodGroup } from "../../model/Food";
 import { add, minus, oneServingOf, positiveServing } from "../../model/servingFunction";
-import { Selectable } from "./Selectable";
+import { Selectable } from "../../model/Selectable";
 
 interface ValidationError {
   foodName?: boolean;
