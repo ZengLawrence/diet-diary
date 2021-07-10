@@ -120,6 +120,28 @@
       "serving": {
         "sweet": 1.5
       }
+    },
+    {
+      "foodName": "Juice, cranberry, sweetened",
+      "portionSize": "4 fluid ounces",
+      "serving": {
+        "fruit": 1,
+        "sweet": 1.5
+      }
+    },
+    {
+      "foodName": "Juice, orange, grapefruit or pineapple, unsweetened",
+      "portionSize": "4 fluid ounces",
+      "serving": {
+        "fruit": 1
+      }
+    },
+    {
+      "foodName": "Juice, tomato or vegetable",
+      "portionSize": "4 fluid ounces",
+      "serving": {
+        "vegetable": 1
+      }
     }
   ]
 }
