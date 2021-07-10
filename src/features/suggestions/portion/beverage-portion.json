@@ -66,6 +66,38 @@
       "foodName": "Tea, regular or herbal, brewed or instant",
       "portionSize": "8 fluid ounces",
       "serving": {}
+    },
+    {
+      "foodName": "Chocolate-flavored mix, made with low-fat milk",
+      "portionSize": "8 fluid ounces",
+      "serving": {
+        "proteinDiary": 1,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Chocolate milk, made with skim or 1% milk",
+      "portionSize": "8 fluid ounces",
+      "serving": {
+        "proteinDiary": 1,
+        "sweet": 0.5
+      }
+    },
+    {
+      "foodName": "Cocoa, hot, made with water",
+      "portionSize": "6 fluid ounces",
+      "serving": {
+        "proteinDiary": 0.5,
+        "sweet": 0.5
+      }
+    },
+    {
+      "foodName": "Milk, 2% or whole",
+      "portionSize": "8 fluid ounces",
+      "serving": {
+        "proteinDiary": 1,
+        "fat": 1
+      }
     }
   ]
 }
