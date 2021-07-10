@@ -98,6 +98,28 @@
         "proteinDiary": 1,
         "fat": 1
       }
+    },
+    {
+      "foodName": "Fruit punch, from powder",
+      "portionSize": "8 fluid ounces",
+      "serving": {
+        "sweet": 1.5
+      }
+    },
+    {
+      "foodName": "Lemonade, from sweetened concentrate",
+      "portionSize": "8 fluid ounces",
+      "serving": {
+        "fruit": 1,
+        "sweet": 0.5
+      }
+    },
+    {
+      "foodName": "Orange, breakfast drink, ready-to-serve",
+      "portionSize": "8 fluid ounces",
+      "serving": {
+        "sweet": 1.5
+      }
     }
   ]
 }
