@@ -10,7 +10,7 @@ const mapStateToProps = (state: RootState, ownProps: { mealIndex: number }) => (
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch, { mealIndex }: { mealIndex: number }) => ({
-  onSaveFood: (food: Food) => dispatch(replaceAllFoods({ mealIndex, food })),
+  onSaveFood: (food: Food, replacedFoodIndices: number[]) => dispatch(replaceAllFoods({ mealIndex, food, replacedFoodIndices })),
   onCancel: () => dispatch(exitMealEditMode({ mealIndex })),
 })
 

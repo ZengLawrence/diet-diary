@@ -46,8 +46,10 @@ const mealStatesSlice = createSlice({
     cancelAddFood(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
       state[mealIndex].editState = undefined;
     },
-    replaceAllFoods(state, { payload: { mealIndex, food } }: PayloadAction<{ mealIndex: number; food: Food; }>) {
-      state[mealIndex].meal.foods = [food];
+    replaceAllFoods(state, { payload: { mealIndex, food, replacedFoodIndices } }: PayloadAction<{ mealIndex: number; food: Food; replacedFoodIndices: number[]}>) {
+      const meal = state[mealIndex].meal;
+      _.pullAt(meal.foods, replacedFoodIndices);
+      meal.foods.push(food);
       state[mealIndex].editState = undefined;
     },
     enterMealEditMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {

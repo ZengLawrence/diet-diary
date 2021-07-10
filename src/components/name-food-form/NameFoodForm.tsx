@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { Form } from "react-bootstrap";
 import FoodCalorieServingPanel from "../../features/name-food/FoodCalorieServingPanel";
 import { Food } from "../../model/Food";
@@ -8,7 +9,7 @@ import useNameFoodFormReducer from "./useNameFoodFormReducer";
 
 interface Props {
   foods: Food[];
-  onSaveFood: (food: Food) => void;
+  onSaveFood: (food: Food, replacedFoodIndices: number[]) => void;
   onCancel: () => void;
 }
 
@@ -20,7 +21,7 @@ export const NameFoodForm = (props: Props) => {
   return (
     <Form
       noValidate
-      onSubmit={() => props.onSaveFood(renamedFood.target)}
+      onSubmit={() => props.onSaveFood(renamedFood.target, _.map(renamedFood.sources, (food, index) => food.selected ? index : -1))}
       className="border p-1"
     >
 
