@@ -39,8 +39,13 @@ const errorsSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(updateName,
-        (state, action) => { state.foodName = (_.size(action.payload) === 0) })
+      .addCase(updateName, (state, action) => { 
+        state.foodName = (_.size(action.payload) === 0) 
+      })
+      .addCase(selectFood, state => {
+        state.foodName = false;
+        state.selectedNone = false;
+      })
   }
 })
 const errors = errorsSlice.reducer;
