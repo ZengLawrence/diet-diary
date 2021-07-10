@@ -50,12 +50,15 @@ const reducer = combineReducers({
   errors,
 })
 
+const selected = (foods: (Food & Selectable)[]) =>
+  _.filter(foods, { selected: true });
+
 const combineName = (foods: (Food & Selectable)[]) =>
-  _.join(_.map(_.filter(foods, { selected: true }), "name"), ", ");
+  _.join(_.map(selected(foods), "name"), ", ");
 
 const combine = (foods: (Food & Selectable)[]) => ({
   name: combineName(foods),
-  serving: positiveServing(calcFoodsServingSummary(foods)),
+  serving: positiveServing(calcFoodsServingSummary(selected(foods))),
 })
 
 const initialState = (foods: Food[]) => {
