@@ -17,9 +17,11 @@ const renamedFoodSlice = createSlice({
     },
     selectFood(state, action: PayloadAction<number>) {
       state.sources[action.payload].selected = true;
+      state.target = combine(state.sources);
     },
     unselectFood(state, action: PayloadAction<number>) {
       state.sources[action.payload].selected = false;
+      state.target = combine(state.sources);
     },
   }
 })
@@ -48,18 +50,25 @@ const reducer = combineReducers({
   errors,
 })
 
-const combine = (foods: Food[]) => ({
-  name: _.join(_.map(foods, "name"), ", "),
+const combineName = (foods: (Food & Selectable)[]) =>
+  _.join(_.map(_.filter(foods, { selected: true }), "name"), ", ");
+
+const combine = (foods: (Food & Selectable)[]) => ({
+  name: combineName(foods),
   serving: positiveServing(calcFoodsServingSummary(foods)),
 })
 
-const initialState = (foods: Food[]) => ({
-  renamedFood: {
-    sources: _.map(foods, food => initSelectable(food, true)),
-    target: combine(foods),
-  },
-  errors: {}
-})
+const initialState = (foods: Food[]) => {
+  const sources = _.map(foods, food => initSelectable(food, true));
+
+  return {
+    renamedFood: {
+      sources,
+      target: combine(sources),
+    },
+    errors: {}
+  }
+}
 
 export default function useNameFoodFormReducer(initialFoods: Food[]) {
 
