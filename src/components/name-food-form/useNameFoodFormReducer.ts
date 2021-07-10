@@ -79,9 +79,13 @@ const initialState = (foods: Food[]) => {
     errors: {
       foodName: false,
       selectCount,
-      selectedNone: selectCount === 0,
     }
   }
+}
+
+const checkValidity = (errors: {foodName: boolean; selectCount: number}) => {
+  const failed =  errors.foodName || errors.selectCount < 2;
+  return !failed;
 }
 
 export default function useNameFoodFormReducer(initialFoods: Food[], onSaveFood: (food: Food, replacedFoodIndices: number[]) => void) {
@@ -90,9 +94,14 @@ export default function useNameFoodFormReducer(initialFoods: Food[], onSaveFood:
   const handleSelectFoodChanged = (index: number, selected: boolean) => selected ? dispatch(selectFood(index)) : dispatch(unselectFood(index));
   const handleFoodNameChanged = (name: string) => dispatch(updateName(name));
 
-  const handleSubmitted = () => {
+  const handleSubmitted = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+
     const { target, sources } = state.renamedFood;
-    onSaveFood(target, _.map(sources, (food, index) => food.selected ? index : -1));
+    if (checkValidity(state.errors)) {
+      onSaveFood(target, _.map(sources, (food, index) => food.selected ? index : -1));
+    }
   }
 
   const fns = {
