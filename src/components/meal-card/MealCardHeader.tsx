@@ -1,10 +1,11 @@
+import _ from "lodash";
 import { Card } from "react-bootstrap";
 import DeleteButton from "../../features/meal-card/DeleteButton";
 import DoneButton from "../../features/meal-card/DoneButton";
 import EditButton from "../../features/meal-card/EditButton";
-import { Meal } from "../../model/Food";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
 import NameButton from "../../features/meal-card/NameButton";
+import { Meal } from "../../model/Food";
 
 export const DefaultMealCardHeader = (props: {
   meal: Meal;
@@ -13,7 +14,7 @@ export const DefaultMealCardHeader = (props: {
   <Card.Header className="d-flex flex-wrap align-items-center">
     <div className="flex-fill order-sm-0">{props.meal.mealTime}</div>
     <div className="order-sm-2">
-      <NameButton mealIndex={props.mealIndex} />&nbsp;
+      {_.size(props.meal.foods) > 1 && <NameButton mealIndex={props.mealIndex} />}&nbsp;
       <EditButton mealIndex={props.mealIndex} />
     </div>
     <div className="order-sm-1 flex-grow-1 flex-md-grow-0">
