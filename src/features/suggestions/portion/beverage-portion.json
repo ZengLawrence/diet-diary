@@ -2,31 +2,70 @@
   "portions": [
     {
       "foodName": "Beer, light",
-      "portionSize": "12 fluid onces",
+      "portionSize": "12 fluid ounces",
       "serving": {
         "sweet": 1.5
       }
     },
     {
       "foodName": "Beer, regular",
-      "portionSize": "12 fluid onces",
+      "portionSize": "12 fluid ounces",
       "serving": {
         "sweet": 2
       }
     },
     {
       "foodName": "Distilled spirits (gin, rum, vodka, whiskey",
-      "portionSize": "1 fluid once",
+      "portionSize": "1 fluid ounce",
       "serving": {
         "sweet": 1
       }
     },
     {
       "foodName": "Wine, red or white",
-      "portionSize": "5 fluid onces",
+      "portionSize": "5 fluid ounces",
       "serving": {
         "sweet": 1.5
       }
+    },
+    {
+      "foodName": "Caffe latte or caffe mocha, skim",
+      "portionSize": "12 fluid ounces",
+      "serving": {
+        "proteinDiary": 1
+      }
+    },
+    {
+      "foodName": "Cappuccino",
+      "portionSize": "12 fluid ounces",
+      "serving": {
+        "proteinDiary": 0.5
+      }
+    },
+    {
+      "foodName": "Chai tea, with skim milk",
+      "portionSize": "12 fluid ounces",
+      "serving": {
+        "proteinDiary": 1,
+        "sweet": 1
+      }
+    },
+    {
+      "foodName": "Coffee, brewed or instant",
+      "portionSize": "8 fluid ounces",
+      "serving": {}
+    },
+    {
+      "foodName": "Tea, iced, commercially sweetened",
+      "portionSize": "12 fluid ounces",
+      "serving": {
+        "sweet": 2
+      }
+    },
+    {
+      "foodName": "Tea, regular or herbal, brewed or instant",
+      "portionSize": "8 fluid ounces",
+      "serving": {}
     }
   ]
 }
