@@ -1,6 +1,6 @@
 import _ from "lodash";
 import numeral from "numeral";
-import { FoodGroup, Meal, Serving } from "./Food";
+import { Food, FoodGroup, Meal, Serving } from "./Food";
 
 function _add(n1: number | undefined, n2: number | undefined) {
   return _.defaultTo(n1, 0) + _.defaultTo(n2, 0);
@@ -17,12 +17,12 @@ export function add(s1: Serving, s2: Serving): Serving {
   };
 }
 
-function mealServings(meal: Meal) {
-  return _.map(meal.foods, 'serving');
+export function calcFoodsServingSummary(foods: Food[]) {
+  return _.reduce(_.map(foods, "serving"), add, {});
 }
 
 export function calcServingSummary(meal: Meal) {
-  return _.reduce(mealServings(meal), add, {});
+  return calcFoodsServingSummary(meal.foods);
 }
 
 export function calcMealsServingSummary(meals: Meal[]) {

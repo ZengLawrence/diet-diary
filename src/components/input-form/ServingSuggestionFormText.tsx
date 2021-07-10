@@ -4,7 +4,7 @@ import { ServingSuggestion } from "../../features/suggestions";
 import { FoodGroupLabelBadge } from "../badge";
 import { BestChoiceLegend } from "../BestChoiceLegend";
 import { BlueStar } from "../BlueStar";
-import { Selectable } from "./Selectable";
+import { Selectable } from "../../model/Selectable";
 
 const hasBestChoice = (suggestions: ServingSuggestion[]) => _.findIndex(suggestions, { 'bestChoice': true }) >= 0;
 

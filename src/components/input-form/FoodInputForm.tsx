@@ -34,7 +34,7 @@ export const FoodInputForm = (props: Props) => {
           type="text"
           value={food.name}
           required
-          placeholder="Broccoli 1 cup, apple 1 small, bread 1 slice, turkey white meat 3 oz, olive oil 1 tsp, maple syrup 1 1/2 tbsp..."
+          placeholder="Broccoli steamed 1 cup"
           isInvalid={error.foodName}
           onChange={e => updateFoodName(e.target.value)}
         />

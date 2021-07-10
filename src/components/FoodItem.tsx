@@ -1,5 +1,5 @@
-import { Food } from "../../model/Food";
-import { FoodGroupServingBadgePanel } from "../panels/FoodGroupServingBadgePanel";
+import { Food } from "../model/Food";
+import { FoodGroupServingBadgePanel } from "./panels/FoodGroupServingBadgePanel";
 
 export const FoodItem = (props: { food: Food; }) => {
   const { name, serving } = props.food;

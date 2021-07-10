@@ -4,7 +4,7 @@ import { PortionSuggestion } from "../../features/suggestions";
 import { calcServingCalories } from "../../model/calorieFunction";
 import { FoodGroupServingBadgePanel } from "../panels/FoodGroupServingBadgePanel";
 import { CalorieSpan } from "../CalorieSpan";
-import { Selectable } from "./Selectable";
+import { Selectable } from "../../model/Selectable";
 
 const PortionServingHint = (props: { suggestion: PortionSuggestion }) => {
   const { foodName, portionSize, serving } = props.suggestion;

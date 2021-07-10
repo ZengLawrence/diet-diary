@@ -1,6 +1,6 @@
 import { Card, ListGroup } from "react-bootstrap";
 import { Meal } from "../../model/Food";
-import { FoodItem } from "./FoodItem";
+import { FoodItem } from "../FoodItem";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
 
 export const UneditableMealCard = (props: { meal: Meal; }) => {
