@@ -3,6 +3,7 @@ import FoodCalorieServingPanel from "../../features/name-food/FoodCalorieServing
 import { Food } from "../../model/Food";
 import { SecondaryButton } from "../buttons/SecondaryButton";
 import { SubmitButton } from "../buttons/SubmitButton";
+import { FoodGroupServingBadgePanel } from "../panels/FoodGroupServingBadgePanel";
 import useNameFoodFormReducer from "./useNameFoodFormReducer";
 
 interface Props {
@@ -33,7 +34,9 @@ export const NameFoodForm = (props: Props) => {
               onChange={e => handleSelectFoodChanged(index, e.target.checked)}
               isInvalid={errors.selectCount < 2}
               feedback="Please select at least two foods to rename."
+              className="mr-auto"
             />
+            <FoodGroupServingBadgePanel serving={food.serving}/>
           </div>
         )}
       </Form.Group>
