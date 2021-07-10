@@ -82,11 +82,10 @@ export default function useNameFoodFormReducer(initialFoods: Food[], onSaveFood:
     onSaveFood(target, _.map(sources, (food, index) => food.selected ? index : -1));
   }
 
-  return {
-    state,
-    fns: {
-      handleSelectFoodChanged,
-      handleSubmitted,
-    }
+  const fns = {
+    handleSelectFoodChanged,
+    handleSubmitted,
   }
+
+  return [state,fns] as [typeof state, typeof fns];
 }

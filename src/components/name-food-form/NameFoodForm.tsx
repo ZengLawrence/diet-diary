@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const NameFoodForm = (props: Props) => {
-  const { state, fns } = useNameFoodFormReducer(props.foods, props.onSaveFood);
+  const [ state, fns ] = useNameFoodFormReducer(props.foods, props.onSaveFood);
   const { renamedFood } = state;
   const { handleSelectFoodChanged, handleSubmitted } = fns;
 
