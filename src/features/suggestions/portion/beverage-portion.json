@@ -142,6 +142,37 @@
       "serving": {
         "vegetable": 1
       }
+    },
+    {
+      "foodName": "Club soda",
+      "portionSize": "12 fluid ounces",
+      "serving": {}
+    },
+    {
+      "foodName": "Cola, lemon-lime or root beer, regular",
+      "portionSize": "12 fluid ounces",
+      "serving": {
+        "sweet": 2
+      }
+    },
+    {
+      "foodName": "Cream soda, regular",
+      "portionSize": "12 fluid ounces",
+      "serving": {
+        "sweet": 2.5
+      }
+    },
+    {
+      "foodName": "Diet soda, any flavor",
+      "portionSize": "12 fluid ounces",
+      "serving": {}
+    },
+    {
+      "foodName": "Ginger ale, regular",
+      "portionSize": "12 fluid ounces",
+      "serving": {
+        "sweet": 1.5
+      }
     }
   ]
 }
