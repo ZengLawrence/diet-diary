@@ -14,8 +14,8 @@ interface Props {
 
 export const NameFoodForm = (props: Props) => {
   const [ state, fns ] = useNameFoodFormReducer(props.foods, props.onSaveFood);
-  const { renamedFood } = state;
-  const { handleSelectFoodChanged, handleSubmitted } = fns;
+  const { renamedFood, errors } = state;
+  const { handleSelectFoodChanged, handleFoodNameChanged, handleSubmitted } = fns;
 
   return (
     <Form
@@ -45,8 +45,13 @@ export const NameFoodForm = (props: Props) => {
           id="inputFoodName"
           type="text"
           value={renamedFood.target.name}
+          onChange={e => handleFoodNameChanged(e.target.value)}
           required
-        />
+          isInvalid={errors.foodName}
+          />
+        <Form.Control.Feedback type="invalid">
+          Please enter food name.
+        </Form.Control.Feedback>
       </Form.Group>
 
       <div className="d-flex justify-content-end" >

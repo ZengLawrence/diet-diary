@@ -77,6 +77,8 @@ export default function useNameFoodFormReducer(initialFoods: Food[], onSaveFood:
 
   const [state, dispatch] = useReducer(reducer, initialState(initialFoods));
   const handleSelectFoodChanged = (index: number, selected: boolean) => selected ? dispatch(selectFood(index)) : dispatch(unselectFood(index));
+  const handleFoodNameChanged = (name: string) => dispatch(updateName(name));
+
   const handleSubmitted = () => {
     const { target, sources } = state.renamedFood;
     onSaveFood(target, _.map(sources, (food, index) => food.selected ? index : -1));
@@ -84,6 +86,7 @@ export default function useNameFoodFormReducer(initialFoods: Food[], onSaveFood:
 
   const fns = {
     handleSelectFoodChanged,
+    handleFoodNameChanged,
     handleSubmitted,
   }
 
