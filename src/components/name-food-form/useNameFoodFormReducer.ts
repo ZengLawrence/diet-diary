@@ -28,23 +28,24 @@ const renamedFoodSlice = createSlice({
 const { updateName, selectFood, unselectFood } = renamedFoodSlice.actions;
 const renamedFood = renamedFoodSlice.reducer;
 
-interface ValidationError {
-  foodName?: boolean;
-  selectedNone?: boolean;
-}
-
 const errorsSlice = createSlice({
   name: "errors",
-  initialState: {} as ValidationError,
+  initialState: {
+    foodName: false,
+    selectCount: 0,
+  },
   reducers: {},
   extraReducers: builder => {
     builder
       .addCase(updateName, (state, action) => { 
-        state.foodName = (_.size(action.payload) === 0) 
+        state.foodName = (_.size(action.payload) === 0);
       })
       .addCase(selectFood, state => {
         state.foodName = false;
-        state.selectedNone = false;
+        state.selectCount++;
+      })
+      .addCase(unselectFood, state => {
+        state.selectCount--;
       })
   }
 })
@@ -68,13 +69,18 @@ const combine = (foods: (Food & Selectable)[]) => ({
 
 const initialState = (foods: Food[]) => {
   const sources = _.map(foods, food => initSelectable(food, true));
+  const selectCount = _.size(selected(sources));
 
   return {
     renamedFood: {
       sources,
       target: combine(sources),
     },
-    errors: {}
+    errors: {
+      foodName: false,
+      selectCount,
+      selectedNone: selectCount === 0,
+    }
   }
 }
 

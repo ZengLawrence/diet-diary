@@ -3,7 +3,6 @@ import FoodCalorieServingPanel from "../../features/name-food/FoodCalorieServing
 import { Food } from "../../model/Food";
 import { SecondaryButton } from "../buttons/SecondaryButton";
 import { SubmitButton } from "../buttons/SubmitButton";
-import { FoodItem } from "../FoodItem";
 import useNameFoodFormReducer from "./useNameFoodFormReducer";
 
 interface Props {
@@ -13,7 +12,7 @@ interface Props {
 }
 
 export const NameFoodForm = (props: Props) => {
-  const [ state, fns ] = useNameFoodFormReducer(props.foods, props.onSaveFood);
+  const [state, fns] = useNameFoodFormReducer(props.foods, props.onSaveFood);
   const { renamedFood, errors } = state;
   const { handleSelectFoodChanged, handleFoodNameChanged, handleSubmitted } = fns;
 
@@ -28,13 +27,13 @@ export const NameFoodForm = (props: Props) => {
         {renamedFood.sources.map((food, index) =>
           <div key={index} className="d-flex flex-inline">
             <Form.Check
-              inline
               type="checkbox"
-              aria-label="select food"
+              label={food.name}
               checked={food.selected}
               onChange={e => handleSelectFoodChanged(index, e.target.checked)}
+              isInvalid={errors.selectCount < 2}
+              feedback="Please select at least two foods to rename."
             />
-            <FoodItem food={food} />
           </div>
         )}
       </Form.Group>
@@ -48,7 +47,7 @@ export const NameFoodForm = (props: Props) => {
           onChange={e => handleFoodNameChanged(e.target.value)}
           required
           isInvalid={errors.foodName}
-          />
+        />
         <Form.Control.Feedback type="invalid">
           Please enter food name.
         </Form.Control.Feedback>
