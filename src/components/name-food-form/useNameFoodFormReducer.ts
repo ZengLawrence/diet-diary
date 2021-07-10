@@ -21,9 +21,15 @@ const foodsSlice = createSlice({
   name: "foods",
   initialState: [] as (Food & Selectable)[],
   reducers: {
-
+    selectFood(state, action: PayloadAction<number>) {
+      state[action.payload].selected = true;
+    },
+    unselectFood(state, action: PayloadAction<number>) {
+      state[action.payload].selected = false;
+    },
   }
 })
+const { selectFood, unselectFood } = foodsSlice.actions;
 const foods = foodsSlice.reducer;
 
 interface ValidationError {
@@ -56,15 +62,19 @@ const combine = (foods: Food[]) => ({
 
 const initialState = (foods: Food[]) => ({
   renamedFood: combine(foods),
-  foods: _.map(foods, initSelectable),
+  foods: _.map(foods, food => initSelectable(food, true)),
   errors: {}
 })
 
-export default function (initialFoods: Food[]) {
+export default function useNameFoodFormReducer(initialFoods: Food[]) {
 
   const [state, dispatch] = useReducer(reducer, initialState(initialFoods));
+  const handleSelectFoodChanged = (index: number, selected: boolean) => selected ? dispatch(selectFood(index)) : dispatch(unselectFood(index));
 
   return {
-    state
+    state,
+    fns: {
+      handleSelectFoodChanged,
+    }
   }
 }

@@ -24,7 +24,7 @@ const suggestions = createSlice({
   },
   reducers: {
     setServingSuggestions: (state, action: PayloadAction<ServingSuggestion[]>) => {
-      state.servingSuggestions = _.map(action.payload, initSelectable);
+      state.servingSuggestions = _.map(action.payload, suggestion => initSelectable(suggestion));
     },
     selectServingSuggestion: (state, action: PayloadAction<ServingSuggestion>) => {
       state.servingSuggestions = _.map(state.servingSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, true) : suggestion);
@@ -33,7 +33,7 @@ const suggestions = createSlice({
       state.servingSuggestions = _.map(state.servingSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, false) : suggestion);
     },
     setPortionSuggestions: (state, action: PayloadAction<PortionSuggestion[]>) => {
-      state.portionSuggestions = _.map(action.payload, initSelectable);
+      state.portionSuggestions = _.map(action.payload, suggestion => initSelectable(suggestion));
     },
     selectPortionSuggestion: (state, action: PayloadAction<PortionSuggestion>) => {
       state.portionSuggestions = _.map(state.portionSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, true) : suggestion);
