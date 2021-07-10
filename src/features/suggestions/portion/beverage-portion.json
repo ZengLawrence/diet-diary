@@ -173,6 +173,20 @@
       "serving": {
         "sweet": 1.5
       }
+    },
+    {
+      "foodName": "Sports drink, Fruit-flavor, ready-to-drink, low-calorie",
+      "portionSize": "12 fluid ounces",
+      "serving": {
+        "sweet": 0.5
+      }
+    },
+    {
+      "foodName": "Sports drink, Fruit-flavor, ready-to-drink, regular",
+      "portionSize": "12 fluid ounces",
+      "serving": {
+        "sweet": 1
+      }
     }
   ]
 }
