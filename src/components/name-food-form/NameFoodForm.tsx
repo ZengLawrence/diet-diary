@@ -14,17 +14,18 @@ interface Props {
 
 export const NameFoodForm = (props: Props) => {
   const { state, fns } = useNameFoodFormReducer(props.foods);
+  const { renamedFood } = state;
   const { handleSelectFoodChanged } = fns;
 
   return (
     <Form
       noValidate
-      onSubmit={() => props.onSaveFood(state.renamedFood)}
+      onSubmit={() => props.onSaveFood(renamedFood.target)}
       className="border p-1"
     >
 
       <Form.Group as={Form.Row} className="d-flex flex-column flex-wrap mx-1">
-        {state.foods.map((food, index) =>
+        {renamedFood.sources.map((food, index) =>
           <div key={index} className="d-flex flex-inline">
             <Form.Check
               inline
@@ -43,14 +44,14 @@ export const NameFoodForm = (props: Props) => {
         <Form.Control
           id="inputFoodName"
           type="text"
-          value={state.renamedFood.name}
+          value={renamedFood.target.name}
           required
         />
       </Form.Group>
 
       <div className="d-flex justify-content-end" >
         <div className="mr-auto">
-          <FoodCalorieServingPanel food={state.renamedFood} />
+          <FoodCalorieServingPanel food={renamedFood.target} />
         </div>
         <div className="d-flex justify-content-end">
           <div className="mr-1 order-sm-1">

@@ -7,30 +7,24 @@ import { calcFoodsServingSummary, positiveServing } from "../../model/servingFun
 
 const renamedFoodSlice = createSlice({
   name: "renamedFood",
-  initialState: newFood(),
+  initialState: {
+    sources: [] as (Food & Selectable)[],
+    target: newFood(),
+  },
   reducers: {
     updateName(state, action: PayloadAction<string>) {
-      state.name = action.payload;
-    }
-  }
-})
-const { updateName } = renamedFoodSlice.actions;
-const renamedFood = renamedFoodSlice.reducer;
-
-const foodsSlice = createSlice({
-  name: "foods",
-  initialState: [] as (Food & Selectable)[],
-  reducers: {
+      state.target.name = action.payload;
+    },
     selectFood(state, action: PayloadAction<number>) {
-      state[action.payload].selected = true;
+      state.sources[action.payload].selected = true;
     },
     unselectFood(state, action: PayloadAction<number>) {
-      state[action.payload].selected = false;
+      state.sources[action.payload].selected = false;
     },
   }
 })
-const { selectFood, unselectFood } = foodsSlice.actions;
-const foods = foodsSlice.reducer;
+const { updateName, selectFood, unselectFood } = renamedFoodSlice.actions;
+const renamedFood = renamedFoodSlice.reducer;
 
 interface ValidationError {
   foodName?: boolean;
@@ -51,7 +45,6 @@ const errors = errorsSlice.reducer;
 
 const reducer = combineReducers({
   renamedFood,
-  foods,
   errors,
 })
 
@@ -61,8 +54,10 @@ const combine = (foods: Food[]) => ({
 })
 
 const initialState = (foods: Food[]) => ({
-  renamedFood: combine(foods),
-  foods: _.map(foods, food => initSelectable(food, true)),
+  renamedFood: {
+    sources: _.map(foods, food => initSelectable(food, true)),
+    target: combine(foods),
+  },
   errors: {}
 })
 
