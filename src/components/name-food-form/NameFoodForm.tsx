@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { Form } from "react-bootstrap";
 import FoodCalorieServingPanel from "../../features/name-food/FoodCalorieServingPanel";
 import { Food } from "../../model/Food";
@@ -14,14 +13,14 @@ interface Props {
 }
 
 export const NameFoodForm = (props: Props) => {
-  const { state, fns } = useNameFoodFormReducer(props.foods);
+  const { state, fns } = useNameFoodFormReducer(props.foods, props.onSaveFood);
   const { renamedFood } = state;
-  const { handleSelectFoodChanged } = fns;
+  const { handleSelectFoodChanged, handleSubmitted } = fns;
 
   return (
     <Form
       noValidate
-      onSubmit={() => props.onSaveFood(renamedFood.target, _.map(renamedFood.sources, (food, index) => food.selected ? index : -1))}
+      onSubmit={handleSubmitted}
       className="border p-1"
     >
 
