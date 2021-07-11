@@ -52,7 +52,7 @@ const suggestions = createSlice({
     },
     selectPortionSuggestion: (state, action: PayloadAction<PortionSuggestion>) => {
       const matched = (suggestion: PortionSuggestion) => _.isEqual(suggestion, action.payload);
-      _.forEach(state.portionSuggestions,  suggestion => {
+      _.forEach(state.portionSuggestions, suggestion => {
         if (matched(suggestion)) {
           suggestion.selected = true;
         } else {
@@ -174,6 +174,8 @@ const updateFoodName = (dispatch: React.Dispatch<AnyAction>, generateSuggestions
 const updateServing = (dispatch: React.Dispatch<AnyAction>, foodGroup: FoodGroup, serving: number) =>
   serving ? dispatch(setServing({ foodGroup, serving })) : dispatch(unsetServing(foodGroup));
 
+const handleSelectPortionSuggestion = (dispatch: React.Dispatch<AnyAction>, suggestion: PortionSuggestion, selected: boolean) =>
+  selected ? dispatch(selectPortionSuggestion(suggestion)) : dispatch(unselectPortionSuggestion(suggestion));
 
 const handleSubmit = (
   dispatch: React.Dispatch<AnyAction>,
@@ -206,8 +208,6 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
     debouncedGenerateServingSuggestions(descRef, setServingSuggestionsCallback);
     debouncedGeneratePortionSuggestions(descRef, setPortionSuggestionsCallback);
   }
-  const handleSelectPortionSuggestion = (suggestion: PortionSuggestion, selected: boolean) =>
-    selected ? dispatch(selectPortionSuggestion(suggestion)) : dispatch(unselectPortionSuggestion(suggestion));
 
   useEffect(() => {
     debouncedGenerateServingSuggestions(descRef, setServingSuggestionsCallback);
@@ -218,7 +218,7 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
     updateFoodName: _.partial(updateFoodName, dispatch, generateSuggestions),
     updateServing: _.partial(updateServing, dispatch),
     handleSubmit: _.partial(handleSubmit, dispatch, state, onSaveFood),
-    handleSelectPortionSuggestion,
+    handleSelectPortionSuggestion: _.partial(handleSelectPortionSuggestion, dispatch),
     handleSelectServingSuggestion: _.partial(handleSelectServingSuggestion, dispatch),
   }
   return [state, fns] as [typeof state, typeof fns];
