@@ -13,9 +13,9 @@ const ServingHint = (props: { suggestion: ServingSuggestion }) => {
   return (
     <span>
       {bestChoice && <BlueStar />}
-      <span className="font-weight-bolder">{foodName}</span>
-      <FoodGroupLabelBadge foodGroup={foodGroup} />
+      <span className="font-weight-bolder">{foodName}</span>&nbsp;
       <span>{servingSize}</span>
+      <FoodGroupLabelBadge foodGroup={foodGroup} />
     </span>
   )
 }
