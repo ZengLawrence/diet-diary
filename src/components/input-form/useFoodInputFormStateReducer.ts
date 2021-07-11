@@ -43,10 +43,10 @@ const suggestions = createSlice({
     },
   }
 })
-const { 
+const {
   setServingSuggestions, selectServingSuggestion, unselectServingSuggestion,
   setPortionSuggestions, selectPortionSuggestion, unselectPortionSuggestion,
- } = suggestions.actions;
+} = suggestions.actions;
 
 const food = createSlice({
   name: "food",
@@ -168,6 +168,9 @@ const handleSubmit = (
   }
 }
 
+const handleSelectServingSuggestion = (dispatch: React.Dispatch<AnyAction>, suggestion: ServingSuggestion, selected: boolean) =>
+  selected ? dispatch(selectServingSuggestion(suggestion)) : dispatch(unselectServingSuggestion(suggestion));
+
 export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialFood, initialState);
 
@@ -181,8 +184,6 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
   }
   const handleSelectPortionSuggestion = (suggestion: PortionSuggestion, selected: boolean) =>
     selected ? dispatch(selectPortionSuggestion(suggestion)) : dispatch(unselectPortionSuggestion(suggestion));
-    const handleSelectServingSuggestion = (suggestion: ServingSuggestion, selected: boolean) =>
-    selected ? dispatch(selectServingSuggestion(suggestion)) : dispatch(unselectServingSuggestion(suggestion));
 
   useEffect(() => {
     debouncedGenerateServingSuggestions(descRef, setServingSuggestionsCallback);
@@ -194,7 +195,7 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
     updateServing: _.partial(updateServing, dispatch),
     handleSubmit: _.partial(handleSubmit, dispatch, state, onSaveFood),
     handleSelectPortionSuggestion,
-    handleSelectServingSuggestion,
+    handleSelectServingSuggestion: _.partial(handleSelectServingSuggestion, dispatch),
   }
   return [state, fns] as [typeof state, typeof fns];
 }
