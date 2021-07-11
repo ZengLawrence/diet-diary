@@ -3,7 +3,7 @@ import _ from "lodash";
 import { useEffect, useReducer, useRef } from "react";
 import { generatePortionSuggestions, generateServingSuggestions, PortionSuggestion, ServingSuggestion } from "../../features/suggestions";
 import { Food, FoodGroup } from "../../model/Food";
-import { add, minus, oneServingOf, positiveServing } from "../../model/servingFunction";
+import { minus, oneServingOf, positiveServing } from "../../model/servingFunction";
 import { initSelectable, Selectable, setSelected } from "../../model/Selectable";
 
 interface ValidationError {
@@ -38,10 +38,15 @@ const suggestions = createSlice({
       state.servingSuggestions = _.map(action.payload, suggestion => initFillable(initSelectable(suggestion)));
     },
     selectServingSuggestion: (state, action: PayloadAction<{ suggestion: ServingSuggestion; fillFoodName: boolean }>) => {
-      const matched = (suggestion: ServingSuggestion) =>_.isEqual(suggestion, action.payload.suggestion);
-      _.forEach(_.filter(state.servingSuggestions, matched), suggestion => {
-        suggestion.selected = true;
-        suggestion.fillFoodName = action.payload.fillFoodName;
+      const matched = (suggestion: ServingSuggestion) => _.isEqual(suggestion, action.payload.suggestion);
+      _.forEach(state.servingSuggestions, suggestion => {
+        if (matched(suggestion)) {
+          suggestion.selected = true;
+          suggestion.fillFoodName = action.payload.fillFoodName;
+        } else {
+          suggestion.selected = false;
+          suggestion.fillFoodName = false;
+        }
       });
     },
     unselectServingSuggestion: (state, action: PayloadAction<ServingSuggestion>) => {
@@ -51,7 +56,14 @@ const suggestions = createSlice({
       state.portionSuggestions = _.map(action.payload, suggestion => initSelectable(suggestion));
     },
     selectPortionSuggestion: (state, action: PayloadAction<PortionSuggestion>) => {
-      state.portionSuggestions = _.map(state.portionSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, true) : suggestion);
+      const matched = (suggestion: PortionSuggestion) => _.isEqual(suggestion, action.payload);
+      _.forEach(state.portionSuggestions,  suggestion => {
+        if (matched(suggestion)) {
+          suggestion.selected = true;
+        } else {
+          suggestion.selected = false;
+        }
+      });
     },
     unselectPortionSuggestion: (state, action: PayloadAction<PortionSuggestion>) => {
       state.portionSuggestions = _.map(state.portionSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, false) : suggestion);
@@ -80,13 +92,13 @@ const food = createSlice({
   extraReducers: builder => {
     builder
       .addCase(selectPortionSuggestion, (state, action) => {
-        state.serving = positiveServing(add(state.serving, action.payload.serving));
+        state.serving = action.payload.serving;
       })
       .addCase(unselectPortionSuggestion, (state, action) => {
         state.serving = positiveServing(minus(state.serving, action.payload.serving));
       })
       .addCase(selectServingSuggestion, (state, { payload: { suggestion, fillFoodName } }) => {
-        state.serving = positiveServing(add(state.serving, oneServingOf(suggestion.foodGroup)));
+        state.serving = oneServingOf(suggestion.foodGroup);
         if (fillFoodName) { state.name = suggestion.foodName + " " + suggestion.servingSize };
       })
       .addCase(unselectServingSuggestion, (state, action) => {
