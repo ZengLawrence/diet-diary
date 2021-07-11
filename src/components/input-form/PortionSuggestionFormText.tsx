@@ -7,15 +7,13 @@ import { CalorieSpan } from "../CalorieSpan";
 import { Selectable } from "../../model/Selectable";
 
 const PortionServingHint = (props: { suggestion: PortionSuggestion }) => {
-  const { foodName, portionSize, serving } = props.suggestion;
+  const { foodName, portionSize } = props.suggestion;
 
   return (
-    <span>
+    <div>
       <span className="font-weight-bolder">{foodName}</span>&nbsp;
       <span>{portionSize}</span>
-      <FoodGroupServingBadgePanel serving={serving} />
-      (<CalorieSpan value={calcServingCalories(serving)} />)
-    </span>
+    </div>
   )
 }
 
@@ -33,18 +31,19 @@ export const PortionSuggestionFormText = (props: Props) => (
       <div>One portion is</div>
       <div className="d-flex flex-column flex-wrap w-100">
         {props.suggestions.map((suggestion, index) => (
-          <span key={index}>
+          <div key={index} className="d-inline-flex">
             <PortionServingHint suggestion={suggestion} />&nbsp;
             {props.showSelect &&
               <Form.Check
-                inline
                 type="checkbox"
                 aria-label="fill servings"
                 checked={suggestion.selected}
                 onChange={e => props.onSelected(suggestion, e.target.checked)}
               />
             }
-          </span>
+            <FoodGroupServingBadgePanel serving={suggestion.serving} />
+            <CalorieSpan value={calcServingCalories(suggestion.serving)} />
+          </div>
         ))}
       </div>
     </Form.Text>
