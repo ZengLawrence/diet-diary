@@ -176,7 +176,7 @@ const updateFoodName = (dispatch: React.Dispatch<AnyAction>, generateSuggestions
 const updateServing = (dispatch: React.Dispatch<AnyAction>, foodGroup: FoodGroup, serving: number) =>
   serving ? dispatch(setServing({ foodGroup, serving })) : dispatch(unsetServing(foodGroup));
 
-const handleSelectPortionSuggestion = (dispatch: React.Dispatch<AnyAction>, suggestion: PortionSuggestion, selected: boolean, fillFoodName: boolean) =>
+const handleSelectPortionSuggestion = (dispatch: React.Dispatch<AnyAction>, suggestion: PortionSuggestion, selected: boolean, { fillFoodName }: Fillable = { fillFoodName: false }) =>
   selected ? dispatch(selectPortionSuggestion({ suggestion, fillFoodName })) : dispatch(unselectPortionSuggestion(suggestion));
 
 const handleSelectServingSuggestion = (dispatch: React.Dispatch<AnyAction>, suggestion: ServingSuggestion, selected: boolean, { fillFoodName }: Fillable = { fillFoodName: false }) =>
