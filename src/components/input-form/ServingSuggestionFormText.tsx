@@ -5,7 +5,7 @@ import { FoodGroupLabelBadge } from "../badge";
 import { BestChoiceLegend } from "../BestChoiceLegend";
 import { BlueStar } from "../BlueStar";
 import { Selectable } from "../../model/Selectable";
-import { Fillable } from "./useFoodInputFormStateReducer";
+import { Fillable } from "../../model/Fillable";
 
 const hasBestChoice = (suggestions: ServingSuggestion[]) => _.findIndex(suggestions, { 'bestChoice': true }) >= 0;
 

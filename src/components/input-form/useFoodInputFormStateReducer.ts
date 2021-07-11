@@ -5,6 +5,7 @@ import { generatePortionSuggestions, generateServingSuggestions, PortionSuggesti
 import { Food, FoodGroup } from "../../model/Food";
 import { minus, oneServingOf, positiveServing } from "../../model/servingFunction";
 import { initSelectable, Selectable, setSelected } from "../../model/Selectable";
+import { Fillable, initFillable } from "../../model/Fillable";
 
 interface ValidationError {
   foodName?: boolean;
@@ -14,17 +15,6 @@ interface ValidationError {
   proteinDiary?: boolean;
   fat?: boolean;
   sweet?: boolean;
-}
-
-export interface Fillable {
-  fillFoodName: boolean; // by default fills serving only
-}
-
-function initFillable<T>(obj: T): (T & Fillable) {
-  return {
-    ...obj,
-    fillFoodName: false,
-  }
 }
 
 function clearSelection(obj: (Selectable & Fillable)) {
