@@ -49,8 +49,11 @@ const suggestions = createSlice({
         }
       });
     },
-    unselectServingSuggestion: (state, action: PayloadAction<ServingSuggestion>) => {
-      state.servingSuggestions = _.map(state.servingSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, false) : suggestion);
+    unselectServingSuggestion: (state, _action: PayloadAction<ServingSuggestion>) => {
+      _.forEach(state.servingSuggestions, suggestion => {
+        suggestion.selected = false;
+        suggestion.fillFoodName = false;
+      });
     },
     setPortionSuggestions: (state, action: PayloadAction<PortionSuggestion[]>) => {
       state.portionSuggestions = _.map(action.payload, suggestion => initSelectable(suggestion));
