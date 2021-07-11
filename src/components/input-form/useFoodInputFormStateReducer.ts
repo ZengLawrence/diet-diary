@@ -27,6 +27,11 @@ function initFillable<T>(obj: T): (T & Fillable) {
   }
 }
 
+function clearSelection(obj: (Selectable & Fillable)) {
+  obj.selected = false;
+  obj.fillFoodName = false;
+}
+
 const suggestions = createSlice({
   name: "suggestions",
   initialState: {
@@ -44,16 +49,13 @@ const suggestions = createSlice({
           suggestion.selected = true;
           suggestion.fillFoodName = action.payload.fillFoodName;
         } else {
-          suggestion.selected = false;
-          suggestion.fillFoodName = false;
+          clearSelection(suggestion);
         }
       });
+      _.forEach(state.portionSuggestions, suggestion => suggestion.selected = false);
     },
     unselectServingSuggestion: (state, _action: PayloadAction<ServingSuggestion>) => {
-      _.forEach(state.servingSuggestions, suggestion => {
-        suggestion.selected = false;
-        suggestion.fillFoodName = false;
-      });
+      _.forEach(state.servingSuggestions, clearSelection);
     },
     setPortionSuggestions: (state, action: PayloadAction<PortionSuggestion[]>) => {
       state.portionSuggestions = _.map(action.payload, suggestion => initSelectable(suggestion));
@@ -67,6 +69,7 @@ const suggestions = createSlice({
           suggestion.selected = false;
         }
       });
+      _.forEach(state.servingSuggestions, clearSelection);
     },
     unselectPortionSuggestion: (state, action: PayloadAction<PortionSuggestion>) => {
       state.portionSuggestions = _.map(state.portionSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, false) : suggestion);
