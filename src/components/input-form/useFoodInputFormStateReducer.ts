@@ -16,18 +16,33 @@ interface ValidationError {
   sweet?: boolean;
 }
 
+export interface Fillable {
+  fillFoodName: boolean; // by default fills serving only
+}
+
+function initFillable<T>(obj: T): (T & Fillable) {
+  return {
+    ...obj,
+    fillFoodName: false,
+  }
+}
+
 const suggestions = createSlice({
   name: "suggestions",
   initialState: {
-    servingSuggestions: [] as (ServingSuggestion & Selectable)[],
+    servingSuggestions: [] as (ServingSuggestion & Selectable & Fillable)[],
     portionSuggestions: [] as (PortionSuggestion & Selectable)[],
   },
   reducers: {
     setServingSuggestions: (state, action: PayloadAction<ServingSuggestion[]>) => {
-      state.servingSuggestions = _.map(action.payload, suggestion => initSelectable(suggestion));
+      state.servingSuggestions = _.map(action.payload, suggestion => initFillable(initSelectable(suggestion)));
     },
     selectServingSuggestion: (state, action: PayloadAction<{ suggestion: ServingSuggestion; fillFoodName: boolean }>) => {
-      state.servingSuggestions = _.map(state.servingSuggestions, suggestion => _.isEqual(suggestion, action.payload.suggestion) ? setSelected(suggestion, true) : suggestion);
+      const matched = (suggestion: ServingSuggestion) =>_.isEqual(suggestion, action.payload.suggestion);
+      _.forEach(_.filter(state.servingSuggestions, matched), suggestion => {
+        suggestion.selected = true;
+        suggestion.fillFoodName = action.payload.fillFoodName;
+      });
     },
     unselectServingSuggestion: (state, action: PayloadAction<ServingSuggestion>) => {
       state.servingSuggestions = _.map(state.servingSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, false) : suggestion);

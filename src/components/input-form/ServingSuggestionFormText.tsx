@@ -5,6 +5,7 @@ import { FoodGroupLabelBadge } from "../badge";
 import { BestChoiceLegend } from "../BestChoiceLegend";
 import { BlueStar } from "../BlueStar";
 import { Selectable } from "../../model/Selectable";
+import { Fillable } from "./useFoodInputFormStateReducer";
 
 const hasBestChoice = (suggestions: ServingSuggestion[]) => _.findIndex(suggestions, { 'bestChoice': true }) >= 0;
 
@@ -20,7 +21,7 @@ const ServingHint = (props: { suggestion: ServingSuggestion }) => {
 }
 
 interface Props {
-  suggestions: (ServingSuggestion & Selectable)[];
+  suggestions: (ServingSuggestion & Selectable & Fillable)[];
   onSelected: (suggestion: ServingSuggestion, selected: boolean, fillFoodName: boolean) => void;
   showSelect: boolean;
 }
@@ -39,7 +40,7 @@ export const ServingSuggestionFormText = (props: Props) => (
               <Form.Check
                 type="checkbox"
                 aria-label="fill food name and servings"
-                checked={suggestion.selected}
+                checked={suggestion.selected && suggestion.fillFoodName}
                 onChange={e => props.onSelected(suggestion, e.target.checked, true)}
               />
             }
