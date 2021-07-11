@@ -26,8 +26,8 @@ const suggestions = createSlice({
     setServingSuggestions: (state, action: PayloadAction<ServingSuggestion[]>) => {
       state.servingSuggestions = _.map(action.payload, suggestion => initSelectable(suggestion));
     },
-    selectServingSuggestion: (state, action: PayloadAction<ServingSuggestion>) => {
-      state.servingSuggestions = _.map(state.servingSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, true) : suggestion);
+    selectServingSuggestion: (state, action: PayloadAction<{ suggestion: ServingSuggestion; fillFoodName: boolean }>) => {
+      state.servingSuggestions = _.map(state.servingSuggestions, suggestion => _.isEqual(suggestion, action.payload.suggestion) ? setSelected(suggestion, true) : suggestion);
     },
     unselectServingSuggestion: (state, action: PayloadAction<ServingSuggestion>) => {
       state.servingSuggestions = _.map(state.servingSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, false) : suggestion);
@@ -70,8 +70,9 @@ const food = createSlice({
       .addCase(unselectPortionSuggestion, (state, action) => {
         state.serving = positiveServing(minus(state.serving, action.payload.serving));
       })
-      .addCase(selectServingSuggestion, (state, action) => {
-        state.serving = positiveServing(add(state.serving, oneServingOf(action.payload.foodGroup)));
+      .addCase(selectServingSuggestion, (state, { payload: { suggestion, fillFoodName } }) => {
+        state.serving = positiveServing(add(state.serving, oneServingOf(suggestion.foodGroup)));
+        if (fillFoodName) { state.name = suggestion.foodName + " " + suggestion.servingSize };
       })
       .addCase(unselectServingSuggestion, (state, action) => {
         state.serving = positiveServing(minus(state.serving, oneServingOf(action.payload.foodGroup)));
@@ -168,8 +169,8 @@ const handleSubmit = (
   }
 }
 
-const handleSelectServingSuggestion = (dispatch: React.Dispatch<AnyAction>, suggestion: ServingSuggestion, selected: boolean) =>
-  selected ? dispatch(selectServingSuggestion(suggestion)) : dispatch(unselectServingSuggestion(suggestion));
+const handleSelectServingSuggestion = (dispatch: React.Dispatch<AnyAction>, suggestion: ServingSuggestion, selected: boolean, fillFoodName: boolean) =>
+  selected ? dispatch(selectServingSuggestion({ suggestion, fillFoodName })) : dispatch(unselectServingSuggestion(suggestion));
 
 export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialFood, initialState);

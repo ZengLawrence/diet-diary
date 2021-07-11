@@ -9,20 +9,19 @@ import { Selectable } from "../../model/Selectable";
 const hasBestChoice = (suggestions: ServingSuggestion[]) => _.findIndex(suggestions, { 'bestChoice': true }) >= 0;
 
 const ServingHint = (props: { suggestion: ServingSuggestion }) => {
-  const { foodName, foodGroup, servingSize, bestChoice } = props.suggestion;
+  const { foodName, servingSize, bestChoice } = props.suggestion;
   return (
     <span>
       {bestChoice && <BlueStar />}
       <span className="font-weight-bolder">{foodName}</span>&nbsp;
       <span>{servingSize}</span>
-      <FoodGroupLabelBadge foodGroup={foodGroup} />
     </span>
   )
 }
 
 interface Props {
   suggestions: (ServingSuggestion & Selectable)[];
-  onSelected: (suggestion: ServingSuggestion, selected: boolean) => void;
+  onSelected: (suggestion: ServingSuggestion, selected: boolean, fillFoodName: boolean) => void;
   showSelect: boolean;
 }
 
@@ -33,18 +32,27 @@ export const ServingSuggestionFormText = (props: Props) => (
     <Form.Text className="d-flex flex-column">
       <div>One serving is</div>
 
-      <div className="d-flex flex-column flex-sm-row flex-wrap w-100">
+      <div className="d-flex flex-column flex-wrap w-100">
         {props.suggestions.map((suggestion, index) => (
-          <div key={index} className="d-inline-flex">
+          <div key={index} className="d-inline-flex mr-1">
+            {props.showSelect &&
+              <Form.Check
+                type="checkbox"
+                aria-label="fill food name and servings"
+                checked={suggestion.selected}
+                onChange={e => props.onSelected(suggestion, e.target.checked, true)}
+              />
+            }
             <ServingHint suggestion={suggestion} />&nbsp;
             {props.showSelect &&
               <Form.Check
                 type="checkbox"
                 aria-label="fill servings"
                 checked={suggestion.selected}
-                onChange={e => props.onSelected(suggestion, e.target.checked)}
+                onChange={e => props.onSelected(suggestion, e.target.checked, false)}
               />
             }
+            <FoodGroupLabelBadge foodGroup={suggestion.foodGroup} />
           </div>
         ))}
       </div>
