@@ -4,7 +4,7 @@ import { useEffect, useReducer, useRef } from "react";
 import { generatePortionSuggestions, generateServingSuggestions, PortionSuggestion, ServingSuggestion } from "../../features/suggestions";
 import { Food, FoodGroup } from "../../model/Food";
 import { minus, oneServingOf, positiveServing } from "../../model/servingFunction";
-import { initSelectable, Selectable, setSelected } from "../../model/Selectable";
+import { initSelectable, Selectable } from "../../model/Selectable";
 import { Fillable, initFillable } from "../../model/Fillable";
 
 interface ValidationError {
@@ -26,7 +26,7 @@ const suggestions = createSlice({
   name: "suggestions",
   initialState: {
     servingSuggestions: [] as (ServingSuggestion & Selectable & Fillable)[],
-    portionSuggestions: [] as (PortionSuggestion & Selectable)[],
+    portionSuggestions: [] as (PortionSuggestion & Selectable & Fillable)[],
   },
   reducers: {
     setServingSuggestions: (state, action: PayloadAction<ServingSuggestion[]>) => {
@@ -42,13 +42,13 @@ const suggestions = createSlice({
           clearSelection(suggestion);
         }
       });
-      _.forEach(state.portionSuggestions, suggestion => suggestion.selected = false);
+      _.forEach(state.portionSuggestions, clearSelection);
     },
     unselectServingSuggestion: (state, _action: PayloadAction<ServingSuggestion>) => {
       _.forEach(state.servingSuggestions, clearSelection);
     },
     setPortionSuggestions: (state, action: PayloadAction<PortionSuggestion[]>) => {
-      state.portionSuggestions = _.map(action.payload, suggestion => initSelectable(suggestion));
+      state.portionSuggestions = _.map(action.payload, suggestion => initFillable(initSelectable(suggestion)));
     },
     selectPortionSuggestion: (state, action: PayloadAction<PortionSuggestion>) => {
       const matched = (suggestion: PortionSuggestion) => _.isEqual(suggestion, action.payload);
@@ -61,8 +61,8 @@ const suggestions = createSlice({
       });
       _.forEach(state.servingSuggestions, clearSelection);
     },
-    unselectPortionSuggestion: (state, action: PayloadAction<PortionSuggestion>) => {
-      state.portionSuggestions = _.map(state.portionSuggestions, suggestion => suggestion.foodName === action.payload.foodName ? setSelected(suggestion, false) : suggestion);
+    unselectPortionSuggestion: (state, _action: PayloadAction<PortionSuggestion>) => {
+      _.forEach(state.portionSuggestions, clearSelection);
     },
   }
 })
