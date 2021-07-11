@@ -35,18 +35,17 @@ export const ServingSuggestionFormText = (props: Props) => (
 
       <div className="d-flex flex-column flex-sm-row flex-wrap w-100">
         {props.suggestions.map((suggestion, index) => (
-          <span key={index}>
+          <div key={index} className="d-inline-flex">
             <ServingHint suggestion={suggestion} />&nbsp;
             {props.showSelect &&
               <Form.Check
-                inline
                 type="checkbox"
                 aria-label="fill servings"
                 checked={suggestion.selected}
                 onChange={e => props.onSelected(suggestion, e.target.checked)}
               />
             }
-          </span>
+          </div>
         ))}
       </div>
 
