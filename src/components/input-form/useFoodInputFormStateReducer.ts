@@ -179,6 +179,9 @@ const updateServing = (dispatch: React.Dispatch<AnyAction>, foodGroup: FoodGroup
 const handleSelectPortionSuggestion = (dispatch: React.Dispatch<AnyAction>, suggestion: PortionSuggestion, selected: boolean, fillFoodName: boolean) =>
   selected ? dispatch(selectPortionSuggestion({ suggestion, fillFoodName })) : dispatch(unselectPortionSuggestion(suggestion));
 
+const handleSelectServingSuggestion = (dispatch: React.Dispatch<AnyAction>, suggestion: ServingSuggestion, selected: boolean, { fillFoodName }: Fillable = { fillFoodName: false }) =>
+  selected ? dispatch(selectServingSuggestion({ suggestion, fillFoodName })) : dispatch(unselectServingSuggestion(suggestion));
+
 const handleSubmit = (
   dispatch: React.Dispatch<AnyAction>,
   state: { food: Food },
@@ -195,9 +198,6 @@ const handleSubmit = (
     event.preventDefault();
   }
 }
-
-const handleSelectServingSuggestion = (dispatch: React.Dispatch<AnyAction>, suggestion: ServingSuggestion, selected: boolean, { fillFoodName }: Fillable = { fillFoodName: false }) =>
-  selected ? dispatch(selectServingSuggestion({ suggestion, fillFoodName })) : dispatch(unselectServingSuggestion(suggestion));
 
 export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialFood, initialState);
