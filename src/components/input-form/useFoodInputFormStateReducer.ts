@@ -196,7 +196,7 @@ const handleSubmit = (
   }
 }
 
-const handleSelectServingSuggestion = (dispatch: React.Dispatch<AnyAction>, suggestion: ServingSuggestion, selected: boolean, fillFoodName: boolean) =>
+const handleSelectServingSuggestion = (dispatch: React.Dispatch<AnyAction>, suggestion: ServingSuggestion, selected: boolean, { fillFoodName }: Fillable = { fillFoodName: false }) =>
   selected ? dispatch(selectServingSuggestion({ suggestion, fillFoodName })) : dispatch(unselectServingSuggestion(suggestion));
 
 export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (food: Food) => void) {

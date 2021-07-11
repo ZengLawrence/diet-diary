@@ -22,7 +22,7 @@ const ServingHint = (props: { suggestion: ServingSuggestion }) => {
 
 interface Props {
   suggestions: (ServingSuggestion & Selectable & Fillable)[];
-  onSelected: (suggestion: ServingSuggestion, selected: boolean, fillFoodName: boolean) => void;
+  onSelected: (suggestion: ServingSuggestion, selected: boolean, options?: Fillable) => void;
   showSelect: boolean;
 }
 
@@ -41,7 +41,7 @@ export const ServingSuggestionFormText = (props: Props) => (
                 type="checkbox"
                 aria-label="fill food name and servings"
                 checked={suggestion.selected && suggestion.fillFoodName}
-                onChange={e => props.onSelected(suggestion, e.target.checked, true)}
+                onChange={e => props.onSelected(suggestion, e.target.checked, { fillFoodName: true })}
               />
             }
             <ServingHint suggestion={suggestion} />&nbsp;
@@ -50,7 +50,7 @@ export const ServingSuggestionFormText = (props: Props) => (
                 type="checkbox"
                 aria-label="fill servings"
                 checked={suggestion.selected}
-                onChange={e => props.onSelected(suggestion, e.target.checked, false)}
+                onChange={e => props.onSelected(suggestion, e.target.checked)}
               />
             }
             <FoodGroupLabelBadge foodGroup={suggestion.foodGroup} />
