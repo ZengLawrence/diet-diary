@@ -50,13 +50,14 @@ const suggestions = createSlice({
     setPortionSuggestions: (state, action: PayloadAction<PortionSuggestion[]>) => {
       state.portionSuggestions = _.map(action.payload, suggestion => initFillable(initSelectable(suggestion)));
     },
-    selectPortionSuggestion: (state, action: PayloadAction<PortionSuggestion>) => {
-      const matched = (suggestion: PortionSuggestion) => _.isEqual(suggestion, action.payload);
+    selectPortionSuggestion: (state, action: PayloadAction<{ suggestion: PortionSuggestion; fillFoodName: boolean }>) => {
+      const matched = (suggestion: PortionSuggestion) => _.isEqual(suggestion, action.payload.suggestion);
       _.forEach(state.portionSuggestions, suggestion => {
         if (matched(suggestion)) {
           suggestion.selected = true;
+          suggestion.fillFoodName = action.payload.fillFoodName;
         } else {
-          suggestion.selected = false;
+          clearSelection(suggestion);
         }
       });
       _.forEach(state.servingSuggestions, clearSelection);
@@ -87,8 +88,9 @@ const food = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(selectPortionSuggestion, (state, action) => {
-        state.serving = action.payload.serving;
+      .addCase(selectPortionSuggestion, (state, { payload: { suggestion, fillFoodName } }) => {
+        state.serving = suggestion.serving;
+        if (fillFoodName) { state.name = suggestion.foodName + " " + suggestion.portionSize };
       })
       .addCase(unselectPortionSuggestion, (state, action) => {
         state.serving = positiveServing(minus(state.serving, action.payload.serving));
@@ -174,8 +176,8 @@ const updateFoodName = (dispatch: React.Dispatch<AnyAction>, generateSuggestions
 const updateServing = (dispatch: React.Dispatch<AnyAction>, foodGroup: FoodGroup, serving: number) =>
   serving ? dispatch(setServing({ foodGroup, serving })) : dispatch(unsetServing(foodGroup));
 
-const handleSelectPortionSuggestion = (dispatch: React.Dispatch<AnyAction>, suggestion: PortionSuggestion, selected: boolean) =>
-  selected ? dispatch(selectPortionSuggestion(suggestion)) : dispatch(unselectPortionSuggestion(suggestion));
+const handleSelectPortionSuggestion = (dispatch: React.Dispatch<AnyAction>, suggestion: PortionSuggestion, selected: boolean, fillFoodName: boolean) =>
+  selected ? dispatch(selectPortionSuggestion({ suggestion, fillFoodName })) : dispatch(unselectPortionSuggestion(suggestion));
 
 const handleSubmit = (
   dispatch: React.Dispatch<AnyAction>,
