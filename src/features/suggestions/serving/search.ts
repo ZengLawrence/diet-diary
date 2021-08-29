@@ -2,7 +2,7 @@ import Fuse from "fuse.js";
 import _ from "lodash";
 import servings from "./servings";
 import { ServingSuggestion } from "../ServingSuggestion";
-import { search, scoreLessThan } from "../fuzzySearch";
+import { search } from "../fuzzySearch";
 
 const options = {
   // isCaseSensitive: false,
