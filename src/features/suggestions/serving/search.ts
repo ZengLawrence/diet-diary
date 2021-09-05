@@ -2,7 +2,7 @@ import Fuse from "fuse.js";
 import _ from "lodash";
 import servings from "./servings";
 import { ServingSuggestion } from "../ServingSuggestion";
-import { search, scoreLessThan } from "../fuzzySearch";
+import { search } from "../fuzzySearch";
 
 const options = {
   // isCaseSensitive: false,
@@ -25,4 +25,4 @@ const options = {
 const fuse = new Fuse<ServingSuggestion>(servings, options);
 
 export const searchFoodServingSize = (foodName: string) =>
-  _.map(search(fuse, _.words(foodName), scoreLessThan(0.40)), "item");
+  _.map(_.slice(search(fuse, foodName), 0, 2), "item");

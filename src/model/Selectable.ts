@@ -8,10 +8,3 @@ export function initSelectable<T>(obj: T, selected = false): (T & Selectable) {
     selected
   }
 };
-
-export function setSelected<T>(obj: (T & Selectable), selected: boolean): (T & Selectable) {
-  return {
-    ...obj,
-    selected
-  }
-};
