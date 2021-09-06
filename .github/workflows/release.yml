@@ -37,4 +37,4 @@ jobs:
         dst_owner: ZengLawrence
         dst_repo_name: ZengLawrence.github.io
         clean: true
-        commit_message: Production release of Diet Diary ${GITHUB_REF}
+        commit_message: Production release of Diet Diary ${{ github.ref }}
