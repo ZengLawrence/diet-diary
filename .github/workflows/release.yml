@@ -28,13 +28,13 @@ jobs:
     - run: npm run build
 
     # deploy to github.io by copying the build files
-    - name: Copy to ZengLawrence.github.io
-      uses: andstor/copycat-action@v3
+    - name: Pushes to ZengLawrence.github.io repo
+      uses: cpina/github-action-push-to-another-repository@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.CODE_COMMIT_PERSONAL_TOKEN }}
       with:
-        personal_token: ${{ secrets.CODE_COMMIT_PERSONAL_TOKEN }}
-        src_path: /build/
-        dst_path: /diet-diary/
-        dst_owner: ZengLawrence
-        dst_repo_name: ZengLawrence.github.io
-        clean: true
-        commit_message: Production release of Diet Diary ${GITHUB_REF}
+        source-directory: 'build'
+        destination-github-username: 'ZengLawrence'
+        destination-repository-name: 'ZengLawrence.github.io'
+        user-email: lawrence.zeng@gmail.com
+        target-branch: main
