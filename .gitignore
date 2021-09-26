@@ -23,3 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 .vscode/
 scratch.ts
+
+# ingore ANTLR and Maven target
+antlr4/food-description/target/
+.antlr
