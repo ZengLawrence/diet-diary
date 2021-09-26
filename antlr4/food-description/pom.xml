@@ -69,7 +69,7 @@
 				<version>${antlr4test-maven-plugin.version}</version>
 				<configuration>
 					<verbose>false</verbose>
-					<showTree>false</showTree>
+					<showTree>true</showTree>
 					<entryPoint>foodDescription</entryPoint>
 					<grammarName>FoodDescription</grammarName>
 					<packageName></packageName>
