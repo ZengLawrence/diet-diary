@@ -27,3 +27,4 @@ scratch.ts
 # ingore ANTLR and Maven target
 antlr4/food-description/target/
 .antlr
+gen-src/
