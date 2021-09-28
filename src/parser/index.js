@@ -6,13 +6,15 @@ import _ from 'lodash';
 
 class FoodDescriptionDecomposer extends FoodDescriptionListener {
 
-  constructor() {
+  constructor(input) {
     super();
+    this.input = input;
     this.content = {};
   }
 
   exitFoodName(ctx) {
-    _.set(this.content, "foodName", ctx.getChild(0).getText());
+    const val = this.input.substring(ctx.start.column, ctx.stop.stop + 1);
+    _.set(this.content, "foodName", val);
   }
 
   exitNumber(ctx) {
@@ -35,7 +37,7 @@ export function parseFoodDescription(input) {
   const parser = new FoodDescriptionParser(tokens);
   parser.buildParseTrees = true;
   const tree = parser.foodDescription();
-  const decomposer = new FoodDescriptionDecomposer();
+  const decomposer = new FoodDescriptionDecomposer(input);
   antlr4.tree.ParseTreeWalker.DEFAULT.walk(decomposer, tree);
 
   return decomposer.getContent();
