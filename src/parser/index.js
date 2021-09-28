@@ -32,9 +32,9 @@ class FoodDescriptionDecomposer extends FoodDescriptionListener {
 }
 
 export function parseFoodDescription(input) {
-  const chars = new antlr4.InputStream(input); 
-  const lowers = new CaseChangingStream(chars, false);
-  const lexer = new FoodDescriptionLexer(lowers);
+  const chars = new antlr4.InputStream(input);
+  const lowerCaseChars = new CaseChangingStream(chars, false);
+  const lexer = new FoodDescriptionLexer(lowerCaseChars);
   const tokens = new antlr4.CommonTokenStream(lexer);
   const parser = new FoodDescriptionParser(tokens);
   parser.buildParseTrees = true;
