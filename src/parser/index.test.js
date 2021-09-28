@@ -35,3 +35,11 @@ test("case insensitive unit name 'Cup' instead of 'cup'", () => {
     }
   );
 })
+
+test("food name only", () => {
+  expect(parseFoodDescription("brocoli cooked")).toMatchObject(
+    {
+      foodName: "brocoli cooked"
+    }
+  );
+})
