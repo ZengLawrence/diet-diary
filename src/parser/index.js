@@ -3,6 +3,7 @@ import FoodDescriptionLexer from '../../gen-src/parser/FoodDescriptionLexer';
 import FoodDescriptionParser from '../../gen-src/parser/FoodDescriptionParser';
 import FoodDescriptionListener from '../../gen-src/parser/FoodDescriptionListener';
 import _ from 'lodash';
+import { CaseChangingStream } from './CaseChangingStream';
 
 class FoodDescriptionDecomposer extends FoodDescriptionListener {
 
@@ -22,7 +23,7 @@ class FoodDescriptionDecomposer extends FoodDescriptionListener {
   }
 
   exitUnit(ctx) {
-    _.set(this.content, "measurement.unit", ctx.getChild(0).getText());
+    _.set(this.content, "measurement.unit", _.lowerCase(ctx.getChild(0).getText()));
   }
 
   getContent() {
@@ -31,8 +32,9 @@ class FoodDescriptionDecomposer extends FoodDescriptionListener {
 }
 
 export function parseFoodDescription(input) {
-  const chars = new antlr4.InputStream(input);
-  const lexer = new FoodDescriptionLexer(chars);
+  const chars = new antlr4.InputStream(input); 
+  const lowers = new CaseChangingStream(chars, false);
+  const lexer = new FoodDescriptionLexer(lowers);
   const tokens = new antlr4.CommonTokenStream(lexer);
   const parser = new FoodDescriptionParser(tokens);
   parser.buildParseTrees = true;

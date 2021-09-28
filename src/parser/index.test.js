@@ -23,3 +23,15 @@ test("parse 'brocoli cooked 1 cup'", () => {
     }
   );
 })
+
+test("case insensitive unit name 'Cup' instead of 'cup'", () => {
+  expect(parseFoodDescription("brocoli cooked 1 Cup")).toMatchObject(
+    {
+      foodName: "brocoli cooked",
+      measurement: { 
+        number: "1",
+        unit: "cup"
+      }
+    }
+  );
+})
