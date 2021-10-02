@@ -8,7 +8,7 @@ foodName
     ;
 
 measurement
-    : quantity unit
+    : quantity unit?
     ;
 
 quantity
@@ -16,11 +16,11 @@ quantity
   ;
 
 unit
-  : 'cup'
+  : 'cup' | 'small'
   ;
 
 STRING
-   : [a-zA-Z] [a-zA-Z]*
+   : [a-zA-Z]+ | [0-9][a-zA-Z%]+
    ;
 
 DIGIT : [0-9];

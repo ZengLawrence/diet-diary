@@ -4,27 +4,29 @@ import antlr4 from 'antlr4';
 import FoodDescriptionListener from './FoodDescriptionListener.js';
 
 const serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786",
-    "\u5964\u0003\u0006\"\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004",
+    "\u5964\u0003\u0007#\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004",
     "\t\u0004\u0004\u0005\t\u0005\u0004\u0006\t\u0006\u0003\u0002\u0003\u0002",
     "\u0005\u0002\u000f\n\u0002\u0003\u0003\u0003\u0003\u0007\u0003\u0013",
     "\n\u0003\f\u0003\u000e\u0003\u0016\u000b\u0003\u0003\u0004\u0003\u0004",
-    "\u0003\u0004\u0003\u0005\u0006\u0005\u001c\n\u0005\r\u0005\u000e\u0005",
-    "\u001d\u0003\u0006\u0003\u0006\u0003\u0006\u0002\u0002\u0007\u0002\u0004",
-    "\u0006\b\n\u0002\u0002\u0002\u001f\u0002\f\u0003\u0002\u0002\u0002\u0004",
-    "\u0010\u0003\u0002\u0002\u0002\u0006\u0017\u0003\u0002\u0002\u0002\b",
-    "\u001b\u0003\u0002\u0002\u0002\n\u001f\u0003\u0002\u0002\u0002\f\u000e",
-    "\u0005\u0004\u0003\u0002\r\u000f\u0005\u0006\u0004\u0002\u000e\r\u0003",
-    "\u0002\u0002\u0002\u000e\u000f\u0003\u0002\u0002\u0002\u000f\u0003\u0003",
-    "\u0002\u0002\u0002\u0010\u0014\u0007\u0004\u0002\u0002\u0011\u0013\u0007",
-    "\u0004\u0002\u0002\u0012\u0011\u0003\u0002\u0002\u0002\u0013\u0016\u0003",
-    "\u0002\u0002\u0002\u0014\u0012\u0003\u0002\u0002\u0002\u0014\u0015\u0003",
-    "\u0002\u0002\u0002\u0015\u0005\u0003\u0002\u0002\u0002\u0016\u0014\u0003",
-    "\u0002\u0002\u0002\u0017\u0018\u0005\b\u0005\u0002\u0018\u0019\u0005",
-    "\n\u0006\u0002\u0019\u0007\u0003\u0002\u0002\u0002\u001a\u001c\u0007",
-    "\u0005\u0002\u0002\u001b\u001a\u0003\u0002\u0002\u0002\u001c\u001d\u0003",
-    "\u0002\u0002\u0002\u001d\u001b\u0003\u0002\u0002\u0002\u001d\u001e\u0003",
-    "\u0002\u0002\u0002\u001e\t\u0003\u0002\u0002\u0002\u001f \u0007\u0003",
-    "\u0002\u0002 \u000b\u0003\u0002\u0002\u0002\u0005\u000e\u0014\u001d"].join("");
+    "\u0005\u0004\u001a\n\u0004\u0003\u0005\u0006\u0005\u001d\n\u0005\r\u0005",
+    "\u000e\u0005\u001e\u0003\u0006\u0003\u0006\u0003\u0006\u0002\u0002\u0007",
+    "\u0002\u0004\u0006\b\n\u0002\u0003\u0003\u0002\u0003\u0004\u0002!\u0002",
+    "\f\u0003\u0002\u0002\u0002\u0004\u0010\u0003\u0002\u0002\u0002\u0006",
+    "\u0017\u0003\u0002\u0002\u0002\b\u001c\u0003\u0002\u0002\u0002\n \u0003",
+    "\u0002\u0002\u0002\f\u000e\u0005\u0004\u0003\u0002\r\u000f\u0005\u0006",
+    "\u0004\u0002\u000e\r\u0003\u0002\u0002\u0002\u000e\u000f\u0003\u0002",
+    "\u0002\u0002\u000f\u0003\u0003\u0002\u0002\u0002\u0010\u0014\u0007\u0005",
+    "\u0002\u0002\u0011\u0013\u0007\u0005\u0002\u0002\u0012\u0011\u0003\u0002",
+    "\u0002\u0002\u0013\u0016\u0003\u0002\u0002\u0002\u0014\u0012\u0003\u0002",
+    "\u0002\u0002\u0014\u0015\u0003\u0002\u0002\u0002\u0015\u0005\u0003\u0002",
+    "\u0002\u0002\u0016\u0014\u0003\u0002\u0002\u0002\u0017\u0019\u0005\b",
+    "\u0005\u0002\u0018\u001a\u0005\n\u0006\u0002\u0019\u0018\u0003\u0002",
+    "\u0002\u0002\u0019\u001a\u0003\u0002\u0002\u0002\u001a\u0007\u0003\u0002",
+    "\u0002\u0002\u001b\u001d\u0007\u0006\u0002\u0002\u001c\u001b\u0003\u0002",
+    "\u0002\u0002\u001d\u001e\u0003\u0002\u0002\u0002\u001e\u001c\u0003\u0002",
+    "\u0002\u0002\u001e\u001f\u0003\u0002\u0002\u0002\u001f\t\u0003\u0002",
+    "\u0002\u0002 !\t\u0002\u0002\u0002!\u000b\u0003\u0002\u0002\u0002\u0006",
+    "\u000e\u0014\u0019\u001e"].join("");
 
 
 const atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
@@ -36,8 +38,8 @@ const sharedContextCache = new antlr4.PredictionContextCache();
 export default class FoodDescriptionParser extends antlr4.Parser {
 
     static grammarFileName = "FoodDescription.g4";
-    static literalNames = [ null, "'cup'" ];
-    static symbolicNames = [ null, null, "STRING", "DIGIT", "WS" ];
+    static literalNames = [ null, "'cup'", "'small'" ];
+    static symbolicNames = [ null, null, null, "STRING", "DIGIT", "WS" ];
     static ruleNames = [ "foodDescription", "foodName", "measurement", "quantity", 
                          "unit" ];
 
@@ -124,12 +126,19 @@ export default class FoodDescriptionParser extends antlr4.Parser {
 	measurement() {
 	    let localctx = new MeasurementContext(this, this._ctx, this.state);
 	    this.enterRule(localctx, 4, FoodDescriptionParser.RULE_measurement);
+	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
 	        this.state = 21;
 	        this.quantity();
-	        this.state = 22;
-	        this.unit();
+	        this.state = 23;
+	        this._errHandler.sync(this);
+	        _la = this._input.LA(1);
+	        if(_la===FoodDescriptionParser.T__0 || _la===FoodDescriptionParser.T__1) {
+	            this.state = 22;
+	            this.unit();
+	        }
+
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
 		        localctx.exception = re;
@@ -152,13 +161,13 @@ export default class FoodDescriptionParser extends antlr4.Parser {
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 25; 
+	        this.state = 26; 
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        do {
-	            this.state = 24;
+	            this.state = 25;
 	            this.match(FoodDescriptionParser.DIGIT);
-	            this.state = 27; 
+	            this.state = 28; 
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
 	        } while(_la===FoodDescriptionParser.DIGIT);
@@ -181,10 +190,18 @@ export default class FoodDescriptionParser extends antlr4.Parser {
 	unit() {
 	    let localctx = new UnitContext(this, this._ctx, this.state);
 	    this.enterRule(localctx, 8, FoodDescriptionParser.RULE_unit);
+	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 29;
-	        this.match(FoodDescriptionParser.T__0);
+	        this.state = 30;
+	        _la = this._input.LA(1);
+	        if(!(_la===FoodDescriptionParser.T__0 || _la===FoodDescriptionParser.T__1)) {
+	        this._errHandler.recoverInline(this);
+	        }
+	        else {
+	        	this._errHandler.reportMatch(this);
+	            this.consume();
+	        }
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
 		        localctx.exception = re;
@@ -204,9 +221,10 @@ export default class FoodDescriptionParser extends antlr4.Parser {
 
 FoodDescriptionParser.EOF = antlr4.Token.EOF;
 FoodDescriptionParser.T__0 = 1;
-FoodDescriptionParser.STRING = 2;
-FoodDescriptionParser.DIGIT = 3;
-FoodDescriptionParser.WS = 4;
+FoodDescriptionParser.T__1 = 2;
+FoodDescriptionParser.STRING = 3;
+FoodDescriptionParser.DIGIT = 4;
+FoodDescriptionParser.WS = 5;
 
 FoodDescriptionParser.RULE_foodDescription = 0;
 FoodDescriptionParser.RULE_foodName = 1;
