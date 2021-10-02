@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 mvn clean package -f ./antlr4/food-description/pom.xml
-if [ ! -d "./gen-src/parser" ] 
+if [ ! -d "./src/generated/parser" ] 
 then
-    mkdir -p ./gen-src/parser
+    mkdir -p ./src/generated/parser
 fi
-cp ./antlr4/food-description/target/js/*.js ./gen-src/parser/
+cp ./antlr4/food-description/target/js/*.js ./src/generated/parser/
