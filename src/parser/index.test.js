@@ -5,7 +5,7 @@ test("parse 'brocoli 1 cup'", () => {
     {
       foodName: "brocoli",
       measurement: { 
-        number: "1",
+        quantity: "1",
         unit: "cup"
       }
     }
@@ -17,7 +17,7 @@ test("parse 'brocoli cooked 1 cup'", () => {
     {
       foodName: "brocoli cooked",
       measurement: { 
-        number: "1",
+        quantity: "1",
         unit: "cup"
       }
     }
@@ -29,7 +29,7 @@ test("case insensitive unit name 'Cup' instead of 'cup'", () => {
     {
       foodName: "brocoli cooked",
       measurement: { 
-        number: "1",
+        quantity: "1",
         unit: "cup"
       }
     }

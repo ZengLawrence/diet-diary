@@ -8,10 +8,10 @@ foodName
     ;
 
 measurement
-    : number unit
+    : quantity unit
     ;
 
-number
+quantity
   : DIGIT+
   ;
 

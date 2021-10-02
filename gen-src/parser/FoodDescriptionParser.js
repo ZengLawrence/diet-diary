@@ -38,7 +38,7 @@ export default class FoodDescriptionParser extends antlr4.Parser {
     static grammarFileName = "FoodDescription.g4";
     static literalNames = [ null, "'cup'" ];
     static symbolicNames = [ null, null, "STRING", "DIGIT", "WS" ];
-    static ruleNames = [ "foodDescription", "foodName", "measurement", "number", 
+    static ruleNames = [ "foodDescription", "foodName", "measurement", "quantity", 
                          "unit" ];
 
     constructor(input) {
@@ -127,7 +127,7 @@ export default class FoodDescriptionParser extends antlr4.Parser {
 	    try {
 	        this.enterOuterAlt(localctx, 1);
 	        this.state = 21;
-	        this.number();
+	        this.quantity();
 	        this.state = 22;
 	        this.unit();
 	    } catch (re) {
@@ -146,9 +146,9 @@ export default class FoodDescriptionParser extends antlr4.Parser {
 
 
 
-	number() {
-	    let localctx = new NumberContext(this, this._ctx, this.state);
-	    this.enterRule(localctx, 6, FoodDescriptionParser.RULE_number);
+	quantity() {
+	    let localctx = new QuantityContext(this, this._ctx, this.state);
+	    this.enterRule(localctx, 6, FoodDescriptionParser.RULE_quantity);
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
@@ -211,7 +211,7 @@ FoodDescriptionParser.WS = 4;
 FoodDescriptionParser.RULE_foodDescription = 0;
 FoodDescriptionParser.RULE_foodName = 1;
 FoodDescriptionParser.RULE_measurement = 2;
-FoodDescriptionParser.RULE_number = 3;
+FoodDescriptionParser.RULE_quantity = 3;
 FoodDescriptionParser.RULE_unit = 4;
 
 class FoodDescriptionContext extends antlr4.ParserRuleContext {
@@ -310,8 +310,8 @@ class MeasurementContext extends antlr4.ParserRuleContext {
         this.ruleIndex = FoodDescriptionParser.RULE_measurement;
     }
 
-	number() {
-	    return this.getTypedRuleContext(NumberContext,0);
+	quantity() {
+	    return this.getTypedRuleContext(QuantityContext,0);
 	};
 
 	unit() {
@@ -335,7 +335,7 @@ class MeasurementContext extends antlr4.ParserRuleContext {
 
 
 
-class NumberContext extends antlr4.ParserRuleContext {
+class QuantityContext extends antlr4.ParserRuleContext {
 
     constructor(parser, parent, invokingState) {
         if(parent===undefined) {
@@ -346,7 +346,7 @@ class NumberContext extends antlr4.ParserRuleContext {
         }
         super(parent, invokingState);
         this.parser = parser;
-        this.ruleIndex = FoodDescriptionParser.RULE_number;
+        this.ruleIndex = FoodDescriptionParser.RULE_quantity;
     }
 
 	DIGIT = function(i) {
@@ -363,13 +363,13 @@ class NumberContext extends antlr4.ParserRuleContext {
 
 	enterRule(listener) {
 	    if(listener instanceof FoodDescriptionListener ) {
-	        listener.enterNumber(this);
+	        listener.enterQuantity(this);
 		}
 	}
 
 	exitRule(listener) {
 	    if(listener instanceof FoodDescriptionListener ) {
-	        listener.exitNumber(this);
+	        listener.exitQuantity(this);
 		}
 	}
 
@@ -414,5 +414,5 @@ class UnitContext extends antlr4.ParserRuleContext {
 FoodDescriptionParser.FoodDescriptionContext = FoodDescriptionContext; 
 FoodDescriptionParser.FoodNameContext = FoodNameContext; 
 FoodDescriptionParser.MeasurementContext = MeasurementContext; 
-FoodDescriptionParser.NumberContext = NumberContext; 
+FoodDescriptionParser.QuantityContext = QuantityContext; 
 FoodDescriptionParser.UnitContext = UnitContext; 

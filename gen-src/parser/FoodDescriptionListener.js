@@ -32,12 +32,12 @@ export default class FoodDescriptionListener extends antlr4.tree.ParseTreeListen
 	}
 
 
-	// Enter a parse tree produced by FoodDescriptionParser#number.
-	enterNumber(ctx) {
+	// Enter a parse tree produced by FoodDescriptionParser#quantity.
+	enterQuantity(ctx) {
 	}
 
-	// Exit a parse tree produced by FoodDescriptionParser#number.
-	exitNumber(ctx) {
+	// Exit a parse tree produced by FoodDescriptionParser#quantity.
+	exitQuantity(ctx) {
 	}
 
 
