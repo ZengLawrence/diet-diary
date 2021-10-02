@@ -16,7 +16,8 @@ quantity
   ;
 
 unit
-  : 'cup' | 'small'
+  : 'cup' | 'cups' 
+  | 'small'
   ;
 
 STRING
