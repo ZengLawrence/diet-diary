@@ -1,7 +1,7 @@
 import antlr4 from 'antlr4';
-import FoodDescriptionLexer from '../../gen-src/parser/FoodDescriptionLexer';
-import FoodDescriptionParser from '../../gen-src/parser/FoodDescriptionParser';
-import FoodDescriptionListener from '../../gen-src/parser/FoodDescriptionListener';
+import FoodDescriptionLexer from '../../../../gen-src/parser/FoodDescriptionLexer';
+import FoodDescriptionParser from '../../../../gen-src/parser/FoodDescriptionParser';
+import FoodDescriptionListener from '../../../../gen-src/parser/FoodDescriptionListener';
 import _ from 'lodash';
 import { CaseChangingStream } from './CaseChangingStream';
 
