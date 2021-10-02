@@ -31,10 +31,25 @@ class FoodDescriptionDecomposer extends FoodDescriptionListener {
   }
 }
 
+class SyntaxErrorListener extends antlr4.error.ErrorListener {
+  constructor() {
+    super();
+    this.hasError = false;
+  }
+
+  syntaxError(recognizer, offendingSymbol, line, column, msg, e) {
+    this.hasError = true;
+  }
+
+}
+
 export function parseFoodDescription(input) {
   const chars = new antlr4.InputStream(input);
   const lowerCaseChars = new CaseChangingStream(chars, false);
   const lexer = new FoodDescriptionLexer(lowerCaseChars);
+  const errorListener = new SyntaxErrorListener(); 
+  lexer.removeErrorListeners();
+  lexer.addErrorListener(errorListener);
   const tokens = new antlr4.CommonTokenStream(lexer);
   const parser = new FoodDescriptionParser(tokens);
   parser.buildParseTrees = true;
@@ -42,5 +57,9 @@ export function parseFoodDescription(input) {
   const decomposer = new FoodDescriptionDecomposer(input);
   antlr4.tree.ParseTreeWalker.DEFAULT.walk(decomposer, tree);
 
-  return decomposer.getContent();
+  const parsed = decomposer.getContent();
+  if (errorListener.hasError) {
+    _.set(parsed, "hasError", true);
+  }
+  return parsed;
 }

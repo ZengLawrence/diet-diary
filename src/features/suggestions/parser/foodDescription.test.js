@@ -43,3 +43,12 @@ test("food name only", () => {
     }
   );
 })
+
+test("contain un-parsable char", () => {
+  expect(parseFoodDescription("brocoli cooked ~")).toMatchObject(
+    {
+      foodName: "brocoli cooked",
+      hasError: true
+    }
+  );
+})
