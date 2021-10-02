@@ -4,29 +4,26 @@ import antlr4 from 'antlr4';
 import FoodDescriptionListener from './FoodDescriptionListener.js';
 
 const serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786",
-    "\u5964\u0003\n#\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004",
+    "\u5964\u0003\n \u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004",
     "\t\u0004\u0004\u0005\t\u0005\u0004\u0006\t\u0006\u0003\u0002\u0003\u0002",
     "\u0005\u0002\u000f\n\u0002\u0003\u0003\u0003\u0003\u0007\u0003\u0013",
     "\n\u0003\f\u0003\u000e\u0003\u0016\u000b\u0003\u0003\u0004\u0003\u0004",
-    "\u0005\u0004\u001a\n\u0004\u0003\u0005\u0006\u0005\u001d\n\u0005\r\u0005",
-    "\u000e\u0005\u001e\u0003\u0006\u0003\u0006\u0003\u0006\u0002\u0002\u0007",
-    "\u0002\u0004\u0006\b\n\u0002\u0003\u0003\u0002\u0003\u0007\u0002!\u0002",
-    "\f\u0003\u0002\u0002\u0002\u0004\u0010\u0003\u0002\u0002\u0002\u0006",
-    "\u0017\u0003\u0002\u0002\u0002\b\u001c\u0003\u0002\u0002\u0002\n \u0003",
-    "\u0002\u0002\u0002\f\u000e\u0005\u0004\u0003\u0002\r\u000f\u0005\u0006",
-    "\u0004\u0002\u000e\r\u0003\u0002\u0002\u0002\u000e\u000f\u0003\u0002",
-    "\u0002\u0002\u000f\u0003\u0003\u0002\u0002\u0002\u0010\u0014\u0007\b",
-    "\u0002\u0002\u0011\u0013\u0007\b\u0002\u0002\u0012\u0011\u0003\u0002",
-    "\u0002\u0002\u0013\u0016\u0003\u0002\u0002\u0002\u0014\u0012\u0003\u0002",
-    "\u0002\u0002\u0014\u0015\u0003\u0002\u0002\u0002\u0015\u0005\u0003\u0002",
-    "\u0002\u0002\u0016\u0014\u0003\u0002\u0002\u0002\u0017\u0019\u0005\b",
-    "\u0005\u0002\u0018\u001a\u0005\n\u0006\u0002\u0019\u0018\u0003\u0002",
-    "\u0002\u0002\u0019\u001a\u0003\u0002\u0002\u0002\u001a\u0007\u0003\u0002",
-    "\u0002\u0002\u001b\u001d\u0007\t\u0002\u0002\u001c\u001b\u0003\u0002",
-    "\u0002\u0002\u001d\u001e\u0003\u0002\u0002\u0002\u001e\u001c\u0003\u0002",
-    "\u0002\u0002\u001e\u001f\u0003\u0002\u0002\u0002\u001f\t\u0003\u0002",
-    "\u0002\u0002 !\t\u0002\u0002\u0002!\u000b\u0003\u0002\u0002\u0002\u0006",
-    "\u000e\u0014\u0019\u001e"].join("");
+    "\u0005\u0004\u001a\n\u0004\u0003\u0005\u0003\u0005\u0003\u0006\u0003",
+    "\u0006\u0003\u0006\u0002\u0002\u0007\u0002\u0004\u0006\b\n\u0002\u0003",
+    "\u0003\u0002\u0003\u0007\u0002\u001d\u0002\f\u0003\u0002\u0002\u0002",
+    "\u0004\u0010\u0003\u0002\u0002\u0002\u0006\u0017\u0003\u0002\u0002\u0002",
+    "\b\u001b\u0003\u0002\u0002\u0002\n\u001d\u0003\u0002\u0002\u0002\f\u000e",
+    "\u0005\u0004\u0003\u0002\r\u000f\u0005\u0006\u0004\u0002\u000e\r\u0003",
+    "\u0002\u0002\u0002\u000e\u000f\u0003\u0002\u0002\u0002\u000f\u0003\u0003",
+    "\u0002\u0002\u0002\u0010\u0014\u0007\b\u0002\u0002\u0011\u0013\u0007",
+    "\b\u0002\u0002\u0012\u0011\u0003\u0002\u0002\u0002\u0013\u0016\u0003",
+    "\u0002\u0002\u0002\u0014\u0012\u0003\u0002\u0002\u0002\u0014\u0015\u0003",
+    "\u0002\u0002\u0002\u0015\u0005\u0003\u0002\u0002\u0002\u0016\u0014\u0003",
+    "\u0002\u0002\u0002\u0017\u0019\u0005\b\u0005\u0002\u0018\u001a\u0005",
+    "\n\u0006\u0002\u0019\u0018\u0003\u0002\u0002\u0002\u0019\u001a\u0003",
+    "\u0002\u0002\u0002\u001a\u0007\u0003\u0002\u0002\u0002\u001b\u001c\u0007",
+    "\t\u0002\u0002\u001c\t\u0003\u0002\u0002\u0002\u001d\u001e\t\u0002\u0002",
+    "\u0002\u001e\u000b\u0003\u0002\u0002\u0002\u0005\u000e\u0014\u0019"].join("");
 
 
 const atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
@@ -41,7 +38,7 @@ export default class FoodDescriptionParser extends antlr4.Parser {
     static literalNames = [ null, "'cup'", "'cups'", "'small'", "'medium'", 
                             "'large'" ];
     static symbolicNames = [ null, null, null, null, null, null, "STRING", 
-                             "DIGIT", "WS" ];
+                             "DECIMAL", "WS" ];
     static ruleNames = [ "foodDescription", "foodName", "measurement", "quantity", 
                          "unit" ];
 
@@ -70,7 +67,7 @@ export default class FoodDescriptionParser extends antlr4.Parser {
 	        this.state = 12;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
-	        if(_la===FoodDescriptionParser.DIGIT) {
+	        if(_la===FoodDescriptionParser.DECIMAL) {
 	            this.state = 11;
 	            this.measurement();
 	        }
@@ -160,19 +157,10 @@ export default class FoodDescriptionParser extends antlr4.Parser {
 	quantity() {
 	    let localctx = new QuantityContext(this, this._ctx, this.state);
 	    this.enterRule(localctx, 6, FoodDescriptionParser.RULE_quantity);
-	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 26; 
-	        this._errHandler.sync(this);
-	        _la = this._input.LA(1);
-	        do {
-	            this.state = 25;
-	            this.match(FoodDescriptionParser.DIGIT);
-	            this.state = 28; 
-	            this._errHandler.sync(this);
-	            _la = this._input.LA(1);
-	        } while(_la===FoodDescriptionParser.DIGIT);
+	        this.state = 25;
+	        this.match(FoodDescriptionParser.DECIMAL);
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
 		        localctx.exception = re;
@@ -195,7 +183,7 @@ export default class FoodDescriptionParser extends antlr4.Parser {
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 30;
+	        this.state = 27;
 	        _la = this._input.LA(1);
 	        if(!((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << FoodDescriptionParser.T__0) | (1 << FoodDescriptionParser.T__1) | (1 << FoodDescriptionParser.T__2) | (1 << FoodDescriptionParser.T__3) | (1 << FoodDescriptionParser.T__4))) !== 0))) {
 	        this._errHandler.recoverInline(this);
@@ -228,7 +216,7 @@ FoodDescriptionParser.T__2 = 3;
 FoodDescriptionParser.T__3 = 4;
 FoodDescriptionParser.T__4 = 5;
 FoodDescriptionParser.STRING = 6;
-FoodDescriptionParser.DIGIT = 7;
+FoodDescriptionParser.DECIMAL = 7;
 FoodDescriptionParser.WS = 8;
 
 FoodDescriptionParser.RULE_foodDescription = 0;
@@ -372,17 +360,9 @@ class QuantityContext extends antlr4.ParserRuleContext {
         this.ruleIndex = FoodDescriptionParser.RULE_quantity;
     }
 
-	DIGIT = function(i) {
-		if(i===undefined) {
-			i = null;
-		}
-	    if(i===null) {
-	        return this.getTokens(FoodDescriptionParser.DIGIT);
-	    } else {
-	        return this.getToken(FoodDescriptionParser.DIGIT, i);
-	    }
+	DECIMAL() {
+	    return this.getToken(FoodDescriptionParser.DECIMAL, 0);
 	};
-
 
 	enterRule(listener) {
 	    if(listener instanceof FoodDescriptionListener ) {

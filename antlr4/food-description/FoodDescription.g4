@@ -12,7 +12,7 @@ measurement
     ;
 
 quantity
-  : DIGIT+
+  : DECIMAL
   ;
 
 unit
@@ -24,7 +24,8 @@ STRING
    : [a-zA-Z]+ | [0-9][a-zA-Z%]+
    ;
 
-DIGIT : [0-9];
+fragment DIGIT : [0-9];
+DECIMAL : DIGIT+ '.'? DIGIT* | '.' DIGIT+;
 
 WS
    : [ \t\r\n]+ -> skip

@@ -108,3 +108,27 @@ test("unit 'large'", () => {
     }
   );
 })
+
+test("decimal unit e.g. 0.5", () => {
+  expect(parseFoodDescription("brocoli 0.5 cup")).toMatchObject(
+    {
+      foodName: "brocoli",
+      measurement: { 
+        quantity: "0.5",
+        unit: "cup"
+      }
+    }
+  );
+})
+
+test("decimal unit, no leading zero e.g. .5", () => {
+  expect(parseFoodDescription("brocoli .5 cup")).toMatchObject(
+    {
+      foodName: "brocoli",
+      measurement: { 
+        quantity: ".5",
+        unit: "cup"
+      }
+    }
+  );
+})
