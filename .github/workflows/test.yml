@@ -30,6 +30,7 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
+        cache: maven
     - name: Generate parser source code
       run: npm run gen-parser
     - run: npm ci
