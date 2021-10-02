@@ -44,10 +44,13 @@ class SyntaxErrorListener extends antlr4.error.ErrorListener {
 }
 
 export function parseFoodDescription(input) {
+
+  if (_.isEmpty(input)) return { foodName: "" };
+
   const chars = new antlr4.InputStream(input);
   const lowerCaseChars = new CaseChangingStream(chars, false);
   const lexer = new FoodDescriptionLexer(lowerCaseChars);
-  const errorListener = new SyntaxErrorListener(); 
+  const errorListener = new SyntaxErrorListener();
   lexer.removeErrorListeners();
   lexer.addErrorListener(errorListener);
   const tokens = new antlr4.CommonTokenStream(lexer);

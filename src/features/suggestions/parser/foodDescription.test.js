@@ -52,3 +52,11 @@ test("contain un-parsable char", () => {
     }
   );
 })
+
+test("empty string", () => {
+  expect(parseFoodDescription("")).toMatchObject(
+    {
+      foodName: ""
+    }
+  );
+})
