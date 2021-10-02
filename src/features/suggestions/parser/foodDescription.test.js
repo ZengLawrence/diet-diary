@@ -72,3 +72,39 @@ test("empty string", () => {
     }
   );
 })
+
+test("unit 'small'", () => {
+  expect(parseFoodDescription("banana 1 small")).toMatchObject(
+    {
+      foodName: "banana",
+      measurement: { 
+        quantity: "1",
+        unit: "small"
+      }
+    }
+  );
+})
+
+test("unit 'medium'", () => {
+  expect(parseFoodDescription("banana 1 medium")).toMatchObject(
+    {
+      foodName: "banana",
+      measurement: { 
+        quantity: "1",
+        unit: "medium"
+      }
+    }
+  );
+})
+
+test("unit 'large'", () => {
+  expect(parseFoodDescription("banana 1 large")).toMatchObject(
+    {
+      foodName: "banana",
+      measurement: { 
+        quantity: "1",
+        unit: "large"
+      }
+    }
+  );
+})
