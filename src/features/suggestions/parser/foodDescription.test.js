@@ -1,4 +1,4 @@
-import { parseFoodDescription } from ".";
+import { parseFoodDescription } from "./foodDescription";
 
 test("parse 'brocoli 1 cup'", () => {
   expect(parseFoodDescription("brocoli 1 cup")).toMatchObject(
