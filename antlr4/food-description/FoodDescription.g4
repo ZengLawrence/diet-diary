@@ -4,7 +4,7 @@ foodDescription
   ;
   
 foodName
-    : STRING STRING*
+    : STRING+
     ;
 
 measurement
