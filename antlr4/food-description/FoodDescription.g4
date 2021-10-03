@@ -17,6 +17,7 @@ quantity
 
 unit
   : 'cup' | 'cups' 
+  | 'ounce' | 'ounces' | 'oz'
   | 'mini' | 'small' | 'medium' | 'large'
   ;
 
