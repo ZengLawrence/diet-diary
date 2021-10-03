@@ -16,21 +16,8 @@ quantity
   ;
 
 unit
-  : CUP 
-  | OUNCE
-  | TABLESPOON
-  | TEASPOON
-  | MINI | SMALL | MEDIUM | LARGE
+  : STRING
   ;
-
-CUP : 'cup' | 'cups';
-OUNCE : 'ounce' | 'ounces' | 'oz';
-TABLESPOON : 'tablespoon' | 'tablespoons' | 'tbsp';
-TEASPOON : 'teaspoon' | 'teaspoons' | 'tsp';
-MINI : 'mini';
-SMALL : 'small';
-MEDIUM : 'medium';
-LARGE : 'large';
 
 STRING
    : [a-zA-Z]+ | [0-9][a-zA-Z%]+
