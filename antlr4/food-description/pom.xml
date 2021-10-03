@@ -74,7 +74,7 @@
 						<scenario>
 							<scenarioName>food-description</scenarioName>
 							<verbose>false</verbose>
-							<showTree>true</showTree>
+							<showTree>false</showTree>
 							<entryPoint>foodDescription</entryPoint>
 							<grammarName>FoodDescription</grammarName>
 							<packageName></packageName>
