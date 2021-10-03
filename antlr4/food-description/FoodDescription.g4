@@ -18,6 +18,7 @@ quantity
 unit
   : 'cup' | 'cups' 
   | 'ounce' | 'ounces' | 'oz'
+  | 'tablespoon' | 'tablespoons' | 'tbsp'
   | 'mini' | 'small' | 'medium' | 'large'
   ;
 
