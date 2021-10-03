@@ -16,12 +16,21 @@ quantity
   ;
 
 unit
-  : 'cup' | 'cups' 
-  | 'ounce' | 'ounces' | 'oz'
-  | 'tablespoon' | 'tablespoons' | 'tbsp'
-  | 'teaspoon' | 'teaspoons' | 'tsp'
-  | 'mini' | 'small' | 'medium' | 'large'
+  : CUP 
+  | OUNCE
+  | TABLESPOON
+  | TEASPOON
+  | MINI | SMALL | MEDIUM | LARGE
   ;
+
+CUP : 'cup' | 'cups';
+OUNCE : 'ounce' | 'ounces' | 'oz';
+TABLESPOON : 'tablespoon' | 'tablespoons' | 'tbsp';
+TEASPOON : 'teaspoon' | 'teaspoons' | 'tsp';
+MINI : 'mini';
+SMALL : 'small';
+MEDIUM : 'medium';
+LARGE : 'large';
 
 STRING
    : [a-zA-Z]+ | [0-9][a-zA-Z%]+
