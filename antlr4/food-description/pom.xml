@@ -80,15 +80,6 @@
 							<packageName></packageName>
 							<exampleFiles>examples/</exampleFiles>
 						</scenario>
-						<scenario>
-							<scenarioName>unit</scenarioName>
-							<verbose>false</verbose>
-							<showTree>false</showTree>
-							<entryPoint>unit</entryPoint>
-							<grammarName>FoodDescription</grammarName>
-							<packageName></packageName>
-							<exampleFiles>examples-unit/</exampleFiles>
-						</scenario>
 					</scenarios>
 				</configuration>
 				<executions>
