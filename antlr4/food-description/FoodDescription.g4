@@ -19,6 +19,7 @@ unit
   : 'cup' | 'cups' 
   | 'ounce' | 'ounces' | 'oz'
   | 'tablespoon' | 'tablespoons' | 'tbsp'
+  | 'teaspoon' | 'teaspoons' | 'tsp'
   | 'mini' | 'small' | 'medium' | 'large'
   ;
 
