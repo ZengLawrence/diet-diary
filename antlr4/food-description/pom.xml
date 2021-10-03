@@ -63,17 +63,33 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<!-- run food description tests -->
 			<plugin>
 				<groupId>com.khubla.antlr</groupId>
 				<artifactId>antlr4test-maven-plugin</artifactId>
 				<version>${antlr4test-maven-plugin.version}</version>
 				<configuration>
-					<verbose>false</verbose>
-					<showTree>true</showTree>
-					<entryPoint>foodDescription</entryPoint>
-					<grammarName>FoodDescription</grammarName>
-					<packageName></packageName>
-					<exampleFiles>examples/</exampleFiles>
+					<scenarios>
+						<scenario>
+							<scenarioName>food-description</scenarioName>
+							<verbose>false</verbose>
+							<showTree>true</showTree>
+							<entryPoint>foodDescription</entryPoint>
+							<grammarName>FoodDescription</grammarName>
+							<packageName></packageName>
+							<exampleFiles>examples/</exampleFiles>
+						</scenario>
+						<scenario>
+							<scenarioName>unit</scenarioName>
+							<verbose>false</verbose>
+							<showTree>true</showTree>
+							<entryPoint>unit</entryPoint>
+							<grammarName>FoodDescription</grammarName>
+							<packageName></packageName>
+							<exampleFiles>examples-unit/</exampleFiles>
+						</scenario>
+					</scenarios>
 				</configuration>
 				<executions>
 					<execution>
