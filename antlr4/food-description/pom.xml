@@ -83,7 +83,7 @@
 						<scenario>
 							<scenarioName>unit</scenarioName>
 							<verbose>false</verbose>
-							<showTree>true</showTree>
+							<showTree>false</showTree>
 							<entryPoint>unit</entryPoint>
 							<grammarName>FoodDescription</grammarName>
 							<packageName></packageName>

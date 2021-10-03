@@ -17,7 +17,7 @@ quantity
 
 unit
   : 'cup' | 'cups' 
-  | 'small' | 'medium' | 'large'
+  | 'mini' | 'small' | 'medium' | 'large'
   ;
 
 STRING
