@@ -25,6 +25,12 @@ test("exact search term appears in the middle of name e.g. peanuts should return
   expect(results[0]).toMatchObject({ "foodName": "Nuts, peanuts" });
 })
 
+test("singular search term match plural term e.g. 'peanut' should return at least one row and first row is 'Nuts, peanuts'", () => {
+  const results = searchFoodServingSize("peanut");
+  expect(_.size(results)).toBeGreaterThanOrEqual(1);
+  expect(results[0]).toMatchObject({ "foodName": "Nuts, peanuts" });
+})
+
 test("drop last word - last search term not found e.g. 'coconut chew' should return at least one row and first row is 'Coconut, shredded, sweetened'", () => {
   const results = searchFoodServingSize("coconut chew");
   expect(_.size(results)).toBeGreaterThanOrEqual(1);
