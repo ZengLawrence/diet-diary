@@ -1,7 +1,7 @@
 import _ from "lodash";
 import servings from "./servings";
 import { ServingSuggestion } from "./ServingSuggestion";
-import { buildDocuments, search } from "../search/fuseSearchEngine";
+import { buildDocuments, search } from "../search/miniSearchEngine";
 
 const suggestions = buildDocuments<ServingSuggestion>(servings);
 
