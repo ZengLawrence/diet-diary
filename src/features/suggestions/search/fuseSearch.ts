@@ -15,7 +15,7 @@ export function search<T>(
   return searchByPhrase(fuse, foodName, scorePredicate);
 }
 
-export function fuzzySearch<T>(list : T[]) {
+export function buildDocuments<T>(list : T[]) {
 
   const options = {
     // isCaseSensitive: false,
