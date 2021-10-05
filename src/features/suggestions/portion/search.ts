@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { fuzzySearch, scoreLessThan, search } from "../fuzzySearch";
+import { fuzzySearch, scoreLessThan, search } from "../search/fuseSearch";
 import { PortionSuggestion } from "./PortionSuggestion";
 import portions from "./portions";
 

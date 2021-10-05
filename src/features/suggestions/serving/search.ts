@@ -1,7 +1,7 @@
 import _ from "lodash";
 import servings from "./servings";
 import { ServingSuggestion } from "./ServingSuggestion";
-import { fuzzySearch, search } from "../fuzzySearch";
+import { fuzzySearch, search } from "../search/fuseSearch";
 
 const suggestions = fuzzySearch<ServingSuggestion>(servings);
 
