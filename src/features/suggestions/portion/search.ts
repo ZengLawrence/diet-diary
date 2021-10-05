@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { buildDocuments, search } from "../search/fuseSearch";
+import { buildDocuments, search } from "../search/fuseSearchEngine";
 import { scoreLessThan } from "../search/ScorePredicate";
 import { PortionSuggestion } from "./PortionSuggestion";
 import portions from "./portions";
