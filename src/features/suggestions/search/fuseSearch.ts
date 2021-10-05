@@ -1,7 +1,6 @@
 import Fuse from "fuse.js";
 import _ from "lodash";
-
-type ScorePredicate = (res: { score: number; }) => boolean;
+import { ScorePredicate } from "./ScorePredicate";
 
 function searchByPhrase<T>(fuse: Fuse<T>, phrase: string, scorePredicate: ScorePredicate) {
   const match = (phrase: string) => fuse.search(phrase);
@@ -14,12 +13,6 @@ export function search<T>(
   scorePredicate: ScorePredicate = () => true
 ) {
   return searchByPhrase(fuse, foodName, scorePredicate);
-}
-
-export const scoreLessThan = (limit: number) => {
-  return function ({ score }: { score: number; }) {
-    return score < limit;
-  };
 }
 
 export function fuzzySearch<T>(list : T[]) {
