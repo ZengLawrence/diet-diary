@@ -12,7 +12,7 @@ export function search<T>(
   foodName: string,
   scorePredicate: ScorePredicate = () => true
 ) {
-  return searchByPhrase(fuse, foodName, scorePredicate);
+  return _.map(searchByPhrase(fuse, foodName, scorePredicate), 'item');
 }
 
 export function buildDocuments<T>(list : T[]) {

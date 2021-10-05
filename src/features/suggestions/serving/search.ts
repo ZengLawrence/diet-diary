@@ -6,4 +6,4 @@ import { buildDocuments, search } from "../search/fuseSearchEngine";
 const suggestions = buildDocuments<ServingSuggestion>(servings);
 
 export const searchFoodServingSize = (foodName: string) =>
-  _.map(_.slice(search(suggestions, foodName), 0, 2), "item");
+  _.slice(search(suggestions, foodName), 0, 2);

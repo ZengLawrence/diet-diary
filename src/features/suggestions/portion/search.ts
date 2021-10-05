@@ -7,4 +7,4 @@ import portions from "./portions";
 const suggestions = buildDocuments<PortionSuggestion>(portions);
 
 export const searchFoodPortionSize = (foodName: string) =>
-  _.slice(_.map(search(suggestions, foodName, scoreLessThan(0.6)), "item"), 0, 2);
+  _.slice(search(suggestions, foodName, scoreLessThan(0.6)), 0, 2);
