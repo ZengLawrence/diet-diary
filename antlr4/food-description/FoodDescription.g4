@@ -4,7 +4,7 @@ foodDescription
   ;
   
 foodName
-    : STRING+
+    : STRING (COMMA | STRING)*
     ;
 
 measurement
@@ -25,6 +25,8 @@ STRING
 
 fragment DIGIT : [0-9];
 DECIMAL : DIGIT+ '.'? DIGIT* | '.' DIGIT+;
+
+COMMA : ',' -> channel(HIDDEN) ;
 
 WS
    : [ \t\r\n]+ -> skip
