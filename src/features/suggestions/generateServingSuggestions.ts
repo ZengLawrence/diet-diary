@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { foodName } from "./foodName";
+import { foodName } from "./parser/foodName";
 import { searchFoodPortionSize } from "./portion/search";
 import { PortionSuggestion } from "./PortionSuggestion";
 import { searchFoodServingSize } from "./serving/search";
