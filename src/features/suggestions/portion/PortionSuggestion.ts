@@ -1,4 +1,4 @@
-import { Serving } from "../../model/Food";
+import { Serving } from "../../../model/Food";
 
 export interface PortionSuggestion {
   foodName: string;

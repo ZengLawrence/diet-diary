@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { fuzzySearch, scoreLessThan, search } from "../fuzzySearch";
-import { PortionSuggestion } from "../PortionSuggestion";
+import { PortionSuggestion } from "./PortionSuggestion";
 import portions from "./portions";
 
 const suggestions = fuzzySearch<PortionSuggestion>(portions);

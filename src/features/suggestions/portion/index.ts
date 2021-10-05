@@ -1,6 +1,6 @@
 import { foodName } from "../parser/foodName";
 import { searchFoodPortionSize } from "./search";
-import { PortionSuggestion } from "../PortionSuggestion";
+import { PortionSuggestion } from "./PortionSuggestion";
 
 function findPortionSuggestions(foodDescription: string) {
   return searchFoodPortionSize(foodName(foodDescription));
