@@ -21,3 +21,26 @@ export const scoreLessThan = (limit: number) => {
     return score < limit;
   };
 }
+
+export function fuzzySearch<T>(list : T[]) {
+
+  const options = {
+    // isCaseSensitive: false,
+    includeScore: true,
+    shouldSort: true,
+    // includeMatches: false,
+    // findAllMatches: false,
+    minMatchCharLength: 3,
+    // location: 0,
+    // threshold: 0.6,
+    // distance: 100,
+    // useExtendedSearch: false,
+    // ignoreLocation: false,
+    // ignoreFieldNorm: false,
+    keys: [
+      "foodName",
+    ]
+  };
+    
+  return new Fuse<T>(list, options);
+}
