@@ -40,5 +40,5 @@ test("search term appears exactly in the name e.g. 'Corn on the cob' should retu
 test("search term appears in the second node in the name e.g. 'salmon' in 'Fish, Atlantic salmon, grilled or boiled' should return that row", () => {
   const results = searchFoodServingSize("salmon");
   expect(_.size(results)).toBeGreaterThanOrEqual(1);
-  expect(results[1]).toMatchObject({ "foodName": "Fish, Atlantic salmon, grilled or boiled" });
+  expect(results[0]).toMatchObject({ "foodName": "Fish, Atlantic salmon, grilled or boiled" });
 })

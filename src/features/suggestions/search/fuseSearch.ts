@@ -28,7 +28,7 @@ export function fuzzySearch<T>(list : T[]) {
     // threshold: 0.6,
     // distance: 100,
     // useExtendedSearch: false,
-    // ignoreLocation: false,
+    ignoreLocation: true,
     // ignoreFieldNorm: false,
     keys: [
       "foodName",
