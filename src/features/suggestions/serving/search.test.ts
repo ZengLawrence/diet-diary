@@ -48,3 +48,9 @@ test("search term appears in the second node in the name e.g. 'salmon' in 'Fish,
   expect(_.size(results)).toBeGreaterThanOrEqual(1);
   expect(results[0]).toMatchObject({ "foodName": "Fish, Atlantic salmon, grilled or boiled" });
 })
+
+test("search term appears in different order as in the list e.g. 'Italian salad dressing fat free' in 'Salad dressing, Italian, fat-free' should return that row", () => {
+  const results = searchFoodServingSize("Italian salad dressing fat free");
+  expect(_.size(results)).toBeGreaterThanOrEqual(1);
+  expect(results[0]).toMatchObject({ "foodName": "Salad dressing, Italian, fat-free" });
+})
