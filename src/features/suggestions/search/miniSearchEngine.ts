@@ -5,18 +5,18 @@ function addIndexAsId(obj: object, i: number) { return _.set(obj, "id", i); }
 
 export function buildDocuments<T extends object>(list: T[]) {
   const miniSearch = new MiniSearch({
-    fields: ['foodName'],
-    storeFields: ['foodName', 'servingSize', 'bestChoice']
+    fields: ['foodName']
   })
 
-  const docs = _.map(list, addIndexAsId);
-  miniSearch.addAll(docs);
-  return miniSearch;
+  miniSearch.addAll(_.map(list, addIndexAsId));
+  return { miniSearch, list };
 }
 
 export function search<T>(
-  docs: MiniSearch<T>,
+  docs: { miniSearch: MiniSearch<T>, list: T[] },
   foodName: string
 ) {
-  return docs.search(foodName, { fuzzy: true });
+  const { miniSearch, list } = docs;
+  const options = { fuzzy: true };
+  return _.map(miniSearch.search(foodName, options), res => list[res.id]);
 }
