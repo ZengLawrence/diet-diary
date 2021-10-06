@@ -3,15 +3,19 @@ import MiniSearch, { SearchResult } from 'minisearch';
 
 function addIndexAsId(obj: object, i: number) { return _.set(obj, "id", i); }
 
+function find<T>(list: T[], res: SearchResult) {
+  return list[res.id];
+}
+
 export function buildDocuments<T extends object>(list: T[]) {
   const miniSearch = new MiniSearch({
     fields: ['foodName']
   })
 
   miniSearch.addAll(_.map(list, addIndexAsId));
-  return { 
-    miniSearch, 
-    list, 
+  return {
+    miniSearch,
+    lookUp : _.partial(find, list),
   }
 }
 
@@ -21,9 +25,9 @@ function perform<T>(miniSearch: MiniSearch<T>, foodName: string) {
 }
 
 export function search<T>(
-  docs: { miniSearch: MiniSearch<T>, list: T[] },
+  docs: { miniSearch: MiniSearch<T>, lookUp: (res: SearchResult) => T },
   foodName: string
 ) {
-  const { miniSearch, list } = docs;
-  return _.map(perform(miniSearch, foodName), res => list[res.id]);
+  const { miniSearch, lookUp } = docs;
+  return _.map(perform(miniSearch, foodName), lookUp);
 }
