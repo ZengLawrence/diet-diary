@@ -5,6 +5,16 @@ import { PortionSuggestionFormText } from "./PortionSuggestionFormText";
 import { ServingInputControl } from "./ServingInputControl";
 import { ServingSuggestionFormText } from "./ServingSuggestionFormText";
 import { useFoodInputFormStateReducer } from "./useFoodInputFormStateReducer";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption,
+} from "@reach/combobox";
+import "@reach/combobox/styles.css";
+import { Fragment } from "react";
+import { PortionSuggestion, ServingSuggestion } from "../../features/suggestions";
 
 export type ButtonLabel = "Add" | "Update";
 
@@ -14,6 +24,50 @@ interface Props {
   onSaveFood: (food: Food) => void;
   onCancel: () => void
 }
+
+const FoodNameInput = (props: {
+  foodName: string;
+  suggestions: { servingSuggestions: ServingSuggestion[]; portionSuggestions: PortionSuggestion[] };
+  invalid?: boolean;
+  updateFoodName: (name: string) => void;
+}) => (
+  <Fragment>
+    <Form.Label htmlFor="inputFoodName" srOnly>Food name</Form.Label>
+    <Combobox className="w-100">
+      <ComboboxInput
+        id="inputFoodName"
+        type="text"
+        value={props.foodName}
+        required
+        placeholder="Broccoli steamed 1 cup"
+        onChange={e => props.updateFoodName(e.target.value)}
+        aria-labelledby="inputFoodName"
+        className={props.invalid ? "form-control is-invalid" : "form-control"}
+      />
+      <ComboboxPopover>
+        <ComboboxList aria-labelledby="inputFoodName">
+          {props.suggestions.servingSuggestions.map((suggestion, index) => (
+            <ComboboxOption
+              key={"s-" + index}
+              value={suggestion.foodName}
+              onClick={() => props.updateFoodName(suggestion.foodName)}
+            />
+          ))}
+          {props.suggestions.portionSuggestions.map((suggestion, index) => (
+            <ComboboxOption
+              key={"p-" + index}
+              value={suggestion.foodName}
+              onClick={() => props.updateFoodName(suggestion.foodName)}
+            />
+          ))}
+        </ComboboxList>
+      </ComboboxPopover>
+    </Combobox>
+    <Form.Control.Feedback type="invalid">
+      Please enter food name.
+    </Form.Control.Feedback>
+  </Fragment>
+)
 
 export const FoodInputForm = (props: Props) => {
   const [state, fns] = useFoodInputFormStateReducer(props.food, props.onSaveFood);
@@ -26,21 +80,13 @@ export const FoodInputForm = (props: Props) => {
       onSubmit={handleSubmit}
       className="border p-1"
     >
-
       <Form.Group as={Form.Row} className="ml-1 mr-1">
-        <Form.Label htmlFor="inputFoodName" srOnly>Food name</Form.Label>
-        <Form.Control
-          id="inputFoodName"
-          type="text"
-          value={food.name}
-          required
-          placeholder="Broccoli steamed 1 cup"
-          isInvalid={error.foodName}
-          onChange={e => updateFoodName(e.target.value)}
+        <FoodNameInput
+          foodName={food.name}
+          suggestions={suggestions}
+          invalid={error.foodName}
+          updateFoodName={updateFoodName}
         />
-        <Form.Control.Feedback type="invalid">
-          Please enter food name.
-        </Form.Control.Feedback>
         <div className="d-flex flex-column w-100">
           <ServingSuggestionFormText
             suggestions={suggestions.servingSuggestions}
