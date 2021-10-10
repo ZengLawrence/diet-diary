@@ -5,7 +5,6 @@ import { generateSuggestions, PortionSuggestion, ServingSuggestion } from "../..
 import { Food, FoodGroup } from "../../model/Food";
 import { minus, oneServingOf, positiveServing } from "../../model/servingFunction";
 import { initSelectable, Selectable } from "../../model/Selectable";
-import { separateSuggestions } from "./separateSuggestions";
 
 interface ValidationError {
   foodName?: boolean;
@@ -23,50 +22,43 @@ function clearSelection(obj: Selectable) {
 
 const suggestions = createSlice({
   name: "suggestions",
-  initialState: {
-    servingSuggestions: [] as (ServingSuggestion & Selectable)[],
-    portionSuggestions: [] as (PortionSuggestion & Selectable)[],
-  },
+  initialState: [] as ((ServingSuggestion | PortionSuggestion) & Selectable)[],
   reducers: {
-    setServingSuggestions: (state, action: PayloadAction<ServingSuggestion[]>) => {
-      state.servingSuggestions = _.map(action.payload, suggestion => initSelectable(suggestion));
+    setSuggestions: (state, action: PayloadAction<(ServingSuggestion | PortionSuggestion)[]>) => {
+      return _.map(action.payload, suggestion => initSelectable(suggestion));
     },
     selectServingSuggestion: (state, action: PayloadAction<ServingSuggestion>) => {
-      const matched = (suggestion: ServingSuggestion) => _.isEqual(suggestion, action.payload);
-      _.forEach(state.servingSuggestions, suggestion => {
+      const matched = (suggestion: ServingSuggestion | PortionSuggestion) => _.isEqual(suggestion, action.payload);
+      _.forEach(state, suggestion => {
         if (matched(suggestion)) {
           suggestion.selected = true;
         } else {
           clearSelection(suggestion);
         }
       });
-      _.forEach(state.portionSuggestions, clearSelection);
     },
     unselectServingSuggestion: (state, _action: PayloadAction<ServingSuggestion>) => {
-      _.forEach(state.servingSuggestions, clearSelection);
-    },
-    setPortionSuggestions: (state, action: PayloadAction<PortionSuggestion[]>) => {
-      state.portionSuggestions = _.map(action.payload, suggestion => initSelectable(suggestion));
+      _.forEach(state, clearSelection);
     },
     selectPortionSuggestion: (state, action: PayloadAction<PortionSuggestion>) => {
-      const matched = (suggestion: PortionSuggestion) => _.isEqual(suggestion, action.payload);
-      _.forEach(state.portionSuggestions, suggestion => {
+      const matched = (suggestion: ServingSuggestion | PortionSuggestion) => _.isEqual(suggestion, action.payload);
+      _.forEach(state, suggestion => {
         if (matched(suggestion)) {
           suggestion.selected = true;
         } else {
           clearSelection(suggestion);
         }
       });
-      _.forEach(state.servingSuggestions, clearSelection);
     },
     unselectPortionSuggestion: (state, _action: PayloadAction<PortionSuggestion>) => {
-      _.forEach(state.portionSuggestions, clearSelection);
+      _.forEach(state, clearSelection);
     },
   }
 })
 const {
-  setServingSuggestions, selectServingSuggestion, unselectServingSuggestion,
-  setPortionSuggestions, selectPortionSuggestion, unselectPortionSuggestion,
+  setSuggestions, 
+  selectServingSuggestion, unselectServingSuggestion,
+  selectPortionSuggestion, unselectPortionSuggestion,
 } = suggestions.actions;
 
 const food = createSlice({
@@ -132,10 +124,7 @@ function initialState(food: Food) {
   return {
     food,
     error: {},
-    suggestions: {
-      servingSuggestions: [],
-      portionSuggestions: [],
-    }
+    suggestions: []
   };
 }
 
@@ -198,9 +187,7 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
 
   const descRef = useRef(initialFood.name);
   const setSuggestionsCallback = (suggestions: (ServingSuggestion | PortionSuggestion)[]) => {
-    const { servingSuggestions, portionSuggestions } = separateSuggestions(suggestions);
-    dispatch(setServingSuggestions(servingSuggestions));
-    dispatch(setPortionSuggestions(portionSuggestions));
+    dispatch(setSuggestions(suggestions));
   }
 
   const generateSuggestions = (desc: string) => {

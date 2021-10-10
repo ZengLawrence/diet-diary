@@ -14,7 +14,7 @@ import {
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 import { Fragment } from "react";
-import { PortionSuggestion, ServingSuggestion } from "../../features/suggestions";
+import { separateSuggestions } from "./separateSuggestions";
 
 export type ButtonLabel = "Add" | "Update";
 
@@ -27,7 +27,7 @@ interface Props {
 
 const FoodNameInput = (props: {
   foodName: string;
-  suggestions: { servingSuggestions: ServingSuggestion[]; portionSuggestions: PortionSuggestion[] };
+  suggestions: { foodName: string }[];
   invalid?: boolean;
   updateFoodName: (name: string) => void;
 }) => (
@@ -46,16 +46,9 @@ const FoodNameInput = (props: {
       />
       <ComboboxPopover>
         <ComboboxList aria-labelledby="inputFoodName">
-          {props.suggestions.servingSuggestions.map((suggestion, index) => (
+          {props.suggestions.map((suggestion, index) => (
             <ComboboxOption
-              key={"s-" + index}
-              value={suggestion.foodName}
-              onClick={() => props.updateFoodName(suggestion.foodName)}
-            />
-          ))}
-          {props.suggestions.portionSuggestions.map((suggestion, index) => (
-            <ComboboxOption
-              key={"p-" + index}
+              key={index}
               value={suggestion.foodName}
               onClick={() => props.updateFoodName(suggestion.foodName)}
             />
@@ -73,7 +66,7 @@ export const FoodInputForm = (props: Props) => {
   const [state, fns] = useFoodInputFormStateReducer(props.food, props.onSaveFood);
   const { food, error, suggestions } = state;
   const { updateFoodName, updateServing, handleSubmit, handleSelectPortionSuggestion, handleSelectServingSuggestion } = fns;
-  const { servingSuggestions, portionSuggestions } = suggestions;
+  const { servingSuggestions, portionSuggestions } = separateSuggestions(suggestions);
 
   return (
     <Form
