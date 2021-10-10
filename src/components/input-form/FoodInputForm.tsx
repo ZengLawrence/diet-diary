@@ -6,7 +6,7 @@ import { ServingInputControl } from "./ServingInputControl";
 import { ServingSuggestionFormText } from "./ServingSuggestionFormText";
 import { useFoodInputFormStateReducer } from "./useFoodInputFormStateReducer";
 import { separateSuggestions } from "./separateSuggestions";
-import { FoodNameInput } from "./FoodNameInput";
+import { FoodNameInputControl } from "./FoodNameInputControl";
 
 export type ButtonLabel = "Add" | "Update";
 
@@ -30,7 +30,7 @@ export const FoodInputForm = (props: Props) => {
       className="border p-1"
     >
       <Form.Group as={Form.Row} className="ml-1 mr-1">
-        <FoodNameInput
+        <FoodNameInputControl
           foodName={food.name}
           suggestions={suggestions}
           invalid={error.foodName}

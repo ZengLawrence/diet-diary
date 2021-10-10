@@ -9,7 +9,7 @@ import {
 import "@reach/combobox/styles.css";
 import { Fragment } from "react";
 
-export const FoodNameInput = (props: {
+export const FoodNameInputControl = (props: {
   foodName: string;
   suggestions: { foodName: string; }[];
   invalid?: boolean;
