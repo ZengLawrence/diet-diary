@@ -73,6 +73,7 @@ export const FoodInputForm = (props: Props) => {
   const [state, fns] = useFoodInputFormStateReducer(props.food, props.onSaveFood);
   const { food, error, suggestions } = state;
   const { updateFoodName, updateServing, handleSubmit, handleSelectPortionSuggestion, handleSelectServingSuggestion } = fns;
+  const { servingSuggestions, portionSuggestions } = suggestions;
 
   return (
     <Form
@@ -89,12 +90,12 @@ export const FoodInputForm = (props: Props) => {
         />
         <div className="d-flex flex-column w-100">
           <ServingSuggestionFormText
-            suggestions={suggestions.servingSuggestions}
+            suggestions={servingSuggestions}
             onSelected={handleSelectServingSuggestion}
             showSelect={props.buttonLabel === "Add"}
           />
           <PortionSuggestionFormText
-            suggestions={suggestions.portionSuggestions}
+            suggestions={portionSuggestions}
             onSelected={handleSelectPortionSuggestion}
             showSelect={props.buttonLabel === "Add"}
           />
