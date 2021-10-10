@@ -5,7 +5,6 @@ import { FoodGroupLabelBadge } from "../badge";
 import { BestChoiceLegend } from "../BestChoiceLegend";
 import { BlueStar } from "../BlueStar";
 import { Selectable } from "../../model/Selectable";
-import { Fillable } from "../../model/Fillable";
 
 const hasBestChoice = (suggestions: ServingSuggestion[]) => _.findIndex(suggestions, { 'bestChoice': true }) >= 0;
 
@@ -21,8 +20,8 @@ const ServingHint = (props: { suggestion: ServingSuggestion }) => {
 }
 
 interface Props {
-  suggestions: (ServingSuggestion & Selectable & Fillable)[];
-  onSelected: (suggestion: ServingSuggestion, selected: boolean, options?: Fillable) => void;
+  suggestions: (ServingSuggestion & Selectable)[];
+  onSelected: (suggestion: ServingSuggestion, selected: boolean) => void;
   showSelect: boolean;
 }
 
@@ -36,14 +35,6 @@ export const ServingSuggestionFormText = (props: Props) => (
       <div className="d-flex flex-column flex-wrap w-100">
         {props.suggestions.map((suggestion, index) => (
           <div key={index} className="d-inline-flex mr-1">
-            {props.showSelect &&
-              <Form.Check
-                type="checkbox"
-                aria-label="fill food name and servings"
-                checked={suggestion.selected && suggestion.fillFoodName}
-                onChange={e => props.onSelected(suggestion, e.target.checked, { fillFoodName: true })}
-              />
-            }
             <ServingHint suggestion={suggestion} />&nbsp;
             {props.showSelect &&
               <Form.Check
