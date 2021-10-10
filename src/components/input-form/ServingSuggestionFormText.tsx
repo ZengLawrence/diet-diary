@@ -53,7 +53,9 @@ export const ServingSuggestionFormText = (props: Props) => (
                 onChange={e => props.onSelected(suggestion, e.target.checked)}
               />
             }
-            <FoodGroupLabelBadge foodGroup={suggestion.foodGroup} />
+            <div>
+              <FoodGroupLabelBadge foodGroup={suggestion.foodGroup} />
+            </div>
           </div>
         ))}
       </div>
