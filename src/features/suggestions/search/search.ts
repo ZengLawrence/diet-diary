@@ -8,4 +8,4 @@ import { ServingSuggestion } from "../serving/ServingSuggestion";
 const suggestions = buildDocuments<ServingSuggestion | PortionSuggestion>(_.concat(servings, portions));
 
 export const searchFoodServingPortionSize = (foodName: string) =>
-  _.slice(search(suggestions, foodName), 0, 2);
+  search(suggestions, foodName);
