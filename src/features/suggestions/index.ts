@@ -3,3 +3,4 @@ export type { ServingSuggestion } from "./serving/ServingSuggestion";
 
 export { generateServingSuggestions } from "./serving";
 export { generatePortionSuggestions } from "./portion";
+export { generateSuggestions } from "./search";
