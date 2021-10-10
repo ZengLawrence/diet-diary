@@ -6,6 +6,7 @@ import { Food, FoodGroup } from "../../model/Food";
 import { minus, oneServingOf, positiveServing } from "../../model/servingFunction";
 import { initSelectable, Selectable } from "../../model/Selectable";
 import { Fillable, initFillable } from "../../model/Fillable";
+import { separateSuggestions } from "./separateSuggestions";
 
 interface ValidationError {
   foodName?: boolean;
@@ -198,26 +199,12 @@ const handleSubmit = (
   }
 }
 
-function separate(result: { servingSuggestions: ServingSuggestion[]; portionSuggestions: PortionSuggestion[] }, suggestion: ServingSuggestion | PortionSuggestion) {
-  if ("servingSize" in suggestion) {
-    return {
-      ...result,
-      servingSuggestions: [...result.servingSuggestions, suggestion as ServingSuggestion]
-    };
-  } else {
-    return {
-      ...result,
-      portionSuggestions: [...result.portionSuggestions, suggestion as PortionSuggestion]
-    }
-  }
-}
-
 export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialFood, initialState);
 
   const descRef = useRef(initialFood.name);
   const setSuggestionsCallback = (suggestions: (ServingSuggestion | PortionSuggestion)[]) => {
-    const { servingSuggestions, portionSuggestions } = _.reduce(suggestions, separate, { servingSuggestions: [], portionSuggestions: [] });
+    const { servingSuggestions, portionSuggestions } = separateSuggestions(suggestions);
     dispatch(setServingSuggestions(servingSuggestions));
     dispatch(setPortionSuggestions(portionSuggestions));
   }
