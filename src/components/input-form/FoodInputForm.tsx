@@ -5,16 +5,8 @@ import { PortionSuggestionFormText } from "./PortionSuggestionFormText";
 import { ServingInputControl } from "./ServingInputControl";
 import { ServingSuggestionFormText } from "./ServingSuggestionFormText";
 import { useFoodInputFormStateReducer } from "./useFoodInputFormStateReducer";
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption,
-} from "@reach/combobox";
-import "@reach/combobox/styles.css";
-import { Fragment } from "react";
 import { separateSuggestions } from "./separateSuggestions";
+import { FoodNameInput } from "./FoodNameInput";
 
 export type ButtonLabel = "Add" | "Update";
 
@@ -24,43 +16,6 @@ interface Props {
   onSaveFood: (food: Food) => void;
   onCancel: () => void
 }
-
-const FoodNameInput = (props: {
-  foodName: string;
-  suggestions: { foodName: string }[];
-  invalid?: boolean;
-  updateFoodName: (name: string) => void;
-}) => (
-  <Fragment>
-    <Form.Label htmlFor="inputFoodName" srOnly>Food name</Form.Label>
-    <Combobox className="w-100">
-      <ComboboxInput
-        id="inputFoodName"
-        type="text"
-        value={props.foodName}
-        required
-        placeholder="Broccoli steamed 1 cup"
-        onChange={e => props.updateFoodName(e.target.value)}
-        aria-labelledby="inputFoodName"
-        className={props.invalid ? "form-control is-invalid" : "form-control"}
-      />
-      <ComboboxPopover>
-        <ComboboxList aria-labelledby="inputFoodName">
-          {props.suggestions.map((suggestion, index) => (
-            <ComboboxOption
-              key={index}
-              value={suggestion.foodName}
-              onClick={() => props.updateFoodName(suggestion.foodName)}
-            />
-          ))}
-        </ComboboxList>
-      </ComboboxPopover>
-    </Combobox>
-    <Form.Control.Feedback type="invalid">
-      Please enter food name.
-    </Form.Control.Feedback>
-  </Fragment>
-)
 
 export const FoodInputForm = (props: Props) => {
   const [state, fns] = useFoodInputFormStateReducer(props.food, props.onSaveFood);
