@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { foodName } from '../parser/foodName';
 import { PortionSuggestion } from '../portion/PortionSuggestion';
 import { ServingSuggestion } from '../serving/ServingSuggestion';
-import { searchFoodServingPortionSize } from './search';
+import { autoComplete, searchFoodServingPortionSize } from './search';
 
 export type Suggestion = string | ServingSuggestion | PortionSuggestion;
 
@@ -19,11 +19,15 @@ function findSuggestions(foodDescription: string) {
   return _.slice(results, 0, 5);
 }
 
+function isFoodNameComplete(foodDescription: string) {
+  return _.size(foodDescription) > _.size(foodName(foodDescription));
+}
+
 export function generateSuggestions(
   descRef: React.MutableRefObject<String>,
   callback: (suggestions: Suggestion[]) => void
 ) {
   const foodDescription = descRef.current + "";
-  const autoCompletions : Suggestion[] = [foodDescription];
+  const autoCompletions : Suggestion[] = isFoodNameComplete(foodDescription) ? [foodDescription] : autoComplete(foodName(foodDescription));
   return callback(_.concat(autoCompletions, findSuggestions(foodDescription)));
 }

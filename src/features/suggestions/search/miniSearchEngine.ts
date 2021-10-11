@@ -15,7 +15,7 @@ export function buildDocuments<T extends object>(list: T[]) {
   miniSearch.addAll(_.map(list, addIndexAsId));
   return {
     miniSearch,
-    lookUp : _.partial(find, list),
+    lookUp: _.partial(find, list),
   }
 }
 
@@ -30,4 +30,14 @@ export function search<T>(
 ) {
   const { miniSearch, lookUp } = docs;
   return _.map(perform(miniSearch, foodName), lookUp);
+}
+
+export function autoSuggest<T>(
+  docs: { miniSearch: MiniSearch<T> },
+  partialFoodName: string) {
+  const { miniSearch } = docs;
+  const options = {
+    fuzzy: true,
+  };
+  return _.map(miniSearch.autoSuggest(partialFoodName, options), "suggestion");
 }
