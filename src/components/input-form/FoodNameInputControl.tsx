@@ -46,6 +46,14 @@ function DisplayText(props: { suggestion: Suggestion; }) {
   }
 }
 
+function optionText(suggestion: Suggestion) {
+  if (isServingSuggestion(suggestion)) {
+    return suggestion.foodName + " " + suggestion.servingSize;
+  } else {
+    return suggestion.foodName + " " + suggestion.portionSize;
+  }
+}
+
 export const FoodNameInputControl = (props: {
   foodName: string;
   suggestions: Suggestion[];
@@ -69,7 +77,7 @@ export const FoodNameInputControl = (props: {
           {props.suggestions.map((suggestion, index) => (
             <ComboboxOption
               key={index}
-              value={suggestion.foodName}
+              value={optionText(suggestion)}
               onClick={() => props.updateFoodName(suggestion.foodName)}>
               <DisplayText suggestion={suggestion} />
             </ComboboxOption>
