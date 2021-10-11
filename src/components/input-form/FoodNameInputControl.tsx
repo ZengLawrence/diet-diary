@@ -4,53 +4,15 @@ import {
   ComboboxInput,
   ComboboxPopover,
   ComboboxList,
-  ComboboxOption,
-  ComboboxOptionText
-} from "@reach/combobox";
+  ComboboxOption} from "@reach/combobox";
 import "@reach/combobox/styles.css";
 import { Fragment } from "react";
-import { isPortionSuggestion, isServingSuggestion, PortionSuggestion, ServingSuggestion, Suggestion } from "../../features/suggestions";
-import { BlueStar } from "../BlueStar";
-import { FoodGroupLabelBadge } from "../badge";
-import { FoodGroupServingBadgePanel } from "../panels/FoodGroupServingBadgePanel";
-import { calcServingCalories } from "../../model/calorieFunction";
-import { CalorieSpan } from "../CalorieSpan";
+import { isPortionSuggestion, isServingSuggestion, Suggestion } from "../../features/suggestions";
 import { BestChoiceLegend } from "../BestChoiceLegend";
 import _ from "lodash";
 import { Serving } from "../../model/Food";
 import { oneServingOf } from "../../model/servingFunction";
-
-function ServingSuggestionDisplayText(props: { suggestion: ServingSuggestion; }) {
-  const { bestChoice, foodGroup } = props.suggestion;
-  return (
-    <Fragment>
-      {bestChoice && <BlueStar />}
-      <ComboboxOptionText />
-      <FoodGroupLabelBadge foodGroup={foodGroup} />
-    </Fragment>
-  )
-}
-
-function PortionSuggestionDisplayText(props: { suggestion: PortionSuggestion; }) {
-  const { serving } = props.suggestion;
-  return (
-    <Fragment>
-      <ComboboxOptionText />
-      <FoodGroupServingBadgePanel serving={serving} />
-      <CalorieSpan value={calcServingCalories(serving)} />
-    </Fragment>
-  )
-}
-
-function DisplayText(props: { suggestion: Suggestion; }) {
-  if (isServingSuggestion(props.suggestion)) {
-    return <ServingSuggestionDisplayText suggestion={props.suggestion} />;
-  } else if (isPortionSuggestion(props.suggestion)) {
-    return <PortionSuggestionDisplayText suggestion={props.suggestion} />;
-  } else {
-    return <ComboboxOptionText />;
-  }
-}
+import { DisplayText } from "./DisplayText";
 
 function optionText(suggestion: Suggestion) {
   if (isServingSuggestion(suggestion)) {
