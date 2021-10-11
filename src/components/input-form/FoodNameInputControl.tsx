@@ -17,6 +17,8 @@ import { calcServingCalories } from "../../model/calorieFunction";
 import { CalorieSpan } from "../CalorieSpan";
 import { BestChoiceLegend } from "../BestChoiceLegend";
 import _ from "lodash";
+import { Serving } from "../../model/Food";
+import { oneServingOf } from "../../model/servingFunction";
 
 function ServingSuggestionDisplayText(props: { suggestion: ServingSuggestion; }) {
   const { bestChoice, foodGroup } = props.suggestion;
@@ -56,13 +58,24 @@ function optionText(suggestion: Suggestion) {
   }
 }
 
-const hasBestChoice = (suggestions: Suggestion[]) => _.findIndex(suggestions, { 'bestChoice': true }) >= 0;
+function hasBestChoice(suggestions: Suggestion[]) { 
+  return _.findIndex(suggestions, { 'bestChoice': true }) >= 0; 
+}
+
+function serving(suggestion: Suggestion) {
+  if (isServingSuggestion(suggestion)) {
+    return oneServingOf(suggestion.foodGroup);
+  } else {
+    return suggestion.serving;
+  }
+}
 
 export const FoodNameInputControl = (props: {
   foodName: string;
   suggestions: Suggestion[];
   invalid?: boolean;
   updateFoodName: (name: string) => void;
+  updateFoodNameServing: (name: string, serving: Serving) => void;
 }) => (
   <Fragment>
     <Form.Label htmlFor="inputFoodName" srOnly>Food name</Form.Label>
@@ -82,7 +95,7 @@ export const FoodNameInputControl = (props: {
             <ComboboxOption
               key={index}
               value={optionText(suggestion)}
-              onClick={() => props.updateFoodName(optionText(suggestion))}>
+              onClick={() => props.updateFoodNameServing(optionText(suggestion), serving(suggestion))}>
               <DisplayText suggestion={suggestion} />
             </ComboboxOption>
           ))}

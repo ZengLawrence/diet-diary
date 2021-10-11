@@ -2,7 +2,7 @@ import { AnyAction, combineReducers, createSlice, PayloadAction } from "@reduxjs
 import _ from "lodash";
 import { useEffect, useReducer, useRef } from "react";
 import { generateSuggestions, PortionSuggestion, ServingSuggestion } from "../../features/suggestions";
-import { Food, FoodGroup } from "../../model/Food";
+import { Food, FoodGroup, Serving } from "../../model/Food";
 
 interface ValidationError {
   foodName?: boolean;
@@ -34,6 +34,9 @@ const food = createSlice({
     setName(state, action: PayloadAction<string>) {
       state.name = action.payload
     },
+    setServing(state, action: PayloadAction<Serving>) {
+      state.serving = action.payload;
+    },
     setFoodGroupServing(state, action: PayloadAction<{ foodGroup: FoodGroup; serving: number }>) {
       _.set(state.serving, action.payload.foodGroup, action.payload.serving)
     },
@@ -42,7 +45,7 @@ const food = createSlice({
     },
   },
 })
-const { setName, setFoodGroupServing, unsetFoodGroupServing } = food.actions;
+const { setName, setServing, setFoodGroupServing, unsetFoodGroupServing } = food.actions;
 
 const error = createSlice({
   name: "error",
@@ -107,6 +110,11 @@ const updateFoodName = (dispatch: React.Dispatch<AnyAction>, generateSuggestions
   generateSuggestions(name);
 }
 
+const updateFoodNameServing = (dispatch: React.Dispatch<AnyAction>, name: string, serving: Serving) => {
+  dispatch(setName(name));
+  dispatch(setServing(serving));
+}
+
 const updateFoodGroupServing = (dispatch: React.Dispatch<AnyAction>, foodGroup: FoodGroup, serving: number) =>
   serving ? dispatch(setFoodGroupServing({ foodGroup, serving })) : dispatch(unsetFoodGroupServing(foodGroup));
 
@@ -146,6 +154,7 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
 
   const fns = {
     updateFoodName: _.partial(updateFoodName, dispatch, generateSuggestions),
+    updateFoodNameServing: _.partial(updateFoodNameServing, dispatch),
     updateFoodGroupServing: _.partial(updateFoodGroupServing, dispatch),
     handleSubmit: _.partial(handleSubmit, dispatch, state, onSaveFood),
   }
