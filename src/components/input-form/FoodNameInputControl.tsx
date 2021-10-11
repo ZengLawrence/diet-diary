@@ -15,6 +15,8 @@ import { FoodGroupLabelBadge } from "../badge";
 import { FoodGroupServingBadgePanel } from "../panels/FoodGroupServingBadgePanel";
 import { calcServingCalories } from "../../model/calorieFunction";
 import { CalorieSpan } from "../CalorieSpan";
+import { BestChoiceLegend } from "../BestChoiceLegend";
+import _ from "lodash";
 
 function ServingSuggestionDisplayText(props: { suggestion: ServingSuggestion; }) {
   const { bestChoice, foodGroup } = props.suggestion;
@@ -54,6 +56,8 @@ function optionText(suggestion: Suggestion) {
   }
 }
 
+const hasBestChoice = (suggestions: Suggestion[]) => _.findIndex(suggestions, { 'bestChoice': true }) >= 0;
+
 export const FoodNameInputControl = (props: {
   foodName: string;
   suggestions: Suggestion[];
@@ -83,6 +87,9 @@ export const FoodNameInputControl = (props: {
             </ComboboxOption>
           ))}
         </ComboboxList>
+        <div style={{ maxWidth: "100px" }}>
+          {hasBestChoice(props.suggestions) && <BestChoiceLegend />}
+        </div>
       </ComboboxPopover>
     </Combobox>
     <Form.Control.Feedback type="invalid">
