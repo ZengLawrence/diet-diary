@@ -9,16 +9,12 @@ import {
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 import { Fragment } from "react";
-import { PortionSuggestion, ServingSuggestion } from "../../features/suggestions";
+import { isServingSuggestion, PortionSuggestion, ServingSuggestion, Suggestion } from "../../features/suggestions";
 import { BlueStar } from "../BlueStar";
 import { FoodGroupLabelBadge } from "../badge";
 import { FoodGroupServingBadgePanel } from "../panels/FoodGroupServingBadgePanel";
 import { calcServingCalories } from "../../model/calorieFunction";
 import { CalorieSpan } from "../CalorieSpan";
-
-function isServingSuggestion(suggestion: (ServingSuggestion | PortionSuggestion)): suggestion is ServingSuggestion {
-  return "servingSize" in suggestion;
-}
 
 function ServingSuggestionDisplayText(props: { suggestion: ServingSuggestion; }) {
   const { bestChoice, foodGroup } = props.suggestion;
@@ -42,7 +38,7 @@ function PortionSuggestionDisplayText(props: { suggestion: PortionSuggestion; })
   )
 }
 
-function DisplayText(props: { suggestion: ServingSuggestion | PortionSuggestion; }) {
+function DisplayText(props: { suggestion: Suggestion; }) {
   if (isServingSuggestion(props.suggestion)) {
     return <ServingSuggestionDisplayText suggestion={props.suggestion} />;
   } else {
@@ -52,7 +48,7 @@ function DisplayText(props: { suggestion: ServingSuggestion | PortionSuggestion;
 
 export const FoodNameInputControl = (props: {
   foodName: string;
-  suggestions: (ServingSuggestion | PortionSuggestion)[];
+  suggestions: Suggestion[];
   invalid?: boolean;
   updateFoodName: (name: string) => void;
 }) => (
@@ -75,7 +71,7 @@ export const FoodNameInputControl = (props: {
               key={index}
               value={suggestion.foodName}
               onClick={() => props.updateFoodName(suggestion.foodName)}>
-                <DisplayText suggestion={suggestion}/>
+              <DisplayText suggestion={suggestion} />
             </ComboboxOption>
           ))}
         </ComboboxList>
