@@ -9,7 +9,7 @@ import {
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 import { Fragment } from "react";
-import { isServingSuggestion, PortionSuggestion, ServingSuggestion, Suggestion } from "../../features/suggestions";
+import { isPortionSuggestion, isServingSuggestion, PortionSuggestion, ServingSuggestion, Suggestion } from "../../features/suggestions";
 import { BlueStar } from "../BlueStar";
 import { FoodGroupLabelBadge } from "../badge";
 import { FoodGroupServingBadgePanel } from "../panels/FoodGroupServingBadgePanel";
@@ -45,16 +45,20 @@ function PortionSuggestionDisplayText(props: { suggestion: PortionSuggestion; })
 function DisplayText(props: { suggestion: Suggestion; }) {
   if (isServingSuggestion(props.suggestion)) {
     return <ServingSuggestionDisplayText suggestion={props.suggestion} />;
-  } else {
+  } else if (isPortionSuggestion(props.suggestion)) {
     return <PortionSuggestionDisplayText suggestion={props.suggestion} />;
+  } else {
+    return <ComboboxOptionText />;
   }
 }
 
 function optionText(suggestion: Suggestion) {
   if (isServingSuggestion(suggestion)) {
     return suggestion.foodName + " " + suggestion.servingSize;
-  } else {
+  } else if (isPortionSuggestion(suggestion)) {
     return suggestion.foodName + " " + suggestion.portionSize;
+  } else {
+    return suggestion;
   }
 }
 
@@ -65,8 +69,10 @@ function hasBestChoice(suggestions: Suggestion[]) {
 function serving(suggestion: Suggestion) {
   if (isServingSuggestion(suggestion)) {
     return oneServingOf(suggestion.foodGroup);
-  } else {
+  } else if (isPortionSuggestion(suggestion)) {
     return suggestion.serving;
+  } else {
+    return {} as Serving;
   }
 }
 

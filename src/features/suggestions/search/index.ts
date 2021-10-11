@@ -4,10 +4,14 @@ import { PortionSuggestion } from '../portion/PortionSuggestion';
 import { ServingSuggestion } from '../serving/ServingSuggestion';
 import { searchFoodServingPortionSize } from './search';
 
-export type Suggestion = ServingSuggestion | PortionSuggestion;
+export type Suggestion = string | ServingSuggestion | PortionSuggestion;
 
 export function isServingSuggestion(suggestion: Suggestion): suggestion is ServingSuggestion {
-  return "servingSize" in suggestion;
+  return typeof suggestion === "object" && "servingSize" in suggestion;
+}
+
+export function isPortionSuggestion(suggestion: Suggestion) : suggestion is PortionSuggestion {
+  return typeof suggestion === "object" && "portionSize" in suggestion;
 }
 
 function findSuggestions(foodDescription: string) {
@@ -19,5 +23,7 @@ export function generateSuggestions(
   descRef: React.MutableRefObject<String>,
   callback: (suggestions: Suggestion[]) => void
 ) {
-  return callback(findSuggestions(descRef.current + ""));
+  const foodDescription = descRef.current + "";
+  const autoCompletions : Suggestion[] = [foodDescription];
+  return callback(_.concat(autoCompletions, findSuggestions(foodDescription)));
 }

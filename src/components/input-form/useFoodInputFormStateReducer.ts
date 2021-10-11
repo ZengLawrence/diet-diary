@@ -1,7 +1,7 @@
 import { AnyAction, combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { useEffect, useReducer, useRef } from "react";
-import { generateSuggestions, PortionSuggestion, ServingSuggestion } from "../../features/suggestions";
+import { generateSuggestions, Suggestion } from "../../features/suggestions";
 import { Food, FoodGroup, Serving } from "../../model/Food";
 
 interface ValidationError {
@@ -16,9 +16,9 @@ interface ValidationError {
 
 const suggestions = createSlice({
   name: "suggestions",
-  initialState: [] as ((ServingSuggestion | PortionSuggestion))[],
+  initialState: [] as Suggestion[],
   reducers: {
-    setSuggestions: (_state, action: PayloadAction<(ServingSuggestion | PortionSuggestion)[]>) => {
+    setSuggestions: (_state, action: PayloadAction<Suggestion[]>) => {
       return action.payload;
     },
   }
@@ -139,7 +139,7 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
   const [state, dispatch] = useReducer(reducer, initialFood, initialState);
 
   const descRef = useRef(initialFood.name);
-  const setSuggestionsCallback = (suggestions: (ServingSuggestion | PortionSuggestion)[]) => {
+  const setSuggestionsCallback = (suggestions: Suggestion[]) => {
     dispatch(setSuggestions(suggestions));
   }
 
