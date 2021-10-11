@@ -23,11 +23,16 @@ function isFoodNameComplete(foodDescription: string) {
   return _.size(foodDescription) > _.size(foodName(foodDescription));
 }
 
+function findNameSuggestions(foodDescription: string) {
+  const results = autoComplete(foodName(foodDescription));
+  return _.slice(results, 0, 5);
+}
+
 export function generateSuggestions(
   descRef: React.MutableRefObject<String>,
   callback: (suggestions: Suggestion[]) => void
 ) {
   const foodDescription = descRef.current + "";
-  const autoCompletions : Suggestion[] = isFoodNameComplete(foodDescription) ? [foodDescription] : autoComplete(foodName(foodDescription));
+  const autoCompletions : Suggestion[] = isFoodNameComplete(foodDescription) ? [foodDescription] : findNameSuggestions(foodDescription);
   return callback(_.concat(autoCompletions, findSuggestions(foodDescription)));
 }
