@@ -1,12 +1,9 @@
 import { Button, Form } from "react-bootstrap";
 import { calcFoodCalories, displayCalorieValue } from "../../model/calorieFunction";
 import { Food } from "../../model/Food";
-import { PortionSuggestionFormText } from "./PortionSuggestionFormText";
-import { ServingInputControl } from "./ServingInputControl";
-import { ServingSuggestionFormText } from "./ServingSuggestionFormText";
-import { useFoodInputFormStateReducer } from "./useFoodInputFormStateReducer";
-import { separateSuggestions } from "./separateSuggestions";
 import { FoodNameInputControl } from "./FoodNameInputControl";
+import { ServingInputControl } from "./ServingInputControl";
+import { useFoodInputFormStateReducer } from "./useFoodInputFormStateReducer";
 
 export type ButtonLabel = "Add" | "Update";
 
@@ -20,8 +17,7 @@ interface Props {
 export const FoodInputForm = (props: Props) => {
   const [state, fns] = useFoodInputFormStateReducer(props.food, props.onSaveFood);
   const { food, error, suggestions } = state;
-  const { updateFoodName, updateServing, handleSubmit, handleSelectPortionSuggestion, handleSelectServingSuggestion } = fns;
-  const { servingSuggestions, portionSuggestions } = separateSuggestions(suggestions);
+  const { updateFoodName, updateServing, handleSubmit } = fns;
 
   return (
     <Form
@@ -36,18 +32,6 @@ export const FoodInputForm = (props: Props) => {
           invalid={error.foodName}
           updateFoodName={updateFoodName}
         />
-        <div className="d-flex flex-column w-100">
-          <ServingSuggestionFormText
-            suggestions={servingSuggestions}
-            onSelected={handleSelectServingSuggestion}
-            showSelect={props.buttonLabel === "Add"}
-          />
-          <PortionSuggestionFormText
-            suggestions={portionSuggestions}
-            onSelected={handleSelectPortionSuggestion}
-            showSelect={props.buttonLabel === "Add"}
-          />
-        </div>
       </Form.Group>
 
       <Form.Group>
