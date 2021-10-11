@@ -82,7 +82,7 @@ export const FoodNameInputControl = (props: {
             <ComboboxOption
               key={index}
               value={optionText(suggestion)}
-              onClick={() => props.updateFoodName(suggestion.foodName)}>
+              onClick={() => props.updateFoodName(optionText(suggestion))}>
               <DisplayText suggestion={suggestion} />
             </ComboboxOption>
           ))}
