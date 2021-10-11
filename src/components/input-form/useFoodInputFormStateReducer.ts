@@ -34,15 +34,15 @@ const food = createSlice({
     setName(state, action: PayloadAction<string>) {
       state.name = action.payload
     },
-    setServing(state, action: PayloadAction<{ foodGroup: FoodGroup; serving: number }>) {
+    setFoodGroupServing(state, action: PayloadAction<{ foodGroup: FoodGroup; serving: number }>) {
       _.set(state.serving, action.payload.foodGroup, action.payload.serving)
     },
-    unsetServing(state, action: PayloadAction<FoodGroup>) {
+    unsetFoodGroupServing(state, action: PayloadAction<FoodGroup>) {
       _.unset(state.serving, action.payload)
     },
   },
 })
-const { setName, setServing, unsetServing } = food.actions;
+const { setName, setFoodGroupServing, unsetFoodGroupServing } = food.actions;
 
 const error = createSlice({
   name: "error",
@@ -55,10 +55,10 @@ const error = createSlice({
       .addCase(setName, (state, action) => {
         state.foodName = _.isEmpty(action.payload);
       })
-      .addCase(setServing, (state, action) => {
+      .addCase(setFoodGroupServing, (state, action) => {
         state[action.payload.foodGroup] = lessThanZero(action.payload.serving);
       })
-      .addCase(unsetServing, (state, action) => {
+      .addCase(unsetFoodGroupServing, (state, action) => {
         state[action.payload] = false;
       })
   }
@@ -107,8 +107,8 @@ const updateFoodName = (dispatch: React.Dispatch<AnyAction>, generateSuggestions
   generateSuggestions(name);
 }
 
-const updateServing = (dispatch: React.Dispatch<AnyAction>, foodGroup: FoodGroup, serving: number) =>
-  serving ? dispatch(setServing({ foodGroup, serving })) : dispatch(unsetServing(foodGroup));
+const updateFoodGroupServing = (dispatch: React.Dispatch<AnyAction>, foodGroup: FoodGroup, serving: number) =>
+  serving ? dispatch(setFoodGroupServing({ foodGroup, serving })) : dispatch(unsetFoodGroupServing(foodGroup));
 
 const handleSubmit = (
   dispatch: React.Dispatch<AnyAction>,
@@ -146,7 +146,7 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
 
   const fns = {
     updateFoodName: _.partial(updateFoodName, dispatch, generateSuggestions),
-    updateServing: _.partial(updateServing, dispatch),
+    updateFoodGroupServing: _.partial(updateFoodGroupServing, dispatch),
     handleSubmit: _.partial(handleSubmit, dispatch, state, onSaveFood),
   }
   return [state, fns] as [typeof state, typeof fns];
