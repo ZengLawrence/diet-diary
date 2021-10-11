@@ -3,8 +3,6 @@ import _ from "lodash";
 import { useEffect, useReducer, useRef } from "react";
 import { generateSuggestions, PortionSuggestion, ServingSuggestion } from "../../features/suggestions";
 import { Food, FoodGroup } from "../../model/Food";
-import { minus, oneServingOf, positiveServing } from "../../model/servingFunction";
-import { initSelectable, Selectable } from "../../model/Selectable";
 
 interface ValidationError {
   foodName?: boolean;
@@ -16,49 +14,17 @@ interface ValidationError {
   sweet?: boolean;
 }
 
-function clearSelection(obj: Selectable) {
-  obj.selected = false;
-}
-
 const suggestions = createSlice({
   name: "suggestions",
-  initialState: [] as ((ServingSuggestion | PortionSuggestion) & Selectable)[],
+  initialState: [] as ((ServingSuggestion | PortionSuggestion))[],
   reducers: {
-    setSuggestions: (state, action: PayloadAction<(ServingSuggestion | PortionSuggestion)[]>) => {
-      return _.map(action.payload, suggestion => initSelectable(suggestion));
-    },
-    selectServingSuggestion: (state, action: PayloadAction<ServingSuggestion>) => {
-      const matched = (suggestion: ServingSuggestion | PortionSuggestion) => _.isEqual(suggestion, action.payload);
-      _.forEach(state, suggestion => {
-        if (matched(suggestion)) {
-          suggestion.selected = true;
-        } else {
-          clearSelection(suggestion);
-        }
-      });
-    },
-    unselectServingSuggestion: (state, _action: PayloadAction<ServingSuggestion>) => {
-      _.forEach(state, clearSelection);
-    },
-    selectPortionSuggestion: (state, action: PayloadAction<PortionSuggestion>) => {
-      const matched = (suggestion: ServingSuggestion | PortionSuggestion) => _.isEqual(suggestion, action.payload);
-      _.forEach(state, suggestion => {
-        if (matched(suggestion)) {
-          suggestion.selected = true;
-        } else {
-          clearSelection(suggestion);
-        }
-      });
-    },
-    unselectPortionSuggestion: (state, _action: PayloadAction<PortionSuggestion>) => {
-      _.forEach(state, clearSelection);
+    setSuggestions: (_state, action: PayloadAction<(ServingSuggestion | PortionSuggestion)[]>) => {
+      return action.payload;
     },
   }
 })
 const {
   setSuggestions, 
-  selectServingSuggestion, unselectServingSuggestion,
-  selectPortionSuggestion, unselectPortionSuggestion,
 } = suggestions.actions;
 
 const food = createSlice({
@@ -75,21 +41,6 @@ const food = createSlice({
       _.unset(state.serving, action.payload)
     },
   },
-  extraReducers: builder => {
-    builder
-      .addCase(selectPortionSuggestion, (state, action) => {
-        state.serving = action.payload.serving;
-      })
-      .addCase(unselectPortionSuggestion, (state, action) => {
-        state.serving = positiveServing(minus(state.serving, action.payload.serving));
-      })
-      .addCase(selectServingSuggestion, (state, action) => {
-        state.serving = oneServingOf(action.payload.foodGroup);
-      })
-      .addCase(unselectServingSuggestion, (state, action) => {
-        state.serving = positiveServing(minus(state.serving, oneServingOf(action.payload.foodGroup)));
-      })
-  }
 })
 const { setName, setServing, unsetServing } = food.actions;
 
@@ -159,12 +110,6 @@ const updateFoodName = (dispatch: React.Dispatch<AnyAction>, generateSuggestions
 const updateServing = (dispatch: React.Dispatch<AnyAction>, foodGroup: FoodGroup, serving: number) =>
   serving ? dispatch(setServing({ foodGroup, serving })) : dispatch(unsetServing(foodGroup));
 
-const handleSelectPortionSuggestion = (dispatch: React.Dispatch<AnyAction>, suggestion: PortionSuggestion, selected: boolean) =>
-  selected ? dispatch(selectPortionSuggestion(suggestion)) : dispatch(unselectPortionSuggestion(suggestion));
-
-const handleSelectServingSuggestion = (dispatch: React.Dispatch<AnyAction>, suggestion: ServingSuggestion, selected: boolean) =>
-  selected ? dispatch(selectServingSuggestion(suggestion)) : dispatch(unselectServingSuggestion(suggestion));
-
 const handleSubmit = (
   dispatch: React.Dispatch<AnyAction>,
   state: { food: Food },
@@ -203,8 +148,6 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
     updateFoodName: _.partial(updateFoodName, dispatch, generateSuggestions),
     updateServing: _.partial(updateServing, dispatch),
     handleSubmit: _.partial(handleSubmit, dispatch, state, onSaveFood),
-    handleSelectPortionSuggestion: _.partial(handleSelectPortionSuggestion, dispatch),
-    handleSelectServingSuggestion: _.partial(handleSelectServingSuggestion, dispatch),
   }
   return [state, fns] as [typeof state, typeof fns];
 }
