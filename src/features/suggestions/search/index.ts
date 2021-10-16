@@ -1,32 +1,29 @@
 import _ from 'lodash';
 import { Serving } from '../../../model/Food';
+import { parseFoodDescription } from '../parser/foodDescription';
 import { foodName } from '../parser/foodName';
 import { autoComplete, searchFoodServingPortionSize } from './search';
 
-export type Suggestion = string 
+export type Suggestion = string
   | {
     foodName: string;
-    amount: string;
+    amount?: string;
     serving: Serving;
     bestChoice?: boolean;
   };
 
 export function isSuggestion(suggestion: Suggestion): suggestion is {
   foodName: string;
-  amount: string;
+  amount?: string;
   serving: Serving;
   bestChoice?: boolean;
 } {
   return typeof suggestion === "object" && "amount" in suggestion;
 }
 
-function findSuggestions(foodDescription: string) {
-  const results = searchFoodServingPortionSize(foodName(foodDescription));
+function findSuggestions(foodName: string) {
+  const results = searchFoodServingPortionSize(foodName);
   return _.slice(results, 0, 5);
-}
-
-function isFoodNameComplete(foodDescription: string) {
-  return _.size(foodDescription) > _.size(foodName(foodDescription));
 }
 
 function findNameSuggestions(foodDescription: string) {
@@ -39,6 +36,11 @@ export function generateSuggestions(
   callback: (suggestions: Suggestion[]) => void
 ) {
   const foodDescription = descRef.current + "";
-  const autoCompletions: Suggestion[] = isFoodNameComplete(foodDescription) ? [foodDescription] : findNameSuggestions(foodDescription);
-  return callback(_.concat(autoCompletions, findSuggestions(foodDescription)));
+  const { foodName, amount } = parseFoodDescription(foodDescription) as
+    {
+      foodName: string,
+      amount?: string
+    };
+  const autoCompletions: Suggestion[] = amount ? [foodDescription] : findNameSuggestions(foodName);
+  return callback(_.concat(autoCompletions, findSuggestions(foodName)));
 }
