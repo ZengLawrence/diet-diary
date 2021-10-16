@@ -1,11 +1,8 @@
 import { AnyAction, combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { useEffect, useReducer, useRef } from "react";
-import { generatePortionSuggestions, generateServingSuggestions, PortionSuggestion, ServingSuggestion } from "../../features/suggestions";
-import { Food, FoodGroup } from "../../model/Food";
-import { minus, oneServingOf, positiveServing } from "../../model/servingFunction";
-import { initSelectable, Selectable } from "../../model/Selectable";
-import { Fillable, initFillable } from "../../model/Fillable";
+import { generateSuggestions, Suggestion } from "../../features/suggestions";
+import { Food, FoodGroup, Serving } from "../../model/Food";
 
 interface ValidationError {
   foodName?: boolean;
@@ -17,59 +14,17 @@ interface ValidationError {
   sweet?: boolean;
 }
 
-function clearSelection(obj: (Selectable & Fillable)) {
-  obj.selected = false;
-  obj.fillFoodName = false;
-}
-
 const suggestions = createSlice({
   name: "suggestions",
-  initialState: {
-    servingSuggestions: [] as (ServingSuggestion & Selectable & Fillable)[],
-    portionSuggestions: [] as (PortionSuggestion & Selectable & Fillable)[],
-  },
+  initialState: [] as Suggestion[],
   reducers: {
-    setServingSuggestions: (state, action: PayloadAction<ServingSuggestion[]>) => {
-      state.servingSuggestions = _.map(action.payload, suggestion => initFillable(initSelectable(suggestion)));
-    },
-    selectServingSuggestion: (state, action: PayloadAction<{ suggestion: ServingSuggestion; fillFoodName: boolean }>) => {
-      const matched = (suggestion: ServingSuggestion) => _.isEqual(suggestion, action.payload.suggestion);
-      _.forEach(state.servingSuggestions, suggestion => {
-        if (matched(suggestion)) {
-          suggestion.selected = true;
-          suggestion.fillFoodName = action.payload.fillFoodName;
-        } else {
-          clearSelection(suggestion);
-        }
-      });
-      _.forEach(state.portionSuggestions, clearSelection);
-    },
-    unselectServingSuggestion: (state, _action: PayloadAction<ServingSuggestion>) => {
-      _.forEach(state.servingSuggestions, clearSelection);
-    },
-    setPortionSuggestions: (state, action: PayloadAction<PortionSuggestion[]>) => {
-      state.portionSuggestions = _.map(action.payload, suggestion => initFillable(initSelectable(suggestion)));
-    },
-    selectPortionSuggestion: (state, action: PayloadAction<{ suggestion: PortionSuggestion; fillFoodName: boolean }>) => {
-      const matched = (suggestion: PortionSuggestion) => _.isEqual(suggestion, action.payload.suggestion);
-      _.forEach(state.portionSuggestions, suggestion => {
-        if (matched(suggestion)) {
-          suggestion.selected = true;
-          suggestion.fillFoodName = action.payload.fillFoodName;
-        } else {
-          clearSelection(suggestion);
-        }
-      });
-      _.forEach(state.servingSuggestions, clearSelection);
-    },
-    unselectPortionSuggestion: (state, _action: PayloadAction<PortionSuggestion>) => {
-      _.forEach(state.portionSuggestions, clearSelection);
+    setSuggestions: (_state, action: PayloadAction<Suggestion[]>) => {
+      return action.payload;
     },
   }
 })
 const {
-  setServingSuggestions, selectServingSuggestion, unselectServingSuggestion,
-  setPortionSuggestions, selectPortionSuggestion, unselectPortionSuggestion,
+  setSuggestions, 
 } = suggestions.actions;
 
 const food = createSlice({
@@ -79,32 +34,18 @@ const food = createSlice({
     setName(state, action: PayloadAction<string>) {
       state.name = action.payload
     },
-    setServing(state, action: PayloadAction<{ foodGroup: FoodGroup; serving: number }>) {
+    setServing(state, action: PayloadAction<Serving>) {
+      state.serving = action.payload;
+    },
+    setFoodGroupServing(state, action: PayloadAction<{ foodGroup: FoodGroup; serving: number }>) {
       _.set(state.serving, action.payload.foodGroup, action.payload.serving)
     },
-    unsetServing(state, action: PayloadAction<FoodGroup>) {
+    unsetFoodGroupServing(state, action: PayloadAction<FoodGroup>) {
       _.unset(state.serving, action.payload)
     },
   },
-  extraReducers: builder => {
-    builder
-      .addCase(selectPortionSuggestion, (state, { payload: { suggestion, fillFoodName } }) => {
-        state.serving = suggestion.serving;
-        if (fillFoodName) { state.name = suggestion.foodName + " " + suggestion.portionSize };
-      })
-      .addCase(unselectPortionSuggestion, (state, action) => {
-        state.serving = positiveServing(minus(state.serving, action.payload.serving));
-      })
-      .addCase(selectServingSuggestion, (state, { payload: { suggestion, fillFoodName } }) => {
-        state.serving = oneServingOf(suggestion.foodGroup);
-        if (fillFoodName) { state.name = suggestion.foodName + " " + suggestion.servingSize };
-      })
-      .addCase(unselectServingSuggestion, (state, action) => {
-        state.serving = positiveServing(minus(state.serving, oneServingOf(action.payload.foodGroup)));
-      })
-  }
 })
-const { setName, setServing, unsetServing } = food.actions;
+const { setName, setServing, setFoodGroupServing, unsetFoodGroupServing } = food.actions;
 
 const error = createSlice({
   name: "error",
@@ -117,10 +58,10 @@ const error = createSlice({
       .addCase(setName, (state, action) => {
         state.foodName = _.isEmpty(action.payload);
       })
-      .addCase(setServing, (state, action) => {
+      .addCase(setFoodGroupServing, (state, action) => {
         state[action.payload.foodGroup] = lessThanZero(action.payload.serving);
       })
-      .addCase(unsetServing, (state, action) => {
+      .addCase(unsetFoodGroupServing, (state, action) => {
         state[action.payload] = false;
       })
   }
@@ -137,10 +78,7 @@ function initialState(food: Food) {
   return {
     food,
     error: {},
-    suggestions: {
-      servingSuggestions: [],
-      portionSuggestions: [],
-    }
+    suggestions: []
   };
 }
 
@@ -165,22 +103,20 @@ function checkValidity(error: ValidationError) {
   return !failed;
 }
 
-const debouncedGenerateServingSuggestions = _.debounce(generateServingSuggestions, 500, { maxWait: 2000 });
-const debouncedGeneratePortionSuggestions = _.debounce(generatePortionSuggestions, 500, { maxWait: 2000 });
+const debouncedGenerateSuggestions = _.debounce(generateSuggestions, 500, { maxWait: 2000 });
 
 const updateFoodName = (dispatch: React.Dispatch<AnyAction>, generateSuggestions: (desc: string) => void, name: string) => {
   dispatch(setName(name));
   generateSuggestions(name);
 }
 
-const updateServing = (dispatch: React.Dispatch<AnyAction>, foodGroup: FoodGroup, serving: number) =>
-  serving ? dispatch(setServing({ foodGroup, serving })) : dispatch(unsetServing(foodGroup));
+const updateFoodNameServing = (dispatch: React.Dispatch<AnyAction>, name: string, serving: Serving) => {
+  dispatch(setName(name));
+  dispatch(setServing(serving));
+}
 
-const handleSelectPortionSuggestion = (dispatch: React.Dispatch<AnyAction>, suggestion: PortionSuggestion, selected: boolean, { fillFoodName }: Fillable = { fillFoodName: false }) =>
-  selected ? dispatch(selectPortionSuggestion({ suggestion, fillFoodName })) : dispatch(unselectPortionSuggestion(suggestion));
-
-const handleSelectServingSuggestion = (dispatch: React.Dispatch<AnyAction>, suggestion: ServingSuggestion, selected: boolean, { fillFoodName }: Fillable = { fillFoodName: false }) =>
-  selected ? dispatch(selectServingSuggestion({ suggestion, fillFoodName })) : dispatch(unselectServingSuggestion(suggestion));
+const updateFoodGroupServing = (dispatch: React.Dispatch<AnyAction>, foodGroup: FoodGroup, serving: number) =>
+  serving ? dispatch(setFoodGroupServing({ foodGroup, serving })) : dispatch(unsetFoodGroupServing(foodGroup));
 
 const handleSubmit = (
   dispatch: React.Dispatch<AnyAction>,
@@ -203,25 +139,24 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
   const [state, dispatch] = useReducer(reducer, initialFood, initialState);
 
   const descRef = useRef(initialFood.name);
-  const setServingSuggestionsCallback = (suggestions: ServingSuggestion[]) => dispatch(setServingSuggestions(suggestions));
-  const setPortionSuggestionsCallback = (suggestions: PortionSuggestion[]) => dispatch(setPortionSuggestions(suggestions));
+  const setSuggestionsCallback = (suggestions: Suggestion[]) => {
+    dispatch(setSuggestions(suggestions));
+  }
+
   const generateSuggestions = (desc: string) => {
     descRef.current = desc;
-    debouncedGenerateServingSuggestions(descRef, setServingSuggestionsCallback);
-    debouncedGeneratePortionSuggestions(descRef, setPortionSuggestionsCallback);
+    debouncedGenerateSuggestions(descRef, setSuggestionsCallback);
   }
 
   useEffect(() => {
-    debouncedGenerateServingSuggestions(descRef, setServingSuggestionsCallback);
-    debouncedGeneratePortionSuggestions(descRef, setPortionSuggestionsCallback);
+    debouncedGenerateSuggestions(descRef, setSuggestionsCallback);
   }, [descRef, dispatch])
 
   const fns = {
     updateFoodName: _.partial(updateFoodName, dispatch, generateSuggestions),
-    updateServing: _.partial(updateServing, dispatch),
+    updateFoodNameServing: _.partial(updateFoodNameServing, dispatch),
+    updateFoodGroupServing: _.partial(updateFoodGroupServing, dispatch),
     handleSubmit: _.partial(handleSubmit, dispatch, state, onSaveFood),
-    handleSelectPortionSuggestion: _.partial(handleSelectPortionSuggestion, dispatch),
-    handleSelectServingSuggestion: _.partial(handleSelectServingSuggestion, dispatch),
   }
   return [state, fns] as [typeof state, typeof fns];
 }

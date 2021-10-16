@@ -1,4 +1,5 @@
-export type { PortionSuggestion } from "./PortionSuggestion";
-export type { ServingSuggestion } from "./ServingSuggestion";
+export type { PortionSuggestion } from "./portion/PortionSuggestion";
+export type { ServingSuggestion } from "./serving/ServingSuggestion";
 
-export { generateServingSuggestions, generatePortionSuggestions } from "./generateServingSuggestions";
+export type { Suggestion } from "./search";
+export { generateSuggestions, isServingSuggestion, isPortionSuggestion } from "./search";

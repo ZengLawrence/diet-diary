@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { PortionSuggestion } from "../PortionSuggestion";
+import { PortionSuggestion } from "./PortionSuggestion";
 import { portions as breakfastPortions } from "./breakfast-portion.json";
 import { portions as sandwichPortions } from "./sandwich-portion.json";
 import { portions as saladPortions } from "./salad-portion.json";
