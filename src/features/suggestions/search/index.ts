@@ -25,7 +25,7 @@ function isFoodNameComplete(foodDescription: string) {
 
 function findNameSuggestions(foodDescription: string) {
   const results = autoComplete(foodName(foodDescription));
-  return _.slice(results, 0, 5);
+  return _.size(results) === 0 ? [foodDescription] : _.slice(results, 0, 5);
 }
 
 export function generateSuggestions(

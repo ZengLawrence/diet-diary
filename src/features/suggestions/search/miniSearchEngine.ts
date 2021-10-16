@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import MiniSearch, { SearchResult } from 'minisearch';
+import MiniSearch, { SearchOptions, SearchResult } from 'minisearch';
 
 function addIndexAsId(obj: object, i: number) { return _.set(obj, "id", i); }
 
@@ -36,8 +36,9 @@ export function autoSuggest<T>(
   docs: { miniSearch: MiniSearch<T> },
   partialFoodName: string) {
   const { miniSearch } = docs;
-  const options = {
+  const options: SearchOptions = {
     fuzzy: true,
+    combineWith: "AND",
   };
   return _.map(miniSearch.autoSuggest(partialFoodName, options), "suggestion");
 }
