@@ -5,7 +5,7 @@ import { servings as carbohydrateServings } from "./carbohydrate-serving.json";
 import { servings as proteinDiaryServings } from "./protein-diary-serving.json";
 import { servings as fatServings } from "./fat-serving.json";
 import { servings as sweetServings } from "./sweet-serving.json";
-import { ServingSuggestion } from "..";
+import { ServingSuggestion } from "./ServingSuggestion";
 import { oneServingOf } from "../../../model/servingFunction";
 
 const vegetableServing = (serving: any) => ({ ...serving, foodGroup: "vegetable" });
