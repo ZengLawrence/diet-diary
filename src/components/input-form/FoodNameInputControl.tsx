@@ -4,10 +4,11 @@ import {
   ComboboxInput,
   ComboboxPopover,
   ComboboxList,
-  ComboboxOption} from "@reach/combobox";
+  ComboboxOption
+} from "@reach/combobox";
 import "@reach/combobox/styles.css";
 import { Fragment } from "react";
-import { isPortionSuggestion, isServingSuggestion, Suggestion } from "../../features/suggestions";
+import { isPortionSuggestion, isServingSuggestion, isSuggestion, Suggestion } from "../../features/suggestions";
 import { BestChoiceLegend } from "../BestChoiceLegend";
 import _ from "lodash";
 import { Serving } from "../../model/Food";
@@ -19,19 +20,23 @@ function optionText(suggestion: Suggestion) {
     return suggestion.foodName + " " + suggestion.servingSize;
   } else if (isPortionSuggestion(suggestion)) {
     return suggestion.foodName + " " + suggestion.portionSize;
+  } else if (isSuggestion(suggestion)) {
+    return suggestion.foodName + " " + suggestion.amount;
   } else {
     return suggestion;
   }
 }
 
-function hasBestChoice(suggestions: Suggestion[]) { 
-  return _.findIndex(suggestions, { 'bestChoice': true }) >= 0; 
+function hasBestChoice(suggestions: Suggestion[]) {
+  return _.findIndex(suggestions, { 'bestChoice': true }) >= 0;
 }
 
 function serving(suggestion: Suggestion) {
   if (isServingSuggestion(suggestion)) {
     return oneServingOf(suggestion.foodGroup);
   } else if (isPortionSuggestion(suggestion)) {
+    return suggestion.serving;
+  } else if (isSuggestion(suggestion)) {
     return suggestion.serving;
   } else {
     return {} as Serving;
