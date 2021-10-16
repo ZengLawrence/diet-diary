@@ -10,6 +10,14 @@ import { portions as snackPortions } from "./snack-portion.json";
 import { portions as dessertPortions } from "./dessert-portion.json";
 import { portions as beveragePortions } from "./beverage-portion.json";
 
+function toSuggestion({foodName, portionSize, serving}: PortionSuggestion) {
+  return {
+    foodName,
+    amount: portionSize,
+    serving,
+  }
+}
+
 export default _.concat<PortionSuggestion>(
   breakfastPortions,
   sandwichPortions,
@@ -20,4 +28,4 @@ export default _.concat<PortionSuggestion>(
   snackPortions,
   dessertPortions,
   beveragePortions,
-);
+).map(toSuggestion);

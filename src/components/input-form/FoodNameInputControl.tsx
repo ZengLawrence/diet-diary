@@ -8,19 +8,14 @@ import {
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 import { Fragment } from "react";
-import { isPortionSuggestion, isServingSuggestion, isSuggestion, Suggestion } from "../../features/suggestions";
+import { isSuggestion, Suggestion } from "../../features/suggestions";
 import { BestChoiceLegend } from "../BestChoiceLegend";
 import _ from "lodash";
 import { Serving } from "../../model/Food";
-import { oneServingOf } from "../../model/servingFunction";
 import { DisplayText } from "./DisplayText";
 
 function optionText(suggestion: Suggestion) {
-  if (isServingSuggestion(suggestion)) {
-    return suggestion.foodName + " " + suggestion.servingSize;
-  } else if (isPortionSuggestion(suggestion)) {
-    return suggestion.foodName + " " + suggestion.portionSize;
-  } else if (isSuggestion(suggestion)) {
+  if (isSuggestion(suggestion)) {
     return suggestion.foodName + " " + suggestion.amount;
   } else {
     return suggestion;
@@ -32,11 +27,7 @@ function hasBestChoice(suggestions: Suggestion[]) {
 }
 
 function serving(suggestion: Suggestion) {
-  if (isServingSuggestion(suggestion)) {
-    return oneServingOf(suggestion.foodGroup);
-  } else if (isPortionSuggestion(suggestion)) {
-    return suggestion.serving;
-  } else if (isSuggestion(suggestion)) {
+  if (isSuggestion(suggestion)) {
     return suggestion.serving;
   } else {
     return {} as Serving;

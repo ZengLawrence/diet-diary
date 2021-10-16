@@ -1,25 +1,15 @@
 import _ from 'lodash';
 import { Serving } from '../../../model/Food';
 import { foodName } from '../parser/foodName';
-import { PortionSuggestion } from '../portion/PortionSuggestion';
-import { ServingSuggestion } from '../serving/ServingSuggestion';
 import { autoComplete, searchFoodServingPortionSize } from './search';
 
-export type Suggestion = string | ServingSuggestion | PortionSuggestion
+export type Suggestion = string 
   | {
     foodName: string;
     amount: string;
     serving: Serving;
     bestChoice?: boolean;
   };
-
-export function isServingSuggestion(suggestion: Suggestion): suggestion is ServingSuggestion {
-  return typeof suggestion === "object" && "servingSize" in suggestion;
-}
-
-export function isPortionSuggestion(suggestion: Suggestion): suggestion is PortionSuggestion {
-  return typeof suggestion === "object" && "portionSize" in suggestion;
-}
 
 export function isSuggestion(suggestion: Suggestion): suggestion is {
   foodName: string;
