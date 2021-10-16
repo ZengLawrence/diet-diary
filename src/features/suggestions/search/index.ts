@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import { Serving } from '../../../model/Food';
 import { parseFoodDescription } from '../parser/foodDescription';
-import { foodName } from '../parser/foodName';
 import { autoComplete, searchFoodServingPortionSize } from './search';
 
 export type Suggestion = string
@@ -26,9 +25,9 @@ function findSuggestions(foodName: string) {
   return _.slice(results, 0, 5);
 }
 
-function findNameSuggestions(foodDescription: string) {
-  const results = autoComplete(foodName(foodDescription));
-  return _.size(results) === 0 ? [foodDescription] : _.slice(results, 0, 5);
+function findNameSuggestions(foodName: string) {
+  const results = autoComplete(foodName);
+  return _.size(results) === 0 ? [foodName] : _.slice(results, 0, 5);
 }
 
 export function generateSuggestions(
