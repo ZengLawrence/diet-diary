@@ -59,10 +59,10 @@ function decompose(foodDescription: string) {
 }
 
 export function generateSuggestions(
-  descRef: React.MutableRefObject<String>,
+  foodDescriptionRef: React.MutableRefObject<String>,
   callback: (suggestions: Suggestion[]) => void
 ) {
-  const { foodName, amount, foodNameCompleted } = decompose(descRef.current + "");
+  const { foodName, amount, foodNameCompleted } = decompose(foodDescriptionRef.current + "");
   const autoCompletions: Suggestion[] = foodNameCompleted ? [createAutoCompletion(foodName, amount)] : findNameSuggestions(foodName);
 
   const suggestions = findSuggestions(foodName);
