@@ -8,30 +8,22 @@ import {
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 import { Fragment } from "react";
-import { isSuggestion, Suggestion } from "../../features/suggestions";
+import { Suggestion } from "../../features/suggestions";
 import { BestChoiceLegend } from "../BestChoiceLegend";
 import _ from "lodash";
 import { Serving } from "../../model/Food";
 import { DisplayText } from "./DisplayText";
 
-function optionText(suggestion: Suggestion) {
-  if (isSuggestion(suggestion)) {
+function foodDescription(suggestion: Suggestion) {
+  if (suggestion.amount) {
     return suggestion.foodName + " " + suggestion.amount;
   } else {
-    return suggestion;
+    return suggestion.foodName;
   }
 }
 
 function hasBestChoice(suggestions: Suggestion[]) {
   return _.findIndex(suggestions, { 'bestChoice': true }) >= 0;
-}
-
-function serving(suggestion: Suggestion) {
-  if (isSuggestion(suggestion)) {
-    return suggestion.serving;
-  } else {
-    return {} as Serving;
-  }
 }
 
 export const FoodNameInputControl = (props: {
@@ -58,8 +50,8 @@ export const FoodNameInputControl = (props: {
           {props.suggestions.map((suggestion, index) => (
             <ComboboxOption
               key={index}
-              value={optionText(suggestion)}
-              onClick={() => props.updateFoodNameServing(optionText(suggestion), serving(suggestion))}>
+              value={foodDescription(suggestion)}
+              onClick={() => props.updateFoodNameServing(foodDescription(suggestion), suggestion.serving)}>
               <DisplayText suggestion={suggestion} />
             </ComboboxOption>
           ))}

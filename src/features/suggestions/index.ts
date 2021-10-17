@@ -1,2 +1,2 @@
 export type { Suggestion } from "./search";
-export { generateSuggestions, isSuggestion } from "./search";
+export { generateSuggestions } from "./search";
