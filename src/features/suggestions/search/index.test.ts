@@ -31,7 +31,7 @@ test("search for exact name e.g. 'broccoli' should return at least 3 rows.  Firs
   generateSuggestions(new MockRefObject("Broccoli"), assert);
 })
 
-test("search with more than 5 words suggestions e.g. 'pea' should return at 5 rows with just 'foodName' key in objects, and one of them should be 'pea'", () => {
+test("search with more than 5 words suggestions e.g. 'pea' should return exactly 5 rows with just 'foodName' key in objects, and one of them should be 'pea'", () => {
   const assert = (suggestions: Suggestion[]) => {
     expect(_.size(suggestions)).toEqual(5);
     suggestions.forEach(suggestion => {
@@ -42,4 +42,12 @@ test("search with more than 5 words suggestions e.g. 'pea' should return at 5 ro
     expect(suggestions).toContainEqual<Suggestion>({ foodName: "pea" });
   }
   generateSuggestions(new MockRefObject("pea"), assert);
+})
+
+test("search with no match e.g. 'longan' should return exactly 1 row with 'longan'", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toEqual(1);
+    expect(suggestions).toContainEqual<Suggestion>({ foodName: "longan" });
+  }
+  generateSuggestions(new MockRefObject("longan"), assert);
 })

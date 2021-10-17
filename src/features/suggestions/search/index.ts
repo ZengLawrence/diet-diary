@@ -21,10 +21,9 @@ function findNameSuggestions(foodName: string) {
   return _.size(results) === 0 ? [{ foodName }] : _.slice(results, 0, 5);
 }
 
-function combine(autoCompletions: Suggestion[], suggestions: Suggestion[]) {
-  const autoSuggestions = _.size(autoCompletions) === 1 ? [{...suggestions[0], ...autoCompletions[0]}] : [];
-  return _.concat(autoCompletions, autoSuggestions, suggestions)
-    .slice(0, 5);
+function generateAutoSuggestions(autoCompletions: Suggestion[], suggestions: Suggestion[]) {
+  const shouldGenerate = _.size(autoCompletions) === 1 && _.size(suggestions) > 0;
+  return shouldGenerate ? [{ ...suggestions[0], ...autoCompletions[0] }] : [];
 }
 
 export function generateSuggestions(
@@ -37,5 +36,8 @@ export function generateSuggestions(
       amount?: string
     };
   const autoCompletions: Suggestion[] = amount ? [{ foodName, amount }] : findNameSuggestions(foodName);
-  return callback(combine(autoCompletions, findSuggestions(foodName)));
+  const suggestions = findSuggestions(foodName);
+  const results = _.concat(autoCompletions, generateAutoSuggestions(autoCompletions, suggestions), suggestions)
+    .slice(0, 5);
+  return callback(results);
 }
