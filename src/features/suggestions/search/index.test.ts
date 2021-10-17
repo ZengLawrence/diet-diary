@@ -9,11 +9,18 @@ class MockRefObject implements React.MutableRefObject<String> {
   }
 }
 
-test("search for exact name e.g. 'Broccoli' should return at least 2 row and first row is 'broccoli' with lower case b and second row is serving suggestion", () => {
+test("search for exact name e.g. 'broccoli' should return at least 3 rows.  First 3 rows: 1) 'broccoli' word suggestion, 2) 'broccoli' word suggestion with serving, 3) serving suggestion", () => {
   const assert = (suggestions: Suggestion[]) => {
-    expect(_.size(suggestions)).toBeGreaterThanOrEqual(2);
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(3);
     expect(suggestions[0]).toMatchObject({ "foodName": "broccoli" });
     expect(suggestions[1]).toMatchObject(
+      {
+        "foodName": "broccoli",
+        "amount": "1 cup florets",
+        "bestChoice": true
+      }
+    );
+    expect(suggestions[2]).toMatchObject(
       {
         "foodName": "Broccoli",
         "amount": "1 cup florets",

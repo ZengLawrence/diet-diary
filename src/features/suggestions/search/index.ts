@@ -22,7 +22,8 @@ function findNameSuggestions(foodName: string) {
 }
 
 function combine(autoCompletions: Suggestion[], suggestions: Suggestion[]) {
-  return _.concat(autoCompletions, suggestions)
+  const autoSuggestions = _.size(autoCompletions) === 1 ? [{...suggestions[0], ...autoCompletions[0]}] : [];
+  return _.concat(autoCompletions, autoSuggestions, suggestions)
     .slice(0, 5);
 }
 
