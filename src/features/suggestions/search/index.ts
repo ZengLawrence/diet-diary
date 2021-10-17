@@ -28,16 +28,15 @@ function createAutoSuggestion(nameSuggestion: Suggestion, suggestion: Suggestion
   }
 }
 
-function generateAutoSuggestions(autoCompletions: Suggestion[], suggestions: Suggestion[], foodName: string) {
-  const shouldGenerate = _.size(autoCompletions) === 1
+function shouldGenerateAutoSuggestion(autoCompletions: Suggestion[], suggestions: Suggestion[], foodName: string) {
+  return _.size(autoCompletions) === 1
     && _.size(suggestions) > 0
     && !(foodName === suggestions[0].foodName);
-  if (shouldGenerate) {
-    const bestMatched = _.head(suggestions.filter(suggestion => suggestion.foodName.toLowerCase().startsWith(foodName.toLowerCase())));
-    return [createAutoSuggestion(autoCompletions[0], bestMatched || suggestions[0])];
-  } else {
-    return [];
-  }
+}
+
+function generateAutoSuggestions(autoCompletions: Suggestion[], suggestions: Suggestion[]) {
+  const bestMatched = _.head(suggestions.filter(suggestion => suggestion.foodName.toLowerCase().startsWith(autoCompletions[0].foodName)));
+  return [createAutoSuggestion(autoCompletions[0], bestMatched || suggestions[0])];
 }
 
 export function generateSuggestions(
@@ -51,7 +50,9 @@ export function generateSuggestions(
     };
   const autoCompletions: Suggestion[] = amount ? [{ foodName, amount }] : findNameSuggestions(foodName);
   const suggestions = findSuggestions(foodName);
-  const results = _.concat(autoCompletions, generateAutoSuggestions(autoCompletions, suggestions, foodName), suggestions)
+  const shouldGenerate = shouldGenerateAutoSuggestion(autoCompletions, suggestions, foodName);
+  const autoSuggestions = shouldGenerate ? generateAutoSuggestions(autoCompletions, suggestions) : [];
+  const results = _.concat(autoCompletions, autoSuggestions, suggestions)
     .slice(0, 5);
   return callback(results);
 }
