@@ -21,6 +21,11 @@ function findNameSuggestions(foodName: string) {
   return _.size(results) === 0 ? [{ foodName }] : _.slice(results, 0, 5);
 }
 
+function combine(autoCompletions: Suggestion[], suggestions: Suggestion[]) {
+  return _.concat(autoCompletions, suggestions)
+    .slice(0, 5);
+}
+
 export function generateSuggestions(
   descRef: React.MutableRefObject<String>,
   callback: (suggestions: Suggestion[]) => void
@@ -31,5 +36,5 @@ export function generateSuggestions(
       amount?: string
     };
   const autoCompletions: Suggestion[] = amount ? [{ foodName, amount }] : findNameSuggestions(foodName);
-  return callback(_.concat(autoCompletions, findSuggestions(foodName)));
+  return callback(combine(autoCompletions, findSuggestions(foodName)));
 }
