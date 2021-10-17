@@ -13,8 +13,12 @@ export const DisplayText = (props: { suggestion: Suggestion; }) => {
       <Fragment>
         {bestChoice && <BlueStar />}
         <ComboboxOptionText />
-        <FoodGroupServingBadgePanel serving={serving} />
-        <CalorieSpan value={calcServingCalories(serving)} />
+        {serving &&
+          <Fragment>
+            <FoodGroupServingBadgePanel serving={serving} />
+            <CalorieSpan value={calcServingCalories(serving)} />
+          </Fragment>
+        }
       </Fragment>
     );
   } else {

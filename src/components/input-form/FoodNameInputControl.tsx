@@ -39,7 +39,7 @@ export const FoodNameInputControl = (props: {
   suggestions: Suggestion[];
   invalid?: boolean;
   updateFoodName: (name: string) => void;
-  updateFoodNameServing: (name: string, serving: Serving) => void;
+  updateFoodNameServing: (name: string, serving?: Serving) => void;
 }) => (
   <Fragment>
     <Form.Label htmlFor="inputFoodName" srOnly>Food name</Form.Label>

@@ -7,14 +7,14 @@ export type Suggestion = string
   | {
     foodName: string;
     amount?: string;
-    serving: Serving;
+    serving?: Serving;
     bestChoice?: boolean;
   };
 
 export function isSuggestion(suggestion: Suggestion): suggestion is {
   foodName: string;
   amount?: string;
-  serving: Serving;
+  serving?: Serving;
   bestChoice?: boolean;
 } {
   return typeof suggestion === "object" && "amount" in suggestion;
@@ -34,12 +34,11 @@ export function generateSuggestions(
   descRef: React.MutableRefObject<String>,
   callback: (suggestions: Suggestion[]) => void
 ) {
-  const foodDescription = descRef.current + "";
-  const { foodName, amount } = parseFoodDescription(foodDescription) as
+  const { foodName, amount } = parseFoodDescription(descRef.current + "") as
     {
       foodName: string,
       amount?: string
     };
-  const autoCompletions: Suggestion[] = amount ? [foodDescription] : findNameSuggestions(foodName);
+  const autoCompletions: Suggestion[] = amount ? [{ foodName, amount }] : findNameSuggestions(foodName);
   return callback(_.concat(autoCompletions, findSuggestions(foodName)));
 }
