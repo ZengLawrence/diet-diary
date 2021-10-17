@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { searchFoodServingPortionSize } from "./search";
+import { autoComplete, searchFoodServingPortionSize } from "./search";
 
 // search for serving
 test("search for exact name e.g. Broccoli should return at least one row and first row is Broccoli", () => {
@@ -61,4 +61,17 @@ test("search for exact name for portion e.g. 'Caesar salad' should return 'Caesa
   const results = searchFoodServingPortionSize("Caesar salad");
   expect(_.size(results)).toBeGreaterThanOrEqual(1);
   expect(results[0]).toMatchObject({ "foodName": "Caesar salad with grilled chicken" });
+})
+
+// auto complete food name
+test("auto complete food name for a partial name e.g. 'brocco' should return 'broccoli'", () => {
+  const results = autoComplete("brocco");
+  expect(_.size(results)).toBeGreaterThanOrEqual(1);
+  expect(results[0]).toBe("broccoli");
+})
+
+test("auto complete food name for multiple word name e.g. 'peanut butt' should return 'peanut butter'", () => {
+  const results = autoComplete("peanut butt");
+  expect(_.size(results)).toBeGreaterThanOrEqual(1);
+  expect(results[0]).toBe("peanut butter");
 })

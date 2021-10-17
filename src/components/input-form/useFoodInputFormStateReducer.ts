@@ -110,9 +110,9 @@ const updateFoodName = (dispatch: React.Dispatch<AnyAction>, generateSuggestions
   generateSuggestions(name);
 }
 
-const updateFoodNameServing = (dispatch: React.Dispatch<AnyAction>, name: string, serving: Serving) => {
+const updateFoodNameServing = (dispatch: React.Dispatch<AnyAction>, name: string, serving?: Serving) => {
   dispatch(setName(name));
-  dispatch(setServing(serving));
+  serving && dispatch(setServing(serving));
 }
 
 const updateFoodGroupServing = (dispatch: React.Dispatch<AnyAction>, foodGroup: FoodGroup, serving: number) =>

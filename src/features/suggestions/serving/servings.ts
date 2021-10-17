@@ -5,6 +5,8 @@ import { servings as carbohydrateServings } from "./carbohydrate-serving.json";
 import { servings as proteinDiaryServings } from "./protein-diary-serving.json";
 import { servings as fatServings } from "./fat-serving.json";
 import { servings as sweetServings } from "./sweet-serving.json";
+import { ServingSuggestion } from "./ServingSuggestion";
+import { oneServingOf } from "../../../model/servingFunction";
 
 const vegetableServing = (serving: any) => ({ ...serving, foodGroup: "vegetable" });
 const fruitServing = (serving: any) => ({ ...serving, foodGroup: "fruit" });
@@ -13,6 +15,15 @@ const proteinDiaryServing = (serving: any) => ({ ...serving, foodGroup: "protein
 const fatServing = (serving: any) => ({ ...serving, foodGroup: "fat" });
 const sweetServing = (serving: any) => ({ ...serving, foodGroup: "sweet" });
 
+function toSuggestion({foodName, servingSize, foodGroup, bestChoice}: ServingSuggestion) {
+  return {
+    foodName,
+    amount: servingSize,
+    serving: oneServingOf(foodGroup),
+    bestChoice,
+  }
+}
+
 export default _.concat(
   _.map(vegetableServings, vegetableServing),
   _.map(fruitServings, fruitServing),
@@ -20,4 +31,4 @@ export default _.concat(
   _.map(proteinDiaryServings, proteinDiaryServing),
   _.map(fatServings, fatServing),
   _.map(sweetServings, sweetServing),
-);
+).map(toSuggestion);

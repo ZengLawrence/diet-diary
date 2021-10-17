@@ -1,38 +1,52 @@
 import _ from 'lodash';
-import { foodName } from '../parser/foodName';
-import { PortionSuggestion } from '../portion/PortionSuggestion';
-import { ServingSuggestion } from '../serving/ServingSuggestion';
+import { Serving } from '../../../model/Food';
+import { parseFoodDescription } from '../parser/foodDescription';
 import { autoComplete, searchFoodServingPortionSize } from './search';
 
-export type Suggestion = string | ServingSuggestion | PortionSuggestion;
+export interface Suggestion {
+  foodName: string;
+  amount?: string;
+  serving?: Serving;
+  bestChoice?: boolean;
+};
 
-export function isServingSuggestion(suggestion: Suggestion): suggestion is ServingSuggestion {
-  return typeof suggestion === "object" && "servingSize" in suggestion;
-}
-
-export function isPortionSuggestion(suggestion: Suggestion) : suggestion is PortionSuggestion {
-  return typeof suggestion === "object" && "portionSize" in suggestion;
-}
-
-function findSuggestions(foodDescription: string) {
-  const results = searchFoodServingPortionSize(foodName(foodDescription));
+function findSuggestions(foodName: string) {
+  const results = searchFoodServingPortionSize(foodName);
   return _.slice(results, 0, 5);
 }
 
-function isFoodNameComplete(foodDescription: string) {
-  return _.size(foodDescription) > _.size(foodName(foodDescription));
+function findNameSuggestions(foodName: string) {
+  const results = autoComplete(foodName)
+    .map(foodName => ({ foodName }));
+  return _.size(results) === 0 ? [{ foodName }] : _.slice(results, 0, 5);
 }
 
-function findNameSuggestions(foodDescription: string) {
-  const results = autoComplete(foodName(foodDescription));
-  return _.size(results) === 0 ? [foodDescription] : _.slice(results, 0, 5);
+function createAutoSuggestion(nameSuggestion: Suggestion, suggestion: Suggestion) {
+  return {
+    ...suggestion,
+    ...nameSuggestion
+  }
+}
+
+function generateAutoSuggestions(autoCompletions: Suggestion[], suggestions: Suggestion[], foodName: string) {
+  const shouldGenerate = _.size(autoCompletions) === 1
+    && _.size(suggestions) > 0
+    && !(foodName === suggestions[0].foodName);
+  return shouldGenerate ? [createAutoSuggestion(autoCompletions[0], suggestions[0])] : [];
 }
 
 export function generateSuggestions(
   descRef: React.MutableRefObject<String>,
   callback: (suggestions: Suggestion[]) => void
 ) {
-  const foodDescription = descRef.current + "";
-  const autoCompletions : Suggestion[] = isFoodNameComplete(foodDescription) ? [foodDescription] : findNameSuggestions(foodDescription);
-  return callback(_.concat(autoCompletions, findSuggestions(foodDescription)));
+  const { foodName, amount } = parseFoodDescription(descRef.current + "") as
+    {
+      foodName: string,
+      amount?: string
+    };
+  const autoCompletions: Suggestion[] = amount ? [{ foodName, amount }] : findNameSuggestions(foodName);
+  const suggestions = findSuggestions(foodName);
+  const results = _.concat(autoCompletions, generateAutoSuggestions(autoCompletions, suggestions, foodName), suggestions)
+    .slice(0, 5);
+  return callback(results);
 }
