@@ -35,7 +35,7 @@ function shouldGenerateAutoSuggestion(autoCompletions: Suggestion[], suggestions
 }
 
 function generateAutoSuggestions(autoCompletions: Suggestion[], suggestions: Suggestion[]) {
-  const bestMatched = _.head(suggestions.filter(suggestion => suggestion.foodName.toLowerCase().startsWith(autoCompletions[0].foodName)));
+  const bestMatched = _.head(suggestions.filter(suggestion => suggestion.foodName.toLowerCase().startsWith(autoCompletions[0].foodName.toLowerCase())));
   return [createAutoSuggestion(autoCompletions[0], bestMatched || suggestions[0])];
 }
 

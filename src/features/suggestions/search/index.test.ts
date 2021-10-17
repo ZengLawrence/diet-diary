@@ -100,3 +100,20 @@ test("search with multiple matches and word is completed i.e space after the wor
   }
   generateSuggestions(new MockRefObject("peas "), assert);
 })
+
+test("search with multiple matches and word is completed i.e space after the word, with capitalized letter e.g. 'Peas ' should auto suggest with amount and serving from food name starts with 'peas'", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(2);
+    expect(suggestions[0]).toMatchObject({ "foodName": "Peas" });
+    expect(suggestions[1]).toMatchObject(
+      {
+        "foodName": "Peas",
+        "amount": "1/2 cup",
+        "serving": {
+          "proteinDiary": 1
+        }
+      }
+    );
+  }
+  generateSuggestions(new MockRefObject("Peas "), assert);
+})
