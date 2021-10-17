@@ -34,9 +34,16 @@ function shouldGenerateAutoSuggestion(autoCompletions: Suggestion[], suggestions
     && !(foodName === suggestions[0].foodName);
 }
 
+function startsWith(suggestion: Suggestion, foodName: string) {
+  return _.startsWith(_.lowerCase(suggestion.foodName), _.lowerCase(foodName));
+}
+
 function generateAutoSuggestions(autoCompletions: Suggestion[], suggestions: Suggestion[]) {
-  const bestMatched = _.head(suggestions.filter(suggestion => suggestion.foodName.toLowerCase().startsWith(autoCompletions[0].foodName.toLowerCase())));
-  return [createAutoSuggestion(autoCompletions[0], bestMatched || suggestions[0])];
+  const firstAutoCompletion = autoCompletions[0];
+  const startsWithAutoCompletedFoodName = (suggestion: Suggestion) => startsWith(suggestion, firstAutoCompletion.foodName);
+  const bestMatched = _.head(_.filter(suggestions, startsWithAutoCompletedFoodName))
+    || suggestions[0];
+  return [createAutoSuggestion(firstAutoCompletion, bestMatched)];
 }
 
 function createAutoCompletion(foodName: string, amount?: string) {
