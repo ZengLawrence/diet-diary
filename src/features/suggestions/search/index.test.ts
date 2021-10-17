@@ -34,7 +34,7 @@ test("search for full name e.g. 'broccoli' should return at least 3 rows.  First
 test("search for exact name e.g. 'Broccoli' should return at least 2 rows.  First 2 rows: 1) 'broccoli' word suggestion, 2) serving suggestion", () => {
   const assert = (suggestions: Suggestion[]) => {
     expect(_.size(suggestions)).toBeGreaterThanOrEqual(2);
-    expect(suggestions[0]).toMatchObject({ "foodName": "broccoli" });
+    expect(suggestions[0]).toMatchObject({ "foodName": "Broccoli" });
     expect(suggestions[1]).toMatchObject(
       {
         "foodName": "Broccoli",
@@ -116,4 +116,14 @@ test("search with multiple matches and word is completed i.e space after the wor
     );
   }
   generateSuggestions(new MockRefObject("Peas "), assert);
+})
+
+test("search with multiple matches and with capitalized letter e.g. 'Peas' should auto suggest names with capitalized letter", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(1);
+    _.map(suggestions, "foodName").forEach(foodName => {
+      expect(foodName).toMatch(_.capitalize(foodName));
+    });
+  }
+  generateSuggestions(new MockRefObject("Peas"), assert);
 })

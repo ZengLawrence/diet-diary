@@ -16,7 +16,10 @@ function findSuggestions(foodName: string) {
 }
 
 function findNameSuggestions(foodName: string) {
+  const shouldCapitalized = (foodName === _.capitalize(foodName));
+  const format = (s: string) => shouldCapitalized ? _.capitalize(s) : s;
   const results = autoComplete(foodName)
+    .map(format)
     .map(foodName => ({ foodName }));
   return _.size(results) === 0 ? [{ foodName }] : _.slice(results, 0, 5);
 }
