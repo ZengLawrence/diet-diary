@@ -32,7 +32,12 @@ function generateAutoSuggestions(autoCompletions: Suggestion[], suggestions: Sug
   const shouldGenerate = _.size(autoCompletions) === 1
     && _.size(suggestions) > 0
     && !(foodName === suggestions[0].foodName);
-  return shouldGenerate ? [createAutoSuggestion(autoCompletions[0], suggestions[0])] : [];
+  if (shouldGenerate) {
+    const bestMatched = _.head(suggestions.filter(suggestion => suggestion.foodName.toLowerCase().startsWith(foodName.toLowerCase())));
+    return [createAutoSuggestion(autoCompletions[0], bestMatched || suggestions[0])];
+  } else {
+    return [];
+  }
 }
 
 export function generateSuggestions(

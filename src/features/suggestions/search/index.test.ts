@@ -66,3 +66,20 @@ test("search with no match e.g. 'longan' should return exactly 1 row with 'longa
   }
   generateSuggestions(new MockRefObject("longan"), assert);
 })
+
+test("search with multiple matches e.g. 'peanut butter' should auto suggest with amount and serving from food name starts with 'peanut butter'", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(2);
+    expect(suggestions[0]).toMatchObject({ "foodName": "peanut butter" });
+    expect(suggestions[1]).toMatchObject(
+      {
+        "foodName": "peanut butter",
+        "amount": "1 1/2 teaspoons",
+        "serving": {
+          "fat": 1
+        }
+      }
+    );
+  }
+  generateSuggestions(new MockRefObject("peanut butter"), assert);
+})
