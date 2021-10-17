@@ -83,3 +83,20 @@ test("search with multiple matches e.g. 'peanut butter' should auto suggest with
   }
   generateSuggestions(new MockRefObject("peanut butter"), assert);
 })
+
+test("search with multiple matches and word is completed i.e space after the word e.g. 'peas ' should auto suggest with amount and serving from food name starts with 'peas'", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(2);
+    expect(suggestions[0]).toMatchObject({ "foodName": "peas" });
+    expect(suggestions[1]).toMatchObject(
+      {
+        "foodName": "peas",
+        "amount": "1/2 cup",
+        "serving": {
+          "proteinDiary": 1
+        }
+      }
+    );
+  }
+  generateSuggestions(new MockRefObject("peas "), assert);
+})

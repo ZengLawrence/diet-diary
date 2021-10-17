@@ -39,16 +39,24 @@ function generateAutoSuggestions(autoCompletions: Suggestion[], suggestions: Sug
   return [createAutoSuggestion(autoCompletions[0], bestMatched || suggestions[0])];
 }
 
+function createAutoCompletion(foodName: string, amount?: string) {
+  return amount ? { foodName, amount } : { foodName };
+}
+
 export function generateSuggestions(
   descRef: React.MutableRefObject<String>,
   callback: (suggestions: Suggestion[]) => void
 ) {
-  const { foodName, amount } = parseFoodDescription(descRef.current + "") as
+  const foodDescription = descRef.current + "";
+  const { foodName, amount } = parseFoodDescription(foodDescription) as
     {
       foodName: string,
       amount?: string
     };
-  const autoCompletions: Suggestion[] = amount ? [{ foodName, amount }] : findNameSuggestions(foodName);
+  // put a space after a word
+  const foodNameCompleted = foodDescription.substr(_.size(foodName), 1) === " ";
+  const autoCompletions: Suggestion[] = foodNameCompleted ? [createAutoCompletion(foodName, amount)] : findNameSuggestions(foodName);
+
   const suggestions = findSuggestions(foodName);
   const shouldGenerate = shouldGenerateAutoSuggestion(autoCompletions, suggestions, foodName);
   const autoSuggestions = shouldGenerate ? generateAutoSuggestions(autoCompletions, suggestions) : [];
