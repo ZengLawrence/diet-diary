@@ -79,3 +79,10 @@ jobs:
         cp -r ../build/ diet-diary
         git diff --stat
       working-directory: github-page
+    - name: Publish to my GitHub page
+      run: |
+        git config user.name Lawrence Zeng
+        git config user.email lawrence.zeng@gmail.com
+        git commit -m "Production release of Diet Diary ${{ GITHUB_REF }}"
+        git push
+      working-directory: github-page
