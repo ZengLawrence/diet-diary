@@ -8,11 +8,13 @@ on:
     branches: [ main, cd ]
   pull_request:
     branches: [ main ]
+  release:
+    types: [published]
 
 jobs:
   build:
     env:
-      release: ${{ github.ref == 'refs/heads/cd' }}
+      release: ${{ github.event_name == 'release' }}
 
     runs-on: ubuntu-latest
 
