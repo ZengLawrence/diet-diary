@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    environment:
+    env:
       release: ${{ github.ref == 'refs/heads/main' }}
 
     runs-on: ubuntu-latest
