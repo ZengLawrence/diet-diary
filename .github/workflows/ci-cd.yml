@@ -35,3 +35,6 @@ jobs:
       run: npm run gen-parser
     - run: npm ci
     - run: npm test
+    - name: Builds the app for production
+      if: ${{ github.ref == 'refs/heads/cd' }}
+      run: npm run build
