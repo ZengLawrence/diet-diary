@@ -70,3 +70,12 @@ jobs:
         ref: test_cd
         token: ${{ secrets.MY_GITHUB_PAGE_PAT }}
         path: github-page
+    - name: Display structure of my GitHub Page
+      run: ls -R
+      working-directory: github-page
+    - name: Copy build dir to diet-diary dir
+      run: |
+        rm -r diet-diary/
+        cp -r ../build/ diet-diary
+        git diff --stat
+      working-directory: github-page
