@@ -23,8 +23,8 @@ jobs:
 
     steps:
     - run: echo "env.release = ${{ env.release }}"
-    - name: Build and test
-      uses: ./.github/actions/my-action
+    - name: Continuous Integration
+      uses: ./.github/actions/ci
     - run: echo "should I release? ${{ env.release == 'true' }}"
     - name: Builds the app for production
       if: ${{ env.release == 'true' }}
