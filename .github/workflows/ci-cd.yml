@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: CI CD
 
 on:
   push:
@@ -12,7 +12,7 @@ on:
 jobs:
   build:
     env:
-      release: ${{ github.ref == 'refs/heads/main' }}
+      release: ${{ github.ref == 'refs/heads/cd' }}
 
     runs-on: ubuntu-latest
 
@@ -51,7 +51,7 @@ jobs:
         retention-days: 1
 
   deploy:
-    if: ${{ github.ref == 'refs/heads/main' }}
+    if: ${{ github.ref == 'refs/heads/cd' }}
     needs: [ build ]
     runs-on: ubuntu-latest
     steps:
@@ -63,3 +63,9 @@ jobs:
     - name: Display structure of downloaded files
       run: ls -R
       working-directory: build    
+    - name: Checkout my GitHub Page
+      uses: actions/checkout@v2
+      with:
+        repository: ZengLawrence/ZengLawrence.github.io
+        token: ${{ secrets.MY_GITHUB_PAGE_PAT }}
+        path: github-page
