@@ -16,7 +16,7 @@ quantity
   ;
 
 unit
-  : STRING
+  : STRING+
   ;
 
 STRING
