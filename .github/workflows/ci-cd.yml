@@ -73,14 +73,15 @@ jobs:
     - name: Display structure of my GitHub Page
       run: ls -R
       working-directory: github-page
+    - name: Remove diet-diary dir
+      run: git rm -r diet-diary/
     - name: Copy build dir to diet-diary dir
-      run: |
-        rm -r diet-diary/
-        cp -r ../build/ diet-diary
-        git diff --stat
+      run: cp -r ../build/ diet-diary
       working-directory: github-page
     - name: Publish to my GitHub page
       run: |
+        git add --add
+        git diff --stat
         git config user.name Lawrence Zeng
         git config user.email lawrence.zeng@gmail.com
         git commit -m "Production release of Diet Diary ${{ github.ref }}"
