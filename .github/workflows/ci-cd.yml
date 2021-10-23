@@ -38,3 +38,16 @@ jobs:
     - name: Builds the app for production
       if: ${{ github.ref == 'refs/heads/cd' }}
       run: npm run build
+    - name: 'Upload Artifact'
+      if: ${{ github.ref == 'refs/heads/cd' }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: diet-diary_build
+        path: build
+        retention-days: 1
+
+  deploy:
+    if: ${{ github.ref == 'refs/heads/cd' }}
+    runs-on: ubuntu-latest
+    steps:
+
