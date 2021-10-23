@@ -1,0 +1,95 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: CI CD
+
+on:
+  push:
+    branches: [ main, cd ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [published]
+
+jobs:
+  build:
+    env:
+      release: ${{ github.event_name == 'release' }}
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    outputs:
+      release: ${{ env.release }}
+
+    steps:
+    - run: echo "env.release = ${{ env.release }}"
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+        cache: maven
+    - name: Generate parser source code
+      run: npm run gen-parser
+    - run: npm ci
+    - run: npm test
+    - run: echo "should I release? ${{ env.release == 'true' }}"
+    - name: Builds the app for production
+      if: ${{ env.release == 'true' }}
+      run: npm run build
+    - name: Upload production build
+      if: ${{ env.release == 'true' }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: diet-diary_build
+        path: build
+        retention-days: 1
+
+  deploy:
+    if: ${{ needs.build.outputs.release == 'true' }}
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download production build
+      uses: actions/download-artifact@v2
+      with:
+        name: diet-diary_build
+        path: build
+    - name: Display structure of downloaded files
+      run: ls -R
+      working-directory: build    
+    - name: Checkout my GitHub Page
+      uses: actions/checkout@v2
+      with:
+        repository: ZengLawrence/ZengLawrence.github.io
+        ref: main
+        token: ${{ secrets.MY_GITHUB_PAGE_PAT }}
+        path: github-page
+    - name: Display structure of my GitHub Page
+      run: ls -R
+      working-directory: github-page
+    - name: Remove diet-diary dir
+      run: git rm -r diet-diary/
+      working-directory: github-page
+    - name: Copy build dir to diet-diary dir
+      run: cp -r ../build/ diet-diary
+      working-directory: github-page
+    - name: Publish to my GitHub page
+      run: |
+        git add --all
+        git diff --stat
+        git config user.name Lawrence Zeng
+        git config user.email lawrence.zeng@gmail.com
+        git commit -m "Production release of Diet Diary ${{ github.ref }}"
+        git push
+      working-directory: github-page
