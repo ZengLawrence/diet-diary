@@ -34,7 +34,7 @@ test("search for full name e.g. 'broccoli' should return at least 3 rows.  First
 test("search for exact name e.g. 'Broccoli' should return at least 2 rows.  First 2 rows: 1) 'broccoli' word suggestion, 2) serving suggestion", () => {
   const assert = (suggestions: Suggestion[]) => {
     expect(_.size(suggestions)).toBeGreaterThanOrEqual(2);
-    expect(suggestions[0]).toMatchObject({ "foodName": "broccoli" });
+    expect(suggestions[0]).toMatchObject({ "foodName": "Broccoli" });
     expect(suggestions[1]).toMatchObject(
       {
         "foodName": "Broccoli",
@@ -65,4 +65,65 @@ test("search with no match e.g. 'longan' should return exactly 1 row with 'longa
     expect(suggestions).toContainEqual<Suggestion>({ foodName: "longan" });
   }
   generateSuggestions(new MockRefObject("longan"), assert);
+})
+
+test("search with multiple matches e.g. 'peanut butter' should auto suggest with amount and serving from food name starts with 'peanut butter'", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(2);
+    expect(suggestions[0]).toMatchObject({ "foodName": "peanut butter" });
+    expect(suggestions[1]).toMatchObject(
+      {
+        "foodName": "peanut butter",
+        "amount": "1 1/2 teaspoons",
+        "serving": {
+          "fat": 1
+        }
+      }
+    );
+  }
+  generateSuggestions(new MockRefObject("peanut butter"), assert);
+})
+
+test("search with multiple matches and word is completed i.e space after the word e.g. 'peas ' should auto suggest with amount and serving from food name starts with 'peas'", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(2);
+    expect(suggestions[0]).toMatchObject({ "foodName": "peas" });
+    expect(suggestions[1]).toMatchObject(
+      {
+        "foodName": "peas",
+        "amount": "1/2 cup",
+        "serving": {
+          "proteinDiary": 1
+        }
+      }
+    );
+  }
+  generateSuggestions(new MockRefObject("peas "), assert);
+})
+
+test("search with multiple matches and word is completed i.e space after the word, with capitalized letter e.g. 'Peas ' should auto suggest with amount and serving from food name starts with 'peas'", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(2);
+    expect(suggestions[0]).toMatchObject({ "foodName": "Peas" });
+    expect(suggestions[1]).toMatchObject(
+      {
+        "foodName": "Peas",
+        "amount": "1/2 cup",
+        "serving": {
+          "proteinDiary": 1
+        }
+      }
+    );
+  }
+  generateSuggestions(new MockRefObject("Peas "), assert);
+})
+
+test("search with multiple matches and with capitalized letter e.g. 'Peas' should auto suggest names with capitalized letter", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(1);
+    _.map(suggestions, "foodName").forEach(foodName => {
+      expect(foodName).toMatch(_.capitalize(foodName));
+    });
+  }
+  generateSuggestions(new MockRefObject("Peas"), assert);
 })

@@ -16,7 +16,10 @@ function findSuggestions(foodName: string) {
 }
 
 function findNameSuggestions(foodName: string) {
+  const shouldCapitalized = (foodName === _.capitalize(foodName));
+  const format = (s: string) => shouldCapitalized ? _.capitalize(s) : s;
   const results = autoComplete(foodName)
+    .map(format)
     .map(foodName => ({ foodName }));
   return _.size(results) === 0 ? [{ foodName }] : _.slice(results, 0, 5);
 }
@@ -28,25 +31,54 @@ function createAutoSuggestion(nameSuggestion: Suggestion, suggestion: Suggestion
   }
 }
 
-function generateAutoSuggestions(autoCompletions: Suggestion[], suggestions: Suggestion[], foodName: string) {
-  const shouldGenerate = _.size(autoCompletions) === 1
+function shouldGenerateAutoSuggestion(autoCompletions: Suggestion[], suggestions: Suggestion[], foodName: string) {
+  return _.size(autoCompletions) === 1
     && _.size(suggestions) > 0
     && !(foodName === suggestions[0].foodName);
-  return shouldGenerate ? [createAutoSuggestion(autoCompletions[0], suggestions[0])] : [];
 }
 
-export function generateSuggestions(
-  descRef: React.MutableRefObject<String>,
-  callback: (suggestions: Suggestion[]) => void
-) {
-  const { foodName, amount } = parseFoodDescription(descRef.current + "") as
+function startsWith(suggestion: Suggestion, foodName: string) {
+  return _.startsWith(_.lowerCase(suggestion.foodName), _.lowerCase(foodName));
+}
+
+function generateAutoSuggestions(autoCompletions: Suggestion[], suggestions: Suggestion[]) {
+  const firstAutoCompletion = autoCompletions[0];
+  const startsWithAutoCompletedFoodName = (suggestion: Suggestion) => startsWith(suggestion, firstAutoCompletion.foodName);
+  const bestMatched = _.head(_.filter(suggestions, startsWithAutoCompletedFoodName))
+    || suggestions[0];
+  return [createAutoSuggestion(firstAutoCompletion, bestMatched)];
+}
+
+function createAutoCompletion(foodName: string, amount?: string) {
+  return amount ? { foodName, amount } : { foodName };
+}
+
+function decompose(foodDescription: string) {
+  const { foodName, amount } = parseFoodDescription(foodDescription) as
     {
       foodName: string,
       amount?: string
     };
-  const autoCompletions: Suggestion[] = amount ? [{ foodName, amount }] : findNameSuggestions(foodName);
+  // put a space after a word
+  const foodNameCompleted = foodDescription.substr(_.size(foodName), 1) === " ";
+  return {
+    foodName,
+    amount,
+    foodNameCompleted,
+  }
+}
+
+export function generateSuggestions(
+  foodDescriptionRef: React.MutableRefObject<String>,
+  callback: (suggestions: Suggestion[]) => void
+) {
+  const { foodName, amount, foodNameCompleted } = decompose(foodDescriptionRef.current + "");
+  const autoCompletions: Suggestion[] = foodNameCompleted ? [createAutoCompletion(foodName, amount)] : findNameSuggestions(foodName);
+
   const suggestions = findSuggestions(foodName);
-  const results = _.concat(autoCompletions, generateAutoSuggestions(autoCompletions, suggestions, foodName), suggestions)
+  const shouldGenerate = shouldGenerateAutoSuggestion(autoCompletions, suggestions, foodName);
+  const autoSuggestions = shouldGenerate ? generateAutoSuggestions(autoCompletions, suggestions) : [];
+  const results = _.concat(autoCompletions, autoSuggestions, suggestions)
     .slice(0, 5);
   return callback(results);
 }

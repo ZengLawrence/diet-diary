@@ -115,3 +115,16 @@ test("decimal unit, no leading zero e.g. .5", () => {
     }
   );
 })
+
+test("words following unit, e.g. 'brocoli 1 cup cooked', then amount should be '1 cup cooked'", () => {
+  expect(parseFoodDescription("brocoli 1 cup cooked")).toMatchObject(
+    {
+      foodName: "brocoli",
+      amount: "1 cup cooked",
+      measurement: { 
+        quantity: "1",
+        unit: "cup"
+      }
+    }
+  );
+})

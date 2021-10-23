@@ -5,6 +5,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### `npm gen-parser`
+Generate parser for food description.  You **must** run this script first before running `npm start`.
 ### `npm start`
 
 Runs the app in the development mode.\
