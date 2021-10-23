@@ -23,6 +23,7 @@ jobs:
 
     steps:
     - run: echo "env.release = ${{ env.release }}"
+    - uses: actions/checkout@v2
     - name: Continuous Integration
       uses: ./.github/actions/ci
     - run: echo "should I release? ${{ env.release == 'true' }}"
