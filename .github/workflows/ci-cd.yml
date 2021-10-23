@@ -75,6 +75,7 @@ jobs:
       working-directory: github-page
     - name: Remove diet-diary dir
       run: git rm -r diet-diary/
+      working-directory: github-page
     - name: Copy build dir to diet-diary dir
       run: cp -r ../build/ diet-diary
       working-directory: github-page
