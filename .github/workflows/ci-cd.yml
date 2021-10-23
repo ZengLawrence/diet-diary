@@ -37,6 +37,7 @@ jobs:
       run: npm run gen-parser
     - run: npm ci
     - run: npm test
+    - run: echo "env.release = ${{ env.release }}"
     - name: Builds the app for production
       if: ${{ env.release }}
       run: npm run build
