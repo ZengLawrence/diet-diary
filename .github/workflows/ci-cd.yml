@@ -21,6 +21,9 @@ jobs:
         node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
+    outputs:
+      release: ${{ env.release }}
+
     steps:
     - run: echo "env.release = ${{ env.release }}"
     - uses: actions/checkout@v2
@@ -51,7 +54,7 @@ jobs:
         retention-days: 1
 
   deploy:
-    if: ${{ github.ref == 'refs/heads/cd' }}
+    if: ${{ needs.build.outputs.release == 'true' }}
     needs: [ build ]
     runs-on: ubuntu-latest
     steps:
