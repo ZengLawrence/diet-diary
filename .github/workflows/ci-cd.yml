@@ -81,7 +81,7 @@ jobs:
       working-directory: github-page
     - name: Publish to my GitHub page
       run: |
-        git add --add
+        git add --all
         git diff --stat
         git config user.name Lawrence Zeng
         git config user.email lawrence.zeng@gmail.com
