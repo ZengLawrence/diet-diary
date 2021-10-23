@@ -48,6 +48,7 @@ jobs:
 
   deploy:
     if: ${{ github.ref == 'refs/heads/cd' }}
+    needs: [ build ]
     runs-on: ubuntu-latest
     steps:
     - name: Download production build
