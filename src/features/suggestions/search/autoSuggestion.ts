@@ -1,4 +1,6 @@
 import _ from 'lodash';
+import { multiply } from '../../../model/servingFunction';
+import { parseAmount } from '../parser/amount';
 import { Suggestion } from "../Suggestion";
 
 function shouldGenerateAutoSuggestion(autoCompletions: Suggestion[], suggestions: Suggestion[]) {
@@ -30,9 +32,14 @@ function createAutoSuggestion(nameSuggestion: Suggestion, suggestion: Suggestion
     if (_.startsWith(suggestion.amount, amount)) {
       return autoSuggestion;
     } else {
+
+      const to = parseAmount(amount);
+      const unitQuantity = parseAmount(suggestion.amount || "")
+      const serving = multiply(suggestion.serving || {}, to.quantity / unitQuantity.quantity);
       return {
         ...autoSuggestion,
         amount,
+        serving,
       }
     }
   }
