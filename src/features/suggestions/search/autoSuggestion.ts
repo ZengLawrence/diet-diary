@@ -1,11 +1,14 @@
 import _ from 'lodash';
-import { startsWith } from './index';
 import { Suggestion } from "../Suggestion";
 
 export function shouldGenerateAutoSuggestion(autoCompletions: Suggestion[], suggestions: Suggestion[], foodName: string) {
   return _.size(autoCompletions) === 1
     && _.size(suggestions) > 0
     && !(foodName === suggestions[0].foodName);
+}
+
+export function startsWith(suggestion: Suggestion, foodName: string) {
+  return _.startsWith(_.lowerCase(suggestion.foodName), _.lowerCase(foodName));
 }
 
 export function generateAutoSuggestions(autoCompletions: Suggestion[], suggestions: Suggestion[]) {

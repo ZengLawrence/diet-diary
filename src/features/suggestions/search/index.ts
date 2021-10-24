@@ -4,10 +4,6 @@ import { generateAutoSuggestions, shouldGenerateAutoSuggestion } from './autoSug
 import { findNameSuggestions, findSuggestions } from './search';
 import { createSuggestion, Suggestion } from '../Suggestion';
 
-export function startsWith(suggestion: Suggestion, foodName: string) {
-  return _.startsWith(_.lowerCase(suggestion.foodName), _.lowerCase(foodName));
-}
-
 function decompose(foodDescription: string) {
   const { foodName, amount } = parseFoodDescription(foodDescription);
   // put a space after a word
