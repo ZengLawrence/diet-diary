@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { parseFoodDescription } from '../parser/foodDescription';
-import { generateAutoSuggestions, shouldGenerateAutoSuggestion } from './autoSuggestion';
+import { generateAutoSuggestion } from './autoSuggestion';
 import { findNameSuggestions, findSuggestions } from './search';
 import { createSuggestion, Suggestion } from '../Suggestion';
 
@@ -23,9 +23,7 @@ export function generateSuggestions(
   const autoCompletions: Suggestion[] = foodNameCompleted ? [createSuggestion(foodName, amount)] : findNameSuggestions(foodName);
 
   const suggestions = findSuggestions(foodName);
-  const shouldGenerate = shouldGenerateAutoSuggestion(autoCompletions, suggestions, foodName);
-  const autoSuggestions = shouldGenerate ? generateAutoSuggestions(autoCompletions, suggestions) : [];
-  const results = _.concat(autoCompletions, autoSuggestions, suggestions)
+  const results = _.compact(_.concat(autoCompletions, generateAutoSuggestion(autoCompletions, suggestions), suggestions))
     .slice(0, 5);
   return callback(results);
 }
