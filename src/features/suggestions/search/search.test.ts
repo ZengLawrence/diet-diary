@@ -70,6 +70,12 @@ test("auto complete food name for a partial name e.g. 'brocco' should return 'br
   expect(results[0]).toMatchObject({ foodName: "broccoli" });
 })
 
+test("auto complete food name for a partial name with first letter capitalized e.g. 'Brocco' should return keep same case in suggestion e.g. 'Broccoli'", () => {
+  const results = findNameSuggestions("Brocco");
+  expect(_.size(results)).toBeGreaterThanOrEqual(1);
+  expect(results[0]).toMatchObject({ foodName: "Broccoli" });
+})
+
 test("auto complete food name for multiple word name e.g. 'peanut butt' should return 'peanut butter'", () => {
   const results = findNameSuggestions("peanut butt");
   expect(_.size(results)).toBeGreaterThanOrEqual(1);
