@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { startsWith } from './index';
-import { Suggestion } from "./Suggestion";
+import { Suggestion } from "../Suggestion";
 
 export function shouldGenerateAutoSuggestion(autoCompletions: Suggestion[], suggestions: Suggestion[], foodName: string) {
   return _.size(autoCompletions) === 1

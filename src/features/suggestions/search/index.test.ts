@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React from "react";
 import { generateSuggestions } from ".";
-import { Suggestion } from "Suggestion";
+import { Suggestion } from "../Suggestion";
 
 class MockRefObject implements React.MutableRefObject<String> {
   current: String;

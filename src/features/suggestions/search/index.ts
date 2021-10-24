@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { parseFoodDescription } from '../parser/foodDescription';
 import { generateAutoSuggestions, shouldGenerateAutoSuggestion } from './autoSuggestion';
 import { findNameSuggestions, findSuggestions } from './search';
-import { createSuggestion, Suggestion } from './Suggestion';
+import { createSuggestion, Suggestion } from '../Suggestion';
 
 export function startsWith(suggestion: Suggestion, foodName: string) {
   return _.startsWith(_.lowerCase(suggestion.foodName), _.lowerCase(foodName));
