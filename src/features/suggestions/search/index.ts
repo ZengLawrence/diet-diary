@@ -1,14 +1,8 @@
 import _ from 'lodash';
-import { Serving } from '../../../model/Food';
 import { parseFoodDescription } from '../parser/foodDescription';
 import { autoComplete, searchFoodServingPortionSize } from './search';
-
-export interface Suggestion {
-  foodName: string;
-  amount?: string;
-  serving?: Serving;
-  bestChoice?: boolean;
-};
+import { shouldGenerateAutoSuggestion, generateAutoSuggestions } from './autoSuggestion';
+import { Suggestion } from './Suggestion';
 
 function findSuggestions(foodName: string) {
   const results = searchFoodServingPortionSize(foodName);
@@ -24,29 +18,8 @@ function findNameSuggestions(foodName: string) {
   return _.size(results) === 0 ? [{ foodName }] : _.slice(results, 0, 5);
 }
 
-function createAutoSuggestion(nameSuggestion: Suggestion, suggestion: Suggestion) {
-  return {
-    ...suggestion,
-    ...nameSuggestion
-  }
-}
-
-function shouldGenerateAutoSuggestion(autoCompletions: Suggestion[], suggestions: Suggestion[], foodName: string) {
-  return _.size(autoCompletions) === 1
-    && _.size(suggestions) > 0
-    && !(foodName === suggestions[0].foodName);
-}
-
-function startsWith(suggestion: Suggestion, foodName: string) {
+export function startsWith(suggestion: Suggestion, foodName: string) {
   return _.startsWith(_.lowerCase(suggestion.foodName), _.lowerCase(foodName));
-}
-
-function generateAutoSuggestions(autoCompletions: Suggestion[], suggestions: Suggestion[]) {
-  const firstAutoCompletion = autoCompletions[0];
-  const startsWithAutoCompletedFoodName = (suggestion: Suggestion) => startsWith(suggestion, firstAutoCompletion.foodName);
-  const bestMatched = _.head(_.filter(suggestions, startsWithAutoCompletedFoodName))
-    || suggestions[0];
-  return [createAutoSuggestion(firstAutoCompletion, bestMatched)];
 }
 
 function createAutoCompletion(foodName: string, amount?: string) {
