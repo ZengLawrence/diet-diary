@@ -5,10 +5,8 @@ test("parse 'brocoli 1 cup'", () => {
     {
       foodName: "brocoli",
       amount: "1 cup",
-      measurement: { 
-        quantity: "1",
-        unit: "cup"
-      }
+      quantity: "1",
+      unit: "cup"
     }
   );
 })
@@ -18,10 +16,8 @@ test("parse 'brocoli cooked 1 cup'", () => {
     {
       foodName: "brocoli cooked",
       amount: "1 cup",
-      measurement: { 
-        quantity: "1",
-        unit: "cup"
-      }
+      quantity: "1",
+      unit: "cup"
     }
   );
 })
@@ -31,10 +27,8 @@ test("parse 'brocoli cooked 2 cups'", () => {
     {
       foodName: "brocoli cooked",
       amount: "2 cups",
-      measurement: { 
-        quantity: "2",
-        unit: "cups"
-      }
+      quantity: "2",
+      unit: "cups"
     }
   );
 })
@@ -44,10 +38,8 @@ test("case insensitive unit name 'Cup' instead of 'cup'", () => {
     {
       foodName: "brocoli cooked",
       amount: "1 Cup",
-      measurement: { 
-        quantity: "1",
-        unit: "cup"
-      }
+      quantity: "1",
+      unit: "cup"
     }
   );
 })
@@ -82,10 +74,8 @@ test("unit 'small'", () => {
     {
       foodName: "banana",
       amount: "1 small",
-      measurement: { 
-        quantity: "1",
-        unit: "small"
-      }
+      quantity: "1",
+      unit: "small"
     }
   );
 })
@@ -95,10 +85,8 @@ test("decimal unit e.g. 0.5", () => {
     {
       foodName: "brocoli",
       amount: "0.5 cup",
-      measurement: { 
-        quantity: "0.5",
-        unit: "cup"
-      }
+      quantity: "0.5",
+      unit: "cup"
     }
   );
 })
@@ -108,10 +96,8 @@ test("decimal unit, no leading zero e.g. .5", () => {
     {
       foodName: "brocoli",
       amount: ".5 cup",
-      measurement: { 
-        quantity: ".5",
-        unit: "cup"
-      }
+      quantity: ".5",
+      unit: "cup"
     }
   );
 })
@@ -121,10 +107,8 @@ test("words following unit, e.g. 'brocoli 1 cup cooked', then amount should be '
     {
       foodName: "brocoli",
       amount: "1 cup cooked",
-      measurement: { 
-        quantity: "1",
-        unit: "cup"
-      }
+      quantity: "1",
+      unit: "cup"
     }
   );
 })

@@ -19,11 +19,11 @@ class FoodDescriptionDecomposer extends FoodDescriptionListener {
   }
 
   exitQuantity(ctx) {
-    _.set(this.content, "measurement.quantity", ctx.getChild(0).getText());
+    _.set(this.content, "quantity", ctx.getChild(0).getText());
   }
 
   exitUnit(ctx) {
-    _.set(this.content, "measurement.unit", _.lowerCase(ctx.getChild(0).getText()));
+    _.set(this.content, "unit", _.lowerCase(ctx.getChild(0).getText()));
   }
 
   exitMeasurement(ctx) {
