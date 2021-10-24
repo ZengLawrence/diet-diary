@@ -7,7 +7,7 @@ function shouldGenerateAutoSuggestion(autoCompletions: Suggestion[], suggestions
     && !(autoCompletions[0].foodName === suggestions[0].foodName);
 }
 
-export function foodNameStartsWith(suggestion: Suggestion, foodName: string) {
+function foodNameStartsWith(suggestion: Suggestion, foodName: string) {
   return _.startsWith(_.lowerCase(suggestion.foodName), _.lowerCase(foodName));
 }
 
@@ -21,8 +21,21 @@ export function generateAutoSuggestion(autoCompletions: Suggestion[], suggestion
 }
 
 function createAutoSuggestion(nameSuggestion: Suggestion, suggestion: Suggestion) {
-  return {
+  const { foodName, amount } = nameSuggestion;
+  const autoSuggestion = {
     ...suggestion,
-    ...nameSuggestion
+    foodName
   };
+  if (amount) {
+    if (_.startsWith(suggestion.amount, amount)) {
+      return autoSuggestion;
+    } else {
+      return {
+        ...autoSuggestion,
+        amount,
+      }
+    }
+  }
+
+  return autoSuggestion;
 }
