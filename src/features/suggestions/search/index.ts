@@ -1,22 +1,8 @@
 import _ from 'lodash';
 import { parseFoodDescription } from '../parser/foodDescription';
-import { autoComplete, searchFoodServingPortionSize } from './search';
-import { shouldGenerateAutoSuggestion, generateAutoSuggestions } from './autoSuggestion';
+import { generateAutoSuggestions, shouldGenerateAutoSuggestion } from './autoSuggestion';
+import { findNameSuggestions, findSuggestions } from './search';
 import { Suggestion } from './Suggestion';
-
-function findSuggestions(foodName: string) {
-  const results = searchFoodServingPortionSize(foodName);
-  return _.slice(results, 0, 5);
-}
-
-function findNameSuggestions(foodName: string) {
-  const shouldCapitalized = (foodName === _.capitalize(foodName));
-  const format = (s: string) => shouldCapitalized ? _.capitalize(s) : s;
-  const results = autoComplete(foodName)
-    .map(format)
-    .map(foodName => ({ foodName }));
-  return _.size(results) === 0 ? [{ foodName }] : _.slice(results, 0, 5);
-}
 
 export function startsWith(suggestion: Suggestion, foodName: string) {
   return _.startsWith(_.lowerCase(suggestion.foodName), _.lowerCase(foodName));
