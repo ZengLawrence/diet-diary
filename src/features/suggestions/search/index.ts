@@ -9,11 +9,7 @@ export function startsWith(suggestion: Suggestion, foodName: string) {
 }
 
 function decompose(foodDescription: string) {
-  const { foodName, amount } = parseFoodDescription(foodDescription) as
-    {
-      foodName: string,
-      amount?: string
-    };
+  const { foodName, amount } = parseFoodDescription(foodDescription);
   // put a space after a word
   const foodNameCompleted = foodDescription.substr(_.size(foodName), 1) === " ";
   return {
