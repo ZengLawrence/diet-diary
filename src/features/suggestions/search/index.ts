@@ -2,14 +2,10 @@ import _ from 'lodash';
 import { parseFoodDescription } from '../parser/foodDescription';
 import { generateAutoSuggestions, shouldGenerateAutoSuggestion } from './autoSuggestion';
 import { findNameSuggestions, findSuggestions } from './search';
-import { Suggestion } from './Suggestion';
+import { createSuggestion, Suggestion } from './Suggestion';
 
 export function startsWith(suggestion: Suggestion, foodName: string) {
   return _.startsWith(_.lowerCase(suggestion.foodName), _.lowerCase(foodName));
-}
-
-function createAutoCompletion(foodName: string, amount?: string) {
-  return amount ? { foodName, amount } : { foodName };
 }
 
 function decompose(foodDescription: string) {
@@ -32,7 +28,7 @@ export function generateSuggestions(
   callback: (suggestions: Suggestion[]) => void
 ) {
   const { foodName, amount, foodNameCompleted } = decompose(foodDescriptionRef.current + "");
-  const autoCompletions: Suggestion[] = foodNameCompleted ? [createAutoCompletion(foodName, amount)] : findNameSuggestions(foodName);
+  const autoCompletions: Suggestion[] = foodNameCompleted ? [createSuggestion(foodName, amount)] : findNameSuggestions(foodName);
 
   const suggestions = findSuggestions(foodName);
   const shouldGenerate = shouldGenerateAutoSuggestion(autoCompletions, suggestions, foodName);
