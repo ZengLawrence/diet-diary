@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { Serving } from '../../../model/Food';
 import { multiply } from '../../../model/servingFunction';
 import { parseAmount } from '../parser/amount';
 import { Suggestion } from "../Suggestion";
@@ -22,6 +23,12 @@ export function generateAutoSuggestion(autoCompletions: Suggestion[], suggestion
   return createAutoSuggestion(firstAutoCompletion, bestMatched);
 }
 
+function calculateServing(unitServing: Serving, unitAmount: string, amount: string) {
+  const to = parseAmount(amount);
+  const unitQuantity = parseAmount(unitAmount);
+  return multiply(unitServing, to.quantity / unitQuantity.quantity);
+}
+
 function createAutoSuggestion(nameSuggestion: Suggestion, suggestion: Suggestion) {
   const { foodName, amount } = nameSuggestion;
   const autoSuggestion = {
@@ -32,10 +39,7 @@ function createAutoSuggestion(nameSuggestion: Suggestion, suggestion: Suggestion
     if (_.startsWith(suggestion.amount, amount)) {
       return autoSuggestion;
     } else {
-
-      const to = parseAmount(amount);
-      const unitQuantity = parseAmount(suggestion.amount || "")
-      const serving = multiply(suggestion.serving || {}, to.quantity / unitQuantity.quantity);
+      const serving = calculateServing(suggestion.serving || {}, suggestion.amount || "", amount);
       return {
         ...autoSuggestion,
         amount,
