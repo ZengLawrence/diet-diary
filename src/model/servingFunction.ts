@@ -65,5 +65,5 @@ export function oneServingOf(foodGroup: FoodGroup) {
 }
 
 export function multiply(s: Serving, multiplier: number): Serving {
-  return _.fromPairs(_.toPairs(s).map(pair => [pair[0], pair[1] * multiplier]));
+  return _.fromPairs(_.toPairs(s).map(([key, val]) => [key, val * multiplier]));
 }
