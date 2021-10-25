@@ -1,9 +1,17 @@
 import _ from "lodash";
+import { Serving } from "../../../model/Food";
 import portions from "../portion/portions";
 import { buildDocuments, search, autoSuggest } from "../search/miniSearchEngine";
 import servings from "../serving/servings";
 
-const suggestions = buildDocuments(_.concat(servings, portions));
+export interface PredefinedSuggestion {
+  foodName: string;
+  amount: string;
+  serving: Serving;
+  bestChoice?: boolean;
+}
+
+const suggestions = buildDocuments<PredefinedSuggestion>(_.concat(servings, portions));
 
 const searchFoodServingPortionSize = (foodName: string) =>
   search(suggestions, foodName);

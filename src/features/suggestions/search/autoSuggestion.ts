@@ -3,18 +3,19 @@ import { Serving } from '../../../model/Food';
 import { multiply } from '../../../model/servingFunction';
 import { parseAmount } from '../parser/amount';
 import { Suggestion } from "../Suggestion";
+import { PredefinedSuggestion } from './search';
 
-function shouldGenerateAutoSuggestion(autoCompletions: Suggestion[], suggestions: Suggestion[]) {
+function shouldGenerateAutoSuggestion(autoCompletions: Suggestion[], suggestions: PredefinedSuggestion[]) {
   return _.size(autoCompletions) === 1
     && _.size(suggestions) > 0
     && !(autoCompletions[0].foodName === suggestions[0].foodName);
 }
 
-function foodNameStartsWith(suggestion: Suggestion, foodName: string) {
+function foodNameStartsWith(suggestion: PredefinedSuggestion, foodName: string) {
   return _.startsWith(_.lowerCase(suggestion.foodName), _.lowerCase(foodName));
 }
 
-export function generateAutoSuggestion(autoCompletions: Suggestion[], suggestions: Suggestion[]) {
+export function generateAutoSuggestion(autoCompletions: Suggestion[], suggestions: PredefinedSuggestion[]) {
   if (!shouldGenerateAutoSuggestion(autoCompletions, suggestions)) return null;
 
   const firstAutoCompletion = autoCompletions[0];
@@ -29,7 +30,7 @@ function calculateServing(unitServing: Serving, unitAmount: string, amount: stri
   return multiply(unitServing, to.quantity / unitQuantity.quantity);
 }
 
-function createAutoSuggestion(nameSuggestion: Suggestion, suggestion: Suggestion) {
+function createAutoSuggestion(nameSuggestion: Suggestion, suggestion: PredefinedSuggestion) {
   const { foodName, amount } = nameSuggestion;
   const autoSuggestion = {
     ...suggestion,
@@ -39,7 +40,7 @@ function createAutoSuggestion(nameSuggestion: Suggestion, suggestion: Suggestion
     if (_.startsWith(suggestion.amount, amount)) {
       return autoSuggestion;
     } else {
-      const serving = calculateServing(suggestion.serving || {}, suggestion.amount || "", amount);
+      const serving = calculateServing(suggestion.serving, suggestion.amount, amount);
       return {
         ...autoSuggestion,
         amount,
