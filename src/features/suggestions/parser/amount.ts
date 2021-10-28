@@ -18,12 +18,18 @@ function toUnit(s: string) {
   return UNIT_MAP.get(_.lowerCase(s));
 }
 
+function rawUnit(unitText?: string) {
+  const _rawUnit = _.head(_.words(unitText)) || "";
+  return {
+    toUnit: _.partial(toUnit, _rawUnit),
+  }
+}
+
 export function parseAmount(amount: string) {
   const { quantity, unitText } = parseFoodDescription(mockFoodDescription(amount));
-  const rawUnit = _.head(_.words(unitText)) || "";
   return {
     quantity: quantity || 0,
-    unit: toUnit(rawUnit),
+    unit: rawUnit(unitText).toUnit(),
   };
 }
 
