@@ -1,3 +1,4 @@
+import { Mass, Volume } from "convert-units";
 import _ from "lodash";
 import { parseFoodDescription } from "./foodDescription";
 
@@ -6,7 +7,7 @@ function mockFoodDescription(amount: string) {
   return "food " + amount;
 }
 
-const UNIT_MAP = new Map([
+const UNIT_MAP = new Map<string, (Mass | Volume)>([
   ["cup", "cup"],
   ["pound", "lb"],
   ["ounce", "oz"],
@@ -14,8 +15,7 @@ const UNIT_MAP = new Map([
 ])
 
 function toUnit(s: string) {
-  const unit = UNIT_MAP.get(_.lowerCase(s));
-  return unit ? unit : _.lowerCase(s);
+  return UNIT_MAP.get(_.lowerCase(s));
 }
 
 export function parseAmount(amount: string) {
