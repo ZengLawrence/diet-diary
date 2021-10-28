@@ -166,3 +166,27 @@ test("Unit conversion: pound -> ounces", () => {
     }
   });
 })
+
+test("Ambiguous unit conversion: ounce is really fluid ounce", () => {
+  const autoCompletion = {
+    foodName: "beer",
+    amount: "12 ounces"
+  }
+  const suggestions = [
+    {
+      foodName: "Beer, regular",
+      amount: "12 fluid ounces",
+      serving: {
+        sweet: 2
+      }
+    }
+  ]
+  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  expect(result).toEqual({
+    foodName: "beer",
+    amount: "12 ounces",
+    serving: {
+      sweet: 2
+    }
+  });
+})
