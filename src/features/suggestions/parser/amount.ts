@@ -5,6 +5,7 @@ function mockFoodDescription(amount: string) {
   // add food name to make a food description
   return "food " + amount;
 }
+
 const UNIT_MAP = new Map([
   ["cup", "cup"],
   ["pound", "lb"],
@@ -13,14 +14,15 @@ const UNIT_MAP = new Map([
 ])
 
 function toUnit(s: string) {
-  const lowerCaseStr = _.lowerCase(s);
-  return _.defaultTo(UNIT_MAP.get(lowerCaseStr), lowerCaseStr);
+  const unit = UNIT_MAP.get(_.lowerCase(s));
+  return unit ? unit : _.lowerCase(s);
 }
 
 export function parseAmount(amount: string) {
   const { quantity,  unit } = parseFoodDescription(mockFoodDescription(amount));
+  const rawUnit = _.head(_.words(unit)) || "";
   return {
     quantity: quantity || 0,
-    unit: toUnit(_.head(_.words(unit)) || "") || "",
+    unit: toUnit(rawUnit),
   };
 }
