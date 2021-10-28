@@ -12,16 +12,28 @@ const UNIT_MAP = new Map<string, (Mass | Volume)>([
   ["pound", "lb"],
   ["ounce", "oz"],
   ["ounces", "oz"],
+  ["fluid ounce", "fl-oz"],
+  ["fluid ounces", "fl-oz"],
 ])
 
 function toUnit(s: string) {
   return UNIT_MAP.get(_.lowerCase(s));
 }
 
+function _parseRawUnit(unitText?: string) {
+  const words = _.words(_.lowerCase(unitText));
+  if (_.size(words) === 0) return "";
+  const first = words[0];
+
+  if ((first === "fluid") && _.size(words) > 1) {
+    return first + " " + words[1];
+  }
+  return first;
+}
+
 function rawUnit(unitText?: string) {
-  const _rawUnit = _.head(_.words(unitText)) || "";
   return {
-    toUnit: _.partial(toUnit, _rawUnit),
+    toUnit: _.partial(toUnit, _parseRawUnit(unitText)),
   }
 }
 
