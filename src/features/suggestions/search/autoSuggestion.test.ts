@@ -118,3 +118,27 @@ test("Fraction amount calculation", () => {
     }
   });
 })
+
+test("Fraction calculation round to 3 decimal places", () => {
+  const autoCompletion = {
+    foodName: "fresh green peas",
+    amount: "1 1/4 cup"
+  }
+  const suggestions = [
+    {
+      foodName: "Peas, green, fresh or frozen",
+      amount: "3/4 cup",
+      serving: {
+        proteinDiary: 1
+      }
+    }
+  ]
+  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  expect(result).toEqual({
+    foodName: "fresh green peas",
+    amount: "1 1/4 cup",
+    serving: {
+      proteinDiary: 1.667
+    }
+  });
+})

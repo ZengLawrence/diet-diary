@@ -26,7 +26,7 @@ export function generateAutoSuggestion(autoCompletions: Suggestion[], suggestion
 function calculateServing(unitServing: Serving, unitAmount: string, amount: string) {
   const to = parseAmount(amount);
   const unitQuantity = parseAmount(unitAmount);
-  return multiply(unitServing, to.quantity / unitQuantity.quantity);
+  return multiply(unitServing, _.round(to.quantity / unitQuantity.quantity, 3));
 }
 
 function createAutoSuggestion(nameSuggestion: Suggestion, suggestion: PredefinedSuggestion) {
