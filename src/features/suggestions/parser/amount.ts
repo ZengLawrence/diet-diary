@@ -26,3 +26,5 @@ export function parseAmount(amount: string) {
     unit: toUnit(rawUnit),
   };
 }
+
+export type Amount = ReturnType<typeof parseAmount>;

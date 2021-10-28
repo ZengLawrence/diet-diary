@@ -1,15 +1,20 @@
 import _ from 'lodash';
 import { Serving } from '../../../model/Food';
 import { multiply } from '../../../model/servingFunction';
-import { parseAmount } from '../parser/amount';
+import { Amount, parseAmount } from '../parser/amount';
 import convert from 'convert-units';
 
-export default function calculateServing(unitServing: Serving, unitAmount: string, amount: string) {
+function servingFor(unitServing: Serving, servingAmount: Amount, amount: string){
   const to = parseAmount(amount);
-  const unitQuantity = parseAmount(unitAmount);
   const toUnit = to.unit;
-  const unit = unitQuantity.unit;
+  const unit = servingAmount.unit;
   const normalizedQuantity = (toUnit && unit) ? convert(to.quantity).from(toUnit).to(unit) : to.quantity;
-  return multiply(unitServing, _.round(normalizedQuantity / unitQuantity.quantity, 3));
+  return multiply(unitServing, _.round(normalizedQuantity / servingAmount.quantity, 3));
 }
 
+export default function baseOn({serving, amount} : {serving: Serving; amount: string}) {
+  const servingAmount = parseAmount(amount);
+  return {
+    servingFor: _.partial(servingFor, serving, servingAmount)
+  }
+}

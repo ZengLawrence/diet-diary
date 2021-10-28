@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { Suggestion } from "../Suggestion";
 import { PredefinedSuggestion } from './search';
-import calculateServing from './calculateServing';
+import baseOn from './calculateServing';
 
 function shouldGenerateAutoSuggestion(autoCompletions: Suggestion[], suggestions: PredefinedSuggestion[]) {
   return _.size(autoCompletions) === 1
@@ -31,7 +31,7 @@ function createAutoSuggestion(nameSuggestion: Suggestion, suggestion: Predefined
     if (_.startsWith(suggestion.amount, amount)) {
       return autoSuggestion;
     } else {
-      const serving = calculateServing(suggestion.serving, suggestion.amount, amount);
+      const serving = baseOn(suggestion).servingFor(amount);
       return {
         ...autoSuggestion,
         amount,
