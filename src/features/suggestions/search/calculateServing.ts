@@ -38,8 +38,12 @@ function take(unit: Unit) {
 function servingFor(unitServing: Serving, servingAmount: Amount, amount: string) {
   const from = parseAmount(amount);
   const { fromUnit, toUnit } = take(from.unit).makeConvertibleTo(servingAmount.unit);
-  const normalizedQuantity = (fromUnit && toUnit) ? convert(from.quantity).from(fromUnit).to(toUnit) : from.quantity;
-  return multiply(unitServing, _.round(normalizedQuantity / servingAmount.quantity, 3));
+  try {
+    const normalizedQuantity = (fromUnit && toUnit) ? convert(from.quantity).from(fromUnit).to(toUnit) : from.quantity;
+    return multiply(unitServing, _.round(normalizedQuantity / servingAmount.quantity, 3));  
+  } catch(e) {
+    return undefined;
+  }
 }
 
 export default function baseOn({ serving, amount }: { serving: Serving; amount: string }) {

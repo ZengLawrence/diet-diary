@@ -214,3 +214,24 @@ test("Ambiguous unit conversion: unit is ambiguous in suggestion", () => {
     }
   });
 })
+
+test("Unconvertible units, do not calculate", () => {
+  const autoCompletion = {
+    foodName: "black bean",
+    amount: "1 pound"
+  }
+  const suggestions = [
+    {
+      foodName: "Beans, black",
+      amount: "1/2 cup",
+      serving: {
+        proteinDiary: 1
+      }
+    }
+  ]
+  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  expect(result).toEqual({
+    foodName: "black bean",
+    amount: "1 pound",
+  });
+})
