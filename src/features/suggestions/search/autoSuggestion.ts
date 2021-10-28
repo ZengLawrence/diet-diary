@@ -7,8 +7,7 @@ import { PredefinedSuggestion } from './search';
 
 function shouldGenerateAutoSuggestion(autoCompletions: Suggestion[], suggestions: PredefinedSuggestion[]) {
   return _.size(autoCompletions) === 1
-    && _.size(suggestions) > 0
-    && !(autoCompletions[0].foodName === suggestions[0].foodName);
+    && _.size(suggestions) > 0;
 }
 
 function foodNameStartsWith(suggestion: PredefinedSuggestion, foodName: string) {

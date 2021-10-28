@@ -123,3 +123,14 @@ test("fraction unit e.g. 1/2", () => {
     }
   );
 })
+
+test("fraction unit e.g. '1 1/2'", () => {
+  expect(parseFoodDescription("brocoli 1 1/2 cup")).toMatchObject(
+    {
+      foodName: "brocoli",
+      amount: "1 1/2 cup",
+      quantity: 1.5,
+      unit: "cup"
+    }
+  );
+})

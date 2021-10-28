@@ -70,3 +70,51 @@ test("Auto completion has food name and different amount e.g. 'broccoli 2 cups' 
     }
   });
 })
+
+test("Fraction amount e.g. 1/2 cup", () => {
+  const autoCompletion = {
+    foodName: "Beans, black",
+    amount: "1/2 cup",
+  }
+  const suggestions = [
+    {
+      foodName: "Beans, black",
+      amount: "1/2 cup",
+      serving: {
+        proteinDiary: 1
+      }
+    },
+  ]
+  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  expect(result).toEqual({
+    foodName: "Beans, black",
+    amount: "1/2 cup",
+    serving: {
+      proteinDiary: 1
+    }
+  });
+})
+
+test("Fraction amount calculation", () => {
+  const autoCompletion = {
+    foodName: "Beans, black",
+    amount: "1 1/2 cup",
+  }
+  const suggestions = [
+    {
+      foodName: "Beans, black",
+      amount: "1/2 cup",
+      serving: {
+        proteinDiary: 1
+      }
+    },
+  ]
+  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  expect(result).toEqual({
+    foodName: "Beans, black",
+    amount: "1 1/2 cup",
+    serving: {
+      proteinDiary: 3
+    }
+  });
+})
