@@ -6,8 +6,20 @@ import _ from 'lodash';
 import { CaseChangingStream } from './CaseChangingStream';
 import Fraction from 'fraction.js';
 
+const UNIT_MAP = new Map([
+  ["cup", "cup"],
+  ["pound", "lb"],
+  ["ounce", "oz"],
+  ["ounces", "oz"],
+])
+
 function toNumber(str) {
   return str.includes('/') ? new Fraction(str).round(3).valueOf() : _.toNumber(str);
+}
+
+function toUnit(str) {
+  const lowerCaseStr = _.lowerCase(str);
+  return _.defaultTo(UNIT_MAP.get(lowerCaseStr), lowerCaseStr);
 }
 class FoodDescriptionDecomposer extends FoodDescriptionListener {
 
@@ -24,11 +36,11 @@ class FoodDescriptionDecomposer extends FoodDescriptionListener {
 
   exitQuantity(ctx) {
     const val = this.input.substring(ctx.start.column, ctx.stop.stop + 1);
-      _.set(this.content, "quantity", toNumber(val));
+    _.set(this.content, "quantity", toNumber(val));
   }
 
   exitUnit(ctx) {
-    _.set(this.content, "unit", _.lowerCase(ctx.getChild(0).getText()));
+    _.set(this.content, "unit", toUnit(ctx.getChild(0).getText()));
   }
 
   exitMeasurement(ctx) {

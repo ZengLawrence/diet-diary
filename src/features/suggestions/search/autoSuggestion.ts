@@ -4,6 +4,7 @@ import { multiply } from '../../../model/servingFunction';
 import { parseAmount } from '../parser/amount';
 import { Suggestion } from "../Suggestion";
 import { PredefinedSuggestion } from './search';
+import convert, { Unit } from 'convert-units';
 
 function shouldGenerateAutoSuggestion(autoCompletions: Suggestion[], suggestions: PredefinedSuggestion[]) {
   return _.size(autoCompletions) === 1
@@ -23,10 +24,22 @@ export function generateAutoSuggestion(autoCompletions: Suggestion[], suggestion
   return createAutoSuggestion(firstAutoCompletion, bestMatched);
 }
 
+function normalize(unitStr: string): Unit | undefined {
+  if (unitStr === 'lb' ||
+    unitStr === 'oz') {
+    return unitStr;
+  } else {
+    return undefined;
+  }
+}
+
 function calculateServing(unitServing: Serving, unitAmount: string, amount: string) {
   const to = parseAmount(amount);
   const unitQuantity = parseAmount(unitAmount);
-  return multiply(unitServing, _.round(to.quantity / unitQuantity.quantity, 3));
+  const toUnit = normalize(to.unit);
+  const unit = normalize(unitQuantity.unit);
+  const normalizedQuantity = (toUnit && unit) ? convert(to.quantity).from(toUnit).to(unit) : to.quantity;
+  return multiply(unitServing, _.round(normalizedQuantity / unitQuantity.quantity, 3));
 }
 
 function createAutoSuggestion(nameSuggestion: Suggestion, suggestion: PredefinedSuggestion) {

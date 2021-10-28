@@ -142,3 +142,27 @@ test("Fraction calculation round to 3 decimal places", () => {
     }
   });
 })
+
+test("Unit conversion: pound -> ounces", () => {
+  const autoCompletion = {
+    foodName: "beef",
+    amount: "1 pound"
+  }
+  const suggestions = [
+    {
+      foodName: "Beef, round roast",
+      amount: "2 ounces",
+      serving: {
+        proteinDiary: 1
+      }
+    }
+  ]
+  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  expect(result).toEqual({
+    foodName: "beef",
+    amount: "1 pound",
+    serving: {
+      proteinDiary: 8
+    }
+  });
+})

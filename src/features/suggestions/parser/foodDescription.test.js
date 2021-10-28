@@ -145,3 +145,36 @@ test("fraction quantity round to 3 decimal places e.g. 2/3 to 0.667", () => {
     }
   );
 })
+
+test("unit pound -> lb", () => {
+  expect(parseFoodDescription("beef 1 pound")).toMatchObject(
+    {
+      foodName: "beef",
+      amount: "1 pound",
+      quantity: 1,
+      unit: "lb"
+    }
+  );
+})
+
+test("unit ounce -> oz", () => {
+  expect(parseFoodDescription("beef 1 ounce")).toMatchObject(
+    {
+      foodName: "beef",
+      amount: "1 ounce",
+      quantity: 1,
+      unit: "oz"
+    }
+  );
+})
+
+test("plural unit ounces -> oz", () => {
+  expect(parseFoodDescription("beef 2 ounces")).toMatchObject(
+    {
+      foodName: "beef",
+      amount: "2 ounces",
+      quantity: 2,
+      unit: "oz"
+    }
+  );
+})
