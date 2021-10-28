@@ -80,7 +80,7 @@ test("unit 'small'", () => {
   );
 })
 
-test("decimal unit e.g. 0.5", () => {
+test("decimal quantity e.g. 0.5", () => {
   expect(parseFoodDescription("brocoli 0.5 cup")).toMatchObject(
     {
       foodName: "brocoli",
@@ -91,7 +91,7 @@ test("decimal unit e.g. 0.5", () => {
   );
 })
 
-test("decimal unit, no leading zero e.g. .5", () => {
+test("decimal quantity, no leading zero e.g. .5", () => {
   expect(parseFoodDescription("brocoli .5 cup")).toMatchObject(
     {
       foodName: "brocoli",
@@ -113,7 +113,7 @@ test("words following unit, e.g. 'brocoli 1 cup cooked', then amount should be '
   );
 })
 
-test("fraction unit e.g. 1/2", () => {
+test("fraction quantity e.g. 1/2", () => {
   expect(parseFoodDescription("brocoli 1/2 cup")).toMatchObject(
     {
       foodName: "brocoli",
@@ -124,7 +124,7 @@ test("fraction unit e.g. 1/2", () => {
   );
 })
 
-test("fraction unit e.g. '1 1/2'", () => {
+test("fraction quantity e.g. '1 1/2'", () => {
   expect(parseFoodDescription("brocoli 1 1/2 cup")).toMatchObject(
     {
       foodName: "brocoli",
@@ -135,7 +135,7 @@ test("fraction unit e.g. '1 1/2'", () => {
   );
 })
 
-test("fraction unit round to 3 decimal places e.g. 2/3 to 0.667", () => {
+test("fraction quantity round to 3 decimal places e.g. 2/3 to 0.667", () => {
   expect(parseFoodDescription("brocoli 2/3 cup")).toMatchObject(
     {
       foodName: "brocoli",
