@@ -1,25 +1,13 @@
 import antlr4 from 'antlr4';
-import FoodDescriptionLexer from '../../../generated/parser/FoodDescriptionLexer';
-import FoodDescriptionParser from '../../../generated/parser/FoodDescriptionParser';
-import FoodDescriptionListener from '../../../generated/parser/FoodDescriptionListener';
-import _ from 'lodash';
-import { CaseChangingStream } from './CaseChangingStream';
 import Fraction from 'fraction.js';
-
-const UNIT_MAP = new Map([
-  ["cup", "cup"],
-  ["pound", "lb"],
-  ["ounce", "oz"],
-  ["ounces", "oz"],
-])
+import _ from 'lodash';
+import FoodDescriptionLexer from '../../../generated/parser/FoodDescriptionLexer';
+import FoodDescriptionListener from '../../../generated/parser/FoodDescriptionListener';
+import FoodDescriptionParser from '../../../generated/parser/FoodDescriptionParser';
+import { CaseChangingStream } from './CaseChangingStream';
 
 function toNumber(str) {
   return str.includes('/') ? new Fraction(str).round(3).valueOf() : _.toNumber(str);
-}
-
-function toUnit(str) {
-  const lowerCaseStr = _.lowerCase(str);
-  return _.defaultTo(UNIT_MAP.get(lowerCaseStr), lowerCaseStr);
 }
 class FoodDescriptionDecomposer extends FoodDescriptionListener {
 
@@ -40,7 +28,8 @@ class FoodDescriptionDecomposer extends FoodDescriptionListener {
   }
 
   exitUnit(ctx) {
-    _.set(this.content, "unit", toUnit(ctx.getChild(0).getText()));
+    const val = this.input.substring(ctx.start.column, ctx.stop.stop + 1);
+    _.set(this.content, "unit", val);
   }
 
   exitMeasurement(ctx) {

@@ -33,13 +33,13 @@ test("parse 'brocoli cooked 2 cups'", () => {
   );
 })
 
-test("case insensitive unit name 'Cup' instead of 'cup'", () => {
+test("case sensitive unit name 'Cup'", () => {
   expect(parseFoodDescription("brocoli cooked 1 Cup")).toMatchObject(
     {
       foodName: "brocoli cooked",
       amount: "1 Cup",
       quantity: 1,
-      unit: "cup"
+      unit: "Cup"
     }
   );
 })
@@ -108,7 +108,7 @@ test("words following unit, e.g. 'brocoli 1 cup cooked', then amount should be '
       foodName: "brocoli",
       amount: "1 cup cooked",
       quantity: 1,
-      unit: "cup"
+      unit: "cup cooked"
     }
   );
 })
@@ -152,7 +152,7 @@ test("unit pound -> lb", () => {
       foodName: "beef",
       amount: "1 pound",
       quantity: 1,
-      unit: "lb"
+      unit: "pound"
     }
   );
 })
@@ -163,7 +163,7 @@ test("unit ounce -> oz", () => {
       foodName: "beef",
       amount: "1 ounce",
       quantity: 1,
-      unit: "oz"
+      unit: "ounce"
     }
   );
 })
@@ -174,7 +174,7 @@ test("plural unit ounces -> oz", () => {
       foodName: "beef",
       amount: "2 ounces",
       quantity: 2,
-      unit: "oz"
+      unit: "ounces"
     }
   );
 })
