@@ -4,7 +4,11 @@ import FoodDescriptionParser from '../../../generated/parser/FoodDescriptionPars
 import FoodDescriptionListener from '../../../generated/parser/FoodDescriptionListener';
 import _ from 'lodash';
 import { CaseChangingStream } from './CaseChangingStream';
+import Fraction from 'fraction.js';
 
+function toNumber(str) {
+  return str.includes('/') ? new Fraction(str).round(3).valueOf() : _.toNumber(str);
+}
 class FoodDescriptionDecomposer extends FoodDescriptionListener {
 
   constructor(input) {
@@ -20,7 +24,7 @@ class FoodDescriptionDecomposer extends FoodDescriptionListener {
 
   exitQuantity(ctx) {
     const val = ctx.getChild(0).getText();
-    _.set(this.content, "quantity", _.toNumber(val));
+      _.set(this.content, "quantity", toNumber(val));
   }
 
   exitUnit(ctx) {

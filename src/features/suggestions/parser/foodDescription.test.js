@@ -112,3 +112,14 @@ test("words following unit, e.g. 'brocoli 1 cup cooked', then amount should be '
     }
   );
 })
+
+test("fraction unit e.g. 1/2", () => {
+  expect(parseFoodDescription("brocoli 1/2 cup")).toMatchObject(
+    {
+      foodName: "brocoli",
+      amount: "1/2 cup",
+      quantity: 0.5,
+      unit: "cup"
+    }
+  );
+})
