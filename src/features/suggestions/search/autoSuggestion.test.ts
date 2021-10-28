@@ -190,3 +190,27 @@ test("Ambiguous unit conversion: ounce is really fluid ounce", () => {
     }
   });
 })
+
+test("Ambiguous unit conversion: unit is ambiguous in suggestion", () => {
+  const autoCompletion = {
+    foodName: "milk skim",
+    amount: "1 cup"
+  }
+  const suggestions = [
+    {
+      foodName: "Milk, skim or 1%",
+      amount: "8 ounces or 1 cup",
+      serving: {
+        proteinDiary: 1
+      }
+    }
+  ]
+  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  expect(result).toEqual({
+    foodName: "milk skim",
+    amount: "1 cup",
+    serving: {
+      proteinDiary: 1
+    }
+  });
+})
