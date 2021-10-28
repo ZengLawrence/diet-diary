@@ -19,8 +19,8 @@ function toUnit(s: string) {
 }
 
 export function parseAmount(amount: string) {
-  const { quantity,  unit } = parseFoodDescription(mockFoodDescription(amount));
-  const rawUnit = _.head(_.words(unit)) || "";
+  const { quantity, unitText } = parseFoodDescription(mockFoodDescription(amount));
+  const rawUnit = _.head(_.words(unitText)) || "";
   return {
     quantity: quantity || 0,
     unit: toUnit(rawUnit),

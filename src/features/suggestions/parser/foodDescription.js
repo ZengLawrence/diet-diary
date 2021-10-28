@@ -29,7 +29,7 @@ class FoodDescriptionDecomposer extends FoodDescriptionListener {
 
   exitUnit(ctx) {
     const val = this.input.substring(ctx.start.column, ctx.stop.stop + 1);
-    _.set(this.content, "unit", val);
+    _.set(this.content, "unitText", val);
   }
 
   exitMeasurement(ctx) {

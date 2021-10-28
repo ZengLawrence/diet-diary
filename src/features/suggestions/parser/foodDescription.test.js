@@ -6,7 +6,7 @@ test("parse 'brocoli 1 cup'", () => {
       foodName: "brocoli",
       amount: "1 cup",
       quantity: 1,
-      unit: "cup"
+      unitText: "cup"
     }
   );
 })
@@ -17,7 +17,7 @@ test("parse 'brocoli cooked 1 cup'", () => {
       foodName: "brocoli cooked",
       amount: "1 cup",
       quantity: 1,
-      unit: "cup"
+      unitText: "cup"
     }
   );
 })
@@ -28,7 +28,7 @@ test("parse 'brocoli cooked 2 cups'", () => {
       foodName: "brocoli cooked",
       amount: "2 cups",
       quantity: 2,
-      unit: "cups"
+      unitText: "cups"
     }
   );
 })
@@ -39,7 +39,7 @@ test("case sensitive unit name 'Cup'", () => {
       foodName: "brocoli cooked",
       amount: "1 Cup",
       quantity: 1,
-      unit: "Cup"
+      unitText: "Cup"
     }
   );
 })
@@ -75,7 +75,7 @@ test("unit 'small'", () => {
       foodName: "banana",
       amount: "1 small",
       quantity: 1,
-      unit: "small"
+      unitText: "small"
     }
   );
 })
@@ -86,7 +86,7 @@ test("decimal quantity e.g. 0.5", () => {
       foodName: "brocoli",
       amount: "0.5 cup",
       quantity: 0.5,
-      unit: "cup"
+      unitText: "cup"
     }
   );
 })
@@ -97,7 +97,7 @@ test("decimal quantity, no leading zero e.g. .5", () => {
       foodName: "brocoli",
       amount: ".5 cup",
       quantity: 0.5,
-      unit: "cup"
+      unitText: "cup"
     }
   );
 })
@@ -108,7 +108,7 @@ test("words following unit, e.g. 'brocoli 1 cup cooked', then amount should be '
       foodName: "brocoli",
       amount: "1 cup cooked",
       quantity: 1,
-      unit: "cup cooked"
+      unitText: "cup cooked"
     }
   );
 })
@@ -119,7 +119,7 @@ test("fraction quantity e.g. 1/2", () => {
       foodName: "brocoli",
       amount: "1/2 cup",
       quantity: 0.5,
-      unit: "cup"
+      unitText: "cup"
     }
   );
 })
@@ -130,7 +130,7 @@ test("fraction quantity e.g. '1 1/2'", () => {
       foodName: "brocoli",
       amount: "1 1/2 cup",
       quantity: 1.5,
-      unit: "cup"
+      unitText: "cup"
     }
   );
 })
@@ -141,7 +141,7 @@ test("fraction quantity round to 3 decimal places e.g. 2/3 to 0.667", () => {
       foodName: "brocoli",
       amount: "2/3 cup",
       quantity: 0.667,
-      unit: "cup"
+      unitText: "cup"
     }
   );
 })
@@ -152,7 +152,7 @@ test("unit pound -> lb", () => {
       foodName: "beef",
       amount: "1 pound",
       quantity: 1,
-      unit: "pound"
+      unitText: "pound"
     }
   );
 })
@@ -163,7 +163,7 @@ test("unit ounce -> oz", () => {
       foodName: "beef",
       amount: "1 ounce",
       quantity: 1,
-      unit: "ounce"
+      unitText: "ounce"
     }
   );
 })
@@ -174,7 +174,7 @@ test("plural unit ounces -> oz", () => {
       foodName: "beef",
       amount: "2 ounces",
       quantity: 2,
-      unit: "ounces"
+      unitText: "ounces"
     }
   );
 })
