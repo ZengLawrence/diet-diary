@@ -11,32 +11,44 @@ const UNIT_MAP = new Map<string, (Mass | Volume)>([
   // volume
   ["teaspoon", "tsp"],
   ["teaspoons", "tsp"],
+  ["tsp", "tsp"],
   ["tablespoon", "Tbs"],
   ["tablespoons", "Tbs"],
+  ["tbsp", "Tbs"],
   ["cup", "cup"],
   ["cups", "cup"],
   ["pint", "pnt"],
   ["pints", "pnt"],
+  ["pt", "pnt"],
   ["quart", "qt"],
   ["quarts", "qt"],
+  ["qt", "qt"],
   ["gallon", "gal"],
   ["gallons", "gal"],
+  ["gal", "gal"],
   ["fluid ounce", "fl-oz"],
   ["fluid ounces", "fl-oz"],
+  ["fl oz", "fl-oz"],
   ["milliliter", "ml"],
   ["milliliters", "ml"],
+  ["ml", "ml"],
   ["liter", "l"],
   ["liters", "l"],
+  ["l", "l"],
 
   // mass
   ["ounce", "oz"],
   ["ounces", "oz"],
+  ["oz", "oz"],
   ["pound", "lb"],
   ["pounds", "lb"],
+  ["lb", "lb"],
   ["gram", "g"],
   ["grams", "g"],
+  ["g", "g"],
   ["kilogram", "kg"],
   ["kilograms", "kg"],
+  ["kg", "kg"],
 ])
 
 function toUnit(s: string) {
@@ -48,7 +60,7 @@ function _parseRawUnit(unitText?: string) {
   if (_.size(words) === 0) return "";
   const first = words[0];
 
-  if ((first === "fluid") && _.size(words) > 1) {
+  if ((["fluid", "fl"].includes(first)) && _.size(words) > 1) {
     return first + " " + words[1];
   }
   return first;
@@ -69,3 +81,4 @@ export function parseAmount(amount: string) {
 }
 
 export type Amount = ReturnType<typeof parseAmount>;
+export type Unit = Amount['unit']

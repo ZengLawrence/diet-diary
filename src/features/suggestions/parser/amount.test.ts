@@ -1,4 +1,5 @@
-import { parseAmount } from "./amount";
+import _ from "lodash";
+import { parseAmount, Unit } from "./amount";
 
 test("unit pound(s) -> lb", () => {
   testCases("pound", "lb").run();
@@ -9,7 +10,7 @@ test("unit ounce(s) -> oz", () => {
 })
 
 test("unit fluid ounce(s) -> fl-oz", () => {
-  testCases("fluid ounce", "fl-oz").run();
+  testCases("fluid ounce", "fl-oz", ["fl oz"]).run();
 })
 
 test("unit cup(s) -> cup", () => {
@@ -17,7 +18,7 @@ test("unit cup(s) -> cup", () => {
 })
 
 test("unit pint(s) -> pnt", () => {
-  testCases("pint", "pnt").run();
+  testCases("pint", "pnt", ["pt"]).run();
 })
 
 test("unit quart(s) -> qt", () => {
@@ -33,7 +34,7 @@ test("unit teaspoon(s) -> tsp", () => {
 })
 
 test("unit tablespoon(s) -> Tbs", () => {
-  testCases("tablespoon", "Tbs").run();
+  testCases("tablespoon", "Tbs", ["tbsp"]).run();
 })
 
 test("unit gram(s) -> g", () => {
@@ -52,7 +53,7 @@ test("unit liter(s) -> l", () => {
   testCases("liter", "l").run();
 })
 
-function testCases(unit: string, abbr: string) {
+function testCases(unit: string, abbr: Unit, commonAbbreviations?: string[]) {
   const singular = {
     input: "1 " + unit,
     output: {
@@ -64,11 +65,25 @@ function testCases(unit: string, abbr: string) {
     output: {
       unit: abbr
     }
-  }
+  };
+  const abbreviation = {
+    input: "3 " + abbr,
+    output: {
+      unit: abbr
+    }
+  };
   return {
     run: () => {
       expect(parseAmount(singular.input)).toMatchObject(singular.output);
       expect(parseAmount(plural.input)).toMatchObject(plural.output);
+      if (commonAbbreviations) {
+        _.forEach(commonAbbreviations, function(_abbr) {
+          const input = "4 " + _abbr;
+          expect(parseAmount(input)).toMatchObject({unit: abbr});
+        })
+      } else {
+        expect(parseAmount(abbreviation.input)).toMatchObject(abbreviation.output);
+      }
     }
   }
 }
