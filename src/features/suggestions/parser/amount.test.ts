@@ -9,92 +9,43 @@ test("unit pound -> lb", () => {
   );
 })
 
-test("unit ounce -> oz", () => {
-  expect(parseAmount("1 ounce")).toMatchObject(
-    {
-      quantity: 1,
-      unit: "oz"
-    }
-  );
+test("unit ounce(s) -> oz", () => {
+  testCases("ounce", "oz").run();
 })
 
-test("plural unit ounces -> oz", () => {
-  expect(parseAmount("2 ounces")).toMatchObject(
-    {
-      quantity: 2,
-      unit: "oz"
-    }
-  );
+test("unit fluid ounce(s) -> fl-oz", () => {
+  testCases("fluid ounce", "fl-oz").run();
 })
 
-test("unit fluid ounce -> fl-oz", () => {
-  expect(parseAmount("1 fluid ounce")).toMatchObject(
-    {
-      quantity: 1,
-      unit: "fl-oz"
-    }
-  );
+test("unit cup(s) -> cup", () => {
+  testCases("cup", "cup").run();
 })
 
-test("plural unit fluid ounces -> fl-oz", () => {
-  expect(parseAmount("2 fluid ounces")).toMatchObject(
-    {
-      quantity: 2,
-      unit: "fl-oz"
-    }
-  );
+test("unit teaspoon(s) -> tsp", () => {
+  testCases("teaspoon", "tsp").run();
 })
 
-test("unit cup -> cup", () => {
-  expect(parseAmount("1 cup")).toMatchObject(
-    {
-      quantity: 1,
-      unit: "cup"
-    }
-  );
+test("unit tablespoon(s) -> Tbs", () => {
+  testCases("tablespoon", "Tbs").run();
 })
 
-test("plural unit cups -> cup", () => {
-  expect(parseAmount("2 cups")).toMatchObject(
-    {
-      quantity: 2,
-      unit: "cup"
+function testCases(unit: string, abbr: string) {
+  const singular = {
+    input: "1 " + unit,
+    output: {
+      unit: abbr
     }
-  );
-})
-
-test("unit teaspoon -> tsp", () => {
-  expect(parseAmount("1 teaspoon")).toMatchObject(
-    {
-      quantity: 1,
-      unit: "tsp"
+  };
+  const plural = {
+    input: "2 " + unit + "s",
+    output: {
+      unit: abbr
     }
-  );
-})
-
-test("plural unit teaspoons -> tsp", () => {
-  expect(parseAmount("2 teaspoons")).toMatchObject(
-    {
-      quantity: 2,
-      unit: "tsp"
+  }
+  return {
+    run: () => {
+      expect(parseAmount(singular.input)).toMatchObject(singular.output);
+      expect(parseAmount(plural.input)).toMatchObject(plural.output);
     }
-  );
-})
-
-test("unit tablespoon -> Tbs", () => {
-  expect(parseAmount("1 tablespoon")).toMatchObject(
-    {
-      quantity: 1,
-      unit: "Tbs"
-    }
-  );
-})
-
-test("plural unit tablespoons -> Tbs", () => {
-  expect(parseAmount("2 tablespoons")).toMatchObject(
-    {
-      quantity: 2,
-      unit: "Tbs"
-    }
-  );
-})
+  }
+}
