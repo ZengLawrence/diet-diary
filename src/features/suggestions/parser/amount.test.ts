@@ -62,3 +62,21 @@ test("plural unit cups -> cup", () => {
     }
   );
 })
+
+test("unit teaspoon -> tsp", () => {
+  expect(parseAmount("1 teaspoon")).toMatchObject(
+    {
+      quantity: 1,
+      unit: "tsp"
+    }
+  );
+})
+
+test("plural unit teaspoons -> tsp", () => {
+  expect(parseAmount("2 teaspoons")).toMatchObject(
+    {
+      quantity: 2,
+      unit: "tsp"
+    }
+  );
+})
