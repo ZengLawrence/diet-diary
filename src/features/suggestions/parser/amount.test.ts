@@ -32,6 +32,10 @@ test("unit kilogram(s) -> g", () => {
   testCases("kilogram", "kg").run();
 })
 
+test("unit milliliter(s) -> ml", () => {
+  testCases("milliliter", "ml").run();
+})
+
 function testCases(unit: string, abbr: string) {
   const singular = {
     input: "1 " + unit,
