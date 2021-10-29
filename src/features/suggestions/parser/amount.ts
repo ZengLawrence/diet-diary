@@ -19,6 +19,8 @@ const UNIT_MAP = new Map<string, (Mass | Volume)>([
   ["fluid ounces", "fl-oz"],
   ["milliliter", "ml"],
   ["milliliters", "ml"],
+  ["liter", "l"],
+  ["liters", "l"],
 
   // mass
   ["ounce", "oz"],

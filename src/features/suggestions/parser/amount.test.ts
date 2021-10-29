@@ -36,6 +36,10 @@ test("unit milliliter(s) -> ml", () => {
   testCases("milliliter", "ml").run();
 })
 
+test("unit liter(s) -> l", () => {
+  testCases("liter", "l").run();
+})
+
 function testCases(unit: string, abbr: string) {
   const singular = {
     input: "1 " + unit,
