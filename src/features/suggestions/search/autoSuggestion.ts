@@ -35,9 +35,9 @@ function findBestMatch(foodName: string, suggestions: PredefinedSuggestion[]) {
     {
       suggestion: undefined as unknown as PredefinedSuggestion,
       distance: Number.MAX_SAFE_INTEGER,
-    });
+    }).suggestion;
   return prefixMatch
-    || matchByShortestTermDistance.suggestion
+    || matchByShortestTermDistance
     || suggestions[0];
 }
 
