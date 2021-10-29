@@ -28,6 +28,10 @@ test("unit gram(s) -> g", () => {
   testCases("gram", "g").run();
 })
 
+test("unit kilogram(s) -> g", () => {
+  testCases("kilogram", "kg").run();
+})
+
 function testCases(unit: string, abbr: string) {
   const singular = {
     input: "1 " + unit,
