@@ -80,3 +80,21 @@ test("plural unit teaspoons -> tsp", () => {
     }
   );
 })
+
+test("unit tablespoon -> Tbs", () => {
+  expect(parseAmount("1 tablespoon")).toMatchObject(
+    {
+      quantity: 1,
+      unit: "Tbs"
+    }
+  );
+})
+
+test("plural unit tablespoons -> Tbs", () => {
+  expect(parseAmount("2 tablespoons")).toMatchObject(
+    {
+      quantity: 2,
+      unit: "Tbs"
+    }
+  );
+})
