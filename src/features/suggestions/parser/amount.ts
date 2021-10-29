@@ -15,6 +15,8 @@ const UNIT_MAP = new Map<string, (Mass | Volume)>([
   ["tablespoons", "Tbs"],
   ["cup", "cup"],
   ["cups", "cup"],
+  ["pint", "pnt"],
+  ["pints", "pnt"],
   ["fluid ounce", "fl-oz"],
   ["fluid ounces", "fl-oz"],
   ["milliliter", "ml"],

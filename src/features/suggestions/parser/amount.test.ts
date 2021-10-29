@@ -16,6 +16,10 @@ test("unit cup(s) -> cup", () => {
   testCases("cup", "cup").run();
 })
 
+test("unit pint(s) -> pnt", () => {
+  testCases("pint", "pnt").run();
+})
+
 test("unit teaspoon(s) -> tsp", () => {
   testCases("teaspoon", "tsp").run();
 })
