@@ -235,3 +235,27 @@ test("Unconvertible units, do not calculate", () => {
     amount: "1 pound",
   });
 })
+
+test("unknown unit, treat as same unit", () => {
+  const autoCompletion = {
+    foodName: "peanuts",
+    amount: "8 wholes"
+  }
+  const suggestions = [
+    {
+      foodName: "Nuts, peanuts",
+      amount: "8 wholes",
+      serving: {
+        fat: 1
+      }
+    }
+  ]
+  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  expect(result).toEqual({
+    foodName: "peanuts",
+    amount: "8 wholes",
+    serving: {
+      fat: 1
+    }
+});
+})
