@@ -12,12 +12,16 @@ function foodNameStartsWith(suggestion: PredefinedSuggestion, foodName: string) 
   return _.startsWith(_.lowerCase(suggestion.foodName), _.lowerCase(foodName));
 }
 
+function findBestMatch(foodName: string, suggestions: PredefinedSuggestion[]) {
+  return _.head(_.filter(suggestions, suggestion => foodNameStartsWith(suggestion, foodName)))
+  || suggestions[0];
+}
+
 export function generateAutoSuggestion(autoCompletions: Suggestion[], suggestions: PredefinedSuggestion[]) {
   if (!shouldGenerateAutoSuggestion(autoCompletions, suggestions)) return null;
 
   const firstAutoCompletion = autoCompletions[0];
-  const bestMatched = _.head(_.filter(suggestions, suggestion => foodNameStartsWith(suggestion, firstAutoCompletion.foodName)))
-    || suggestions[0];
+  const bestMatched = findBestMatch(firstAutoCompletion.foodName, suggestions);
   return createAutoSuggestion(firstAutoCompletion, bestMatched);
 }
 
