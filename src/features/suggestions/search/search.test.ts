@@ -56,11 +56,22 @@ test("search term appears in different order as in the list e.g. 'Italian salad 
   expect(results[0]).toMatchObject({ "foodName": "Salad dressing, Italian, fat-free" });
 })
 
-// search portion size
 test("search for exact name for portion e.g. 'Caesar salad' should return 'Caesar salad with grilled chicken'", () => {
   const results = findSuggestions("Caesar salad");
   expect(_.size(results)).toBeGreaterThanOrEqual(1);
   expect(results[0]).toMatchObject({ "foodName": "Caesar salad with grilled chicken" });
+})
+
+test("search for 'peanut butter' should return 'peanut butter' as first result", () => {
+  const results = findSuggestions("peanut butter");
+  expect(_.size(results)).toBeGreaterThanOrEqual(1);
+  expect(results[0]).toMatchObject({ "foodName": "Peanut butter, chunky or smooth" });
+})
+
+test("search for 'skim milk' should return 'Milk, skim or 1%' as first result", () => {
+  const results = findSuggestions("skim milk");
+  expect(_.size(results)).toBeGreaterThanOrEqual(1);
+  expect(results[0]).toMatchObject({ "foodName": "Milk, skim or 1%" });
 })
 
 // auto complete food name

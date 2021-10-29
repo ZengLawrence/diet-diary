@@ -18,9 +18,42 @@ const searchFoodServingPortionSize = (foodName: string) =>
 
 const autoComplete = _.partial(autoSuggest, suggestions);
 
+function foodNameStartsWith(suggestion: { foodName: string }, foodName: string) {
+  return _.startsWith(_.lowerCase(suggestion.foodName), _.lowerCase(foodName));
+}
+
+function minTermDistance(suggestion: PredefinedSuggestion, terms: string[]) {
+  return _.reduce(terms, function (result, term) {
+    const distance = suggestion.foodName.indexOf(term);
+    const notFound = distance < 0;
+    if (notFound) return result;
+
+    return distance > result.distance ? result : {
+      ...result,
+      distance,
+    }
+  },
+    {
+      suggestion,
+      distance: Number.MAX_SAFE_INTEGER,
+    }).distance;
+}
+
+function rank(suggestion: PredefinedSuggestion, searchRank: number, foodName: string) {
+  const prefixRank = foodNameStartsWith(suggestion, foodName) ? 0 : 1;
+  const termDistanceRank = minTermDistance(suggestion, _.words(foodName));
+  return {
+    suggestion,
+    prefixRank,
+    termDistanceRank,
+    searchRank,
+  }
+}
+
 export function findSuggestions(foodName: string) {
-  const results = searchFoodServingPortionSize(foodName);
-  return _.slice(results, 0, 5);
+  const results = _.slice(searchFoodServingPortionSize(foodName), 0, 5);
+  const ranked =  _.sortBy(_.map(results, _.partial(rank, _, _, foodName)), ['prefixRank', 'termDistanceRank', 'searchRank']);
+  return _.map(ranked, 'suggestion');
 }
 
 export function findNameSuggestions(foodName: string) {
