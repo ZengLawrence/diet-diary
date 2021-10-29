@@ -44,3 +44,21 @@ test("plural unit fluid ounces -> fl-oz", () => {
     }
   );
 })
+
+test("unit cup -> cup", () => {
+  expect(parseAmount("1 cup")).toMatchObject(
+    {
+      quantity: 1,
+      unit: "cup"
+    }
+  );
+})
+
+test("plural unit cups -> cup", () => {
+  expect(parseAmount("2 cups")).toMatchObject(
+    {
+      quantity: 2,
+      unit: "cup"
+    }
+  );
+})

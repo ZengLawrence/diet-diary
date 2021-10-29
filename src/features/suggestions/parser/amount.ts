@@ -9,6 +9,7 @@ function mockFoodDescription(amount: string) {
 
 const UNIT_MAP = new Map<string, (Mass | Volume)>([
   ["cup", "cup"],
+  ["cups", "cup"],
   ["pound", "lb"],
   ["ounce", "oz"],
   ["ounces", "oz"],
