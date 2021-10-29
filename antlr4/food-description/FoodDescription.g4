@@ -12,7 +12,7 @@ measurement
     ;
 
 quantity
-  : DECIMAL
+  : DECIMAL | FRACTION | WHOLE_NUMBER | WHOLE_NUMBER FRACTION
   ;
 
 unit
@@ -24,7 +24,9 @@ STRING
    ;
 
 fragment DIGIT : [0-9];
-DECIMAL : DIGIT+ '.'? DIGIT* | '.' DIGIT+;
+DECIMAL : DIGIT+ '.' DIGIT* | '.' DIGIT+;
+FRACTION: DIGIT+ '/' DIGIT+;
+WHOLE_NUMBER: DIGIT+;
 
 COMMA : ',' -> channel(HIDDEN) ;
 

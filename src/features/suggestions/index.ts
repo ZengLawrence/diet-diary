@@ -1,2 +1,2 @@
-export type { Suggestion } from "./search";
+export type { Suggestion } from "./Suggestion";
 export { generateSuggestions } from "./search";

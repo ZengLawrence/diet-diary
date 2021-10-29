@@ -1,10 +1,14 @@
 import antlr4 from 'antlr4';
-import FoodDescriptionLexer from '../../../generated/parser/FoodDescriptionLexer';
-import FoodDescriptionParser from '../../../generated/parser/FoodDescriptionParser';
-import FoodDescriptionListener from '../../../generated/parser/FoodDescriptionListener';
+import Fraction from 'fraction.js';
 import _ from 'lodash';
+import FoodDescriptionLexer from '../../../generated/parser/FoodDescriptionLexer';
+import FoodDescriptionListener from '../../../generated/parser/FoodDescriptionListener';
+import FoodDescriptionParser from '../../../generated/parser/FoodDescriptionParser';
 import { CaseChangingStream } from './CaseChangingStream';
 
+function toNumber(str) {
+  return str.includes('/') ? new Fraction(str).round(3).valueOf() : _.toNumber(str);
+}
 class FoodDescriptionDecomposer extends FoodDescriptionListener {
 
   constructor(input) {
@@ -19,11 +23,13 @@ class FoodDescriptionDecomposer extends FoodDescriptionListener {
   }
 
   exitQuantity(ctx) {
-    _.set(this.content, "measurement.quantity", ctx.getChild(0).getText());
+    const val = this.input.substring(ctx.start.column, ctx.stop.stop + 1);
+    _.set(this.content, "quantity", toNumber(val));
   }
 
   exitUnit(ctx) {
-    _.set(this.content, "measurement.unit", _.lowerCase(ctx.getChild(0).getText()));
+    const val = this.input.substring(ctx.start.column, ctx.stop.stop + 1);
+    _.set(this.content, "unitText", val);
   }
 
   exitMeasurement(ctx) {
