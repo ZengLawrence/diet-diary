@@ -1,12 +1,7 @@
 import { parseAmount } from "./amount";
 
-test("unit pound -> lb", () => {
-  expect(parseAmount("1 pound")).toMatchObject(
-    {
-      quantity: 1,
-      unit: "lb"
-    }
-  );
+test("unit pound(s) -> lb", () => {
+  testCases("pound", "lb").run();
 })
 
 test("unit ounce(s) -> oz", () => {
