@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _, { isInteger } from 'lodash';
 import { Suggestion } from "../Suggestion";
 import { PredefinedSuggestion } from './search';
 import baseOn from './calculateServing';
@@ -8,13 +8,45 @@ function shouldGenerateAutoSuggestion(autoCompletions: Suggestion[], suggestions
     && _.size(suggestions) > 0;
 }
 
-function foodNameStartsWith(suggestion: PredefinedSuggestion, foodName: string) {
+function foodNameStartsWith(suggestion: { foodName: string }, foodName: string) {
   return _.startsWith(_.lowerCase(suggestion.foodName), _.lowerCase(foodName));
 }
 
+function minTermDistance(suggestion: PredefinedSuggestion, terms: string[]) {
+  return _.reduce(terms, function (result, term) {
+    const position = suggestion.foodName.indexOf(term);
+    if (position > result.position) {
+      return result;
+
+    } else {
+      return {
+        ...result,
+        position,
+      }
+    }
+  },
+    {
+      suggestion,
+      position: Number.MAX_SAFE_INTEGER,
+    })
+}
+
 function findBestMatch(foodName: string, suggestions: PredefinedSuggestion[]) {
-  return _.head(_.filter(suggestions, suggestion => foodNameStartsWith(suggestion, foodName)))
-  || suggestions[0];
+  const prefixMatch = _.head(_.filter(suggestions, suggestion => foodNameStartsWith(suggestion, foodName)));
+  const matchByShortestTermDistance = _.reduce(_.map(suggestions, suggestion => minTermDistance(suggestion, _.words(foodName))), function (result, suggestionWithDistance) {
+    if (suggestionWithDistance.position < result.position) {
+      return suggestionWithDistance;
+    } else {
+      return result;
+    }
+  },
+    {
+      suggestion: undefined as unknown as PredefinedSuggestion,
+      position: Number.MAX_SAFE_INTEGER,
+    });
+  return prefixMatch
+    || matchByShortestTermDistance.suggestion
+    || suggestions[0];
 }
 
 export function generateAutoSuggestion(autoCompletions: Suggestion[], suggestions: PredefinedSuggestion[]) {

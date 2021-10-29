@@ -259,3 +259,35 @@ test("unknown unit, treat as same unit", () => {
     }
 });
 })
+
+test("Find best match based on distance of search terms to start of food name", () => {
+  const autoCompletion = {
+    foodName: "skim milk",
+    amount: "1 cup"
+  }
+  const suggestions = [
+    {
+      foodName: "Chai tea, with skim milk",
+      amount: "12 fluid ounces",
+      serving: {
+        proteinDiary: 1,
+        sweet: 1,
+      }
+    },
+    {
+      foodName: "Milk, skim or 1%",
+      amount: "8 ounces or 1 cup",
+      serving: {
+        proteinDiary: 1
+      }
+    }
+  ]
+  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  expect(result).toEqual({
+    foodName: "skim milk",
+    amount: "1 cup",
+    serving: {
+      proteinDiary: 1
+    }
+  });
+})
