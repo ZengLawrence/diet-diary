@@ -11,10 +11,7 @@ function isVolume(unit: Unit) {
 }
 
 function harmonize(fromUnit: Unit, toUnit: Unit) {
-  if (_.isUndefined(fromUnit)
-    || _.isUndefined(toUnit)) return { fromUnit, toUnit };
-
-  if (_.includes(convert().from(fromUnit).possibilities(), toUnit)) {
+  if (_.isUndefined(fromUnit) || _.isUndefined(toUnit)) {
     return { fromUnit, toUnit };
   }
 
