@@ -24,6 +24,10 @@ test("unit quart(s) -> qt", () => {
   testCases("quart", "qt").run();
 })
 
+test("unit gallon(s) -> gal", () => {
+  testCases("gallon", "gal").run();
+})
+
 test("unit teaspoon(s) -> tsp", () => {
   testCases("teaspoon", "tsp").run();
 })
