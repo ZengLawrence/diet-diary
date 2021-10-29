@@ -15,14 +15,9 @@ function foodNameStartsWith(suggestion: { foodName: string }, foodName: string) 
 function minTermDistance(suggestion: PredefinedSuggestion, terms: string[]) {
   return _.reduce(terms, function (result, term) {
     const position = suggestion.foodName.indexOf(term);
-    if (position > result.position) {
-      return result;
-
-    } else {
-      return {
-        ...result,
-        position,
-      }
+    return position > result.position ? result : {
+      ...result,
+      position,
     }
   },
     {
@@ -33,13 +28,10 @@ function minTermDistance(suggestion: PredefinedSuggestion, terms: string[]) {
 
 function findBestMatch(foodName: string, suggestions: PredefinedSuggestion[]) {
   const prefixMatch = _.head(_.filter(suggestions, suggestion => foodNameStartsWith(suggestion, foodName)));
-  const matchByShortestTermDistance = _.reduce(_.map(suggestions, suggestion => minTermDistance(suggestion, _.words(foodName))), function (result, suggestionWithDistance) {
-    if (suggestionWithDistance.position < result.position) {
-      return suggestionWithDistance;
-    } else {
-      return result;
-    }
-  },
+  const matchByShortestTermDistance = _.reduce(_.map(suggestions, suggestion => minTermDistance(suggestion, _.words(foodName))),
+    function (result, suggestionWithDistance) {
+      return suggestionWithDistance.position < result.position ? suggestionWithDistance : result;
+    },
     {
       suggestion: undefined as unknown as PredefinedSuggestion,
       position: Number.MAX_SAFE_INTEGER,
