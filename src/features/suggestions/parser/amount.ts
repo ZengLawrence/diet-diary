@@ -23,6 +23,8 @@ const UNIT_MAP = new Map<string, (Mass | Volume)>([
   ["ounces", "oz"],
   ["pound", "lb"],
   ["pounds", "lb"],
+  ["gram", "g"],
+  ["grams", "g"],
 ])
 
 function toUnit(s: string) {

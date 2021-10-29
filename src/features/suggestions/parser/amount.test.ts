@@ -24,6 +24,10 @@ test("unit tablespoon(s) -> Tbs", () => {
   testCases("tablespoon", "Tbs").run();
 })
 
+test("unit gram(s) -> g", () => {
+  testCases("gram", "g").run();
+})
+
 function testCases(unit: string, abbr: string) {
   const singular = {
     input: "1 " + unit,
