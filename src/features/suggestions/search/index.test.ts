@@ -141,3 +141,25 @@ test("search with auto complete unit e.g. 'milk 8 flu' should auto suggest 'milk
   }
   generateSuggestions(new MockRefObject("milk 8 flu"), assert);
 })
+
+test("stop auto completion if space after unit e.g. 'peanuts 8 wholes '", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(2);
+    expect(suggestions[0]).toMatchObject(
+      {
+        foodName: "peanuts",
+        amount: "8 wholes",
+      }
+    );
+    expect(suggestions[1]).toMatchObject(
+      {
+        foodName: "peanuts",
+        amount: "8 wholes",
+        serving: {
+          fat: 1,
+        }
+      }
+    );
+  }
+  generateSuggestions(new MockRefObject("peanuts 8 wholes "), assert);
+})
