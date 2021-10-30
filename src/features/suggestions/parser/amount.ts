@@ -1,3 +1,4 @@
+import convert from "convert-units";
 import { Mass, Volume } from "convert-units";
 import _ from "lodash";
 import { parseFoodDescription } from "./foodDescription";
@@ -83,3 +84,21 @@ export function parseAmount(amount: string) {
 
 export type Amount = ReturnType<typeof parseAmount>;
 export type Unit = Amount['unit']
+
+export function unitOf(amount: string) {
+  return parseAmount(amount).unit;
+}
+
+type Measure = "volume" | "mass" | undefined;
+
+export function isMeasure(unit: Unit, measure?: Measure) {
+  if (_.isUndefined(unit) || _.isUndefined(measure)) return false;
+  return convert().possibilities(measure).includes(unit);
+}
+
+export function measureOf(unit: Unit): Measure | undefined {
+  if (_.isUndefined(unit)) return undefined;
+  if (isMeasure(unit, "volume")) return "volume";
+  if (isMeasure(unit, "mass")) return "mass";
+  return undefined;
+}
