@@ -257,5 +257,5 @@ test("unknown unit, treat as same unit", () => {
     serving: {
       fat: 1
     }
-});
+  });
 })
