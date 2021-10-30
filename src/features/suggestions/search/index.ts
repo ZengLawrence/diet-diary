@@ -1,26 +1,11 @@
 import _ from 'lodash';
-import { parseFoodDescription } from '../parser/foodDescription';
 import { generateAutoSuggestion } from './autoSuggestion';
 import { findNameSuggestions, findSuggestions } from './search';
 import { createSuggestion, Suggestion } from '../Suggestion';
 import autoCompleteAmount from './autoCompleteAmount';
 import { Amount, parseAmount, unitOf } from '../parser/amount';
 import isConvertible from './isConvertible';
-
-function decompose(foodDescription: string) {
-  const { foodName, amount } = parseFoodDescription(foodDescription);
-  // put a space after a word
-  const foodNameCompleted = foodDescription.substr(_.size(foodName), 1) === " ";
-  const unitCompleted = amount ? foodDescription.substr(_.size(foodDescription) - 1, 1) === " " : false;
-  return {
-    foodName,
-    amount,
-    foodNameCompleted,
-    unitCompleted,
-  }
-}
-
-type DecomposedFoodDescription = ReturnType<typeof decompose>;
+import { DecomposedFoodDescription, decompose } from './DecomposedFoodDescription';
 
 function composeAmount(quantity: number, unitText: string) {
   return "" + quantity + " " + unitText;
