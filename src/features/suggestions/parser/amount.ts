@@ -77,6 +77,7 @@ export function parseAmount(amount: string) {
   return {
     quantity: quantity || 0,
     unit: rawUnit(unitText).toUnit(),
+    unitText,
   };
 }
 

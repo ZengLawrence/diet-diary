@@ -128,3 +128,16 @@ test("search with multiple matches and with capitalized letter e.g. 'Peas' shoul
   }
   generateSuggestions(new MockRefObject("Peas"), assert);
 })
+
+test("search with auto complete unit e.g. 'milk 8 flu' should auto suggest 'milk 8 fluid'", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(1);
+    expect(suggestions[0]).toMatchObject(
+      {
+        "foodName": "milk",
+        "amount": "8 fluid",
+      }
+    );
+  }
+  generateSuggestions(new MockRefObject("milk 8 flu"), assert);
+})
