@@ -24,6 +24,7 @@ class FoodDescriptionDecomposer extends FoodDescriptionListener {
 
   exitQuantity(ctx) {
     const val = this.input.substring(ctx.start.column, ctx.stop.stop + 1);
+    _.set(this.content, "quantityText", val);
     _.set(this.content, "quantity", toNumber(val));
   }
 

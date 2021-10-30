@@ -6,7 +6,8 @@ test("parse 'brocoli 1 cup'", () => {
       foodName: "brocoli",
       amount: "1 cup",
       quantity: 1,
-      unitText: "cup"
+      unitText: "cup",
+      quantityText: "1",
     }
   );
 })
@@ -119,7 +120,8 @@ test("fraction quantity e.g. 1/2", () => {
       foodName: "brocoli",
       amount: "1/2 cup",
       quantity: 0.5,
-      unitText: "cup"
+      unitText: "cup",
+      quantityText: "1/2",
     }
   );
 })
@@ -130,7 +132,8 @@ test("fraction quantity e.g. '1 1/2'", () => {
       foodName: "brocoli",
       amount: "1 1/2 cup",
       quantity: 1.5,
-      unitText: "cup"
+      unitText: "cup",
+      quantityText: "1 1/2",
     }
   );
 })

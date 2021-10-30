@@ -73,12 +73,17 @@ function rawUnit(unitText?: string) {
   }
 }
 
+function compose(quantityText: string | undefined, unitText: string) {
+  return quantityText + " " + unitText;
+}
+
 export function parseAmount(amount: string) {
-  const { quantity, unitText } = parseFoodDescription(mockFoodDescription(amount));
+  const { quantity, unitText, quantityText } = parseFoodDescription(mockFoodDescription(amount));
   return {
     quantity: quantity || 0,
     unit: rawUnit(unitText).toUnit(),
     unitText,
+    amountWithUnitText: _.partial(compose, quantityText),
   };
 }
 
