@@ -147,11 +147,11 @@
     },
     {
       "foodName": "Milk, buttermilk, low-fat or reduced-fat",
-      "servingSize": "8 ounces or 1 cup"
+      "servingSize": "8 fluid ounces or 1 cup"
     },
     {
       "foodName": "Milk, skim or 1%",
-      "servingSize": "8 ounces or 1 cup",
+      "servingSize": "8 fluid ounces or 1 cup",
       "bestChoice": true
     },
     {
@@ -190,7 +190,7 @@
     },
     {
       "foodName": "Soy milk, low-fat",
-      "servingSize": "8 ounces or 1 cup"
+      "servingSize": "8 fluid ounces or 1 cup"
     },
     {
       "foodName": "Tofu, firm or silken soft",
