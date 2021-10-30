@@ -8,6 +8,7 @@ const METRIC_UNITS = [
   "milliliter",
   "liter",
   "gram",
+  "kilogram",
 ]
 
 function addIndexAsId(obj: object, i: number) { return _.set(obj, "id", i); }
