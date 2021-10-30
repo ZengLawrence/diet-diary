@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { PredefinedSuggestion } from './search';
 import { isMeasure, measureOf, parseAmount, Unit } from '../parser/amount';
 
-export default function (fromUnit: Unit, suggestion: PredefinedSuggestion) {
+export default function isConvertible(fromUnit: Unit, suggestion: PredefinedSuggestion) {
   if (_.isUndefined(fromUnit))
     return true;
 
