@@ -1,4 +1,4 @@
-export function parseFoodDescription(input: string) : {
+export default function parse(input: string) : {
   foodName: string,
   amount?: string,
   quantity?: number,

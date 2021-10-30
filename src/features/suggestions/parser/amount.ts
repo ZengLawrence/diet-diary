@@ -1,7 +1,7 @@
 import convert from "convert-units";
 import { Mass, Volume } from "convert-units";
 import _ from "lodash";
-import { parseFoodDescription } from "./foodDescription";
+import parseFoodDescription from "./foodDescription";
 
 function mockFoodDescription(amount: string) {
   // add food name to make a food description

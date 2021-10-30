@@ -54,7 +54,7 @@ class SyntaxErrorListener extends antlr4.error.ErrorListener {
 
 }
 
-export function parseFoodDescription(input) {
+export default function parse(input) {
 
   if (_.isEmpty(input)) return { foodName: "" };
 
