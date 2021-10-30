@@ -167,54 +167,6 @@ test("Unit conversion: pound -> ounces", () => {
   });
 })
 
-test("Ambiguous unit conversion: ounce is really fluid ounce", () => {
-  const autoCompletion = {
-    foodName: "beer",
-    amount: "12 ounces"
-  }
-  const suggestions = [
-    {
-      foodName: "Beer, regular",
-      amount: "12 fluid ounces",
-      serving: {
-        sweet: 2
-      }
-    }
-  ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
-  expect(result).toEqual({
-    foodName: "beer",
-    amount: "12 ounces",
-    serving: {
-      sweet: 2
-    }
-  });
-})
-
-test("Ambiguous unit conversion: unit is ambiguous in suggestion", () => {
-  const autoCompletion = {
-    foodName: "milk skim",
-    amount: "1 cup"
-  }
-  const suggestions = [
-    {
-      foodName: "Milk, skim or 1%",
-      amount: "8 ounces or 1 cup",
-      serving: {
-        proteinDiary: 1
-      }
-    }
-  ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
-  expect(result).toEqual({
-    foodName: "milk skim",
-    amount: "1 cup",
-    serving: {
-      proteinDiary: 1
-    }
-  });
-})
-
 test("Unconvertible units, do not calculate", () => {
   const autoCompletion = {
     foodName: "black bean",
