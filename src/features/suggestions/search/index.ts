@@ -1,10 +1,11 @@
 import _ from 'lodash';
 import { parseFoodDescription } from '../parser/foodDescription';
 import { generateAutoSuggestion } from './autoSuggestion';
-import { findNameSuggestions, findSuggestions, PredefinedSuggestion } from './search';
+import { findNameSuggestions, findSuggestions } from './search';
 import { createSuggestion, Suggestion } from '../Suggestion';
 import autoCompleteAmount from './autoCompleteAmount';
-import { Amount, isMeasure, measureOf, parseAmount, Unit, unitOf } from '../parser/amount';
+import { Amount, parseAmount, unitOf } from '../parser/amount';
+import isConvertible from './isConvertible';
 
 function decompose(foodDescription: string) {
   const { foodName, amount } = parseFoodDescription(foodDescription);
@@ -50,14 +51,6 @@ function findAmountAutoCompletions(decomposedAmount: Amount, foodName: string) {
   } else {
     return [];
   }
-}
-
-function isConvertible(fromUnit: Unit, suggestion: PredefinedSuggestion) {
-  if (_.isUndefined(fromUnit)) return true;
-  
-  const isConvertibleTo = _.partial(isMeasure, _, measureOf(fromUnit));
-  const toUnit = parseAmount(suggestion.amount).unit;
-  return isConvertibleTo(toUnit);
 }
 
 export function generateSuggestions(
