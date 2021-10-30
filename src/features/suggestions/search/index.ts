@@ -22,12 +22,12 @@ function findAutoCompletions(foodDescription: DecomposedFoodDescription) : Sugge
 function findAmountAutoCompletions(amount: Amount, foodName: string) {
   const { unit, unitText, amountWithUnitText } = amount;
 
-  const suggestionWithFoodName = _.partial(createSuggestion, foodName);
+  const suggestionWithAmount = _.partial(createSuggestion, foodName);
   if (_.isUndefined(unit) && unitText) {
     return _.map(autoCompleteUnit(unitText))
       .slice(0, 2)
       .map(amountWithUnitText)
-      .map(suggestionWithFoodName);
+      .map(suggestionWithAmount);
   } else {
     return [];
   }
