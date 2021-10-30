@@ -13,7 +13,7 @@ test("Auto completion has food name only e.g. 'broccoli' should add serving from
       }
     }
   ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "broccoli",
     amount: "1 cup florets",
@@ -37,7 +37,7 @@ test("Auto completion has food name and partially matching amount e.g. 'broccoli
       }
     }
   ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "broccoli",
     amount: "1 cup florets",
@@ -61,7 +61,7 @@ test("Auto completion has food name and different amount e.g. 'broccoli 2 cups' 
       }
     }
   ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "broccoli",
     amount: "2 cups",
@@ -85,7 +85,7 @@ test("Fraction amount e.g. 1/2 cup", () => {
       }
     },
   ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "Beans, black",
     amount: "1/2 cup",
@@ -109,7 +109,7 @@ test("Fraction amount calculation", () => {
       }
     },
   ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "Beans, black",
     amount: "1 1/2 cup",
@@ -133,7 +133,7 @@ test("Fraction calculation round to 3 decimal places", () => {
       }
     }
   ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "fresh green peas",
     amount: "1 1/4 cup",
@@ -157,7 +157,7 @@ test("Unit conversion: pound -> ounces", () => {
       }
     }
   ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "beef",
     amount: "1 pound",
@@ -181,7 +181,7 @@ test("Unconvertible units, do not calculate", () => {
       }
     }
   ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "black bean",
     amount: "1 pound",
@@ -202,7 +202,7 @@ test("unknown unit, treat as same unit", () => {
       }
     }
   ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "peanuts",
     amount: "8 wholes",
@@ -235,7 +235,7 @@ test("find first suggestion with convertible unit", () => {
       }
     },
   ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "chocolate whole milk",
     amount: "8 fluid ounces",

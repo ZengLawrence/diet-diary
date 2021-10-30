@@ -4,26 +4,19 @@ import baseOn from './calculateServing';
 import { PredefinedSuggestion } from './search';
 import { Unit, parseAmount, unitOf, isMeasure, measureOf } from "../parser/amount";
 
-function shouldGenerateAutoSuggestion(autoCompletions: Suggestion[], suggestions: PredefinedSuggestion[]) {
-  return _.size(autoCompletions) === 1
-    && _.size(suggestions) > 0;
-}
-
 function isConvertible(fromUnit: Unit, suggestion: PredefinedSuggestion) {
   const isConvertibleTo = _.partial(isMeasure, _, measureOf(fromUnit));
   const toUnit = parseAmount(suggestion.amount).unit;
   return isConvertibleTo(toUnit);
 }
 
-export function generateAutoSuggestion(autoCompletions: Suggestion[], suggestions: PredefinedSuggestion[]) {
-  if (!shouldGenerateAutoSuggestion(autoCompletions, suggestions)) return null;
+export function generateAutoSuggestion(autoCompletion: Suggestion, suggestions: PredefinedSuggestion[]) {
+  if (_.size(suggestions) === 0) return null;
 
-  const firstAutoCompletion = autoCompletions[0];
-
-  const isConvertibleFromAutoCompletion = _.partial(isConvertible, unitOf(firstAutoCompletion.amount || ""));
+  const isConvertibleFromAutoCompletion = _.partial(isConvertible, unitOf(autoCompletion.amount || ""));
   const bestMatch = _.head(_.filter(suggestions, isConvertibleFromAutoCompletion))
     || suggestions[0];
-  return createAutoSuggestion(firstAutoCompletion, bestMatch);
+  return createAutoSuggestion(autoCompletion, bestMatch);
 }
 
 function createAutoSuggestion(nameSuggestion: Suggestion, suggestion: PredefinedSuggestion) {

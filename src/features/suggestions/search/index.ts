@@ -60,7 +60,7 @@ export function generateSuggestions(
   const autoCompletions = findAutoCompletions(foodDescription);
 
   const suggestions = findSuggestions(foodDescription.foodName);
-  const results = _.compact(_.concat(autoCompletions, generateAutoSuggestion(autoCompletions, suggestions), suggestions))
+  const results = _.compact(_.concat(autoCompletions, generateAutoSuggestion(autoCompletions[0], suggestions), suggestions))
     .slice(0, 5);
   return callback(results);
 }
