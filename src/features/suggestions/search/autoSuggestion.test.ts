@@ -211,37 +211,3 @@ test("unknown unit, treat as same unit", () => {
     }
   });
 })
-
-test("find first suggestion with convertible unit", () => {
-  const autoCompletion = {
-    foodName: "chocolate whole milk",
-    amount: "8 fluid ounces"
-  }
-  const suggestions = [
-    {
-      foodName: "Chocolate bar, milk",
-      amount: "1 bar (1 1/2 ounces)",
-      serving: {
-        fat: 2,
-        sweet: 1.5
-      }
-    },
-    {
-      foodName: "Milk, 2% or whole",
-      amount: "8 fluid ounces",
-      serving: {
-        fat: 1,
-        sweet: 1
-      }
-    },
-  ]
-  const result = generateAutoSuggestion(autoCompletion, suggestions);
-  expect(result).toEqual({
-    foodName: "chocolate whole milk",
-    amount: "8 fluid ounces",
-    serving: {
-      fat: 1,
-      sweet: 1
-    }
-  });
-})

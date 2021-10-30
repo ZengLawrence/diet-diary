@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import { parseFoodDescription } from '../parser/foodDescription';
 import { generateAutoSuggestion } from './autoSuggestion';
-import { findNameSuggestions, findSuggestions } from './search';
+import { findNameSuggestions, findSuggestions, PredefinedSuggestion } from './search';
 import { createSuggestion, Suggestion } from '../Suggestion';
 import autoCompleteAmount from './autoCompleteAmount';
-import { Amount, parseAmount } from '../parser/amount';
+import { Amount, isMeasure, measureOf, parseAmount, Unit, unitOf } from '../parser/amount';
 
 function decompose(foodDescription: string) {
   const { foodName, amount } = parseFoodDescription(foodDescription);
@@ -25,7 +25,7 @@ function composeAmount(quantity: number, unitText: string) {
   return "" + quantity + " " + unitText;
 }
 
-function findAutoCompletions(foodDescription: DecomposedFoodDescription) {
+function findAutoCompletions(foodDescription: DecomposedFoodDescription) : Suggestion[] {
   const { foodName, amount, foodNameCompleted, unitCompleted } = foodDescription;
   if (foodNameCompleted) {
     if (amount && !unitCompleted) {
@@ -52,6 +52,14 @@ function findAmountAutoCompletions(decomposedAmount: Amount, foodName: string) {
   }
 }
 
+function isConvertible(fromUnit: Unit, suggestion: PredefinedSuggestion) {
+  if (_.isUndefined(fromUnit)) return true;
+  
+  const isConvertibleTo = _.partial(isMeasure, _, measureOf(fromUnit));
+  const toUnit = parseAmount(suggestion.amount).unit;
+  return isConvertibleTo(toUnit);
+}
+
 export function generateSuggestions(
   foodDescriptionRef: React.MutableRefObject<String>,
   callback: (suggestions: Suggestion[]) => void
@@ -59,8 +67,10 @@ export function generateSuggestions(
   const foodDescription = decompose(foodDescriptionRef.current + "");
   const autoCompletions = findAutoCompletions(foodDescription);
 
-  const suggestions = findSuggestions(foodDescription.foodName);
-  const results = _.compact(_.concat(autoCompletions, generateAutoSuggestion(autoCompletions[0], suggestions), suggestions))
+  const firstAutoCompletion = autoCompletions[0];
+  const isConvertibleFromAutoCompletion = _.partial(isConvertible, unitOf(firstAutoCompletion.amount || ""));
+  const suggestions = _.filter(findSuggestions(foodDescription.foodName), isConvertibleFromAutoCompletion);
+  const results = _.compact(_.concat(autoCompletions, generateAutoSuggestion(firstAutoCompletion, suggestions), suggestions))
     .slice(0, 5);
   return callback(results);
 }

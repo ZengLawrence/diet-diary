@@ -163,3 +163,37 @@ test("stop auto completion if space after unit e.g. 'peanuts 8 wholes '", () => 
   }
   generateSuggestions(new MockRefObject("peanuts 8 wholes "), assert);
 })
+
+test("keep suggestions with convertible unit", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(3);
+    expect(suggestions[0]).toMatchObject(
+      {
+        foodName: "chocolate whole milk",
+        amount: "8 fluid ounces",
+      }
+    );
+    expect(suggestions[1]).toMatchObject(
+      {
+        foodName: "chocolate whole milk",
+        amount: "8 fluid ounces",
+        serving: {
+          "proteinDiary": 1,
+          "fat": 1
+        }
+      }
+    );
+    expect(suggestions[2]).toMatchObject(
+      {
+        foodName: "Milk, 2% or whole",
+        amount: "8 fluid ounces",
+        serving: {
+          "proteinDiary": 1,
+          "fat": 1
+        }
+      }
+    );
+  }
+  generateSuggestions(new MockRefObject("chocolate whole milk 8 fluid ounces"), assert);
+
+})
