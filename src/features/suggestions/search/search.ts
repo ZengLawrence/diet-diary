@@ -23,20 +23,12 @@ function foodNameStartsWith(suggestion: { foodName: string }, foodName: string) 
 }
 
 function minTermDistance(suggestion: PredefinedSuggestion, terms: string[]) {
-  return _.reduce(terms, function (result, term) {
-    const distance = suggestion.foodName.indexOf(term);
-    const notFound = distance < 0;
-    if (notFound) return result;
-
-    return distance > result.distance ? result : {
-      ...result,
-      distance,
-    }
-  },
-    {
-      suggestion,
-      distance: Number.MAX_SAFE_INTEGER,
-    }).distance;
+  const distances = _.map(_.map(terms, _.lowerCase), function (term) {
+    const pos = _.lowerCase(suggestion.foodName).indexOf(term);
+    const notFound = pos < 0;
+    return notFound ? Number.MAX_SAFE_INTEGER : pos;
+  });
+  return _.head(_.sortBy(distances));
 }
 
 function rank(suggestion: PredefinedSuggestion, searchRank: number, foodName: string) {
@@ -52,7 +44,7 @@ function rank(suggestion: PredefinedSuggestion, searchRank: number, foodName: st
 
 export function findSuggestions(foodName: string) {
   const results = _.slice(searchFoodServingPortionSize(foodName), 0, 5);
-  const ranked =  _.sortBy(_.map(results, _.partial(rank, _, _, foodName)), ['prefixRank', 'termDistanceRank', 'searchRank']);
+  const ranked = _.sortBy(_.map(results, _.partial(rank, _, _, foodName)), ['prefixRank', 'termDistanceRank', 'searchRank']);
   return _.map(ranked, 'suggestion');
 }
 
