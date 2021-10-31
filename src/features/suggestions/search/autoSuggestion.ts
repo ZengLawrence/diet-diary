@@ -17,15 +17,11 @@ function createAutoSuggestion(nameSuggestion: Suggestion, suggestion: Predefined
     foodName
   };
   if (amount) {
-    if (_.startsWith(suggestion.amount, amount)) {
-      return autoSuggestion;
-    } else {
-      const serving = baseOn(suggestion).servingFor(amount);
-      return {
-        ...autoSuggestion,
-        amount,
-        serving,
-      }
+    const serving = baseOn(suggestion).servingFor(amount);
+    return {
+      ...autoSuggestion,
+      amount,
+      serving,
     }
   }
 

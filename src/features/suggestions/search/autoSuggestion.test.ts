@@ -23,10 +23,10 @@ test("Auto completion has food name only e.g. 'broccoli' should add serving from
   });
 })
 
-test("Auto completion has food name and partially matching amount e.g. 'broccoli 1 cu' should add serving from suggestions", () => {
+test("Auto completion has food name and partially matching amount e.g. 'broccoli 1 cup', should keep amount and add serving from suggestions", () => {
   const autoCompletion = {
     foodName: "broccoli",
-    amount: "1 cu"
+    amount: "1 cup"
   }
   const suggestions = [
     {
@@ -40,7 +40,7 @@ test("Auto completion has food name and partially matching amount e.g. 'broccoli
   const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "broccoli",
-    amount: "1 cup florets",
+    amount: "1 cup",
     serving: {
       vegetable: 1
     }
