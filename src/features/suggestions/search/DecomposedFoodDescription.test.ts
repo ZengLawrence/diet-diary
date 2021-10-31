@@ -1,0 +1,59 @@
+import decompose from './DecomposedFoodDescription';
+
+test("Given only food name not space at the end, then food name and unit completed flags are false", () => {
+  const result = decompose("broccoli");
+  expect(result).toMatchObject({
+    foodName: "broccoli",
+    foodNameCompleted: false,
+    unitCompleted: false,
+  });
+})
+
+test("Given only food name with a space at the end, then space is removed from food name, food name completed flag is true and unit completed flag is false", () => {
+  const result = decompose("broccoli ");
+  expect(result).toMatchObject({
+    foodName: "broccoli",
+    foodNameCompleted: true,
+    unitCompleted: false,
+  });
+})
+
+test("Given food name with quantity, then food name completed flag is true and unit completed flag is false", () => {
+  const result = decompose("broccoli 1");
+  expect(result).toMatchObject({
+    foodName: "broccoli",
+    foodNameCompleted: true,
+    amount: "1",
+    unitCompleted: false,
+  });
+})
+
+test("Given food name with quantity ending with a space, then amount with trailing space removed, food name completed flag is true and unit completed flag is false", () => {
+  const result = decompose("broccoli 1 ");
+  expect(result).toMatchObject({
+    foodName: "broccoli",
+    foodNameCompleted: true,
+    amount: "1",
+    unitCompleted: false,
+  });
+})
+
+test("Given food name and amount, then food name completed flag is true and unit completed flag is false", () => {
+  const result = decompose("broccoli 1 cup");
+  expect(result).toMatchObject({
+    foodName: "broccoli",
+    foodNameCompleted: true,
+    amount: "1 cup",
+    unitCompleted: false,
+  });
+})
+
+test("Given food name and amount with a trailing space, then amount with trailing space removed, food name completed and unit completed flag are true", () => {
+  const result = decompose("broccoli 1 cup ");
+  expect(result).toMatchObject({
+    foodName: "broccoli",
+    foodNameCompleted: true,
+    amount: "1 cup",
+    unitCompleted: true,
+  });
+})
