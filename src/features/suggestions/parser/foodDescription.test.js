@@ -1,4 +1,4 @@
-import { parseFoodDescription } from "./foodDescription";
+import parseFoodDescription from "./foodDescription";
 
 test("parse 'brocoli 1 cup'", () => {
   expect(parseFoodDescription("brocoli 1 cup")).toMatchObject(
@@ -6,7 +6,8 @@ test("parse 'brocoli 1 cup'", () => {
       foodName: "brocoli",
       amount: "1 cup",
       quantity: 1,
-      unitText: "cup"
+      unitText: "cup",
+      quantityText: "1",
     }
   );
 })
@@ -119,7 +120,8 @@ test("fraction quantity e.g. 1/2", () => {
       foodName: "brocoli",
       amount: "1/2 cup",
       quantity: 0.5,
-      unitText: "cup"
+      unitText: "cup",
+      quantityText: "1/2",
     }
   );
 })
@@ -130,17 +132,18 @@ test("fraction quantity e.g. '1 1/2'", () => {
       foodName: "brocoli",
       amount: "1 1/2 cup",
       quantity: 1.5,
-      unitText: "cup"
+      unitText: "cup",
+      quantityText: "1 1/2",
     }
   );
 })
 
-test("fraction quantity round to 3 decimal places e.g. 2/3 to 0.667", () => {
+test("fraction quantity, do not round, keep maximum precision", () => {
   expect(parseFoodDescription("brocoli 2/3 cup")).toMatchObject(
     {
       foodName: "brocoli",
       amount: "2/3 cup",
-      quantity: 0.667,
+      quantity: 0.6666666666666666,
       unitText: "cup"
     }
   );

@@ -13,7 +13,7 @@ test("Auto completion has food name only e.g. 'broccoli' should add serving from
       }
     }
   ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "broccoli",
     amount: "1 cup florets",
@@ -23,10 +23,10 @@ test("Auto completion has food name only e.g. 'broccoli' should add serving from
   });
 })
 
-test("Auto completion has food name and partially matching amount e.g. 'broccoli 1 cu' should add serving from suggestions", () => {
+test("Auto completion has food name and partially matching amount e.g. 'broccoli 1 cup', should keep amount and add serving from suggestions", () => {
   const autoCompletion = {
     foodName: "broccoli",
-    amount: "1 cu"
+    amount: "1 cup"
   }
   const suggestions = [
     {
@@ -37,10 +37,10 @@ test("Auto completion has food name and partially matching amount e.g. 'broccoli
       }
     }
   ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "broccoli",
-    amount: "1 cup florets",
+    amount: "1 cup",
     serving: {
       vegetable: 1
     }
@@ -61,7 +61,7 @@ test("Auto completion has food name and different amount e.g. 'broccoli 2 cups' 
       }
     }
   ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "broccoli",
     amount: "2 cups",
@@ -85,7 +85,7 @@ test("Fraction amount e.g. 1/2 cup", () => {
       }
     },
   ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "Beans, black",
     amount: "1/2 cup",
@@ -109,7 +109,7 @@ test("Fraction amount calculation", () => {
       }
     },
   ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "Beans, black",
     amount: "1 1/2 cup",
@@ -133,7 +133,7 @@ test("Fraction calculation round to 3 decimal places", () => {
       }
     }
   ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "fresh green peas",
     amount: "1 1/4 cup",
@@ -157,60 +157,12 @@ test("Unit conversion: pound -> ounces", () => {
       }
     }
   ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "beef",
     amount: "1 pound",
     serving: {
       proteinDiary: 8
-    }
-  });
-})
-
-test("Ambiguous unit conversion: ounce is really fluid ounce", () => {
-  const autoCompletion = {
-    foodName: "beer",
-    amount: "12 ounces"
-  }
-  const suggestions = [
-    {
-      foodName: "Beer, regular",
-      amount: "12 fluid ounces",
-      serving: {
-        sweet: 2
-      }
-    }
-  ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
-  expect(result).toEqual({
-    foodName: "beer",
-    amount: "12 ounces",
-    serving: {
-      sweet: 2
-    }
-  });
-})
-
-test("Ambiguous unit conversion: unit is ambiguous in suggestion", () => {
-  const autoCompletion = {
-    foodName: "milk skim",
-    amount: "1 cup"
-  }
-  const suggestions = [
-    {
-      foodName: "Milk, skim or 1%",
-      amount: "8 ounces or 1 cup",
-      serving: {
-        proteinDiary: 1
-      }
-    }
-  ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
-  expect(result).toEqual({
-    foodName: "milk skim",
-    amount: "1 cup",
-    serving: {
-      proteinDiary: 1
     }
   });
 })
@@ -229,7 +181,7 @@ test("Unconvertible units, do not calculate", () => {
       }
     }
   ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "black bean",
     amount: "1 pound",
@@ -250,44 +202,12 @@ test("unknown unit, treat as same unit", () => {
       }
     }
   ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
   expect(result).toEqual({
     foodName: "peanuts",
     amount: "8 wholes",
     serving: {
       fat: 1
-    }
-});
-})
-
-test("Find best match based on distance of search terms to start of food name", () => {
-  const autoCompletion = {
-    foodName: "skim milk",
-    amount: "1 cup"
-  }
-  const suggestions = [
-    {
-      foodName: "Chai tea, with skim milk",
-      amount: "12 fluid ounces",
-      serving: {
-        proteinDiary: 1,
-        sweet: 1,
-      }
-    },
-    {
-      foodName: "Milk, skim or 1%",
-      amount: "8 ounces or 1 cup",
-      serving: {
-        proteinDiary: 1
-      }
-    }
-  ]
-  const result = generateAutoSuggestion([autoCompletion], suggestions);
-  expect(result).toEqual({
-    foodName: "skim milk",
-    amount: "1 cup",
-    serving: {
-      proteinDiary: 1
     }
   });
 })

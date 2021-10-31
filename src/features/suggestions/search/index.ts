@@ -1,17 +1,35 @@
 import _ from 'lodash';
-import { parseFoodDescription } from '../parser/foodDescription';
 import { generateAutoSuggestion } from './autoSuggestion';
 import { findNameSuggestions, findSuggestions } from './search';
 import { createSuggestion, Suggestion } from '../Suggestion';
+import autoCompleteUnit from './autoCompleteUnit';
+import { Amount, parseAmount, unitOf } from '../parser/amount';
+import isConvertible from './isConvertible';
+import decompose, { DecomposedFoodDescription } from './DecomposedFoodDescription';
 
-function decompose(foodDescription: string) {
-  const { foodName, amount } = parseFoodDescription(foodDescription);
-  // put a space after a word
-  const foodNameCompleted = foodDescription.substr(_.size(foodName), 1) === " ";
-  return {
-    foodName,
-    amount,
-    foodNameCompleted,
+function findAutoCompletions(foodDescription: DecomposedFoodDescription): Suggestion[] {
+  const { foodName, amount, foodNameCompleted, unitCompleted } = foodDescription;
+  if (foodNameCompleted) {
+    if (amount && !unitCompleted) {
+      const amountAutoCompletions = findAmountAutoCompletions(parseAmount(amount), foodName);
+      if (_.size(amountAutoCompletions) > 0) return amountAutoCompletions;
+    }
+    return [createSuggestion(foodName, amount)];
+  }
+  return findNameSuggestions(foodName);
+}
+
+function findAmountAutoCompletions(amount: Amount, foodName: string) {
+  const { unit, unitText, amountWithUnitText } = amount;
+
+  const suggestionWithAmount = _.partial(createSuggestion, foodName);
+  if (_.isUndefined(unit) && unitText) {
+    return _.map(autoCompleteUnit(unitText))
+      .slice(0, 2)
+      .map(amountWithUnitText)
+      .map(suggestionWithAmount);
+  } else {
+    return [];
   }
 }
 
@@ -19,11 +37,14 @@ export function generateSuggestions(
   foodDescriptionRef: React.MutableRefObject<String>,
   callback: (suggestions: Suggestion[]) => void
 ) {
-  const { foodName, amount, foodNameCompleted } = decompose(foodDescriptionRef.current + "");
-  const autoCompletions: Suggestion[] = foodNameCompleted ? [createSuggestion(foodName, amount)] : findNameSuggestions(foodName);
+  const foodDescription = decompose(foodDescriptionRef.current + "");
+  const autoCompletions = findAutoCompletions(foodDescription);
 
-  const suggestions = findSuggestions(foodName);
-  const results = _.compact(_.concat(autoCompletions, generateAutoSuggestion(autoCompletions, suggestions), suggestions))
+  const firstAutoCompletion = autoCompletions[0];
+  const isConvertibleFromAutoCompletion = _.partial(isConvertible, unitOf(firstAutoCompletion.amount || ""));
+  const servingSuggestions = _.filter(findSuggestions(foodDescription.foodName), isConvertibleFromAutoCompletion);
+  const allSuggestions = _.concat(autoCompletions, generateAutoSuggestion(firstAutoCompletion, servingSuggestions), servingSuggestions);
+  const results = _.uniqWith(_.compact(allSuggestions), _.isEqual)
     .slice(0, 5);
   return callback(results);
 }

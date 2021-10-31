@@ -128,3 +128,106 @@ test("search with multiple matches and with capitalized letter e.g. 'Peas' shoul
   }
   generateSuggestions(new MockRefObject("Peas"), assert);
 })
+
+test("search with auto complete unit e.g. 'milk 8 flu' should auto suggest 'milk 8 fluid'", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(1);
+    expect(suggestions[0]).toMatchObject(
+      {
+        "foodName": "milk",
+        "amount": "8 fluid",
+      }
+    );
+  }
+  generateSuggestions(new MockRefObject("milk 8 flu"), assert);
+})
+
+test("stop auto completion if space after unit e.g. 'peanuts 8 wholes '", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(2);
+    expect(suggestions[0]).toMatchObject(
+      {
+        foodName: "peanuts",
+        amount: "8 wholes",
+      }
+    );
+    expect(suggestions[1]).toMatchObject(
+      {
+        foodName: "peanuts",
+        amount: "8 wholes",
+        serving: {
+          fat: 1,
+        }
+      }
+    );
+  }
+  generateSuggestions(new MockRefObject("peanuts 8 wholes "), assert);
+})
+
+test("keep suggestions with convertible unit", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(3);
+    expect(suggestions[0]).toMatchObject(
+      {
+        foodName: "chocolate whole milk",
+        amount: "8 fluid ounces",
+      }
+    );
+    expect(suggestions[1]).toMatchObject(
+      {
+        foodName: "chocolate whole milk",
+        amount: "8 fluid ounces",
+        serving: {
+          "proteinDiary": 1,
+          "fat": 1
+        }
+      }
+    );
+    expect(suggestions[2]).toMatchObject(
+      {
+        foodName: "Milk, 2% or whole",
+        amount: "8 fluid ounces",
+        serving: {
+          "proteinDiary": 1,
+          "fat": 1
+        }
+      }
+    );
+  }
+  generateSuggestions(new MockRefObject("chocolate whole milk 8 fluid ounces"), assert);
+
+})
+
+test("no deduplicate suggestions", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(3);
+    // the input
+    expect(suggestions[0]).toEqual(
+      {
+        foodName: "Apple",
+        amount: "1 small",
+      }
+    );
+    expect(suggestions[1]).toMatchObject(
+      {
+        foodName: "Apple",
+        amount: "1 small",
+        serving: {
+          fruit: 1,
+        }
+      }
+    );
+    expect(suggestions[2]).not.toMatchObject(
+      {
+        foodName: "Apple",
+        amount: "1 small",
+        serving: {
+          fruit: 1,
+        }
+      }
+    );
+
+  }
+  generateSuggestions(new MockRefObject("Apple 1 small"), assert);
+
+})

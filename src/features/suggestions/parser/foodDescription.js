@@ -7,7 +7,7 @@ import FoodDescriptionParser from '../../../generated/parser/FoodDescriptionPars
 import { CaseChangingStream } from './CaseChangingStream';
 
 function toNumber(str) {
-  return str.includes('/') ? new Fraction(str).round(3).valueOf() : _.toNumber(str);
+  return str.includes('/') ? new Fraction(str).valueOf() : _.toNumber(str);
 }
 class FoodDescriptionDecomposer extends FoodDescriptionListener {
 
@@ -24,6 +24,7 @@ class FoodDescriptionDecomposer extends FoodDescriptionListener {
 
   exitQuantity(ctx) {
     const val = this.input.substring(ctx.start.column, ctx.stop.stop + 1);
+    _.set(this.content, "quantityText", val);
     _.set(this.content, "quantity", toNumber(val));
   }
 
@@ -54,7 +55,7 @@ class SyntaxErrorListener extends antlr4.error.ErrorListener {
 
 }
 
-export function parseFoodDescription(input) {
+export default function parse(input) {
 
   if (_.isEmpty(input)) return { foodName: "" };
 
