@@ -7,7 +7,7 @@ import { Amount, parseAmount, unitOf } from '../parser/amount';
 import isConvertible from './isConvertible';
 import decompose, { DecomposedFoodDescription } from './DecomposedFoodDescription';
 
-function findAutoCompletions(foodDescription: DecomposedFoodDescription) : Suggestion[] {
+function findAutoCompletions(foodDescription: DecomposedFoodDescription): Suggestion[] {
   const { foodName, amount, foodNameCompleted, unitCompleted } = foodDescription;
   if (foodNameCompleted) {
     if (amount && !unitCompleted) {
@@ -42,8 +42,9 @@ export function generateSuggestions(
 
   const firstAutoCompletion = autoCompletions[0];
   const isConvertibleFromAutoCompletion = _.partial(isConvertible, unitOf(firstAutoCompletion.amount || ""));
-  const suggestions = _.filter(findSuggestions(foodDescription.foodName), isConvertibleFromAutoCompletion);
-  const results = _.compact(_.concat(autoCompletions, generateAutoSuggestion(firstAutoCompletion, suggestions), suggestions))
+  const servingSuggestions = _.filter(findSuggestions(foodDescription.foodName), isConvertibleFromAutoCompletion);
+  const allSuggestions = _.concat(autoCompletions, generateAutoSuggestion(firstAutoCompletion, servingSuggestions), servingSuggestions);
+  const results = _.uniqWith(_.compact(allSuggestions), _.isEqual)
     .slice(0, 5);
   return callback(results);
 }

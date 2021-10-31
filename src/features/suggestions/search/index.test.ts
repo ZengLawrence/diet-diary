@@ -197,3 +197,37 @@ test("keep suggestions with convertible unit", () => {
   generateSuggestions(new MockRefObject("chocolate whole milk 8 fluid ounces"), assert);
 
 })
+
+test("no deduplicate suggestions", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(3);
+    // the input
+    expect(suggestions[0]).toEqual(
+      {
+        foodName: "Apple",
+        amount: "1 small",
+      }
+    );
+    expect(suggestions[1]).toMatchObject(
+      {
+        foodName: "Apple",
+        amount: "1 small",
+        serving: {
+          fruit: 1,
+        }
+      }
+    );
+    expect(suggestions[2]).not.toMatchObject(
+      {
+        foodName: "Apple",
+        amount: "1 small",
+        serving: {
+          fruit: 1,
+        }
+      }
+    );
+
+  }
+  generateSuggestions(new MockRefObject("Apple 1 small"), assert);
+
+})
