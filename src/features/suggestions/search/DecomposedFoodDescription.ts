@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import parse from '../parser/foodDescription';
 
-export function decompose(foodDescription: string) {
+export default function decompose(foodDescription: string) {
   const { foodName, amount } = parse(foodDescription);
   // put a space after a word
   const foodNameCompleted = foodDescription.substr(_.size(foodName), 1) === " ";

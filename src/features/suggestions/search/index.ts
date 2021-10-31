@@ -5,7 +5,7 @@ import { createSuggestion, Suggestion } from '../Suggestion';
 import autoCompleteUnit from './autoCompleteUnit';
 import { Amount, parseAmount, unitOf } from '../parser/amount';
 import isConvertible from './isConvertible';
-import { DecomposedFoodDescription, decompose } from './DecomposedFoodDescription';
+import decompose, { DecomposedFoodDescription } from './DecomposedFoodDescription';
 
 function findAutoCompletions(foodDescription: DecomposedFoodDescription) : Suggestion[] {
   const { foodName, amount, foodNameCompleted, unitCompleted } = foodDescription;
