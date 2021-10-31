@@ -138,12 +138,12 @@ test("fraction quantity e.g. '1 1/2'", () => {
   );
 })
 
-test("fraction quantity round to 3 decimal places e.g. 2/3 to 0.667", () => {
+test("fraction quantity, do not round, keep maximum precision", () => {
   expect(parseFoodDescription("brocoli 2/3 cup")).toMatchObject(
     {
       foodName: "brocoli",
       amount: "2/3 cup",
-      quantity: 0.667,
+      quantity: 0.6666666666666666,
       unitText: "cup"
     }
   );

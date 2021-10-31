@@ -7,7 +7,7 @@ import FoodDescriptionParser from '../../../generated/parser/FoodDescriptionPars
 import { CaseChangingStream } from './CaseChangingStream';
 
 function toNumber(str) {
-  return str.includes('/') ? new Fraction(str).round(3).valueOf() : _.toNumber(str);
+  return str.includes('/') ? new Fraction(str).valueOf() : _.toNumber(str);
 }
 class FoodDescriptionDecomposer extends FoodDescriptionListener {
 
