@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { findNameSuggestions, findSuggestions } from "./search";
+import { findNameSuggestions, findSuggestions } from "./foodNameSearch";
 
 // search for serving
 test("search for exact name e.g. Broccoli should return at least one row and first row is Broccoli", () => {

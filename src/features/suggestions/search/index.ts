@@ -5,7 +5,7 @@ import { isConvertible } from '../Unit';
 import autoCompleteUnit from './unitMiniSearch';
 import { generateAutoSuggestion } from './autoSuggestion';
 import decompose, { DecomposedFoodDescription } from './DecomposedFoodDescription';
-import { findNameSuggestions, findSuggestions, PredefinedSuggestion } from './search';
+import { findNameSuggestions, findSuggestions, PredefinedSuggestion } from './foodNameSearch';
 
 function findAutoCompletions(foodDescription: DecomposedFoodDescription): Suggestion[] {
   const { foodName, amount, foodNameCompleted, unitCompleted } = foodDescription;

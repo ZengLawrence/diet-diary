@@ -2,7 +2,7 @@ import _ from "lodash";
 import MiniSearch, { SearchOptions } from "minisearch";
 import portions from "../portion/portions";
 import servings from "../serving/servings";
-import { PredefinedSuggestion } from "./search";
+import { PredefinedSuggestion } from "./foodNameSearch";
 
 const METRIC_UNITS = [
   "milliliter",
