@@ -2,10 +2,10 @@ import _ from 'lodash';
 import parseAmount, { unitOf } from '../parser/amount';
 import { Suggestion } from '../Suggestion';
 import { isConvertible } from '../Unit';
-import findAutoCompletions from './autoCompletion';
+import findAutoCompletions from '../search/autoCompletion';
 import { generateAutoSuggestion } from './autoSuggestion';
-import decompose from './DecomposedFoodDescription';
-import { findSuggestions, PredefinedSuggestion } from './foodNameSearch';
+import decompose from '../search/DecomposedFoodDescription';
+import { findSuggestions, PredefinedSuggestion } from '../search/foodNameSearch';
 
 function isUnitConvertible(autoCompletion: Suggestion, suggestion: PredefinedSuggestion) {
   return isConvertible(unitOf(autoCompletion.amount), parseAmount(suggestion.amount).unit)

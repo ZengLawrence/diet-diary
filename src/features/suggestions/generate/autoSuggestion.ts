@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { Suggestion } from "../Suggestion";
 import baseOn from './calculateServing';
-import { PredefinedSuggestion } from './foodNameSearch';
+import { PredefinedSuggestion } from '../search/foodNameSearch';
 
 export function generateAutoSuggestion(autoCompletion: Suggestion, suggestions: PredefinedSuggestion[]) {
   if (_.size(suggestions) === 0) return null;
