@@ -1,11 +1,11 @@
 import _ from 'lodash';
-import { generateAutoSuggestion } from './autoSuggestion';
-import { findNameSuggestions, findSuggestions } from './search';
-import { createSuggestion, Suggestion } from '../Suggestion';
-import autoCompleteUnit from './autoCompleteUnit';
 import parseAmount, { Amount, unitOf } from '../parser/amount';
-import isConvertible from './isConvertible';
+import { createSuggestion, Suggestion } from '../Suggestion';
+import { isConvertible } from '../Unit';
+import autoCompleteUnit from './autoCompleteUnit';
+import { generateAutoSuggestion } from './autoSuggestion';
 import decompose, { DecomposedFoodDescription } from './DecomposedFoodDescription';
+import { findNameSuggestions, findSuggestions, PredefinedSuggestion } from './search';
 
 function findAutoCompletions(foodDescription: DecomposedFoodDescription): Suggestion[] {
   const { foodName, amount, foodNameCompleted, unitCompleted } = foodDescription;
@@ -33,6 +33,10 @@ function findAmountAutoCompletions(amount: Amount) {
   }
 }
 
+function isUnitConvertible(autoCompletion: Suggestion, suggestion: PredefinedSuggestion) {
+  return isConvertible(unitOf(autoCompletion.amount), parseAmount(suggestion.amount).unit)
+}
+
 export function generateSuggestions(
   foodDescriptionRef: React.MutableRefObject<String>,
   callback: (suggestions: Suggestion[]) => void
@@ -41,8 +45,8 @@ export function generateSuggestions(
   const autoCompletions = findAutoCompletions(foodDescription);
 
   const firstAutoCompletion = autoCompletions[0];
-  const isConvertibleFromAutoCompletion = _.partial(isConvertible, unitOf(firstAutoCompletion.amount || ""));
-  const servingSuggestions = _.filter(findSuggestions(foodDescription.foodName), isConvertibleFromAutoCompletion);
+  const isUnitConvertibleFromAutoCompletion = _.partial(isUnitConvertible, firstAutoCompletion);
+  const servingSuggestions = _.filter(findSuggestions(foodDescription.foodName), isUnitConvertibleFromAutoCompletion);
   const allSuggestions = _.concat(autoCompletions, generateAutoSuggestion(firstAutoCompletion, servingSuggestions), servingSuggestions);
   const results = _.uniqWith(_.compact(allSuggestions), _.isEqual)
     .slice(0, 5);

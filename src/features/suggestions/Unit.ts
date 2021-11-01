@@ -51,15 +51,22 @@ export function toUnit(unitName: string) {
 
 export type Unit = ReturnType<typeof toUnit>;
 
+export function isConvertible(fromUnit: Unit, toUnit: Unit) {
+  if (_.isUndefined(fromUnit))
+    return true;
+
+  return isMeasure(toUnit, measureOf(fromUnit));
+}
+
 type Measure = "volume" | "mass" | undefined;
 
-export function isMeasure(unit: Unit, measure?: Measure) {
+function isMeasure(unit: Unit, measure?: Measure) {
   if (_.isUndefined(unit) || _.isUndefined(measure))
     return false;
   return convert().possibilities(measure).includes(unit);
 }
 
-export function measureOf(unit: Unit): Measure | undefined {
+function measureOf(unit: Unit): Measure | undefined {
   if (_.isUndefined(unit))
     return undefined;
   if (isMeasure(unit, "volume"))
