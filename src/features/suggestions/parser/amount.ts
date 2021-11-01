@@ -1,6 +1,6 @@
 import _ from "lodash";
 import parseFoodDescription from "./foodDescription";
-import { toUnit } from "../../../model/Unit";
+import { toUnit } from "../Unit";
 
 function mockFoodDescription(amount: string) {
   // add food name to make a food description
