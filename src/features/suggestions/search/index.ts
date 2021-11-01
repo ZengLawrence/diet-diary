@@ -3,7 +3,7 @@ import { generateAutoSuggestion } from './autoSuggestion';
 import { findNameSuggestions, findSuggestions } from './search';
 import { createSuggestion, Suggestion } from '../Suggestion';
 import autoCompleteUnit from './autoCompleteUnit';
-import { Amount, parseAmount, unitOf } from '../parser/amount';
+import parseAmount, { Amount,  unitOf } from '../parser/amount';
 import isConvertible from './isConvertible';
 import decompose, { DecomposedFoodDescription } from './DecomposedFoodDescription';
 

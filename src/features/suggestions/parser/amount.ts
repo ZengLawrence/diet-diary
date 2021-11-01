@@ -28,7 +28,7 @@ function compose(quantityText: string | undefined, unitText: string) {
   return quantityText + " " + unitText;
 }
 
-export function parseAmount(amount: string) {
+export default function parseAmount(amount: string) {
   const { quantity, unitText, quantityText } = parseFoodDescription(mockFoodDescription(amount));
   return {
     quantity: quantity || 0,
