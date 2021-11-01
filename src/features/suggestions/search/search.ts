@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { Serving } from "../../../model/Food";
 import portions from "../portion/portions";
-import { buildDocuments, search, autoSuggest } from "../search/miniSearchEngine";
+import { buildDocuments, search, autoSuggest } from "./foodNameMiniSearch";
 import servings from "../serving/servings";
 
 export interface PredefinedSuggestion {
