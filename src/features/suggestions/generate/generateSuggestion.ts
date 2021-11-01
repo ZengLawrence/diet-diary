@@ -4,7 +4,7 @@ import { Suggestion } from '../Suggestion';
 import { isConvertible } from '../Unit';
 import findAutoCompletions from '../search/autoCompletion';
 import { generateAutoSuggestion } from './autoSuggestion';
-import decompose from '../search/DecomposedFoodDescription';
+import decompose from '../parser/DecomposedFoodDescription';
 import { findSuggestions, PredefinedSuggestion } from '../search/foodNameSearch';
 
 function isUnitConvertible(autoCompletion: Suggestion, suggestion: PredefinedSuggestion) {

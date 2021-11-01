@@ -2,7 +2,7 @@ import _ from 'lodash';
 import parseAmount, { Amount } from '../parser/amount';
 import { createSuggestion, Suggestion } from '../Suggestion';
 import autoCompleteUnit from './unitMiniSearch';
-import { DecomposedFoodDescription } from './DecomposedFoodDescription';
+import { DecomposedFoodDescription } from '../parser/DecomposedFoodDescription';
 import { findNameSuggestions } from './foodNameSearch';
 
 export default function findAutoCompletions(foodDescription: DecomposedFoodDescription): Suggestion[] {
