@@ -2,7 +2,7 @@ import convert from 'convert-units';
 import _ from 'lodash';
 import { Serving } from '../../../model/Food';
 import { multiply } from '../../../model/servingFunction';
-import { Amount, parseAmount } from '../parser/amount';
+import parseAmount, { Amount } from '../parser/amount';
 
 function servingFor(unitServing: Serving, servingAmount: Amount, amount: string) {
   const from = parseAmount(amount);
