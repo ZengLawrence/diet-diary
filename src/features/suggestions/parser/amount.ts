@@ -7,7 +7,7 @@ function mockFoodDescription(amount: string) {
   return "food " + amount;
 }
 
-function _parseRawUnit(unitText?: string) {
+function parseUnitText(unitText?: string) {
   const words = _.words(_.lowerCase(unitText));
   if (_.size(words) === 0) return "";
   const first = words[0];
@@ -18,9 +18,9 @@ function _parseRawUnit(unitText?: string) {
   return first;
 }
 
-function rawUnit(unitText?: string) {
+function from(unitText?: string) {
   return {
-    toUnit: _.partial(toUnit, _parseRawUnit(unitText)),
+    toUnit: _.partial(toUnit, parseUnitText(unitText)),
   }
 }
 
@@ -32,7 +32,7 @@ export default function parseAmount(amount: string) {
   const { quantity, unitText, quantityText } = parseFoodDescription(mockFoodDescription(amount));
   return {
     quantity: quantity || 0,
-    unit: rawUnit(unitText).toUnit(),
+    unit: from(unitText).toUnit(),
     unitText,
     amountWithUnitText: _.partial(compose, quantityText),
   };
