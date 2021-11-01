@@ -1,37 +1,11 @@
 import _ from 'lodash';
-import parseAmount, { Amount, unitOf } from '../parser/amount';
-import { createSuggestion, Suggestion } from '../Suggestion';
+import parseAmount, { unitOf } from '../parser/amount';
+import { Suggestion } from '../Suggestion';
 import { isConvertible } from '../Unit';
-import autoCompleteUnit from './unitMiniSearch';
+import findAutoCompletions from './autoCompletion';
 import { generateAutoSuggestion } from './autoSuggestion';
-import decompose, { DecomposedFoodDescription } from './DecomposedFoodDescription';
-import { findNameSuggestions, findSuggestions, PredefinedSuggestion } from './foodNameSearch';
-
-function findAutoCompletions(foodDescription: DecomposedFoodDescription): Suggestion[] {
-  const { foodName, amount, foodNameCompleted, unitCompleted } = foodDescription;
-  if (foodNameCompleted) {
-    if (amount && !unitCompleted) {
-      const suggestionWithAmount = _.partial(createSuggestion, foodName);
-      const amountAutoCompletions = findAmountAutoCompletions(parseAmount(amount))
-        .map(suggestionWithAmount);
-      if (_.size(amountAutoCompletions) > 0) return amountAutoCompletions;
-    }
-    return [createSuggestion(foodName, amount)];
-  }
-  return findNameSuggestions(foodName);
-}
-
-function findAmountAutoCompletions(amount: Amount) {
-  const { unit, unitText, amountWithUnitText } = amount;
-
-  if (_.isUndefined(unit) && unitText) {
-    return _.map(autoCompleteUnit(unitText))
-      .slice(0, 2)
-      .map(amountWithUnitText);
-  } else {
-    return [];
-  }
-}
+import decompose from './DecomposedFoodDescription';
+import { findSuggestions, PredefinedSuggestion } from './foodNameSearch';
 
 function isUnitConvertible(autoCompletion: Suggestion, suggestion: PredefinedSuggestion) {
   return isConvertible(unitOf(autoCompletion.amount), parseAmount(suggestion.amount).unit)
