@@ -2,7 +2,7 @@ import _ from 'lodash';
 import parseAmount, { Amount, unitOf } from '../parser/amount';
 import { createSuggestion, Suggestion } from '../Suggestion';
 import { isConvertible } from '../Unit';
-import autoCompleteUnit from './autoCompleteUnit';
+import autoCompleteUnit from './unitMiniSearch';
 import { generateAutoSuggestion } from './autoSuggestion';
 import decompose, { DecomposedFoodDescription } from './DecomposedFoodDescription';
 import { findNameSuggestions, findSuggestions, PredefinedSuggestion } from './search';
