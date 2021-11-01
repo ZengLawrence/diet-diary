@@ -13,9 +13,12 @@ const METRIC_UNITS = [
 function addIndexAsId(obj: object, i: number) { return _.set(obj, "id", i); }
 
 function buildDocuments(list: { amount: string }[]) {
-  const fullList = _.concat(list, _.map(METRIC_UNITS, amount => { return { amount } }));
+  const fullList = _.concat(
+    _.map(list, ({ amount }) => { return { unitText: amount } }),
+    _.map(METRIC_UNITS, unitText => { return { unitText } })
+  );
   const miniSearch = new MiniSearch({
-    fields: ['amount']
+    fields: ['unitText']
   })
 
   miniSearch.addAll(_.map(fullList, addIndexAsId));
