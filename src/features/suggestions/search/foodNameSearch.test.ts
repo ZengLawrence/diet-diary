@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { findNameSuggestions, findSuggestions } from "./search";
+import { findNameSuggestions, findSuggestions } from "./foodNameSearch";
 
 // search for serving
 test("search for exact name e.g. Broccoli should return at least one row and first row is Broccoli", () => {
@@ -74,13 +74,11 @@ test("search for 'skim milk' should return 'Milk, skim or 1%' as first result", 
   expect(results[0]).toMatchObject({ "foodName": "Milk, skim or 1%" });
 })
 
-// this example will have to be handled when generating suggestion
 test("search for 'chocolate whole milk' should return 'chocolate milk' and 'whole milk' in top 3 results", () => {
-  const results = findSuggestions("chocolate whole milk");
-  expect(_.size(results)).toBeGreaterThanOrEqual(3);
-  expect(results[0]).toMatchObject({ foodName: "Chocolate bar, milk" });
-  expect(results[1]).toMatchObject({ foodName: "Milk, 2% or whole" });
-  expect(results[2]).toMatchObject({ foodName: "Chocolate milk, made with skim or 1% milk" });
+  const results = findSuggestions("chocolate whole milk", { convertibleFrom: "fl-oz" });
+  expect(_.size(results)).toBeGreaterThanOrEqual(2);
+  expect(results[0]).toMatchObject({ foodName: "Milk, 2% or whole" });
+  expect(results[1]).toMatchObject({ foodName: "Chocolate milk, made with skim or 1% milk" });
 })
 
 // auto complete food name

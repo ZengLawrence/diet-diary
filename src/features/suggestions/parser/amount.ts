@@ -1,6 +1,6 @@
 import _ from "lodash";
 import parseFoodDescription from "./foodDescription";
-import { toUnit } from "../../../model/Unit";
+import { toUnit } from "../Unit";
 
 function mockFoodDescription(amount: string) {
   // add food name to make a food description
@@ -40,6 +40,6 @@ export default function parseAmount(amount: string) {
 
 export type Amount = ReturnType<typeof parseAmount>;
 
-export function unitOf(amount: string) {
-  return parseAmount(amount).unit;
+export function unitOf(amount?: string) {
+  return parseAmount(amount || "").unit;
 }

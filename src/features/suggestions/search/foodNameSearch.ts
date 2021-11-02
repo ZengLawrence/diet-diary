@@ -1,8 +1,10 @@
 import _ from "lodash";
 import { Serving } from "../../../model/Food";
 import portions from "../portion/portions";
-import { buildDocuments, search, autoSuggest } from "../search/miniSearchEngine";
+import { buildDocuments, search, autoSuggest } from "./foodNameMiniSearch";
 import servings from "../serving/servings";
+import { isConvertible, Unit } from "../Unit";
+import { unitOf } from "../parser/amount";
 
 export interface PredefinedSuggestion {
   foodName: string;
@@ -42,8 +44,14 @@ function rank(suggestion: PredefinedSuggestion, searchRank: number, foodName: st
   }
 }
 
-export function findSuggestions(foodName: string) {
-  const results = _.slice(searchFoodServingPortionSize(foodName), 0, 5);
+function isUnitConvertible(unit: Unit | undefined, suggestion: { amount: string }) {
+  return isConvertible(unit, unitOf(suggestion.amount))
+}
+
+export function findSuggestions(foodName: string, options?: {convertibleFrom?: Unit}) {
+  const isSuggestionConvertibleFromUnit = _.partial(isUnitConvertible, options?.convertibleFrom);
+  const results = _.slice(searchFoodServingPortionSize(foodName), 0, 5)
+    .filter(isSuggestionConvertibleFromUnit);
   const ranked = _.sortBy(_.map(results, _.partial(rank, _, _, foodName)), ['prefixRank', 'termDistanceRank', 'searchRank']);
   return _.map(ranked, 'suggestion');
 }
@@ -53,6 +61,6 @@ export function findNameSuggestions(foodName: string) {
   const format = (s: string) => shouldCapitalized ? _.capitalize(s) : s;
   const results = autoComplete(foodName)
     .map(format)
-    .map(foodName => ({ foodName }));
+    .map(foodName => ({ foodName }))
   return _.size(results) === 0 ? [{ foodName }] : _.slice(results, 0, 5);
 }
