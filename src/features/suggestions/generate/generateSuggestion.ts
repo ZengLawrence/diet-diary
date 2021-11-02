@@ -1,15 +1,10 @@
 import _ from 'lodash';
 import { unitOf } from '../parser/amount';
-import { Suggestion } from '../Suggestion';
-import { isConvertible } from '../Unit';
-import findAutoCompletions from '../search/autoCompletion';
-import { generateAutoSuggestion } from './autoSuggestion';
 import decompose from '../parser/DecomposedFoodDescription';
+import findAutoCompletions from '../search/autoCompletion';
 import { findSuggestions } from '../search/foodNameSearch';
-
-function isUnitConvertible(autoCompletion: { amount?: string }, suggestion: { amount: string }) {
-  return isConvertible(unitOf(autoCompletion.amount), unitOf(suggestion.amount))
-}
+import { Suggestion } from '../Suggestion';
+import { generateAutoSuggestion } from './autoSuggestion';
 
 export function generateSuggestions(
   foodDescriptionRef: React.MutableRefObject<String>,
@@ -19,8 +14,7 @@ export function generateSuggestions(
   const autoCompletions = findAutoCompletions(foodDescription);
 
   const firstAutoCompletion = autoCompletions[0];
-  const isUnitConvertibleFromAutoCompletion = _.partial(isUnitConvertible, firstAutoCompletion);
-  const servingSuggestions = _.filter(findSuggestions(foodDescription.foodName), isUnitConvertibleFromAutoCompletion);
+  const servingSuggestions = findSuggestions(foodDescription.foodName, {convertibleFrom: unitOf(firstAutoCompletion.amount)});
   const allSuggestions = _.concat(autoCompletions, generateAutoSuggestion(firstAutoCompletion, servingSuggestions), servingSuggestions);
   const results = _.uniqWith(_.compact(allSuggestions), _.isEqual)
     .slice(0, 5);
