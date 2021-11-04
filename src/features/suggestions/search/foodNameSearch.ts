@@ -44,7 +44,7 @@ function rank(suggestion: PredefinedSuggestion, searchRank: number, foodName: st
   }
 }
 
-function isUnitConvertible(unit: Unit | undefined, suggestion: { amount: string }) {
+function isUnitConvertible(unit: Unit, suggestion: { amount: string }) {
   return isConvertible(unit, unitOf(suggestion.amount))
 }
 
