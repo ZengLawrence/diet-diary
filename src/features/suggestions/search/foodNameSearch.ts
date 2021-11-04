@@ -55,11 +55,18 @@ function isUnitConvertible(unit: Unit, suggestion: { amount: string }) {
   return isConvertible(unit, unitOf(suggestion.amount))
 }
 
-export function findSuggestions(foodName: string, options?: {convertibleFrom?: Unit}) {
+export function findSuggestions(foodName: string, options?: { convertibleFrom?: Unit }) {
   const isSuggestionConvertibleFromUnit = _.partial(isUnitConvertible, options?.convertibleFrom);
   const results = _.slice(searchFoodServingPortionSize(foodName), 0, 5)
     .filter(isSuggestionConvertibleFromUnit);
-  const ranked = _.sortBy(_.map(results, _.partial(rank, _, _, foodName)), ['prefixRank', 'matchedWordRank', 'termDistanceRank', 'searchRank']);
+  const ranked = _.sortBy(_.map(results, _.partial(rank, _, _, foodName)),
+    [
+      'prefixRank',
+      'matchedWordRank',
+      'termDistanceRank',
+      'searchRank',
+    ]
+  );
   return _.map(ranked, 'suggestion');
 }
 
