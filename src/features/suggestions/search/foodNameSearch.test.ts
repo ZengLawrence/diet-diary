@@ -81,6 +81,12 @@ test("search for 'chocolate whole milk' should return 'chocolate milk' and 'whol
   expect(results[1]).toMatchObject({ foodName: "Chocolate milk, made with skim or 1% milk" });
 })
 
+test("search result contains all search terms should rank higher", () => {
+  const results = findSuggestions("orange juice", { convertibleFrom: "fl-oz" });
+  expect(_.size(results)).toBeGreaterThanOrEqual(1);
+  expect(results[0]).toMatchObject({ foodName: "Juice, orange, grapefruit or pineapple, unsweetened" });
+})
+
 // auto complete food name
 test("auto complete food name for a partial name e.g. 'brocco' should return 'broccoli'", () => {
   const results = findNameSuggestions("brocco");
