@@ -51,8 +51,14 @@ function rank(suggestion: PredefinedSuggestion, searchRank: number, foodName: st
   }
 }
 
-function isUnitConvertible(unit: Unit, suggestion: { amount: string }) {
-  return isConvertible(unit, unitOf(suggestion.amount))
+function isUnitConvertible(fromUnit: Unit | undefined, suggestion: { amount: string }) {
+  // incomplete input or unknown unit, assume convertible
+  if (_.isUndefined(fromUnit)) return true;
+
+  const toUnit = unitOf(suggestion.amount);
+  if (_.isUndefined(toUnit)) return false;
+
+  return isConvertible(fromUnit, toUnit);
 }
 
 export function findSuggestions(foodName: string, options?: { convertibleFrom?: Unit }) {
