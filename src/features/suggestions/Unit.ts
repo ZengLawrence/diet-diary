@@ -6,10 +6,10 @@ type Measure = "volume" | "mass" | "size";
 type Systems = VolumeSystems | MassSystems | SizeSystems;
 type Units = VolumeUnits | MassUnits | SizeUnits;
 export const convert = configureMeasurements<Measure, Systems, Units>({
-    volume, 
-    mass, 
-    size,
-  });
+  volume,
+  mass,
+  size,
+});
 
 const UNIT_MAP = new Map<string, Units>([
   // volume
@@ -66,25 +66,8 @@ export function toUnit(unitName: string) {
 
 export type Unit = ReturnType<typeof toUnit>;
 
-export function isConvertible(fromUnit: Unit, toUnit: Unit) {
-  if (_.isUndefined(fromUnit))
-    return true;
-
-  return isMeasure(toUnit, measureOf(fromUnit));
-}
-
-function isMeasure(unit: Unit, measure?: Measure) {
-  if (_.isUndefined(unit) || _.isUndefined(measure))
-    return false;
-  return convert().possibilities(measure).includes(unit);
-}
-
-function measureOf(unit: Unit): Measure | undefined {
-  if (_.isUndefined(unit))
-    return undefined;
-  if (isMeasure(unit, "volume"))
-    return "volume";
-  if (isMeasure(unit, "mass"))
-    return "mass";
-  return undefined;
+export function isConvertible(fromUnit: Units, toUnit: Units) {
+  return convert().from(fromUnit)
+    .possibilities()
+    .includes(toUnit);
 }

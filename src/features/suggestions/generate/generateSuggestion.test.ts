@@ -233,3 +233,28 @@ test("no deduplicate suggestions", () => {
   generateSuggestions(new MockRefObject("Nuts, peanuts 8 wholes "), assert);
 
 })
+
+test("size suggestions", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(2);
+    // the input
+    expect(suggestions[0]).toEqual(
+      {
+        foodName: "apple",
+        amount: "1 large",
+      }
+    );
+    expect(suggestions[1]).toMatchObject(
+      {
+        foodName: "apple",
+        amount: "1 large",
+        serving: {
+          fruit: 2,
+        }
+      }
+    );
+
+  }
+  generateSuggestions(new MockRefObject("apple 1 large "), assert);
+
+})
