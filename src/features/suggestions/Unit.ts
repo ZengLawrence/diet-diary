@@ -2,10 +2,10 @@ import configureMeasurements, { mass, MassSystems, MassUnits, volume, VolumeSyst
 import _ from "lodash";
 import size, { SizeSystems, SizeUnits } from "./SizeUnit";
 
-type Measure = "volume" | "mass" | "size";
+type Measures = "volume" | "mass" | "size";
 type Systems = VolumeSystems | MassSystems | SizeSystems;
 type Units = VolumeUnits | MassUnits | SizeUnits;
-export const convert = configureMeasurements<Measure, Systems, Units>({
+export const convert = configureMeasurements<Measures, Systems, Units>({
   volume,
   mass,
   size,
