@@ -55,16 +55,22 @@ test("unit liter(s) -> l", () => {
 })
 
 test("unit small -> small", () => {
-  testCases("small", "small", [], { pluralSameSpelling: true }).run();
+  givenPluralHasSameSpelling().testCases("small", "small").run();
 })
 
 test("unit medium -> medium", () => {
-  testCases("medium", "medium", [], { pluralSameSpelling: true }).run();
+  givenPluralHasSameSpelling().testCases("medium", "medium").run();
 })
 
 test("unit large -> large", () => {
-  testCases("large", "large", [], { pluralSameSpelling: true }).run();
+  givenPluralHasSameSpelling().testCases("large", "large").run();
 })
+
+function givenPluralHasSameSpelling() {
+  return {
+    testCases: _.partialRight(testCases, [], { pluralSameSpelling: true })
+  }
+}
 
 function testCases(unit: string, abbr: Unit, commonAbbreviations: string[] = [], options: { pluralSameSpelling: boolean } = { pluralSameSpelling: false }) {
   const singular = {
