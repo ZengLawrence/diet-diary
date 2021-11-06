@@ -1,7 +1,17 @@
 import configureMeasurements, { mass, MassSystems, MassUnits, volume, VolumeSystems, VolumeUnits } from "convert-units";
 import _ from "lodash";
+import size, { SizeSystems, SizeUnits } from "./SizeUnit";
 
-const UNIT_MAP = new Map<string, (MassUnits | VolumeUnits)>([
+type Measure = "volume" | "mass" | "size";
+type Systems = VolumeSystems | MassSystems | SizeSystems;
+type Units = VolumeUnits | MassUnits | SizeUnits;
+export const convert = configureMeasurements<Measure, Systems, Units>({
+    volume, 
+    mass, 
+    size,
+  });
+
+const UNIT_MAP = new Map<string, Units>([
   // volume
   ["teaspoon", "tsp"],
   ["teaspoons", "tsp"],
@@ -43,6 +53,11 @@ const UNIT_MAP = new Map<string, (MassUnits | VolumeUnits)>([
   ["kilogram", "kg"],
   ["kilograms", "kg"],
   ["kg", "kg"],
+
+  // size
+  ["small", "small"],
+  ["medium", "medium"],
+  ["large", "large"],
 ])
 
 export function toUnit(unitName: string) {
@@ -57,10 +72,6 @@ export function isConvertible(fromUnit: Unit, toUnit: Unit) {
 
   return isMeasure(toUnit, measureOf(fromUnit));
 }
-
-type Measure = "volume" | "mass" | undefined;
-
-export const convert = configureMeasurements<"volume" | "mass", VolumeSystems | MassSystems, VolumeUnits | MassUnits>({volume, mass});
 
 function isMeasure(unit: Unit, measure?: Measure) {
   if (_.isUndefined(unit) || _.isUndefined(measure))

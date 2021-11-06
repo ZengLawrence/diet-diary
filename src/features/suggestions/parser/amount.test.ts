@@ -54,7 +54,19 @@ test("unit liter(s) -> l", () => {
   testCases("liter", "l").run();
 })
 
-function testCases(unit: string, abbr: Unit, commonAbbreviations?: string[]) {
+test("unit small -> small", () => {
+  testCases("small", "small", [], { pluralSameSpelling: true }).run();
+})
+
+test("unit medium -> medium", () => {
+  testCases("medium", "medium", [], { pluralSameSpelling: true }).run();
+})
+
+test("unit large -> large", () => {
+  testCases("large", "large", [], { pluralSameSpelling: true }).run();
+})
+
+function testCases(unit: string, abbr: Unit, commonAbbreviations: string[] = [], options: { pluralSameSpelling: boolean } = { pluralSameSpelling: false }) {
   const singular = {
     input: "1 " + unit,
     output: {
@@ -76,11 +88,13 @@ function testCases(unit: string, abbr: Unit, commonAbbreviations?: string[]) {
   return {
     run: () => {
       expect(parseAmount(singular.input)).toMatchObject(singular.output);
-      expect(parseAmount(plural.input)).toMatchObject(plural.output);
+      if (!options.pluralSameSpelling) {
+        expect(parseAmount(plural.input)).toMatchObject(plural.output);
+      }
       if (commonAbbreviations) {
-        _.forEach(commonAbbreviations, function(_abbr) {
+        _.forEach(commonAbbreviations, function (_abbr) {
           const input = "4 " + _abbr;
-          expect(parseAmount(input)).toMatchObject({unit: abbr});
+          expect(parseAmount(input)).toMatchObject({ unit: abbr });
         })
       } else {
         expect(parseAmount(abbreviation.input)).toMatchObject(abbreviation.output);

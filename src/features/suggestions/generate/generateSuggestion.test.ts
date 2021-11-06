@@ -204,30 +204,32 @@ test("no deduplicate suggestions", () => {
     // the input
     expect(suggestions[0]).toEqual(
       {
-        foodName: "Apple",
-        amount: "1 small",
+        foodName: "Nuts, peanuts",
+        amount: "8 wholes",
       }
     );
     expect(suggestions[1]).toMatchObject(
       {
-        foodName: "Apple",
-        amount: "1 small",
+        foodName: "Nuts, peanuts",
+        amount: "8 wholes",
         serving: {
-          fruit: 1,
+          fat: 1,
         }
       }
     );
     expect(suggestions[2]).not.toMatchObject(
       {
-        foodName: "Apple",
-        amount: "1 small",
+        foodName: "Nuts, peanuts",
+        amount: "8 wholes",
         serving: {
-          fruit: 1,
+          fat: 1,
         }
       }
     );
 
   }
-  generateSuggestions(new MockRefObject("Apple 1 small"), assert);
+  // extra space to stop auto complete for food name
+  // unit must be one of un-convertible unit
+  generateSuggestions(new MockRefObject("Nuts, peanuts 8 wholes "), assert);
 
 })
