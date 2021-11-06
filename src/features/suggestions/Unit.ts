@@ -64,9 +64,9 @@ export function toUnit(unitName: string) {
   return UNIT_MAP.get(_.lowerCase(unitName));
 }
 
-export type Unit = ReturnType<typeof toUnit>;
+export type Unit = Units;
 
-export function isConvertible(fromUnit: Units, toUnit: Units) {
+export function isConvertible(fromUnit: Unit, toUnit: Unit) {
   return convert().from(fromUnit)
     .possibilities()
     .includes(toUnit);

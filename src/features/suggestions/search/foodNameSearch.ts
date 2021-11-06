@@ -51,7 +51,7 @@ function rank(suggestion: PredefinedSuggestion, searchRank: number, foodName: st
   }
 }
 
-function isUnitConvertible(fromUnit: Unit, suggestion: { amount: string }) {
+function isUnitConvertible(fromUnit: Unit | undefined, suggestion: { amount: string }) {
   // incomplete input or unknown unit, assume convertible
   if (_.isUndefined(fromUnit)) return true;
 
