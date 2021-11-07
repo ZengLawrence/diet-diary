@@ -25,9 +25,10 @@ function servingFor(unitServing: Serving, servingAmount: Amount, amount: string)
   const to = measurementFor(fromUnit, servingAmount);
   const toUnit = to?.unit;
   const toQuantity = to?.quantity;
+  if (_.isUndefined(toQuantity)) return undefined;
+
   try {
     const normalizedQuantity = (fromUnit && toUnit) ? convert(from.quantity).from(fromUnit).to(toUnit) : from.quantity;
-    if (_.isUndefined(toQuantity)) return undefined;
     return multiply(unitServing, _.round(normalizedQuantity / toQuantity, 3));  
   } catch(e) {
     return undefined;
