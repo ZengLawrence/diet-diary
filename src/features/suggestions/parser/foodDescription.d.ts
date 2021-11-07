@@ -1,4 +1,4 @@
-export interface Measurement {
+interface Measurement {
   quantity?: number,
   quantityText?: string,
   unitText?: string,
