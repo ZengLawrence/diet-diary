@@ -57,6 +57,3 @@ export default function parseAmount(amount: string) {
 
 export type Amount = ReturnType<typeof parseAmount>;
 
-export function unitOf(amount?: string) {
-  return parseAmount(amount || "").measurement.unit;
-}
