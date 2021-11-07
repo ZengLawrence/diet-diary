@@ -2,12 +2,12 @@ import _ from 'lodash';
 import { Serving } from '../../../model/Food';
 import { multiply } from '../../../model/servingFunction';
 import parseAmount, { Amount } from '../parser/amount';
-import { convert, isMeasurementConvertibleFunc, Unit } from '../Unit';
+import { convert, isMeasurementConvertible, Unit } from '../Unit';
 
 function measurementFor(unit: Unit | undefined, amount: Amount) {
   if (_.isUndefined(unit)) return amount.measurement;
 
-  const isConvertible = isMeasurementConvertibleFunc(unit);
+  const isConvertible = _.partial(isMeasurementConvertible, unit);
   if (isConvertible(amount.measurement)) {
     return amount.measurement;
   } else if (amount.alternateMeasurement && isConvertible(amount.alternateMeasurement)) {

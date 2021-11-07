@@ -72,12 +72,10 @@ export function isConvertible(fromUnit: Unit, toUnit: Unit) {
     .includes(toUnit);
 }
 
-export function isMeasurementConvertibleFunc(fromUnit: Unit) {
-  return (measurement: { unit?: Unit; }) => {
-    const { unit: toUnit } = measurement;
-    if (_.isUndefined(toUnit))
-      return false;
+export function isMeasurementConvertible(fromUnit: Unit, measurement: { unit?: Unit; }) {
+  const { unit: toUnit } = measurement;
+  if (_.isUndefined(toUnit))
+    return false;
 
-    return isConvertible(fromUnit, toUnit);
-  };
+  return isConvertible(fromUnit, toUnit);
 }
