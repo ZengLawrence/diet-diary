@@ -3,8 +3,9 @@ import { Serving } from "../../../model/Food";
 import portions from "../portion/portions";
 import { buildDocuments, search, autoSuggest } from "./foodNameMiniSearch";
 import servings from "../serving/servings";
-import { isConvertible, Unit } from "../Unit";
+import { Unit } from "../Unit";
 import parseAmount from "../parser/amount";
+import { isMeasurementConvertibleFunc } from "./isMeasurementConvertibleFunc";
 
 export interface PredefinedSuggestion {
   foodName: string;
@@ -55,11 +56,15 @@ function isUnitConvertible(fromUnit: Unit | undefined, suggestion: { amount: str
   // incomplete input or unknown unit, assume convertible
   if (_.isUndefined(fromUnit)) return true;
 
-  const { measurement } = parseAmount(suggestion.amount);
-  const { unit: toUnit } = measurement;
-  if (_.isUndefined(toUnit)) return false;
+  const isMeasurementConvertible = isMeasurementConvertibleFunc(fromUnit);
+  const { measurement, alternateMeasurement } = parseAmount(suggestion.amount);
+  if (isMeasurementConvertible(measurement)) {
+    return true;
+  } else {
+    return alternateMeasurement
+      && isMeasurementConvertible(alternateMeasurement);
+  }
 
-  return isConvertible(fromUnit, toUnit);
 }
 
 export function findSuggestions(foodName: string, options?: { convertibleFrom?: Unit }) {
