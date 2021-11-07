@@ -1,6 +1,6 @@
 grammar FoodDescription;
 foodDescription
-  : foodName (measurement)?
+  : foodName measurement? ('or' measurement?)?
   ;
   
 foodName
