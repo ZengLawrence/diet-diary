@@ -29,19 +29,34 @@ function compose(quantityText: string | undefined, unitText: string) {
 }
 
 export default function parseAmount(amount: string) {
-  const {measurement, alternateMeasurement } = parseFoodDescription(mockFoodDescription(amount));
-  return {
-    quantity: measurement?.quantity || 0,
-    unit: from(measurement?.unitText).toUnit(),
-    unitText: measurement?.unitText,
-    amountWithUnitText: _.partial(compose, measurement?.quantityText),
-    alternateQuantity: alternateMeasurement?.quantity,
-    alternateUnit: from(alternateMeasurement?.unitText).toUnit(),
-  };
+  const { measurement, alternateMeasurement } = parseFoodDescription(mockFoodDescription(amount));
+  if (_.isUndefined(alternateMeasurement)) {
+    return {
+      measurement: {
+        quantity: measurement?.quantity || 0,
+        unit: from(measurement?.unitText).toUnit(),
+        unitText: measurement?.unitText,
+        amountWithUnitText: _.partial(compose, measurement?.quantityText),
+      },
+    };  
+  } else {
+    return {
+      measurement: {
+        quantity: measurement?.quantity || 0,
+        unit: from(measurement?.unitText).toUnit(),
+        unitText: measurement?.unitText,
+        amountWithUnitText: _.partial(compose, measurement?.quantityText),
+      },
+      alternateMeasurement: {
+        quantity: alternateMeasurement?.quantity,
+        unit: from(alternateMeasurement?.unitText).toUnit(),
+      }
+    };  
+  }
 }
 
 export type Amount = ReturnType<typeof parseAmount>;
 
 export function unitOf(amount?: string) {
-  return parseAmount(amount || "").unit;
+  return parseAmount(amount || "").measurement.unit;
 }

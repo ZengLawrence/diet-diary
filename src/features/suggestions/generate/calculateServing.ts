@@ -6,11 +6,11 @@ import { convert } from '../Unit';
 
 function servingFor(unitServing: Serving, servingAmount: Amount, amount: string) {
   const from = parseAmount(amount);
-  const fromUnit = from.unit;
-  const toUnit = servingAmount.unit;
+  const fromUnit = from.measurement.unit;
+  const toUnit = servingAmount.measurement.unit;
   try {
-    const normalizedQuantity = (fromUnit && toUnit) ? convert(from.quantity).from(fromUnit).to(toUnit) : from.quantity;
-    return multiply(unitServing, _.round(normalizedQuantity / servingAmount.quantity, 3));  
+    const normalizedQuantity = (fromUnit && toUnit) ? convert(from.measurement.quantity).from(fromUnit).to(toUnit) : from.measurement.quantity;
+    return multiply(unitServing, _.round(normalizedQuantity / servingAmount.measurement.quantity, 3));  
   } catch(e) {
     return undefined;
   }
