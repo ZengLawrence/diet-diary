@@ -18,18 +18,14 @@ function measurementFor(unit: Unit | undefined, amount: Amount) {
   return undefined;
 }
 
-
 function servingFor(unitServing: Serving, servingAmount: Amount, amount: string) {
   const from = parseAmount(amount).measurement;
-  const fromUnit = from.unit;
-  const to = measurementFor(fromUnit, servingAmount);
-  const toUnit = to?.unit;
-  const toQuantity = to?.quantity;
-  if (_.isUndefined(toQuantity)) return undefined;
+  const to = measurementFor(from.unit, servingAmount);
+  if (_.isUndefined(to)) return undefined;  // this should not happen
 
   try {
-    const normalizedQuantity = (fromUnit && toUnit) ? convert(from.quantity).from(fromUnit).to(toUnit) : from.quantity;
-    return multiply(unitServing, _.round(normalizedQuantity / toQuantity, 3));  
+    const normalizedQuantity = (from.unit && to.unit) ? convert(from.quantity).from(from.unit).to(to.unit) : from.quantity;
+    return multiply(unitServing, _.round(normalizedQuantity / to.quantity, 3));  
   } catch(e) {
     return undefined;
   }
