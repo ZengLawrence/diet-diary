@@ -1,9 +1,12 @@
-export default function parse(input: string) : {
-  foodName: string,
-  amount?: string,
+export interface Measurement {
   quantity?: number,
   quantityText?: string,
   unitText?: string,
-  alternateQuantity?: number,
-  alternateUnitText?: string,
+}
+
+export default function parse(input: string) : {
+  foodName: string,
+  amount?: string,
+  measurement? : Measurement,
+  alternateMeasurement?: Measurement,
 };

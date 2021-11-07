@@ -29,17 +29,14 @@ function compose(quantityText: string | undefined, unitText: string) {
 }
 
 export default function parseAmount(amount: string) {
-  const { 
-    quantity, unitText, quantityText,
-    alternateQuantity, alternateUnitText,
-   } = parseFoodDescription(mockFoodDescription(amount));
+  const {measurement, alternateMeasurement } = parseFoodDescription(mockFoodDescription(amount));
   return {
-    quantity: quantity || 0,
-    unit: from(unitText).toUnit(),
-    unitText,
-    amountWithUnitText: _.partial(compose, quantityText),
-    alternateQuantity,
-    alternateUnit: from(alternateUnitText).toUnit(),
+    quantity: measurement?.quantity || 0,
+    unit: from(measurement?.unitText).toUnit(),
+    unitText: measurement?.unitText,
+    amountWithUnitText: _.partial(compose, measurement?.quantityText),
+    alternateQuantity: alternateMeasurement?.quantity,
+    alternateUnit: from(alternateMeasurement?.unitText).toUnit(),
   };
 }
 

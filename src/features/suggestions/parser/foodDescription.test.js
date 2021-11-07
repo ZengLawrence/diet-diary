@@ -5,9 +5,11 @@ test("parse 'brocoli 1 cup'", () => {
     {
       foodName: "brocoli",
       amount: "1 cup",
-      quantity: 1,
-      unitText: "cup",
-      quantityText: "1",
+      measurement: {
+        quantity: 1,
+        unitText: "cup",
+        quantityText: "1",
+      },
     }
   );
 })
@@ -17,8 +19,10 @@ test("parse 'brocoli cooked 1 cup'", () => {
     {
       foodName: "brocoli cooked",
       amount: "1 cup",
-      quantity: 1,
-      unitText: "cup"
+      measurement: {
+        quantity: 1,
+        unitText: "cup"
+      }
     }
   );
 })
@@ -28,8 +32,10 @@ test("parse 'brocoli cooked 2 cups'", () => {
     {
       foodName: "brocoli cooked",
       amount: "2 cups",
-      quantity: 2,
-      unitText: "cups"
+      measurement: {
+        quantity: 2,
+        unitText: "cups"
+      }
     }
   );
 })
@@ -39,8 +45,10 @@ test("case sensitive unit name 'Cup'", () => {
     {
       foodName: "brocoli cooked",
       amount: "1 Cup",
-      quantity: 1,
-      unitText: "Cup"
+      measurement: {
+        quantity: 1,
+        unitText: "Cup"
+      }
     }
   );
 })
@@ -75,8 +83,10 @@ test("unit 'small'", () => {
     {
       foodName: "banana",
       amount: "1 small",
-      quantity: 1,
-      unitText: "small"
+      measurement: {
+        quantity: 1,
+        unitText: "small"
+      }
     }
   );
 })
@@ -86,8 +96,10 @@ test("decimal quantity e.g. 0.5", () => {
     {
       foodName: "brocoli",
       amount: "0.5 cup",
-      quantity: 0.5,
-      unitText: "cup"
+      measurement: {
+        quantity: 0.5,
+        unitText: "cup"
+      }
     }
   );
 })
@@ -97,8 +109,10 @@ test("decimal quantity, no leading zero e.g. .5", () => {
     {
       foodName: "brocoli",
       amount: ".5 cup",
-      quantity: 0.5,
-      unitText: "cup"
+      measurement: {
+        quantity: 0.5,
+        unitText: "cup"
+      }
     }
   );
 })
@@ -108,8 +122,10 @@ test("words following unit, e.g. 'brocoli 1 cup cooked', then amount should be '
     {
       foodName: "brocoli",
       amount: "1 cup cooked",
-      quantity: 1,
-      unitText: "cup cooked"
+      measurement: {
+        quantity: 1,
+        unitText: "cup cooked"
+      }
     }
   );
 })
@@ -119,9 +135,11 @@ test("fraction quantity e.g. 1/2", () => {
     {
       foodName: "brocoli",
       amount: "1/2 cup",
-      quantity: 0.5,
-      unitText: "cup",
-      quantityText: "1/2",
+      measurement: {
+        quantity: 0.5,
+        unitText: "cup",
+        quantityText: "1/2",
+      }
     }
   );
 })
@@ -131,9 +149,11 @@ test("fraction quantity e.g. '1 1/2'", () => {
     {
       foodName: "brocoli",
       amount: "1 1/2 cup",
-      quantity: 1.5,
-      unitText: "cup",
-      quantityText: "1 1/2",
+      measurement: {
+        quantity: 1.5,
+        unitText: "cup",
+        quantityText: "1 1/2",
+      }
     }
   );
 })
@@ -143,8 +163,10 @@ test("fraction quantity, do not round, keep maximum precision", () => {
     {
       foodName: "brocoli",
       amount: "2/3 cup",
-      quantity: 0.6666666666666666,
-      unitText: "cup"
+      measurement: {
+        quantity: 0.6666666666666666,
+        unitText: "cup"
+      }
     }
   );
 })
@@ -154,8 +176,10 @@ test("unit pound -> lb", () => {
     {
       foodName: "beef",
       amount: "1 pound",
-      quantity: 1,
-      unitText: "pound"
+      measurement: {
+        quantity: 1,
+        unitText: "pound"
+      }
     }
   );
 })
@@ -165,8 +189,10 @@ test("unit ounce -> oz", () => {
     {
       foodName: "beef",
       amount: "1 ounce",
-      quantity: 1,
-      unitText: "ounce"
+      measurement: {
+        quantity: 1,
+        unitText: "ounce"
+      }
     }
   );
 })
@@ -176,8 +202,10 @@ test("plural unit ounces -> oz", () => {
     {
       foodName: "beef",
       amount: "2 ounces",
-      quantity: 2,
-      unitText: "ounces"
+      measurement: {
+        quantity: 2,
+        unitText: "ounces"
+      }
     }
   );
 })
@@ -187,10 +215,14 @@ test("alternate measurement ", () => {
     {
       foodName: "orange",
       amount: "3/4 cup or 1 medium",
-      quantity: 0.75,
-      unitText: "cup",
-      alternateQuantity: 1,
-      alternateUnitText: "medium",
+      measurement: {
+        quantity: 0.75,
+        unitText: "cup",
+      },
+      alternateMeasurement: {
+        quantity: 1,
+        unitText: "medium",
+      }
     }
   );
 })
