@@ -66,6 +66,15 @@ test("unit large -> large", () => {
   givenPluralHasSameSpelling().testCases("large", "large").run();
 })
 
+test("alternate measurement in amount", () => {
+  expect(parseAmount("orange 3/4 cup or 1 medium")).toMatchObject({
+    quantity: 0.75,
+    unit: "cup",
+    alternateQuantity: 1,
+    alternateUnit: "medium", 
+  });
+})
+
 function givenPluralHasSameSpelling() {
   return {
     testCases: _.partialRight(testCases, [], { pluralSameSpelling: true })

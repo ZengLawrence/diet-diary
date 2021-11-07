@@ -15,6 +15,7 @@ class FoodDescriptionDecomposer extends FoodDescriptionListener {
     super();
     this.input = input;
     this.content = {};
+    this.amountStart = 0;
   }
 
   exitFoodName(ctx) {
@@ -24,17 +25,32 @@ class FoodDescriptionDecomposer extends FoodDescriptionListener {
 
   exitQuantity(ctx) {
     const val = this.input.substring(ctx.start.column, ctx.stop.stop + 1);
-    _.set(this.content, "quantityText", val);
-    _.set(this.content, "quantity", toNumber(val));
+    if (_.has(this.content, "quantityText")) {
+      _.set(this.content, "alternateQuantityText", val);
+      _.set(this.content, "alternateQuantity", toNumber(val));
+    } else {
+      _.set(this.content, "quantityText", val);
+      _.set(this.content, "quantity", toNumber(val));
+    }
   }
 
   exitUnit(ctx) {
     const val = this.input.substring(ctx.start.column, ctx.stop.stop + 1);
-    _.set(this.content, "unitText", val);
+    if (_.has(this.content, "unitText")) {
+      _.set(this.content, "alternateUnitText", val);
+    } else {
+      _.set(this.content, "unitText", val);
+    }
+  }
+
+  enterMeasurement(ctx) {
+    if (this.amountStart === 0) {
+      this.amountStart = ctx.start.column;
+    }
   }
 
   exitMeasurement(ctx) {
-    const val = this.input.substring(ctx.start.column, ctx.stop.stop + 1);
+    const val = this.input.substring(this.amountStart, ctx.stop.stop + 1);
     _.set(this.content, "amount", val);
   }
 

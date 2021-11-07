@@ -4,4 +4,6 @@ export default function parse(input: string) : {
   quantity?: number,
   quantityText?: string,
   unitText?: string,
+  alternateQuantity?: number,
+  alternateUnitText?: string,
 };

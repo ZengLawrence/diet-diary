@@ -181,3 +181,16 @@ test("plural unit ounces -> oz", () => {
     }
   );
 })
+
+test("alternate measurement ", () => {
+  expect(parseFoodDescription("orange 3/4 cup or 1 medium")).toMatchObject(
+    {
+      foodName: "orange",
+      amount: "3/4 cup or 1 medium",
+      quantity: 0.75,
+      unitText: "cup",
+      alternateQuantity: 1,
+      alternateUnitText: "medium",
+    }
+  );
+})
