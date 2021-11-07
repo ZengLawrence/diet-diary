@@ -71,10 +71,12 @@ test("alternate measurement in amount", () => {
     measurement: {
       quantity: 0.75,
       unit: "cup",
+      unitText: "cup",
     },
     alternateMeasurement: {
       quantity: 1,
       unit: "medium",
+      unitText: "medium",
     }
   });
 })
