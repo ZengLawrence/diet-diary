@@ -258,3 +258,28 @@ test("size suggestions", () => {
   generateSuggestions(new MockRefObject("apple 1 large "), assert);
 
 })
+
+test("use alternate measurement to match", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(2);
+    // the input
+    expect(suggestions[0]).toEqual(
+      {
+        foodName: "orange",
+        amount: "1 large",
+      }
+    );
+    expect(suggestions[1]).toMatchObject(
+      {
+        foodName: "orange",
+        amount: "1 large",
+        serving: {
+          fruit: 1.5,
+        }
+      }
+    );
+
+  }
+  generateSuggestions(new MockRefObject("orange 1 large "), assert);
+
+})

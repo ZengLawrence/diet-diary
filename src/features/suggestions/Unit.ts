@@ -71,3 +71,11 @@ export function isConvertible(fromUnit: Unit, toUnit: Unit) {
     .possibilities()
     .includes(toUnit);
 }
+
+export function isMeasurementConvertible(fromUnit: Unit, measurement: { unit?: Unit; }) {
+  const { unit: toUnit } = measurement;
+  if (_.isUndefined(toUnit))
+    return false;
+
+  return isConvertible(fromUnit, toUnit);
+}

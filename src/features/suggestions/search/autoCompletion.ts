@@ -21,7 +21,8 @@ export default function findAutoCompletions(foodDescription: DecomposedFoodDescr
 }
 
 function findAmountAutoCompletions(amount: Amount) {
-  const { unit, unitText, amountWithUnitText } = amount;
+  const { measurement } = amount;
+  const { unit, unitText, amountWithUnitText } = measurement;
 
   if (_.isUndefined(unit) && unitText) {
     return _.map(autoCompleteUnit(unitText))

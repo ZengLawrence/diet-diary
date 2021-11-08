@@ -87,6 +87,15 @@ test("search result contains all search terms should rank higher", () => {
   expect(results[0]).toMatchObject({ foodName: "Juice, orange, grapefruit or pineapple, unsweetened" });
 })
 
+test("search result should return if unit on alternate measurement matches", () => {
+  const results = findSuggestions("orange", { convertibleFrom: "medium" });
+  expect(_.size(results)).toBeGreaterThanOrEqual(1);
+  expect(results[0]).toMatchObject({ 
+    foodName: "Orange",
+    amount: "3/4 cup sections or 1 medium",
+  });
+})
+
 // auto complete food name
 test("auto complete food name for a partial name e.g. 'brocco' should return 'broccoli'", () => {
   const results = findNameSuggestions("brocco");

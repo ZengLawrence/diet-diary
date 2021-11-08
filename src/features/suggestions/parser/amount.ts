@@ -1,5 +1,5 @@
 import _ from "lodash";
-import parseFoodDescription from "./foodDescription";
+import parseFoodDescription, { Measurement } from "./foodDescription";
 import { toUnit } from "../Unit";
 
 function mockFoodDescription(amount: string) {
@@ -28,18 +28,28 @@ function compose(quantityText: string | undefined, unitText: string) {
   return quantityText + " " + unitText;
 }
 
-export default function parseAmount(amount: string) {
-  const { quantity, unitText, quantityText } = parseFoodDescription(mockFoodDescription(amount));
+function createMeasurement(measurement?: Measurement) {
   return {
-    quantity: quantity || 0,
-    unit: from(unitText).toUnit(),
-    unitText,
-    amountWithUnitText: _.partial(compose, quantityText),
-  };
+    quantity: measurement?.quantity || 0,
+    unit: from(measurement?.unitText).toUnit(),
+    unitText: measurement?.unitText,
+    amountWithUnitText: _.partial(compose, measurement?.quantityText),
+  }
+}
+
+export default function parseAmount(amount: string) {
+  const { measurement, alternateMeasurement } = parseFoodDescription(mockFoodDescription(amount));
+  if (_.isUndefined(alternateMeasurement)) {
+    return {
+      measurement: createMeasurement(measurement),
+    };  
+  } else {
+    return {
+      measurement: createMeasurement(measurement),
+      alternateMeasurement: createMeasurement(alternateMeasurement),
+    };  
+  }
 }
 
 export type Amount = ReturnType<typeof parseAmount>;
 
-export function unitOf(amount?: string) {
-  return parseAmount(amount || "").unit;
-}

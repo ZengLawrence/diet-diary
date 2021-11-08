@@ -9,12 +9,21 @@ import { CaseChangingStream } from './CaseChangingStream';
 function toNumber(str) {
   return str.includes('/') ? new Fraction(str).valueOf() : _.toNumber(str);
 }
+
+function getCurrentMeasurement(content) {
+  if (_.get(content, "alternateMeasurement")) {
+    return _.get(content, "alternateMeasurement");
+  } else {
+    return _.get(content, "measurement");
+  }
+}
 class FoodDescriptionDecomposer extends FoodDescriptionListener {
 
   constructor(input) {
     super();
     this.input = input;
     this.content = {};
+    this.amountStart = 0;
   }
 
   exitFoodName(ctx) {
@@ -24,17 +33,30 @@ class FoodDescriptionDecomposer extends FoodDescriptionListener {
 
   exitQuantity(ctx) {
     const val = this.input.substring(ctx.start.column, ctx.stop.stop + 1);
-    _.set(this.content, "quantityText", val);
-    _.set(this.content, "quantity", toNumber(val));
+    const measurement = getCurrentMeasurement(this.content);
+    _.set(measurement, "quantityText", val);
+    _.set(measurement, "quantity", toNumber(val));
   }
 
   exitUnit(ctx) {
     const val = this.input.substring(ctx.start.column, ctx.stop.stop + 1);
-    _.set(this.content, "unitText", val);
+    const measurement = getCurrentMeasurement(this.content);
+    _.set(measurement, "unitText", val);
+  }
+
+  enterMeasurement(ctx) {
+    if (this.amountStart === 0) {
+      this.amountStart = ctx.start.column;
+    }
+    if (_.isUndefined(_.get(this.content, "measurement"))) {
+      _.set(this.content, "measurement", {});
+    } else {
+      _.set(this.content, "alternateMeasurement", {});
+    }
   }
 
   exitMeasurement(ctx) {
-    const val = this.input.substring(ctx.start.column, ctx.stop.stop + 1);
+    const val = this.input.substring(this.amountStart, ctx.stop.stop + 1);
     _.set(this.content, "amount", val);
   }
 

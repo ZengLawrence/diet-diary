@@ -66,6 +66,21 @@ test("unit large -> large", () => {
   givenPluralHasSameSpelling().testCases("large", "large").run();
 })
 
+test("alternate measurement in amount", () => {
+  expect(parseAmount("orange 3/4 cup or 1 medium")).toMatchObject({
+    measurement: {
+      quantity: 0.75,
+      unit: "cup",
+      unitText: "cup",
+    },
+    alternateMeasurement: {
+      quantity: 1,
+      unit: "medium",
+      unitText: "medium",
+    }
+  });
+})
+
 function givenPluralHasSameSpelling() {
   return {
     testCases: _.partialRight(testCases, [], { pluralSameSpelling: true })
@@ -76,19 +91,25 @@ function testCases(unit: string, abbr: Unit, commonAbbreviations: string[] = [],
   const singular = {
     input: "1 " + unit,
     output: {
-      unit: abbr
+      measurement: {
+        unit: abbr
+      }
     }
   };
   const plural = {
     input: "2 " + unit + "s",
     output: {
-      unit: abbr
+      measurement: {
+        unit: abbr
+      }
     }
   };
   const abbreviation = {
     input: "3 " + abbr,
     output: {
-      unit: abbr
+      measurement: {
+        unit: abbr
+      }
     }
   };
   return {
@@ -100,7 +121,11 @@ function testCases(unit: string, abbr: Unit, commonAbbreviations: string[] = [],
       if (commonAbbreviations) {
         _.forEach(commonAbbreviations, function (_abbr) {
           const input = "4 " + _abbr;
-          expect(parseAmount(input)).toMatchObject({ unit: abbr });
+          expect(parseAmount(input)).toMatchObject({ 
+            measurement: {
+              unit: abbr,
+            }
+          });
         })
       } else {
         expect(parseAmount(abbreviation.input)).toMatchObject(abbreviation.output);
