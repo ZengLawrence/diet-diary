@@ -7,10 +7,10 @@ import { convert, isMeasurementConvertible, Unit } from '../Unit';
 function measurementFor(unit: Unit | undefined, amount: Amount) {
   if (_.isUndefined(unit)) return amount.measurement;
 
-  const isConvertible = _.partial(isMeasurementConvertible, unit);
-  if (isConvertible(amount.measurement)) {
+  const isUnitConvertibleTo = _.partial(isMeasurementConvertible, unit);
+  if (isUnitConvertibleTo(amount.measurement)) {
     return amount.measurement;
-  } else if (amount.alternateMeasurement && isConvertible(amount.alternateMeasurement)) {
+  } else if (amount.alternateMeasurement && isUnitConvertibleTo(amount.alternateMeasurement)) {
     return amount.alternateMeasurement;
   }
 
