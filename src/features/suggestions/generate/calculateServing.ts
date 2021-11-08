@@ -4,14 +4,14 @@ import { multiply } from '../../../model/servingFunction';
 import parseAmount, { Amount } from '../parser/amount';
 import { convert, isMeasurementConvertible, Unit } from '../Unit';
 
-function measurementFor(unit: Unit | undefined, amount: Amount) {
-  if (_.isUndefined(unit)) return amount.measurement;
+function measurementFor(unit: Unit | undefined, { measurement, alternateMeasurement }: Amount) {
+  if (_.isUndefined(unit)) return measurement;
 
   const isUnitConvertibleTo = _.partial(isMeasurementConvertible, unit);
-  if (isUnitConvertibleTo(amount.measurement)) {
-    return amount.measurement;
-  } else if (amount.alternateMeasurement && isUnitConvertibleTo(amount.alternateMeasurement)) {
-    return amount.alternateMeasurement;
+  if (isUnitConvertibleTo(measurement)) {
+    return measurement;
+  } else if (alternateMeasurement && isUnitConvertibleTo(alternateMeasurement)) {
+    return alternateMeasurement;
   }
 
   return undefined;
@@ -24,8 +24,8 @@ function servingFor(unitServing: Serving, servingAmount: Amount, amount: string)
 
   try {
     const normalizedQuantity = (from.unit && to.unit) ? convert(from.quantity).from(from.unit).to(to.unit) : from.quantity;
-    return multiply(unitServing, _.round(normalizedQuantity / to.quantity, 3));  
-  } catch(e) {
+    return multiply(unitServing, _.round(normalizedQuantity / to.quantity, 3));
+  } catch (e) {
     return undefined;
   }
 }
