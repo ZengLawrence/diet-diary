@@ -56,12 +56,12 @@ function isUnitConvertible(fromUnit: Unit | undefined, suggestion: { amount: str
   if (_.isUndefined(fromUnit)) return true;
 
   const isConvertible = _.curry(isMeasurementConvertible);
-  const { measurement, alternateMeasurement: alternateMeasurement } = parseAmount(suggestion.amount);
-  if (isConvertible(fromUnit)(measurement)) {
+  const { measurement: toMeasurement, alternateMeasurement: toAlternateMeasurement } = parseAmount(suggestion.amount);
+  if (isConvertible(fromUnit)(toMeasurement)) {
     return true;
   } else {
-    return alternateMeasurement
-      && isConvertible(fromUnit)(alternateMeasurement);
+    return toAlternateMeasurement
+      && isConvertible(fromUnit)(toAlternateMeasurement);
   }
 
 }
