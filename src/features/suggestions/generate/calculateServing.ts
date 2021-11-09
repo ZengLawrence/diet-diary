@@ -5,7 +5,12 @@ import parseAmount, { Amount } from '../parser/amount';
 import { convert, isMeasurementConvertible, Unit } from '../Unit';
 
 function measurementFor(unit: Unit | undefined, { measurement, alternateMeasurement }: Amount) {
-  if (_.isUndefined(unit)) return measurement;
+  if (_.isUndefined(unit)) {
+    if (alternateMeasurement && _.isUndefined(alternateMeasurement.unit)) {
+      return alternateMeasurement;
+    }
+    return measurement
+  };
 
   const isUnitConvertibleTo = _.partial(isMeasurementConvertible, unit);
   if (isUnitConvertibleTo(measurement)) {
