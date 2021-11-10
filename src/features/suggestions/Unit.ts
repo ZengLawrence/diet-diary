@@ -5,7 +5,7 @@ import size, { SizeSystems, SizeUnits } from "./SizeUnit";
 type Measures = "volume" | "mass" | "size";
 type Systems = VolumeSystems | MassSystems | SizeSystems;
 type Units = VolumeUnits | MassUnits | SizeUnits;
-export const convert = configureMeasurements<Measures, Systems, Units>({
+const _convert = configureMeasurements<Measures, Systems, Units>({
   volume,
   mass,
   size,
@@ -67,7 +67,7 @@ export function toUnit(unitName: string) {
 export type Unit = Units;
 
 export function isConvertible(fromUnit: Unit, toUnit: Unit) {
-  return convert().from(fromUnit)
+  return _convert().from(fromUnit)
     .possibilities()
     .includes(toUnit);
 }
@@ -78,4 +78,8 @@ export function isMeasurementConvertible(fromUnit: Unit, measurement: { unit?: U
     return false;
 
   return isConvertible(fromUnit, toUnit);
+}
+
+export default function convert(quantity: number, unit: Unit, toUnit: Unit) {
+  return _convert(quantity).from(unit).to(toUnit);
 }

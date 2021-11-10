@@ -211,3 +211,51 @@ test("unknown unit, treat as same unit", () => {
     }
   });
 })
+
+test("unknown unit from input, choose the measurement whose unit is also unknown - alternate measurement unit is unknown", () => {
+  const autoCompletion = {
+    foodName: "pineapple",
+    amount: "4 rings"
+  }
+  const suggestions = [
+    {
+      foodName: "Pineapple",
+      amount: "1/2 cup cubed or 2 rings",
+      serving: {
+        fruit: 1
+      }
+    }
+  ]
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
+  expect(result).toEqual({
+    foodName: "pineapple",
+    amount: "4 rings",
+    serving: {
+      fruit: 2
+    }
+  });
+})
+
+test("unknown unit from input, choose the measurement whose unit is also unknown - primary measurement unit is unknown", () => {
+  const autoCompletion = {
+    foodName: "guava",
+    amount: "4 fruits"
+  }
+  const suggestions = [
+    {
+      foodName: "Guava",
+      amount: "2 fruits or 1/2 cup",
+      serving: {
+        fruit: 1
+      }
+    }
+  ]
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
+  expect(result).toEqual({
+    foodName: "guava",
+    amount: "4 fruits",
+    serving: {
+      fruit: 2
+    }
+  });
+})

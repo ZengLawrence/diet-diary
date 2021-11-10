@@ -2,10 +2,15 @@ import _ from 'lodash';
 import { Serving } from '../../../model/Food';
 import { multiply } from '../../../model/servingFunction';
 import parseAmount, { Amount } from '../parser/amount';
-import { convert, isMeasurementConvertible, Unit } from '../Unit';
+import convert, { isMeasurementConvertible, Unit } from '../Unit';
 
 function measurementFor(unit: Unit | undefined, { measurement, alternateMeasurement }: Amount) {
-  if (_.isUndefined(unit)) return measurement;
+  if (_.isUndefined(unit)) {
+    if (alternateMeasurement && _.isUndefined(alternateMeasurement.unit)) {
+      return alternateMeasurement;
+    }
+    return measurement
+  };
 
   const isUnitConvertibleTo = _.partial(isMeasurementConvertible, unit);
   if (isUnitConvertibleTo(measurement)) {
@@ -23,7 +28,9 @@ function servingFor(unitServing: Serving, servingAmount: Amount, amount: string)
   if (_.isUndefined(to)) return undefined;  // this should not happen
 
   try {
-    const normalizedQuantity = (from.unit && to.unit) ? convert(from.quantity).from(from.unit).to(to.unit) : from.quantity;
+    const normalizedQuantity = (from.unit && to.unit) ?
+      convert(from.quantity, from.unit, to.unit)
+      : from.quantity;
     return multiply(unitServing, _.round(normalizedQuantity / to.quantity, 3));
   } catch (e) {
     return undefined;
