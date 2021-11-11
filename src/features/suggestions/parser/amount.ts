@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { toUnit } from "../convert/Unit";
+import { toUnit } from "../convert";
 import parseFoodDescription, { Measurement } from "./foodDescription";
 
 function mockFoodDescription(amount: string) {

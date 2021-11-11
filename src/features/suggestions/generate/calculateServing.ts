@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { Serving } from '../../../model/Food';
 import { multiply } from '../../../model/servingFunction';
 import parseAmount, { Amount } from '../parser/amount';
-import convert, { isMeasurementConvertible, Unit } from '../convert/Unit';
+import convert, { isMeasurementConvertible, Unit } from '../convert';
 
 function measurementFor(unit: Unit | undefined, { measurement, alternateMeasurement }: Amount) {
   if (_.isUndefined(unit)) {

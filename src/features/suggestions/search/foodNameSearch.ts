@@ -4,7 +4,7 @@ import portions from "../portion/portions";
 import { buildDocuments, search, autoSuggest } from "./foodNameMiniSearch";
 import servings from "../serving/servings";
 import parseAmount from "../parser/amount";
-import { isMeasurementConvertible, Unit } from "../convert/Unit";
+import { isMeasurementConvertible, Unit } from "../convert";
 
 export interface PredefinedSuggestion {
   foodName: string;
