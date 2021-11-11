@@ -24,7 +24,7 @@ function findAmountAutoCompletions(amount: Amount) {
   const { measurement } = amount;
   const { unit, unitText, amountWithUnitText } = measurement;
 
-  if (_.isUndefined(unit) && unitText) {
+  if (unit === "unknown" && unitText) {
     return _.map(autoCompleteUnit(unitText))
       .slice(0, 2)
       .map(amountWithUnitText);

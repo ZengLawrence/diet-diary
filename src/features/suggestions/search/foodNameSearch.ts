@@ -3,8 +3,8 @@ import { Serving } from "../../../model/Food";
 import portions from "../portion/portions";
 import { buildDocuments, search, autoSuggest } from "./foodNameMiniSearch";
 import servings from "../serving/servings";
-import { isMeasurementConvertible, Unit } from "../Unit";
 import parseAmount from "../parser/amount";
+import { isMeasurementConvertible, Unit } from "../convert";
 
 export interface PredefinedSuggestion {
   foodName: string;
@@ -51,23 +51,23 @@ function rank(suggestion: PredefinedSuggestion, searchRank: number, foodName: st
   }
 }
 
-function isUnitConvertible(fromUnit: Unit | undefined, suggestion: { amount: string }) {
-  // incomplete input or unknown unit, assume convertible
+function measurementsOf(suggestion: { amount: string }) {
+  const { measurement, alternateMeasurement } = parseAmount(suggestion.amount);
+  return alternateMeasurement ? [measurement, alternateMeasurement] : [measurement];
+}
+
+function isSuggestionConvertible(suggestion: { amount: string }, fromUnit: Unit | undefined) {
+  // incomplete input, assume convertible
   if (_.isUndefined(fromUnit)) return true;
 
-  const isConvertible = _.curry(isMeasurementConvertible);
-  const { measurement: toMeasurement, alternateMeasurement: toAlternateMeasurement } = parseAmount(suggestion.amount);
-  if (isConvertible(fromUnit)(toMeasurement)) {
-    return true;
-  } else {
-    return toAlternateMeasurement
-      && isConvertible(fromUnit)(toAlternateMeasurement);
+  const isAnyMeasurementConvertibleFromUnit = (result: boolean, measurement: { unit: Unit }) => {
+    return result || isMeasurementConvertible(fromUnit, measurement);
   }
-
+  return _.reduce(measurementsOf(suggestion), isAnyMeasurementConvertibleFromUnit, false);
 }
 
 export function findSuggestions(foodName: string, options?: { convertibleFrom?: Unit }) {
-  const isSuggestionConvertibleFromUnit = _.partial(isUnitConvertible, options?.convertibleFrom);
+  const isSuggestionConvertibleFromUnit = _.partial(isSuggestionConvertible, _, options?.convertibleFrom);
   const results = _.slice(searchFoodServingPortionSize(foodName), 0, 5)
     .filter(isSuggestionConvertibleFromUnit);
   const ranked = _.sortBy(_.map(results, _.partial(rank, _, _, foodName)),
