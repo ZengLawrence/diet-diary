@@ -57,8 +57,8 @@ function is(measurement: { unit: Unit }) {
   }
 }
 
-function isUnitConvertible(fromUnit: Unit | undefined, suggestion: { amount: string }) {
-  // incomplete input or unknown unit, assume convertible
+function isSuggestionConvertible(suggestion: { amount: string }, fromUnit: Unit | undefined) {
+  // incomplete input, assume convertible
   if (_.isUndefined(fromUnit)) return true;
 
   const { measurement, alternateMeasurement } = parseAmount(suggestion.amount);
@@ -72,7 +72,7 @@ function isUnitConvertible(fromUnit: Unit | undefined, suggestion: { amount: str
 }
 
 export function findSuggestions(foodName: string, options?: { convertibleFrom?: Unit }) {
-  const isSuggestionConvertibleFromUnit = _.partial(isUnitConvertible, options?.convertibleFrom);
+  const isSuggestionConvertibleFromUnit = _.partial(isSuggestionConvertible, _, options?.convertibleFrom);
   const results = _.slice(searchFoodServingPortionSize(foodName), 0, 5)
     .filter(isSuggestionConvertibleFromUnit);
   const ranked = _.sortBy(_.map(results, _.partial(rank, _, _, foodName)),
