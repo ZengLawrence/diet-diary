@@ -51,24 +51,19 @@ function rank(suggestion: PredefinedSuggestion, searchRank: number, foodName: st
   }
 }
 
-function is(measurement: { unit: Unit }) {
-  return {
-    convertible: (unit: Unit) => isMeasurementConvertible(unit, measurement),
-  }
+function measurementsOf(suggestion: { amount: string }) {
+  const { measurement, alternateMeasurement } = parseAmount(suggestion.amount);
+  return alternateMeasurement ? [measurement, alternateMeasurement] : [measurement];
 }
 
 function isSuggestionConvertible(suggestion: { amount: string }, fromUnit: Unit | undefined) {
   // incomplete input, assume convertible
   if (_.isUndefined(fromUnit)) return true;
 
-  const { measurement, alternateMeasurement } = parseAmount(suggestion.amount);
-  if (is(measurement).convertible(fromUnit)) {
-    return true;
-  } else {
-    return alternateMeasurement
-      && is(alternateMeasurement).convertible(fromUnit);
+  const isAnyMeasurementConvertibleFromUnit = (result: boolean, measurement: { unit: Unit }) => {
+    return result || isMeasurementConvertible(fromUnit, measurement);
   }
-
+  return _.reduce(measurementsOf(suggestion), isAnyMeasurementConvertibleFromUnit, false);
 }
 
 export function findSuggestions(foodName: string, options?: { convertibleFrom?: Unit }) {
