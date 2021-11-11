@@ -3,8 +3,8 @@ import { Serving } from "../../../model/Food";
 import portions from "../portion/portions";
 import { buildDocuments, search, autoSuggest } from "./foodNameMiniSearch";
 import servings from "../serving/servings";
-import { isMeasurementConvertible, Unit } from "../Unit";
 import parseAmount from "../parser/amount";
+import { isMeasurementConvertible, Unit } from "../convert/Unit";
 
 export interface PredefinedSuggestion {
   foodName: string;
