@@ -4,12 +4,12 @@ import { multiply } from '../../../model/servingFunction';
 import parseAmount, { Amount } from '../parser/amount';
 import convert, { isMeasurementConvertible, Unit } from '../convert';
 
-function measurementFor(unit: Unit | undefined, { measurement, alternateMeasurement }: Amount) {
-  if (_.isUndefined(unit)) {
-    if (alternateMeasurement && _.isUndefined(alternateMeasurement.unit)) {
+function measurementFor(unit: Unit, { measurement, alternateMeasurement }: Amount) {
+  if (unit === "unknown") {
+    if (alternateMeasurement && alternateMeasurement.unit === "unknown") {
       return alternateMeasurement;
     }
-    return measurement
+    return measurement;
   };
 
   const isUnitConvertibleTo = _.partial(isMeasurementConvertible, unit);
@@ -18,19 +18,15 @@ function measurementFor(unit: Unit | undefined, { measurement, alternateMeasurem
   } else if (alternateMeasurement && isUnitConvertibleTo(alternateMeasurement)) {
     return alternateMeasurement;
   }
-
-  return undefined;
+  return measurement;
 }
 
 function servingFor(unitServing: Serving, servingAmount: Amount, amount: string) {
   const from = parseAmount(amount).measurement;
   const to = measurementFor(from.unit, servingAmount);
-  if (_.isUndefined(to)) return undefined;  // this should not happen
 
   try {
-    const normalizedQuantity = (from.unit && to.unit) ?
-      convert(from.quantity, from.unit, to.unit)
-      : from.quantity;
+    const normalizedQuantity = convert(from.quantity, from.unit, to.unit);
     return multiply(unitServing, _.round(normalizedQuantity / to.quantity, 3));
   } catch (e) {
     return undefined;

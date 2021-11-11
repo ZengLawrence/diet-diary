@@ -1,14 +1,16 @@
 import configureMeasurements, { mass, MassSystems, MassUnits, volume, VolumeSystems, VolumeUnits } from "convert-units";
 import _ from "lodash";
 import size, { SizeSystems, SizeUnits } from "./SizeUnit";
+import unknown, { UnknownSystems, UnknownUnits } from "./UnknownUnit";
 
-type Measures = "volume" | "mass" | "size";
-type Systems = VolumeSystems | MassSystems | SizeSystems;
-type Units = VolumeUnits | MassUnits | SizeUnits;
+type Measures = "volume" | "mass" | "size" | "unknown";
+type Systems = VolumeSystems | MassSystems | SizeSystems | UnknownSystems;
+type Units = VolumeUnits | MassUnits | SizeUnits | UnknownUnits;
 const _convert = configureMeasurements<Measures, Systems, Units>({
   volume,
   mass,
   size,
+  unknown,
 });
 
 const UNIT_MAP = new Map<string, Units>([
@@ -61,7 +63,7 @@ const UNIT_MAP = new Map<string, Units>([
 ])
 
 export function toUnit(unitName: string) {
-  return UNIT_MAP.get(_.lowerCase(unitName));
+  return _.defaultTo(UNIT_MAP.get(_.lowerCase(unitName)), "unknown");
 }
 
 export type Unit = Units;
@@ -72,11 +74,15 @@ function isConvertible(fromUnit: Unit, toUnit: Unit) {
     .includes(toUnit);
 }
 
-export function isMeasurementConvertible(fromUnit: Unit, measurement: { unit?: Unit; }) {
+/**
+ * Indicate if a measurement can be converted from a given unit.  If a given unit is "unknown", the measurement is convertible.
+ * 
+ * @param fromUnit unit to convert from
+ * @param measurement measurement to convert to
+ * @returns true if measurement can be converted from a given unit or given unit is "unknown"
+ */
+export function isMeasurementConvertible(fromUnit: Unit, measurement: { unit: Unit; }) {
   const { unit: toUnit } = measurement;
-  if (_.isUndefined(toUnit))
-    return false;
-
   return isConvertible(fromUnit, toUnit);
 }
 
