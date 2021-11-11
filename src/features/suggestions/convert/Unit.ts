@@ -66,7 +66,7 @@ export function toUnit(unitName: string) {
 
 export type Unit = Units;
 
-export function isConvertible(fromUnit: Unit, toUnit: Unit) {
+function isConvertible(fromUnit: Unit, toUnit: Unit) {
   return _convert().from(fromUnit)
     .possibilities()
     .includes(toUnit);
