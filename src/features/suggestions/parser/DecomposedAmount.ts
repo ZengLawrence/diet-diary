@@ -46,5 +46,5 @@ export default function decompose(amount: string) {
   }
 }
 
-export type DecomposedAmount = ReturnType<typeof parse>;
+export type DecomposedAmount = ReturnType<typeof decompose>;
 
