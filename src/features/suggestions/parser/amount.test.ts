@@ -1,6 +1,6 @@
 import _ from "lodash";
+import { Unit } from "../convert/Unit";
 import parseAmount from "./amount";
-import { Unit } from "../Unit";
 
 test("unit pound(s) -> lb", () => {
   testCases("pound", "lb").run();
