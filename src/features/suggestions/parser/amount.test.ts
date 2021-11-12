@@ -67,7 +67,7 @@ test("unit large -> large", () => {
 })
 
 test("alternate measurement in amount", () => {
-  expect(parseAmount("orange 3/4 cup or 1 medium")).toMatchObject({
+  expect(parseAmount("3/4 cup or 1 medium")).toMatchObject({
     measurement: {
       quantity: 0.75,
       unit: "cup",
