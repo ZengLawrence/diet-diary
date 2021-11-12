@@ -51,5 +51,5 @@ export default function parseAmount(amount: string) {
   }
 }
 
-export type Amount = ReturnType<typeof parseAmount>;
+export type DecomposedAmount = ReturnType<typeof parseAmount>;
 
