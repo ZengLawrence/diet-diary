@@ -210,18 +210,14 @@ test("plural unit ounces -> oz", () => {
   );
 })
 
-test("alternate measurement ", () => {
+test("alternate measurement, takes only the first one", () => {
   expect(parseFoodDescription("orange 3/4 cup or 1 medium")).toMatchObject(
     {
       foodName: "orange",
-      amount: "3/4 cup or 1 medium",
+      amount: "3/4 cup or",
       measurement: {
         quantity: 0.75,
-        unitText: "cup",
-      },
-      alternateMeasurement: {
-        quantity: 1,
-        unitText: "medium",
+        unitText: "cup or",
       }
     }
   );
