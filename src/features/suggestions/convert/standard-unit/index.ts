@@ -84,8 +84,8 @@ function convert(quantity: number, unit: Unit, toUnit: Unit) {
   return _convert(quantity).from(unit).to(toUnit);
 }
 
-export const StandardUnitConvertFunctions = {
+export const StandardUnitConvertFunctions: ConvertFunctions<Unit> = {
   toUnit,
   isMeasurementConvertible,
   convert,
-} as ConvertFunctions<Unit>;
+};
