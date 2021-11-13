@@ -5,6 +5,10 @@ export interface DiameterUnit {
   diameter: number;
 }
 
+export function isDiameterUnit(unit: object): unit is DiameterUnit {
+  return ("diameter" in unit);
+}
+
 export function isDiameterUnitName(unitName: string) {
   return /^[1-9][0-9]*-inch$/.test(unitName);
 }

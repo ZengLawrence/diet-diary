@@ -68,6 +68,10 @@ function toUnit(unitName: string) {
 }
 
 export type Unit = Units;
+export type StandardUnit = Units;
+export function isStandardUnit(unit: any): unit is StandardUnit{
+  return typeof unit === "string";
+}
 
 function isConvertible(fromUnit: Unit, toUnit: Unit) {
   return _convert().from(fromUnit)
