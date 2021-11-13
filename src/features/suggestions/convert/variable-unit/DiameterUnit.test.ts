@@ -1,10 +1,23 @@
-import { DiameterUnitConvertFunctions } from "./DiameterUnit"
+import { isDiameterUnitName, DiameterUnitConvertFunctions } from "./DiameterUnit"
 
 const { toUnit } = DiameterUnitConvertFunctions;
 
 test("convert text to diameter", () => {
-  const result = toUnit("12-inch");
-  expect(result).toMatchObject({diameter: 12});
+  const unitName = "12-inch";
+  expect(isDiameterUnitName(unitName)).toBeTruthy();
+  expect(toUnit(unitName)).toMatchObject({diameter: 12});
+})
+
+test("invalid text name", () => {
+  const unitName = "cup";
+  expect(isDiameterUnitName(unitName)).toBeFalsy();
+  expect(toUnit(unitName)).toMatchObject({diameter: NaN});
+})
+
+test("invalid text name - 0 inch", () => {
+  const unitName = "0-inch";
+  expect(isDiameterUnitName(unitName)).toBeFalsy();
+  expect(toUnit(unitName)).toMatchObject({diameter: NaN});
 })
 
 const { isMeasurementConvertible } = DiameterUnitConvertFunctions;

@@ -5,9 +5,18 @@ export interface DiameterUnit {
   diameter: number;
 }
 
-function toUnit(unitName: string) {
-  const diameter = _.toNumber(_.head(_.split(unitName, "-")));
-  return { diameter };
+export function isDiameterUnitName(unitName: string) {
+  return /^[1-9][0-9]*-inch$/.test(unitName);
+}
+
+function toUnit(unitName: string): DiameterUnit {
+  if (isDiameterUnitName(unitName)) {
+    const diameter = _.toNumber(_.head(_.split(unitName, "-")));
+    return { diameter };  
+  }
+  return {
+    diameter: NaN,
+  }
 }
 
 function isMeasurementConvertible(_fromUnit: DiameterUnit, _measurement: { unit: DiameterUnit; }) {
