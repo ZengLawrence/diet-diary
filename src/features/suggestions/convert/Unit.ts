@@ -74,13 +74,6 @@ function isConvertible(fromUnit: Unit, toUnit: Unit) {
     .includes(toUnit);
 }
 
-/**
- * Indicate if a measurement can be converted from a given unit.  If a given unit is "unknown", the measurement is convertible.
- * 
- * @param fromUnit unit to convert from
- * @param measurement measurement to convert to
- * @returns true if measurement can be converted from a given unit or given unit is "unknown"
- */
 export function isMeasurementConvertible(fromUnit: Unit, measurement: { unit: Unit; }) {
   const { unit: toUnit } = measurement;
   return isConvertible(fromUnit, toUnit);
