@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import parseAmount, { Amount } from '../parser/amount';
+import parseAmount, { DecomposedAmount } from '../parser/DecomposedAmount';
 import { createSuggestion, Suggestion } from '../Suggestion';
 import autoCompleteUnit from './unitMiniSearch';
 import { DecomposedFoodDescription } from '../parser/DecomposedFoodDescription';
@@ -20,7 +20,7 @@ export default function findAutoCompletions(foodDescription: DecomposedFoodDescr
   return findNameSuggestions(foodName);
 }
 
-function findAmountAutoCompletions(amount: Amount) {
+function findAmountAutoCompletions(amount: DecomposedAmount) {
   const { measurement } = amount;
   const { unit, unitText, amountWithUnitText } = measurement;
 

@@ -1,12 +1,8 @@
-grammar FoodDescription;
-foodDescription
-  : foodName measurement?
+grammar Amount;
+amount
+  : measurement? ('or' measurement?)?
   ;
   
-foodName
-    : STRING (COMMA | STRING)*
-    ;
-
 measurement
     : quantity unit?
     ;

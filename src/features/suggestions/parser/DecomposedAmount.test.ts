@@ -1,6 +1,6 @@
 import _ from "lodash";
-import parseAmount from "./amount";
-import { Unit } from "../Unit";
+import { Unit } from "../convert/Unit";
+import parseAmount from "./DecomposedAmount";
 
 test("unit pound(s) -> lb", () => {
   testCases("pound", "lb").run();
@@ -67,7 +67,7 @@ test("unit large -> large", () => {
 })
 
 test("alternate measurement in amount", () => {
-  expect(parseAmount("orange 3/4 cup or 1 medium")).toMatchObject({
+  expect(parseAmount("3/4 cup or 1 medium")).toMatchObject({
     measurement: {
       quantity: 0.75,
       unit: "cup",

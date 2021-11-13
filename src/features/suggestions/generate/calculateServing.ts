@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import { Serving } from '../../../model/Food';
 import { multiply } from '../../../model/servingFunction';
-import parseAmount, { Amount } from '../parser/amount';
+import parseAmount, { DecomposedAmount } from '../parser/DecomposedAmount';
 import convert, { isMeasurementConvertible, Unit } from '../convert';
 
-function measurementFor(unit: Unit, { measurement, alternateMeasurement }: Amount) {
+function measurementFor(unit: Unit, { measurement, alternateMeasurement }: DecomposedAmount) {
   if (unit === "unknown") {
     if (alternateMeasurement && alternateMeasurement.unit === "unknown") {
       return alternateMeasurement;
@@ -21,7 +21,7 @@ function measurementFor(unit: Unit, { measurement, alternateMeasurement }: Amoun
   return measurement;
 }
 
-function servingFor(unitServing: Serving, servingAmount: Amount, amount: string) {
+function servingFor(unitServing: Serving, servingAmount: DecomposedAmount, amount: string) {
   const from = parseAmount(amount).measurement;
   const to = measurementFor(from.unit, servingAmount);
 

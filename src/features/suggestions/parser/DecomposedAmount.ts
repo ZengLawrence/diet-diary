@@ -1,11 +1,6 @@
 import _ from "lodash";
 import { toUnit } from "../convert";
-import parseFoodDescription, { Measurement } from "./foodDescription";
-
-function mockFoodDescription(amount: string) {
-  // add food name to make a food description
-  return "food " + amount;
-}
+import parse, { Measurement } from "./amount";
 
 function parseUnitText(unitText?: string) {
   const words = _.words(_.lowerCase(unitText));
@@ -37,8 +32,8 @@ function createMeasurement(measurement?: Measurement) {
   }
 }
 
-export default function parseAmount(amount: string) {
-  const { measurement, alternateMeasurement } = parseFoodDescription(mockFoodDescription(amount));
+export default function decompose(amount: string) {
+  const { measurement, alternateMeasurement } = parse(amount);
   if (_.isUndefined(alternateMeasurement)) {
     return {
       measurement: createMeasurement(measurement),
@@ -51,5 +46,5 @@ export default function parseAmount(amount: string) {
   }
 }
 
-export type Amount = ReturnType<typeof parseAmount>;
+export type DecomposedAmount = ReturnType<typeof decompose>;
 

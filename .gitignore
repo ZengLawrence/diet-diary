@@ -25,6 +25,6 @@ yarn-error.log*
 scratch*.*
 
 # ingore ANTLR and Maven target
-antlr4/food-description/target/
+antlr4/*/target/
 .antlr
 src/generated/
