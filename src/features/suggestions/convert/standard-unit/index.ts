@@ -2,6 +2,7 @@ import configureMeasurements, { mass, MassSystems, MassUnits, volume, VolumeSyst
 import _ from "lodash";
 import size, { SizeSystems, SizeUnits } from "./SizeUnit";
 import unknown, { UnknownSystems, UnknownUnits } from "./UnknownUnit";
+import { ConvertFunctions } from "../ConvertFunctions";
 
 type Measures = "volume" | "mass" | "size" | "unknown";
 type Systems = VolumeSystems | MassSystems | SizeSystems | UnknownSystems;
@@ -62,7 +63,7 @@ const UNIT_MAP = new Map<string, Units>([
   ["large", "large"],
 ])
 
-export function toUnit(unitName: string) {
+function toUnit(unitName: string) {
   return _.defaultTo(UNIT_MAP.get(_.lowerCase(unitName)), "unknown");
 }
 
@@ -74,11 +75,17 @@ function isConvertible(fromUnit: Unit, toUnit: Unit) {
     .includes(toUnit);
 }
 
-export function isMeasurementConvertible(fromUnit: Unit, measurement: { unit: Unit; }) {
+function isMeasurementConvertible(fromUnit: Unit, measurement: { unit: Unit; }) {
   const { unit: toUnit } = measurement;
   return isConvertible(fromUnit, toUnit);
 }
 
-export default function convert(quantity: number, unit: Unit, toUnit: Unit) {
+function convert(quantity: number, unit: Unit, toUnit: Unit) {
   return _convert(quantity).from(unit).to(toUnit);
 }
+
+export const StandardUnitConvertFunctions = {
+  toUnit,
+  isMeasurementConvertible,
+  convert,
+} as ConvertFunctions<Unit>;
