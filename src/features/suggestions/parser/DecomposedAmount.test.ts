@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Unit } from "../convert/Unit";
+import { StandardUnit } from "../convert/standard-unit";
 import parseAmount from "./DecomposedAmount";
 
 test("unit pound(s) -> lb", () => {
@@ -87,7 +87,7 @@ function givenPluralHasSameSpelling() {
   }
 }
 
-function testCases(unit: string, abbr: Unit, commonAbbreviations: string[] = [], options: { pluralSameSpelling: boolean } = { pluralSameSpelling: false }) {
+function testCases(unit: string, abbr: StandardUnit, commonAbbreviations: string[] = [], options: { pluralSameSpelling: boolean } = { pluralSameSpelling: false }) {
   const singular = {
     input: "1 " + unit,
     output: {
