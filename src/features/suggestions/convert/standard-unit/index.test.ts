@@ -1,4 +1,4 @@
-import { isMeasurementConvertible } from "./Unit";
+import { isMeasurementConvertible } from ".";
 
 test("units are convertible", () => {
   expect(isMeasurementConvertible("fl-oz", { unit: "cup" })).toBeTruthy();

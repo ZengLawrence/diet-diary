@@ -1,4 +1,4 @@
-import convert from "./standard-unit/Unit";
+import convert from "./standard-unit";
 
-export * from "./standard-unit/Unit";
+export * from "./standard-unit";
 export default convert;
