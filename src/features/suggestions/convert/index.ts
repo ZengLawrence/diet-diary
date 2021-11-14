@@ -5,15 +5,13 @@ import { VariableUnit, VariableUnitConvertFunctions, VariableUnitParseFunctions 
 
 export type Unit = StandardUnit | VariableUnit;
 
-const converter = composeConverter<any>(VariableUnitConvertFunctions, StandardUnitConvertFunctions);
+const converter = composeConverter<Unit>(VariableUnitConvertFunctions, StandardUnitConvertFunctions);
 export function isMeasurementConvertible(fromUnit: Unit, measurement: { unit: Unit; }) {
   const toUnit = measurement.unit;
   return converter.areUnitsConvertible(fromUnit, toUnit);
 }
 
-function convert(quantity: number, unit: Unit, toUnit: Unit){
-  return converter.convert(quantity, unit, toUnit);
-}
+const convert = converter.convert;
 
 export const parseUnit = composeParser<Unit>(VariableUnitParseFunctions, StandardUnitParserFunctions).parse;
 

@@ -21,7 +21,7 @@ function convert<T>(funcs: ConvertFunctions<T>[], quantity: number, unit: T, toU
   }
 }
 
-export default function compose<T>(...funcs: ConvertFunctions<T>[]): ConvertFunctions<T> {
+export default function compose<T>(...funcs: ConvertFunctions<any>[]): ConvertFunctions<T> {
   return {
     areUnitsConvertible: _.partial(areUnitsConvertible, funcs),
     convert: _.partial(convert, funcs),
