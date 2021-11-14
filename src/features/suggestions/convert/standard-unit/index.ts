@@ -3,6 +3,7 @@ import _ from "lodash";
 import size, { SizeSystems, SizeUnits } from "./SizeUnit";
 import unknown, { UnknownSystems, UnknownUnits } from "./UnknownUnit";
 import { ConvertFunctions } from "../ConvertFunctions";
+import { ParserFunctions } from "../ParserFunctions";
 
 type Measures = "volume" | "mass" | "size" | "unknown";
 type Systems = VolumeSystems | MassSystems | SizeSystems | UnknownSystems;
@@ -92,3 +93,27 @@ export const StandardUnitConvertFunctions: ConvertFunctions<StandardUnit> = {
   isMeasurementConvertible,
   convert,
 };
+
+function canParse(unitText: string | undefined) {
+  return true;
+}
+
+function getUnitName(unitText: string | undefined) {
+  const words = _.words(_.lowerCase(unitText));
+  if (_.size(words) === 0) return "";
+  const first = words[0];
+
+  if ((["fluid", "fl"].includes(first)) && _.size(words) > 1) {
+    return first + " " + words[1];
+  }
+  return first;
+}
+
+function parse(unitText: string | undefined) {
+  return toUnit(getUnitName(unitText));
+}
+
+export const StandardUnitParserFunctions: ParserFunctions<StandardUnit> = {
+  canParse,
+  parse,
+}
