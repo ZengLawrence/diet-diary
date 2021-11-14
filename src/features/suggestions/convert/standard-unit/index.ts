@@ -69,20 +69,19 @@ function toUnit(unitName: string) {
 }
 
 export type StandardUnit = Units;
-export function isStandardUnit(unit: any): unit is StandardUnit {
+
+function isStandardUnit(unit: any): unit is StandardUnit {
   return typeof unit === "string";
 }
 
-function isConvertible(fromUnit: StandardUnit, toUnit: StandardUnit) {
-  return isStandardUnit(fromUnit)
-    && isStandardUnit(toUnit)
-    && _convert().from(fromUnit)
-      .possibilities()
-      .includes(toUnit);
+function areUnitsConvertible(fromUnit: StandardUnit, toUnit: StandardUnit) {
+  return _convert().from(fromUnit)
+    .possibilities()
+    .includes(toUnit);
 }
 
 function convert(quantity: number, unit: StandardUnit, toUnit: StandardUnit) {
-  if (isConvertible(unit, toUnit)) {
+  if (areUnitsConvertible(unit, toUnit)) {
     return _convert(quantity).from(unit).to(toUnit);
   } else {
     return NaN;
@@ -90,7 +89,8 @@ function convert(quantity: number, unit: StandardUnit, toUnit: StandardUnit) {
 }
 
 export const StandardUnitConvertFunctions: ConvertFunctions<StandardUnit> = {
-  areUnitsConvertible: isConvertible,
+  isSupportedUnitType: isStandardUnit,
+  areUnitsConvertible,
   convert,
 };
 

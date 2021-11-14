@@ -6,7 +6,7 @@ export interface DiameterUnit {
   diameter: number;
 }
 
-export function isDiameterUnit(unit: object): unit is DiameterUnit {
+function isDiameterUnit(unit: any): unit is DiameterUnit {
   return unit instanceof Object && "diameter" in unit;
 }
 
@@ -15,17 +15,12 @@ export function isDiameterUnitName(unitName: string) {
 }
 
 function toUnit(unitName: string): DiameterUnit {
-  if (isDiameterUnitName(unitName)) {
-    const diameter = _.toNumber(_.head(_.split(unitName, "-")));
-    return { diameter };
-  }
-  return {
-    diameter: NaN,
-  }
+  const diameter = _.toNumber(_.head(_.split(unitName, "-")));
+  return { diameter };
 }
 
 function areUnitsConvertible(fromUnit: DiameterUnit, toUnit: DiameterUnit) {
-  return isDiameterUnit(fromUnit) && isDiameterUnit(toUnit);
+  return true;
 }
 
 function convert(quantity: number, unit: DiameterUnit, toUnit: DiameterUnit) {
@@ -34,6 +29,7 @@ function convert(quantity: number, unit: DiameterUnit, toUnit: DiameterUnit) {
 }
 
 export const DiameterUnitConvertFunctions: ConvertFunctions<DiameterUnit> = {
+  isSupportedUnitType: isDiameterUnit,
   areUnitsConvertible,
   convert,
 };

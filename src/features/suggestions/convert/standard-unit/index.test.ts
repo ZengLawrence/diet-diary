@@ -1,4 +1,4 @@
-import { isStandardUnit, StandardUnitConvertFunctions, StandardUnitParserFunctions } from ".";
+import { StandardUnitConvertFunctions, StandardUnitParserFunctions } from ".";
 const { areUnitsConvertible } = StandardUnitConvertFunctions;
 
 test("units are convertible", () => {
@@ -9,12 +9,14 @@ test("units are not convertible", () => {
   expect(areUnitsConvertible("cup", "oz")).toBeFalsy();
 })
 
+const { isSupportedUnitType } = StandardUnitConvertFunctions;
+
 test("'fl-oz' is standard unit", () => {
-  expect(isStandardUnit('fl-oz')).toBeTruthy();
+  expect(isSupportedUnitType('fl-oz')).toBeTruthy();
 })
 
 test("An object is not standard unit", () => {
-  expect(isStandardUnit({ diameter: 12 })).toBeFalsy;
+  expect(isSupportedUnitType({ diameter: 12 })).toBeFalsy;
 })
 
 const { canParse, parse } = StandardUnitParserFunctions;

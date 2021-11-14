@@ -1,9 +1,18 @@
 import _ from "lodash";
 import { ConvertFunctions } from "./ConvertFunctions";
 
+function isSupportedUnitType<T>(funcs: ConvertFunctions<T>[], unit: any) {
+  const selected = _.head(_.filter(funcs, function ({ isSupportedUnitType }) {
+    return isSupportedUnitType(unit);
+  }));
+  return selected ? true : false;
+}
+
 function selectFunction<T>(funcs: ConvertFunctions<T>[], fromUnit: T, toUnit: T) {
-  return _.head(_.filter(funcs, function({areUnitsConvertible}) {
-    return areUnitsConvertible(fromUnit, toUnit);
+  return _.head(_.filter(funcs, function ({ isSupportedUnitType, areUnitsConvertible }) {
+    return isSupportedUnitType(fromUnit)
+      && isSupportedUnitType(toUnit)
+      && areUnitsConvertible(fromUnit, toUnit);
   }));
 }
 
@@ -17,12 +26,13 @@ function convert<T>(funcs: ConvertFunctions<T>[], quantity: number, unit: T, toU
   if (selectedFunc) {
     return selectedFunc.convert(quantity, unit, toUnit);
   } else {
-    return _.last(funcs)!.convert(quantity, unit, toUnit);
+    return NaN;
   }
 }
 
 export default function compose<T>(...funcs: ConvertFunctions<any>[]): ConvertFunctions<T> {
   return {
+    isSupportedUnitType: _.partial(isSupportedUnitType, funcs),
     areUnitsConvertible: _.partial(areUnitsConvertible, funcs),
     convert: _.partial(convert, funcs),
   }
