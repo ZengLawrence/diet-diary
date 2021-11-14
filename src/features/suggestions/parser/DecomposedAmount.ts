@@ -7,8 +7,12 @@ function parseUnitText(unitText?: string) {
   if (_.size(words) === 0) return "";
   const first = words[0];
 
+  //TODO fix this
   if ((["fluid", "fl"].includes(first)) && _.size(words) > 1) {
     return first + " " + words[1];
+  }
+  if (first === "of") {
+    return (first + " " + words[1] + "-" + words[2]);
   }
   return first;
 }

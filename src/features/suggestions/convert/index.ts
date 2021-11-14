@@ -1,9 +1,9 @@
-import { StandardUnitConvertFunctions } from "./standard-unit";
+import { CompositeConvertFunctions } from "./CompositeConvertFunctions";
 
-export type { Unit } from "./standard-unit";
+export type { Unit } from "./CompositeConvertFunctions";
 
-export const toUnit = StandardUnitConvertFunctions.toUnit;
-export const isMeasurementConvertible = StandardUnitConvertFunctions.isMeasurementConvertible;
+export const toUnit = CompositeConvertFunctions.toUnit;
+export const isMeasurementConvertible = CompositeConvertFunctions.isMeasurementConvertible;
 
-const convert = StandardUnitConvertFunctions.convert;
+const convert = CompositeConvertFunctions.convert;
 export default convert;

@@ -1,9 +1,8 @@
-import _ from "lodash";
 import { ConvertFunctions } from "./ConvertFunctions";
 import { isStandardUnit, StandardUnit, StandardUnitConvertFunctions } from "./standard-unit";
 import { isVariableUnit, isVariableUnitName, VariableUnit, VariableUnitConvertFunctions } from "./variable-unit";
 
-type Unit = StandardUnit | VariableUnit;
+export type Unit = StandardUnit | VariableUnit;
 
 function toUnit(unitName: string) {
   if (isVariableUnitName(unitName)) {

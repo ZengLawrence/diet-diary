@@ -283,3 +283,31 @@ test("use alternate measurement to match", () => {
   generateSuggestions(new MockRefObject("orange 1 large "), assert);
 
 })
+
+test("diameter size calculation", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(2);
+    // the input
+    expect(suggestions[0]).toEqual(
+      {
+        foodName: "cheese pizza",
+        amount: "1/8 of 12-inch",
+      }
+    );
+    expect(suggestions[1]).toMatchObject(
+      {
+        foodName: "cheese pizza",
+        amount: "1/8 of 12-inch",
+        serving: {
+          "vegetable": 0.827,
+          "carbohydrate": 0.827,
+          "proteinDiary": 0.827,
+          "fat": 0.827,
+        }
+      }
+    );
+
+  }
+  generateSuggestions(new MockRefObject("cheese pizza 1/8 of 12-inch "), assert);
+
+})

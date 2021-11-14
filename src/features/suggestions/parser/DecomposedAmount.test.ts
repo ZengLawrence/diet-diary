@@ -81,6 +81,18 @@ test("alternate measurement in amount", () => {
   });
 })
 
+test("variable unit e.g. diameter unit '12-inch'", () => {
+  expect(parseAmount("1/8 of 14-inch")).toMatchObject({
+    measurement: {
+      quantity: 0.125,
+      unit: {
+        diameter: 14,
+      },
+      unitText: "of 14-inch",
+    }
+  });
+})
+
 function givenPluralHasSameSpelling() {
   return {
     testCases: _.partialRight(testCases, [], { pluralSameSpelling: true })
