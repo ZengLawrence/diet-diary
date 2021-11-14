@@ -2,7 +2,7 @@ import { ConvertFunctions } from "./ConvertFunctions";
 import { isStandardUnit, StandardUnit, StandardUnitConvertFunctions } from "./standard-unit";
 import { isVariableUnit, VariableUnit, VariableUnitConvertFunctions } from "./variable-unit";
 
-export type Unit = StandardUnit | VariableUnit;
+type Unit = StandardUnit | VariableUnit;
 
 function isStandardUnitMeasurement(measurement: { unit: Unit; }): measurement is { unit: StandardUnit } {
   return isStandardUnit(measurement.unit);
