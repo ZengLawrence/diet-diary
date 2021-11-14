@@ -1,16 +1,9 @@
 import { ConvertFunctions } from "./ConvertFunctions";
 import { ParserFunctions } from "./ParserFunctions";
 import { isStandardUnit, StandardUnit, StandardUnitConvertFunctions, StandardUnitParserFunctions } from "./standard-unit";
-import { isVariableUnit, isVariableUnitName, VariableUnit, VariableUnitConvertFunctions, VariableUnitParseFunctions } from "./variable-unit";
+import { isVariableUnit, VariableUnit, VariableUnitConvertFunctions, VariableUnitParseFunctions } from "./variable-unit";
 
 export type Unit = StandardUnit | VariableUnit;
-
-function toUnit(unitName: string) {
-  if (isVariableUnitName(unitName)) {
-    return VariableUnitConvertFunctions.toUnit(unitName);
-  }
-  return StandardUnitConvertFunctions.toUnit(unitName);
-}
 
 function isStandardUnitMeasurement(measurement: { unit: Unit; }): measurement is { unit: StandardUnit } {
   return isStandardUnit(measurement.unit);
@@ -39,7 +32,6 @@ function convert(quantity: number, unit: Unit, toUnit: Unit) {
 }
 
 export const CompositeConvertFunctions: ConvertFunctions<Unit> = {
-  toUnit,
   isMeasurementConvertible,
   convert,
 }

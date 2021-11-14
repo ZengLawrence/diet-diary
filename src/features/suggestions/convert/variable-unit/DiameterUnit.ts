@@ -34,7 +34,6 @@ function convert(quantity: number, unit: DiameterUnit, toUnit: DiameterUnit) {
 }
 
 export const DiameterUnitConvertFunctions: ConvertFunctions<DiameterUnit> = {
-  toUnit,
   isMeasurementConvertible,
   convert,
 };

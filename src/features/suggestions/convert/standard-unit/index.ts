@@ -89,7 +89,6 @@ function convert(quantity: number, unit: StandardUnit, toUnit: StandardUnit) {
 }
 
 export const StandardUnitConvertFunctions: ConvertFunctions<StandardUnit> = {
-  toUnit,
   isMeasurementConvertible,
   convert,
 };
