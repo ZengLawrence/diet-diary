@@ -6,7 +6,7 @@ import { VariableUnit, VariableUnitParseFunctions } from "./variable-unit";
 export type Unit = StandardUnit | VariableUnit;
 export function isMeasurementConvertible(fromUnit: Unit, measurement: { unit: Unit; }) {
   const toUnit = measurement.unit;
-  return CompositeConvertFunctions.isMeasurementConvertible(fromUnit, toUnit);
+  return CompositeConvertFunctions.areUnitsConvertible(fromUnit, toUnit);
 }
 
 export const parseUnit = composeParser<Unit>(VariableUnitParseFunctions, StandardUnitParserFunctions).parse;

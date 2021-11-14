@@ -1,9 +1,9 @@
 import { DiameterUnitConvertFunctions, DiameterUnitParserFunctions } from "./DiameterUnit"
 
-const { isMeasurementConvertible } = DiameterUnitConvertFunctions;
+const { areUnitsConvertible } = DiameterUnitConvertFunctions;
 
 test("diameter units are always convertible", () => {
-  const result = isMeasurementConvertible({ diameter: 12 }, { diameter: 14 });
+  const result = areUnitsConvertible({ diameter: 12 }, { diameter: 14 });
   expect(result).toBeTruthy();
 })
 

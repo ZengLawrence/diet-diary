@@ -6,9 +6,9 @@ type Unit = StandardUnit | VariableUnit;
 
 function isMeasurementConvertible(fromUnit: Unit, toUnit: Unit) {
   if (isStandardUnit(fromUnit) && isStandardUnit(toUnit)) {
-    return StandardUnitConvertFunctions.isMeasurementConvertible(fromUnit, toUnit);
+    return StandardUnitConvertFunctions.areUnitsConvertible(fromUnit, toUnit);
   } else if (isVariableUnit(fromUnit) && isVariableUnit(toUnit)) {
-    return VariableUnitConvertFunctions.isMeasurementConvertible(fromUnit, toUnit);
+    return VariableUnitConvertFunctions.areUnitsConvertible(fromUnit, toUnit);
   }
   return false;
 }
@@ -23,6 +23,6 @@ function convert(quantity: number, unit: Unit, toUnit: Unit) {
 }
 
 export const CompositeConvertFunctions: ConvertFunctions<Unit> = {
-  isMeasurementConvertible,
+  areUnitsConvertible: isMeasurementConvertible,
   convert,
 }
