@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { CompositeConvertFunctions, CompositeParserFunctions } from "./CompositeConvertFunctions";
 
 export type { Unit } from "./CompositeConvertFunctions";
