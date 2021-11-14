@@ -67,28 +67,27 @@ function toUnit(unitName: string) {
   return _.defaultTo(UNIT_MAP.get(_.lowerCase(unitName)), "unknown");
 }
 
-export type Unit = Units;
 export type StandardUnit = Units;
 export function isStandardUnit(unit: any): unit is StandardUnit{
   return typeof unit === "string";
 }
 
-function isConvertible(fromUnit: Unit, toUnit: Unit) {
+function isConvertible(fromUnit: StandardUnit, toUnit: StandardUnit) {
   return _convert().from(fromUnit)
     .possibilities()
     .includes(toUnit);
 }
 
-function isMeasurementConvertible(fromUnit: Unit, measurement: { unit: Unit; }) {
+function isMeasurementConvertible(fromUnit: StandardUnit, measurement: { unit: StandardUnit; }) {
   const { unit: toUnit } = measurement;
   return isConvertible(fromUnit, toUnit);
 }
 
-function convert(quantity: number, unit: Unit, toUnit: Unit) {
+function convert(quantity: number, unit: StandardUnit, toUnit: StandardUnit) {
   return _convert(quantity).from(unit).to(toUnit);
 }
 
-export const StandardUnitConvertFunctions: ConvertFunctions<Unit> = {
+export const StandardUnitConvertFunctions: ConvertFunctions<StandardUnit> = {
   toUnit,
   isMeasurementConvertible,
   convert,
