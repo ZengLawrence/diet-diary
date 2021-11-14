@@ -2,11 +2,11 @@ import { isStandardUnit, StandardUnitConvertFunctions, StandardUnitParserFunctio
 const { isMeasurementConvertible } = StandardUnitConvertFunctions;
 
 test("units are convertible", () => {
-  expect(isMeasurementConvertible("fl-oz", { unit: "cup" })).toBeTruthy();
+  expect(isMeasurementConvertible("fl-oz", "cup")).toBeTruthy();
 })
 
 test("units are not convertible", () => {
-  expect(isMeasurementConvertible("cup", { unit: "oz" })).toBeFalsy();
+  expect(isMeasurementConvertible("cup", "oz")).toBeFalsy();
 })
 
 test("'fl-oz' is standard unit", () => {

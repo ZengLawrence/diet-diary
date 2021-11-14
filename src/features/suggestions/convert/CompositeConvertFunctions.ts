@@ -4,19 +4,11 @@ import { isVariableUnit, VariableUnit, VariableUnitConvertFunctions } from "./va
 
 type Unit = StandardUnit | VariableUnit;
 
-function isStandardUnitMeasurement(measurement: { unit: Unit; }): measurement is { unit: StandardUnit } {
-  return isStandardUnit(measurement.unit);
-}
-
-function isVariableUnitMeasurement(measurement: { unit: Unit; }): measurement is { unit: VariableUnit } {
-  return isVariableUnit(measurement.unit);
-}
-
-function isMeasurementConvertible(fromUnit: Unit, measurement: { unit: Unit; }) {
-  if (isStandardUnit(fromUnit) && isStandardUnitMeasurement(measurement)) {
-    return StandardUnitConvertFunctions.isMeasurementConvertible(fromUnit, measurement);
-  } else if (isVariableUnit(fromUnit) && isVariableUnitMeasurement(measurement)) {
-    return VariableUnitConvertFunctions.isMeasurementConvertible(fromUnit, measurement);
+function isMeasurementConvertible(fromUnit: Unit, toUnit: Unit) {
+  if (isStandardUnit(fromUnit) && isStandardUnit(toUnit)) {
+    return StandardUnitConvertFunctions.isMeasurementConvertible(fromUnit, toUnit);
+  } else if (isVariableUnit(fromUnit) && isVariableUnit(toUnit)) {
+    return VariableUnitConvertFunctions.isMeasurementConvertible(fromUnit, toUnit);
   }
   return false;
 }

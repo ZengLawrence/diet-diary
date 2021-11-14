@@ -69,7 +69,7 @@ function toUnit(unitName: string) {
 }
 
 export type StandardUnit = Units;
-export function isStandardUnit(unit: any): unit is StandardUnit{
+export function isStandardUnit(unit: any): unit is StandardUnit {
   return typeof unit === "string";
 }
 
@@ -79,21 +79,16 @@ function isConvertible(fromUnit: StandardUnit, toUnit: StandardUnit) {
     .includes(toUnit);
 }
 
-function isMeasurementConvertible(fromUnit: StandardUnit, measurement: { unit: StandardUnit; }) {
-  const { unit: toUnit } = measurement;
-  return isConvertible(fromUnit, toUnit);
-}
-
 function convert(quantity: number, unit: StandardUnit, toUnit: StandardUnit) {
   return _convert(quantity).from(unit).to(toUnit);
 }
 
 export const StandardUnitConvertFunctions: ConvertFunctions<StandardUnit> = {
-  isMeasurementConvertible,
+  isMeasurementConvertible: isConvertible,
   convert,
 };
 
-function canParse(unitText: string | undefined) {
+function canParse() {
   return true;
 }
 

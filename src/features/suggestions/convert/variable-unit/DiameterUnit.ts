@@ -24,7 +24,7 @@ function toUnit(unitName: string): DiameterUnit {
   }
 }
 
-function isMeasurementConvertible(_fromUnit: DiameterUnit, _measurement: { unit: DiameterUnit; }) {
+function isMeasurementConvertible(_fromUnit: DiameterUnit, _toUnit: DiameterUnit) {
   return true;
 }
 
