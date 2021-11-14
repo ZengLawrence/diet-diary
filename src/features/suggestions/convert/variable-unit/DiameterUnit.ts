@@ -1,5 +1,7 @@
 import _ from "lodash";
+import { parseUnit } from "..";
 import { ConvertFunctions } from "../ConvertFunctions";
+import { ParserFunctions } from "../ParserFunctions";
 
 export interface DiameterUnit {
   diameter: number;
@@ -37,3 +39,29 @@ export const DiameterUnitConvertFunctions: ConvertFunctions<DiameterUnit> = {
   isMeasurementConvertible,
   convert,
 };
+
+function canParse(unitText: string | undefined) {
+  const words = _.split(unitText, " ");
+  if (_.size(words) === 0) return false;
+
+  const first = words[0];
+  if (first === "of" && _.size(words) > 1) {
+    const second = words[1];
+    return isDiameterUnitName(second);
+  }
+
+  return false;
+}
+
+function parse(unitText: string | undefined) {
+  if (canParse(unitText)) {
+    const words = _.split(unitText, " ");
+    return toUnit(words[1]);
+  }
+  return { diameter: NaN };
+}
+
+export const DiameterUnitParserFunctions: ParserFunctions<DiameterUnit> = {
+  canParse,
+  parse,
+}
