@@ -1,17 +1,5 @@
 import { CompositeConvertFunctions } from "./CompositeConvertFunctions";
 
-const { toUnit } = CompositeConvertFunctions;
-
-test("convert standard unit", () => {
-  const result = toUnit("cup");
-  expect(result).toBe("cup");
-})
-
-test("convert variable unit", () => {
-  const result = toUnit("12-inch");
-  expect(result).toMatchObject({ diameter: 12 });
-})
-
 const { isMeasurementConvertible } = CompositeConvertFunctions;
 
 test("similar variable units e.g. diameter units are convertible", () => {

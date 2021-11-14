@@ -1,4 +1,5 @@
-import { CompositeConvertFunctions, CompositeParserFunctions } from "./CompositeConvertFunctions";
+import { CompositeConvertFunctions } from "./CompositeConvertFunctions";
+import { CompositeParserFunctions } from "./CompositeParserFunctions";
 
 export type { Unit } from "./CompositeConvertFunctions";
 

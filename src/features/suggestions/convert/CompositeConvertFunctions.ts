@@ -1,7 +1,6 @@
 import { ConvertFunctions } from "./ConvertFunctions";
-import { ParserFunctions } from "./ParserFunctions";
-import { isStandardUnit, StandardUnit, StandardUnitConvertFunctions, StandardUnitParserFunctions } from "./standard-unit";
-import { isVariableUnit, VariableUnit, VariableUnitConvertFunctions, VariableUnitParseFunctions } from "./variable-unit";
+import { isStandardUnit, StandardUnit, StandardUnitConvertFunctions } from "./standard-unit";
+import { isVariableUnit, VariableUnit, VariableUnitConvertFunctions } from "./variable-unit";
 
 export type Unit = StandardUnit | VariableUnit;
 
@@ -34,21 +33,4 @@ function convert(quantity: number, unit: Unit, toUnit: Unit) {
 export const CompositeConvertFunctions: ConvertFunctions<Unit> = {
   isMeasurementConvertible,
   convert,
-}
-
-function canParse(unitText: string | undefined) {
-  return VariableUnitParseFunctions.canParse(unitText)
-    || StandardUnitParserFunctions.canParse(unitText);
-}
-
-function parse(unitText: string | undefined) {
-  if (VariableUnitParseFunctions.canParse(unitText)) {
-    return VariableUnitParseFunctions.parse(unitText);
-  }
-  return StandardUnitParserFunctions.parse(unitText);
-}
-
-export const CompositeParserFunctions: ParserFunctions<Unit> = {
-  canParse,
-  parse,
 }
