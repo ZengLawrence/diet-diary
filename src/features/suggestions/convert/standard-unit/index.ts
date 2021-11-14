@@ -74,13 +74,19 @@ export function isStandardUnit(unit: any): unit is StandardUnit {
 }
 
 function isConvertible(fromUnit: StandardUnit, toUnit: StandardUnit) {
-  return _convert().from(fromUnit)
-    .possibilities()
-    .includes(toUnit);
+  return isStandardUnit(fromUnit)
+    && isStandardUnit(toUnit)
+    && _convert().from(fromUnit)
+      .possibilities()
+      .includes(toUnit);
 }
 
 function convert(quantity: number, unit: StandardUnit, toUnit: StandardUnit) {
-  return _convert(quantity).from(unit).to(toUnit);
+  if (isConvertible(unit, toUnit)) {
+    return _convert(quantity).from(unit).to(toUnit);
+  } else {
+    return NaN;
+  }
 }
 
 export const StandardUnitConvertFunctions: ConvertFunctions<StandardUnit> = {

@@ -7,7 +7,7 @@ export interface DiameterUnit {
 }
 
 export function isDiameterUnit(unit: object): unit is DiameterUnit {
-  return ("diameter" in unit);
+  return unit instanceof Object && "diameter" in unit;
 }
 
 export function isDiameterUnitName(unitName: string) {
@@ -24,8 +24,8 @@ function toUnit(unitName: string): DiameterUnit {
   }
 }
 
-function isMeasurementConvertible(_fromUnit: DiameterUnit, _toUnit: DiameterUnit) {
-  return true;
+function isMeasurementConvertible(fromUnit: DiameterUnit, toUnit: DiameterUnit) {
+  return isDiameterUnit(fromUnit) && isDiameterUnit(toUnit);
 }
 
 function convert(quantity: number, unit: DiameterUnit, toUnit: DiameterUnit) {

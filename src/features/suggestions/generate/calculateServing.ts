@@ -27,6 +27,7 @@ function servingFor(unitServing: Serving, servingAmount: DecomposedAmount, amoun
 
   try {
     const normalizedQuantity = convert(from.quantity, from.unit, to.unit);
+    if (_.isNaN(normalizedQuantity)) return undefined;
     return multiply(unitServing, _.round(normalizedQuantity / to.quantity, 3));
   } catch (e) {
     return undefined;
