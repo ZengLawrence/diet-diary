@@ -11,7 +11,7 @@ function parseUnitText(unitText?: string) {
   if ((["fluid", "fl"].includes(first)) && _.size(words) > 1) {
     return first + " " + words[1];
   }
-  if (first === "of") {
+  if (first === "of" && _.size(words) > 2) {
     return (first + " " + words[1] + "-" + words[2]);
   }
   return first;
