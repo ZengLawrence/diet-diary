@@ -81,11 +81,7 @@ function areUnitsConvertible(fromUnit: StandardUnit, toUnit: StandardUnit) {
 }
 
 function convert(quantity: number, unit: StandardUnit, toUnit: StandardUnit) {
-  if (areUnitsConvertible(unit, toUnit)) {
-    return _convert(quantity).from(unit).to(toUnit);
-  } else {
-    return NaN;
-  }
+  return _convert(quantity).from(unit).to(toUnit);
 }
 
 export const StandardUnitConvertFunctions: ConvertFunctions<StandardUnit> = {
