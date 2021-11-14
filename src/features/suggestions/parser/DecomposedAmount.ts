@@ -12,7 +12,7 @@ function parseUnitText(unitText?: string) {
     return first + " " + words[1];
   }
   if (first === "of" && _.size(words) > 2) {
-    return (first + " " + words[1] + "-" + words[2]);
+    return (words[1] + "-" + words[2]);
   }
   return first;
 }

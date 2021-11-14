@@ -8,7 +8,7 @@ test("convert standard unit", () => {
 })
 
 test("convert variable unit", () => {
-  const result = toUnit("of 12-inch");
+  const result = toUnit("12-inch");
   expect(result).toMatchObject({ diameter: 12 });
 })
 

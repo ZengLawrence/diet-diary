@@ -3,7 +3,7 @@ import { isDiameterUnitName, DiameterUnitConvertFunctions } from "./DiameterUnit
 const { toUnit } = DiameterUnitConvertFunctions;
 
 test("convert text to diameter", () => {
-  const unitName = "of 12-inch";
+  const unitName = "12-inch";
   expect(isDiameterUnitName(unitName)).toBeTruthy();
   expect(toUnit(unitName)).toMatchObject({diameter: 12});
 })

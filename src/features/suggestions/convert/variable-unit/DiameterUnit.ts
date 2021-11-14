@@ -10,16 +10,13 @@ export function isDiameterUnit(unit: object): unit is DiameterUnit {
 }
 
 export function isDiameterUnitName(unitName: string) {
-  return /^of [1-9][0-9]*-inch$/.test(unitName);
+  return /^[1-9][0-9]*-inch$/.test(unitName);
 }
 
 function toUnit(unitName: string): DiameterUnit {
   if (isDiameterUnitName(unitName)) {
-    const words = _.words(unitName);
-    if (_.size(words) > 1) {
-      const diameter = _.toNumber(_.head(_.split(words[1], "-")));
-      return { diameter };
-    }
+    const diameter = _.toNumber(_.head(_.split(unitName, "-")));
+    return { diameter };
   }
   return {
     diameter: NaN,
