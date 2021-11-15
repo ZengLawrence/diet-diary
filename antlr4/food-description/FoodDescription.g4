@@ -20,7 +20,7 @@ unit
   ;
 
 STRING
-   : [a-zA-Z]+ | [0-9][a-zA-Z%]+
+   : [a-zA-Z-]+ | [0-9]+[a-zA-Z%-]+
    ;
 
 fragment DIGIT : [0-9];

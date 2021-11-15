@@ -2,6 +2,8 @@ import configureMeasurements, { mass, MassSystems, MassUnits, volume, VolumeSyst
 import _ from "lodash";
 import size, { SizeSystems, SizeUnits } from "./SizeUnit";
 import unknown, { UnknownSystems, UnknownUnits } from "./UnknownUnit";
+import { ConvertFunctions } from "../ConvertFunctions";
+import { ParserFunctions } from "../ParserFunctions";
 
 type Measures = "volume" | "mass" | "size" | "unknown";
 type Systems = VolumeSystems | MassSystems | SizeSystems | UnknownSystems;
@@ -62,30 +64,52 @@ const UNIT_MAP = new Map<string, Units>([
   ["large", "large"],
 ])
 
-export function toUnit(unitName: string) {
+function toUnit(unitName: string) {
   return _.defaultTo(UNIT_MAP.get(_.lowerCase(unitName)), "unknown");
 }
 
-export type Unit = Units;
+export type StandardUnit = Units;
 
-function isConvertible(fromUnit: Unit, toUnit: Unit) {
+function isStandardUnit(unit: any): unit is StandardUnit {
+  return typeof unit === "string";
+}
+
+function areUnitsConvertible(fromUnit: StandardUnit, toUnit: StandardUnit) {
   return _convert().from(fromUnit)
     .possibilities()
     .includes(toUnit);
 }
 
-/**
- * Indicate if a measurement can be converted from a given unit.  If a given unit is "unknown", the measurement is convertible.
- * 
- * @param fromUnit unit to convert from
- * @param measurement measurement to convert to
- * @returns true if measurement can be converted from a given unit or given unit is "unknown"
- */
-export function isMeasurementConvertible(fromUnit: Unit, measurement: { unit: Unit; }) {
-  const { unit: toUnit } = measurement;
-  return isConvertible(fromUnit, toUnit);
+function convert(quantity: number, unit: StandardUnit, toUnit: StandardUnit) {
+  return _convert(quantity).from(unit).to(toUnit);
 }
 
-export default function convert(quantity: number, unit: Unit, toUnit: Unit) {
-  return _convert(quantity).from(unit).to(toUnit);
+export const StandardUnitConvertFunctions: ConvertFunctions<StandardUnit> = {
+  isSupportedUnitType: isStandardUnit,
+  areUnitsConvertible,
+  convert,
+};
+
+function canParse() {
+  return true;
+}
+
+function getUnitName(unitText: string | undefined) {
+  const words = _.words(_.lowerCase(unitText));
+  if (_.size(words) === 0) return "";
+  const first = words[0];
+
+  if ((["fluid", "fl"].includes(first)) && _.size(words) > 1) {
+    return first + " " + words[1];
+  }
+  return first;
+}
+
+function parse(unitText: string | undefined) {
+  return toUnit(getUnitName(unitText));
+}
+
+export const StandardUnitParserFunctions: ParserFunctions<StandardUnit> = {
+  canParse,
+  parse,
 }

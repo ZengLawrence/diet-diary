@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Unit } from "../convert/Unit";
+import { StandardUnit } from "../convert/standard-unit";
 import parseAmount from "./DecomposedAmount";
 
 test("unit pound(s) -> lb", () => {
@@ -81,13 +81,25 @@ test("alternate measurement in amount", () => {
   });
 })
 
+test("variable unit e.g. diameter unit '12-inch'", () => {
+  expect(parseAmount("1/8 of 14-inch")).toMatchObject({
+    measurement: {
+      quantity: 0.125,
+      unit: {
+        diameter: 14,
+      },
+      unitText: "of 14-inch",
+    }
+  });
+})
+
 function givenPluralHasSameSpelling() {
   return {
     testCases: _.partialRight(testCases, [], { pluralSameSpelling: true })
   }
 }
 
-function testCases(unit: string, abbr: Unit, commonAbbreviations: string[] = [], options: { pluralSameSpelling: boolean } = { pluralSameSpelling: false }) {
+function testCases(unit: string, abbr: StandardUnit, commonAbbreviations: string[] = [], options: { pluralSameSpelling: boolean } = { pluralSameSpelling: false }) {
   const singular = {
     input: "1 " + unit,
     output: {
