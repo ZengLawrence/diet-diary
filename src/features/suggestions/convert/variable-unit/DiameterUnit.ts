@@ -28,12 +28,6 @@ function convert(quantity: number, unit: DiameterUnit, toUnit: DiameterUnit) {
   return quantity * squared(unit.diameter) / squared(toUnit.diameter);
 }
 
-export const DiameterUnitConvertFunctions: ConvertFunctions<DiameterUnit> = {
-  isSupportedUnitType: isDiameterUnit,
-  areUnitsConvertible,
-  convert,
-};
-
 function canParse(unitText: string | undefined) {
   const words = _.split(unitText, " ");
   if (_.size(words) === 0) return false;
@@ -60,7 +54,11 @@ function parse(unitText: string | undefined) {
   return { diameter: NaN };
 }
 
-export const DiameterUnitParserFunctions: ParserFunctions<DiameterUnit> = {
+const functions: ConvertFunctions<DiameterUnit> & ParserFunctions<DiameterUnit> = {
+  isSupportedUnitType: isDiameterUnit,
+  areUnitsConvertible,
+  convert,
   canParse,
   parse,
 }
+export default functions;

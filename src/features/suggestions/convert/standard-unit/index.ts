@@ -84,12 +84,6 @@ function convert(quantity: number, unit: StandardUnit, toUnit: StandardUnit) {
   return _convert(quantity).from(unit).to(toUnit);
 }
 
-export const StandardUnitConvertFunctions: ConvertFunctions<StandardUnit> = {
-  isSupportedUnitType: isStandardUnit,
-  areUnitsConvertible,
-  convert,
-};
-
 function canParse() {
   return true;
 }
@@ -109,7 +103,11 @@ function parse(unitText: string | undefined) {
   return toUnit(getUnitName(unitText));
 }
 
-export const StandardUnitParserFunctions: ParserFunctions<StandardUnit> = {
+const functions: ConvertFunctions<StandardUnit> & ParserFunctions<StandardUnit>= {
+  isSupportedUnitType: isStandardUnit,
+  areUnitsConvertible,
+  convert,
   canParse,
   parse,
 }
+export default functions;
