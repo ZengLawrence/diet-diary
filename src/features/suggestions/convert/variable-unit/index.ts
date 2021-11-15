@@ -1,5 +1,5 @@
-import { DiameterUnit, DiameterUnitConvertFunctions, DiameterUnitParserFunctions } from "./DiameterUnit";
+import diameterUnitFunctions, { DiameterUnit } from "./DiameterUnit";
 
 export type VariableUnit = DiameterUnit;
-export const VariableUnitConvertFunctions = DiameterUnitConvertFunctions;
-export const VariableUnitParseFunctions = DiameterUnitParserFunctions;
+const functions = diameterUnitFunctions;
+export default functions;
