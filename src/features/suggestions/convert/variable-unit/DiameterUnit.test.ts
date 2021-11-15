@@ -22,6 +22,12 @@ test("convert 2 2-inch diameter to 4-inch diameter should return 0.5", () => {
 const { canParse, parse } = DiameterUnitParserFunctions;
 
 test("parse text to diameter", () => {
+  const unitText = "6-inch";
+  expect(canParse(unitText)).toBeTruthy();
+  expect(parse(unitText)).toMatchObject({ diameter: 6 });
+})
+
+test("parse text starts with 'of' to diameter", () => {
   const unitText = "of 12-inch";
   expect(canParse(unitText)).toBeTruthy();
   expect(parse(unitText)).toMatchObject({ diameter: 12 });
