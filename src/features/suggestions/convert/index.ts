@@ -1,5 +1,5 @@
 import composeConverter from "./ConvertFunctions";
-import composeParser from "./CompositeParserFunctions";
+import composeParser from "./ParserFunctions";
 import standardUnitFunctions, { StandardUnit } from "./standard-unit";
 import variableUnitFunctions, { VariableUnit } from "./variable-unit";
 
