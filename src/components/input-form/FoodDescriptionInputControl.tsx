@@ -1,17 +1,15 @@
-import { Form } from "react-bootstrap";
 import {
   Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption
+  ComboboxInput, ComboboxList,
+  ComboboxOption, ComboboxPopover
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
-import { Fragment } from "react";
-import { Suggestion } from "../../features/suggestions";
-import { BestChoiceLegend } from "../BestChoiceLegend";
 import _ from "lodash";
+import { Fragment } from "react";
+import { Form } from "react-bootstrap";
+import { Suggestion } from "../../features/suggestions";
 import { Serving } from "../../model/Food";
+import { BestChoiceLegend } from "../BestChoiceLegend";
 import { DisplayText } from "./DisplayText";
 
 function foodDescription(suggestion: Suggestion) {
