@@ -28,8 +28,8 @@ export const FoodDescriptionInputControl = (props: {
   foodName: string;
   suggestions: Suggestion[];
   invalid?: boolean;
-  updateFoodName: (name: string) => void;
-  updateFoodNameServing: (name: string, serving?: Serving) => void;
+  updateFoodDescription: (desc: string) => void;
+  updateFoodDescriptionServing: (desc: string, serving?: Serving) => void;
 }) => (
   <Fragment>
     <Form.Label htmlFor="inputFoodDescription" srOnly>Food description</Form.Label>
@@ -40,7 +40,7 @@ export const FoodDescriptionInputControl = (props: {
         value={props.foodName}
         required
         placeholder="Broccoli steamed 1 cup"
-        onChange={e => props.updateFoodName(e.target.value)}
+        onChange={e => props.updateFoodDescription(e.target.value)}
         aria-labelledby="inputFoodDescription"
         className={props.invalid ? "form-control is-invalid" : "form-control"} />
       <ComboboxPopover>
@@ -49,7 +49,7 @@ export const FoodDescriptionInputControl = (props: {
             <ComboboxOption
               key={index}
               value={foodDescription(suggestion)}
-              onClick={() => props.updateFoodNameServing(foodDescription(suggestion), suggestion.serving)}>
+              onClick={() => props.updateFoodDescriptionServing(foodDescription(suggestion), suggestion.serving)}>
               <DisplayText suggestion={suggestion} />
             </ComboboxOption>
           ))}

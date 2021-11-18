@@ -31,7 +31,7 @@ const food = createSlice({
   name: "food",
   initialState: { description: "", serving: {} } as Food,
   reducers: {
-    setName(state, action: PayloadAction<string>) {
+    setDescription(state, action: PayloadAction<string>) {
       state.description = action.payload
     },
     setServing(state, action: PayloadAction<Serving>) {
@@ -45,7 +45,7 @@ const food = createSlice({
     },
   },
 })
-const { setName, setServing, setFoodGroupServing, unsetFoodGroupServing } = food.actions;
+const { setDescription, setServing, setFoodGroupServing, unsetFoodGroupServing } = food.actions;
 
 const error = createSlice({
   name: "error",
@@ -55,7 +55,7 @@ const error = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(setName, (state, action) => {
+      .addCase(setDescription, (state, action) => {
         state.foodDescription = _.isEmpty(action.payload);
       })
       .addCase(setFoodGroupServing, (state, action) => {
@@ -105,13 +105,13 @@ function checkValidity(error: ValidationError) {
 
 const debouncedGenerateSuggestions = _.debounce(generateSuggestions, 500, { maxWait: 2000 });
 
-const updateFoodName = (dispatch: React.Dispatch<AnyAction>, generateSuggestions: (desc: string) => void, name: string) => {
-  dispatch(setName(name));
+const updateFoodDescription = (dispatch: React.Dispatch<AnyAction>, generateSuggestions: (desc: string) => void, name: string) => {
+  dispatch(setDescription(name));
   generateSuggestions(name);
 }
 
-const updateFoodNameServing = (dispatch: React.Dispatch<AnyAction>, name: string, serving?: Serving) => {
-  dispatch(setName(name));
+const updateFoodDescriptionServing = (dispatch: React.Dispatch<AnyAction>, name: string, serving?: Serving) => {
+  dispatch(setDescription(name));
   serving && dispatch(setServing(serving));
 }
 
@@ -153,8 +153,8 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
   }, [descRef, dispatch])
 
   const fns = {
-    updateFoodName: _.partial(updateFoodName, dispatch, generateSuggestions),
-    updateFoodNameServing: _.partial(updateFoodNameServing, dispatch),
+    updateFoodDescription: _.partial(updateFoodDescription, dispatch, generateSuggestions),
+    updateFoodDescriptionServing: _.partial(updateFoodDescriptionServing, dispatch),
     updateFoodGroupServing: _.partial(updateFoodGroupServing, dispatch),
     handleSubmit: _.partial(handleSubmit, dispatch, state, onSaveFood),
   }
