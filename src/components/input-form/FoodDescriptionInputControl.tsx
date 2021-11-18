@@ -26,7 +26,7 @@ function hasBestChoice(suggestions: Suggestion[]) {
   return _.findIndex(suggestions, { 'bestChoice': true }) >= 0;
 }
 
-export const FoodNameInputControl = (props: {
+export const FoodDescriptionInputControl = (props: {
   foodName: string;
   suggestions: Suggestion[];
   invalid?: boolean;
