@@ -5,7 +5,7 @@ import { generateSuggestions, Suggestion } from "../../features/suggestions";
 import { Food, FoodGroup, Serving } from "../../model/Food";
 
 interface ValidationError {
-  foodName?: boolean;
+  foodDescription?: boolean;
   vegetable?: boolean;
   fruit?: boolean;
   carbohydrate?: boolean;
@@ -29,10 +29,10 @@ const {
 
 const food = createSlice({
   name: "food",
-  initialState: { name: "", serving: {} } as Food,
+  initialState: { description: "", serving: {} } as Food,
   reducers: {
-    setName(state, action: PayloadAction<string>) {
-      state.name = action.payload
+    setDescription(state, action: PayloadAction<string>) {
+      state.description = action.payload
     },
     setServing(state, action: PayloadAction<Serving>) {
       state.serving = action.payload;
@@ -45,7 +45,7 @@ const food = createSlice({
     },
   },
 })
-const { setName, setServing, setFoodGroupServing, unsetFoodGroupServing } = food.actions;
+const { setDescription, setServing, setFoodGroupServing, unsetFoodGroupServing } = food.actions;
 
 const error = createSlice({
   name: "error",
@@ -55,8 +55,8 @@ const error = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(setName, (state, action) => {
-        state.foodName = _.isEmpty(action.payload);
+      .addCase(setDescription, (state, action) => {
+        state.foodDescription = _.isEmpty(action.payload);
       })
       .addCase(setFoodGroupServing, (state, action) => {
         state[action.payload.foodGroup] = lessThanZero(action.payload.serving);
@@ -85,9 +85,9 @@ function initialState(food: Food) {
 function lessThanZero(val?: number) { return (_.toNumber(val) < 0); }
 
 function validateFood(food: Food): ValidationError {
-  const { name, serving } = food;
+  const { description, serving } = food;
   return {
-    foodName: _.isEmpty(name),
+    foodDescription: _.isEmpty(description),
     vegetable: lessThanZero(serving.vegetable),
     fruit: lessThanZero(serving.fruit),
     carbohydrate: lessThanZero(serving.carbohydrate),
@@ -105,13 +105,13 @@ function checkValidity(error: ValidationError) {
 
 const debouncedGenerateSuggestions = _.debounce(generateSuggestions, 500, { maxWait: 2000 });
 
-const updateFoodName = (dispatch: React.Dispatch<AnyAction>, generateSuggestions: (desc: string) => void, name: string) => {
-  dispatch(setName(name));
+const updateFoodDescription = (dispatch: React.Dispatch<AnyAction>, generateSuggestions: (desc: string) => void, name: string) => {
+  dispatch(setDescription(name));
   generateSuggestions(name);
 }
 
-const updateFoodNameServing = (dispatch: React.Dispatch<AnyAction>, name: string, serving?: Serving) => {
-  dispatch(setName(name));
+const updateFoodDescriptionServing = (dispatch: React.Dispatch<AnyAction>, name: string, serving?: Serving) => {
+  dispatch(setDescription(name));
   serving && dispatch(setServing(serving));
 }
 
@@ -138,7 +138,7 @@ const handleSubmit = (
 export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialFood, initialState);
 
-  const descRef = useRef(initialFood.name);
+  const descRef = useRef(initialFood.description);
   const setSuggestionsCallback = (suggestions: Suggestion[]) => {
     dispatch(setSuggestions(suggestions));
   }
@@ -153,8 +153,8 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
   }, [descRef, dispatch])
 
   const fns = {
-    updateFoodName: _.partial(updateFoodName, dispatch, generateSuggestions),
-    updateFoodNameServing: _.partial(updateFoodNameServing, dispatch),
+    updateFoodDescription: _.partial(updateFoodDescription, dispatch, generateSuggestions),
+    updateFoodDescriptionServing: _.partial(updateFoodDescriptionServing, dispatch),
     updateFoodGroupServing: _.partial(updateFoodGroupServing, dispatch),
     handleSubmit: _.partial(handleSubmit, dispatch, state, onSaveFood),
   }

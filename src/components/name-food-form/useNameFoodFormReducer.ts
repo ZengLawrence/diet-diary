@@ -12,8 +12,8 @@ const renamedFoodSlice = createSlice({
     target: newFood(),
   },
   reducers: {
-    updateName(state, action: PayloadAction<string>) {
-      state.target.name = action.payload;
+    updateDescription(state, action: PayloadAction<string>) {
+      state.target.description = action.payload;
     },
     selectFood(state, action: PayloadAction<number>) {
       state.sources[action.payload].selected = true;
@@ -25,23 +25,23 @@ const renamedFoodSlice = createSlice({
     },
   }
 })
-const { updateName, selectFood, unselectFood } = renamedFoodSlice.actions;
+const { updateDescription, selectFood, unselectFood } = renamedFoodSlice.actions;
 const renamedFood = renamedFoodSlice.reducer;
 
 const errorsSlice = createSlice({
   name: "errors",
   initialState: {
-    foodName: false,
+    foodDescription: false,
     selectCount: 0,
   },
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(updateName, (state, action) => { 
-        state.foodName = (_.size(action.payload) === 0);
+      .addCase(updateDescription, (state, action) => { 
+        state.foodDescription = (_.size(action.payload) === 0);
       })
       .addCase(selectFood, state => {
-        state.foodName = false;
+        state.foodDescription = false;
         state.selectCount++;
       })
       .addCase(unselectFood, state => {
@@ -59,11 +59,11 @@ const reducer = combineReducers({
 const selected = (foods: (Food & Selectable)[]) =>
   _.filter(foods, { selected: true });
 
-const combineName = (foods: (Food & Selectable)[]) =>
-  _.join(_.map(selected(foods), "name"), ", ");
+const combineDescription = (foods: (Food & Selectable)[]) =>
+  _.join(_.map(selected(foods), "description"), ", ");
 
 const combine = (foods: (Food & Selectable)[]) => ({
-  name: combineName(foods),
+  description: combineDescription(foods),
   serving: positiveServing(calcFoodsServingSummary(selected(foods))),
 })
 
@@ -77,14 +77,14 @@ const initialState = (foods: Food[]) => {
       target: combine(sources),
     },
     errors: {
-      foodName: false,
+      foodDescription: false,
       selectCount,
     }
   }
 }
 
-const checkValidity = (errors: {foodName: boolean; selectCount: number}) => {
-  const failed =  errors.foodName || errors.selectCount < 2;
+const checkValidity = (errors: {foodDescription: boolean; selectCount: number}) => {
+  const failed =  errors.foodDescription || errors.selectCount < 2;
   return !failed;
 }
 
@@ -92,7 +92,7 @@ export default function useNameFoodFormReducer(initialFoods: Food[], onSaveFood:
 
   const [state, dispatch] = useReducer(reducer, initialState(initialFoods));
   const handleSelectFoodChanged = (index: number, selected: boolean) => selected ? dispatch(selectFood(index)) : dispatch(unselectFood(index));
-  const handleFoodNameChanged = (name: string) => dispatch(updateName(name));
+  const handleFoodDescriptionChanged = (name: string) => dispatch(updateDescription(name));
 
   const handleSubmitted = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -106,7 +106,7 @@ export default function useNameFoodFormReducer(initialFoods: Food[], onSaveFood:
 
   const fns = {
     handleSelectFoodChanged,
-    handleFoodNameChanged,
+    handleFoodDescriptionChanged,
     handleSubmitted,
   }
 

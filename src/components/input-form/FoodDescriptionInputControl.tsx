@@ -1,17 +1,15 @@
-import { Form } from "react-bootstrap";
 import {
   Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption
+  ComboboxInput, ComboboxList,
+  ComboboxOption, ComboboxPopover
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
-import { Fragment } from "react";
-import { Suggestion } from "../../features/suggestions";
-import { BestChoiceLegend } from "../BestChoiceLegend";
 import _ from "lodash";
+import { Fragment } from "react";
+import { Form } from "react-bootstrap";
+import { Suggestion } from "../../features/suggestions";
 import { Serving } from "../../model/Food";
+import { BestChoiceLegend } from "../BestChoiceLegend";
 import { DisplayText } from "./DisplayText";
 
 function foodDescription(suggestion: Suggestion) {
@@ -26,32 +24,32 @@ function hasBestChoice(suggestions: Suggestion[]) {
   return _.findIndex(suggestions, { 'bestChoice': true }) >= 0;
 }
 
-export const FoodNameInputControl = (props: {
+export const FoodDescriptionInputControl = (props: {
   foodName: string;
   suggestions: Suggestion[];
   invalid?: boolean;
-  updateFoodName: (name: string) => void;
-  updateFoodNameServing: (name: string, serving?: Serving) => void;
+  updateFoodDescription: (desc: string) => void;
+  updateFoodDescriptionServing: (desc: string, serving?: Serving) => void;
 }) => (
   <Fragment>
-    <Form.Label htmlFor="inputFoodName" srOnly>Food name</Form.Label>
+    <Form.Label htmlFor="inputFoodDescription" srOnly>Food description</Form.Label>
     <Combobox className="w-100">
       <ComboboxInput
-        id="inputFoodName"
+        id="inputFoodDescription"
         type="text"
         value={props.foodName}
         required
         placeholder="Broccoli steamed 1 cup"
-        onChange={e => props.updateFoodName(e.target.value)}
-        aria-labelledby="inputFoodName"
+        onChange={e => props.updateFoodDescription(e.target.value)}
+        aria-labelledby="inputFoodDescription"
         className={props.invalid ? "form-control is-invalid" : "form-control"} />
       <ComboboxPopover>
-        <ComboboxList aria-labelledby="inputFoodName">
+        <ComboboxList aria-labelledby="inputFoodDescription">
           {props.suggestions.map((suggestion, index) => (
             <ComboboxOption
               key={index}
               value={foodDescription(suggestion)}
-              onClick={() => props.updateFoodNameServing(foodDescription(suggestion), suggestion.serving)}>
+              onClick={() => props.updateFoodDescriptionServing(foodDescription(suggestion), suggestion.serving)}>
               <DisplayText suggestion={suggestion} />
             </ComboboxOption>
           ))}
@@ -62,7 +60,7 @@ export const FoodNameInputControl = (props: {
       </ComboboxPopover>
     </Combobox>
     <Form.Control.Feedback type="invalid">
-      Please enter food name.
+      Please enter food description.
     </Form.Control.Feedback>
   </Fragment>
 );

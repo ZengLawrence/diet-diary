@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { mealsSelector } from "../../app/selectors";
 import { AppDispatch, RootState } from "../../app/store";
-import { NameFoodForm } from "../../components/name-food-form/NameFoodForm";
+import { NameFoodDescriptionForm } from "../../components/name-food-form/NameFoodDescriptionForm";
 import { Food } from "../../model/Food";
 import { exitMealEditMode, replaceFoods } from "../day-page/mealStatesSlice";
 
@@ -14,4 +14,4 @@ const mapDispatchToProps = (dispatch: AppDispatch, { mealIndex }: { mealIndex: n
   onCancel: () => dispatch(exitMealEditMode({ mealIndex })),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(NameFoodForm);
+export default connect(mapStateToProps, mapDispatchToProps)(NameFoodDescriptionForm);

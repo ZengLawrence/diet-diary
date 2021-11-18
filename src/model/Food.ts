@@ -10,7 +10,7 @@ export interface Serving {
 }
 
 export interface Food {
-  name: string;
+  description: string;
   serving: Serving;
 }
 
@@ -23,7 +23,7 @@ export type FoodGroup = "vegetable" | "fruit" | "carbohydrate" | "proteinDiary" 
 
 export function newFood(): Food {
   return {
-    name: "",
+    description: "",
     serving: {}
   }
 }
@@ -52,7 +52,7 @@ export function abbreviation(foodGroup: FoodGroup) {
   return _.get(FOOD_GROUP_ABBREVIATIONS, foodGroup);
 }
 
-const FOOD_GROUP_DISPAY_NAMES = {
+const FOOD_GROUP_DISPLAY_NAMES = {
   "vegetable": "Vegetable",
   "fruit": "Fruit",
   "carbohydrate": "Carbohydrate",
@@ -62,5 +62,5 @@ const FOOD_GROUP_DISPAY_NAMES = {
 }
 
 export function displayName(foodGroup: FoodGroup) {
-  return _.get(FOOD_GROUP_DISPAY_NAMES, foodGroup);
+  return _.get(FOOD_GROUP_DISPLAY_NAMES, foodGroup);
 }

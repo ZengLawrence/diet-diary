@@ -1,7 +1,7 @@
 import { Button, Form } from "react-bootstrap";
 import { calcFoodCalories, displayCalorieValue } from "../../model/calorieFunction";
 import { Food } from "../../model/Food";
-import { FoodNameInputControl } from "./FoodNameInputControl";
+import { FoodDescriptionInputControl } from "./FoodDescriptionInputControl";
 import { ServingInputControl } from "./ServingInputControl";
 import { useFoodInputFormStateReducer } from "./useFoodInputFormStateReducer";
 
@@ -17,7 +17,7 @@ interface Props {
 export const FoodInputForm = (props: Props) => {
   const [state, fns] = useFoodInputFormStateReducer(props.food, props.onSaveFood);
   const { food, error, suggestions } = state;
-  const { updateFoodName, updateFoodNameServing, updateFoodGroupServing, handleSubmit } = fns;
+  const { updateFoodDescription, updateFoodDescriptionServing, updateFoodGroupServing, handleSubmit } = fns;
 
   return (
     <Form
@@ -26,12 +26,12 @@ export const FoodInputForm = (props: Props) => {
       className="border p-1"
     >
       <Form.Group as={Form.Row} className="ml-1 mr-1">
-        <FoodNameInputControl
-          foodName={food.name}
+        <FoodDescriptionInputControl
+          foodName={food.description}
           suggestions={suggestions}
-          invalid={error.foodName}
-          updateFoodName={updateFoodName}
-          updateFoodNameServing= {updateFoodNameServing}
+          invalid={error.foodDescription}
+          updateFoodDescription={updateFoodDescription}
+          updateFoodDescriptionServing= {updateFoodDescriptionServing}
         />
       </Form.Group>
 

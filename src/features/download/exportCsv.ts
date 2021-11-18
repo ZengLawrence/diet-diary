@@ -4,7 +4,7 @@ import { Food, Meal } from "../../model/Food";
 import { calcFoodCalories } from "../../model/calorieFunction";
 
 const denormalizeFood = (food: Food) => ({
-  foodName: food.name,
+  description: food.description,
   vegetable: _.defaultTo(food.serving.vegetable, ""),
   fruit: _.defaultTo(food.serving.fruit, ""),
   carbohydrate: _.defaultTo(food.serving.carbohydrate, ""),
