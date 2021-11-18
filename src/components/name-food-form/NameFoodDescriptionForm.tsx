@@ -12,7 +12,7 @@ interface Props {
   onCancel: () => void;
 }
 
-export const NameFoodForm = (props: Props) => {
+export const NameFoodDescriptionForm = (props: Props) => {
   const [state, fns] = useNameFoodFormReducer(props.foods, props.onSaveFood);
   const { renamedFood, errors } = state;
   const { handleSelectFoodChanged, handleFoodNameChanged, handleSubmitted } = fns;

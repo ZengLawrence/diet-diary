@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { Card, ListGroup } from "react-bootstrap";
 import { MealState } from "../../features/day-page/mealStatesSlice";
-import NameFoodForm from "../../features/name-food/NameFoodForm";
+import NameFoodDescriptionForm from "../../features/name-food/NameFoodDescriptionForm";
 import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
 import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
 import EditFoodButton from "../../features/meal-card/EditFoodButton";
@@ -90,7 +90,7 @@ const NameMealCard = (props: { meal: Meal; mealIndex: number; }) => {
 
       <ListGroup>
         <ListGroup.Item >
-          <NameFoodForm mealIndex={props.mealIndex} />
+          <NameFoodDescriptionForm mealIndex={props.mealIndex} />
         </ListGroup.Item>
       </ListGroup>
     </Card>
