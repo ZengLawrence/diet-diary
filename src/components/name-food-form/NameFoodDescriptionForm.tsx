@@ -29,7 +29,7 @@ export const NameFoodDescriptionForm = (props: Props) => {
           <div key={index} className="d-flex flex-inline">
             <Form.Check
               type="checkbox"
-              label={food.name}
+              label={food.description}
               checked={food.selected}
               onChange={e => handleSelectFoodChanged(index, e.target.checked)}
               isInvalid={errors.selectCount < 2}
@@ -46,7 +46,7 @@ export const NameFoodDescriptionForm = (props: Props) => {
         <Form.Control
           id="inputFoodDescription"
           type="text"
-          value={renamedFood.target.name}
+          value={renamedFood.target.description}
           onChange={e => handleFoodNameChanged(e.target.value)}
           required
           isInvalid={errors.foodName}

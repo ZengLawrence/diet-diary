@@ -13,7 +13,7 @@ const renamedFoodSlice = createSlice({
   },
   reducers: {
     updateName(state, action: PayloadAction<string>) {
-      state.target.name = action.payload;
+      state.target.description = action.payload;
     },
     selectFood(state, action: PayloadAction<number>) {
       state.sources[action.payload].selected = true;
@@ -59,11 +59,11 @@ const reducer = combineReducers({
 const selected = (foods: (Food & Selectable)[]) =>
   _.filter(foods, { selected: true });
 
-const combineName = (foods: (Food & Selectable)[]) =>
-  _.join(_.map(selected(foods), "name"), ", ");
+const combineDescription = (foods: (Food & Selectable)[]) =>
+  _.join(_.map(selected(foods), "description"), ", ");
 
 const combine = (foods: (Food & Selectable)[]) => ({
-  name: combineName(foods),
+  description: combineDescription(foods),
   serving: positiveServing(calcFoodsServingSummary(selected(foods))),
 })
 

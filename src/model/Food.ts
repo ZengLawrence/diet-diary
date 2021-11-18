@@ -10,7 +10,7 @@ export interface Serving {
 }
 
 export interface Food {
-  name: string;
+  description: string;
   serving: Serving;
 }
 
@@ -23,7 +23,7 @@ export type FoodGroup = "vegetable" | "fruit" | "carbohydrate" | "proteinDiary" 
 
 export function newFood(): Food {
   return {
-    name: "",
+    description: "",
     serving: {}
   }
 }

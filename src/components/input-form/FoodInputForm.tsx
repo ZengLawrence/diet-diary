@@ -27,9 +27,9 @@ export const FoodInputForm = (props: Props) => {
     >
       <Form.Group as={Form.Row} className="ml-1 mr-1">
         <FoodDescriptionInputControl
-          foodName={food.name}
+          foodName={food.description}
           suggestions={suggestions}
-          invalid={error.foodName}
+          invalid={error.foodDescription}
           updateFoodName={updateFoodName}
           updateFoodNameServing= {updateFoodNameServing}
         />

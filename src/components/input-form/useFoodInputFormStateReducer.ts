@@ -5,7 +5,7 @@ import { generateSuggestions, Suggestion } from "../../features/suggestions";
 import { Food, FoodGroup, Serving } from "../../model/Food";
 
 interface ValidationError {
-  foodName?: boolean;
+  foodDescription?: boolean;
   vegetable?: boolean;
   fruit?: boolean;
   carbohydrate?: boolean;
@@ -29,10 +29,10 @@ const {
 
 const food = createSlice({
   name: "food",
-  initialState: { name: "", serving: {} } as Food,
+  initialState: { description: "", serving: {} } as Food,
   reducers: {
     setName(state, action: PayloadAction<string>) {
-      state.name = action.payload
+      state.description = action.payload
     },
     setServing(state, action: PayloadAction<Serving>) {
       state.serving = action.payload;
@@ -56,7 +56,7 @@ const error = createSlice({
   extraReducers: builder => {
     builder
       .addCase(setName, (state, action) => {
-        state.foodName = _.isEmpty(action.payload);
+        state.foodDescription = _.isEmpty(action.payload);
       })
       .addCase(setFoodGroupServing, (state, action) => {
         state[action.payload.foodGroup] = lessThanZero(action.payload.serving);
@@ -85,9 +85,9 @@ function initialState(food: Food) {
 function lessThanZero(val?: number) { return (_.toNumber(val) < 0); }
 
 function validateFood(food: Food): ValidationError {
-  const { name, serving } = food;
+  const { description, serving } = food;
   return {
-    foodName: _.isEmpty(name),
+    foodDescription: _.isEmpty(description),
     vegetable: lessThanZero(serving.vegetable),
     fruit: lessThanZero(serving.fruit),
     carbohydrate: lessThanZero(serving.carbohydrate),
@@ -138,7 +138,7 @@ const handleSubmit = (
 export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialFood, initialState);
 
-  const descRef = useRef(initialFood.name);
+  const descRef = useRef(initialFood.description);
   const setSuggestionsCallback = (suggestions: Suggestion[]) => {
     dispatch(setSuggestions(suggestions));
   }
