@@ -42,9 +42,9 @@ export const NameFoodForm = (props: Props) => {
       </Form.Group>
 
       <Form.Group as={Form.Row} className="ml-1 mr-1">
-        <Form.Label htmlFor="inputFoodName">New food name</Form.Label>
+        <Form.Label htmlFor="inputFoodDescription">New food description</Form.Label>
         <Form.Control
-          id="inputFoodName"
+          id="inputFoodDescription"
           type="text"
           value={renamedFood.target.name}
           onChange={e => handleFoodNameChanged(e.target.value)}
@@ -52,7 +52,7 @@ export const NameFoodForm = (props: Props) => {
           isInvalid={errors.foodName}
         />
         <Form.Control.Feedback type="invalid">
-          Please enter food name.
+          Please enter food description.
         </Form.Control.Feedback>
       </Form.Group>
 
