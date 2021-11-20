@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { summaryTypeSelector } from "../../app/selectors";
 import { AppDispatch, RootState } from "../../app/store";
-import { TabbedSummary } from "../../components/day-page/TabbedSummary";
+import { TabbedSummary } from "../../components/summary/TabbedSummary";
 import { setSummaryType } from "../day-page/summaryTypeSlice";
 import { SummaryType } from "../../model/SummaryType";
 
