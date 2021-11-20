@@ -1,28 +1,6 @@
-import { Fragment } from "react";
 import ChangeTargetButton from "../../features/target/ChangeTargetButton";
-import TargetDropDown from "../../features/target/TargetDropDown";
-import TargetFoodGroupServingGoalBadgePanel from "../../features/target/TargetFoodGroupServingGoalBadgePanel";
-import TargetLabel from "../../features/target/TargetLabel";
-
-const TargetCaloriePanel = (props: { editTarget: boolean }) => {
-  const { editTarget } = props;
-  const caloriePanel = editTarget ? <TargetDropDown /> : <TargetLabel />;
-  return (
-    <div>
-      <div className="d-flex flex-nowrap  align-items-end">
-        Target:&nbsp; {caloriePanel} &nbsp;Cal.
-      </div>
-      <TargetFoodGroupServingGoalBadgePanel />
-    </div>
-  )
-}
-
-const NoTargetPanel = (props: { editTarget: boolean }) => {
-  const { editTarget } = props;
-  return (
-    (editTarget ? <TargetDropDown /> : <Fragment>No Target</Fragment>)
-  )
-}
+import { NoTargetPanel } from "./NoTargetPanel";
+import { TargetCaloriePanel } from "./TargetCaloriePanel";
 
 export const TargetPanel = (props: { editTarget: boolean; noTarget: boolean; }) => {
   const { editTarget, noTarget } = props;
