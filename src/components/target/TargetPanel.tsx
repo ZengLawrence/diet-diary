@@ -24,14 +24,13 @@ const NoTargetPanel = (props: { editTarget: boolean }) => {
   )
 }
 
-export const TargetPanel = (props: { editMode: boolean; editTarget: boolean; noTarget: boolean; }) => {
-  const { editMode, editTarget, noTarget } = props;
-  const showChangeTargetButton = (editMode && !editTarget);
+export const TargetPanel = (props: { editTarget: boolean; noTarget: boolean; }) => {
+  const { editTarget, noTarget } = props;
 
   return (
     <div className="d-flex align-items-center">
       {noTarget ? <NoTargetPanel editTarget={editTarget} /> : <TargetCaloriePanel editTarget={editTarget} />}&nbsp;
-      {showChangeTargetButton && <ChangeTargetButton />}
+      {editTarget && <ChangeTargetButton />}
     </div>
   );
 };

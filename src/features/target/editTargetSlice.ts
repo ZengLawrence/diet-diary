@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { exitEditMode } from "../day-page/editModeSlice";
 
 const initialState = false;
 
@@ -12,6 +13,9 @@ const editTargetSlice = createSlice({
     exitEditTarget() {
       return false;
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(exitEditMode, () => false)
   }
 })
 
