@@ -1,6 +1,6 @@
 import { Tab, Tabs } from "react-bootstrap";
 import { SummaryType } from "../../model/SummaryType";
-import { CalorieServingSummary } from "../summary/CalorieServingSummary";
+import { TotalSummary } from "../summary/TotalSummary";
 import { DifferenceSummary } from "../summary/DifferenceSummary";
 
 export const Summary = (props: { type: SummaryType; onSelect:  (type: SummaryType) => void }) => (
@@ -12,7 +12,7 @@ export const Summary = (props: { type: SummaryType; onSelect:  (type: SummaryTyp
       variant="pills"
     >
       <Tab eventKey="total" title="Total">
-        <CalorieServingSummary />
+        <TotalSummary />
       </Tab>
       <Tab eventKey="difference" title="Difference">
         <DifferenceSummary />
