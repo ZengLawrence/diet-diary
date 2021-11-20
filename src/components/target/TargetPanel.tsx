@@ -2,7 +2,13 @@ import ChangeTargetButton from "../../features/target/ChangeTargetButton";
 import { NoTargetPanel } from "./NoTargetPanel";
 import { TargetCaloriePanel } from "./TargetCaloriePanel";
 
-export const TargetPanel = (props: { editMode: boolean, editTarget: boolean; noTarget: boolean; }) => {
+interface Props {
+  editMode: boolean,
+  editTarget: boolean;
+  noTarget: boolean;
+}
+
+export const TargetPanel = (props: Props) => {
   const { editMode, editTarget, noTarget } = props;
   const showChangeTargetButton = editMode && !editTarget;
 
