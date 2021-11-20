@@ -3,7 +3,7 @@ import { SummaryType } from "../../model/SummaryType";
 import { TotalSummary } from "../summary/TotalSummary";
 import { DifferenceSummary } from "../summary/DifferenceSummary";
 
-export const Summary = (props: { type: SummaryType; onSelect:  (type: SummaryType) => void }) => (
+export const TabbedSummary = (props: { type: SummaryType; onSelect:  (type: SummaryType) => void }) => (
   <div className="border rounded p-1">
     <Tabs
       id="tab-summary"
