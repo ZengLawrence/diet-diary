@@ -5,7 +5,6 @@ import { TargetPanel } from "../../components/target/TargetPanel";
 import { NO_TARGET } from "../../model/Target";
 
 const mapStateToProps = (state: RootState) => ({
-  editTarget: editTargetSelector(state),
   noTarget: targetSelector(state) === NO_TARGET,
   showChangeTargetButton: editModeSelector(state) && !editTargetSelector(state),
 })
