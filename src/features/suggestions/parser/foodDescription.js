@@ -77,7 +77,11 @@ export default function parse(input) {
   parser.buildParseTrees = true;
   const tree = parser.foodDescription();
   const decomposer = new FoodDescriptionDecomposer(input);
-  antlr4.tree.ParseTreeWalker.DEFAULT.walk(decomposer, tree);
+  try {
+    antlr4.tree.ParseTreeWalker.DEFAULT.walk(decomposer, tree);
+  } catch (err) {
+    console.error(err);
+  }
 
   const parsed = decomposer.getContent();
   if (errorListener.hasError) {
