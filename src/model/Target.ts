@@ -1,6 +1,6 @@
 import { FoodGroup } from "./Food";
 
-export const NO_TARGET: Target = {
+const NO_TARGET: Target = {
   calorie: 0,
   serving: {
     vegetable: 0,
@@ -99,4 +99,8 @@ export function allTargets() {
     TARGET_1800_CALORIE,
     TARGET_2000_CALORIE,
   ];
+}
+
+export function isNoTarget(target: Target) {
+  return target.calorie === 0;
 }

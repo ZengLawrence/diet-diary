@@ -2,10 +2,10 @@ import { connect } from "react-redux";
 import { editModeSelector, editTargetSelector, targetSelector } from "../../app/selectors";
 import { RootState } from "../../app/store";
 import { TargetPanel } from "../../components/target/TargetPanel";
-import { NO_TARGET } from "../../model/Target";
+import { isNoTarget } from "../../model/Target";
 
 const mapStateToProps = (state: RootState) => ({
-  noTarget: targetSelector(state) === NO_TARGET,
+  noTarget: isNoTarget(targetSelector(state)),
   showChangeTargetButton: editModeSelector(state) && !editTargetSelector(state),
 })
 
