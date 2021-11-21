@@ -2,7 +2,7 @@ import _ from "lodash";
 import AddMealButton from "../../features/day-page/AddMealButton";
 import Header from "../../features/day-page/Header";
 import { MealState } from "../../features/day-page/mealStatesSlice";
-import Summary from "../../features/summary/Summary";
+import Summary from "../../features/day-page/Summary";
 import { Footer } from "../Footer";
 import { EditableMealCard } from "../meal-card/EditableMealCard";
 

@@ -1,22 +1,18 @@
 import ChangeTargetButton from "../../features/target/ChangeTargetButton";
-import TargetDropDown from "../../features/target/TargetDropDown";
-import TargetFoodGroupServingGoalBadgePanel from "../../features/target/TargetFoodGroupServingGoalBadgePanel";
-import TargetLabel from "../../features/target/TargetLabel";
+import NoTargetPanel from "../../features/target/NoTargetPanel";
+import TargetCaloriePanel from "../../features/target/TargetCaloriePanel";
 
-export const TargetPanel = (props: { editMode: boolean; editTarget: boolean }) => {
-  const { editMode, editTarget } = props;
-  const showChangeTargetButton = (editMode && !editTarget);
+interface Props {
+  noTarget: boolean;
+  showChangeTargetButton: boolean;
+}
 
-  const caloriePanel = editTarget ? <TargetDropDown /> : <TargetLabel />;
+export const TargetPanel = (props: Props) => {
+  const { noTarget, showChangeTargetButton } = props;
 
   return (
     <div className="d-flex align-items-center">
-      <div>
-        <div className="d-flex flex-nowrap  align-items-end">
-          Target:&nbsp; {caloriePanel} &nbsp;Cal.
-        </div>
-        <TargetFoodGroupServingGoalBadgePanel />
-      </div>&nbsp;
+      {noTarget ? <NoTargetPanel /> : <TargetCaloriePanel />}&nbsp;
       {showChangeTargetButton && <ChangeTargetButton />}
     </div>
   );

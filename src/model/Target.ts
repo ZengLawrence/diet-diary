@@ -1,5 +1,17 @@
 import { FoodGroup } from "./Food";
 
+export const NO_TARGET: Target = {
+  calorie: 0,
+  serving: {
+    vegetable: 0,
+    fruit: 0,
+    carbohydrate: 0,
+    proteinDiary: 0,
+    fat: 0,
+    sweet: 0,
+  }
+}
+
 const TARGET_1200_CALORIE: Target = {
   calorie: 1200,
   serving: {
@@ -60,7 +72,7 @@ const TARGET_2000_CALORIE: Target = {
   }
 }
 
-export const DEFAULT_TARGET = TARGET_1800_CALORIE;
+export const DEFAULT_TARGET = NO_TARGET;
 
 export interface Target {
   calorie: number;
@@ -80,6 +92,7 @@ export function isMinLimit(foodGroup: FoodGroup) {
 
 export function allTargets() {
   return [
+    NO_TARGET,
     TARGET_1200_CALORIE,
     TARGET_1400_CALORIE,
     TARGET_1600_CALORIE,
