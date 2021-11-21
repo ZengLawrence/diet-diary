@@ -1,11 +1,11 @@
 import _ from "lodash";
 import { Fragment } from "react";
 import { Dropdown } from "react-bootstrap";
-import { NO_TARGET, Target } from "../../model/Target";
+import { isNoTarget, Target } from "../../model/Target";
 import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
 
 const MenuItemLabel = (props: { target: Target }) => (
-  props.target === NO_TARGET ?
+  isNoTarget(props.target) ?
     <Fragment>No Target</Fragment>
     : <Fragment>
       {props.target.calorie}{' '} Cal.<FoodGroupServingGoalBadgePanel serving={props.target.serving} />
