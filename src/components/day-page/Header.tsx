@@ -1,8 +1,5 @@
-import DoneButton from "../../features/day-page/DoneButton";
-import EditButton from "../../features/day-page/EditButton";
-import NewDayButton from "../../features/day-page/NewDayButton";
-import { DownloadButton } from "../../features/download/DownloadButton";
 import TargetPanel from "../../features/target/TargetPanel";
+import { HeaderButtons } from "./HeaderButtons";
 
 export const Header = (props: { date: string; editMode: boolean; }) => (
   <div className="d-flex flex-column flex-md-row justify-content-between align-items-center">
@@ -11,8 +8,7 @@ export const Header = (props: { date: string; editMode: boolean; }) => (
       <TargetPanel />
     </div>
     <div className="order-md-2">
-      {props.editMode ? <NewDayButton /> : <DownloadButton />}{' '}
-      {props.editMode ? <DoneButton /> : <EditButton />}
+      <HeaderButtons editMode={props.editMode} />
     </div>
   </div>
 )
