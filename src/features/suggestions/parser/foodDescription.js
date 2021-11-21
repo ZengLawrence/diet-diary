@@ -14,7 +14,9 @@ class FoodDescriptionDecomposer extends FoodDescriptionListener {
   constructor(input) {
     super();
     this.input = input;
-    this.content = {};
+    this.content = {
+      foodName: "",
+    };
     this.amountStart = 0;
   }
 
