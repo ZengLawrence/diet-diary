@@ -12,10 +12,10 @@ quantity
   ;
 
 unit
-  : STRING+
+  : WORD+
   ;
 
-STRING
+WORD
    : [a-zA-Z]+ | [0-9]+[a-zA-Z%-]+
    ;
 
