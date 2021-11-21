@@ -14,13 +14,16 @@ class FoodDescriptionDecomposer extends FoodDescriptionListener {
   constructor(input) {
     super();
     this.input = input;
-    this.content = {};
+    this.content = {
+      foodName: "",
+    };
     this.amountStart = 0;
   }
 
   exitFoodName(ctx) {
-    const val = this.input.substring(ctx.start.column, ctx.stop.stop + 1);
-    _.set(this.content, "foodName", val);
+    const stop = _.get(ctx, "stop.stop", ctx.start.column);
+    const val = this.input.substring(ctx.start.column, stop + 1);
+    _.set(this.content, "foodName", val);  
   }
 
   exitQuantity(ctx) {
@@ -77,7 +80,11 @@ export default function parse(input) {
   parser.buildParseTrees = true;
   const tree = parser.foodDescription();
   const decomposer = new FoodDescriptionDecomposer(input);
-  antlr4.tree.ParseTreeWalker.DEFAULT.walk(decomposer, tree);
+  try {
+    antlr4.tree.ParseTreeWalker.DEFAULT.walk(decomposer, tree);
+  } catch (err) {
+    console.error(err);
+  }
 
   const parsed = decomposer.getContent();
   if (errorListener.hasError) {
