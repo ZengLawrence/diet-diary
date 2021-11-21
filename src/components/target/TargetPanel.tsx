@@ -3,14 +3,13 @@ import { NoTargetPanel } from "./NoTargetPanel";
 import { TargetCaloriePanel } from "./TargetCaloriePanel";
 
 interface Props {
-  editMode: boolean,
   editTarget: boolean;
   noTarget: boolean;
+  showChangeTargetButton: boolean;
 }
 
 export const TargetPanel = (props: Props) => {
-  const { editMode, editTarget, noTarget } = props;
-  const showChangeTargetButton = editMode && !editTarget;
+  const { editTarget, noTarget, showChangeTargetButton } = props;
 
   return (
     <div className="d-flex align-items-center">
