@@ -21,8 +21,9 @@ class FoodDescriptionDecomposer extends FoodDescriptionListener {
   }
 
   exitFoodName(ctx) {
-    const val = this.input.substring(ctx.start.column, ctx.stop.stop + 1);
-    _.set(this.content, "foodName", val);
+    const stop = _.get(ctx, "stop.stop", ctx.start.column);
+    const val = this.input.substring(ctx.start.column, stop + 1);
+    _.set(this.content, "foodName", val);  
   }
 
   exitQuantity(ctx) {
