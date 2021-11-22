@@ -92,17 +92,26 @@ export function isMinLimit(foodGroup: FoodGroup) {
   return (foodGroup === "vegetable" || foodGroup === "fruit");
 }
 
-export function allTargets() {
-  return [
-    NO_TARGET,
-    TARGET_1200_CALORIE,
-    TARGET_1400_CALORIE,
-    TARGET_1600_CALORIE,
-    TARGET_1800_CALORIE,
-    TARGET_2000_CALORIE,
-  ];
-}
-
 export function isNoTarget(target: Target) {
   return target.calorie === 0;
+}
+
+export function targetsByGender(gender: Gender) {
+  if (gender === "woman") {
+    return [
+      NO_TARGET,
+      TARGET_1200_CALORIE,
+      TARGET_1400_CALORIE,
+      TARGET_1600_CALORIE,
+      TARGET_1800_CALORIE,
+    ];  
+  } else {
+    return [
+      NO_TARGET,
+      TARGET_1400_CALORIE,
+      TARGET_1600_CALORIE,
+      TARGET_1800_CALORIE,
+      TARGET_2000_CALORIE,
+    ];  
+  }
 }
