@@ -9,17 +9,20 @@ import { isMinLimit, Target } from "../../model/Target";
 function getAction(totalServing: Serving, foodGroup: FoodGroup, target: Target): TargetAction {
   const serving = _.defaultTo(_.get(totalServing, foodGroup), 0);
   const targetServing = _.defaultTo(_.get(target.serving, foodGroup), 0);
+
   if (serving > targetServing) {
     if (isMinLimit(foodGroup)) {
       return "MeetTarget";
     } else {
       return "DoLess";
     }
-  } else if (serving < targetServing) {
-    return "DoMore";
-  } else {
-    return "MeetTarget"
   }
+
+  if (serving < targetServing) {
+    return "DoMore";
+  }
+
+  return "MeetTarget"
 }
 
 const mapStateToProps = (state: RootState, ownProps: { foodGroup: FoodGroup }) => ({
