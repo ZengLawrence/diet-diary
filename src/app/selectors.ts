@@ -7,13 +7,17 @@ import { RootState } from "./store";
 export const dateSelector = (state: RootState) => state.date;
 export const editModeSelector = (state: RootState) => state.editMode;
 export const mealStatesSelector = (state: RootState) => state.mealStates;
-export const targetSelector = (state: RootState) => state.target;
 export const summaryTypeSelector = (state: RootState) => state.summaryType;
 export const targetStateSelector = (state: RootState) => state.targetState;
 
 export const editTargetSelector = createSelector(
   targetStateSelector,
   (targetState) => targetState.editTarget
+)
+
+export const targetSelector = createSelector(
+  targetStateSelector,
+  (targetState) => targetState.target
 )
 
 export const diarySelector = createSelector(
