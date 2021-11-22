@@ -15,7 +15,7 @@ const initialState = {
 } as TargetState;
 
 const targetStateSlice = createSlice({
-  name: "editTarget",
+  name: "targetState",
   initialState,
   reducers: {
     enterEditTarget(state) {
