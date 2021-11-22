@@ -23,6 +23,7 @@ function getAction(totalServing: Serving, foodGroup: FoodGroup, target: Target):
     return "DoMore";
   }
 
+  if (foodGroup === "sweet") return "DoLess";
   return "MeetTarget"
 }
 
