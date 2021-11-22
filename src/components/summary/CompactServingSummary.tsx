@@ -1,3 +1,4 @@
+import TargetAchievementIcon from "../../features/summary/TargetAchievementIcon";
 import { FoodGroup, Serving } from "../../model/Food";
 import { displayServingValue } from "../../model/servingFunction";
 import { FoodGroupLabelBadge } from "../badge";
@@ -9,7 +10,10 @@ const FoodGroupLabel = (props: { foodGroup: FoodGroup; }) => (
 const ServingCell = (props: { foodGroup: FoodGroup; amount?: number; }) => (
   <div className="d-flex flex-column align-items-center mx-1">
     <div>{displayServingValue(props.amount)}</div>
-    <FoodGroupLabel foodGroup={props.foodGroup} />
+    <div className="d-flex align-items-center">
+      <TargetAchievementIcon foodGroup={props.foodGroup} />
+      <FoodGroupLabel foodGroup={props.foodGroup} />
+    </div>
   </div>
 );
 
