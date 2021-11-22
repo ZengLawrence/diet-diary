@@ -19,6 +19,7 @@ function getAction(totalServing: Serving, foodGroup: FoodGroup, target: Target):
   }
 
   if (serving < targetServing) {
+    if (foodGroup === "sweet") return "MeetTarget";
     return "DoMore";
   }
 
