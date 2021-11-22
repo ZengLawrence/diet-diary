@@ -1,13 +1,13 @@
 import { connect } from "react-redux";
+import { targetSelector, targetStateSelector } from "../../app/selectors";
 import { AppDispatch, RootState } from "../../app/store";
 import { TargetDropDown } from "../../components/target/TargetDropDown";
-import { allTargets, Target } from "../../model/Target";
-import { exitEditTarget } from "./editTargetSlice";
-import { changeTarget } from "./targetSlice";
+import { Target, targetsByGender } from "../../model/Target";
+import { changeTarget, exitEditTarget } from "./targetStateSlice";
 
 const mapStateToProps = (state: RootState) => ({
-  selectedCalorie: state.target.calorie,
-  targets: allTargets(),
+  selectedCalorie: targetSelector(state).calorie,
+  targets: targetsByGender(targetStateSelector(state).gender),
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
