@@ -1,5 +1,7 @@
 import { FoodGroup } from "./Food";
 
+export type Gender = "man" | "woman";
+
 const NO_TARGET: Target = {
   calorie: 0,
   serving: {

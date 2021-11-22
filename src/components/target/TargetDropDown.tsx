@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { Fragment } from "react";
 import { Dropdown } from "react-bootstrap";
+import GenderToggle from "../../features/target/GenderToggle";
 import { isNoTarget, Target } from "../../model/Target";
 import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
 
@@ -35,6 +36,10 @@ export const TargetDropDown = (props: { selectedCalorie: number; targets: Target
 
       <Dropdown.Menu>
         {_.map(props.targets, menuItem)}
+        <Dropdown.Divider />
+        <div className="w-100 d-flex justify-content-center">
+          <GenderToggle />
+        </div>
       </Dropdown.Menu>
     </Dropdown>
   );
