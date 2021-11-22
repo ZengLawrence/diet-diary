@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { AppDispatch } from "../../app/store";
 import { SecondaryButton } from "../../components/buttons/SecondaryButton";
-import { enterEditTarget } from "./editTargetSlice";
+import { enterEditTarget } from "./targetStateSlice";
 
 const mapStateToProps = () => ({
   label: "Change",

@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
 import { TargetDropDown } from "../../components/target/TargetDropDown";
 import { allTargets, Target } from "../../model/Target";
-import { exitEditTarget } from "./editTargetSlice";
+import { exitEditTarget } from "./targetStateSlice";
 import { changeTarget } from "./targetSlice";
 
 const mapStateToProps = (state: RootState) => ({

@@ -9,7 +9,12 @@ export const editModeSelector = (state: RootState) => state.editMode;
 export const mealStatesSelector = (state: RootState) => state.mealStates;
 export const targetSelector = (state: RootState) => state.target;
 export const summaryTypeSelector = (state: RootState) => state.summaryType;
-export const editTargetSelector = (state: RootState) => state.editTarget;
+export const targetStateSelector = (state: RootState) => state.targetState;
+
+export const editTargetSelector = createSelector(
+  targetStateSelector,
+  (targetState) => targetState.editTarget
+)
 
 export const diarySelector = createSelector(
   dateSelector,
