@@ -2,7 +2,7 @@ import _ from "lodash";
 import { connect } from "react-redux";
 import { targetSelector, totalServingSelector } from "../../app/selectors";
 import { RootState } from "../../app/store";
-import { TargetAchievementIcon, TargetAction } from "../../components/summary/TargetAchievementIcon";
+import { TargetActionIcon, TargetAction } from "../../components/summary/TargetActionIcon";
 import { FoodGroup, Serving } from "../../model/Food";
 import { isMinLimit } from "../../model/Target";
 
@@ -57,4 +57,4 @@ const mapStateToProps = (state: RootState, ownProps: { foodGroup: FoodGroup }) =
   }
 }
 
-export default connect(mapStateToProps)(TargetAchievementIcon);
+export default connect(mapStateToProps)(TargetActionIcon);

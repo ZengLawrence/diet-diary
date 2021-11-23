@@ -15,7 +15,7 @@ export const EatLessToTargetIcon = (props: { warning?: boolean; }) => (
 
 export type TargetAction = "DoMore" | "MeetTarget" | "DoLess";
 
-export const TargetAchievementIcon = (props: { action: TargetAction; eatLessWarning: boolean; }) => {
+export const TargetActionIcon = (props: { action: TargetAction; eatLessWarning: boolean; }) => {
   switch (props.action) {
     case "DoMore":
       return <EatMoreToTargetIcon />;

@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import TargetAchievementIcon from "../../features/summary/TargetAchievementIcon";
+import TargetActionIcon from "../../features/summary/TargetActionIcon";
 import { FoodGroup } from "../../model/Food";
 import { displayServingValue } from "../../model/servingFunction";
 import { FoodGroupLabelBadge } from "../badge";
@@ -23,11 +23,11 @@ const FoodGroupLabel = (props: { foodGroup: FoodGroup; }) => (
   </Fragment>
 );
 
-export const ServingCell = (props: { foodGroup: FoodGroup; amount?: number; showTargetAchievementIcon: boolean }) => (
+export const ServingCell = (props: { foodGroup: FoodGroup; amount?: number; showTargetActionIcon: boolean }) => (
   <div className="d-flex flex-column align-items-center m-1">
     <CalorieText amount={props.amount} />
     <div className="d-flex align-items-center">
-      {props.showTargetAchievementIcon && <TargetAchievementIcon foodGroup={props.foodGroup} />}
+      {props.showTargetActionIcon && <TargetActionIcon foodGroup={props.foodGroup} />}
       <FoodGroupLabel foodGroup={props.foodGroup} />
     </div>
   </div>

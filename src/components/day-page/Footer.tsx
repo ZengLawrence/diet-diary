@@ -1,5 +1,5 @@
 import { FoodGroupLegend } from "../FoodGroupLegend";
-import { EatLessToTargetIcon, EatMoreToTargetIcon, MeetTargetIcon } from "../summary/TargetAchievementIcon";
+import { EatLessToTargetIcon, EatMoreToTargetIcon, MeetTargetIcon } from "../summary/TargetActionIcon";
 
 const IconReferLink = () => (
   <a
@@ -34,7 +34,7 @@ const FoodGroupLegends = () => (
   </div>
 );
 
-const TargetAchievementLegends = () => (
+const TargetActionLegends = () => (
   <div className="w-100 d-flex justify-content-between justify-content-sm-start flex-fill flex-wrap">
     <div className="mr-sm-1">
       <EatLessToTargetIcon />Eat Less
@@ -53,7 +53,7 @@ export const Footer = () => (
     <div className="d-block d-sm-none">
       <FoodGroupLegends />
     </div>
-    <TargetAchievementLegends />
+    <TargetActionLegends />
     <Icons8Referral />
   </div>
 );

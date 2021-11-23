@@ -5,7 +5,7 @@ import { ServingCell } from "../../components/summary/ServingCell";
 import { hasATarget } from "../../model/Target";
 
 const mapStateToProps = (state: RootState) => ({
-  showTargetAchievementIcon: hasATarget(targetSelector(state)),
+  showTargetActionIcon: hasATarget(targetSelector(state)),
 })
 
 export default connect(mapStateToProps)(ServingCell);
