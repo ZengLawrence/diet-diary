@@ -1,11 +1,11 @@
 import { connect } from "react-redux";
 import { targetSelector } from "../../app/selectors";
 import { RootState } from "../../app/store";
-import { Summary } from "../../components/day-page/Summary";
+import { ServingCell } from "../../components/summary/ServingCell";
 import { hasATarget } from "../../model/Target";
 
 const mapStateToProps = (state: RootState) => ({
-  showTabs: hasATarget(targetSelector(state)),
+  showTargetActionIcon: hasATarget(targetSelector(state)),
 })
 
-export default connect(mapStateToProps)(Summary);
+export default connect(mapStateToProps)(ServingCell);
