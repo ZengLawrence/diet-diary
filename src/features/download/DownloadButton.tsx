@@ -1,8 +1,6 @@
 import { Button } from "react-bootstrap";
-import { useAppSelector } from "../../app/hooks";
-import { diarySelector } from "../../app/selectors";
 import { VariantSecondary } from "../../components/buttons/ButtonVariant";
-import downloadAsCsv from "./exportCsv";
+import { useDownload } from "./useDownload";
 
 /**
  * Special implementation because it needs access to the app state directly.
@@ -10,9 +8,7 @@ import downloadAsCsv from "./exportCsv";
  * @returns Download button
  */
 export const DownloadButton = () => {
-  const {date, meals} = useAppSelector(diarySelector);
-  const handleClicked = () => downloadAsCsv(date, meals)
-
+  const handleClicked = useDownload();
   return (
     <Button variant={VariantSecondary} onClick={handleClicked}>Download</Button>
   )
