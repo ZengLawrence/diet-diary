@@ -9,6 +9,9 @@ import NewFoodButton from "../../features/meal-card/NewFoodButton";
 import { Meal } from "../../model/Food";
 import { FoodItem } from "../FoodItem";
 import { AddMealCardHeader, DefaultMealCardHeader, EditMealCardHeader, NameMealCardHeader } from "./MealCardHeader";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { VariantPrimary } from "../buttons/ButtonVariant";
 
 const DefaultMealCard = (props: { meal: Meal; mealIndex: number; }) => {
   const { foods } = props.meal;
@@ -52,7 +55,9 @@ const EditMealCard = (props: { meal: Meal; mealIndex: number; foodEditIndex?: nu
           ))
         }
         <ListGroup.Item>
-          <NewFoodButton mealIndex={props.mealIndex} />
+          <NewFoodButton variant={VariantPrimary} mealIndex={props.mealIndex}>
+            <FontAwesomeIcon icon={faPlus} />
+          </NewFoodButton>
         </ListGroup.Item>
       </ListGroup>
     </Card>
