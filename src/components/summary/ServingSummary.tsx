@@ -1,5 +1,5 @@
+import ServingCell from "../../features/summary/ServingCell";
 import { Serving } from "../../model/Food";
-import { ServingCell } from "./ServingCell";
 
 export const ServingSummary = (props: { serving: Serving; }) => (
   <div className="d-flex justify-content-between flex-fill flex-wrap">
