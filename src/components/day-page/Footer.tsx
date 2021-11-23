@@ -1,5 +1,5 @@
-import { FoodGroupLegend } from "./FoodGroupLegend";
-import { EatLessToTargetIcon, EatMoreToTargetIcon, MeetTargetIcon } from "./summary/TargetAchievementIcon";
+import { FoodGroupLegend } from "../FoodGroupLegend";
+import { EatLessToTargetIcon, EatMoreToTargetIcon, MeetTargetIcon } from "../summary/TargetAchievementIcon";
 
 const IconReferLink = () => (
   <a
