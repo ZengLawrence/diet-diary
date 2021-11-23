@@ -1,8 +1,7 @@
-import { Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import FoodCalorieServingPanel from "../../features/name-food/FoodCalorieServingPanel";
 import { Food } from "../../model/Food";
-import { SecondaryButton } from "../buttons/SecondaryButton";
-import { SubmitButton } from "../buttons/SubmitButton";
+import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { FoodGroupServingBadgePanel } from "../panels/FoodGroupServingBadgePanel";
 import useNameFoodFormReducer from "./useNameFoodFormReducer";
 
@@ -36,7 +35,7 @@ export const NameFoodDescriptionForm = (props: Props) => {
               feedback="Please select at least two foods to rename."
               className="mr-auto"
             />
-            <FoodGroupServingBadgePanel serving={food.serving}/>
+            <FoodGroupServingBadgePanel serving={food.serving} />
           </div>
         )}
       </Form.Group>
@@ -62,10 +61,10 @@ export const NameFoodDescriptionForm = (props: Props) => {
         </div>
         <div className="d-flex justify-content-end">
           <div className="mr-1 order-sm-1">
-            <SecondaryButton label="Cancel" onClick={props.onCancel} />
+            <Button variant={VariantSecondary} onClick={props.onCancel}>Cancel</Button>
           </div>
           <div className="mr-1 order-sm-0" >
-            <SubmitButton label="Save" />
+            <Button variant={VariantPrimary} type="submit">Save</Button>
           </div>
         </div>
       </div>
