@@ -2,27 +2,15 @@ import { faAngleDoubleDown, faAngleDoubleUp, faBullseye } from "@fortawesome/fre
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const EatMoreToTargetIcon = () => (
-  <div className="d-flex flex-column justify-content-end align-items-center">
-    <FontAwesomeIcon icon={faAngleDoubleDown} color={"LightGrey"} className="d-none d-sm-block" />
-    <FontAwesomeIcon icon={faBullseye} color={"Grey"} className="d-none d-sm-block" />
-    <FontAwesomeIcon icon={faAngleDoubleUp} color={"Orange"} />
-  </div>
+  <FontAwesomeIcon icon={faAngleDoubleUp} color={"Orange"} />
 )
 
 const MeetTargetIcon = () => (
-  <div className="d-flex flex-column justify-content-end align-items-center">
-    <FontAwesomeIcon icon={faAngleDoubleDown} color={"LightGrey"} className="d-none d-sm-block" />
-    <FontAwesomeIcon icon={faBullseye} color={"Green"} />
-    <FontAwesomeIcon icon={faAngleDoubleUp} color={"LightGrey"} className="d-none d-sm-block" />
-  </div>
+  <FontAwesomeIcon icon={faBullseye} color={"Green"} />
 )
 
 const EatLessToTargetIcon = (props: { warning: boolean; }) => (
-  <div className="d-flex flex-column justify-content-end align-items-center">
-    <FontAwesomeIcon icon={faAngleDoubleDown} color={props.warning ? "Red" : "Orange"} />
-    <FontAwesomeIcon icon={faBullseye} color={props.warning ? "Orange" : "Grey"} className="d-none d-sm-block" />
-    <FontAwesomeIcon icon={faAngleDoubleUp} color={"LightGrey"} className="d-none d-sm-block" />
-  </div>
+  <FontAwesomeIcon icon={faAngleDoubleDown} color={props.warning ? "Red" : "Orange"} />
 )
 
 export type TargetAction = "DoMore" | "MeetTarget" | "DoLess";
