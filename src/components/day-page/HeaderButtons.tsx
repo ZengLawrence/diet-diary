@@ -4,12 +4,12 @@ import DoneButton from "../../features/day-page/DoneButton";
 import EditButton from "../../features/day-page/EditButton";
 import NewDayButton from "../../features/day-page/NewDayButton";
 import { useDownload } from "../../features/download/useDownload";
-import { VariantSecondary } from "../buttons/ButtonVariant";
+import { VariantDanger, VariantPrimary, VariantSecondary } from "../buttons/ButtonVariant";
 
 const EditableViewButtons = () => (
   <Fragment>
-    <NewDayButton>New Day</NewDayButton>{' '}
-    <DoneButton>Done</DoneButton>
+    <NewDayButton variant={VariantDanger}>New Day</NewDayButton>{' '}
+    <DoneButton variant={VariantPrimary}>Done</DoneButton>
   </Fragment>
 )
 
@@ -20,7 +20,7 @@ const UneditableViewButtons = (props: { showDownloadButton: boolean; }) => {
       {props.showDownloadButton &&
         <Button variant={VariantSecondary} onClick={handleClicked}>Download</Button>
       }{' '}
-      <EditButton>Edit</EditButton>
+      <EditButton variant={VariantPrimary}>Edit</EditButton>
     </Fragment>
   )
 }
