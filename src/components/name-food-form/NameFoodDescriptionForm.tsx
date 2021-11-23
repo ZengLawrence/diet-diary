@@ -1,8 +1,7 @@
 import { Button, Form } from "react-bootstrap";
 import FoodCalorieServingPanel from "../../features/name-food/FoodCalorieServingPanel";
 import { Food } from "../../model/Food";
-import { VariantSecondary } from "../buttons/ButtonVariant";
-import { SubmitButton } from "../buttons/SubmitButton";
+import { VariantPrimary, VariantSecondary } from "../buttons/ButtonVariant";
 import { FoodGroupServingBadgePanel } from "../panels/FoodGroupServingBadgePanel";
 import useNameFoodFormReducer from "./useNameFoodFormReducer";
 
@@ -65,7 +64,7 @@ export const NameFoodDescriptionForm = (props: Props) => {
             <Button variant={VariantSecondary} onClick={props.onCancel}>Cancel</Button>
           </div>
           <div className="mr-1 order-sm-0" >
-            <SubmitButton label="Save" />
+            <Button variant={VariantPrimary} type="submit">Save</Button>
           </div>
         </div>
       </div>
