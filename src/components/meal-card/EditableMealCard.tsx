@@ -11,7 +11,7 @@ import { FoodItem } from "../FoodItem";
 import { AddMealCardHeader, DefaultMealCardHeader, EditMealCardHeader, NameMealCardHeader } from "./MealCardHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { VariantPrimary } from "../buttons/ButtonVariant";
+import { VariantPrimary } from "../ButtonVariant";
 
 const DefaultMealCard = (props: { meal: Meal; mealIndex: number; }) => {
   const { foods } = props.meal;

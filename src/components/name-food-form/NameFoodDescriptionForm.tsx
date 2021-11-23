@@ -1,7 +1,7 @@
 import { Button, Form } from "react-bootstrap";
 import FoodCalorieServingPanel from "../../features/name-food/FoodCalorieServingPanel";
 import { Food } from "../../model/Food";
-import { VariantPrimary, VariantSecondary } from "../buttons/ButtonVariant";
+import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { FoodGroupServingBadgePanel } from "../panels/FoodGroupServingBadgePanel";
 import useNameFoodFormReducer from "./useNameFoodFormReducer";
 

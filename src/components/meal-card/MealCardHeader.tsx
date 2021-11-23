@@ -6,7 +6,7 @@ import EditButton from "../../features/meal-card/EditButton";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
 import NameButton from "../../features/meal-card/NameButton";
 import { Meal } from "../../model/Food";
-import { VariantDanger, VariantPrimary, VariantSecondary } from "../buttons/ButtonVariant";
+import { VariantDanger, VariantPrimary, VariantSecondary } from "../ButtonVariant";
 
 export const DefaultMealCardHeader = (props: {
   meal: Meal;

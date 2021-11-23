@@ -1,7 +1,7 @@
 import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { AppDispatch } from "../../app/store";
-import { VariantPrimary } from "../../components/buttons/ButtonVariant";
+import { VariantPrimary } from "../../components/ButtonVariant";
 import { enterFoodEditMode } from "../day-page/mealStatesSlice";
 
 const mapStateToProps = () => ({

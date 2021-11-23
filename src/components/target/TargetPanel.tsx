@@ -1,7 +1,7 @@
 import ChangeTargetButton from "../../features/target/ChangeTargetButton";
 import NoTargetPanel from "../../features/target/NoTargetPanel";
 import TargetCaloriePanel from "../../features/target/TargetCaloriePanel";
-import { VariantSecondary } from "../buttons/ButtonVariant";
+import { VariantSecondary } from "../ButtonVariant";
 
 interface Props {
   noTarget: boolean;

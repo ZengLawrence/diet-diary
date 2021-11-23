@@ -4,7 +4,7 @@ import DoneButton from "../../features/day-page/DoneButton";
 import EditButton from "../../features/day-page/EditButton";
 import NewDayButton from "../../features/day-page/NewDayButton";
 import { useDownload } from "../../features/download/useDownload";
-import { VariantDanger, VariantPrimary, VariantSecondary } from "../buttons/ButtonVariant";
+import { VariantDanger, VariantPrimary, VariantSecondary } from "../ButtonVariant";
 
 const EditableViewButtons = () => (
   <Fragment>

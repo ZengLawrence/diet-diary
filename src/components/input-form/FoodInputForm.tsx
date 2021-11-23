@@ -1,7 +1,7 @@
 import { Button, Form } from "react-bootstrap";
 import { calcFoodCalories, displayCalorieValue } from "../../model/calorieFunction";
 import { Food } from "../../model/Food";
-import { VariantPrimary, VariantSecondary } from "../buttons/ButtonVariant";
+import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { FoodDescriptionInputControl } from "./FoodDescriptionInputControl";
 import { ServingInputControl } from "./ServingInputControl";
 import { useFoodInputFormStateReducer } from "./useFoodInputFormStateReducer";
