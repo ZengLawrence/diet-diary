@@ -6,11 +6,11 @@ import { TargetActionIcon, TargetAction } from "../../components/summary/TargetA
 import { FoodGroup, Serving } from "../../model/Food";
 import { isMinLimit } from "../../model/Target";
 
-function getServingForFoodGroup(serving: Serving, foodGroup: FoodGroup) {
+function servingForFoodGroup(serving: Serving, foodGroup: FoodGroup) {
   return _.defaultTo(_.get(serving, foodGroup), 0);
 }
 
-function getToTarget(serving: number, targetServing: number) {
+function compare(serving: number, targetServing: number) {
 
   if (serving > targetServing) {
     return "more"
@@ -23,9 +23,9 @@ function getToTarget(serving: number, targetServing: number) {
   return "same";
 }
 
-type ToTarget = ReturnType<typeof getToTarget>;
+type ToTarget = ReturnType<typeof compare>;
 
-function getAction(toTarget: ToTarget, foodGroup: FoodGroup): TargetAction {
+function translateToTargetAction(toTarget: ToTarget, foodGroup: FoodGroup): TargetAction {
 
   if (toTarget === "more") {
     if (isMinLimit(foodGroup)) {
@@ -46,10 +46,10 @@ function getAction(toTarget: ToTarget, foodGroup: FoodGroup): TargetAction {
 
 const mapStateToProps = (state: RootState, ownProps: { foodGroup: FoodGroup }) => {
   const { foodGroup } = ownProps;
-  const serving = getServingForFoodGroup(totalServingSelector(state), foodGroup);
-  const targetServing = getServingForFoodGroup(targetSelector(state).serving, foodGroup);
-  const toTarget = getToTarget(serving, targetServing);
-  const action = getAction(toTarget, foodGroup);
+  const serving = servingForFoodGroup(totalServingSelector(state), foodGroup);
+  const targetServing = servingForFoodGroup(targetSelector(state).serving, foodGroup);
+  const toTarget = compare(serving, targetServing);
+  const action = translateToTargetAction(toTarget, foodGroup);
   const eatLessWarning = (foodGroup === "sweet" && toTarget === "more");
   return {
     action,
