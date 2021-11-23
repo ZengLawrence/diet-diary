@@ -13,7 +13,7 @@ export const TargetPanel = (props: Props) => {
   return (
     <div className="d-flex align-items-center">
       {noTarget ? <NoTargetPanel /> : <TargetCaloriePanel />}&nbsp;
-      {showChangeTargetButton && <ChangeTargetButton />}
+      {showChangeTargetButton && <ChangeTargetButton>Change</ChangeTargetButton>}
     </div>
   );
 };
