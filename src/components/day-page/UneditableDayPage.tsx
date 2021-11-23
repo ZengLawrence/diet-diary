@@ -1,8 +1,8 @@
 import _ from "lodash";
+import Footer from "../../features/day-page/Footer";
 import Header from "../../features/day-page/Header";
 import Summary from "../../features/day-page/Summary";
 import { Meal } from "../../model/Food";
-import { Footer } from "./Footer";
 import { UneditableMealCard } from "../meal-card/UneditableMealCard";
 
 export const UneditableDayPage = (props: { meals: Meal[]; }) => (
