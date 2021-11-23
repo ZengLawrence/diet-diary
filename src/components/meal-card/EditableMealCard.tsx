@@ -45,7 +45,7 @@ const EditMealCard = (props: { meal: Meal; mealIndex: number; foodEditIndex?: nu
                 ? <UpdateFoodInputForm food={food} mealIndex={props.mealIndex} foodIndex={index} />
                 : <div className="d-flex align-items-center">
                   <FoodItem food={food} />
-                  <EditFoodButton mealIndex={props.mealIndex} foodIndex={index} />
+                  <EditFoodButton mealIndex={props.mealIndex} foodIndex={index}>Edit</EditFoodButton>
                 </div>
               }
             </ListGroup.Item>
