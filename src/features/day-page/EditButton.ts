@@ -1,14 +1,15 @@
+import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { AppDispatch } from "../../app/store";
-import { PrimaryButton } from "../../components/buttons/PrimaryButton";
+import { VariantPrimary } from "../../components/buttons/ButtonVariant";
 import { enterEditMode } from "./editModeSlice";
 
 const mapStateToProps = () => ({
-  label: "Edit",
+  variant: VariantPrimary,
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   onClick: () => dispatch(enterEditMode()),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(PrimaryButton);
+export default connect(mapStateToProps, mapDispatchToProps)(Button);

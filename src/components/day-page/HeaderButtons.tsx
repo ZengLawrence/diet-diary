@@ -6,15 +6,15 @@ import { DownloadButton } from "../../features/download/DownloadButton";
 
 const EditableViewButtons = () => (
   <Fragment>
-    <NewDayButton />{' '}
-    <DoneButton />
+    <NewDayButton>New Day</NewDayButton>{' '}
+    <DoneButton>Done</DoneButton>
   </Fragment>
 )
 
 const UneditableViewButtons = (props: { showDownloadButton: boolean; }) => (
   <Fragment>
     {props.showDownloadButton ? <DownloadButton /> : ""}{' '}
-    <EditButton />
+    <EditButton>Edit</EditButton>
   </Fragment>
 )
 

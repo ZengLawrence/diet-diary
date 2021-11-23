@@ -1,14 +1,15 @@
+import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { AppDispatch } from "../../app/store";
-import { DangerButton } from "../../components/buttons/DangerButton";
+import { VariantDanger } from "../../components/buttons/ButtonVariant";
 import { newDay } from "./dateSlice";
 
 const mapStateToProps = () => ({
-  label: "New Day",
+  variant: VariantDanger,
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   onClick: () => dispatch(newDay()),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(DangerButton);
+export default connect(mapStateToProps, mapDispatchToProps)(Button);
