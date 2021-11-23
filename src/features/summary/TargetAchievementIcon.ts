@@ -50,8 +50,10 @@ const mapStateToProps = (state: RootState, ownProps: { foodGroup: FoodGroup }) =
   const targetServing = getServingForFoodGroup(targetSelector(state).serving, foodGroup);
   const toTarget = getToTarget(serving, targetServing);
   const action = getAction(toTarget, foodGroup);
+  const eatLessWarning = (foodGroup === "sweet" && toTarget === "more");
   return {
     action,
+    eatLessWarning,
   }
 }
 
