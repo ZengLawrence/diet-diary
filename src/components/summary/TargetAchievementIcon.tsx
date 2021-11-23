@@ -1,15 +1,15 @@
 import { faAngleDoubleDown, faAngleDoubleUp, faBullseye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const EatMoreToTargetIcon = () => (
+export const EatMoreToTargetIcon = () => (
   <FontAwesomeIcon icon={faAngleDoubleUp} color={"Orange"} />
 )
 
-const MeetTargetIcon = () => (
+export const MeetTargetIcon = () => (
   <FontAwesomeIcon icon={faBullseye} color={"Green"} />
 )
 
-const EatLessToTargetIcon = (props: { warning: boolean; }) => (
+export const EatLessToTargetIcon = (props: { warning?: boolean; }) => (
   <FontAwesomeIcon icon={faAngleDoubleDown} color={props.warning ? "Red" : "Orange"} />
 )
 
