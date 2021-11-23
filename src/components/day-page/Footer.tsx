@@ -36,13 +36,13 @@ const FoodGroupLegends = () => (
 
 const TargetActionLegends = () => (
   <div className="w-100 d-flex justify-content-between justify-content-sm-start flex-fill flex-wrap">
-    <div className="mr-sm-1">
+    <div className="mr-sm-1 border-0 rounded bg-light">
       <EatLessToTargetIcon />Eat Less
     </div>
-    <div className="mr-sm-1">
+    <div className="mr-sm-1 border-0 rounded bg-light">
       <MeetTargetIcon />On Target
     </div>
-    <div>
+    <div className="border-0 rounded bg-light">
       <EatMoreToTargetIcon />Eat More
     </div>
   </div>
