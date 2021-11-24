@@ -48,6 +48,7 @@ jobs:
       with:
         build: npm run build
         start: npm run start:ci
+        browser: chrome
     - run: echo "should I release? ${{ env.release == 'true' }}"
     - name: Builds the app for production
       if: ${{ env.release == 'true' }}
