@@ -1,9 +1,8 @@
 context('Meal operations', () => {
   beforeEach(() => {
-    cy.visit('/');
-
     // clear app state
     cy.clearLocalStorage();
+    cy.visit('/');
   })
 
   describe('New meal', () => {
