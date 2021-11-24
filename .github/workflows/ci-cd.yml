@@ -46,7 +46,8 @@ jobs:
     - name: integration test
       uses: cypress-io/github-action@v2
       with:
-        start: npm start
+        build: npm run build
+        start: npm run start:ci
     - run: echo "should I release? ${{ env.release == 'true' }}"
     - name: Builds the app for production
       if: ${{ env.release == 'true' }}
