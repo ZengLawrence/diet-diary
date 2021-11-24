@@ -5,7 +5,7 @@ name: CI CD
 
 on:
   push:
-    branches: [ main, cd ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
   release:
@@ -43,6 +43,12 @@ jobs:
       run: npm run gen-parser
     - run: npm ci
     - run: npm test
+    - name: integration test
+      uses: cypress-io/github-action@v2
+      with:
+        build: npm run build
+        start: npm run start:ci
+        browser: chrome
     - run: echo "should I release? ${{ env.release == 'true' }}"
     - name: Builds the app for production
       if: ${{ env.release == 'true' }}

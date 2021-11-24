@@ -28,3 +28,7 @@ scratch*.*
 antlr4/*/target/
 .antlr
 src/generated/
+
+# cypress
+cypress/integration/1-getting-started/
+cypress/integration/2-advanced-examples/
