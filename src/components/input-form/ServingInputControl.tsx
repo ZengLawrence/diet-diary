@@ -32,7 +32,7 @@ interface Props {
 
 export const ServingInputControl = (props: Props) => {
   const { foodGroup, isInvalid } = props;
-  const controlId = "formServing" + foodGroup;
+  const controlId = "inputServing" + _.upperFirst(foodGroup);
   const calories = _.toString(getCalories(foodGroup)) + " Cal.";
 
   const { servingStr, handleChange } = useSyncedLocalState(props);
