@@ -22,6 +22,7 @@ export const FoodInputForm = (props: Props) => {
 
   return (
     <Form
+      id={"form" + props.buttonLabel}
       noValidate
       onSubmit={handleSubmit}
       className="border p-1"
