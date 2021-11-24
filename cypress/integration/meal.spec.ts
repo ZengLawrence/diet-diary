@@ -5,17 +5,14 @@ context('Meal operations', () => {
     cy.visit('/');
   })
 
-  describe('New meal', () => {
+  it('add a new meal', () => {
+    cy.get('#buttonAddMeal').click();
 
-    it('successfully add a new meal', () => {
-      cy.get('#buttonAddMeal').click();
+    cy.get('#mealCards')
+      .last()
+      .should('contain', "Delete")
+      .should('contain', 'Edit')
+      .get('#formAdd').should('exist');
 
-      cy.get('#mealCards')
-        .last()
-        .should('contain', "Delete")
-        .should('contain', 'Edit')
-        .get('#formAdd').should('exist');
-
-    })
   })
 })
