@@ -5,7 +5,7 @@ name: CI CD
 
 on:
   push:
-    branches: [ main, int-test ]
+    branches: [ main, int-tests ]
   pull_request:
     branches: [ main ]
   release:
