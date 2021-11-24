@@ -47,7 +47,7 @@ jobs:
       uses: cypress-io/github-action@v2
       with:
         build: npm run build
-        start: npm start
+        start: npm run start:ci
     - run: echo "should I release? ${{ env.release == 'true' }}"
     - name: Builds the app for production
       if: ${{ env.release == 'true' }}
