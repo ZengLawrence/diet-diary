@@ -43,7 +43,7 @@ const EditMealCard = (props: { meal: Meal; mealIndex: number; foodEditIndex?: nu
       <ListGroup>
         {
           foods.map((food, index) => (
-            <ListGroup.Item key={index}>
+            <ListGroup.Item key={index} data-cy={"food-" + props.mealIndex + "-" + index}>
               {index === props.foodEditIndex
                 ? <UpdateFoodInputForm food={food} mealIndex={props.mealIndex} foodIndex={index} />
                 : <div className="d-flex align-items-center">

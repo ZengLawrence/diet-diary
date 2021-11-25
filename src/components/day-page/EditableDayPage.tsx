@@ -16,14 +16,15 @@ export const EditableDayPage = (props: { mealStates: MealState[]; }) => (
 
     <div id="mealCards">
       {_.map(props.mealStates, (mealState, index) => (
-        <EditableMealCard
-          key={index}
-          mealIndex={index}
-          state={mealState} />
+        <div key={index} data-cy={"meal-" + index}>
+          <EditableMealCard
+            mealIndex={index}
+            state={mealState} />
+        </div>
       ))}
     </div>
     <div className="p-2">
-      <AddMealButton id="buttonAddMeal" variant={VariantPrimary}>
+      <AddMealButton data-cy="buttonAddMeal" variant={VariantPrimary}>
         <FontAwesomeIcon icon={faPlus} />
       </AddMealButton>
     </div>

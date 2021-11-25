@@ -6,11 +6,12 @@ context("Meal operations", () => {
   })
 
   it("add a new meal", () => {
-    cy.get("#buttonAddMeal").click();
+    cy.get("[data-cy=buttonAddMeal]").click();
 
-    cy.get("#mealCards").last().should("contain", "Delete");
-    cy.get("#mealCards").last().should("contain", "Edit");
-    cy.get("#mealCards").last().get("#formAdd").should("exist");
+    // Adding a new meal will create a second meal card (index=1)
+    cy.get("[data-cy=meal-1]").should("contain", "Delete");
+    cy.get("[data-cy=meal-1]").should("contain", "Edit");
+    cy.get("[data-cy=meal-1]").get("#formAdd").should("exist");
 
   })
 
@@ -27,14 +28,15 @@ context("Meal operations", () => {
     }
 
     setUp();
-    cy.get("#mealCards").first().contains("Edit").click();
+    cy.get("[data-cy=meal-0]").contains("Edit").click();
 
-    cy.get("#mealCards").first().should("contain", "Delete");
-    cy.get("#mealCards").first().should("contain", "Done");
-    cy.get("#mealCards").first().contains("food 1").parentsUntil(".list-group-item").should("contain", "Edit");
-    cy.get("#mealCards").first().contains("food 2").parentsUntil(".list-group-item").should("contain", "Edit");
-    cy.get("#mealCards").first().contains("food 3").parentsUntil(".list-group-item").should("contain", "Edit");
-    cy.get("#mealCards").first().get("#buttonAddMeal").should("exist");
+    cy.get("[data-cy=meal-0]").should("contain", "Delete");
+    cy.get("[data-cy=meal-0]").should("contain", "Done");
+
+    cy.get("[data-cy=meal-0]").get("[data-cy=food-0-0]").should("contain", "food 1").should("contain", "Edit");
+    cy.get("[data-cy=meal-0]").get("[data-cy=food-0-1]").should("contain", "food 2").should("contain", "Edit");
+    cy.get("[data-cy=meal-0]").get("[data-cy=food-0-2]").should("contain", "food 3").should("contain", "Edit");
+    cy.get("[data-cy=meal-0]").get("[data-cy=buttonAddMeal]").should("exist");
 
   })
 
