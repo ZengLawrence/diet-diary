@@ -4,9 +4,9 @@ import DeleteButton from "../../features/meal-card/DeleteButton";
 import DoneButton from "../../features/meal-card/DoneButton";
 import EditButton from "../../features/meal-card/EditButton";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
-import NameButton from "../../features/meal-card/NameButton";
 import { Meal } from "../../model/Food";
-import { VariantDanger, VariantPrimary, VariantSecondary } from "../ButtonVariant";
+import { VariantDanger, VariantPrimary } from "../ButtonVariant";
+import { MealButtons } from "./MealButtons";
 
 export const DefaultMealCardHeader = (props: {
   meal: Meal;
@@ -15,9 +15,7 @@ export const DefaultMealCardHeader = (props: {
   <Card.Header className="d-flex flex-wrap align-items-center">
     <div className="flex-fill order-sm-0">{props.meal.mealTime}</div>
     <div className="order-sm-2">
-      {_.size(props.meal.foods) > 1
-        && <NameButton variant={VariantSecondary} mealIndex={props.mealIndex}>Name</NameButton>}&nbsp;
-      <EditButton variant={VariantPrimary} mealIndex={props.mealIndex}>Edit</EditButton>
+      <MealButtons mealIndex={props.mealIndex} showNameButton={_.size(props.meal.foods) > 1} />
     </div>
     <div className="order-sm-1 flex-grow-1 flex-md-grow-0">
       <MealCalorieServingPanel meal={props.meal} />
