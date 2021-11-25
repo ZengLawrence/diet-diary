@@ -22,6 +22,7 @@ export const FoodInputForm = (props: Props) => {
 
   return (
     <Form
+      data-cy={"form" + props.buttonLabel}
       noValidate
       onSubmit={handleSubmit}
       className="border p-1"
@@ -32,7 +33,7 @@ export const FoodInputForm = (props: Props) => {
           suggestions={suggestions}
           invalid={error.foodDescription}
           updateFoodDescription={updateFoodDescription}
-          updateFoodDescriptionServing= {updateFoodDescriptionServing}
+          updateFoodDescriptionServing={updateFoodDescriptionServing}
         />
       </Form.Group>
 

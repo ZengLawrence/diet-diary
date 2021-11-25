@@ -11,9 +11,9 @@ export const UneditableDayPage = (props: { meals: Meal[]; }) => (
     <Summary />
 
     {_.map(props.meals, (meal, index) => (
-      <UneditableMealCard
-        key={index}
-        meal={meal} />
+      <div key={index} data-cy={"meal-" + index}>
+        <UneditableMealCard meal={meal} />
+      </div>
     ))}
 
     <Footer />
