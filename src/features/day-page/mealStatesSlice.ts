@@ -3,7 +3,7 @@ import _ from "lodash";
 import { Food, Meal, newMeal } from "../../model/Food";
 import { newDay } from "./dateSlice";
 
-type MealEditState = "add" | "edit" | "name" | undefined;
+export type MealEditState = "add" | "edit" | "name" | undefined;
 
 export interface MealState {
   meal: Meal;
