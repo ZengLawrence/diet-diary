@@ -11,7 +11,7 @@ context("Meal operations", () => {
     // Adding a new meal will create a second meal card (index=1)
     cy.get("[data-cy=meal-1]").should("contain", "Delete");
     cy.get("[data-cy=meal-1]").should("contain", "Edit");
-    cy.get("[data-cy=meal-1]").get("#formAdd").should("exist");
+    cy.get("[data-cy=meal-1]").get("[data-cy=formAdd]").should("exist");
 
   })
 
