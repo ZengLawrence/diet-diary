@@ -5,6 +5,6 @@ describe("The Home Page", () => {
   it("successfully loads", () => {
     cy.visit("/");
 
-    cy.get("#date").contains(aValidDate);
+    cy.get("[data-cy=date]").contains(aValidDate);
   })
 })
