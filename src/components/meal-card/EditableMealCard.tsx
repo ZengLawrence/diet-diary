@@ -55,7 +55,7 @@ const EditMealCard = (props: { meal: Meal; mealIndex: number; foodEditIndex?: nu
           ))
         }
         <ListGroup.Item>
-          <NewFoodButton variant={VariantPrimary} mealIndex={props.mealIndex}>
+          <NewFoodButton variant={VariantPrimary} mealIndex={props.mealIndex} data-cy={"buttonNewFood"}>
             <FontAwesomeIcon icon={faPlus} />
           </NewFoodButton>
         </ListGroup.Item>
