@@ -29,8 +29,7 @@ export const AddMealCardHeader = (props: {
   <Card.Header className="d-flex flex-wrap align-items-center">
     <div className="flex-fill order-sm-0">{props.meal.mealTime}</div>
     <div className="order-sm-2">
-      <DeleteButton variant={VariantDanger} mealIndex={props.mealIndex}>Delete</DeleteButton>&nbsp;
-      <EditButton variant={VariantPrimary} mealIndex={props.mealIndex}>Edit</EditButton>
+      <MealButtons mealIndex={props.mealIndex} />
     </div>
     <div className="order-sm-1 flex-grow-1 flex-md-grow-0">
       <MealCalorieServingPanel meal={props.meal} />

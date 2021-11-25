@@ -1,8 +1,9 @@
 import { Fragment } from "react";
 import { MealEditState } from "../../features/day-page/mealStatesSlice";
+import DeleteButton from "../../features/meal-card/DeleteButton";
 import EditButton from "../../features/meal-card/EditButton";
 import NameButton from "../../features/meal-card/NameButton";
-import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
+import { VariantDanger, VariantPrimary, VariantSecondary } from "../ButtonVariant";
 
 interface Props {
   editState: MealEditState;
@@ -10,10 +11,26 @@ interface Props {
   showNameButton: boolean;
 }
 
-export const MealButtons = (props: Props) => (
-  <Fragment>
-    {props.showNameButton
-      && <NameButton variant={VariantSecondary} mealIndex={props.mealIndex}>Name</NameButton>}&nbsp;
-    <EditButton variant={VariantPrimary} mealIndex={props.mealIndex}>Edit</EditButton>
-  </Fragment>
-);
+export const MealButtons = (props: Props) => {
+  const editButton = <EditButton variant={VariantPrimary} mealIndex={props.mealIndex}>Edit</EditButton>;
+  const deleteButton = <DeleteButton variant={VariantDanger} mealIndex={props.mealIndex}>Delete</DeleteButton>;
+  const nameButton = <NameButton variant={VariantSecondary} mealIndex={props.mealIndex}>Name</NameButton>;
+
+  switch (props.editState) {
+    case "add":
+      return (
+        <Fragment>
+          {deleteButton}&nbsp;
+          {editButton}
+        </Fragment>
+      )
+
+    default:
+      return (
+        <Fragment>
+          {props.showNameButton && nameButton}&nbsp;
+          {editButton}
+        </Fragment>
+      );
+  }
+}
