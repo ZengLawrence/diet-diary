@@ -15,16 +15,18 @@ context("Meal operations", () => {
   })
 
   it("edit a meal", () => {
-    // add some foods
-    cy.get("form").get("#inputFoodDescription").type("food 1");
-    cy.get("form").contains("Add").click();
-    cy.get("form").get("#inputFoodDescription").type("food 2");
-    cy.get("form").contains("Add").click();
-    cy.get("form").get("#inputFoodDescription").type("food 3");
-    cy.get("form").contains("Add").click();
-    cy.get("form").contains("Cancel").click();
+    const setUp = () => {
+      // add some foods
+      cy.get("form").get("#inputFoodDescription").type("food 1");
+      cy.get("form").contains("Add").click();
+      cy.get("form").get("#inputFoodDescription").type("food 2");
+      cy.get("form").contains("Add").click();
+      cy.get("form").get("#inputFoodDescription").type("food 3");
+      cy.get("form").contains("Add").click();
+      cy.get("form").contains("Cancel").click();
+    }
 
-    // put it in edit mode
+    setUp();
     cy.get("#mealCards").first().contains("Edit").click();
 
     cy.get("#mealCards").first().should("contain", "Delete");
