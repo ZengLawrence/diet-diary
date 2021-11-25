@@ -14,7 +14,7 @@ export const EditableDayPage = (props: { mealStates: MealState[]; }) => (
     <Header />
     <Summary />
 
-    <div id="mealCards">
+    <div data-cy="mealCards">
       {_.map(props.mealStates, (mealState, index) => (
         <div key={index} data-cy={"meal-" + index}>
           <EditableMealCard

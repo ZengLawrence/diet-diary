@@ -41,9 +41,9 @@ context("Meal operations", () => {
   })
 
   it("delete a meal", () => {
-    cy.get("#mealCards").contains("Delete").click();
+    cy.get("[data-cy=mealCards]").get("[data-cy=meal-0]").contains("Delete").click();
 
-    cy.get("#mealCards").should("be.empty");
+    cy.get("[data-cy=mealCards]").should("be.empty");
 
   })
 
