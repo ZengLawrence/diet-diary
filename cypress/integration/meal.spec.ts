@@ -38,4 +38,11 @@ context("Meal operations", () => {
 
   })
 
+  it("delete a meal", () => {
+    cy.get("#mealCards").contains("Delete").click();
+
+    cy.get("#mealCards").should("be.empty");
+
+  })
+
 })
