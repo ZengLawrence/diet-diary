@@ -8,11 +8,9 @@ context("Meal operations", () => {
   it("add a new meal", () => {
     cy.get("#buttonAddMeal").click();
 
-    cy.get("#mealCards")
-      .last()
-      .should("contain", "Delete")
-      .should("contain", "Edit")
-      .get("#formAdd").should("exist");
+    cy.get("#mealCards").last().should("contain", "Delete");
+    cy.get("#mealCards").last().should("contain", "Edit");
+    cy.get("#mealCards").last().get("#formAdd").should("exist");
 
   })
 
