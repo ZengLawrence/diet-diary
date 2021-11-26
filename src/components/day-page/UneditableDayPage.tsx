@@ -3,9 +3,9 @@ import { Card, ListGroup } from "react-bootstrap";
 import Footer from "../../features/day-page/Footer";
 import Header from "../../features/day-page/Header";
 import Summary from "../../features/day-page/Summary";
+import FoodListGroupItems from "../../features/meal-card/FoodListGroupItems";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
 import { Meal } from "../../model/Food";
-import { FoodItem } from "../FoodItem";
 
 export const UneditableDayPage = (props: { meals: Meal[]; }) => (
   <div>
@@ -20,10 +20,7 @@ export const UneditableDayPage = (props: { meals: Meal[]; }) => (
         </Card.Header>
 
         <ListGroup>
-          {meal.foods.map((food, index) => <ListGroup.Item key={index}>
-            <FoodItem food={food} />
-          </ListGroup.Item>
-          )}
+          <FoodListGroupItems mealIndex={index}/>
         </ListGroup>
       </Card>
     ))}
