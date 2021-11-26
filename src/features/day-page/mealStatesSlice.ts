@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { Food, Meal, newMeal } from "../../model/Food";
 import { newDay } from "./dateSlice";
+import { exitEditMode } from "./editModeSlice";
 
 export type MealEditState = "add" | "edit" | "name" | undefined;
 
@@ -74,7 +75,13 @@ const mealStatesSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addCase(newDay, () => [newMealState()])
+    builder
+      .addCase(newDay, () => [newMealState()])
+      .addCase(exitEditMode, (state) => {
+        _.forEach(state, function(mealState) {
+          mealState.editState = undefined;
+        })
+      })
   }
 })
 
