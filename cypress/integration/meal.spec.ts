@@ -33,11 +33,13 @@ context("Meal operations", () => {
     cy.get("[data-cy=meal-0]").should("contain", "Delete");
     cy.get("[data-cy=meal-0]").should("contain", "Done");
 
-    cy.get("[data-cy=meal-0]").get("[data-cy=food-0-0]").should("contain", "food 1").should("contain", "Edit");
-    cy.get("[data-cy=meal-0]").get("[data-cy=food-0-1]").should("contain", "food 2").should("contain", "Edit");
-    cy.get("[data-cy=meal-0]").get("[data-cy=food-0-2]").should("contain", "food 3").should("contain", "Edit");
-    cy.get("[data-cy=meal-0]").get("[data-cy=buttonAddMeal]").should("exist");
-
+    cy.get("[data-cy=meal-0]")
+      .get(".list-group")
+      .children().should("have.length", 4)  // 3 new foods + add food button
+      .first().should("contain", "food 1").should("contain", "Edit")
+      .next().should("contain", "food 2").should("contain", "Edit")
+      .next().should("contain", "food 3").should("contain", "Edit")
+      .next().get("[data-cy=buttonNewFood]").should("exist");  
   })
 
   it("delete a meal", () => {
