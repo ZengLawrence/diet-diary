@@ -7,33 +7,17 @@ import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
 import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
 import EditFoodButton from "../../features/meal-card/EditFoodButton";
 import FoodListGroupItems from "../../features/meal-card/FoodListGroupItems";
-import MealButtons from "../../features/meal-card/MealButtons";
-import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
+import MealCardHeader from "../../features/meal-card/MealCardHeader";
 import NewFoodButton from "../../features/meal-card/NewFoodButton";
 import NameFoodDescriptionForm from "../../features/name-food/NameFoodDescriptionForm";
 import { Meal } from "../../model/Food";
 import { VariantPrimary } from "../ButtonVariant";
 import { FoodItem } from "../FoodItem";
 
-const MealCardHeader = (props: {
-  meal: Meal;
-  mealIndex: number;
-}) => (
-  <Card.Header className="d-flex flex-wrap align-items-center">
-    <div className="flex-fill order-sm-0">{props.meal.mealTime}</div>
-    <div className="order-sm-2">
-      <MealButtons mealIndex={props.mealIndex} />
-    </div>
-    <div className="order-sm-1 flex-grow-1 flex-md-grow-0">
-      <MealCalorieServingPanel meal={props.meal} />
-    </div>
-  </Card.Header>
-)
-
-const DefaultMealCard = (props: { meal: Meal; mealIndex: number; }) => {
+const DefaultMealCard = (props: { mealIndex: number; }) => {
   return (
     <Card className="mt-1">
-      <MealCardHeader meal={props.meal} mealIndex={props.mealIndex} />
+      <MealCardHeader mealIndex={props.mealIndex} />
 
       <ListGroup>
         <FoodListGroupItems mealIndex={props.mealIndex} />
@@ -47,7 +31,7 @@ const EditMealCard = (props: { meal: Meal; mealIndex: number; foodEditIndex?: nu
 
   return (
     <Card className="mt-1">
-      <MealCardHeader meal={props.meal} mealIndex={props.mealIndex} />
+      <MealCardHeader mealIndex={props.mealIndex} />
 
       <ListGroup>
         {
@@ -78,7 +62,7 @@ const AddMealCard = (props: { meal: Meal; mealIndex: number; }) => {
 
   return (
     <Card className="mt-1">
-      <MealCardHeader meal={props.meal} mealIndex={props.mealIndex} />
+      <MealCardHeader mealIndex={props.mealIndex} />
 
       <ListGroup>
         {
@@ -100,7 +84,7 @@ const NameMealCard = (props: { meal: Meal; mealIndex: number; }) => {
 
   return (
     <Card className="mt-1">
-      <MealCardHeader meal={props.meal} mealIndex={props.mealIndex} />
+      <MealCardHeader mealIndex={props.mealIndex} />
 
       <ListGroup>
         <ListGroup.Item >
@@ -123,6 +107,6 @@ export const EditableMealCard = (props: { state: MealState; mealIndex: number; }
     case "name":
       return <NameMealCard meal={meal} mealIndex={mealIndex} />
     default:
-      return <DefaultMealCard meal={meal} mealIndex={mealIndex} />
+      return <DefaultMealCard mealIndex={mealIndex} />
   }
 };
