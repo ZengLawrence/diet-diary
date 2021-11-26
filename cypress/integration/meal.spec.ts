@@ -10,7 +10,9 @@ context("Meal operations", () => {
 
     cy.get("[data-cy=mealCards")
       .children().should("have.length", 2)
-      .last().should("contain", "Delete").should("contain", "Edit")
+      .last()
+      .should("contain", "Delete")
+      .should("contain", "Edit")
       .within(() => {
         cy.get("[data-cy=formAdd]").should("exist");
       });
