@@ -6,6 +6,7 @@ import { MealState } from "../../features/day-page/mealStatesSlice";
 import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
 import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
 import EditFoodButton from "../../features/meal-card/EditFoodButton";
+import FoodListGroupItems from "../../features/meal-card/FoodListGroupItems";
 import MealButtons from "../../features/meal-card/MealButtons";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
 import NewFoodButton from "../../features/meal-card/NewFoodButton";
@@ -30,20 +31,12 @@ const MealCardHeader = (props: {
 )
 
 const DefaultMealCard = (props: { meal: Meal; mealIndex: number; }) => {
-  const { foods } = props.meal;
-
   return (
     <Card className="mt-1">
       <MealCardHeader meal={props.meal} mealIndex={props.mealIndex} />
 
       <ListGroup>
-        {
-          foods.map((food, index) => (
-            <ListGroup.Item key={index}>
-              <FoodItem food={food} />
-            </ListGroup.Item>
-          ))
-        }
+        <FoodListGroupItems mealIndex={props.mealIndex} />
       </ListGroup>
     </Card>
   );
