@@ -1,9 +1,7 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import _ from "lodash";
 import { Card, ListGroup } from "react-bootstrap";
 import { MealState } from "../../features/day-page/mealStatesSlice";
-import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
 import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
 import EditFoodButton from "../../features/meal-card/EditFoodButton";
 import FoodListGroupItems from "../../features/meal-card/FoodListGroupItems";
@@ -57,24 +55,13 @@ const EditMealCard = (props: { meal: Meal; mealIndex: number; foodEditIndex?: nu
   );
 };
 
-const AddMealCard = (props: { meal: Meal; mealIndex: number; }) => {
-  const { foods } = props.meal;
-
+const AddMealCard = (props: { mealIndex: number; }) => {
   return (
     <Card className="mt-1">
       <MealCardHeader mealIndex={props.mealIndex} />
 
       <ListGroup>
-        {
-          foods.map((food, index) => (
-            <ListGroup.Item key={index}>
-              <FoodItem food={food} />
-            </ListGroup.Item>
-          ))
-        }
-        <ListGroup.Item key={_.size(foods)}>
-          <AddFoodInputForm mealIndex={props.mealIndex} />
-        </ListGroup.Item>
+        <FoodListGroupItems mealIndex={props.mealIndex} />
       </ListGroup>
     </Card>
   );
@@ -101,7 +88,7 @@ export const EditableMealCard = (props: { state: MealState; mealIndex: number; }
 
   switch (editState) {
     case "add":
-      return <AddMealCard meal={meal} mealIndex={mealIndex} />
+      return <AddMealCard mealIndex={mealIndex} />
     case "edit":
       return <EditMealCard meal={meal} mealIndex={mealIndex} foodEditIndex={foodEditIndex} />
     case "name":
