@@ -60,7 +60,7 @@ context("Meal operations", () => {
   })
 
   it("delete a meal", () => {
-    cy.get("[data-cy=mealCards]").get("[data-cy=meal-0]").contains("Delete").click();
+    firstMealCard().contains("Delete").click();
 
     cy.get("[data-cy=mealCards]").should("be.empty");
 
@@ -69,22 +69,33 @@ context("Meal operations", () => {
   it("name button should appear when exiting add meal state and there are at least 2 foods", () => {
 
     exitAddMealState();
-    cy.get("[data-cy=meal-0]").should("not.contain", "Name");
+    firstMealCard().should("not.contain", "Name");
 
+    const openNewFoodForm = () => {
+      cy.contains("Edit").click();
+      cy.get(".list-group")
+        .within(() => {
+          cy.get("[data-cy=buttonNewFood]").click();
+        });
+    }
     const addFood = (foodDescription: string) => {
-      cy.get("[data-cy=meal-0]").contains("Edit").click();
-      cy.get("[data-cy=meal-0]").get("[data-cy=buttonNewFood]").click();
       cy.get("form").get("#inputFoodDescription").type(foodDescription);
       cy.get("form").contains("Add").click();
     }
 
-    addFood("food 1");
-    exitAddMealState();
-    cy.get("[data-cy=meal-0]").should("not.contain", "Name");
+    firstMealCard().within(() => {
+      openNewFoodForm();
+      addFood("food 1");
+      exitAddMealState();
+    });
+    firstMealCard().should("not.contain", "Name");
 
-    addFood("food 2");
-    exitAddMealState();
-    cy.get("[data-cy=meal-0]").should("contain", "Name");
+    firstMealCard().within(() => {
+      openNewFoodForm();
+      addFood("food 2");
+      exitAddMealState();
+    });
+    firstMealCard().should("contain", "Name");
 
   })
 
