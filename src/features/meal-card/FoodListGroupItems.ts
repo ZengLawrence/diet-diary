@@ -6,6 +6,7 @@ import { FoodListGroupItems } from "../../components/meal-card/FoodListGroupItem
 const mapStateToProps = (state: RootState, ownProps: { mealIndex: number; }) => ({
   editState: mealStatesSelector(state)[ownProps.mealIndex].editState,
   foods: mealsSelector(state)[ownProps.mealIndex].foods,
+  foodEditIndex: mealStatesSelector(state)[ownProps.mealIndex].foodEditIndex,
 })
 
 export default connect(mapStateToProps)(FoodListGroupItems);
