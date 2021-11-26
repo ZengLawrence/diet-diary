@@ -8,12 +8,15 @@ const mapStateToProps = () => ({
   buttonLabel: "Update" as ButtonLabel,
 })
 
-const mapDispatchToProps = (dispatch: AppDispatch, ownProps: { food: Food; mealIndex: number; foodIndex: number; }) => ({
-  onSaveFood: (food: Food) => {
-    dispatch(updateFood({...ownProps, food}));
-    dispatch(exitFoodEditMode(ownProps));
-  },
-  onCancel: () => dispatch(exitFoodEditMode(ownProps)),
-})
+const mapDispatchToProps = (dispatch: AppDispatch, ownProps: { mealIndex: number; foodIndex: number; }) => {
+  const { mealIndex, foodIndex } = ownProps;
+  return {
+    onSaveFood: (food: Food) => {
+      dispatch(updateFood({ mealIndex, foodIndex, food }));
+      dispatch(exitFoodEditMode({ mealIndex }));
+    },
+    onCancel: () => dispatch(exitFoodEditMode({ mealIndex })),
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(FoodInputForm);
