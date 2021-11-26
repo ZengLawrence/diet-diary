@@ -16,15 +16,20 @@ context("Meal operations", () => {
   })
 
   it("edit a meal", () => {
+    const addFood = (foodDescription: string) => {
+      cy.get("form")
+        .within(() => {
+          cy.get("#inputFoodDescription").type(foodDescription);
+          cy.contains("Add").click();
+        })
+
+    }
     const setUp = () => {
       // add some foods
-      cy.get("form").get("#inputFoodDescription").type("food 1");
-      cy.get("form").contains("Add").click();
-      cy.get("form").get("#inputFoodDescription").type("food 2");
-      cy.get("form").contains("Add").click();
-      cy.get("form").get("#inputFoodDescription").type("food 3");
-      cy.get("form").contains("Add").click();
-      cy.get("form").contains("Cancel").click();
+      addFood("food 1");
+      addFood("food 2");
+      addFood("food 3");
+      exitAddMealState();
     }
 
     setUp();
@@ -34,12 +39,14 @@ context("Meal operations", () => {
     cy.get("[data-cy=meal-0]").should("contain", "Done");
 
     cy.get("[data-cy=meal-0]")
-      .get(".list-group")
-      .children().should("have.length", 4)  // 3 new foods + add food button
-      .first().should("contain", "food 1").should("contain", "Edit")
-      .next().should("contain", "food 2").should("contain", "Edit")
-      .next().should("contain", "food 3").should("contain", "Edit")
-      .next().get("[data-cy=buttonNewFood]").should("exist");  
+      .within(() => {
+        cy.get(".list-group")
+          .children().should("have.length", 4)  // 3 new foods + add food button
+          .first().should("contain", "food 1").should("contain", "Edit")
+          .next().should("contain", "food 2").should("contain", "Edit")
+          .next().should("contain", "food 3").should("contain", "Edit")
+          .next().get("[data-cy=buttonNewFood]").should("exist");
+      });
   })
 
   it("delete a meal", () => {
@@ -51,9 +58,6 @@ context("Meal operations", () => {
 
   it("name button should appear when exiting add meal state and there are at least 2 foods", () => {
 
-    const exitAddMealState = () => {
-      cy.get("form").contains("Cancel").click();
-    }
     exitAddMealState();
     cy.get("[data-cy=meal-0]").should("not.contain", "Name");
 
@@ -73,5 +77,9 @@ context("Meal operations", () => {
     cy.get("[data-cy=meal-0]").should("contain", "Name");
 
   })
+
+  function exitAddMealState() {
+    cy.get("form").contains("Cancel").click();
+  }
 
 })
