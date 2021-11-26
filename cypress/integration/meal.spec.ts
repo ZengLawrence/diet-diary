@@ -87,15 +87,15 @@ context("Meal operations", () => {
       openNewFoodForm();
       addFood("food 1");
       exitAddMealState();
-    });
-    firstMealCard().should("not.contain", "Name");
+    })
+    .should("not.contain", "Name");
 
     firstMealCard().within(() => {
       openNewFoodForm();
       addFood("food 2");
       exitAddMealState();
-    });
-    firstMealCard().should("contain", "Name");
+    })
+    .should("contain", "Name");
 
   })
 
