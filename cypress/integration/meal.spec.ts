@@ -8,11 +8,12 @@ context("Meal operations", () => {
   it("add a new meal", () => {
     cy.get("[data-cy=buttonAddMeal]").click();
 
-    // Adding a new meal will create a second meal card (index=1)
-    cy.get("[data-cy=meal-1]").should("contain", "Delete");
-    cy.get("[data-cy=meal-1]").should("contain", "Edit");
-    cy.get("[data-cy=meal-1]").get("[data-cy=formAdd]").should("exist");
-
+    cy.get("[data-cy=mealCards")
+      .children().should("have.length", 2)
+      .last().should("contain", "Delete").should("contain", "Edit")
+      .within(() => {
+        cy.get("[data-cy=formAdd]").should("exist");
+      });
   })
 
   it("edit a meal", () => {
