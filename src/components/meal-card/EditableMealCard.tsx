@@ -2,7 +2,6 @@ import { Card, ListGroup } from "react-bootstrap";
 import { MealState } from "../../features/day-page/mealStatesSlice";
 import FoodListGroupItems from "../../features/meal-card/FoodListGroupItems";
 import MealCardHeader from "../../features/meal-card/MealCardHeader";
-import NameFoodDescriptionForm from "../../features/name-food/NameFoodDescriptionForm";
 
 const DefaultMealCard = (props: { mealIndex: number; }) => {
   return (
@@ -47,9 +46,7 @@ const NameMealCard = (props: { mealIndex: number; }) => {
       <MealCardHeader mealIndex={props.mealIndex} />
 
       <ListGroup>
-        <ListGroup.Item >
-          <NameFoodDescriptionForm mealIndex={props.mealIndex} />
-        </ListGroup.Item>
+        <FoodListGroupItems mealIndex={props.mealIndex} />
       </ListGroup>
     </Card>
   );
