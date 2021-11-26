@@ -29,10 +29,13 @@ context("Meal operations", () => {
     }
     const setUp = () => {
       // add some foods
-      addFood("food 1");
-      addFood("food 2");
-      addFood("food 3");
-      exitAddMealState();
+      firstMealCard()
+        .within(() => {
+          addFood("food 1");
+          addFood("food 2");
+          addFood("food 3");
+          exitAddMealState();
+        })
     }
 
     setUp();
