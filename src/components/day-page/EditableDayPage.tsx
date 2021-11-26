@@ -10,7 +10,12 @@ import FoodListGroupItems from "../../features/meal-card/FoodListGroupItems";
 import MealCardHeader from "../../features/meal-card/MealCardHeader";
 import { VariantPrimary } from "../ButtonVariant";
 
-export const EditableDayPage = (props: { numberOfMeals: number; }) => (
+interface Props {
+  numberOfMeals: number;
+  showButton: boolean;
+}
+
+export const EditableDayPage = (props: Props) => (
   <div>
     <Header />
     <Summary />
@@ -26,11 +31,12 @@ export const EditableDayPage = (props: { numberOfMeals: number; }) => (
         </Card>
       ))}
     </div>
-    <div className="p-2">
-      <AddMealButton data-cy="buttonAddMeal" variant={VariantPrimary}>
-        <FontAwesomeIcon icon={faPlus} />
-      </AddMealButton>
-    </div>
+    {props.showButton &&
+      <div className="p-2">
+        <AddMealButton data-cy="buttonAddMeal" variant={VariantPrimary}>
+          <FontAwesomeIcon icon={faPlus} />
+        </AddMealButton>
+      </div>}
     <Footer />
   </div>
 );
