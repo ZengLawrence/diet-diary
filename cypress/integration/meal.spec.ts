@@ -19,14 +19,6 @@ context("Meal operations", () => {
   })
 
   it("edit a meal", () => {
-    const addFood = (foodDescription: string) => {
-      cy.get("form")
-        .within(() => {
-          cy.get("#inputFoodDescription").type(foodDescription);
-          cy.contains("Add").click();
-        })
-
-    }
     const setUp = () => {
       // add some foods
       firstMealCard()
@@ -78,24 +70,20 @@ context("Meal operations", () => {
           cy.get("[data-cy=buttonNewFood]").click();
         });
     }
-    const addFood = (foodDescription: string) => {
-      cy.get("form").get("#inputFoodDescription").type(foodDescription);
-      cy.get("form").contains("Add").click();
-    }
 
     firstMealCard().within(() => {
       openNewFoodForm();
       addFood("food 1");
       exitAddMealState();
     })
-    .should("not.contain", "Name");
+      .should("not.contain", "Name");
 
     firstMealCard().within(() => {
       openNewFoodForm();
       addFood("food 2");
       exitAddMealState();
     })
-    .should("contain", "Name");
+      .should("contain", "Name");
 
   })
 
@@ -107,6 +95,15 @@ context("Meal operations", () => {
     return cy.get("[data-cy=mealCards")
       .children()
       .first();
+  }
+
+  function addFood(foodDescription: string) {
+    cy.get("form")
+      .within(() => {
+        cy.get("#inputFoodDescription").type(foodDescription);
+        cy.contains("Add").click();
+      })
+
   }
 
 })
