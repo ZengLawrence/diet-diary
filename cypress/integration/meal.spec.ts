@@ -36,12 +36,16 @@ context("Meal operations", () => {
     }
 
     setUp();
-    cy.get("[data-cy=meal-0]").contains("Edit").click();
+    firstMealCard()
+      .within(() => {
+        cy.contains("Edit").click();
+      });
 
-    cy.get("[data-cy=meal-0]").should("contain", "Delete");
-    cy.get("[data-cy=meal-0]").should("contain", "Done");
+    firstMealCard()
+      .should("contain", "Delete")
+      .should("contain", "Done");
 
-    cy.get("[data-cy=meal-0]")
+    firstMealCard()
       .within(() => {
         cy.get(".list-group")
           .children().should("have.length", 4)  // 3 new foods + add food button
@@ -83,6 +87,12 @@ context("Meal operations", () => {
 
   function exitAddMealState() {
     cy.get("form").contains("Cancel").click();
+  }
+
+  function firstMealCard() {
+    return cy.get("[data-cy=mealCards")
+      .children()
+      .first();
   }
 
 })
