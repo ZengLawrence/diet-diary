@@ -47,12 +47,12 @@ context("Meal operations", () => {
 
   })
 
-  it("name button should appear when exiting edit mode and there at least 2 foods", () => {
+  it("name button should appear when exiting add meal state and there are at least 2 foods", () => {
 
-    const setUp = () =>{
-      cy.get("form").contains("Cancel").click(); // exit add mode
+    const exitAddMealState = () => {
+      cy.get("form").contains("Cancel").click();
     }
-    setUp();
+    exitAddMealState();
     cy.get("[data-cy=meal-0]").should("not.contain", "Name");
 
     const addFood = (foodDescription: string) => {
@@ -61,16 +61,13 @@ context("Meal operations", () => {
       cy.get("form").get("#inputFoodDescription").type(foodDescription);
       cy.get("form").contains("Add").click();
     }
-    const exitEditMode = () => {
-      cy.get("form").contains("Cancel").click(); // exit add mode
-    }
 
     addFood("food 1");
-    exitEditMode();
+    exitAddMealState();
     cy.get("[data-cy=meal-0]").should("not.contain", "Name");
 
     addFood("food 2");
-    exitEditMode();
+    exitAddMealState();
     cy.get("[data-cy=meal-0]").should("contain", "Name");
 
   })
