@@ -1,13 +1,15 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
+import { Card, ListGroup } from "react-bootstrap";
 import AddMealButton from "../../features/day-page/AddMealButton";
 import Footer from "../../features/day-page/Footer";
 import Header from "../../features/day-page/Header";
 import { MealState } from "../../features/day-page/mealStatesSlice";
 import Summary from "../../features/day-page/Summary";
+import FoodListGroupItems from "../../features/meal-card/FoodListGroupItems";
+import MealCardHeader from "../../features/meal-card/MealCardHeader";
 import { VariantPrimary } from "../ButtonVariant";
-import { EditableMealCard } from "../meal-card/EditableMealCard";
 
 export const EditableDayPage = (props: { mealStates: MealState[]; }) => (
   <div>
@@ -15,11 +17,15 @@ export const EditableDayPage = (props: { mealStates: MealState[]; }) => (
     <Summary />
 
     <div data-cy="mealCards">
-      {_.map(props.mealStates, (mealState, index) => (
+      {_.map(props.mealStates, (_mealState, index) => (
         <div key={index} data-cy={"meal-" + index}>
-          <EditableMealCard
-            mealIndex={index}
-            state={mealState} />
+          <Card className="mt-1">
+            <MealCardHeader mealIndex={index} />
+
+            <ListGroup>
+              <FoodListGroupItems mealIndex={index} />
+            </ListGroup>
+          </Card>
         </div>
       ))}
     </div>
