@@ -80,7 +80,7 @@ const AddMealCard = (props: { meal: Meal; mealIndex: number; }) => {
   );
 };
 
-const NameMealCard = (props: { meal: Meal; mealIndex: number; }) => {
+const NameMealCard = (props: { mealIndex: number; }) => {
 
   return (
     <Card className="mt-1">
@@ -105,7 +105,7 @@ export const EditableMealCard = (props: { state: MealState; mealIndex: number; }
     case "edit":
       return <EditMealCard meal={meal} mealIndex={mealIndex} foodEditIndex={foodEditIndex} />
     case "name":
-      return <NameMealCard meal={meal} mealIndex={mealIndex} />
+      return <NameMealCard mealIndex={mealIndex} />
     default:
       return <DefaultMealCard mealIndex={mealIndex} />
   }
