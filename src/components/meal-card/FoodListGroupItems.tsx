@@ -34,7 +34,6 @@ export const FoodListGroupItems = (props: Props) => {
             <AddFoodInputForm mealIndex={props.mealIndex} />
           </ListGroup.Item>
         </Fragment>
-
       );
 
     case "edit":
@@ -59,7 +58,6 @@ export const FoodListGroupItems = (props: Props) => {
             </NewFoodButton>
           </ListGroup.Item>
         </Fragment>
-
       );
 
     case "name":
