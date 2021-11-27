@@ -59,9 +59,8 @@ context("Meal operations", () => {
 
     firstMealCard().within(() => {
       exitAddMealState();
-    }).within(() => {
-      cy.get("[data-cy=foodItem]").should("have.length", 0);
-    }).should("not.contain", "Name");
+    }).find("[data-cy=foodItem]").should("have.length", 0);
+    firstMealCard().should("not.contain", "Name");
 
     const openNewFoodForm = () => {
       cy.contains("Edit").click();
@@ -72,17 +71,15 @@ context("Meal operations", () => {
       openNewFoodForm();
       addFood("food 1");
       exitAddMealState();
-    }).within(() => {
-      cy.get("[data-cy=foodItem]").should("have.length", 1);
-    }).should("not.contain", "Name");
+    }).find("[data-cy=foodItem]").should("have.length", 1);
+    firstMealCard().should("not.contain", "Name");
 
     firstMealCard().within(() => {
       openNewFoodForm();
       addFood("food 2");
       exitAddMealState();
-    }).within(() => {
-      cy.get("[data-cy=foodItem]").should("have.length", 2);
-    }).should("contain", "Name");
+    }).find("[data-cy=foodItem]").should("have.length", 2);
+    firstMealCard().should("contain", "Name");
 
   })
 
