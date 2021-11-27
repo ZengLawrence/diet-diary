@@ -94,7 +94,7 @@ context("Meal operations", () => {
   }
 
   function firstMealCard() {
-    return cy.get("[data-cy=mealCard").first();
+    return cy.get("[data-cy=mealCard]").first();
   }
 
   function addFood(foodDescription: string) {
