@@ -39,12 +39,12 @@ context("Meal operations", () => {
       .should("contain", "Done");
 
     firstMealCard()
-      .find(".list-group")
-      .children().should("have.length", 4)  // 3 new foods + add food button
+      .find("[data-cy=foodItem]")
+      .should("have.length", 3)
       .first().should("contain", "food 1").should("contain", "Edit")
       .next().should("contain", "food 2").should("contain", "Edit")
-      .next().should("contain", "food 3").should("contain", "Edit")
-      .next().get("[data-cy=buttonNewFood]").should("exist");
+      .next().should("contain", "food 3").should("contain", "Edit");
+    firstMealCard().find("[data-cy=buttonNewFood]").should("exist");
 
   })
 
