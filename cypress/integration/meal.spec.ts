@@ -39,14 +39,13 @@ context("Meal operations", () => {
       .should("contain", "Done");
 
     firstMealCard()
-      .within(() => {
-        cy.get(".list-group")
-          .children().should("have.length", 4)  // 3 new foods + add food button
-          .first().should("contain", "food 1").should("contain", "Edit")
-          .next().should("contain", "food 2").should("contain", "Edit")
-          .next().should("contain", "food 3").should("contain", "Edit")
-          .next().get("[data-cy=buttonNewFood]").should("exist");
-      });
+      .find(".list-group")
+      .children().should("have.length", 4)  // 3 new foods + add food button
+      .first().should("contain", "food 1").should("contain", "Edit")
+      .next().should("contain", "food 2").should("contain", "Edit")
+      .next().should("contain", "food 3").should("contain", "Edit")
+      .next().get("[data-cy=buttonNewFood]").should("exist");
+
   })
 
   it("delete a meal", () => {
