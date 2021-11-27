@@ -20,17 +20,15 @@ export const DayPage = (props: Props) => (
     <Header />
     <Summary />
 
-    <div data-cy="mealCards">
-      {_.map(_.range(props.numberOfMeals), (index) => (
-        <Card className="mt-1" key={index} data-cy={"meal-" + index}>
-          <MealCardHeader mealIndex={index} />
+    {_.map(_.range(props.numberOfMeals), (index) => (
+      <Card className="mt-1" key={index} data-cy="mealCard">
+        <MealCardHeader mealIndex={index} />
 
-          <ListGroup>
-            <FoodListGroupItems mealIndex={index} />
-          </ListGroup>
-        </Card>
-      ))}
-    </div>
+        <ListGroup>
+          <FoodListGroupItems mealIndex={index} />
+        </ListGroup>
+      </Card>
+    ))}
     {props.showButton &&
       <div className="p-2">
         <AddMealButton data-cy="buttonAddMeal" variant={VariantPrimary}>

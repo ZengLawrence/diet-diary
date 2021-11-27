@@ -8,8 +8,8 @@ context("Meal operations", () => {
   it("add a new meal", () => {
     cy.get("[data-cy=buttonAddMeal]").click();
 
-    cy.get("[data-cy=mealCards")
-      .children().should("have.length", 2)
+    cy.get("[data-cy=mealCard")
+      .should("have.length", 2)
       .last()
       .should("contain", "Delete")
       .should("contain", "Edit")
@@ -54,7 +54,7 @@ context("Meal operations", () => {
   it("delete a meal", () => {
     firstMealCard().contains("Delete").click();
 
-    cy.get("[data-cy=mealCards]").should("be.empty");
+    cy.get("[data-cy=mealCard]").should("have.length", 0);
 
   })
 
@@ -97,9 +97,7 @@ context("Meal operations", () => {
   }
 
   function firstMealCard() {
-    return cy.get("[data-cy=mealCards")
-      .children()
-      .first();
+    return cy.get("[data-cy=mealCard").first();
   }
 
   function addFood(foodDescription: string) {
@@ -108,7 +106,6 @@ context("Meal operations", () => {
         cy.get("#inputFoodDescription").type(foodDescription);
         cy.contains("Add").click();
       })
-
   }
 
 })
