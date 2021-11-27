@@ -73,7 +73,7 @@ export const FoodListGroupItems = (props: Props) => {
       return (
         <Fragment>
           {props.foods.map((food, index) => (
-            <ListGroup.Item key={index}>
+            <ListGroup.Item key={index} data-cy="foodItem">
               <FoodItem food={food} />
             </ListGroup.Item>
           ))}

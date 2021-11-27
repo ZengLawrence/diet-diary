@@ -60,7 +60,7 @@ context("Meal operations", () => {
     firstMealCard().within(() => {
       exitAddMealState();
     }).within(() => {
-      cy.get(".list-group").should("be.empty");
+      cy.get("[data-cy=foodItem]").should("have.length", 0);
     }).should("not.contain", "Name");
 
     const openNewFoodForm = () => {
@@ -73,7 +73,7 @@ context("Meal operations", () => {
       addFood("food 1");
       exitAddMealState();
     }).within(() => {
-      cy.get(".list-group").children().should("have.length", 1);
+      cy.get("[data-cy=foodItem]").should("have.length", 1);
     }).should("not.contain", "Name");
 
     firstMealCard().within(() => {
@@ -81,7 +81,7 @@ context("Meal operations", () => {
       addFood("food 2");
       exitAddMealState();
     }).within(() => {
-      cy.get(".list-group").children().should("have.length", 2);
+      cy.get("[data-cy=foodItem]").should("have.length", 2);
     }).should("contain", "Name");
 
   })
