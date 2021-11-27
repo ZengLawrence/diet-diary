@@ -8,14 +8,12 @@ context("Meal operations", () => {
   it("add a new meal", () => {
     cy.get("[data-cy=buttonAddMeal]").click();
 
-    cy.get("[data-cy=mealCards")
-      .children().should("have.length", 2)
+    cy.get("[data-cy=mealCard")
+      .should("have.length", 2)
       .last()
       .should("contain", "Delete")
       .should("contain", "Edit")
-      .within(() => {
-        cy.get("[data-cy=formAdd]").should("exist");
-      });
+      .find("[data-cy=formAdd]").should("exist");
   })
 
   it("edit a meal", () => {
@@ -41,20 +39,19 @@ context("Meal operations", () => {
       .should("contain", "Done");
 
     firstMealCard()
-      .within(() => {
-        cy.get(".list-group")
-          .children().should("have.length", 4)  // 3 new foods + add food button
-          .first().should("contain", "food 1").should("contain", "Edit")
-          .next().should("contain", "food 2").should("contain", "Edit")
-          .next().should("contain", "food 3").should("contain", "Edit")
-          .next().get("[data-cy=buttonNewFood]").should("exist");
-      });
+      .find("[data-cy=foodItem]")
+      .should("have.length", 3)
+      .first().should("contain", "food 1").should("contain", "Edit")
+      .next().should("contain", "food 2").should("contain", "Edit")
+      .next().should("contain", "food 3").should("contain", "Edit");
+    firstMealCard().find("[data-cy=buttonNewFood]").should("exist");
+
   })
 
   it("delete a meal", () => {
     firstMealCard().contains("Delete").click();
 
-    cy.get("[data-cy=mealCards]").should("be.empty");
+    cy.get("[data-cy=mealCard]").should("have.length", 0);
 
   })
 
@@ -62,33 +59,27 @@ context("Meal operations", () => {
 
     firstMealCard().within(() => {
       exitAddMealState();
-    }).within(() => {
-      cy.get(".list-group").should("be.empty");
-    }).should("not.contain", "Name");
+    }).find("[data-cy=foodItem]").should("have.length", 0);
+    firstMealCard().should("not.contain", "Name");
 
     const openNewFoodForm = () => {
       cy.contains("Edit").click();
-      cy.get(".list-group")
-        .within(() => {
-          cy.get("[data-cy=buttonNewFood]").click();
-        });
+      cy.get("[data-cy=buttonNewFood]").click();
     }
 
     firstMealCard().within(() => {
       openNewFoodForm();
       addFood("food 1");
       exitAddMealState();
-    }).within(() => {
-      cy.get(".list-group").children().should("have.length", 1);
-    }).should("not.contain", "Name");
+    }).find("[data-cy=foodItem]").should("have.length", 1);
+    firstMealCard().should("not.contain", "Name");
 
     firstMealCard().within(() => {
       openNewFoodForm();
       addFood("food 2");
       exitAddMealState();
-    }).within(() => {
-      cy.get(".list-group").children().should("have.length", 2);
-    }).should("contain", "Name");
+    }).find("[data-cy=foodItem]").should("have.length", 2);
+    firstMealCard().should("contain", "Name");
 
   })
 
@@ -97,9 +88,7 @@ context("Meal operations", () => {
   }
 
   function firstMealCard() {
-    return cy.get("[data-cy=mealCards")
-      .children()
-      .first();
+    return cy.get("[data-cy=mealCard]").first();
   }
 
   function addFood(foodDescription: string) {
@@ -108,7 +97,6 @@ context("Meal operations", () => {
         cy.get("#inputFoodDescription").type(foodDescription);
         cy.contains("Add").click();
       })
-
   }
 
 })
