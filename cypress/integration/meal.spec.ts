@@ -65,10 +65,7 @@ context("Meal operations", () => {
 
     const openNewFoodForm = () => {
       cy.contains("Edit").click();
-      cy.get(".list-group")
-        .within(() => {
-          cy.get("[data-cy=buttonNewFood]").click();
-        });
+      cy.get("[data-cy=buttonNewFood]").click();
     }
 
     firstMealCard().within(() => {
