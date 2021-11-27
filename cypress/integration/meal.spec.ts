@@ -13,9 +13,7 @@ context("Meal operations", () => {
       .last()
       .should("contain", "Delete")
       .should("contain", "Edit")
-      .within(() => {
-        cy.get("[data-cy=formAdd]").should("exist");
-      });
+      .find("[data-cy=formAdd]").should("exist");
   })
 
   it("edit a meal", () => {
