@@ -5,7 +5,7 @@ name: CI CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, cypress-mac ]
   pull_request:
     branches: [ main ]
   release:
@@ -22,9 +22,6 @@ jobs:
       matrix:
         node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-    outputs:
-      release: ${{ env.release }}
 
     steps:
     - run: echo "env.release = ${{ env.release }}"
@@ -62,7 +59,7 @@ jobs:
         retention-days: 1
 
   deploy:
-    if: ${{ needs.build.outputs.release == 'true' }}
+    if: ${{ github.event_name == 'release' }}
     needs: [ build ]
     runs-on: ubuntu-latest
     steps:
