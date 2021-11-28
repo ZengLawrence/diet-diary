@@ -13,9 +13,6 @@ on:
 
 jobs:
   build:
-    env:
-      release: ${{ github.event_name == 'release' }}
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -24,7 +21,6 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - run: echo "env.release = ${{ env.release }}"
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
@@ -40,27 +36,30 @@ jobs:
       run: npm run gen-parser
     - run: npm ci
     - run: npm test
-    - name: integration test
-      uses: cypress-io/github-action@v2
-      with:
-        build: npm run build
-        start: npm run start:ci
-        browser: chrome
-    - run: echo "should I release? ${{ env.release == 'true' }}"
     - name: Builds the app for production
-      if: ${{ env.release == 'true' }}
       run: npm run build
     - name: Upload production build
-      if: ${{ env.release == 'true' }}
       uses: actions/upload-artifact@v2
       with:
         name: build
+        if-no-files-found: error
         path: build
         retention-days: 1
 
+  integration-test:
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: integration test
+      uses: cypress-io/github-action@v2
+      with:
+        start: npm run start:ci
+        browser: chrome
+
   deploy:
     if: ${{ github.event_name == 'release' }}
-    needs: [ build ]
+    needs: [ integration-test ]
     runs-on: ubuntu-latest
     steps:
     - name: Download production build
