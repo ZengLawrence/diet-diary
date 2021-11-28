@@ -62,9 +62,25 @@ jobs:
         start: npm run start:ci
         browser: chrome
 
+  integration-test-windows:
+    needs: [ build ]
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Download production build
+      uses: actions/download-artifact@v2
+      with:
+        name: build
+        path: build
+    - name: integration test
+      uses: cypress-io/github-action@v2
+      with:
+        start: npm run start:ci
+        browser: chrome
+
   deploy:
     if: ${{ github.event_name == 'release' }}
-    needs: [ integration-test-mac ]
+    needs: [ integration-test-mac, integration-test-windows ]
     runs-on: ubuntu-latest
     steps:
     - name: Download production build
