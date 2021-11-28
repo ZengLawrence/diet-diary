@@ -29,7 +29,12 @@ export function newFood(): Food {
 }
 
 function currentTime() {
-  return new Date().toLocaleTimeString();
+  return new Date().toLocaleTimeString([],
+    {
+      hour: '2-digit',
+      minute: '2-digit'
+    }
+  );
 }
 
 export function newMeal(): Meal {
