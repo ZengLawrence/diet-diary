@@ -18,7 +18,14 @@ export function add(s1: Serving, s2: Serving): Serving {
 }
 
 export function calcFoodsServingSummary(foods: Food[]) {
-  return _.reduce(_.map(foods, "serving"), add, {});
+  return _.reduce(_.map(foods, "serving"), add, {
+    vegetable: 0,
+    fruit: 0,
+    carbohydrate: 0,
+    proteinDiary: 0,
+    fat: 0,
+    sweet: 0,
+  });
 }
 
 export function calcServingSummary(meal: Meal) {

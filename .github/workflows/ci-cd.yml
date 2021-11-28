@@ -13,9 +13,6 @@ on:
 
 jobs:
   build:
-    env:
-      release: ${{ github.event_name == 'release' }}
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -23,11 +20,7 @@ jobs:
         node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    outputs:
-      release: ${{ env.release }}
-
     steps:
-    - run: echo "env.release = ${{ env.release }}"
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
@@ -43,33 +36,41 @@ jobs:
       run: npm run gen-parser
     - run: npm ci
     - run: npm test
-    - name: integration test
-      uses: cypress-io/github-action@v2
-      with:
-        build: npm run build
-        start: npm run start:ci
-        browser: chrome
-    - run: echo "should I release? ${{ env.release == 'true' }}"
     - name: Builds the app for production
-      if: ${{ env.release == 'true' }}
       run: npm run build
     - name: Upload production build
-      if: ${{ env.release == 'true' }}
       uses: actions/upload-artifact@v2
       with:
-        name: diet-diary_build
+        name: build
+        if-no-files-found: error
         path: build
         retention-days: 1
 
-  deploy:
-    if: ${{ needs.build.outputs.release == 'true' }}
+  integration-test:
     needs: [ build ]
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Download production build
+      uses: actions/download-artifact@v2
+      with:
+        name: build
+        path: build
+    - name: integration test
+      uses: cypress-io/github-action@v2
+      with:
+        start: npm run start:ci
+        browser: chrome
+
+  deploy:
+    if: ${{ github.event_name == 'release' }}
+    needs: [ integration-test ]
     runs-on: ubuntu-latest
     steps:
     - name: Download production build
       uses: actions/download-artifact@v2
       with:
-        name: diet-diary_build
+        name: build
         path: build
     - name: Display structure of downloaded files
       run: ls -R
