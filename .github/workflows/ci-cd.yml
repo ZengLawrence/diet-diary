@@ -5,7 +5,7 @@ name: CI CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, cypress-windows ]
   pull_request:
     branches: [ main ]
   release:
@@ -46,7 +46,7 @@ jobs:
         path: build
         retention-days: 1
 
-  integration-test:
+  integration-test-mac:
     needs: [ build ]
     runs-on: macos-latest
     steps:
@@ -64,7 +64,7 @@ jobs:
 
   deploy:
     if: ${{ github.event_name == 'release' }}
-    needs: [ integration-test ]
+    needs: [ integration-test-mac ]
     runs-on: ubuntu-latest
     steps:
     - name: Download production build
