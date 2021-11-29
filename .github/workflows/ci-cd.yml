@@ -11,10 +11,6 @@ on:
   release:
     types: [published]
 
-defaults:
-  run:
-    shell: bash
-
 jobs:
   build:
     runs-on: ubuntu-latest
