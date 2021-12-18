@@ -51,8 +51,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
-        browser: [chrome]
+        os: [ macos-latest, windows-latest ]
+        browser: [ chrome ]
         include:
           - os: windows-latest
             browser: edge
