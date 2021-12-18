@@ -52,6 +52,10 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
+        browser: [chrome]
+        include:
+          - os: windows-latest
+            browser: edge
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js 16.x
@@ -67,7 +71,7 @@ jobs:
       uses: cypress-io/github-action@v2
       with:
         start: npm run start:ci
-        browser: chrome
+        browser: ${{ matrix.browser }}
 
   deploy:
     if: ${{ github.event_name == 'release' }}
