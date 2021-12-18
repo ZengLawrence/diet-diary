@@ -46,25 +46,12 @@ jobs:
         path: build
         retention-days: 1
 
-  integration-test-mac:
+  integration-test:
     needs: [ build ]
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Download production build
-      uses: actions/download-artifact@v2
-      with:
-        name: build
-        path: build
-    - name: integration test
-      uses: cypress-io/github-action@v2
-      with:
-        start: npm run start:ci
-        browser: chrome
-
-  integration-test-windows:
-    needs: [ build ]
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js 16.x
@@ -84,7 +71,7 @@ jobs:
 
   deploy:
     if: ${{ github.event_name == 'release' }}
-    needs: [ integration-test-mac, integration-test-windows ]
+    needs: [ integration-test ]
     runs-on: ubuntu-latest
     steps:
     - name: Download production build
