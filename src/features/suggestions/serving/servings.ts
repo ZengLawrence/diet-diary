@@ -1,10 +1,10 @@
 import _ from "lodash";
-import { servings as fruitServings } from "./fruit-serving.json";
-import { servings as vegetableServings } from "./vegetable-serving.json";
-import { servings as carbohydrateServings } from "./carbohydrate-serving.json";
-import { servings as proteinDiaryServings } from "./protein-diary-serving.json";
-import { servings as fatServings } from "./fat-serving.json";
-import { servings as sweetServings } from "./sweet-serving.json";
+import fruit from "./fruit-serving.json";
+import vegetable from "./vegetable-serving.json";
+import carbohydrate from "./carbohydrate-serving.json";
+import proteinDiary from "./protein-diary-serving.json";
+import fat from "./fat-serving.json";
+import sweet from "./sweet-serving.json";
 import { ServingSuggestion } from "./ServingSuggestion";
 import { oneServingOf } from "../../../model/servingFunction";
 
@@ -25,10 +25,10 @@ function toSuggestion({foodName, servingSize, foodGroup, bestChoice}: ServingSug
 }
 
 export default _.concat(
-  _.map(vegetableServings, vegetableServing),
-  _.map(fruitServings, fruitServing),
-  _.map(carbohydrateServings, carbohydrateServing),
-  _.map(proteinDiaryServings, proteinDiaryServing),
-  _.map(fatServings, fatServing),
-  _.map(sweetServings, sweetServing),
+  _.map(vegetable.servings, vegetableServing),
+  _.map(fruit.servings, fruitServing),
+  _.map(carbohydrate.servings, carbohydrateServing),
+  _.map(proteinDiary.servings, proteinDiaryServing),
+  _.map(fat.servings, fatServing),
+  _.map(sweet.servings, sweetServing),
 ).map(toSuggestion);
