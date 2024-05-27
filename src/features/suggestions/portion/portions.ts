@@ -1,14 +1,14 @@
 import _ from "lodash";
 import { PortionSuggestion } from "./PortionSuggestion";
-import { portions as breakfastPortions } from "./breakfast-portion.json";
-import { portions as sandwichPortions } from "./sandwich-portion.json";
-import { portions as saladPortions } from "./salad-portion.json";
-import { portions as soupPortions } from "./soup-portion.json";
-import { portions as mainCoursePortions } from "./main-course-portion.json";
-import { portions as sideDishPortions } from "./side-dish-portion.json";
-import { portions as snackPortions } from "./snack-portion.json";
-import { portions as dessertPortions } from "./dessert-portion.json";
-import { portions as beveragePortions } from "./beverage-portion.json";
+import breakfast from "./breakfast-portion.json";
+import sandwich from "./sandwich-portion.json";
+import salad from "./salad-portion.json";
+import soup from "./soup-portion.json";
+import mainCourse from "./main-course-portion.json";
+import sideDish from "./side-dish-portion.json";
+import snack from "./snack-portion.json";
+import dessert from "./dessert-portion.json";
+import beverage from "./beverage-portion.json";
 
 function toSuggestion({foodName, portionSize, serving}: PortionSuggestion) {
   return {
@@ -19,13 +19,13 @@ function toSuggestion({foodName, portionSize, serving}: PortionSuggestion) {
 }
 
 export default _.concat<PortionSuggestion>(
-  breakfastPortions,
-  sandwichPortions,
-  saladPortions,
-  soupPortions,
-  mainCoursePortions,
-  sideDishPortions,
-  snackPortions,
-  dessertPortions,
-  beveragePortions,
+  breakfast.portions,
+  sandwich.portions,
+  salad.portions,
+  soup.portions,
+  mainCourse.portions,
+  sideDish.portions,
+  snack.portions,
+  dessert.portions,
+  beverage.portions,
 ).map(toSuggestion);
