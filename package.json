@@ -65,6 +65,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "7.21.0-placeholder-for-preset-env.2",
     "@types/lodash": "^4.14.168",
     "@types/numeral": "^2.0.1",
     "cypress": "^9.1.0",
