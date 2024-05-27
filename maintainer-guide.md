@@ -5,8 +5,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `npm gen-parser`
+### Generate ANTLR JavaScript files
 Generate parser for food description.  You **must** run this script first before running `npm start`.
+
+```shell
+# use JDK 17
+export PATH="/usr/local/opt/openjdk@17/bin:$PATH"
+npm run gen-parser
+```
+
 ### `npm start`
 
 Runs the app in the development mode.\
