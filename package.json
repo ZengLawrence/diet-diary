@@ -69,7 +69,7 @@
     "@types/numeral": "^2.0.1",
     "cypress": "^9.1.0",
     "react-app-rewired": "^2.2.1",
-    "serve": "^13.0.2"
+    "serve": "^14.2.3"
   },
   "overrides": {
     "autoprefixer": "10.4.5"
