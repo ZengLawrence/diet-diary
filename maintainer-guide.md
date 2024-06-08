@@ -10,7 +10,7 @@ Generate parser for food description.  You **must** run this script first before
 
 ```shell
 # use JDK 17
-export PATH="/usr/local/opt/openjdk@17/bin:$PATH"
+export PATH="/usr/local/opt/openjdk@21/bin:$PATH"
 npm run gen-parser
 ```
 
