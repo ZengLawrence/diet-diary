@@ -9,8 +9,7 @@ In the project directory, you can run:
 Generate parser for food description.  You **must** run this script first before running `npm start`.
 
 ```shell
-# use JDK 17
-export PATH="/usr/local/opt/openjdk@17/bin:$PATH"
+export PATH="/usr/local/opt/openjdk@21/bin:$PATH"
 npm run gen-parser
 ```
 
