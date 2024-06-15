@@ -97,10 +97,10 @@ jobs:
       run: ls -R
       working-directory: github-page
     - name: Remove diet-diary dir
-      run: git rm -r diet-diary/
+      run: git rm -r project/diet-diary/v1/
       working-directory: github-page
     - name: Copy build dir to diet-diary dir
-      run: cp -r ../build/ diet-diary
+      run: cp -r ../build/ project/diet-diary/v1
       working-directory: github-page
     - name: Publish to my GitHub page
       run: |
