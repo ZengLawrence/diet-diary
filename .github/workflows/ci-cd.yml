@@ -63,7 +63,7 @@ jobs:
       with:
         node-version: 22.x
     - name: Download production build
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: build
         path: build
@@ -79,7 +79,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Download production build
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: build
         path: build
