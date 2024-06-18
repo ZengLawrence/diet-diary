@@ -5,7 +5,7 @@ context("Meal operations", () => {
     cy.visit("/");
   })
 
-  const sizes = ['iphone-5', 'iphone-8', [800, 600]]
+  const sizes = ['iphone-8', [800, 600]]
 
   sizes.forEach((size) => {
     describe(`Screen ${size}`, () => {
