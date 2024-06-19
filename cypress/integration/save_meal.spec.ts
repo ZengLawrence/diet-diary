@@ -17,7 +17,7 @@ context("Save meal", () => {
         }  
       });
 
-      it("save a meal", () => {
+      it("save after finish adding a meal", () => {
         const setUp = () => {
           // add some foods
           firstMealCard()
@@ -25,6 +25,7 @@ context("Save meal", () => {
               addFood("food 1");
               addFood("food 2");
               addFood("food 3");
+              exitAddMealState();
             })
         }
 
@@ -38,6 +39,10 @@ context("Save meal", () => {
 
       function firstMealCard() {
         return cy.get("[data-cy=mealCard]").first();
+      }
+
+      function exitAddMealState() {
+        cy.get("form").contains("Cancel").click();
       }
 
       function addFood(foodDescription: string) {
