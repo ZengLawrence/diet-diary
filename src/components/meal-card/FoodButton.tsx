@@ -1,10 +1,10 @@
 import { Button, ButtonProps } from "react-bootstrap";
 
-interface OwnPros { 
+interface OwnProps { 
   mealIndex: number;
   foodIndex: number;
 }
 
-export const FoodButton = (props: OwnPros & ButtonProps) => (
+export const FoodButton = (props: OwnProps & ButtonProps) => (
   <Button {...props}></Button>
 )
