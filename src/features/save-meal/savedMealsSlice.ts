@@ -6,7 +6,7 @@ const savedMealsSlice = createSlice({
   initialState: [] as Meal[],
   reducers: {
     save(state, action: PayloadAction<Meal>) {
-      state.push(action.payload);
+      state.unshift(action.payload);
     }
   }
 })
