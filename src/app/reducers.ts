@@ -4,6 +4,7 @@ import editMode from "../features/day-page/editModeSlice";
 import mealStates from "../features/day-page/mealStatesSlice";
 import summaryType from "../features/day-page/summaryTypeSlice";
 import targetState from "../features/target/targetStateSlice";
+import savedMeals from "../features/save-meal/savedMealsSlice";
 
 export default combineReducers(
   {
@@ -12,5 +13,6 @@ export default combineReducers(
     mealStates,
     editMode,
     targetState,
+    savedMeals,
   }
 )
