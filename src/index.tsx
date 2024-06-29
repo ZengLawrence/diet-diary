@@ -16,6 +16,7 @@ const router = createHashRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <Root />, // redirect back to home page
   },
 ]);
 
