@@ -6,16 +6,16 @@ import {
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { Provider } from "react-redux";
 import store from "./app/store";
+import Root from './routes/Root';
 
 const router = createHashRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Root />,
   },
 ]);
 

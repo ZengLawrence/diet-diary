@@ -1,13 +1,10 @@
 import { Container } from "react-bootstrap";
-import DayPage from "./features/day-page/DayPage";
+import DayPage from "../features/day-page/DayPage";
 
-function App() {
-
+export default function Root() {
   return (
     <Container>
       <DayPage />
     </Container>
   );
 }
-
-export default App;
