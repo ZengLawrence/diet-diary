@@ -11,12 +11,17 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from "react-redux";
 import store from "./app/store";
 import Root from './routes/Root';
+import SavedMeals from './routes/SavedMeals';
 
 const router = createHashRouter([
   {
     path: "/",
     element: <Root />,
     errorElement: <Root />, // redirect back to home page
+  },
+  {
+    path: "/saved-meals",
+    element: <SavedMeals />,
   },
 ]);
 
