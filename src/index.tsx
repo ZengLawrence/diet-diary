@@ -1,5 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {
+  createHashRouter,
+  RouterProvider,
+} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './App';
@@ -8,10 +12,17 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from "react-redux";
 import store from "./app/store";
 
+const router = createHashRouter([
+  {
+    path: "/",
+    element: <App />,
+  },
+]);
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
