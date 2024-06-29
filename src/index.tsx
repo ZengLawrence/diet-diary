@@ -12,6 +12,7 @@ import { Provider } from "react-redux";
 import store from "./app/store";
 import Root from './routes/Root';
 import SavedMeals from './routes/SavedMeals';
+import { Container } from 'react-bootstrap';
 
 const router = createHashRouter([
   {
@@ -28,7 +29,9 @@ const router = createHashRouter([
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <Container>
+        <RouterProvider router={router} />
+      </Container>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
