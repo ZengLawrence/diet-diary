@@ -28,7 +28,7 @@ export function calcFoodsServingSummary(foods: Food[]) {
   });
 }
 
-export function calcServingSummary(meal: Meal) {
+export function calcServingSummary(meal: {foods: Food[];}) {
   return calcFoodsServingSummary(meal.foods);
 }
 

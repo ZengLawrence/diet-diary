@@ -1,9 +1,9 @@
 import { Card } from "react-bootstrap";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
-import { Meal } from "../../model/Food";
+import { Food } from "../../model/Food";
 
 interface Props {
-  meal: Meal;
+  meal: {foods: Food[];};
 }
 
 export const MealCardHeader = (props: Props) => (

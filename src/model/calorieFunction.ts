@@ -24,7 +24,7 @@ export function calcFoodCalories(food: Food) {
   return calcServingCalories(food.serving);
 }
 
-export function calcMealCalories(meal: Meal) {
+export function calcMealCalories(meal: {foods: Food[];}) {
   return _.sum(_.map(meal.foods, calcFoodCalories));
 }
 
