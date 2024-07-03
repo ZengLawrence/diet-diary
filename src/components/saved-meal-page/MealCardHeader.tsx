@@ -11,6 +11,6 @@ interface Props {
 export const MealCardHeader = (props: Props) => (
   <Card.Header className="d-flex justify-content-end">
     <MealCalorieServingPanel meal={props.meal} />
-    <SelectButton variant={VariantSecondary} meal={props.meal} href=".." >Select</SelectButton>
+    <SelectButton variant={VariantSecondary} meal={props.meal} href="/#last" >Select</SelectButton>
   </Card.Header>
 )

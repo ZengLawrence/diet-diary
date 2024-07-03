@@ -15,13 +15,17 @@ interface Props {
   showButton: boolean;
 }
 
+function id(index: number, length: number) {
+  return index == length - 1 ? "last" : index.toString();
+}
+
 export const DayPage = (props: Props) => (
   <div>
     <Header />
     <Summary />
 
     {_.map(_.range(props.numberOfMeals), (index) => (
-      <Card className="mt-1" key={index} data-cy="mealCard">
+      <Card id={id(index, props.numberOfMeals)} className="mt-1" key={index} data-cy="mealCard">
         <MealCardHeader mealIndex={index} />
 
         <ListGroup>
