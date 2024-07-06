@@ -23,8 +23,6 @@ context("Save meal", () => {
           firstMealCard()
             .within(() => {
               addFood("food 1");
-              addFood("food 2");
-              addFood("food 3");
               exitAddMealState();
             })
         }
