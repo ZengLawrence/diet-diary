@@ -33,6 +33,13 @@ const mealStatesSlice = createSlice({
       resetAll(state);
       state.push(newMealState())
     },
+    addSavedMeal(state, action: PayloadAction<{ foods: Food[]; }>) {
+      resetAll(state);
+      const mealState = newMealState();
+      const meal = {...mealState.meal, foods: action.payload.foods}
+      mealState.meal = meal;
+      state.push(mealState);
+    },
     deleteMeal(state, action: PayloadAction<number>) {
       return _.filter(state, (_, index) => (index !== action.payload));
     },
@@ -86,7 +93,7 @@ const mealStatesSlice = createSlice({
 })
 
 export const {
-  addMeal, deleteMeal,
+  addMeal, addSavedMeal, deleteMeal,
   addFood, updateFood, cancelAddFood, replaceFoods,
   enterMealEditMode, enterMealAddMode, enterMealNameMode, exitMealEditMode,
   enterFoodEditMode, exitFoodEditMode,

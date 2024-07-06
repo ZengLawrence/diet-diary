@@ -14,7 +14,7 @@ import { VariantPrimary } from "../ButtonVariant";
 import { FoodItem } from "../FoodItem";
 
 interface Props {
-  editState: MealEditState;
+  editState?: MealEditState;
   mealIndex: number;
   foods: Food[];
   foodEditIndex?: number;

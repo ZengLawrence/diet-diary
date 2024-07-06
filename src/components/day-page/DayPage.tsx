@@ -1,18 +1,22 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import { Card, ListGroup } from "react-bootstrap";
+import { Button, Card, ListGroup } from "react-bootstrap";
 import AddMealButton from "../../features/day-page/AddMealButton";
 import Footer from "../../features/day-page/Footer";
 import Header from "../../features/day-page/Header";
 import Summary from "../../features/day-page/Summary";
 import FoodListGroupItems from "../../features/meal-card/FoodListGroupItems";
 import MealCardHeader from "../../features/meal-card/MealCardHeader";
-import { VariantPrimary } from "../ButtonVariant";
+import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 
 interface Props {
   numberOfMeals: number;
   showButton: boolean;
+}
+
+function id(index: number, length: number) {
+  return index === length - 1 ? "last" : index.toString();
 }
 
 export const DayPage = (props: Props) => (
@@ -21,7 +25,7 @@ export const DayPage = (props: Props) => (
     <Summary />
 
     {_.map(_.range(props.numberOfMeals), (index) => (
-      <Card className="mt-1" key={index} data-cy="mealCard">
+      <Card id={id(index, props.numberOfMeals)} className="mt-1" key={index} data-cy="mealCard">
         <MealCardHeader mealIndex={index} />
 
         <ListGroup>
@@ -34,6 +38,9 @@ export const DayPage = (props: Props) => (
         <AddMealButton data-cy="buttonAddMeal" variant={VariantPrimary}>
           <FontAwesomeIcon icon={faPlus} />
         </AddMealButton>
+        <Button data-cy="buttonAddSavedMeal" variant={VariantSecondary} href="#/saved-meals">
+          <FontAwesomeIcon icon={faPlus} /> Saved Meal
+        </Button>
       </div>}
     <Footer />
   </div>

@@ -9,6 +9,7 @@ export const editModeSelector = (state: RootState) => state.editMode;
 export const mealStatesSelector = (state: RootState) => state.mealStates;
 export const summaryTypeSelector = (state: RootState) => state.summaryType;
 export const targetStateSelector = (state: RootState) => state.targetState;
+export const savedMealsSelector = (state: RootState) => state.savedMeals;
 
 export const editTargetSelector = createSelector(
   targetStateSelector,
