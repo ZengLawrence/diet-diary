@@ -16,7 +16,7 @@ interface Props {
 }
 
 function id(index: number, length: number) {
-  return index == length - 1 ? "last" : index.toString();
+  return index === length - 1 ? "last" : index.toString();
 }
 
 export const DayPage = (props: Props) => (
