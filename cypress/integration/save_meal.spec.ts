@@ -17,21 +17,29 @@ context("Save meal", () => {
         }  
       });
 
-      it("save after finish adding a meal", () => {
-        const setUp = () => {
-          // add some foods
+      it("given save a meal, then add saved meal, should see same meal added", () => {
+        const given = () => {
           firstMealCard()
             .within(() => {
               addFood("food 1");
               exitAddMealState();
+              saveMeal();
             })
         }
 
-        setUp();
-        firstMealCard()
-          .within(() => {
-            cy.contains("Save").click();
-          });
+        const then = () => {
+          cy.get("[data-cy=buttonAddSavedMeal]").click();
+          cy.contains("Select").first().click();
+        }
+
+        const verify = () => {
+          const secondCard = cy.get("[data-cy=mealCard]").eq(1);
+          secondCard.should("contain", "food 1");
+        }
+
+        given();
+        then();
+        verify();
 
       })
 
@@ -51,6 +59,9 @@ context("Save meal", () => {
           })
       }
 
+      function saveMeal() {
+        cy.contains("Save").click();
+      }
 
     })
   })
