@@ -34,7 +34,7 @@ export const DayPage = (props: Props) => (
       </Card>
     ))}
     {props.showButton &&
-      <div className="p-2">
+      <div className="p2 d-flex justify-content-end">
         <AddMealButton data-cy="buttonAddMeal" variant={VariantPrimary}>
           <FontAwesomeIcon icon={faPlus} />
         </AddMealButton>&nbsp;
