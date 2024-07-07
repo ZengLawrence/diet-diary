@@ -37,7 +37,7 @@ export const DayPage = (props: Props) => (
       <div className="p-2">
         <AddMealButton data-cy="buttonAddMeal" variant={VariantPrimary}>
           <FontAwesomeIcon icon={faPlus} />
-        </AddMealButton>
+        </AddMealButton>&nbsp;
         <Button data-cy="buttonAddSavedMeal" variant={VariantSecondary} href="#/saved-meals">
           <FontAwesomeIcon icon={faPlus} /> Saved Meal
         </Button>
