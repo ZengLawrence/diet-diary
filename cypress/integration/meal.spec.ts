@@ -67,34 +67,6 @@ context("Meal operations", () => {
 
       })
 
-      it("name button should appear when exiting add meal state and there are at least 2 foods", () => {
-
-        firstMealCard().within(() => {
-          exitAddMealState();
-        }).find("[data-cy=foodItem]").should("have.length", 0);
-        firstMealCard().should("not.contain", "Name");
-
-        const openNewFoodForm = () => {
-          cy.contains("Edit").click();
-          cy.get("[data-cy=buttonNewFood]").click();
-        }
-
-        firstMealCard().within(() => {
-          openNewFoodForm();
-          addFood("food 1");
-          exitAddMealState();
-        }).find("[data-cy=foodItem]").should("have.length", 1);
-        firstMealCard().should("not.contain", "Name");
-
-        firstMealCard().within(() => {
-          openNewFoodForm();
-          addFood("food 2");
-          exitAddMealState();
-        }).find("[data-cy=foodItem]").should("have.length", 2);
-        firstMealCard().should("contain", "Name");
-
-      })
-
       function exitAddMealState() {
         cy.get("form").contains("Cancel").click();
       }

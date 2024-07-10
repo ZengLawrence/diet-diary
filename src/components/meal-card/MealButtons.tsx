@@ -3,20 +3,17 @@ import { MealEditState } from "../../features/day-page/mealStatesSlice";
 import DeleteButton from "../../features/meal-card/DeleteButton";
 import DoneButton from "../../features/meal-card/DoneButton";
 import EditButton from "../../features/meal-card/EditButton";
-import NameButton from "../../features/meal-card/NameButton";
 import { VariantDanger, VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { SaveButton } from "./SaveButton";
 
 interface Props {
   editState: MealEditState;
   mealIndex: number;
-  showNameButton: boolean;
 }
 
 export const MealButtons = (props: Props) => {
   const editButton = <EditButton variant={VariantPrimary} mealIndex={props.mealIndex}>Edit</EditButton>;
   const deleteButton = <DeleteButton variant={VariantDanger} mealIndex={props.mealIndex}>Delete</DeleteButton>;
-  const nameButton = <NameButton variant={VariantSecondary} mealIndex={props.mealIndex}>Name</NameButton>;
   const saveButton = <SaveButton variant={VariantSecondary} mealIndex={props.mealIndex}>Save</SaveButton>;
   const doneButton = <DoneButton variant={VariantPrimary} mealIndex={props.mealIndex}>Done</DoneButton>;
 
@@ -47,7 +44,6 @@ export const MealButtons = (props: Props) => {
     default:
       return (
         <Fragment>
-          {props.showNameButton && nameButton}&nbsp;
           {saveButton}&nbsp;
           {editButton}
         </Fragment>
