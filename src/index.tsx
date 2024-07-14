@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-  createHashRouter,
+  createBrowserRouter,
+  Outlet,
   RouterProvider,
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
@@ -14,16 +15,30 @@ import Root from './routes/Root';
 import SavedMeals from './routes/SavedMeals';
 import { Container } from 'react-bootstrap';
 
-const router = createHashRouter([
+const App = () => (
+  <div>
+    <Outlet />
+  </div>
+)
+
+
+const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
-    errorElement: <Root />, // redirect back to home page
+    element: <App />,
+    errorElement: <App />, // redirect back to home page
+    children: [
+      {
+        index: true,
+        element: <Root />
+      },
+      {
+        path: "saved-meals",
+        element: <SavedMeals />,
+      },
+    ]
   },
-  {
-    path: "/saved-meals",
-    element: <SavedMeals />,
-  },
+  
 ]);
 
 ReactDOM.render(

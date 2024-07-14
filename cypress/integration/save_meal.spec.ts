@@ -38,6 +38,7 @@ context("Save meal", () => {
         }
 
         given();
+        cy.wait(1000); // FIXME: should be waiting for same UI element instead of plain wait
         then();
         verify();
 
