@@ -1,5 +1,3 @@
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import { Fragment } from "react";
 import { ListGroup } from "react-bootstrap";
@@ -10,8 +8,8 @@ import EditFoodButton from "../../features/meal-card/EditFoodButton";
 import NewFoodButton from "../../features/meal-card/NewFoodButton";
 import NameFoodDescriptionForm from "../../features/name-food/NameFoodDescriptionForm";
 import { Food } from "../../model/Food";
-import { VariantPrimary } from "../ButtonVariant";
 import { FoodItem } from "../FoodItem";
+import { VariantPrimary } from "../ButtonVariant";
 
 interface Props {
   editState?: MealEditState;
@@ -46,16 +44,14 @@ export const FoodListGroupItems = (props: Props) => {
                   ? <UpdateFoodInputForm food={food} mealIndex={props.mealIndex} foodIndex={index} />
                   : <div className="d-flex align-items-center">
                     <FoodItem food={food} />
-                    <EditFoodButton mealIndex={props.mealIndex} foodIndex={index}>Edit</EditFoodButton>
+                    <EditFoodButton variant={VariantPrimary} mealIndex={props.mealIndex} foodIndex={index} label="Edit" />
                   </div>
                 }
               </ListGroup.Item>
             ))
           }
           <ListGroup.Item>
-            <NewFoodButton variant={VariantPrimary} mealIndex={props.mealIndex} data-cy={"buttonNewFood"}>
-              <FontAwesomeIcon icon={faPlus} />
-            </NewFoodButton>
+            <NewFoodButton mealIndex={props.mealIndex} />
           </ListGroup.Item>
         </Fragment>
       );

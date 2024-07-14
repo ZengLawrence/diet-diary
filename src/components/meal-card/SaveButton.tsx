@@ -1,10 +1,11 @@
-import { Button, ButtonProps } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { save } from "../../features/save-meal/savedMealsSlice";
 import { mealsSelector } from "../../app/selectors";
 
-interface Props extends ButtonProps {
+interface Props {
   mealIndex: number;
+  variant?: string;
 }
 
 export const SaveButton = (props: Props) =>{
@@ -17,5 +18,7 @@ export const SaveButton = (props: Props) =>{
     dispatch(save(meal));
   }
   return (
-  <Button {...props} onClick={onclick} />
+  <Button variant={props.variant} onClick={onclick}>
+    Save
+  </Button>
 )}
