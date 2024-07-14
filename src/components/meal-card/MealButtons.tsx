@@ -12,10 +12,10 @@ interface Props {
 }
 
 export const MealButtons = (props: Props) => {
-  const editButton = <EditButton variant={VariantPrimary} mealIndex={props.mealIndex}>Edit</EditButton>;
-  const deleteButton = <DeleteButton variant={VariantDanger} mealIndex={props.mealIndex}>Delete</DeleteButton>;
-  const saveButton = <SaveButton variant={VariantSecondary} mealIndex={props.mealIndex}>Save</SaveButton>;
-  const doneButton = <DoneButton variant={VariantPrimary} mealIndex={props.mealIndex}>Done</DoneButton>;
+  const editButton = <EditButton variant={VariantPrimary} mealIndex={props.mealIndex} label="Edit"/>;
+  const deleteButton = <DeleteButton variant={VariantDanger} mealIndex={props.mealIndex} label="Delete" />;
+  const saveButton = <SaveButton variant={VariantSecondary} mealIndex={props.mealIndex} />;
+  const doneButton = <DoneButton variant={VariantPrimary} mealIndex={props.mealIndex} label="Done" />;
 
   switch (props.editState) {
     case "add":
