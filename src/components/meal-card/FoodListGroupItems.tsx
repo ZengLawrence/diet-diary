@@ -9,6 +9,7 @@ import NewFoodButton from "../../features/meal-card/NewFoodButton";
 import NameFoodDescriptionForm from "../../features/name-food/NameFoodDescriptionForm";
 import { Food } from "../../model/Food";
 import { FoodItem } from "../FoodItem";
+import { VariantPrimary } from "../ButtonVariant";
 
 interface Props {
   editState?: MealEditState;
@@ -43,7 +44,7 @@ export const FoodListGroupItems = (props: Props) => {
                   ? <UpdateFoodInputForm food={food} mealIndex={props.mealIndex} foodIndex={index} />
                   : <div className="d-flex align-items-center">
                     <FoodItem food={food} />
-                    <EditFoodButton mealIndex={props.mealIndex} foodIndex={index} label="Edit" />
+                    <EditFoodButton variant={VariantPrimary} mealIndex={props.mealIndex} foodIndex={index} label="Edit" />
                   </div>
                 }
               </ListGroup.Item>
