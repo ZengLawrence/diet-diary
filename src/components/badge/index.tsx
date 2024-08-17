@@ -1,9 +1,9 @@
 import _ from "lodash";
-import { Badge } from "react-bootstrap";
 import { abbreviation, FoodGroup, Serving } from "../../model/Food";
 import { displayServingValue } from "../../model/servingFunction";
 import { isMinLimit } from "../../model/Target";
 import { backgroundColor, BadgeBackgroundColor } from "../backgroundColor";
+import Badge from "react-bootstrap/Badge";
 
 const fontFamily = "Arial Narrow, Arial, sans-serif";
 
