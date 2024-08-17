@@ -1,4 +1,4 @@
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Row } from "react-bootstrap";
 import FoodCalorieServingPanel from "../../features/name-food/FoodCalorieServingPanel";
 import { Food } from "../../model/Food";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
@@ -23,7 +23,7 @@ export const NameFoodDescriptionForm = (props: Props) => {
       className="border p-1"
     >
 
-      <Form.Group as={Form.Row} className="d-flex flex-column flex-wrap mx-1">
+      <Form.Group as={Row} className="d-flex flex-column flex-wrap mx-1">
         {renamedFood.sources.map((food, index) =>
           <div key={index} className="d-flex flex-inline">
             <Form.Check
@@ -40,7 +40,7 @@ export const NameFoodDescriptionForm = (props: Props) => {
         )}
       </Form.Group>
 
-      <Form.Group as={Form.Row} className="ml-1 mr-1">
+      <Form.Group as={Row} className="ml-1 mr-1">
         <Form.Label htmlFor="inputFoodDescription">New food description</Form.Label>
         <Form.Control
           id="inputFoodDescription"
