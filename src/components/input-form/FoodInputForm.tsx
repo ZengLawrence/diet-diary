@@ -1,4 +1,4 @@
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Row } from "react-bootstrap";
 import { calcFoodCalories, displayCalorieValue } from "../../model/calorieFunction";
 import { Food } from "../../model/Food";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
@@ -27,7 +27,7 @@ export const FoodInputForm = (props: Props) => {
       onSubmit={handleSubmit}
       className="border p-1"
     >
-      <Form.Group as={Form.Row} className="ml-1 mr-1">
+      <Form.Group as={Row} className="ml-1 mr-1">
         <FoodDescriptionInputControl
           foodName={food.description}
           suggestions={suggestions}
@@ -39,7 +39,7 @@ export const FoodInputForm = (props: Props) => {
 
       <Form.Group>
         <Form.Label>Servings (Calories: {displayCalorieValue(calcFoodCalories(food))})</Form.Label>
-        <Form.Group as={Form.Row} controlId="formServings" className="d-flex justify-content-between">
+        <Form.Group as={Row} controlId="formServings" className="d-flex justify-content-between">
           <ServingInputControl foodGroup="vegetable" serving={food.serving} isInvalid={error.vegetable} onChange={updateFoodGroupServing} />
           <ServingInputControl foodGroup="fruit" serving={food.serving} isInvalid={error.fruit} onChange={updateFoodGroupServing} />
           <ServingInputControl foodGroup="carbohydrate" serving={food.serving} isInvalid={error.carbohydrate} onChange={updateFoodGroupServing} />
