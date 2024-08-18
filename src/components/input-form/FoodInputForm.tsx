@@ -41,9 +41,11 @@ export const FoodInputForm = (props: Props) => {
         </Form.Group>
       </Row>
 
-      <Form.Group>
-        <Form.Label>Servings (Calories: {displayCalorieValue(calcFoodCalories(food))})</Form.Label>
+      <Row>
         <Form.Group controlId="formServings">
+          <Row>
+            <Form.Label>Servings (Calories: {displayCalorieValue(calcFoodCalories(food))})</Form.Label>
+          </Row>
           <Row className="d-flex justify-content-between">
             <Col>
               <ServingInputControl foodGroup="vegetable" serving={food.serving} isInvalid={error.vegetable} onChange={updateFoodGroupServing} />
@@ -65,7 +67,7 @@ export const FoodInputForm = (props: Props) => {
             </Col>
           </Row>
         </Form.Group>
-      </Form.Group>
+      </Row>
 
       <div className="d-flex justify-content-end">
         <Button className="mr-1 order-sm-1" variant={VariantSecondary} onClick={props.onCancel}>Cancel</Button>
