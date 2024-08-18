@@ -47,22 +47,22 @@ export const FoodInputForm = (props: Props) => {
             <Form.Label>Servings (Calories: {displayCalorieValue(calcFoodCalories(food))})</Form.Label>
           </Row>
           <Row className="d-flex justify-content-between">
-            <Col>
+            <Col xs={4} sm={3} lg={2}>
               <ServingInputControl foodGroup="vegetable" serving={food.serving} isInvalid={error.vegetable} onChange={updateFoodGroupServing} />
             </Col>
-            <Col>
+            <Col xs={4} sm={3} lg={2}>
               <ServingInputControl foodGroup="fruit" serving={food.serving} isInvalid={error.fruit} onChange={updateFoodGroupServing} />
             </Col>
-            <Col>
+            <Col xs={4} sm={3} lg={2}>
               <ServingInputControl foodGroup="carbohydrate" serving={food.serving} isInvalid={error.carbohydrate} onChange={updateFoodGroupServing} />
             </Col>
-            <Col>
+            <Col xs={4} sm={3} lg={2}>
               <ServingInputControl foodGroup="proteinDiary" serving={food.serving} isInvalid={error.proteinDiary} onChange={updateFoodGroupServing} />
             </Col>
-            <Col>
+            <Col xs={4} sm={3} lg={2}>
               <ServingInputControl foodGroup="fat" serving={food.serving} isInvalid={error.fat} onChange={updateFoodGroupServing} />
             </Col>
-            <Col>
+            <Col xs={4} sm={3} lg={2}>
               <ServingInputControl foodGroup="sweet" serving={food.serving} isInvalid={error.sweet} onChange={updateFoodGroupServing} />
             </Col>
           </Row>
