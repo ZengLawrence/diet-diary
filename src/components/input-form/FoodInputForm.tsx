@@ -29,7 +29,7 @@ export const FoodInputForm = (props: Props) => {
       onSubmit={handleSubmit}
       className="border p-1"
     >
-      <Form.Group as={Row} className="ml-1 mr-1">
+      <Form.Group as={Row} className="ml-1 mr-1 mb-3">
         <FoodDescriptionInputControl
           foodName={food.description}
           suggestions={suggestions}
@@ -39,7 +39,7 @@ export const FoodInputForm = (props: Props) => {
         />
       </Form.Group>
 
-      <Form.Group as={Row} controlId="formServings">
+      <Form.Group as={Row} controlId="formServings" className="mb-3">
         <div>Servings (Calories: {displayCalorieValue(calcFoodCalories(food))})</div>
         <Row className="justify-content-between">
           <Col xs={4} sm={3} lg={2}>
