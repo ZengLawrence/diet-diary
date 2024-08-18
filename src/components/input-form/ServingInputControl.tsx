@@ -38,8 +38,8 @@ export const ServingInputControl = (props: Props) => {
   const { servingStr, handleChange } = useSyncedLocalState(props);
 
   return (
-    <Form.Group controlId={controlId} className="d-flex flex-column align-items-end border rounded mx-1">
-      <div>
+    <Form.Group controlId={controlId} className="border rounded">
+      <div className="d-flex flex-row flex-nowrap">
         <FoodGroupLabelBadge foodGroup={foodGroup} />
         <InfoLabelBadge value={calories} />
       </div>
