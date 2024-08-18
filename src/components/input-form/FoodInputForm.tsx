@@ -29,15 +29,17 @@ export const FoodInputForm = (props: Props) => {
       onSubmit={handleSubmit}
       className="border p-1"
     >
-      <Form.Group as={Row} className="ml-1 mr-1">
-        <FoodDescriptionInputControl
-          foodName={food.description}
-          suggestions={suggestions}
-          invalid={error.foodDescription}
-          updateFoodDescription={updateFoodDescription}
-          updateFoodDescriptionServing={updateFoodDescriptionServing}
-        />
-      </Form.Group>
+      <Row>
+        <Form.Group className="ml-1 mr-1">
+          <FoodDescriptionInputControl
+            foodName={food.description}
+            suggestions={suggestions}
+            invalid={error.foodDescription}
+            updateFoodDescription={updateFoodDescription}
+            updateFoodDescriptionServing={updateFoodDescriptionServing}
+          />
+        </Form.Group>
+      </Row>
 
       <Form.Group>
         <Form.Label>Servings (Calories: {displayCalorieValue(calcFoodCalories(food))})</Form.Label>
