@@ -32,7 +32,7 @@ export const FoodDescriptionInputControl = (props: {
   updateFoodDescriptionServing: (desc: string, serving?: Serving) => void;
 }) => (
   <Fragment>
-    <Form.Label htmlFor="inputFoodDescription" srOnly>Food description</Form.Label>
+    <Form.Label htmlFor="inputFoodDescription">Food description</Form.Label>
     <Combobox className="w-100">
       <ComboboxInput
         id="inputFoodDescription"

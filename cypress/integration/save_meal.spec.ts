@@ -54,7 +54,9 @@ context("Save meal", () => {
       function addFood(foodDescription: string) {
         cy.get("form")
           .within(() => {
-            cy.get("#inputFoodDescription").type(foodDescription);
+            cy.get("#inputFoodDescription")
+              .type(foodDescription)
+              .type("{esc}"); // escape to close combo dropdown so it does not block Add button
             cy.contains("Add").click();
           })
       }

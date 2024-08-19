@@ -1,10 +1,12 @@
-import { Button, Form, Row } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { calcFoodCalories, displayCalorieValue } from "../../model/calorieFunction";
 import { Food } from "../../model/Food";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { FoodDescriptionInputControl } from "./FoodDescriptionInputControl";
 import { ServingInputControl } from "./ServingInputControl";
 import { useFoodInputFormStateReducer } from "./useFoodInputFormStateReducer";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 export type ButtonLabel = "Add" | "Update";
 
@@ -27,7 +29,7 @@ export const FoodInputForm = (props: Props) => {
       onSubmit={handleSubmit}
       className="border p-1"
     >
-      <Form.Group as={Row} className="ml-1 mr-1">
+      <Form.Group as={Row} className="ml-1 mr-1 mb-3">
         <FoodDescriptionInputControl
           foodName={food.description}
           suggestions={suggestions}
@@ -37,22 +39,36 @@ export const FoodInputForm = (props: Props) => {
         />
       </Form.Group>
 
-      <Form.Group>
-        <Form.Label>Servings (Calories: {displayCalorieValue(calcFoodCalories(food))})</Form.Label>
-        <Form.Group as={Row} controlId="formServings" className="d-flex justify-content-between">
-          <ServingInputControl foodGroup="vegetable" serving={food.serving} isInvalid={error.vegetable} onChange={updateFoodGroupServing} />
-          <ServingInputControl foodGroup="fruit" serving={food.serving} isInvalid={error.fruit} onChange={updateFoodGroupServing} />
-          <ServingInputControl foodGroup="carbohydrate" serving={food.serving} isInvalid={error.carbohydrate} onChange={updateFoodGroupServing} />
-          <ServingInputControl foodGroup="proteinDiary" serving={food.serving} isInvalid={error.proteinDiary} onChange={updateFoodGroupServing} />
-          <ServingInputControl foodGroup="fat" serving={food.serving} isInvalid={error.fat} onChange={updateFoodGroupServing} />
-          <ServingInputControl foodGroup="sweet" serving={food.serving} isInvalid={error.sweet} onChange={updateFoodGroupServing} />
-        </Form.Group>
+      <Form.Group as={Row} controlId="formServings" className="mb-3">
+        <div>Servings (Calories: {displayCalorieValue(calcFoodCalories(food))})</div>
+        <Row className="justify-content-between">
+          <Col xs={4} sm={3} lg={2}>
+            <ServingInputControl foodGroup="vegetable" serving={food.serving} isInvalid={error.vegetable} onChange={updateFoodGroupServing} />
+          </Col>
+          <Col xs={4} sm={3} lg={2}>
+            <ServingInputControl foodGroup="fruit" serving={food.serving} isInvalid={error.fruit} onChange={updateFoodGroupServing} />
+          </Col>
+          <Col xs={4} sm={3} lg={2}>
+            <ServingInputControl foodGroup="carbohydrate" serving={food.serving} isInvalid={error.carbohydrate} onChange={updateFoodGroupServing} />
+          </Col>
+          <Col xs={4} sm={3} lg={2}>
+            <ServingInputControl foodGroup="proteinDiary" serving={food.serving} isInvalid={error.proteinDiary} onChange={updateFoodGroupServing} />
+          </Col>
+          <Col xs={4} sm={3} lg={2}>
+            <ServingInputControl foodGroup="fat" serving={food.serving} isInvalid={error.fat} onChange={updateFoodGroupServing} />
+          </Col>
+          <Col xs={4} sm={3} lg={2}>
+            <ServingInputControl foodGroup="sweet" serving={food.serving} isInvalid={error.sweet} onChange={updateFoodGroupServing} />
+          </Col>
+        </Row>
       </Form.Group>
 
-      <div className="d-flex justify-content-end">
-        <Button className="mr-1 order-sm-1" variant={VariantSecondary} onClick={props.onCancel}>Cancel</Button>
-        <Button className="mr-1 order-sm-0" variant={VariantPrimary} type="submit" >{props.buttonLabel}</Button>
-      </div>
+      <Row>
+        <div className="d-flex justify-content-end">
+          <Button className="mr-1 order-sm-1" variant={VariantSecondary} onClick={props.onCancel}>Cancel</Button>&nbsp;
+          <Button className="mr-1 order-sm-0" variant={VariantPrimary} type="submit" >{props.buttonLabel}</Button>
+        </div>
+      </Row>
     </Form>
   )
 }

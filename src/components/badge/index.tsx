@@ -1,5 +1,4 @@
 import _ from "lodash";
-import { Badge } from "react-bootstrap";
 import { abbreviation, FoodGroup, Serving } from "../../model/Food";
 import { displayServingValue } from "../../model/servingFunction";
 import { isMinLimit } from "../../model/Target";
@@ -13,11 +12,11 @@ const LabelBadge = (props: { backgroundColor: BadgeBackgroundColor; value: strin
     backgroundColor,
     fontFamily,
   };
-  return (<Badge className="text-white m-1" style={style}>{value}</Badge>);
+  return (<span className="badge text-white m-1" style={style}>{value}</span>);
 }
 
 export const InfoLabelBadge = (props: { value: string; }) => (
-  <Badge className="bg-light m-1" style={{ fontFamily }}>{props.value}</Badge>
+  <span className="badge bg-light text-black m-1" style={{ fontFamily }}>{props.value}</span>
 );
 
 const FoodGroupBadge = (props: { foodGroup: FoodGroup; value: string | number | undefined; }) => (
