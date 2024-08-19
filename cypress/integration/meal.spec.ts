@@ -78,7 +78,8 @@ context("Meal operations", () => {
       function addFood(foodDescription: string) {
         cy.get("form")
           .within(() => {
-            cy.get("#inputFoodDescription").type(foodDescription);
+            cy.get("#inputFoodDescription")
+              .type(foodDescription);
             cy.contains("Add").click();
           })
       }
