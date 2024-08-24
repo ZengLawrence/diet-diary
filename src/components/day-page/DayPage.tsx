@@ -1,7 +1,10 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import { Button, Card, ListGroup } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
+import Offcanvas from 'react-bootstrap/Offcanvas';
 import AddMealButton from "../../features/day-page/AddMealButton";
 import Footer from "../../features/day-page/Footer";
 import Header from "../../features/day-page/Header";
@@ -9,6 +12,8 @@ import Summary from "../../features/day-page/Summary";
 import FoodListGroupItems from "../../features/meal-card/FoodListGroupItems";
 import MealCardHeader from "../../features/meal-card/MealCardHeader";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
+import { useState } from "react";
+import SavedMealsPage from "../../features/save-meal/SavedMealsPage";
 
 interface Props {
   numberOfMeals: number;
@@ -19,29 +24,48 @@ function id(index: number, length: number) {
   return index === length - 1 ? "last" : index.toString();
 }
 
-export const DayPage = (props: Props) => (
-  <div>
-    <Header />
-    <Summary />
+function DayPage(props: Props) {
+  const [show, setShow] = useState(false);
 
-    {_.map(_.range(props.numberOfMeals), (index) => (
-      <Card id={id(index, props.numberOfMeals)} className="mt-1" key={index} data-cy="mealCard">
-        <MealCardHeader mealIndex={index} />
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-        <ListGroup>
-          <FoodListGroupItems mealIndex={index} />
-        </ListGroup>
-      </Card>
-    ))}
-    {props.showButton &&
-      <div className="p2 d-flex justify-content-end mt-3">
-        <AddMealButton data-cy="buttonAddMeal" variant={VariantPrimary}>
-          <FontAwesomeIcon icon={faPlus} />
-        </AddMealButton>&nbsp;
-        <Button data-cy="buttonAddSavedMeal" variant={VariantSecondary} href="#/saved-meals">
-          <FontAwesomeIcon icon={faPlus} /> Saved Meal
-        </Button>
-      </div>}
-    <Footer />
-  </div>
-);
+  return (
+    <div>
+      <Header />
+      <Summary />
+
+      {_.map(_.range(props.numberOfMeals), (index) => (
+        <Card id={id(index, props.numberOfMeals)} className="mt-1" key={index} data-cy="mealCard">
+          <MealCardHeader mealIndex={index} />
+
+          <ListGroup>
+            <FoodListGroupItems mealIndex={index} />
+          </ListGroup>
+        </Card>
+      ))}
+      {props.showButton &&
+        <div className="p2 d-flex justify-content-end mt-3">
+          <AddMealButton data-cy="buttonAddMeal" variant={VariantPrimary}>
+            <FontAwesomeIcon icon={faPlus} />
+          </AddMealButton>&nbsp;
+          <Button data-cy="buttonAddSavedMeal" variant={VariantSecondary} onClick={handleShow}>
+            <FontAwesomeIcon icon={faPlus} /> Saved Meal
+          </Button>
+        </div>}
+      <Footer />
+
+      <Offcanvas show={show} onHide={handleClose}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Saved Meals</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <SavedMealsPage selectMeal={handleClose}/>
+        </Offcanvas.Body>
+      </Offcanvas>
+
+    </div>
+  );
+}
+
+export default DayPage;
