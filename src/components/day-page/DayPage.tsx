@@ -13,7 +13,7 @@ import FoodListGroupItems from "../../features/meal-card/FoodListGroupItems";
 import MealCardHeader from "../../features/meal-card/MealCardHeader";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { useState } from "react";
-import SavedMealsPage from "../../features/save-meal/SavedMealsPage";
+import SavedMealCards from "../../features/save-meal/SavedMealCards";
 
 interface Props {
   numberOfMeals: number;
@@ -60,7 +60,7 @@ function DayPage(props: Props) {
           <Offcanvas.Title>Saved Meals</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <SavedMealsPage selectMeal={handleClose}/>
+          <SavedMealCards selectMeal={handleClose}/>
         </Offcanvas.Body>
       </Offcanvas>
 

@@ -8,7 +8,7 @@ interface Props {
   selectMeal: () => void;
 }
 
-export const SavedMealsPage = (props: Props) => (
+export const SavedMealCards = (props: Props) => (
   <div>
     {_.map(_.range(props.numberOfMeals), (index) => (
       <Card className="mt-1" key={index} data-cy="mealCard">
