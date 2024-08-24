@@ -4,7 +4,6 @@ import _ from "lodash";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
-import Offcanvas from 'react-bootstrap/Offcanvas';
 import AddMealButton from "../../features/day-page/AddMealButton";
 import Footer from "../../features/day-page/Footer";
 import Header from "../../features/day-page/Header";
@@ -13,7 +12,7 @@ import FoodListGroupItems from "../../features/meal-card/FoodListGroupItems";
 import MealCardHeader from "../../features/meal-card/MealCardHeader";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { useState } from "react";
-import SavedMealCards from "../../features/save-meal/SavedMealCards";
+import SavedMealCardsOffcanvas from "../saved-meal/SavedMealCardsOffcanvas";
 
 interface Props {
   numberOfMeals: number;
@@ -55,14 +54,7 @@ function DayPage(props: Props) {
         </div>}
       <Footer />
 
-      <Offcanvas show={show} onHide={handleClose}>
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Saved Meals</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          <SavedMealCards selectMeal={handleClose}/>
-        </Offcanvas.Body>
-      </Offcanvas>
+      <SavedMealCardsOffcanvas show={show} onHide={handleClose}/>
 
     </div>
   );
