@@ -21,29 +21,33 @@ function id(index: number, length: number) {
   return index === length - 1 ? "last" : index.toString();
 }
 
-export const DayPage = (props: Props) => (
-  <div>
-    <Header />
-    <Summary />
+function DayPage(props: Props) {
+  return (
+    <div>
+      <Header />
+      <Summary />
 
-    {_.map(_.range(props.numberOfMeals), (index) => (
-      <Card id={id(index, props.numberOfMeals)} className="mt-1" key={index} data-cy="mealCard">
-        <MealCardHeader mealIndex={index} />
+      {_.map(_.range(props.numberOfMeals), (index) => (
+        <Card id={id(index, props.numberOfMeals)} className="mt-1" key={index} data-cy="mealCard">
+          <MealCardHeader mealIndex={index} />
 
-        <ListGroup>
-          <FoodListGroupItems mealIndex={index} />
-        </ListGroup>
-      </Card>
-    ))}
-    {props.showButton &&
-      <div className="p2 d-flex justify-content-end mt-3">
-        <AddMealButton data-cy="buttonAddMeal" variant={VariantPrimary}>
-          <FontAwesomeIcon icon={faPlus} />
-        </AddMealButton>&nbsp;
-        <Button data-cy="buttonAddSavedMeal" variant={VariantSecondary} href="#/saved-meals">
-          <FontAwesomeIcon icon={faPlus} /> Saved Meal
-        </Button>
-      </div>}
-    <Footer />
-  </div>
-);
+          <ListGroup>
+            <FoodListGroupItems mealIndex={index} />
+          </ListGroup>
+        </Card>
+      ))}
+      {props.showButton &&
+        <div className="p2 d-flex justify-content-end mt-3">
+          <AddMealButton data-cy="buttonAddMeal" variant={VariantPrimary}>
+            <FontAwesomeIcon icon={faPlus} />
+          </AddMealButton>&nbsp;
+          <Button data-cy="buttonAddSavedMeal" variant={VariantSecondary} href="#/saved-meals">
+            <FontAwesomeIcon icon={faPlus} /> Saved Meal
+          </Button>
+        </div>}
+      <Footer />
+    </div>
+  );
+}
+
+export default DayPage;
