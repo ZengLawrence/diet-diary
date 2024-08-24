@@ -1,7 +1,9 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import { Button, Card, ListGroup } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
 import AddMealButton from "../../features/day-page/AddMealButton";
 import Footer from "../../features/day-page/Footer";
 import Header from "../../features/day-page/Header";
