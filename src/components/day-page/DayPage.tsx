@@ -60,7 +60,7 @@ function DayPage(props: Props) {
           <Offcanvas.Title>Saved Meals</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <SavedMealsPage />
+          <SavedMealsPage selectMeal={handleClose}/>
         </Offcanvas.Body>
       </Offcanvas>
 
