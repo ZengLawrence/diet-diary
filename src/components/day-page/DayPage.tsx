@@ -12,7 +12,7 @@ import FoodListGroupItems from "../../features/meal-card/FoodListGroupItems";
 import MealCardHeader from "../../features/meal-card/MealCardHeader";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { useState } from "react";
-import SavedMealCardsOffcanvas from "../saved-meal/SavedMealCardsOffcanvas";
+import SavedMealCardsOffcanvas from "./SavedMealCardsOffcanvas";
 
 interface Props {
   numberOfMeals: number;
