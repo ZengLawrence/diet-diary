@@ -5,14 +5,13 @@ import MealCardHeader from "../../features/save-meal/MealCardHeader";
 
 interface Props {
   numberOfMeals: number;
-  selectMeal: () => void;
 }
 
 export const SavedMealCards = (props: Props) => (
   <div>
     {_.map(_.range(props.numberOfMeals), (index) => (
       <Card className="mt-1" key={index} data-cy="mealCard">
-        <MealCardHeader mealIndex={index} selectMeal={props.selectMeal}/>
+        <MealCardHeader mealIndex={index}/>
   
         <ListGroup>
           <SavedMealFoodListGroupItems mealIndex={index} />

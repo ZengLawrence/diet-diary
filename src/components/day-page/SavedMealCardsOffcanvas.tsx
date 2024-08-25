@@ -13,7 +13,7 @@ function SavedMealCardsOffcanvas(props: Props) {
         <Offcanvas.Title>Saved Meals</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <SavedMealCards selectMeal={props.onHide} />
+        <SavedMealCards />
       </Offcanvas.Body>
     </Offcanvas>
   );
