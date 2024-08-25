@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { addSavedMeal } from "./mealStatesSlice";
+import { save } from "../save-meal/savedMealsSlice";
 
 const showSavedMealsSlice = createSlice({
   name: "showSavedMeals",
@@ -16,6 +17,9 @@ const showSavedMealsSlice = createSlice({
     builder.addCase(addSavedMeal, (_state) => {
       return false;
     })
+    .addCase(save, (_state) => {
+      return true;
+    });
   }
 })
 
