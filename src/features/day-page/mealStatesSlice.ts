@@ -19,6 +19,13 @@ function newMealState(): MealState {
   };
 }
 
+function removeFirstEmptyMeal(state: MealState[]) {
+  const firstMeal = _.first(state);
+  if (_.isEmpty(firstMeal?.meal.foods)) {
+    state.shift();
+  }
+}
+
 const initialState = [newMealState()];
 
 const reset = (mealState: MealState) => mealState.editState = undefined;
@@ -38,6 +45,7 @@ const mealStatesSlice = createSlice({
       const mealState = newMealState();
       const meal = {...mealState.meal, foods: action.payload.foods}
       mealState.meal = meal;
+      removeFirstEmptyMeal(state);
       state.push(mealState);
     },
     deleteMeal(state, action: PayloadAction<number>) {
