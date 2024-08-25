@@ -8,7 +8,7 @@ interface Props {
 
 function SavedMealCardsOffcanvas(props: Props) {
   return (
-    <Offcanvas show={props.show} onHide={props.onHide}>
+    <Offcanvas id="savedMeals" show={props.show} onHide={props.onHide}>
       <Offcanvas.Header closeButton>
         <Offcanvas.Title>Saved Meals</Offcanvas.Title>
       </Offcanvas.Header>
