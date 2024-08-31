@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { Card, ListGroup } from "react-bootstrap";
-import SavedMealFoodListGroupItems from "../../features/save-meal/FoodListGroupItems";
-import MealCardHeader from "../../features/save-meal/MealCardHeader";
+import SavedMealFoodListGroupItems from "../../features/saved-meal/FoodListGroupItems";
+import MealCardHeader from "../../features/saved-meal/MealCardHeader";
 
 interface Props {
   numberOfMeals: number;

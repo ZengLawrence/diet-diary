@@ -4,7 +4,7 @@ import editMode from "../features/day-page/editModeSlice";
 import mealStates from "../features/day-page/mealStatesSlice";
 import summaryType from "../features/day-page/summaryTypeSlice";
 import targetState from "../features/target/targetStateSlice";
-import savedMeals from "../features/save-meal/savedMealsSlice";
+import savedMeals from "../features/saved-meal/savedMealsSlice";
 import showSavedMeals from "../features/day-page/showSavedMealsSlice";
 
 

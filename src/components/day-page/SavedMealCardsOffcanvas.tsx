@@ -1,5 +1,5 @@
 import Offcanvas from "react-bootstrap/Offcanvas";
-import SavedMealCards from "../../features/save-meal/SavedMealCards";
+import SavedMealCards from "../../features/saved-meal/SavedMealCards";
 
 interface Props {
   show: boolean,

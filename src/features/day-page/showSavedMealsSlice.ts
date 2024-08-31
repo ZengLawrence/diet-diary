@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { addSavedMeal } from "./mealStatesSlice";
-import { save } from "../save-meal/savedMealsSlice";
+import { save } from "../saved-meal/savedMealsSlice";
 
 const showSavedMealsSlice = createSlice({
   name: "showSavedMeals",
