@@ -6,7 +6,6 @@ import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
 import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
 import EditFoodButton from "../../features/meal-card/EditFoodButton";
 import NewFoodButton from "../../features/meal-card/NewFoodButton";
-import NameFoodDescriptionForm from "../../features/name-food/NameFoodDescriptionForm";
 import { Food } from "../../model/Food";
 import { FoodItem } from "../FoodItem";
 import { VariantPrimary } from "../ButtonVariant";
@@ -52,15 +51,6 @@ export const FoodListGroupItems = (props: Props) => {
           }
           <ListGroup.Item>
             <NewFoodButton mealIndex={props.mealIndex} />
-          </ListGroup.Item>
-        </Fragment>
-      );
-
-    case "name":
-      return (
-        <Fragment>
-          <ListGroup.Item >
-            <NameFoodDescriptionForm mealIndex={props.mealIndex} />
           </ListGroup.Item>
         </Fragment>
       );

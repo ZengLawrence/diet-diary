@@ -34,13 +34,6 @@ export const MealButtons = (props: Props) => {
         </Fragment>
       );
 
-    case "name":
-      return (
-        <Fragment>
-          {editButton}
-        </Fragment>
-      );
-
     default:
       return (
         <Fragment>
