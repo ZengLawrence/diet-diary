@@ -18,9 +18,14 @@ const savedMealsSlice = createSlice({
         state.splice(MAX_SAVED_COUNT, len - MAX_SAVED_COUNT);
       }
       return state;
+    },
+    select(state, action: PayloadAction<number>) {
+      const index = action.payload;
+      state.splice(index, 1);
+      return state;
     }
   }
 })
 
-export const { save } = savedMealsSlice.actions;
+export const { save, select } = savedMealsSlice.actions;
 export default savedMealsSlice.reducer;
