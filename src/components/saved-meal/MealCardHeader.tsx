@@ -1,4 +1,4 @@
-import { Card } from "react-bootstrap";
+import Card from "react-bootstrap/Card";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
 import { Food } from "../../model/Food";
 import { VariantSecondary } from "../ButtonVariant";
