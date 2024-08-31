@@ -2,16 +2,17 @@ import Card from "react-bootstrap/Card";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
 import { Food } from "../../model/Food";
 import { VariantSecondary } from "../ButtonVariant";
-import { SelectButton } from "./SelectButton";
+import Button from "react-bootstrap/Button";
 
 interface Props {
   mealIndex: number;
-  meal: {foods: Food[];};
+  meal: { foods: Food[]; };
+  selectMeal: (mealIndex: number, meal: { foods: Food[]; }) => void;
 }
 
 export const MealCardHeader = (props: Props) => (
   <Card.Header className="d-flex justify-content-end">
     <MealCalorieServingPanel meal={props.meal} />
-    <SelectButton variant={VariantSecondary} mealIndex={props.mealIndex} meal={props.meal}>Select</SelectButton>
+    <Button variant={VariantSecondary} onClick={() => props.selectMeal(props.mealIndex, props.meal)}>Select</Button>
   </Card.Header>
 )
