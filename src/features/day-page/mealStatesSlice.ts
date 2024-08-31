@@ -4,7 +4,7 @@ import { Food, Meal, newMeal } from "../../model/Food";
 import { newDay } from "./dateSlice";
 import { exitEditMode } from "./editModeSlice";
 
-export type MealEditState = "add" | "edit" | "name" | undefined;
+export type MealEditState = "add" | "edit" | undefined;
 
 export interface MealState {
   meal: Meal;
@@ -75,9 +75,6 @@ const mealStatesSlice = createSlice({
     enterMealAddMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
       state[mealIndex].editState = "add";
     },
-    enterMealNameMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
-      state[mealIndex].editState = "name";
-    },
     exitMealEditMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
       state[mealIndex].editState = undefined;
     },
@@ -103,7 +100,7 @@ const mealStatesSlice = createSlice({
 export const {
   addMeal, addSavedMeal, deleteMeal,
   addFood, updateFood, cancelAddFood, replaceFoods,
-  enterMealEditMode, enterMealAddMode, enterMealNameMode, exitMealEditMode,
+  enterMealEditMode, enterMealAddMode, exitMealEditMode,
   enterFoodEditMode, exitFoodEditMode,
 } = mealStatesSlice.actions;
 
