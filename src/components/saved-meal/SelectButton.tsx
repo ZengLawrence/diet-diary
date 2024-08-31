@@ -2,7 +2,7 @@ import { Button, ButtonProps } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Food } from "../../model/Food";
 import { addSavedMeal } from "../../features/day-page/mealStatesSlice";
-import { select } from "../../features/save-meal/savedMealsSlice";
+import { select } from "../../features/saved-meal/savedMealsSlice";
 
 interface Props extends ButtonProps {
   mealIndex: number;
