@@ -1,12 +1,13 @@
-import { Button, Form } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
 import { calcFoodCalories, displayCalorieValue } from "../../model/calorieFunction";
 import { Food } from "../../model/Food";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { FoodDescriptionInputControl } from "./FoodDescriptionInputControl";
 import { ServingInputControl } from "./ServingInputControl";
 import { useFoodInputFormStateReducer } from "./useFoodInputFormStateReducer";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 
 export type ButtonLabel = "Add" | "Update";
 
@@ -64,10 +65,11 @@ export const FoodInputForm = (props: Props) => {
       </Form.Group>
 
       <Row>
-        <div className="d-flex justify-content-end">
-          <Button className="mr-1 order-sm-1" variant={VariantSecondary} onClick={props.onCancel}>Cancel</Button>&nbsp;
-          <Button className="mr-1 order-sm-0" variant={VariantPrimary} type="submit" >{props.buttonLabel}</Button>
-        </div>
+        <Col />
+        <Col xs="auto">
+          <Button variant={VariantSecondary} onClick={props.onCancel}>Cancel</Button>&nbsp;
+          <Button variant={VariantPrimary} type="submit" >{props.buttonLabel}</Button>
+        </Col>
       </Row>
     </Form>
   )
