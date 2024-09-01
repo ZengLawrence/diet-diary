@@ -1,9 +1,9 @@
 import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 import MealButtons from "../../features/meal-card/MealButtons";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
 import { Meal } from "../../model/Food";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 interface Props {
   meal: Meal;
