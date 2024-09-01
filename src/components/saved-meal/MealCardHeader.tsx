@@ -1,8 +1,8 @@
+import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
 import { Food } from "../../model/Food";
 import { VariantSecondary } from "../ButtonVariant";
-import Button from "react-bootstrap/Button";
 
 interface Props {
   mealIndex: number;
