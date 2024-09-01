@@ -24,9 +24,14 @@ const savedMealsSlice = createSlice({
       const selected = state.splice(index, 1);
       state.unshift(selected[0]);
       return state;
+    },
+    remove(state, action: PayloadAction<number>) {
+      const index = action.payload;
+      state.splice(index, 1);
+      return state;
     }
   }
 })
 
-export const { save, select } = savedMealsSlice.actions;
+export const { save, select, remove } = savedMealsSlice.actions;
 export default savedMealsSlice.reducer;

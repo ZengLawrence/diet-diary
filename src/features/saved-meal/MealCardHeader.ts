@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { savedMealsSelector } from "../../app/selectors";
 import { AppDispatch, RootState } from "../../app/store";
 import { MealCardHeader } from "../../components/saved-meal/MealCardHeader";
-import { select } from "./savedMealsSlice";
+import { remove, select } from "./savedMealsSlice";
 import { Food } from "../../model/Food";
 import { addSavedMeal } from "../day-page/mealStatesSlice";
 
@@ -14,6 +14,9 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   selectMeal: (mealIndex: number, meal: { foods: Food[]; } ) => {
     dispatch(addSavedMeal(meal));
     dispatch(select(mealIndex));
+  },
+  deleteMeal: (mealIndex: number) => {
+    dispatch(remove(mealIndex));
   },
 })
 
