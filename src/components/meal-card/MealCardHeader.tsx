@@ -4,6 +4,8 @@ import Row from "react-bootstrap/Row";
 import MealButtons from "../../features/meal-card/MealButtons";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
 import { Meal } from "../../model/Food";
+import { VariantDanger } from "../ButtonVariant";
+import DeleteButton from "../../features/meal-card/DeleteButton";
 
 interface Props {
   meal: Meal;
@@ -14,6 +16,11 @@ interface Props {
 export const MealCardHeader = (props: Props) => (
   <Card.Header>
     <Row>
+      {props.showButton &&
+        <Col xs="auto">
+          <DeleteButton variant={VariantDanger} mealIndex={props.mealIndex} label="Delete" />
+        </Col>
+      }
       <Col>
         {props.meal.mealTime}
       </Col>
