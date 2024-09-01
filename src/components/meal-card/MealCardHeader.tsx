@@ -2,6 +2,8 @@ import Card from "react-bootstrap/Card";
 import MealButtons from "../../features/meal-card/MealButtons";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
 import { Meal } from "../../model/Food";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 interface Props {
   meal: Meal;
@@ -10,14 +12,19 @@ interface Props {
 }
 
 export const MealCardHeader = (props: Props) => (
-  <Card.Header className="d-flex flex-wrap align-items-center">
-    <div className="flex-fill order-sm-0">{props.meal.mealTime}</div>
-    {props.showButton &&
-      <div className="order-sm-2">
-        <MealButtons mealIndex={props.mealIndex} />
-      </div>}
-    <div className="order-sm-1 flex-grow-1 flex-md-grow-0">
+  <Card.Header>
+    <Row>
+      <Col>
+        {props.meal.mealTime}
+      </Col>
+      {props.showButton &&
+        <Col xs="auto">
+          <MealButtons mealIndex={props.mealIndex} />
+        </Col>
+      }
+    </Row>
+    <Row>
       <MealCalorieServingPanel meal={props.meal} />
-    </div>
+    </Row>
   </Card.Header>
 )
