@@ -11,12 +11,13 @@ interface Props {
   meal: Meal;
   mealIndex: number;
   showButton: boolean;
+  showDeleteButton: boolean;
 }
 
 export const MealCardHeader = (props: Props) => (
   <Card.Header>
     <Row>
-      {props.showButton &&
+      {props.showDeleteButton &&
         <Col xs="auto">
           <DeleteButton variant={VariantDanger} mealIndex={props.mealIndex} label="Delete" />
         </Col>
