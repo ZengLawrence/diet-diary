@@ -65,10 +65,11 @@ export const FoodInputForm = (props: Props) => {
       </Form.Group>
 
       <Row>
-        <div className="d-flex justify-content-end">
+        <Col />
+        <Col xs="auto">
           <Button variant={VariantSecondary} onClick={props.onCancel}>Cancel</Button>&nbsp;
           <Button variant={VariantPrimary} type="submit" >{props.buttonLabel}</Button>
-        </div>
+        </Col>
       </Row>
     </Form>
   )
