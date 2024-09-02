@@ -16,15 +16,21 @@ interface Props {
   showMealSavedAlert?: boolean;
 }
 
+function MealSavedAlertRow() {
+  return (
+    <Row>
+      <Alert variant="success">
+        Meal saved.
+      </Alert>
+    </Row>
+  );
+}
+
 export const MealCardHeader = (props: Props) => (
   <Card.Header>
-    <Row>
-      {props.showMealSavedAlert &&
-        <Alert variant="success">
-          Meal saved.
-        </Alert>
-      }
-    </Row>
+    {props.showMealSavedAlert &&
+      <MealSavedAlertRow />
+    }
     <Row>
       {props.showDeleteButton &&
         <Col xs="auto">
