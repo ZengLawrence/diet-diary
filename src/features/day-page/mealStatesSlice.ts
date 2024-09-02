@@ -49,7 +49,9 @@ const mealStatesSlice = createSlice({
       state.push(mealState);
     },
     deleteMeal(state, action: PayloadAction<number>) {
-      return _.filter(state, (_, index) => (index !== action.payload));
+      const i = action.payload;
+      state.splice(i, 1);
+      return state;
     },
     addFood(state, action: PayloadAction<{ mealIndex: number; food: Food }>) {
       const { mealIndex, food } = action.payload;
