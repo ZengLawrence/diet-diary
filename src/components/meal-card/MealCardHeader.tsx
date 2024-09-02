@@ -13,15 +13,18 @@ interface Props {
   mealIndex: number;
   showButton: boolean;
   showDeleteButton: boolean;
+  showMealSavedAlert: boolean;
 }
 
 export const MealCardHeader = (props: Props) => (
   <Card.Header>
-    <Row>
-      <Alert variant="success">
-        Meal saved.
-      </Alert>
-    </Row>
+    {props.showMealSavedAlert &&
+      <Row>
+        <Alert variant="success">
+          Meal saved.
+        </Alert>
+      </Row>
+    }
     <Row>
       {props.showDeleteButton &&
         <Col xs="auto">
