@@ -6,6 +6,7 @@ import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServing
 import { Meal } from "../../model/Food";
 import { VariantDanger } from "../ButtonVariant";
 import DeleteButton from "../../features/meal-card/DeleteButton";
+import Alert from "react-bootstrap/Alert";
 
 interface Props {
   meal: Meal;
@@ -16,6 +17,11 @@ interface Props {
 
 export const MealCardHeader = (props: Props) => (
   <Card.Header>
+    <Row>
+      <Alert variant="success">
+        Meal saved.
+      </Alert>
+    </Row>
     <Row>
       {props.showDeleteButton &&
         <Col xs="auto">
