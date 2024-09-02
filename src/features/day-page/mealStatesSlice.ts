@@ -10,6 +10,7 @@ export interface MealState {
   meal: Meal;
   editState?: MealEditState;
   foodEditIndex?: number;
+  showMealSavedAlert?: boolean;
 }
 
 function newMealState(): MealState {
@@ -28,7 +29,10 @@ function removeFirstEmptyMeal(state: MealState[]) {
 
 const initialState = [newMealState()];
 
-const reset = (mealState: MealState) => mealState.editState = undefined;
+const reset = (mealState: MealState) => {
+  mealState.editState = undefined;
+  mealState.showMealSavedAlert = false;
+}
 
 const resetAll = (state: MealState[]) => _.forEach(state, reset);
 
@@ -81,6 +85,14 @@ const mealStatesSlice = createSlice({
     exitFoodEditMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
       state[mealIndex].foodEditIndex = undefined;
     },
+    showSavedMealAlert(state, action: PayloadAction<number>) {
+      const i = action.payload;
+      state[i].showMealSavedAlert = true;
+    },
+    hideSavedMealAlert(state, action: PayloadAction<number>) {
+      const i = action.payload;
+      state[i].showMealSavedAlert = false;
+    },
   },
   extraReducers: builder => {
     builder
@@ -94,6 +106,7 @@ export const {
   addFood, updateFood, cancelAddFood,
   enterMealEditMode, enterMealAddMode, exitMealEditMode,
   enterFoodEditMode, exitFoodEditMode,
+  showSavedMealAlert, hideSavedMealAlert
 } = mealStatesSlice.actions;
 
 export default mealStatesSlice.reducer;

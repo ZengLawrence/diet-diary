@@ -1,21 +1,31 @@
+import Alert from "react-bootstrap/Alert";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import DeleteButton from "../../features/meal-card/DeleteButton";
 import MealButtons from "../../features/meal-card/MealButtons";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
 import { Meal } from "../../model/Food";
 import { VariantDanger } from "../ButtonVariant";
-import DeleteButton from "../../features/meal-card/DeleteButton";
 
 interface Props {
   meal: Meal;
   mealIndex: number;
   showButton: boolean;
   showDeleteButton: boolean;
+  showMealSavedAlert?: boolean;
+  hideMealSavedAlert: () => void;
 }
 
 export const MealCardHeader = (props: Props) => (
   <Card.Header>
+    {props.showMealSavedAlert &&
+      <Row>
+        <Alert variant="success" onClose={props.hideMealSavedAlert} dismissible>
+          Meal saved.
+        </Alert>
+      </Row>
+    }
     <Row>
       {props.showDeleteButton &&
         <Col xs="auto">

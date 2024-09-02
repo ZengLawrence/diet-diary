@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
 import { editModeSelector, mealsSelector, mealStatesSelector } from "../../app/selectors";
-import { RootState } from "../../app/store";
+import { AppDispatch, RootState } from "../../app/store";
 import { MealCardHeader } from "../../components/meal-card/MealCardHeader";
+import { hideSavedMealAlert } from "../day-page/mealStatesSlice";
 
 function showShowDeleteButton(state: RootState, mealIndex: number) {
   const mealState = mealStatesSelector(state)[mealIndex];
@@ -13,6 +14,11 @@ const mapStateToProps = (state: RootState, ownProps: { mealIndex: number; }) => 
   meal: mealsSelector(state)[ownProps.mealIndex],
   showButton: editModeSelector(state),
   showDeleteButton: showShowDeleteButton(state, ownProps.mealIndex),
+  showMealSavedAlert: mealStatesSelector(state)[ownProps.mealIndex].showMealSavedAlert,
 })
 
-export default connect(mapStateToProps)(MealCardHeader);
+const mapDispatchToProps = (dispatch: AppDispatch, ownProps: { mealIndex: number; }) => ({
+  hideMealSavedAlert: () => dispatch(hideSavedMealAlert(ownProps.mealIndex)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(MealCardHeader);
