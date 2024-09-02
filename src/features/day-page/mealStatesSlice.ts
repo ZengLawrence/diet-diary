@@ -49,7 +49,9 @@ const mealStatesSlice = createSlice({
       state.push(mealState);
     },
     deleteMeal(state, action: PayloadAction<number>) {
-      return _.filter(state, (_, index) => (index !== action.payload));
+      const i = action.payload;
+      state.splice(i, 1);
+      return state;
     },
     addFood(state, action: PayloadAction<{ mealIndex: number; food: Food }>) {
       const { mealIndex, food } = action.payload;
@@ -60,12 +62,6 @@ const mealStatesSlice = createSlice({
       state[mealIndex].meal.foods[foodIndex] = food;
     },
     cancelAddFood(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
-      state[mealIndex].editState = undefined;
-    },
-    replaceFoods(state, { payload: { mealIndex, food, replacedFoodIndices } }: PayloadAction<{ mealIndex: number; food: Food; replacedFoodIndices: number[]}>) {
-      const meal = state[mealIndex].meal;
-      _.pullAt(meal.foods, replacedFoodIndices);
-      meal.foods.push(food);
       state[mealIndex].editState = undefined;
     },
     enterMealEditMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
@@ -89,17 +85,13 @@ const mealStatesSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(newDay, () => [newMealState()])
-      .addCase(exitEditMode, (state) => {
-        _.forEach(state, function(mealState) {
-          mealState.editState = undefined;
-        })
-      })
+      .addCase(exitEditMode, (state) => resetAll(state));
   }
 })
 
 export const {
   addMeal, addSavedMeal, deleteMeal,
-  addFood, updateFood, cancelAddFood, replaceFoods,
+  addFood, updateFood, cancelAddFood,
   enterMealEditMode, enterMealAddMode, exitMealEditMode,
   enterFoodEditMode, exitFoodEditMode,
 } = mealStatesSlice.actions;
