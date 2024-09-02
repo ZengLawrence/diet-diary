@@ -25,7 +25,6 @@ context("Save meal", () => {
               exitAddMealState();
               saveMeal();
             });
-          closeSavedMealsOffcanvas();
 
         }
 
@@ -67,14 +66,6 @@ context("Save meal", () => {
         cy.contains("Save").click();
       }
 
-      function closeSavedMealsOffcanvas() {
-        cy.get('#savedMeals')
-        .contains('Saved Meals')
-        .parent()
-        .within(() => {
-          cy.get('button').first().click();
-        });
-      }
     })
   })
 })
