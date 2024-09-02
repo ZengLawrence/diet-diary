@@ -83,11 +83,7 @@ const mealStatesSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(newDay, () => [newMealState()])
-      .addCase(exitEditMode, (state) => {
-        _.forEach(state, function(mealState) {
-          mealState.editState = undefined;
-        })
-      })
+      .addCase(exitEditMode, (state) => resetAll(state));
   }
 })
 
