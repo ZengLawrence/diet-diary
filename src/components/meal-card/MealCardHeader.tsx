@@ -14,13 +14,14 @@ interface Props {
   showButton: boolean;
   showDeleteButton: boolean;
   showMealSavedAlert?: boolean;
+  hideMealSavedAlert: () => void;
 }
 
 export const MealCardHeader = (props: Props) => (
   <Card.Header>
     {props.showMealSavedAlert &&
       <Row>
-        <Alert variant="success">
+        <Alert variant="success" onClose={props.hideMealSavedAlert} dismissible>
           Meal saved.
         </Alert>
       </Row>

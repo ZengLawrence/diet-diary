@@ -89,6 +89,10 @@ const mealStatesSlice = createSlice({
       const i = action.payload;
       state[i].showMealSavedAlert = true;
     },
+    hideSavedMealAlert(state, action: PayloadAction<number>) {
+      const i = action.payload;
+      state[i].showMealSavedAlert = false;
+    },
   },
   extraReducers: builder => {
     builder
@@ -102,7 +106,7 @@ export const {
   addFood, updateFood, cancelAddFood,
   enterMealEditMode, enterMealAddMode, exitMealEditMode,
   enterFoodEditMode, exitFoodEditMode,
-  showSavedMealAlert,
+  showSavedMealAlert, hideSavedMealAlert
 } = mealStatesSlice.actions;
 
 export default mealStatesSlice.reducer;
