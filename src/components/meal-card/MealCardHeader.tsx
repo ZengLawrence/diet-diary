@@ -13,7 +13,7 @@ interface Props {
   mealIndex: number;
   showButton: boolean;
   showDeleteButton: boolean;
-  showMealSavedAlert: boolean;
+  showMealSavedAlert?: boolean;
 }
 
 export const MealCardHeader = (props: Props) => (

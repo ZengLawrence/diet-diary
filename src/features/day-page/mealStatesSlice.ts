@@ -10,6 +10,7 @@ export interface MealState {
   meal: Meal;
   editState?: MealEditState;
   foodEditIndex?: number;
+  showMealSavedAlert?: boolean;
 }
 
 function newMealState(): MealState {

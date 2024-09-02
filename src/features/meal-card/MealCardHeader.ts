@@ -13,6 +13,7 @@ const mapStateToProps = (state: RootState, ownProps: { mealIndex: number; }) => 
   meal: mealsSelector(state)[ownProps.mealIndex],
   showButton: editModeSelector(state),
   showDeleteButton: showShowDeleteButton(state, ownProps.mealIndex),
+  showMealSavedAlert: mealStatesSelector(state)[ownProps.mealIndex].showMealSavedAlert,
 })
 
 export default connect(mapStateToProps)(MealCardHeader);
