@@ -68,7 +68,7 @@ jobs:
         name: build
         path: build
     - name: integration test
-      uses: cypress-io/github-action@v6.7.1
+      uses: cypress-io/github-action@v6
       with:
         start: npm run start:ci
         browser: ${{ matrix.browser }}
