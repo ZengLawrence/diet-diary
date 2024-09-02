@@ -1,12 +1,12 @@
+import Alert from "react-bootstrap/Alert";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import DeleteButton from "../../features/meal-card/DeleteButton";
 import MealButtons from "../../features/meal-card/MealButtons";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
 import { Meal } from "../../model/Food";
 import { VariantDanger } from "../ButtonVariant";
-import DeleteButton from "../../features/meal-card/DeleteButton";
-import Alert from "react-bootstrap/Alert";
 
 interface Props {
   meal: Meal;
