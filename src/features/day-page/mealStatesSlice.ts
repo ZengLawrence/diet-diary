@@ -29,7 +29,10 @@ function removeFirstEmptyMeal(state: MealState[]) {
 
 const initialState = [newMealState()];
 
-const reset = (mealState: MealState) => mealState.editState = undefined;
+const reset = (mealState: MealState) => {
+  mealState.editState = undefined;
+  mealState.showMealSavedAlert = false;
+}
 
 const resetAll = (state: MealState[]) => _.forEach(state, reset);
 
