@@ -14,13 +14,13 @@ export const SaveButton = (props: Props) =>{
   const meals = useSelector(mealsSelector);
   const dispatch = useDispatch();
 
-  const onclick = () => {
+  const handleClick = () => {
     const meal = meals[props.mealIndex];
     dispatch(save(meal));
     dispatch(showSavedMealAlert(props.mealIndex));
   }
   return (
-  <Button variant={props.variant} onClick={onclick}>
+  <Button variant={props.variant} onClick={handleClick}>
     Save
   </Button>
 )}
