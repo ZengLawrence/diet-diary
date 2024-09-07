@@ -1,11 +1,12 @@
 import { displayName, FoodGroup } from "../model/Food";
 import { FoodGroupLabelBadge } from "./badge";
+import { Legend } from "./Legend";
 
 export const FoodGroupLegend = (props: { foodGroup: FoodGroup; }) => {
   const { foodGroup } = props;
   return (
-    <div className="border-0 rounded bg-light">
+    <Legend>
       <FoodGroupLabelBadge foodGroup={foodGroup} />{displayName(foodGroup)}
-    </div>
+    </Legend>
   );
 };
