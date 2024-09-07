@@ -4,7 +4,7 @@ import { mealsSelector, mealStatesSelector } from "../../app/selectors";
 import { AppDispatch, RootState } from "../../app/store";
 import { MealButtons } from "../../components/meal-card/MealButtons";
 import { Meal } from "../../model/Food";
-import { enterMealEditMode, showSavedMealAlert } from "../day-page/mealStatesSlice";
+import { enterMealEditMode, exitMealEditMode, showSavedMealAlert } from "../day-page/mealStatesSlice";
 import { save } from "../saved-meal/savedMealsSlice";
 
 const mapStateToProps = (state: RootState, ownProps: { mealIndex: number; }) => ({
@@ -15,6 +15,7 @@ const mapStateToProps = (state: RootState, ownProps: { mealIndex: number; }) => 
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   editMeal: (mealIndex: number) => dispatch(enterMealEditMode({mealIndex})),
+  doneEdit: (mealIndex: number) => dispatch(exitMealEditMode({mealIndex})),
   saveMeal: (mealIndex: number, meal: Meal) => {
     dispatch(save(meal));
     dispatch(showSavedMealAlert(mealIndex));
