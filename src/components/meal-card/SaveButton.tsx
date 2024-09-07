@@ -1,8 +1,8 @@
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { save } from "../../features/saved-meal/savedMealsSlice";
 import { mealsSelector } from "../../app/selectors";
 import { showSavedMealAlert } from "../../features/day-page/mealStatesSlice";
+import { save } from "../../features/saved-meal/savedMealsSlice";
 import { Meal } from "../../model/Food";
 
 interface Props {
