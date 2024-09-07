@@ -31,7 +31,11 @@ export const MealCardHeader = (props: Props) => {
 
   const deleteButtonCol = (
     <Col xs="auto">
-      <Button variant={VariantDanger} onClick={() => props.deleteMeal(props.mealIndex)}>Delete</Button>
+      <Button
+        variant={VariantDanger}
+        onClick={() => props.deleteMeal(props.mealIndex)}>
+        Delete
+      </Button>
     </Col>
   );
 
@@ -51,9 +55,7 @@ export const MealCardHeader = (props: Props) => {
       {props.showMealSavedAlert && alertRow}
       <Row>
         {props.showDeleteButton && deleteButtonCol}
-        <Col>
-          {props.meal.mealTime}
-        </Col>
+        <Col>{props.meal.mealTime}</Col>
         {props.showButton && mealButtonsCol}
       </Row>
       <Row>
