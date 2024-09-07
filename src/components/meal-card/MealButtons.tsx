@@ -14,8 +14,8 @@ interface Props {
 }
 
 export const MealButtons = (props: Props) => {
-  const editButton = <MealButton variant={VariantPrimary} mealIndex={props.mealIndex} onClick={() => props.editMeal(props.mealIndex)} label="Edit"/>;
-  const saveButton = <MealButton variant={VariantSecondary} mealIndex={props.mealIndex} onClick={() => props.saveMeal(props.mealIndex, props.meal)} label="Save"/>;
+  const editButton = <MealButton variant={VariantPrimary} mealIndex={props.mealIndex} onClick={() => props.editMeal(props.mealIndex)} label="Edit" />;
+  const saveButton = <MealButton variant={VariantSecondary} mealIndex={props.mealIndex} onClick={() => props.saveMeal(props.mealIndex, props.meal)} label="Save" />;
   const doneButton = <MealButton variant={VariantPrimary} mealIndex={props.mealIndex} onClick={() => props.doneEdit(props.mealIndex)} label="Done" />;
 
   switch (props.editState) {
