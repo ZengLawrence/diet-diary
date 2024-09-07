@@ -2,11 +2,11 @@ import Alert from "react-bootstrap/Alert";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import DeleteButton from "../../features/meal-card/DeleteButton";
 import MealButtons from "../../features/meal-card/MealButtons";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
 import { Meal } from "../../model/Food";
 import { VariantDanger } from "../ButtonVariant";
+import Button from "react-bootstrap/Button";
 
 interface Props {
   meal: Meal;
@@ -15,6 +15,10 @@ interface Props {
   showDeleteButton: boolean;
   showMealSavedAlert?: boolean;
   hideMealSavedAlert: () => void;
+  deleteMeal: (mealIndex: number) => void;
+  editMeal: (mealIndex: number) => void;
+  saveMeal: (mealIndex: number, meal: Meal) => void;
+  doneEdit: (mealIndex: number) => void;
 }
 
 export const MealCardHeader = (props: Props) => (
@@ -29,7 +33,7 @@ export const MealCardHeader = (props: Props) => (
     <Row>
       {props.showDeleteButton &&
         <Col xs="auto">
-          <DeleteButton variant={VariantDanger} mealIndex={props.mealIndex} label="Delete" />
+          <Button variant={VariantDanger} onClick={() => props.deleteMeal(props.mealIndex)}>Delete</Button>
         </Col>
       }
       <Col>
@@ -37,7 +41,12 @@ export const MealCardHeader = (props: Props) => (
       </Col>
       {props.showButton &&
         <Col xs="auto">
-          <MealButtons mealIndex={props.mealIndex} />
+          <MealButtons 
+            mealIndex={props.mealIndex} 
+            editMeal={() => props.editMeal(props.mealIndex)}
+            saveMeal={() => props.saveMeal(props.mealIndex, props.meal)}
+            doneEdit={() => props.doneEdit(props.mealIndex)}
+            />
         </Col>
       }
     </Row>

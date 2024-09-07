@@ -1,19 +1,19 @@
 import { Fragment } from "react";
 import { MealEditState } from "../../features/day-page/mealStatesSlice";
-import DoneButton from "../../features/meal-card/DoneButton";
-import EditButton from "../../features/meal-card/EditButton";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
-import { SaveButton } from "./SaveButton";
+import Button from "react-bootstrap/Button";
 
 interface Props {
   editState: MealEditState;
-  mealIndex: number;
+  editMeal: () => void;
+  saveMeal: () => void;
+  doneEdit: () => void;
 }
 
 export const MealButtons = (props: Props) => {
-  const editButton = <EditButton variant={VariantPrimary} mealIndex={props.mealIndex} label="Edit"/>;
-  const saveButton = <SaveButton variant={VariantSecondary} mealIndex={props.mealIndex} />;
-  const doneButton = <DoneButton variant={VariantPrimary} mealIndex={props.mealIndex} label="Done" />;
+  const editButton = <Button variant={VariantPrimary} onClick={props.editMeal}>Edit</Button>;
+  const saveButton = <Button variant={VariantSecondary} onClick={props.saveMeal}>Save</Button>;
+  const doneButton = <Button variant={VariantPrimary} onClick={props.doneEdit}>Done</Button>;
 
   switch (props.editState) {
     case "add":
