@@ -1,11 +1,8 @@
 import _ from "lodash";
 import { connect } from "react-redux";
 import { mealsSelector, mealStatesSelector } from "../../app/selectors";
-import { AppDispatch, RootState } from "../../app/store";
+import { RootState } from "../../app/store";
 import { MealButtons } from "../../components/meal-card/MealButtons";
-import { Meal } from "../../model/Food";
-import { enterMealEditMode, exitMealEditMode, showSavedMealAlert } from "../day-page/mealStatesSlice";
-import { save } from "../saved-meal/savedMealsSlice";
 
 const mapStateToProps = (state: RootState, ownProps: { mealIndex: number; }) => ({
   editState: mealStatesSelector(state)[ownProps.mealIndex].editState,
@@ -13,13 +10,4 @@ const mapStateToProps = (state: RootState, ownProps: { mealIndex: number; }) => 
   meal: mealsSelector(state)[ownProps.mealIndex],
 })
 
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  editMeal: (mealIndex: number) => dispatch(enterMealEditMode({ mealIndex })),
-  doneEdit: (mealIndex: number) => dispatch(exitMealEditMode({ mealIndex })),
-  saveMeal: (mealIndex: number, meal: Meal) => {
-    dispatch(save(meal));
-    dispatch(showSavedMealAlert(mealIndex));
-  },
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(MealButtons);
+export default connect(mapStateToProps)(MealButtons);

@@ -2,7 +2,9 @@ import { connect } from "react-redux";
 import { editModeSelector, mealsSelector, mealStatesSelector } from "../../app/selectors";
 import { AppDispatch, RootState } from "../../app/store";
 import { MealCardHeader } from "../../components/meal-card/MealCardHeader";
-import { deleteMeal, hideSavedMealAlert } from "../day-page/mealStatesSlice";
+import { deleteMeal, enterMealEditMode, exitMealEditMode, hideSavedMealAlert, showSavedMealAlert } from "../day-page/mealStatesSlice";
+import { Meal } from "../../model/Food";
+import { save } from "../saved-meal/savedMealsSlice";
 
 function showShowDeleteButton(state: RootState, mealIndex: number) {
   const mealState = mealStatesSelector(state)[mealIndex];
@@ -20,6 +22,12 @@ const mapStateToProps = (state: RootState, ownProps: { mealIndex: number; }) => 
 const mapDispatchToProps = (dispatch: AppDispatch, ownProps: { mealIndex: number; }) => ({
   hideMealSavedAlert: () => dispatch(hideSavedMealAlert(ownProps.mealIndex)),
   deleteMeal: () => dispatch(deleteMeal(ownProps.mealIndex)),
+  editMeal: (mealIndex: number) => dispatch(enterMealEditMode({ mealIndex })),
+  doneEdit: (mealIndex: number) => dispatch(exitMealEditMode({ mealIndex })),
+  saveMeal: (mealIndex: number, meal: Meal) => {
+    dispatch(save(meal));
+    dispatch(showSavedMealAlert(mealIndex));
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MealCardHeader);

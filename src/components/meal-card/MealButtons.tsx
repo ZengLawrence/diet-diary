@@ -8,15 +8,15 @@ interface Props {
   editState: MealEditState;
   mealIndex: number;
   meal: Meal;
-  editMeal: (mealIndex: number) => void;
-  saveMeal: (mealIndex: number, meal: Meal) => void;
-  doneEdit: (mealIndex: number) => void;
+  editMeal: () => void;
+  saveMeal: () => void;
+  doneEdit: () => void;
 }
 
 export const MealButtons = (props: Props) => {
-  const editButton = <Button variant={VariantPrimary} onClick={() => props.editMeal(props.mealIndex)}>Edit</Button>;
-  const saveButton = <Button variant={VariantSecondary} onClick={() => props.saveMeal(props.mealIndex, props.meal)}>Save</Button>;
-  const doneButton = <Button variant={VariantPrimary} onClick={() => props.doneEdit(props.mealIndex)}>Done</Button>;
+  const editButton = <Button variant={VariantPrimary} onClick={props.editMeal}>Edit</Button>;
+  const saveButton = <Button variant={VariantSecondary} onClick={props.saveMeal}>Save</Button>;
+  const doneButton = <Button variant={VariantPrimary} onClick={props.doneEdit}>Done</Button>;
 
   switch (props.editState) {
     case "add":
