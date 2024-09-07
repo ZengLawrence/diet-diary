@@ -1,14 +1,31 @@
 import _ from "lodash";
 import { Fragment } from "react";
-import { ListGroup } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import ListGroup from "react-bootstrap/ListGroup";
+import Row from "react-bootstrap/Row";
 import { MealEditState } from "../../features/day-page/mealStatesSlice";
 import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
 import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
 import EditFoodButton from "../../features/meal-card/EditFoodButton";
 import NewFoodButton from "../../features/meal-card/NewFoodButton";
 import { Food } from "../../model/Food";
-import { FoodItem } from "../FoodItem";
 import { VariantPrimary } from "../ButtonVariant";
+import { FoodItem } from "../FoodItem";
+
+const EditableFoodItem = (props: {
+  food: Food;
+  mealIndex: number;
+  foodIndex: number;
+}) => (
+  <Row>
+    <Col>
+      <FoodItem food={props.food} />
+    </Col>
+    <Col xs="auto">
+      <EditFoodButton variant={VariantPrimary} mealIndex={props.mealIndex} foodIndex={props.foodIndex} label="Edit" />
+    </Col>
+  </Row>
+);
 
 interface Props {
   editState?: MealEditState;
@@ -41,10 +58,7 @@ export const FoodListGroupItems = (props: Props) => {
               <ListGroup.Item key={index} data-cy="foodItem">
                 {index === props.foodEditIndex
                   ? <UpdateFoodInputForm food={food} mealIndex={props.mealIndex} foodIndex={index} />
-                  : <div className="d-flex align-items-center">
-                    <FoodItem food={food} />
-                    <EditFoodButton variant={VariantPrimary} mealIndex={props.mealIndex} foodIndex={index} label="Edit" />
-                  </div>
+                  : <EditableFoodItem food={food} mealIndex={props.mealIndex} foodIndex={index} />
                 }
               </ListGroup.Item>
             ))
