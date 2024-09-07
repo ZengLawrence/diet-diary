@@ -2,6 +2,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { FoodGroupLegend } from "../FoodGroupLegend";
 import { EatLessToTargetIcon, EatMoreToTargetIcon, MeetTargetIcon } from "../summary/TargetActionIcon";
+import { Legend } from "../Legend";
 
 const IconReferLink = () => (
   <a
@@ -26,7 +27,7 @@ const Icons8Referral = () => {
 };
 
 const FoodGroupLegends = () => (
-  <div className="d-flex justify-content-between flex-fill flex-wrap">
+  <div className="d-flex justify-content-between flex-wrap">
     <FoodGroupLegend foodGroup="vegetable" />
     <FoodGroupLegend foodGroup="fruit" />
     <FoodGroupLegend foodGroup="carbohydrate" />
@@ -38,15 +39,15 @@ const FoodGroupLegends = () => (
 
 const TargetActionLegends = () => (
   <div className="d-flex justify-content-between justify-content-sm-start grid gap-0 column-gap-3">
-    <div className="border-0 rounded bg-light">
+    <Legend>
       <EatLessToTargetIcon />Eat Less
-    </div>
-    <div className="border-0 rounded bg-light">
+    </Legend>
+    <Legend>
       <MeetTargetIcon />On Target
-    </div>
-    <div className="border-0 rounded bg-light">
+    </Legend>
+    <Legend>
       <EatMoreToTargetIcon />Eat More
-    </div>
+    </Legend>
   </div>
 )
 
