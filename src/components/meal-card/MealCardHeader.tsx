@@ -21,37 +21,51 @@ interface Props {
   doneEdit: (mealIndex: number) => void;
 }
 
-export const MealCardHeader = (props: Props) => (
-  <Card.Header>
-    {props.showMealSavedAlert &&
+export const MealCardHeader = (props: Props) => {
+
+  const alertRow = (
+    <Row>
+      <Alert
+        variant="success"
+        onClose={props.hideMealSavedAlert}
+        dismissible>
+        Meal saved.
+      </Alert>
+    </Row>
+  );
+
+  const deleteButtonCol = (
+    <Col xs="auto">
+      <Button
+        variant={VariantDanger}
+        onClick={() => props.deleteMeal(props.mealIndex)}>
+        Delete
+      </Button>
+    </Col>
+  );
+
+  const mealButtonsCol = (
+    <Col xs="auto">
+      <MealButtons
+        mealIndex={props.mealIndex}
+        editMeal={() => props.editMeal(props.mealIndex)}
+        saveMeal={() => props.saveMeal(props.mealIndex, props.meal)}
+        doneEdit={() => props.doneEdit(props.mealIndex)}
+      />
+    </Col>
+  );
+
+  return (
+    <Card.Header>
+      {props.showMealSavedAlert && alertRow}
       <Row>
-        <Alert variant="success" onClose={props.hideMealSavedAlert} dismissible>
-          Meal saved.
-        </Alert>
+        {props.showDeleteButton && deleteButtonCol}
+        <Col>{props.meal.mealTime}</Col>
+        {props.showButton && mealButtonsCol}
       </Row>
-    }
-    <Row>
-      {props.showDeleteButton &&
-        <Col xs="auto">
-          <Button variant={VariantDanger} onClick={() => props.deleteMeal(props.mealIndex)}>Delete</Button>
-        </Col>
-      }
-      <Col>
-        {props.meal.mealTime}
-      </Col>
-      {props.showButton &&
-        <Col xs="auto">
-          <MealButtons 
-            mealIndex={props.mealIndex} 
-            editMeal={() => props.editMeal(props.mealIndex)}
-            saveMeal={() => props.saveMeal(props.mealIndex, props.meal)}
-            doneEdit={() => props.doneEdit(props.mealIndex)}
-            />
-        </Col>
-      }
-    </Row>
-    <Row>
-      <MealCalorieServingPanel meal={props.meal} />
-    </Row>
-  </Card.Header>
-)
+      <Row>
+        <MealCalorieServingPanel meal={props.meal} />
+      </Row>
+    </Card.Header>
+  );
+}
