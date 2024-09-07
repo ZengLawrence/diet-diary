@@ -14,8 +14,8 @@ const mapStateToProps = (state: RootState, ownProps: { mealIndex: number; }) => 
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  editMeal: (mealIndex: number) => dispatch(enterMealEditMode({mealIndex})),
-  doneEdit: (mealIndex: number) => dispatch(exitMealEditMode({mealIndex})),
+  editMeal: (mealIndex: number) => dispatch(enterMealEditMode({ mealIndex })),
+  doneEdit: (mealIndex: number) => dispatch(exitMealEditMode({ mealIndex })),
   saveMeal: (mealIndex: number, meal: Meal) => {
     dispatch(save(meal));
     dispatch(showSavedMealAlert(mealIndex));
