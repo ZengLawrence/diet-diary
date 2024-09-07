@@ -21,37 +21,40 @@ interface Props {
   doneEdit: (mealIndex: number) => void;
 }
 
-export const MealCardHeader = (props: Props) => (
-  <Card.Header>
-    {props.showMealSavedAlert &&
+export const MealCardHeader = (props: Props) => {
+
+  const alertRow = (<Row>
+    <Alert variant="success" onClose={props.hideMealSavedAlert} dismissible>
+      Meal saved.
+    </Alert>
+  </Row>);
+
+  return (
+    <Card.Header>
+      {props.showMealSavedAlert && alertRow}
       <Row>
-        <Alert variant="success" onClose={props.hideMealSavedAlert} dismissible>
-          Meal saved.
-        </Alert>
-      </Row>
-    }
-    <Row>
-      {props.showDeleteButton &&
-        <Col xs="auto">
-          <Button variant={VariantDanger} onClick={() => props.deleteMeal(props.mealIndex)}>Delete</Button>
+        {props.showDeleteButton &&
+          <Col xs="auto">
+            <Button variant={VariantDanger} onClick={() => props.deleteMeal(props.mealIndex)}>Delete</Button>
+          </Col>
+        }
+        <Col>
+          {props.meal.mealTime}
         </Col>
-      }
-      <Col>
-        {props.meal.mealTime}
-      </Col>
-      {props.showButton &&
-        <Col xs="auto">
-          <MealButtons 
-            mealIndex={props.mealIndex} 
-            editMeal={() => props.editMeal(props.mealIndex)}
-            saveMeal={() => props.saveMeal(props.mealIndex, props.meal)}
-            doneEdit={() => props.doneEdit(props.mealIndex)}
+        {props.showButton &&
+          <Col xs="auto">
+            <MealButtons
+              mealIndex={props.mealIndex}
+              editMeal={() => props.editMeal(props.mealIndex)}
+              saveMeal={() => props.saveMeal(props.mealIndex, props.meal)}
+              doneEdit={() => props.doneEdit(props.mealIndex)}
             />
-        </Col>
-      }
-    </Row>
-    <Row>
-      <MealCalorieServingPanel meal={props.meal} />
-    </Row>
-  </Card.Header>
-)
+          </Col>
+        }
+      </Row>
+      <Row>
+        <MealCalorieServingPanel meal={props.meal} />
+      </Row>
+    </Card.Header>
+  );
+}
