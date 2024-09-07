@@ -2,6 +2,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { FoodGroupLegend } from "../FoodGroupLegend";
 import { EatLessToTargetIcon, EatMoreToTargetIcon, MeetTargetIcon } from "../summary/TargetActionIcon";
+import { Legend } from "../Legend";
 
 const IconReferLink = () => (
   <a
@@ -33,12 +34,6 @@ const FoodGroupLegends = () => (
     <FoodGroupLegend foodGroup="proteinDiary" />
     <FoodGroupLegend foodGroup="fat" />
     <FoodGroupLegend foodGroup="sweet" />
-  </div>
-);
-
-const Legend = (props: React.PropsWithChildren<{}>) => (
-  <div className="border-0 rounded bg-light">
-    {props.children}
   </div>
 );
 
