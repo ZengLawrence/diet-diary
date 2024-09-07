@@ -9,6 +9,8 @@ import NewFoodButton from "../../features/meal-card/NewFoodButton";
 import { Food } from "../../model/Food";
 import { FoodItem } from "../FoodItem";
 import { VariantPrimary } from "../ButtonVariant";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 interface Props {
   editState?: MealEditState;
@@ -41,10 +43,14 @@ export const FoodListGroupItems = (props: Props) => {
               <ListGroup.Item key={index} data-cy="foodItem">
                 {index === props.foodEditIndex
                   ? <UpdateFoodInputForm food={food} mealIndex={props.mealIndex} foodIndex={index} />
-                  : <div className="d-flex align-items-center">
-                    <FoodItem food={food} />
-                    <EditFoodButton variant={VariantPrimary} mealIndex={props.mealIndex} foodIndex={index} label="Edit" />
-                  </div>
+                  : <Row>
+                      <Col>
+                        <FoodItem food={food} />
+                      </Col>
+                      <Col xs="auto">
+                        <EditFoodButton variant={VariantPrimary} mealIndex={props.mealIndex} foodIndex={index} label="Edit" />
+                      </Col>
+                  </Row>
                 }
               </ListGroup.Item>
             ))
