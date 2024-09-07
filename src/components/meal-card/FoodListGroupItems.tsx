@@ -1,16 +1,16 @@
 import _ from "lodash";
 import { Fragment } from "react";
+import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
+import Row from "react-bootstrap/Row";
 import { MealEditState } from "../../features/day-page/mealStatesSlice";
 import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
 import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
 import EditFoodButton from "../../features/meal-card/EditFoodButton";
 import NewFoodButton from "../../features/meal-card/NewFoodButton";
 import { Food } from "../../model/Food";
-import { FoodItem } from "../FoodItem";
 import { VariantPrimary } from "../ButtonVariant";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { FoodItem } from "../FoodItem";
 
 interface Props {
   editState?: MealEditState;
