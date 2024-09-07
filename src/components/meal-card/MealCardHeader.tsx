@@ -23,11 +23,16 @@ interface Props {
 
 export const MealCardHeader = (props: Props) => {
 
-  const alertRow = (<Row>
-    <Alert variant="success" onClose={props.hideMealSavedAlert} dismissible>
-      Meal saved.
-    </Alert>
-  </Row>);
+  const alertRow = (
+    <Row>
+      <Alert
+        variant="success"
+        onClose={props.hideMealSavedAlert}
+        dismissible>
+        Meal saved.
+      </Alert>
+    </Row>
+  );
 
   const deleteButtonCol = (
     <Col xs="auto">
