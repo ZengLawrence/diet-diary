@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { MealEditState } from "../../features/day-page/mealStatesSlice";
-import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { Meal } from "../../model/Food";
+import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { MealButton } from "./MealButton";
 
 interface Props {
