@@ -1,13 +1,10 @@
 import { Fragment } from "react";
 import { MealEditState } from "../../features/day-page/mealStatesSlice";
-import { Meal } from "../../model/Food";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import Button from "react-bootstrap/Button";
 
 interface Props {
   editState: MealEditState;
-  mealIndex: number;
-  meal: Meal;
   editMeal: () => void;
   saveMeal: () => void;
   doneEdit: () => void;
