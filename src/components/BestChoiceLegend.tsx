@@ -1,7 +1,8 @@
 import { BlueStar } from "./BlueStar";
+import { Legend } from "./Legend";
 
 export const BestChoiceLegend = () => (
-  <div className="border-0 rounded bg-light">
+  <Legend>
     <BlueStar /><span>&nbsp;Best choice</span>
-  </div>
+  </Legend>
 )
