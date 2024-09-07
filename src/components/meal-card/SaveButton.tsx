@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { save } from "../../features/saved-meal/savedMealsSlice";
 import { mealsSelector } from "../../app/selectors";
 import { showSavedMealAlert } from "../../features/day-page/mealStatesSlice";
+import { Meal } from "../../model/Food";
 
 interface Props {
   mealIndex: number;
@@ -14,11 +15,13 @@ export const SaveButton = (props: Props) =>{
   const meals = useSelector(mealsSelector);
   const dispatch = useDispatch();
 
-  const handleClick = () => {
-    const meal = meals[props.mealIndex];
+  const saveMeal = (mealIndex: number, meal: Meal) => {
     dispatch(save(meal));
-    dispatch(showSavedMealAlert(props.mealIndex));
+    dispatch(showSavedMealAlert(mealIndex));
   }
+
+  const handleClick = () => saveMeal(props.mealIndex, meals[props.mealIndex]);
+
   return (
   <Button variant={props.variant} onClick={handleClick}>
     Save
