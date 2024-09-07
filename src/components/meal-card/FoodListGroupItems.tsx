@@ -12,6 +12,21 @@ import { Food } from "../../model/Food";
 import { VariantPrimary } from "../ButtonVariant";
 import { FoodItem } from "../FoodItem";
 
+const EditableFoodItem = (props: {
+  food: Food;
+  mealIndex: number;
+  foodIndex: number;
+}) => (
+  <Row>
+    <Col>
+      <FoodItem food={props.food} />
+    </Col>
+    <Col xs="auto">
+      <EditFoodButton variant={VariantPrimary} mealIndex={props.mealIndex} foodIndex={props.foodIndex} label="Edit" />
+    </Col>
+  </Row>
+);
+
 interface Props {
   editState?: MealEditState;
   mealIndex: number;
@@ -43,14 +58,7 @@ export const FoodListGroupItems = (props: Props) => {
               <ListGroup.Item key={index} data-cy="foodItem">
                 {index === props.foodEditIndex
                   ? <UpdateFoodInputForm food={food} mealIndex={props.mealIndex} foodIndex={index} />
-                  : <Row>
-                      <Col>
-                        <FoodItem food={food} />
-                      </Col>
-                      <Col xs="auto">
-                        <EditFoodButton variant={VariantPrimary} mealIndex={props.mealIndex} foodIndex={index} label="Edit" />
-                      </Col>
-                  </Row>
+                  : <EditableFoodItem food={food} mealIndex={props.mealIndex} foodIndex={index} />
                 }
               </ListGroup.Item>
             ))
