@@ -36,17 +36,23 @@ const FoodGroupLegends = () => (
   </div>
 );
 
+const Legend = (props: React.PropsWithChildren<{}>) => (
+  <div className="border-0 rounded bg-light">
+    {props.children}
+  </div>
+);
+
 const TargetActionLegends = () => (
   <div className="d-flex justify-content-between justify-content-sm-start grid gap-0 column-gap-3">
-    <div className="border-0 rounded bg-light">
+    <Legend>
       <EatLessToTargetIcon />Eat Less
-    </div>
-    <div className="border-0 rounded bg-light">
+    </Legend>
+    <Legend>
       <MeetTargetIcon />On Target
-    </div>
-    <div className="border-0 rounded bg-light">
+    </Legend>
+    <Legend>
       <EatMoreToTargetIcon />Eat More
-    </div>
+    </Legend>
   </div>
 )
 
