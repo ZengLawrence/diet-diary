@@ -51,7 +51,7 @@ const TargetActionLegends = () => (
 )
 
 export const Footer = (props: { showTargetActionLegends: boolean }) => (
-  <Row>
+  <Row className="grid gap-0 row-gap-3">
     <Row>
       <div className="d-block d-sm-none">
         <FoodGroupLegends />
