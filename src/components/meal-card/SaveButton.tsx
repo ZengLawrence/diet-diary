@@ -10,7 +10,7 @@ interface Props {
   variant?: string;
 }
 
-export const SaveButton = (props: Props) =>{
+export const SaveButton = (props: Props) => {
 
   const meals = useSelector(mealsSelector);
   const dispatch = useDispatch();
@@ -23,7 +23,8 @@ export const SaveButton = (props: Props) =>{
   const handleClick = () => saveMeal(props.mealIndex, meals[props.mealIndex]);
 
   return (
-  <Button variant={props.variant} onClick={handleClick}>
-    Save
-  </Button>
-)}
+    <Button variant={props.variant} onClick={handleClick}>
+      Save
+    </Button>
+  )
+}
