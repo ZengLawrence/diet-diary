@@ -3,8 +3,8 @@ import { MealEditState } from "../../features/day-page/mealStatesSlice";
 import DoneButton from "../../features/meal-card/DoneButton";
 import EditButton from "../../features/meal-card/EditButton";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
-import { SaveButton } from "./SaveButton";
 import { Meal } from "../../model/Food";
+import { MealButton } from "./MealButton";
 
 interface Props {
   editState: MealEditState;
@@ -15,7 +15,7 @@ interface Props {
 
 export const MealButtons = (props: Props) => {
   const editButton = <EditButton variant={VariantPrimary} mealIndex={props.mealIndex} label="Edit"/>;
-  const saveButton = <SaveButton variant={VariantSecondary} mealIndex={props.mealIndex} handleClick={() => props.saveMeal(props.mealIndex, props.meal)}/>;
+  const saveButton = <MealButton variant={VariantSecondary} mealIndex={props.mealIndex} onClick={() => props.saveMeal(props.mealIndex, props.meal)} label="Save"/>;
   const doneButton = <DoneButton variant={VariantPrimary} mealIndex={props.mealIndex} label="Done" />;
 
   switch (props.editState) {
