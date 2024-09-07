@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { Fragment } from "react";
-import { ListGroup } from "react-bootstrap";
+import ListGroup from "react-bootstrap/ListGroup";
 import { MealEditState } from "../../features/day-page/mealStatesSlice";
 import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
 import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
