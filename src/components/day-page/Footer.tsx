@@ -1,3 +1,5 @@
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 import { FoodGroupLegend } from "../FoodGroupLegend";
 import { EatLessToTargetIcon, EatMoreToTargetIcon, MeetTargetIcon } from "../summary/TargetActionIcon";
 
@@ -35,11 +37,11 @@ const FoodGroupLegends = () => (
 );
 
 const TargetActionLegends = () => (
-  <div className="w-100 d-flex justify-content-between justify-content-sm-start flex-fill flex-wrap">
-    <div className="mr-sm-1 border-0 rounded bg-light">
+  <div className="d-flex justify-content-between justify-content-sm-start grid gap-0 column-gap-3">
+    <div className="border-0 rounded bg-light">
       <EatLessToTargetIcon />Eat Less
     </div>
-    <div className="mr-sm-1 border-0 rounded bg-light">
+    <div className="border-0 rounded bg-light">
       <MeetTargetIcon />On Target
     </div>
     <div className="border-0 rounded bg-light">
@@ -49,11 +51,19 @@ const TargetActionLegends = () => (
 )
 
 export const Footer = (props: { showTargetActionLegends: boolean }) => (
-  <div className="d-flex flex-column align-items-center">
-    <div className="d-block d-sm-none">
-      <FoodGroupLegends />
-    </div>
-    {props.showTargetActionLegends && <TargetActionLegends />}
-    <Icons8Referral />
-  </div>
+  <Row className="grid gap-0 row-gap-3">
+    <Row>
+      <div className="d-block d-sm-none">
+        <FoodGroupLegends />
+      </div>
+    </Row>
+    <Row>
+      {props.showTargetActionLegends && <TargetActionLegends />}
+    </Row>
+    <Row>
+      <Col className="d-flex justify-content-center">
+        <Icons8Referral />
+      </Col>
+    </Row>
+  </Row>
 );
