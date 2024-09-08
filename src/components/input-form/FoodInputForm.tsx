@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import { calcFoodCalories, displayCalorieValue } from "../../model/calorieFunction";
 import { Food } from "../../model/Food";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
-import { FoodDescriptionInputControl } from "./FoodDescriptionInputControl";
+import { FoodDescriptionComboBox } from "./FoodDescriptionComboBox";
 import { ServingInputControl } from "./ServingInputControl";
 import { useFoodInputFormStateReducer } from "./useFoodInputFormStateReducer";
 
@@ -31,7 +31,7 @@ export const FoodInputForm = (props: Props) => {
       className="border p-1"
     >
       <Form.Group as={Row} className="ml-1 mr-1 mb-3">
-        <FoodDescriptionInputControl
+        <FoodDescriptionComboBox
           foodName={food.description}
           suggestions={suggestions}
           invalid={error.foodDescription}
