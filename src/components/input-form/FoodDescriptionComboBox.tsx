@@ -12,7 +12,7 @@ interface Props {
   updateFoodDescriptionServing: (desc: string, serving?: Serving) => void;
 }
 
-export const FoodDescriptionInputControl = (props: Props) => {
+export const FoodDescriptionComboBox = (props: Props) => {
 
   const [toggle, setToggle] = useState(false);
 
