@@ -67,6 +67,7 @@ export const FoodDescriptionComboBox = (props: Props) => {
         onChange={handleChange}
         required
         isInvalid={props.invalid}
+        autoFocus
       />
       <Form.Control.Feedback type="invalid">
         Please enter food description.
