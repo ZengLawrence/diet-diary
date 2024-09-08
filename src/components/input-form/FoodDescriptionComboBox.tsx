@@ -29,6 +29,10 @@ export const FoodDescriptionComboBox = (props: Props) => {
     setToggle(true);
   }
 
+  const handleItemClick = (suggestion: Suggestion) => {
+    props.updateFoodDescriptionServing(foodDescription(suggestion), suggestion.serving);
+  }
+
   return (
     <Dropdown show={toggle} onSelect={() => setToggle(false)}>
 
@@ -46,7 +50,7 @@ export const FoodDescriptionComboBox = (props: Props) => {
           <Dropdown.Item
             key={index}
             as="div"
-            onClick={() => props.updateFoodDescriptionServing(foodDescription(suggestion), suggestion.serving)}
+            onClick={() => handleItemClick(suggestion)}
             >
             {foodDescription(suggestion)}
           </Dropdown.Item>
