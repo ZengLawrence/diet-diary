@@ -43,7 +43,12 @@ export const FoodDescriptionComboBox = (props: Props) => {
         placeholder="Broccoli steamed 1 cup"
         value={props.foodName}
         onChange={handleChange}
+        required
+        isInvalid={props.invalid}
       />
+      <Form.Control.Feedback type="invalid">
+        Please enter food description.
+      </Form.Control.Feedback>
 
       <Dropdown.Menu>
         {props.suggestions.map((suggestion, index) => (
@@ -51,7 +56,7 @@ export const FoodDescriptionComboBox = (props: Props) => {
             key={index}
             as="div"
             onClick={() => handleItemClick(suggestion)}
-            >
+          >
             {foodDescription(suggestion)}
           </Dropdown.Item>
         ))}
