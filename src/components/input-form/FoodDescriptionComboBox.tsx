@@ -19,8 +19,12 @@ export const FoodDescriptionInputControl = (props: Props) => {
   return (
     <Dropdown show={toggle} onSelect={() => setToggle(false)}>
 
-      <Form.Control type="text" placeholder="type in your query"
-        onChange={(e) => setToggle(true)}
+      <Form.Label htmlFor="inputFoodDescription">Food description</Form.Label>
+      <Form.Control
+        id="inputFoodDescription"
+        type="text"
+        placeholder="Broccoli steamed 1 cup"
+        onChange={() => setToggle(true)}
       />
 
       <Dropdown.Menu>
