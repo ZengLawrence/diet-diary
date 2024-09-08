@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 import { Suggestion } from "../../features/suggestions/Suggestion";
@@ -34,6 +34,14 @@ const ItemText = (props: {
   );
 }
 
+// set focus solution from https://stackoverflow.com/questions/28889826/how-to-set-focus-on-an-input-field-after-rendering
+const useFocus = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const setInputFocus = () => { inputRef?.current?.focus() }
+
+  return { inputRef, setInputFocus };
+}
+
 interface Props {
   foodName: string;
   suggestions: Suggestion[];
@@ -45,6 +53,7 @@ interface Props {
 export const FoodDescriptionComboBox = (props: Props) => {
 
   const [toggle, setToggle] = useState(false);
+  const { inputRef, setInputFocus } = useFocus();
 
   const handleChange = (e: { target: { value: string; }; }) => {
     props.updateFoodDescription(e.target.value);
@@ -53,6 +62,7 @@ export const FoodDescriptionComboBox = (props: Props) => {
 
   const handleItemClick = (suggestion: Suggestion) => {
     props.updateFoodDescriptionServing(foodDescription(suggestion), suggestion.serving);
+    setInputFocus();
   }
 
   return (
@@ -68,6 +78,7 @@ export const FoodDescriptionComboBox = (props: Props) => {
         required
         isInvalid={props.invalid}
         autoFocus
+        ref={inputRef}
       />
       <Form.Control.Feedback type="invalid">
         Please enter food description.
@@ -80,7 +91,7 @@ export const FoodDescriptionComboBox = (props: Props) => {
             as="div"
             onClick={() => handleItemClick(suggestion)}
           >
-            <ItemText suggestion={suggestion}/>
+            <ItemText suggestion={suggestion} />
           </Dropdown.Item>
         ))}
       </Dropdown.Menu>
