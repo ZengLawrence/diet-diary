@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 import { Suggestion } from "../../features/suggestions/Suggestion";
 import { Serving } from "../../model/Food";
+import { calcServingCalories } from "../../model/calorieFunction";
+import { BlueStar } from "../BlueStar";
+import { CalorieSpan } from "../CalorieSpan";
+import { FoodGroupServingBadgePanel } from "../panels/FoodGroupServingBadgePanel";
 
 function foodDescription(suggestion: Suggestion) {
   if (suggestion.amount) {
@@ -10,6 +14,24 @@ function foodDescription(suggestion: Suggestion) {
   } else {
     return suggestion.foodName;
   }
+}
+
+const ItemText = (props: {
+  suggestion: Suggestion;
+}) => {
+  const { bestChoice, serving } = props.suggestion;
+  return (
+    <div>
+      {bestChoice && <BlueStar />}
+      {foodDescription(props.suggestion)}
+      {serving &&
+        <Fragment>
+          <FoodGroupServingBadgePanel serving={serving} />
+          <CalorieSpan value={calcServingCalories(serving)} />
+        </Fragment>
+      }
+    </div>
+  );
 }
 
 interface Props {
@@ -57,7 +79,7 @@ export const FoodDescriptionComboBox = (props: Props) => {
             as="div"
             onClick={() => handleItemClick(suggestion)}
           >
-            {foodDescription(suggestion)}
+            <ItemText suggestion={suggestion}/>
           </Dropdown.Item>
         ))}
       </Dropdown.Menu>
