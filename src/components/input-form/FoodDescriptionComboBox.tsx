@@ -90,6 +90,7 @@ export const FoodDescriptionComboBox = (props: Props) => {
             key={index}
             as="div"
             onClick={() => handleItemClick(suggestion)}
+            className="text-wrap"
           >
             <ItemText suggestion={suggestion} />
           </Dropdown.Item>
