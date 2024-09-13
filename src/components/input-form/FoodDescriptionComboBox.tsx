@@ -48,6 +48,12 @@ const useFocus = () => {
   return { inputRef, setInputFocus };
 }
 
+const MenuFooter = () => (
+  <Dropdown.ItemText>
+    <BestChoiceLegend />
+  </Dropdown.ItemText>
+);
+
 interface Props {
   foodName: string;
   suggestions: Suggestion[];
@@ -102,7 +108,7 @@ export const FoodDescriptionComboBox = (props: Props) => {
           </Dropdown.Item>
         ))}
         
-        {hasBestChoice(props.suggestions) && <Dropdown.ItemText><BestChoiceLegend /></Dropdown.ItemText>}
+        {hasBestChoice(props.suggestions) && <MenuFooter />}
 
       </Dropdown.Menu>
     </Dropdown>
