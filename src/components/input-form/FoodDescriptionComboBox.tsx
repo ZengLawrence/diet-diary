@@ -49,8 +49,8 @@ const useFocus = () => {
 }
 
 const MenuFooter = () => (
-  <Dropdown.ItemText>
-    <BestChoiceLegend />
+  <Dropdown.ItemText className="d-inline-flex">
+    <BestChoiceLegend /><span />
   </Dropdown.ItemText>
 );
 
