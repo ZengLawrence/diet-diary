@@ -1,9 +1,11 @@
+import _ from "lodash";
 import { Fragment, useRef, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 import { Suggestion } from "../../features/suggestions/Suggestion";
 import { Serving } from "../../model/Food";
 import { calcServingCalories } from "../../model/calorieFunction";
+import { BestChoiceLegend } from "../BestChoiceLegend";
 import { BlueStar } from "../BlueStar";
 import { CalorieSpan } from "../CalorieSpan";
 import { FoodGroupServingBadgePanel } from "../panels/FoodGroupServingBadgePanel";
@@ -14,6 +16,10 @@ function foodDescription(suggestion: Suggestion) {
   } else {
     return suggestion.foodName;
   }
+}
+
+function hasBestChoice(suggestions: Suggestion[]) {
+  return _.findIndex(suggestions, { 'bestChoice': true }) >= 0;
 }
 
 const ItemText = (props: {
@@ -95,6 +101,9 @@ export const FoodDescriptionComboBox = (props: Props) => {
             <ItemText suggestion={suggestion} />
           </Dropdown.Item>
         ))}
+        
+        {hasBestChoice(props.suggestions) && <Dropdown.ItemText><BestChoiceLegend /></Dropdown.ItemText>}
+
       </Dropdown.Menu>
     </Dropdown>
   );
