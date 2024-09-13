@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 import { Suggestion } from "../../features/suggestions/Suggestion";
@@ -64,6 +64,7 @@ interface Props {
 
 export const FoodDescriptionComboBox = (props: Props) => {
 
+  const { invalid } = props;
   const [toggle, setToggle] = useState(false);
   const { inputRef, setInputFocus } = useFocus();
 
@@ -76,6 +77,10 @@ export const FoodDescriptionComboBox = (props: Props) => {
     props.updateFoodDescriptionServing(foodDescription(suggestion), suggestion.serving);
     setInputFocus();
   }
+
+  useEffect(() => {
+    if (invalid) { setToggle(false); }
+  }, [invalid]);
 
   return (
     <Dropdown show={toggle} onSelect={() => setToggle(false)}>
@@ -107,7 +112,7 @@ export const FoodDescriptionComboBox = (props: Props) => {
             <ItemText suggestion={suggestion} />
           </Dropdown.Item>
         ))}
-        
+
         {hasBestChoice(props.suggestions) && <MenuFooter />}
 
       </Dropdown.Menu>
