@@ -30,7 +30,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "npx serve@latest ./build",
+    "start": "next start",
     "start:ci": "npx serve@latest ./build --listen 3000",
     "test": "jest",
     "test:watch": "jest --watch",
