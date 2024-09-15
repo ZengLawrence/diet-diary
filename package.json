@@ -29,9 +29,10 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
-    "start": "react-app-rewired start",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "npx serve@latest ./build",
     "start:ci": "serve ./build --listen 3000",
-    "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
     "gen-parser": "./gen-parser.sh",
