@@ -1,3 +1,10 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Diet Diary',
+  description: 'Keeping records of food you eat for the day.',
+}
+ 
 export default function RootLayout({
   children,
 }: {
@@ -5,15 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <meta
-          name="description"
-          content="Keeping records of food you eat for the day."
-        />
-        <title>Diet Diary</title>
-      </head>
       <body>
-        <noscript>You need to enable JavaScript to run this app.</noscript>
         <div id="root">{children}</div>
       </body>
     </html>
