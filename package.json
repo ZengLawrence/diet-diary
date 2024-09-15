@@ -34,7 +34,6 @@
     "start:ci": "serve ./build --listen 3000",
     "test": "jest",
     "test:watch": "jest --watch",
-    "eject": "react-app-rewired eject",
     "gen-parser": "./gen-parser.sh",
     "cypress:open": "cypress open"
   },
