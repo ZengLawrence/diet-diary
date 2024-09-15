@@ -16,7 +16,7 @@ test("'fl-oz' is standard unit", () => {
 })
 
 test("An object is not standard unit", () => {
-  expect(isSupportedUnitType({ diameter: 12 })).toBeFalsy;
+  expect(isSupportedUnitType({ diameter: 12 })).toBeFalsy();
 })
 
 const { canParse, parse } = functions;
