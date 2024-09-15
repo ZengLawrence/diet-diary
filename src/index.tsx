@@ -1,4 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
