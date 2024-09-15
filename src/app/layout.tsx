@@ -6,7 +6,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
         <meta
           name="description"
           content="Keeping records of food you eat for the day."
