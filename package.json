@@ -30,7 +30,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "start:ci": "serve ./build --listen 3000",
+    "start:ci": "mkdir -p ./dist/diet-diary/v2 && cp -r ./build/* ./dist/diet-diary/v2 && serve ./dist --listen 3000",
     "test": "jest",
     "test:watch": "jest --watch",
     "gen-parser": "./gen-parser.sh",

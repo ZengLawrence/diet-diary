@@ -36,3 +36,4 @@ cypress/integration/2-advanced-examples/
 # next.js
 .next
 next-env.d.ts
+dist/
