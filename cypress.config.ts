@@ -7,7 +7,7 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       return require('./cypress/plugins/index.js')(on, config)
     },
-    baseUrl: 'http://localhost:3000/diet-diary/v2/',
+    baseUrl: 'http://localhost:3000/project/diet-diary/v2',
     specPattern: 'cypress/e2e/**/*.spec.ts',
     experimentalRunAllSpecs: true
   },
