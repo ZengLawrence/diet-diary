@@ -3,6 +3,9 @@ module.exports = {
   output: 'export', // Outputs a Single-Page Application (SPA).
   distDir: './build', // Changes the build output directory to `./dist`.
   basePath: '/project/diet-diary/v2',
+  images: {
+    unoptimized: true,
+  },
   webpack(config) {
     config.resolve.fallback = {
       ...config.resolve.fallback, // if you miss it, all the other options in fallback, specified
