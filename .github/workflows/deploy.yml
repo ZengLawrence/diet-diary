@@ -53,6 +53,14 @@ jobs:
         with:
           node-version: "22"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'adopt'
+          cache: maven
+      - name: Generate parser source code
+        run: npm run gen-parser
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
