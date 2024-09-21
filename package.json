@@ -35,7 +35,6 @@
     "jest-environment-jsdom": "^29.7.0"
   },
   "overrides": {
-    "autoprefixer": "10.4.5",
     "@types/react": "^18.3.8"
   },
   "scripts": {
