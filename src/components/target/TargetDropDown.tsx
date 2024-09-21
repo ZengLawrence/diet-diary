@@ -19,7 +19,11 @@ const menuItem = (target: Target) => (
   </Dropdown.Item>
 )
 
-export const TargetDropDown = (props: { selectedCalorie: number; targets: Target[]; onSelect: (target: Target) => void; }) => {
+export const TargetDropDown = (props: {
+  selectedCalorie: number;
+  targets: Target[];
+  onSelect: (target: Target) => void;
+}) => {
   const handleSelect = (eventKey: any) => {
     const selectedCalorie = _.toNumber(eventKey);
     const selectedTarget = _.find(props.targets, { 'calorie': selectedCalorie });
