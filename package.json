@@ -30,7 +30,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "start:ci": "serve ./build --listen 3000",
+    "start:ci": "npx --yes serve ./build --listen 3000",
     "test": "jest",
     "test:watch": "jest --watch",
     "gen-parser": "./gen-parser.sh",
@@ -64,7 +64,6 @@
     "cypress": "^13.14.1",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "serve": "^14.2.3",
     "ts-node": "^10.9.2"
   },
   "overrides": {
