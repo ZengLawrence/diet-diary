@@ -30,7 +30,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "start:ci": "npx serve ./build --listen 3000",
+    "start:ci": "npx --yes serve ./build --listen 3000",
     "test": "jest",
     "test:watch": "jest --watch",
     "gen-parser": "./gen-parser.sh",
