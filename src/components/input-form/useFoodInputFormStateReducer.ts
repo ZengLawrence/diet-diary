@@ -24,7 +24,7 @@ const suggestions = createSlice({
   }
 })
 const {
-  setSuggestions, 
+  setSuggestions,
 } = suggestions.actions;
 
 const food = createSlice({
@@ -112,7 +112,9 @@ const updateFoodDescription = (dispatch: React.Dispatch<AnyAction>, generateSugg
 
 const updateFoodDescriptionServing = (dispatch: React.Dispatch<AnyAction>, name: string, serving?: Serving) => {
   dispatch(setDescription(name));
-  serving && dispatch(setServing(serving));
+  if (serving) { 
+    dispatch(setServing(serving)); 
+  }
 }
 
 const updateFoodGroupServing = (dispatch: React.Dispatch<AnyAction>, foodGroup: FoodGroup, serving: number) =>
