@@ -2,7 +2,6 @@
 module.exports = {
   output: 'export', // Outputs a Single-Page Application (SPA).
   distDir: './build', // Changes the build output directory to `./dist`.
-  basePath: '/project/diet-diary/v2',
   images: {
     unoptimized: true,
   },

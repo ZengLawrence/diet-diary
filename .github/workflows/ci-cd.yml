@@ -64,7 +64,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: build
-        path: dist/project/diet-diary/v2
+        path: build
     - name: integration test
       uses: cypress-io/github-action@v6
       with:
