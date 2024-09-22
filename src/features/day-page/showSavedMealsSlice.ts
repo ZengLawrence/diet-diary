@@ -13,7 +13,7 @@ const showSavedMealsSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(addSavedMeal, (_state) => {
+    builder.addCase(addSavedMeal, () => {
       return false;
     });
   }
