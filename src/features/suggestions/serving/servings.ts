@@ -34,9 +34,10 @@ function fatServing(serving: SingleServingData): ServingSuggestion {
   return ({ ...serving, foodGroup: "fat" });
 }
 
+// parenthesis are required here to avoid syntax error; reason unknown
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function sweetServing(serving: any) {
-  return { ...serving, foodGroup: "sweet" };
+function sweetServing(serving: any): ServingSuggestion {
+  return ({ ...serving, foodGroup: "sweet" });
 }
 
 function toSuggestion({ foodName, servingSize, foodGroup, bestChoice }: ServingSuggestion) {
