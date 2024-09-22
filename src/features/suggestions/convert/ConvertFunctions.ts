@@ -4,7 +4,7 @@ export interface ConvertFunctions<T> {
   /**
    * Type guard function to check the type before calling areUnitsConvertible and convert functions.
    */
-  isSupportedUnitType: (unit: any) => boolean;
+  isSupportedUnitType: (unit: unknown) => boolean;
 
   /**
    * Check if units are convertible.  It is used safe guard calling convert function.
@@ -17,7 +17,7 @@ export interface ConvertFunctions<T> {
   convert: (quantity: number, unit: T, toUnit: T) => number;
 }
 
-function isSupportedUnitType<T>(funcs: ConvertFunctions<T>[], unit: any) {
+function isSupportedUnitType<T>(funcs: ConvertFunctions<T>[], unit: unknown) {
   const selected = _.head(_.filter(funcs, function ({ isSupportedUnitType }) {
     return isSupportedUnitType(unit);
   }));
