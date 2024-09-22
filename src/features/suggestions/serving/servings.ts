@@ -8,18 +8,30 @@ import { ServingSuggestion } from "./ServingSuggestion";
 import sweet from "./sweet-serving.json";
 import vegetable from "./vegetable-serving.json";
 
-const vegetableServing = (serving: typeof vegetable.servings) => ({ ...serving, foodGroup: "vegetable" });
+function vegetableServing(serving: typeof vegetable.servings) {
+  return ({ ...serving, foodGroup: "vegetable" });
+}
 
-const fruitServing = (serving: typeof fruit.servings) => ({ ...serving, foodGroup: "fruit" });
+function fruitServing(serving: typeof fruit.servings) {
+  return ({ ...serving, foodGroup: "fruit" });
+}
 
-const carbohydrateServing = (serving: typeof carbohydrate.servings) => ({ ...serving, foodGroup: "carbohydrate" });
+function carbohydrateServing(serving: typeof carbohydrate.servings) {
+  return ({ ...serving, foodGroup: "carbohydrate" });
+}
 
-const proteinDiaryServing = (serving: typeof proteinDiary.servings) => ({ ...serving, foodGroup: "proteinDiary" });
+function proteinDiaryServing(serving: typeof proteinDiary.servings) {
+  return ({ ...serving, foodGroup: "proteinDiary" });
+}
 
-const fatServing = (serving: typeof fat.servings) => ({ ...serving, foodGroup: "fat" });
+function fatServing(serving: typeof fat.servings) {
+  return ({ ...serving, foodGroup: "fat" });
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const sweetServing = (serving: any) => ({ ...serving, foodGroup: "sweet" });
+function sweetServing(serving: any) {
+  return { ...serving, foodGroup: "sweet" };
+}
 
 function toSuggestion({foodName, servingSize, foodGroup, bestChoice}: ServingSuggestion) {
   return {
