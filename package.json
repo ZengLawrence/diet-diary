@@ -43,7 +43,7 @@
     "dev": "next dev",
     "build": "next build",
     "lint": "next lint",
-    "start": "next start",
+    "start": "npx --yes serve ./build --listen 3000",
     "start:ci": "npx --yes serve ./build --listen 3000",
     "test": "jest",
     "test:watch": "jest --watch",
