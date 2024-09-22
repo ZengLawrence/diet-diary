@@ -8,20 +8,15 @@ import { ServingSuggestion } from "./ServingSuggestion";
 import sweet from "./sweet-serving.json";
 import vegetable from "./vegetable-serving.json";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const vegetableServing = (serving: any) => ({ ...serving, foodGroup: "vegetable" });
+const vegetableServing = (serving: typeof vegetable.servings) => ({ ...serving, foodGroup: "vegetable" });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const fruitServing = (serving: any) => ({ ...serving, foodGroup: "fruit" });
+const fruitServing = (serving: typeof fruit.servings) => ({ ...serving, foodGroup: "fruit" });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const carbohydrateServing = (serving: any) => ({ ...serving, foodGroup: "carbohydrate" });
+const carbohydrateServing = (serving: typeof carbohydrate.servings) => ({ ...serving, foodGroup: "carbohydrate" });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const proteinDiaryServing = (serving: any) => ({ ...serving, foodGroup: "proteinDiary" });
+const proteinDiaryServing = (serving: typeof proteinDiary.servings) => ({ ...serving, foodGroup: "proteinDiary" });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const fatServing = (serving: any) => ({ ...serving, foodGroup: "fat" });
+const fatServing = (serving: typeof fat.servings) => ({ ...serving, foodGroup: "fat" });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const sweetServing = (serving: any) => ({ ...serving, foodGroup: "sweet" });
