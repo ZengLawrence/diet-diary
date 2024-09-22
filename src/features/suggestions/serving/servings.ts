@@ -18,19 +18,19 @@ function vegetableServing(serving: SingleServingData): ServingSuggestion {
   return ({ ...serving, foodGroup: "vegetable" });
 }
 
-function fruitServing(serving: SingleServingData) {
+function fruitServing(serving: SingleServingData): ServingSuggestion {
   return ({ ...serving, foodGroup: "fruit" });
 }
 
-function carbohydrateServing(serving: SingleServingData) {
+function carbohydrateServing(serving: SingleServingData): ServingSuggestion {
   return ({ ...serving, foodGroup: "carbohydrate" });
 }
 
-function proteinDiaryServing(serving: SingleServingData) {
+function proteinDiaryServing(serving: SingleServingData): ServingSuggestion {
   return ({ ...serving, foodGroup: "proteinDiary" });
 }
 
-function fatServing(serving: SingleServingData) {
+function fatServing(serving: SingleServingData): ServingSuggestion {
   return ({ ...serving, foodGroup: "fat" });
 }
 
