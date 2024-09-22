@@ -19,7 +19,7 @@ function toUnit(unitName: string): DiameterUnit {
   return { diameter };
 }
 
-function areUnitsConvertible(fromUnit: DiameterUnit, toUnit: DiameterUnit) {
+function areUnitsConvertible() {
   return true;
 }
 

@@ -39,7 +39,7 @@ class FoodDescriptionDecomposer extends FoodDescriptionListener {
     _.set(measurement, "unitText", val);
   }
 
-  enterMeasurement(ctx) {
+  enterMeasurement() {
     _.set(this.content, "measurement", {});
   }
 
@@ -59,7 +59,7 @@ class SyntaxErrorListener extends antlr4.error.ErrorListener {
     this.hasError = false;
   }
 
-  syntaxError(_recognizer, _offendingSymbol, _line, _column, _msg, _e) {
+  syntaxError() {
     this.hasError = true;
   }
 

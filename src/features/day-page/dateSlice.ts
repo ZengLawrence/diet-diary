@@ -8,7 +8,7 @@ const dateSlice = createSlice({
   name: "date",
   initialState: today(),
   reducers: {
-    newDay(state) {
+    newDay() {
       return today();
     }
   }

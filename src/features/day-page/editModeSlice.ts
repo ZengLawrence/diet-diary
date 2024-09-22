@@ -7,10 +7,10 @@ const editModeSlice = createSlice({
   name: "editMode",
   initialState,
   reducers: {
-    enterEditMode(state) {
+    enterEditMode() {
       return true;
     },
-    exitEditMode(state) {
+    exitEditMode() {
       return false;
     }
   },

@@ -61,7 +61,7 @@ class SyntaxErrorListener extends antlr4.error.ErrorListener {
     this.hasError = false;
   }
 
-  syntaxError(_recognizer, _offendingSymbol, _line, _column, _msg, _e) {
+  syntaxError() {
     this.hasError = true;
   }
 
