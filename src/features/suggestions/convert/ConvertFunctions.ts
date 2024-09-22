@@ -46,6 +46,7 @@ function convert<T>(funcs: ConvertFunctions<T>[], quantity: number, unit: T, toU
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function compose<T>(...funcs: ConvertFunctions<any>[]): ConvertFunctions<T> {
   return {
     isSupportedUnitType: _.partial(isSupportedUnitType, funcs),
