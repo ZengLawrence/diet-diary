@@ -8,23 +8,29 @@ import { ServingSuggestion } from "./ServingSuggestion";
 import sweet from "./sweet-serving.json";
 import vegetable from "./vegetable-serving.json";
 
-function vegetableServing(serving: typeof vegetable.servings) {
+interface SingleServingData {
+  foodName: string;
+  servingSize: string;
+  bestChoice?: boolean;
+}
+
+function vegetableServing(serving: SingleServingData): ServingSuggestion {
   return ({ ...serving, foodGroup: "vegetable" });
 }
 
-function fruitServing(serving: typeof fruit.servings) {
+function fruitServing(serving: SingleServingData) {
   return ({ ...serving, foodGroup: "fruit" });
 }
 
-function carbohydrateServing(serving: typeof carbohydrate.servings) {
+function carbohydrateServing(serving: SingleServingData) {
   return ({ ...serving, foodGroup: "carbohydrate" });
 }
 
-function proteinDiaryServing(serving: typeof proteinDiary.servings) {
+function proteinDiaryServing(serving: SingleServingData) {
   return ({ ...serving, foodGroup: "proteinDiary" });
 }
 
-function fatServing(serving: typeof fat.servings) {
+function fatServing(serving: SingleServingData) {
   return ({ ...serving, foodGroup: "fat" });
 }
 
@@ -33,7 +39,7 @@ function sweetServing(serving: any) {
   return { ...serving, foodGroup: "sweet" };
 }
 
-function toSuggestion({foodName, servingSize, foodGroup, bestChoice}: ServingSuggestion) {
+function toSuggestion({ foodName, servingSize, foodGroup, bestChoice }: ServingSuggestion) {
   return {
     foodName,
     amount: servingSize,
