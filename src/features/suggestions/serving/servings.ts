@@ -34,12 +34,11 @@ function fatServing(serving: SingleServingData): ServingSuggestion {
   return ({ ...serving, foodGroup: "fat" });
 }
 
-// parenthesis are required here to avoid syntax error; reason unknown
 function sweetServing(serving: {
   foodName: string;
   servingSize: string;
 }): ServingSuggestion {
-  return ({ ...serving, foodGroup: "sweet" });
+  return { ...serving, foodGroup: "sweet" };
 }
 
 function toSuggestion({ foodName, servingSize, foodGroup, bestChoice }: ServingSuggestion) {
