@@ -1,32 +1,47 @@
 import _ from "lodash";
-import fruit from "./fruit-serving.json";
-import vegetable from "./vegetable-serving.json";
-import carbohydrate from "./carbohydrate-serving.json";
-import proteinDiary from "./protein-diary-serving.json";
-import fat from "./fat-serving.json";
-import sweet from "./sweet-serving.json";
-import { ServingSuggestion } from "./ServingSuggestion";
 import { oneServingOf } from "../../../model/servingFunction";
+import carbohydrate from "./carbohydrate-serving.json";
+import fat from "./fat-serving.json";
+import fruit from "./fruit-serving.json";
+import proteinDiary from "./protein-diary-serving.json";
+import { ServingSuggestion } from "./ServingSuggestion";
+import sweet from "./sweet-serving.json";
+import vegetable from "./vegetable-serving.json";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const vegetableServing = (serving: any) => ({ ...serving, foodGroup: "vegetable" });
+interface SingleServingData {
+  foodName: string;
+  servingSize: string;
+  bestChoice?: boolean;
+}
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const fruitServing = (serving: any) => ({ ...serving, foodGroup: "fruit" });
+function vegetableServing(serving: SingleServingData): ServingSuggestion {
+  return { ...serving, foodGroup: "vegetable" };
+}
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const carbohydrateServing = (serving: any) => ({ ...serving, foodGroup: "carbohydrate" });
+function fruitServing(serving: SingleServingData): ServingSuggestion {
+  return { ...serving, foodGroup: "fruit" };
+}
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const proteinDiaryServing = (serving: any) => ({ ...serving, foodGroup: "proteinDiary" });
+function carbohydrateServing(serving: SingleServingData): ServingSuggestion {
+  return { ...serving, foodGroup: "carbohydrate" };
+}
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const fatServing = (serving: any) => ({ ...serving, foodGroup: "fat" });
+function proteinDiaryServing(serving: SingleServingData): ServingSuggestion {
+  return { ...serving, foodGroup: "proteinDiary" };
+}
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const sweetServing = (serving: any) => ({ ...serving, foodGroup: "sweet" });
+function fatServing(serving: SingleServingData): ServingSuggestion {
+  return { ...serving, foodGroup: "fat" };
+}
 
-function toSuggestion({foodName, servingSize, foodGroup, bestChoice}: ServingSuggestion) {
+function sweetServing(serving: {
+  foodName: string;
+  servingSize: string;
+}): ServingSuggestion {
+  return { ...serving, foodGroup: "sweet" };
+}
+
+function toSuggestion({ foodName, servingSize, foodGroup, bestChoice }: ServingSuggestion) {
   return {
     foodName,
     amount: servingSize,
