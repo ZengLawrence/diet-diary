@@ -24,7 +24,7 @@ export const TargetDropDown = (props: {
   targets: Target[];
   onSelect: (target: Target) => void;
 }) => {
-  const handleSelect = (eventKey: any) => {
+  const handleSelect = (eventKey: string | null) => {
     const selectedCalorie = _.toNumber(eventKey);
     const selectedTarget = _.find(props.targets, { 'calorie': selectedCalorie });
     if (selectedTarget) {
