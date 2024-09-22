@@ -1,12 +1,12 @@
 import _ from "lodash";
-import fruit from "./fruit-serving.json";
-import vegetable from "./vegetable-serving.json";
-import carbohydrate from "./carbohydrate-serving.json";
-import proteinDiary from "./protein-diary-serving.json";
-import fat from "./fat-serving.json";
-import sweet from "./sweet-serving.json";
-import { ServingSuggestion } from "./ServingSuggestion";
 import { oneServingOf } from "../../../model/servingFunction";
+import carbohydrate from "./carbohydrate-serving.json";
+import fat from "./fat-serving.json";
+import fruit from "./fruit-serving.json";
+import proteinDiary from "./protein-diary-serving.json";
+import { ServingSuggestion } from "./ServingSuggestion";
+import sweet from "./sweet-serving.json";
+import vegetable from "./vegetable-serving.json";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const vegetableServing = (serving: any) => ({ ...serving, foodGroup: "vegetable" });
