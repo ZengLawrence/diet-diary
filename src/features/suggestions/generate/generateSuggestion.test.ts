@@ -3,8 +3,8 @@ import React from "react";
 import { generateSuggestions } from "./generateSuggestion";
 import { Suggestion } from "../Suggestion";
 
-class MockRefObject implements React.MutableRefObject<String> {
-  current: String;
+class MockRefObject implements React.MutableRefObject<string> {
+  current: string;
   constructor(val: string) {
     this.current = val;
   }
