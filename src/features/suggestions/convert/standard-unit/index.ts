@@ -70,7 +70,7 @@ function toUnit(unitName: string) {
 
 export type StandardUnit = Units;
 
-function isStandardUnit(unit: any): unit is StandardUnit {
+function isStandardUnit(unit: unknown): unit is StandardUnit {
   return typeof unit === "string";
 }
 

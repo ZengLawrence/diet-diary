@@ -6,7 +6,7 @@ export interface DiameterUnit {
   diameter: number;
 }
 
-function isDiameterUnit(unit: any): unit is DiameterUnit {
+function isDiameterUnit(unit: unknown): unit is DiameterUnit {
   return unit instanceof Object && "diameter" in unit;
 }
 
