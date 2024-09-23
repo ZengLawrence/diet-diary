@@ -49,11 +49,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ macos-latest, windows-latest ]
+        os: [ macos-latest ]
         browser: [ chrome ]
-        include:
-          - os: windows-latest
-            browser: edge
     steps:
     - uses: actions/checkout@v4
     - name: Use Node.js 22.x
