@@ -16,7 +16,7 @@ const LabelBadge = (props: { backgroundColor: BadgeBackgroundColor; value: strin
 }
 
 export const InfoLabelBadge = (props: { value: string; }) => (
-  <span className="badge bg-light text-black m-1" style={{ fontFamily }}>{props.value}</span>
+  <span className="badge m-1" style={{ fontFamily }}>{props.value}</span>
 );
 
 const FoodGroupBadge = (props: { foodGroup: FoodGroup; value: string | number | undefined; }) => (
