@@ -11,7 +11,12 @@ export default function Root() {
       <Container>
         <Script
           id="auto-dark-mode">
-            {`document.documentElement.setAttribute('data-bs-theme', (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'))`}
+            {`  
+            const setTheme = () => {
+              document.documentElement.setAttribute('data-bs-theme', (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+            };
+            setTheme();
+            `}
           </Script>
         <DayPage />
       </Container>
