@@ -1,9 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.css';
+import Script from 'next/script';
 import Container from "react-bootstrap/Container";
 import { Provider } from "react-redux";
 import store from "./app/store";
 import DayPage from "./features/day-page/DayPage";
-import Script from 'next/script';
 
 const AutoDarkModeScript = () => (
   <Script
