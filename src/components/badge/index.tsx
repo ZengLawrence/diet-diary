@@ -2,26 +2,17 @@ import _ from "lodash";
 import { abbreviation, FoodGroup, Serving } from "../../model/Food";
 import { displayServingValue } from "../../model/servingFunction";
 import { isMinLimit } from "../../model/Target";
-import { backgroundColor, BadgeBackgroundColor } from "../backgroundColor";
-
-const LabelBadge = (props: { backgroundColor: BadgeBackgroundColor; value: string | number | undefined; }) => {
-  const { backgroundColor, value } = props;
-  const style: React.CSSProperties = {
-    backgroundColor,
-  };
-  return (<span className="badge m-1" style={style}>{value}</span>);
-}
 
 export const CalorieLabel = (props: { value: string; }) => (
   <span className="m-1">{props.value}</span>
 );
 
 const FoodGroupBadge = (props: { foodGroup: FoodGroup; value: string | number | undefined; }) => (
-  <LabelBadge backgroundColor={backgroundColor(props.foodGroup)} value={props.value} />
+  <span className={"dd-bg-" + props.foodGroup + " badge m-1"}>{props.value}</span>
 )
 
 export const FoodGroupLabelBadge = (props: { foodGroup: FoodGroup; }) => (
-  <LabelBadge backgroundColor={backgroundColor(props.foodGroup)} value={abbreviation(props.foodGroup)} />
+  <span className={"dd-bg-" + props.foodGroup + " badge m-1"}>{abbreviation(props.foodGroup)}</span>
 )
 
 export const FoodGroupServingBadge = (props: { foodGroup: FoodGroup; serving: Serving; }) => {
