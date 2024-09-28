@@ -98,3 +98,19 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # post deployment validation
+  validate:
+    needs: deploy
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js 22.x
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22.x
+    - name: integration test
+      uses: cypress-io/github-action@v6
+      with:
+        config: baseUrl=https://zenglawrence.github.io/diet-diary/
+        browser: chrome
