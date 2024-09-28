@@ -12,7 +12,7 @@ const FoodGroupBadge = (props: { foodGroup: FoodGroup; value: string | number | 
 )
 
 export const FoodGroupLabelBadge = (props: { foodGroup: FoodGroup; }) => (
-  <span className={backgroundColorCss(props.foodGroup) + " badge m-1"}>{abbreviation(props.foodGroup)}</span>
+  <FoodGroupBadge foodGroup={props.foodGroup} value={abbreviation(props.foodGroup)} />
 )
 
 export const FoodGroupServingBadge = (props: { foodGroup: FoodGroup; serving: Serving; }) => {
