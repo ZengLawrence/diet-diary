@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { getCalories } from "../../model/calorieFunction";
 import { FoodGroup, Serving } from "../../model/Food";
-import { FoodGroupLabelBadge, InfoLabelBadge } from "../badge";
+import { FoodGroupLabelBadge } from "../badge";
 
 function useSyncedLocalState(props: Props) {
   const { foodGroup, serving } = props;
@@ -41,7 +41,7 @@ export const ServingInputControl = (props: Props) => {
     <Form.Group controlId={controlId} className="border rounded">
       <div className="d-flex flex-row flex-nowrap">
         <FoodGroupLabelBadge foodGroup={foodGroup} />
-        <InfoLabelBadge value={calories} />
+        <span>{calories}</span>
       </div>
       <Form.Control
         type="number"

@@ -11,3 +11,27 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.dd-bg-vegetable {
+  background-color: darkgreen;
+}
+
+.dd-bg-fruit {
+  background-color: yellowgreen;
+}
+
+.dd-bg-carbohydrate {
+  background-color: deepskyblue;
+}
+
+.dd-bg-protein-diary {
+  background-color: royalblue;
+}
+
+.dd-bg-fat {
+  background-color: orange;
+}
+
+.dd-bg-sweet {
+  background-color: red;
+}
