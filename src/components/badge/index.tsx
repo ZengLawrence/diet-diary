@@ -3,10 +3,6 @@ import { abbreviation, FoodGroup, Serving } from "../../model/Food";
 import { displayServingValue } from "../../model/servingFunction";
 import { isMinLimit } from "../../model/Target";
 
-export const CalorieLabel = (props: { value: string; }) => (
-  <span className="m-1">{props.value}</span>
-);
-
 const FoodGroupBadge = (props: { foodGroup: FoodGroup; value: string | number | undefined; }) => (
   <span className={"dd-bg-" + props.foodGroup + " badge m-1"}>{props.value}</span>
 )
