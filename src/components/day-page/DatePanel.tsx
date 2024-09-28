@@ -4,9 +4,11 @@ import NewDayButton from "../../features/day-page/NewDayButton";
 import { VariantDanger } from "../ButtonVariant";
 
 const NewDaySymbolButton = () => (
-  <NewDayButton variant={VariantDanger}>
-    <FontAwesomeIcon icon={faPlus} />
-  </NewDayButton>
+  <div  className="align-self-center">
+    <NewDayButton variant={VariantDanger}>
+      <FontAwesomeIcon icon={faPlus} />
+    </NewDayButton>
+  </div>
 );
 
 export const DatePanel = (props: { date: string; showNewDayButton: boolean }) => (
