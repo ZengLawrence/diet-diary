@@ -3,12 +3,16 @@ import { abbreviation, FoodGroup, Serving } from "../../model/Food";
 import { displayServingValue } from "../../model/servingFunction";
 import { isMinLimit } from "../../model/Target";
 
+const backgroundColorCss = (foodGroup: FoodGroup) => {
+  return "dd-bg-" + (foodGroup == "proteinDiary" ? "protein-diary" : foodGroup);
+}
+
 const FoodGroupBadge = (props: { foodGroup: FoodGroup; value: string | number | undefined; }) => (
-  <span className={"dd-bg-" + props.foodGroup + " badge m-1"}>{props.value}</span>
+  <span className={backgroundColorCss(props.foodGroup) + " badge m-1"}>{props.value}</span>
 )
 
 export const FoodGroupLabelBadge = (props: { foodGroup: FoodGroup; }) => (
-  <span className={"dd-bg-" + props.foodGroup + " badge m-1"}>{abbreviation(props.foodGroup)}</span>
+  <span className={backgroundColorCss(props.foodGroup) + " badge m-1"}>{abbreviation(props.foodGroup)}</span>
 )
 
 export const FoodGroupServingBadge = (props: { foodGroup: FoodGroup; serving: Serving; }) => {
