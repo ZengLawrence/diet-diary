@@ -2,15 +2,11 @@ import { Fragment } from "react";
 import { Button } from "react-bootstrap";
 import DoneButton from "../../features/day-page/DoneButton";
 import EditButton from "../../features/day-page/EditButton";
-import NewDayButton from "../../features/day-page/NewDayButton";
 import { useDownload } from "../../features/download/useDownload";
-import { VariantDanger, VariantPrimary, VariantSecondary } from "../ButtonVariant";
+import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 
 const EditableViewButtons = () => (
-  <Fragment>
-    <NewDayButton variant={VariantDanger}>New Day</NewDayButton>{' '}
-    <DoneButton variant={VariantPrimary}>Done</DoneButton>
-  </Fragment>
+  <DoneButton variant={VariantPrimary}>Done</DoneButton>
 )
 
 const UneditableViewButtons = (props: { showDownloadButton: boolean; }) => {
