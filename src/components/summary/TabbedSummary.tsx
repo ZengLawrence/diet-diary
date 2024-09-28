@@ -9,7 +9,7 @@ export const TabbedSummary = (props: { type: SummaryType; onSelect:  (type: Summ
       id="tab-summary"
       activeKey={props.type}
       onSelect={(key) => props.onSelect(key as SummaryType)}
-      variant="pills"
+      variant="underline"
     >
       <Tab eventKey="total" title="Total">
         <TotalSummary />
