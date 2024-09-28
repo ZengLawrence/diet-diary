@@ -1,0 +1,22 @@
+name: 'Integration Test'
+description: 'Test production build locally'
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js 22.x
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22.x
+    - run: npm install serve # npx does not run properly on Windows; install serve to use later
+      shell: bash
+    - name: Download production build
+      uses: actions/download-artifact@v4
+      with:
+        name: build
+        path: build
+    - name: integration test
+      uses: cypress-io/github-action@v6
+      with:
+        start: npx --yes serve ./build --listen 3000
+        browser: chrome
