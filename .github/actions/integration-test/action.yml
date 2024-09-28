@@ -1,5 +1,10 @@
 name: 'Integration Test'
 description: 'Test production build locally'
+inputs:
+  base-path: 
+    description: 'base path used for test'
+    required: false
+    default: ''
 runs:
   using: "composite"
   steps:
@@ -14,9 +19,10 @@ runs:
       uses: actions/download-artifact@v4
       with:
         name: build
-        path: build
+        path: build/${{ inputs.base-path }}
     - name: integration test
       uses: cypress-io/github-action@v6
       with:
         start: npx --yes serve ./build --listen 3000
+        config: baseUrl=http://localhost:3000/${{ inputs.base-path }}
         browser: chrome
