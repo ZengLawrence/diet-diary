@@ -28,5 +28,6 @@ jobs:
     needs: build
     runs-on: macos-latest
     steps:
-    - name: Integration test
-      uses: ./.github/actions/integration-test
+      - uses: actions/checkout@v4
+      - name: Integration test
+        uses: ./.github/actions/integration-test
