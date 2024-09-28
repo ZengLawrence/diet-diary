@@ -1,6 +1,6 @@
 import DatePanel from "../../features/day-page/DatePanel";
 import HeaderButtons from "../../features/day-page/HeaderButtons";
-import { TargetPanelRow } from "./TargetPanelRow";
+import TargetPanelRow from "../../features/day-page/TargetPanelRow";
 
 export const Header = () => (
   <div className="d-flex flex-column justify-content-between align-items-center">
