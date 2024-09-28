@@ -4,19 +4,16 @@ import { displayServingValue } from "../../model/servingFunction";
 import { isMinLimit } from "../../model/Target";
 import { backgroundColor, BadgeBackgroundColor } from "../backgroundColor";
 
-const fontFamily = "Arial Narrow, Arial, sans-serif";
-
 const LabelBadge = (props: { backgroundColor: BadgeBackgroundColor; value: string | number | undefined; }) => {
   const { backgroundColor, value } = props;
   const style: React.CSSProperties = {
     backgroundColor,
-    fontFamily,
   };
   return (<span className="badge m-1" style={style}>{value}</span>);
 }
 
 export const CalorieLabel = (props: { value: string; }) => (
-  <span className="m-1" style={{ fontFamily }}>{props.value}</span>
+  <span className="m-1">{props.value}</span>
 );
 
 const FoodGroupBadge = (props: { foodGroup: FoodGroup; value: string | number | undefined; }) => (
