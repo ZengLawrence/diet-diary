@@ -1,0 +1,25 @@
+name: 'Build App'
+description: 'Build client app'
+runs:
+  using: "composite"
+  steps:
+    - name: Use Node.js 22.x
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22.x
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'adopt'
+        cache: maven
+    - name: Generate parser source code
+      run: npm run gen-parser
+      shell: bash
+    - run: npm ci
+      shell: bash
+    - run: npm test
+      shell: bash
+    - name: Builds the app for production
+      run: npm run build
+      shell: bash
