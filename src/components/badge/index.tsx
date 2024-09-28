@@ -12,7 +12,7 @@ const LabelBadge = (props: { backgroundColor: BadgeBackgroundColor; value: strin
     backgroundColor,
     fontFamily,
   };
-  return (<span className="badge text-white m-1" style={style}>{value}</span>);
+  return (<span className="badge m-1" style={style}>{value}</span>);
 }
 
 export const CalorieLabel = (props: { value: string; }) => (
