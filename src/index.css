@@ -35,3 +35,11 @@ code {
 .dd-bg-sweet {
   background-color: red;
 }
+
+.dd-calorie-label {
+  font-family: Arial Narrow, Arial, sans-serif;
+}
+
+.dd-x-small-font {
+  font-size: x-small;
+}

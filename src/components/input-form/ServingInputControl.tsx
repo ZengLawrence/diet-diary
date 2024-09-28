@@ -33,7 +33,7 @@ interface Props {
 export const ServingInputControl = (props: Props) => {
   const { foodGroup, isInvalid } = props;
   const controlId = "inputServing" + _.upperFirst(foodGroup);
-  const calories = _.toString(getCalories(foodGroup)) + " Cal.";
+  const calories = _.toString(getCalories(foodGroup));
 
   const { servingStr, handleChange } = useSyncedLocalState(props);
 
@@ -41,7 +41,7 @@ export const ServingInputControl = (props: Props) => {
     <Form.Group controlId={controlId} className="border rounded">
       <div className="d-flex flex-row flex-nowrap">
         <FoodGroupLabelBadge foodGroup={foodGroup} />
-        <span>{calories}</span>
+        <span className="dd-calorie-label">{calories}<span className="dd-x-small-font">&nbsp;Cal.</span></span>
       </div>
       <Form.Control
         type="number"
