@@ -6,11 +6,11 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import AddMealButton from "../../features/day-page/AddMealButton";
 import Footer from "../../features/day-page/Footer";
+import SavedMealCardsOffcanvas from "../../features/day-page/SavedMealCardsOffcanvas";
 import Summary from "../../features/day-page/Summary";
 import FoodListGroupItems from "../../features/meal-card/FoodListGroupItems";
 import MealCardHeader from "../../features/meal-card/MealCardHeader";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
-import SavedMealCardsOffcanvas from "../../features/day-page/SavedMealCardsOffcanvas";
 import { Header } from "./Header";
 
 interface Props {
