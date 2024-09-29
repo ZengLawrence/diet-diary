@@ -46,7 +46,7 @@ function DayPage(props: Props) {
           </div>
         ))}
         {props.showButton &&
-          <div className="p2 d-flex justify-content-end mt-3">
+          <div className="p2 d-flex justify-content-end">
             <AddMealButton data-cy="buttonAddMeal" variant={VariantPrimary}>
               <FontAwesomeIcon icon={faPlus} />
             </AddMealButton>&nbsp;
