@@ -23,19 +23,18 @@ interface Props {
 
 function DayPage(props: Props) {
   return (
-    <Container className="p-3">
+    <Container>
       <Row>
         <Header />
       </Row>
       <Row>
         <Summary />
       </Row>
-      <Row>
+      <Row className="gy-1">
         {_.map(_.range(props.numberOfMeals), (index) => (
           <div>
             <Card
               id={_.toString(index)}
-              className="mt-1"
               key={index}
               data-cy="mealCard">
               <MealCardHeader mealIndex={index} />
