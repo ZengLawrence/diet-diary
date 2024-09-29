@@ -12,11 +12,6 @@ export const targetStateSelector = (state: RootState) => state.targetState;
 export const savedMealsSelector = (state: RootState) => state.savedMeals;
 export const showSavedMealsSelector = (state: RootState) => state.showSavedMeals;
 
-export const editTargetSelector = createSelector(
-  targetStateSelector,
-  (targetState) => targetState.editTarget
-)
-
 export const targetSelector = createSelector(
   targetStateSelector,
   (targetState) => targetState.target
