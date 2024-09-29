@@ -6,8 +6,6 @@ interface Props {
   showChangeTargetButton: boolean;
 }
 
-export const TargetPanel = (props: Props) => {
-  const { noTarget } = props;
-
-  return (noTarget ? <NoTargetPanel /> : <TargetCaloriePanel />);
-};
+export const TargetPanel = (props: Props) => (
+  props.noTarget ? <NoTargetPanel /> : <TargetCaloriePanel />
+);
