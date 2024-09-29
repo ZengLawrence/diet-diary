@@ -11,6 +11,17 @@ import MealCards from "../../features/meal-card/MealCards";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { Header } from "./Header";
 
+const MealButtons = (props: { showSavedMeals: () => void; }) => (
+  <div className="p2 d-flex justify-content-end">
+    <AddMealButton data-cy="buttonAddMeal" variant={VariantPrimary}>
+      <FontAwesomeIcon icon={faPlus} />
+    </AddMealButton>&nbsp;
+    <Button data-cy="buttonAddSavedMeal" variant={VariantSecondary} onClick={props.showSavedMeals}>
+      <FontAwesomeIcon icon={faPlus} /> Saved Meal
+    </Button>
+  </div>
+);
+
 interface Props {
   showButton: boolean;
   showSavedMeals: () => void;
@@ -27,15 +38,7 @@ function DayPage(props: Props) {
       </Row>
       <Row className="gy-1">
         <MealCards />
-        {props.showButton &&
-          <div className="p2 d-flex justify-content-end">
-            <AddMealButton data-cy="buttonAddMeal" variant={VariantPrimary}>
-              <FontAwesomeIcon icon={faPlus} />
-            </AddMealButton>&nbsp;
-            <Button data-cy="buttonAddSavedMeal" variant={VariantSecondary} onClick={props.showSavedMeals}>
-              <FontAwesomeIcon icon={faPlus} /> Saved Meal
-            </Button>
-          </div>}
+        {props.showButton && <MealButtons showSavedMeals={props.showSavedMeals} />}
       </Row>
       <Row>
         <Footer />
