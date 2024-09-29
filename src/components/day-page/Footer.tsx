@@ -25,13 +25,19 @@ const Icons8Referral = () => {
 };
 
 const FoodGroupLegends = () => (
-  <div className="d-flex justify-content-between flex-wrap">
-    <FoodGroupLegend foodGroup="vegetable" />
-    <FoodGroupLegend foodGroup="fruit" />
-    <FoodGroupLegend foodGroup="carbohydrate" />
-    <FoodGroupLegend foodGroup="proteinDiary" />
-    <FoodGroupLegend foodGroup="fat" />
-    <FoodGroupLegend foodGroup="sweet" />
+  <div className="d-flex justify-content-between flex-wrap grid">
+    <div className="column">
+      <FoodGroupLegend foodGroup="vegetable" />
+      <FoodGroupLegend foodGroup="proteinDiary" />
+    </div>
+    <div className="column">
+      <FoodGroupLegend foodGroup="fruit" />
+      <FoodGroupLegend foodGroup="fat" />
+    </div>
+    <div className="column">
+      <FoodGroupLegend foodGroup="carbohydrate" />
+      <FoodGroupLegend foodGroup="sweet" />
+    </div>
   </div>
 );
 
