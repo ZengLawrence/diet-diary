@@ -15,6 +15,23 @@ import MealCardHeader from "../../features/meal-card/MealCardHeader";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { Header } from "./Header";
 
+const MealCards = (props: { numberOfMeals: number; }) => (
+  _.map(_.range(props.numberOfMeals), (index) => (
+    <div>
+      <Card
+        id={_.toString(index)}
+        key={index}
+        data-cy="mealCard">
+        <MealCardHeader mealIndex={index} />
+
+        <ListGroup>
+          <FoodListGroupItems mealIndex={index} />
+        </ListGroup>
+      </Card>
+    </div>
+  ))
+);
+
 interface Props {
   numberOfMeals: number;
   showButton: boolean;
@@ -31,20 +48,7 @@ function DayPage(props: Props) {
         <Summary />
       </Row>
       <Row className="gy-1">
-        {_.map(_.range(props.numberOfMeals), (index) => (
-          <div>
-            <Card
-              id={_.toString(index)}
-              key={index}
-              data-cy="mealCard">
-              <MealCardHeader mealIndex={index} />
-
-              <ListGroup>
-                <FoodListGroupItems mealIndex={index} />
-              </ListGroup>
-            </Card>
-          </div>
-        ))}
+        <MealCards numberOfMeals={props.numberOfMeals} />
         {props.showButton &&
           <div className="p2 d-flex justify-content-end">
             <AddMealButton data-cy="buttonAddMeal" variant={VariantPrimary}>
