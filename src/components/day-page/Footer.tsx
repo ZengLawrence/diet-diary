@@ -1,5 +1,3 @@
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 import { FoodGroupLegend } from "../FoodGroupLegend";
 import { EatLessToTargetIcon, EatMoreToTargetIcon, MeetTargetIcon } from "../summary/TargetActionIcon";
 import { Legend } from "../Legend";
@@ -27,18 +25,24 @@ const Icons8Referral = () => {
 };
 
 const FoodGroupLegends = () => (
-  <div className="d-flex justify-content-between flex-wrap">
-    <FoodGroupLegend foodGroup="vegetable" />
-    <FoodGroupLegend foodGroup="fruit" />
-    <FoodGroupLegend foodGroup="carbohydrate" />
-    <FoodGroupLegend foodGroup="proteinDiary" />
-    <FoodGroupLegend foodGroup="fat" />
-    <FoodGroupLegend foodGroup="sweet" />
+  <div className="d-flex justify-content-between flex-wrap grid">
+    <div className="column">
+      <FoodGroupLegend foodGroup="vegetable" />
+      <FoodGroupLegend foodGroup="proteinDiary" />
+    </div>
+    <div className="column">
+      <FoodGroupLegend foodGroup="fruit" />
+      <FoodGroupLegend foodGroup="fat" />
+    </div>
+    <div className="column">
+      <FoodGroupLegend foodGroup="carbohydrate" />
+      <FoodGroupLegend foodGroup="sweet" />
+    </div>
   </div>
 );
 
 const TargetActionLegends = () => (
-  <div className="d-flex justify-content-between justify-content-sm-start grid gap-0 column-gap-3">
+  <div className="d-flex grid gap-0 column-gap-3">
     <Legend>
       <EatLessToTargetIcon />Eat Less
     </Legend>
@@ -52,19 +56,13 @@ const TargetActionLegends = () => (
 )
 
 export const Footer = (props: { showTargetActionLegends: boolean }) => (
-  <Row className="grid gap-0 row-gap-3">
-    <Row>
-      <div className="d-block d-sm-none">
-        <FoodGroupLegends />
-      </div>
-    </Row>
-    <Row>
-      {props.showTargetActionLegends && <TargetActionLegends />}
-    </Row>
-    <Row>
-      <Col className="d-flex justify-content-center">
-        <Icons8Referral />
-      </Col>
-    </Row>
-  </Row>
+  <div>
+    <div className="d-block d-sm-none mb-1">
+      <FoodGroupLegends />
+    </div>
+    {props.showTargetActionLegends && <TargetActionLegends />}
+    <div className="d-flex justify-content-center">
+      <Icons8Referral />
+    </div>
+  </div>
 );

@@ -30,8 +30,7 @@ antlr4/*/target/
 src/generated/
 
 # cypress
-cypress/integration/1-getting-started/
-cypress/integration/2-advanced-examples/
+cypress/downloads/
 
 # next.js
 .next
