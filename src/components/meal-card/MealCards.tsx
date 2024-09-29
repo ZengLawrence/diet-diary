@@ -6,7 +6,7 @@ import MealCardHeader from "../../features/meal-card/MealCardHeader";
 
 export const MealCards = (props: { numberOfMeals: number; }) => (
   _.map(_.range(props.numberOfMeals), (index) => (
-    <div>
+    <div className="mb-1">
       <Card
         id={_.toString(index)}
         key={index}

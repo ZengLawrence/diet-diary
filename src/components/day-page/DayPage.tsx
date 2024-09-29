@@ -14,21 +14,23 @@ interface Props {
 function DayPage(props: Props) {
   return (
     <Container>
-      <Row className="gy-3">
-        <Row>
-          <Header />
-        </Row>
-        <Row>
-          <Summary />
-        </Row>
-        <Row className="gy-1">
+      <div>
+        <div className="d-flex mb-2">
+          <div className="flex-fill">
+            <Header />
+          </div>
+        </div>
+        <div className="d-flex mb-2">
+          <div className="flex-fill">
+            <Summary />
+          </div>
+        </div>
+        <div className="mb-2">
           <MealCards />
           {props.showButton && <AddMealButtons />}
-        </Row>
-        <Row>
-          <Footer />
-        </Row>
-      </Row>
+        </div>
+        <Footer />
+      </div>
 
       <SavedMealCardsOffcanvas />
 
