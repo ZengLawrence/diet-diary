@@ -20,10 +20,6 @@ interface Props {
   showSavedMeals: () => void;
 }
 
-function id(index: number, length: number) {
-  return index === length - 1 ? "last" : index.toString();
-}
-
 function DayPage(props: Props) {
   return (
     <Container>
@@ -32,7 +28,7 @@ function DayPage(props: Props) {
 
       {_.map(_.range(props.numberOfMeals), (index) => (
         <Card
-          id={id(index, props.numberOfMeals)}
+          id={_.toString(index)}
           className="mt-1"
           key={index}
           data-cy="mealCard">
