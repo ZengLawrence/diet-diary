@@ -1,5 +1,3 @@
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 import { FoodGroupLegend } from "../FoodGroupLegend";
 import { EatLessToTargetIcon, EatMoreToTargetIcon, MeetTargetIcon } from "../summary/TargetActionIcon";
 import { Legend } from "../Legend";
@@ -52,19 +50,17 @@ const TargetActionLegends = () => (
 )
 
 export const Footer = (props: { showTargetActionLegends: boolean }) => (
-  <Row className="grid gap-0 row-gap-3">
-    <Row>
-      <div className="d-block d-sm-none">
-        <FoodGroupLegends />
-      </div>
-    </Row>
-    <Row>
+  <div>
+    <div className="d-block d-sm-none mb-1">
+      <FoodGroupLegends />
+    </div>
+    <div>
       {props.showTargetActionLegends && <TargetActionLegends />}
-    </Row>
-    <Row>
-      <Col className="d-flex justify-content-center">
+    </div>
+    <div>
+      <div className="d-flex justify-content-center">
         <Icons8Referral />
-      </Col>
-    </Row>
-  </Row>
+      </div>
+    </div>
+  </div>
 );
