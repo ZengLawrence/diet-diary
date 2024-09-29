@@ -10,7 +10,7 @@ export const Header = () => (
     <div className="d-flex justify-content-center mb-1">
       <TargetCaloriePanel />
     </div>
-    <div className="d-flex flex-column justify-content-between align-items-center">
+    <div className="d-flex justify-content-center">
       <HeaderButtons />
     </div>
   </div>
