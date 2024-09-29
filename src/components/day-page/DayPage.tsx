@@ -3,13 +3,12 @@ import Row from "react-bootstrap/Row";
 import Footer from "../../features/day-page/Footer";
 import SavedMealCardsOffcanvas from "../../features/day-page/SavedMealCardsOffcanvas";
 import Summary from "../../features/day-page/Summary";
+import AddMealButtons from "../../features/meal-card/AddMealButtons";
 import MealCards from "../../features/meal-card/MealCards";
-import { AddMealButtons } from "../meal-card/AddMealButtons";
 import { Header } from "./Header";
 
 interface Props {
   showButton: boolean;
-  showSavedMeals: () => void;
 }
 
 function DayPage(props: Props) {
@@ -23,7 +22,7 @@ function DayPage(props: Props) {
       </Row>
       <Row className="gy-1">
         <MealCards />
-        {props.showButton && <AddMealButtons showSavedMeals={props.showSavedMeals} />}
+        {props.showButton && <AddMealButtons />}
       </Row>
       <Row>
         <Footer />
