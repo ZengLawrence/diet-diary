@@ -1,7 +1,5 @@
-import ChangeTargetButton from "../../features/target/ChangeTargetButton";
 import NoTargetPanel from "../../features/target/NoTargetPanel";
 import TargetCaloriePanel from "../../features/target/TargetCaloriePanel";
-import { VariantSecondary } from "../ButtonVariant";
 
 interface Props {
   noTarget: boolean;
@@ -9,13 +7,11 @@ interface Props {
 }
 
 export const TargetPanel = (props: Props) => {
-  const { noTarget, showChangeTargetButton } = props;
+  const { noTarget } = props;
 
   return (
     <div className="d-flex align-items-center">
       {noTarget ? <NoTargetPanel /> : <TargetCaloriePanel />}&nbsp;
-      {showChangeTargetButton
-        && <ChangeTargetButton variant={VariantSecondary}>Change</ChangeTargetButton>}
     </div>
   );
 };

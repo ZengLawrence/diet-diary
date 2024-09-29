@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
-import { editTargetSelector } from "../../app/selectors";
+import { editModeSelector } from "../../app/selectors";
 import { RootState } from "../../app/store";
 import { TargetCaloriePanel } from "../../components/target/TargetCaloriePanel";
 
 const mapStateToProps = (state: RootState) => ({
-  editTarget: editTargetSelector(state),
+  editTarget: editModeSelector(state),
 })
 
 export default connect(mapStateToProps)(TargetCaloriePanel);
