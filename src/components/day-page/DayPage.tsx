@@ -32,17 +32,19 @@ function DayPage(props: Props) {
       </Row>
       <Row>
         {_.map(_.range(props.numberOfMeals), (index) => (
-          <Card
-            id={_.toString(index)}
-            className="mt-1"
-            key={index}
-            data-cy="mealCard">
-            <MealCardHeader mealIndex={index} />
+          <div>
+            <Card
+              id={_.toString(index)}
+              className="mt-1"
+              key={index}
+              data-cy="mealCard">
+              <MealCardHeader mealIndex={index} />
 
-            <ListGroup>
-              <FoodListGroupItems mealIndex={index} />
-            </ListGroup>
-          </Card>
+              <ListGroup>
+                <FoodListGroupItems mealIndex={index} />
+              </ListGroup>
+            </Card>
+          </div>
         ))}
         {props.showButton &&
           <div className="p2 d-flex justify-content-end mt-3">
