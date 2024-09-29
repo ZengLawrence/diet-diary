@@ -8,18 +8,17 @@ import MealCardHeader from "../../features/meal-card/MealCardHeader";
 export const MealCards = (props: { numberOfMeals: number; }) => (
   <Fragment>
     {_.map(_.range(props.numberOfMeals), (index) => (
-      <div className="mb-1">
-        <Card
-          id={_.toString(index)}
-          key={index}
-          data-cy="mealCard">
-          <MealCardHeader mealIndex={index} />
+      <Card
+        id={_.toString(index)}
+        key={index}
+        className="mb-1"
+        data-cy="mealCard">
+        <MealCardHeader mealIndex={index} />
 
-          <ListGroup>
-            <FoodListGroupItems mealIndex={index} />
-          </ListGroup>
-        </Card>
-      </div>
+        <ListGroup>
+          <FoodListGroupItems mealIndex={index} />
+        </ListGroup>
+      </Card>
     ))}
   </Fragment>
 );
