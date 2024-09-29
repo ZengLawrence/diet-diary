@@ -13,6 +13,7 @@ import FoodListGroupItems from "../../features/meal-card/FoodListGroupItems";
 import MealCardHeader from "../../features/meal-card/MealCardHeader";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { Header } from "./Header";
+import Row from "react-bootstrap/Row";
 
 interface Props {
   numberOfMeals: number;
@@ -22,33 +23,40 @@ interface Props {
 
 function DayPage(props: Props) {
   return (
-    <Container>
-      <Header />
-      <Summary />
+    <Container className="p-3">
+      <Row>
+        <Header />
+      </Row>
+      <Row>
+        <Summary />
+      </Row>
+      <Row>
+        {_.map(_.range(props.numberOfMeals), (index) => (
+          <Card
+            id={_.toString(index)}
+            className="mt-1"
+            key={index}
+            data-cy="mealCard">
+            <MealCardHeader mealIndex={index} />
 
-      {_.map(_.range(props.numberOfMeals), (index) => (
-        <Card
-          id={_.toString(index)}
-          className="mt-1"
-          key={index}
-          data-cy="mealCard">
-          <MealCardHeader mealIndex={index} />
-
-          <ListGroup>
-            <FoodListGroupItems mealIndex={index} />
-          </ListGroup>
-        </Card>
-      ))}
-      {props.showButton &&
-        <div className="p2 d-flex justify-content-end mt-3">
-          <AddMealButton data-cy="buttonAddMeal" variant={VariantPrimary}>
-            <FontAwesomeIcon icon={faPlus} />
-          </AddMealButton>&nbsp;
-          <Button data-cy="buttonAddSavedMeal" variant={VariantSecondary} onClick={props.showSavedMeals}>
-            <FontAwesomeIcon icon={faPlus} /> Saved Meal
-          </Button>
-        </div>}
-      <Footer />
+            <ListGroup>
+              <FoodListGroupItems mealIndex={index} />
+            </ListGroup>
+          </Card>
+        ))}
+        {props.showButton &&
+          <div className="p2 d-flex justify-content-end mt-3">
+            <AddMealButton data-cy="buttonAddMeal" variant={VariantPrimary}>
+              <FontAwesomeIcon icon={faPlus} />
+            </AddMealButton>&nbsp;
+            <Button data-cy="buttonAddSavedMeal" variant={VariantSecondary} onClick={props.showSavedMeals}>
+              <FontAwesomeIcon icon={faPlus} /> Saved Meal
+            </Button>
+          </div>}
+      </Row>
+      <Row>
+        <Footer />
+      </Row>
 
       <SavedMealCardsOffcanvas />
 
