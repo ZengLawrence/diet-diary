@@ -9,9 +9,5 @@ interface Props {
 export const TargetPanel = (props: Props) => {
   const { noTarget } = props;
 
-  return (
-    <div className="d-flex align-items-center">
-      {noTarget ? <NoTargetPanel /> : <TargetCaloriePanel />}&nbsp;
-    </div>
-  );
+  return (noTarget ? <NoTargetPanel /> : <TargetCaloriePanel />);
 };
