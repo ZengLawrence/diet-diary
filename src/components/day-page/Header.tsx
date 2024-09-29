@@ -1,18 +1,17 @@
-import Row from "react-bootstrap/Row";
 import DatePanel from "../../features/day-page/DatePanel";
 import HeaderButtons from "../../features/day-page/HeaderButtons";
 import TargetCaloriePanel from "../../features/target/TargetCaloriePanel";
 
 export const Header = () => (
-  <Row className="gy-1">
-    <div className="d-flex justify-content-center">
+  <div className="d-flex flex-column">
+    <div className="d-flex justify-content-center mb-1">
       <DatePanel />
     </div>
-    <div className="d-flex justify-content-center">
+    <div className="d-flex justify-content-center mb-1">
       <TargetCaloriePanel />
     </div>
     <div className="d-flex flex-column justify-content-between align-items-center">
       <HeaderButtons />
     </div>
-  </Row>
+  </div>
 )
