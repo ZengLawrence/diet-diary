@@ -6,7 +6,6 @@ import DayPage from "../../components/day-page/DayPage";
 import { show } from "./showSavedMealsSlice";
 
 const mapStateToProps = (state: RootState) => ({
-  numberOfMeals: _.size(mealStatesSelector(state)),
   showButton: editModeSelector(state),
 })
 
