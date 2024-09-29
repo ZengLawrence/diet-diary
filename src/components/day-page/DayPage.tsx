@@ -31,7 +31,11 @@ function DayPage(props: Props) {
       <Summary />
 
       {_.map(_.range(props.numberOfMeals), (index) => (
-        <Card id={id(index, props.numberOfMeals)} className="mt-1" key={index} data-cy="mealCard">
+        <Card
+          id={id(index, props.numberOfMeals)}
+          className="mt-1"
+          key={index}
+          data-cy="mealCard">
           <MealCardHeader mealIndex={index} />
 
           <ListGroup>
