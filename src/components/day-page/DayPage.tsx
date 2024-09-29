@@ -1,5 +1,4 @@
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
 import Footer from "../../features/day-page/Footer";
 import SavedMealCardsOffcanvas from "../../features/day-page/SavedMealCardsOffcanvas";
 import Summary from "../../features/day-page/Summary";

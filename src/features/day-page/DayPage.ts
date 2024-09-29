@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { connect } from "react-redux";
 import { editModeSelector } from "../../app/selectors";
 import { RootState } from "../../app/store";
