@@ -36,7 +36,7 @@ const FoodGroupLegends = () => (
 );
 
 const TargetActionLegends = () => (
-  <div className="d-flex justify-content-between justify-content-sm-start grid gap-0 column-gap-3">
+  <div className="d-flex grid gap-0 column-gap-3">
     <Legend>
       <EatLessToTargetIcon />Eat Less
     </Legend>
