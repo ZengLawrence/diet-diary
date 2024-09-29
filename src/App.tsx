@@ -26,10 +26,8 @@ const AutoDarkModeScript = () => (
 export default function Root() {
   return (
     <Provider store={store}>
-      <Container>
-        <AutoDarkModeScript />
-        <DayPage />
-      </Container>
+      <AutoDarkModeScript />
+      <DayPage />
     </Provider>
   );
 }

@@ -12,6 +12,7 @@ import FoodListGroupItems from "../../features/meal-card/FoodListGroupItems";
 import MealCardHeader from "../../features/meal-card/MealCardHeader";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { Header } from "./Header";
+import Container from "react-bootstrap/Container";
 
 interface Props {
   numberOfMeals: number;
@@ -25,7 +26,7 @@ function id(index: number, length: number) {
 
 function DayPage(props: Props) {
   return (
-    <div>
+    <Container>
       <Header />
       <Summary />
 
@@ -51,7 +52,7 @@ function DayPage(props: Props) {
 
       <SavedMealCardsOffcanvas />
 
-    </div>
+    </Container>
   );
 }
 
