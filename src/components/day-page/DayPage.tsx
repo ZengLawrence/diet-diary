@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import ListGroup from "react-bootstrap/ListGroup";
+import Row from "react-bootstrap/Row";
 import AddMealButton from "../../features/day-page/AddMealButton";
 import Footer from "../../features/day-page/Footer";
 import SavedMealCardsOffcanvas from "../../features/day-page/SavedMealCardsOffcanvas";
@@ -13,7 +14,6 @@ import FoodListGroupItems from "../../features/meal-card/FoodListGroupItems";
 import MealCardHeader from "../../features/meal-card/MealCardHeader";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { Header } from "./Header";
-import Row from "react-bootstrap/Row";
 
 interface Props {
   numberOfMeals: number;
