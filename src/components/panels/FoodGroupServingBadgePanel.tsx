@@ -32,8 +32,8 @@ export const FoodGroupServingBadgePanel = (props: { serving: Serving; }) => {
   const foodGroups = findDefinedServings(serving);
   return (
     <span>
-      {foodGroups.map((fg) => (
-        <Fragment>
+      {foodGroups.map((fg, i) => (
+        <Fragment key={i}>
           <FoodGroupServingBadge foodGroup={fg} serving={serving} />&nbsp;
         </Fragment>
       ))
