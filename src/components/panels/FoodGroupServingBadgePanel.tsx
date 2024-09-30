@@ -1,17 +1,39 @@
-import { Serving } from "../../model/Food";
+import _ from "lodash";
+import { FoodGroup, Serving } from "../../model/Food";
 import { FoodGroupServingBadge } from "../badge";
+import { Fragment } from "react";
 
 export const FoodGroupServingBadgePanel = (props: { serving: Serving; }) => {
   const { serving } = props;
 
+  const foodGroups: FoodGroup[] = [];
+  if (!_.isUndefined(serving.vegetable)) {
+    foodGroups.push("vegetable");
+  }
+  if (!_.isUndefined(serving.fruit)) {
+    foodGroups.push("fruit");
+  }
+  if (!_.isUndefined(serving.carbohydrate)) {
+    foodGroups.push("carbohydrate");
+  }
+  if (!_.isUndefined(serving.proteinDiary)) {
+    foodGroups.push("proteinDiary");
+  }
+  if (!_.isUndefined(serving.fat)) {
+    foodGroups.push("fat");
+  }
+  if (!_.isUndefined(serving.sweet)) {
+    foodGroups.push("sweet");
+  }
+
   return (
     <span>
-      <FoodGroupServingBadge foodGroup="vegetable" serving={serving} />
-      <FoodGroupServingBadge foodGroup="fruit" serving={serving} />
-      <FoodGroupServingBadge foodGroup="carbohydrate" serving={serving} />
-      <FoodGroupServingBadge foodGroup="proteinDiary" serving={serving} />
-      <FoodGroupServingBadge foodGroup="fat" serving={serving} />
-      <FoodGroupServingBadge foodGroup="sweet" serving={serving} />
+      {foodGroups.map((fg) => (
+        <Fragment>
+          <FoodGroupServingBadge foodGroup={fg} serving={serving} />&nbsp;
+        </Fragment>
+      ))
+      }
     </span>
   );
 }
