@@ -3,33 +3,22 @@ import { FoodGroup, Serving } from "../../model/Food";
 import { FoodGroupServingBadge } from "../badge";
 import { Fragment } from "react";
 
-function findDefinedServings(serving: Serving) {
-  const foodGroups: FoodGroup[] = [];
-  if (!_.isUndefined(serving.vegetable)) {
-    foodGroups.push("vegetable");
-  }
-  if (!_.isUndefined(serving.fruit)) {
-    foodGroups.push("fruit");
-  }
-  if (!_.isUndefined(serving.carbohydrate)) {
-    foodGroups.push("carbohydrate");
-  }
-  if (!_.isUndefined(serving.proteinDiary)) {
-    foodGroups.push("proteinDiary");
-  }
-  if (!_.isUndefined(serving.fat)) {
-    foodGroups.push("fat");
-  }
-  if (!_.isUndefined(serving.sweet)) {
-    foodGroups.push("sweet");
-  }
-  return foodGroups;
+function foodGroupsWithServing(serving: Serving) {
+  const hasServing = (fg: string) => !_.isUndefined(_.get(serving, fg));
+  return [
+    'vegetable',
+    'fruit',
+    'carbohydrate',
+    'proteinDiary',
+    'fat',
+    'sweet',
+  ].filter(hasServing) as FoodGroup[];
 }
 
 export const FoodGroupServingBadgePanel = (props: { serving: Serving; }) => {
   const { serving } = props;
 
-  const foodGroups = findDefinedServings(serving);
+  const foodGroups = foodGroupsWithServing(serving);
   return (
     <span>
       {foodGroups.map((fg, i) => (
