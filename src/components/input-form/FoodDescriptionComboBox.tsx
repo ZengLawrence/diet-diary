@@ -31,10 +31,10 @@ const ItemText = (props: {
       {bestChoice && <BlueStar />}
       {foodDescription(props.suggestion)}
       {serving &&
-        <Fragment>
+        <span className="ms-1">
           <FoodGroupServingBadgePanel serving={serving} />
           <CalorieSpan value={calcServingCalories(serving)} />
-        </Fragment>
+        </span>
       }
     </div>
   );
