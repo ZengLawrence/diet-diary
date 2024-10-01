@@ -3,7 +3,7 @@ import { FoodGroup, Serving } from "../../model/Food";
 import { FoodGroupServingBadge } from "../badge";
 import { Fragment } from "react";
 
-function findDefinedServings(serving: Serving) {
+function foodGroupsWithServing(serving: Serving) {
   const hasServing = (fg: string) => !_.isUndefined(_.get(serving, fg));
   return [
     'vegetable',
@@ -18,7 +18,7 @@ function findDefinedServings(serving: Serving) {
 export const FoodGroupServingBadgePanel = (props: { serving: Serving; }) => {
   const { serving } = props;
 
-  const foodGroups = findDefinedServings(serving);
+  const foodGroups = foodGroupsWithServing(serving);
   return (
     <span>
       {foodGroups.map((fg, i) => (
