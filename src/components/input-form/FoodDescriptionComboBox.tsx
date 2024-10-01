@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 import { Suggestion } from "../../features/suggestions/Suggestion";
