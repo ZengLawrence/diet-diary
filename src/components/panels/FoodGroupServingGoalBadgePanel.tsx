@@ -3,11 +3,11 @@ import { FoodGroupServingGoalBadge } from "../badge";
 
 export const FoodGroupServingGoalBadgePanel = (props: { serving: Serving; }) => (
   <div>
-    <FoodGroupServingGoalBadge foodGroup="vegetable" serving={props.serving} />&nbsp;
-    <FoodGroupServingGoalBadge foodGroup="fruit" serving={props.serving} />&nbsp;
-    <FoodGroupServingGoalBadge foodGroup="carbohydrate" serving={props.serving} />&nbsp;
-    <FoodGroupServingGoalBadge foodGroup="proteinDiary" serving={props.serving} />&nbsp;
-    <FoodGroupServingGoalBadge foodGroup="fat" serving={props.serving} />&nbsp;
+    <FoodGroupServingGoalBadge foodGroup="vegetable" serving={props.serving} />
+    <FoodGroupServingGoalBadge foodGroup="fruit" serving={props.serving} />
+    <FoodGroupServingGoalBadge foodGroup="carbohydrate" serving={props.serving} />
+    <FoodGroupServingGoalBadge foodGroup="proteinDiary" serving={props.serving} />
+    <FoodGroupServingGoalBadge foodGroup="fat" serving={props.serving} />
     <FoodGroupServingGoalBadge foodGroup="sweet" serving={props.serving} />
   </div>
 );

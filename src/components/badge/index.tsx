@@ -8,7 +8,7 @@ const backgroundColorCss = (foodGroup: FoodGroup) => {
 }
 
 const FoodGroupBadge = (props: { foodGroup: FoodGroup; value: string | number | undefined; }) => (
-  <span className={backgroundColorCss(props.foodGroup) + " badge"}>{props.value}</span>
+  <span className={backgroundColorCss(props.foodGroup) + " badge me-1"}>{props.value}</span>
 )
 
 export const FoodGroupLabelBadge = (props: { foodGroup: FoodGroup; }) => (

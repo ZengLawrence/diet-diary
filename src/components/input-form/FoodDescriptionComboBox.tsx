@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 import { Suggestion } from "../../features/suggestions/Suggestion";
@@ -29,12 +29,12 @@ const ItemText = (props: {
   return (
     <div>
       {bestChoice && <BlueStar />}
-      {foodDescription(props.suggestion)}&nbsp;
+      {foodDescription(props.suggestion)}
       {serving &&
-        <Fragment>
+        <span className="ms-1">
           <FoodGroupServingBadgePanel serving={serving} />
           <CalorieSpan value={calcServingCalories(serving)} />
-        </Fragment>
+        </span>
       }
     </div>
   );

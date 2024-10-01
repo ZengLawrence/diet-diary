@@ -40,8 +40,8 @@ export const ServingInputControl = (props: Props) => {
   return (
     <Form.Group controlId={controlId} className="border rounded">
       <div className="d-flex flex-row flex-nowrap">
-        <FoodGroupLabelBadge foodGroup={foodGroup} />&nbsp;
-        <span className="dd-calorie-label">{calories}<span className="dd-x-small-font">&nbsp;Cal.</span></span>
+        <FoodGroupLabelBadge foodGroup={foodGroup} />
+        <span className="dd-calorie-label">{calories}<span className="dd-x-small-font">Cal.</span></span>
       </div>
       <Form.Control
         type="number"
