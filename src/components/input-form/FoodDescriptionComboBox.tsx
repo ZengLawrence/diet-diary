@@ -29,7 +29,7 @@ const ItemText = (props: {
   return (
     <div>
       {bestChoice && <BlueStar />}
-      {foodDescription(props.suggestion)}&nbsp;
+      {foodDescription(props.suggestion)}
       {serving &&
         <Fragment>
           <FoodGroupServingBadgePanel serving={serving} />
