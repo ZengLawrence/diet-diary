@@ -3,7 +3,7 @@ import { FoodGroup, Serving } from "../../model/Food";
 import { FoodGroupServingBadge } from "../badge";
 import { Fragment } from "react";
 
-function foodGroupsWithServing(serving: Serving) {
+function getFoodGroups(serving: Serving) {
   const hasServing = (foodGroup: string) => !_.isUndefined(_.get(serving, foodGroup));
   return ([
     'vegetable',
@@ -18,7 +18,7 @@ function foodGroupsWithServing(serving: Serving) {
 export const FoodGroupServingBadgePanel = (props: { serving: Serving; }) => {
   const { serving } = props;
 
-  const foodGroups = foodGroupsWithServing(serving);
+  const foodGroups = getFoodGroups(serving);
   return (
     <span>
       {foodGroups.map((fg, i) => (
