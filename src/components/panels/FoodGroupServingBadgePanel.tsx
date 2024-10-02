@@ -4,7 +4,7 @@ import { FoodGroupServingBadge } from "../badge";
 import { Fragment } from "react";
 
 function foodGroupsWithServing(serving: Serving) {
-  const hasServing = (fg: string) => !_.isUndefined(_.get(serving, fg));
+  const hasServing = (foodGroup: string) => !_.isUndefined(_.get(serving, foodGroup));
   return ([
     'vegetable',
     'fruit',
