@@ -3,7 +3,7 @@ import { FoodGroup, Serving } from "../../model/Food";
 import { FoodGroupServingBadge } from "../badge";
 import { Fragment } from "react";
 
-function filterFoodGroups(f: (fg: FoodGroup) => boolean) {
+function filterFoodGroups(f: (fg: FoodGroup) => boolean): FoodGroup[] {
   return ([
     'vegetable',
     'fruit',
