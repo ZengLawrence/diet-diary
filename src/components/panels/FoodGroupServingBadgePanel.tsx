@@ -5,14 +5,14 @@ import { Fragment } from "react";
 
 function foodGroupsWithServing(serving: Serving) {
   const hasServing = (fg: string) => !_.isUndefined(_.get(serving, fg));
-  return [
+  return ([
     'vegetable',
     'fruit',
     'carbohydrate',
     'proteinDiary',
     'fat',
     'sweet',
-  ].filter(hasServing) as FoodGroup[];
+  ] as FoodGroup[]).filter(hasServing);
 }
 
 export const FoodGroupServingBadgePanel = (props: { serving: Serving; }) => {
