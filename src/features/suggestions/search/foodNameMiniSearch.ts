@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _, { min } from 'lodash';
 import MiniSearch, { SearchOptions, SearchResult } from 'minisearch';
 import { PredefinedSuggestion } from './PredefinedSuggestion';
 
@@ -61,5 +61,9 @@ export function addIfNotExist(docs: ReturnType<typeof buildDocuments>, food: { f
     id: food.foodName,
     ...food
   }
-  miniSearch.add(newFood);
+  if (miniSearch.has(newFood.id)) {
+    miniSearch.replace(newFood);
+  } else {
+    miniSearch.add(newFood);
+  }
 }

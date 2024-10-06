@@ -84,6 +84,6 @@ export function findNameSuggestions(foodName: string) {
   return _.size(results) === 0 ? [{ foodName }] : _.slice(results, 0, 5);
 }
 
-export function add(suggestion: PredefinedSuggestion) {
+export function addOrReplace(suggestion: PredefinedSuggestion) {
   addIfNotExist(suggestions, suggestion);
 }
