@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import _ from 'lodash';
 import { loadState, saveState } from './localStorage';
 import reducer from './reducers';
-// ...
 
 const persistedState = loadState();
 export const store = configureStore({
