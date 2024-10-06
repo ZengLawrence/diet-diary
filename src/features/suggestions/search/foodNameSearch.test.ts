@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { findNameSuggestions, findSuggestions } from "./foodNameSearch";
+import { addOrReplace, findNameSuggestions, findSuggestions } from "./foodNameSearch";
 
 // search for serving
 test("search for exact name e.g. Broccoli should return at least one row and first row is Broccoli", () => {
@@ -90,7 +90,7 @@ test("search result contains all search terms should rank higher", () => {
 test("search result should return if unit on alternate measurement matches", () => {
   const results = findSuggestions("orange", { convertibleFrom: "medium" });
   expect(_.size(results)).toBeGreaterThanOrEqual(1);
-  expect(results[0]).toMatchObject({ 
+  expect(results[0]).toMatchObject({
     foodName: "Orange",
     amount: "3/4 cup sections or 1 medium",
   });
@@ -113,4 +113,29 @@ test("auto complete food name for multiple word name e.g. 'peanut butt' should r
   const results = findNameSuggestions("peanut butt");
   expect(_.size(results)).toBeGreaterThanOrEqual(1);
   expect(results[0]).toMatchObject({ foodName: "peanut butter" });
+})
+
+// dynamically add new suggestions
+test("given a new suggestion is added, when search for it, should get back same suggestion", () => {
+  addOrReplace({ foodName: "Mangosteen", amount: "3 fruits", serving: { fruit: 1 } });
+  {
+    const results = findNameSuggestions("Mangosteen");
+    expect(_.size(results)).toEqual(1);
+    expect(results[0]).toMatchObject({ foodName: "Mangosteen" });
+  }
+
+  {
+    const results = findSuggestions("Mangosteen");
+    expect(_.size(results)).toEqual(1);
+    expect(results[0]).toMatchObject({ foodName: "Mangosteen", amount: "3 fruits", serving: { fruit: 1 } });
+  }
+
+})
+
+test("given a new suggestion is added more than once, when search for it, should get back last updated suggestion", () => {
+  addOrReplace({ foodName: "Mangosteen", amount: "3 fruits", serving: { fruit: 1 } });
+  addOrReplace({ foodName: "Mangosteen", amount: "2 fruits", serving: { fruit: 1 } });
+  const results = findSuggestions("Mangosteen");
+  expect(_.size(results)).toEqual(1);
+  expect(results[0]).toMatchObject({ foodName: "Mangosteen", amount: "2 fruits", serving: { fruit: 1 } });
 })

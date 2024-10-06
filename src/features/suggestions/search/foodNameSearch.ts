@@ -3,15 +3,15 @@ import { isMeasurementConvertible, Unit } from "../convert";
 import parseAmount from "../parser/DecomposedAmount";
 import portions from "../portion/portions";
 import servings from "../serving/servings";
-import { autoSuggest, buildDocuments, search } from "./foodNameMiniSearch";
+import fnms from "./foodNameMiniSearch";
 import { PredefinedSuggestion } from "./PredefinedSuggestion";
 
-const suggestions = buildDocuments(_.concat(servings, portions));
+const suggestions = fnms.buildDocuments(_.concat(servings, portions));
 
 const searchFoodServingPortionSize = (foodName: string) =>
-  search(suggestions, foodName);
+  fnms.search(suggestions, foodName);
 
-const autoComplete = _.partial(autoSuggest, suggestions);
+const autoComplete = _.partial(fnms.autoSuggest, suggestions);
 
 function foodNameStartsWith(suggestion: { foodName: string }, foodName: string) {
   return _.startsWith(_.lowerCase(suggestion.foodName), _.lowerCase(foodName));
@@ -81,4 +81,8 @@ export function findNameSuggestions(foodName: string) {
     .map(format)
     .map(foodName => ({ foodName }))
   return _.size(results) === 0 ? [{ foodName }] : _.slice(results, 0, 5);
+}
+
+export function addOrReplace(suggestion: PredefinedSuggestion) {
+  fnms.addOrReplace(suggestions, suggestion);
 }
