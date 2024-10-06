@@ -34,8 +34,7 @@ function toSuggestion(food: Food): PredefinedSuggestion {
   }
 }
 
-const savedMeals = _.get(persistedState, 'savedMeals');
-console.log(savedMeals);
+const savedMeals: SavedMeal[] = _.get(persistedState, 'savedMeals');
 _.filter(savedMeals, isSingleFoodMeal)
   .flatMap(meal => meal.foods)
   .map(toSuggestion)
