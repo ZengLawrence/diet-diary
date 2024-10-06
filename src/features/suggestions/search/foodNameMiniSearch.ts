@@ -4,7 +4,7 @@ import { PredefinedSuggestion } from './PredefinedSuggestion';
 
 function addIndexAsId(obj: object, i: number) { return _.set(obj, "id", _.toString(i)); }
 
-export function buildDocuments(list: PredefinedSuggestion[]) {
+function buildDocuments(list: PredefinedSuggestion[]) {
   const miniSearch = new MiniSearch({
     fields: ['foodName'],
     storeFields: [
@@ -36,7 +36,7 @@ function toSuggestion(res: SearchResult): PredefinedSuggestion {
   }
 }
 
-export function search(
+function search(
   docs: { miniSearch: MiniSearch<PredefinedSuggestion> },
   foodName: string
 ) {
@@ -44,7 +44,7 @@ export function search(
   return _.map(perform(miniSearch, foodName), toSuggestion);
 }
 
-export function autoSuggest<T>(
+function autoSuggest<T>(
   docs: { miniSearch: MiniSearch<T> },
   partialFoodName: string) {
   const { miniSearch } = docs;
@@ -55,7 +55,7 @@ export function autoSuggest<T>(
   return _.map(miniSearch.autoSuggest(partialFoodName, options), "suggestion");
 }
 
-export function addIfNotExist(docs: ReturnType<typeof buildDocuments>, food: { foodName: string; }) {
+function addIfNotExist(docs: ReturnType<typeof buildDocuments>, food: { foodName: string; }) {
   const { miniSearch } = docs;
   const newFood = {
     id: food.foodName,
@@ -66,4 +66,11 @@ export function addIfNotExist(docs: ReturnType<typeof buildDocuments>, food: { f
   } else {
     miniSearch.add(newFood);
   }
+}
+
+export default {
+  buildDocuments,
+  search,
+  autoSuggest,
+  addIfNotExist,
 }
