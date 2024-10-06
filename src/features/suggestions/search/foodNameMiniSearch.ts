@@ -37,7 +37,7 @@ function toSuggestion(res: SearchResult): PredefinedSuggestion {
 }
 
 export function search(
-  docs: { miniSearch: MiniSearch<PredefinedSuggestion>, lookUp: (res: SearchResult) => PredefinedSuggestion },
+  docs: { miniSearch: MiniSearch<PredefinedSuggestion> },
   foodName: string
 ) {
   const { miniSearch } = docs;
