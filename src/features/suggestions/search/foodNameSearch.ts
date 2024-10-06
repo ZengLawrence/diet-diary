@@ -3,7 +3,7 @@ import { isMeasurementConvertible, Unit } from "../convert";
 import parseAmount from "../parser/DecomposedAmount";
 import portions from "../portion/portions";
 import servings from "../serving/servings";
-import { autoSuggest, buildDocuments, search } from "./foodNameMiniSearch";
+import { autoSuggest, buildDocuments, search, addIfNotExist } from "./foodNameMiniSearch";
 import { PredefinedSuggestion } from "./PredefinedSuggestion";
 
 const suggestions = buildDocuments(_.concat(servings, portions));
@@ -63,6 +63,7 @@ export function findSuggestions(foodName: string, options?: { convertibleFrom?: 
   const isSuggestionConvertibleFromUnit = _.partial(isSuggestionConvertible, _, options?.convertibleFrom);
   const results = _.slice(searchFoodServingPortionSize(foodName), 0, 5)
     .filter(isSuggestionConvertibleFromUnit);
+//    console.log(results);
   const ranked = _.sortBy(_.map(results, _.partial(rank, _, _, foodName)),
     [
       'prefixRank',
@@ -81,4 +82,8 @@ export function findNameSuggestions(foodName: string) {
     .map(format)
     .map(foodName => ({ foodName }))
   return _.size(results) === 0 ? [{ foodName }] : _.slice(results, 0, 5);
+}
+
+export function add(suggestion: PredefinedSuggestion) {
+  addIfNotExist(suggestions, suggestion);
 }

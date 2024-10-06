@@ -54,3 +54,12 @@ export function autoSuggest<T>(
   };
   return _.map(miniSearch.autoSuggest(partialFoodName, options), "suggestion");
 }
+
+export function addIfNotExist(docs: ReturnType<typeof buildDocuments>, food: { foodName: string; }) {
+  const { miniSearch } = docs;
+  const newFood = {
+    id: food.foodName,
+    ...food
+  }
+  miniSearch.add(newFood);
+}

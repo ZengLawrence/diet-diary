@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { findNameSuggestions, findSuggestions } from "./foodNameSearch";
+import { add, findNameSuggestions, findSuggestions } from "./foodNameSearch";
 
 // search for serving
 test("search for exact name e.g. Broccoli should return at least one row and first row is Broccoli", () => {
@@ -113,4 +113,21 @@ test("auto complete food name for multiple word name e.g. 'peanut butt' should r
   const results = findNameSuggestions("peanut butt");
   expect(_.size(results)).toBeGreaterThanOrEqual(1);
   expect(results[0]).toMatchObject({ foodName: "peanut butter" });
+})
+
+// dynamically add new suggestions
+test("given a new suggestion is added, when search for it, should get back same suggestion", () => {
+  add({ foodName: "Mangosteen", amount: "3 fruits", serving: { fruit: 1 } });
+  {
+    const results = findNameSuggestions("Mangosteen");
+    expect(_.size(results)).toBeGreaterThanOrEqual(1);
+    expect(results[0]).toMatchObject({ foodName: "Mangosteen" });
+  }
+
+  {
+    const results = findSuggestions("Mangosteen");
+    expect(_.size(results)).toBeGreaterThanOrEqual(1);
+    expect(results[0]).toMatchObject({ foodName: "Mangosteen", amount: "3 fruits", serving: { fruit: 1 } });
+  }
+
 })
