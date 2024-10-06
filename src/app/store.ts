@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import _ from 'lodash';
-import { loadState, saveState } from './localStorage';
-import reducer from './reducers';
 import { SavedMeal } from '../features/saved-meal/savedMealsSlice';
-import { Food } from '../model/Food';
-import { PredefinedSuggestion } from '../features/suggestions/search/PredefinedSuggestion';
 import decompose from '../features/suggestions/parser/DecomposedFoodDescription';
 import { addOrReplace } from '../features/suggestions/search/foodNameSearch';
+import { PredefinedSuggestion } from '../features/suggestions/search/PredefinedSuggestion';
+import { Food } from '../model/Food';
+import { loadState, saveState } from './localStorage';
+import reducer from './reducers';
 
 const persistedState = loadState();
 export const store = configureStore({
