@@ -6,7 +6,7 @@ import parseAmount from "../parser/DecomposedAmount";
 import { isMeasurementConvertible, Unit } from "../convert";
 import { PredefinedSuggestion } from "./PredefinedSuggestion";
 
-const suggestions = buildDocuments<PredefinedSuggestion>(_.concat(servings, portions));
+const suggestions = buildDocuments(_.concat(servings, portions));
 
 const searchFoodServingPortionSize = (foodName: string) =>
   search(suggestions, foodName);

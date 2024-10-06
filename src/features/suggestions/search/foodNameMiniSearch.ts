@@ -1,13 +1,14 @@
 import _ from 'lodash';
 import MiniSearch, { SearchOptions, SearchResult } from 'minisearch';
+import { PredefinedSuggestion } from './PredefinedSuggestion';
 
 function addIndexAsId(obj: object, i: number) { return _.set(obj, "id", i); }
 
-function find<T>(list: T[], res: SearchResult) {
+function find(list: PredefinedSuggestion[], res: SearchResult) {
   return list[res.id];
 }
 
-export function buildDocuments<T extends { foodName: string; }>(list: T[]) {
+export function buildDocuments(list: PredefinedSuggestion[]) {
   const miniSearch = new MiniSearch({
     fields: ['foodName']
   })
@@ -19,13 +20,13 @@ export function buildDocuments<T extends { foodName: string; }>(list: T[]) {
   }
 }
 
-function perform<T>(miniSearch: MiniSearch<T>, foodName: string) {
+function perform(miniSearch: MiniSearch<PredefinedSuggestion>, foodName: string) {
   const options = { fuzzy: true };
   return miniSearch.search(foodName, options);
 }
 
-export function search<T>(
-  docs: { miniSearch: MiniSearch<T>, lookUp: (res: SearchResult) => T },
+export function search(
+  docs: { miniSearch: MiniSearch<PredefinedSuggestion>, lookUp: (res: SearchResult) => PredefinedSuggestion },
   foodName: string
 ) {
   const { miniSearch, lookUp } = docs;
