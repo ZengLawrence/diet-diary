@@ -1,4 +1,4 @@
-import _, { min } from 'lodash';
+import _ from 'lodash';
 import MiniSearch, { SearchOptions, SearchResult } from 'minisearch';
 import { PredefinedSuggestion } from './PredefinedSuggestion';
 
