@@ -10,7 +10,14 @@ function find(dict: Dictionary<PredefinedSuggestion>, res: SearchResult) {
 
 export function buildDocuments(list: PredefinedSuggestion[]) {
   const miniSearch = new MiniSearch({
-    fields: ['foodName']
+    fields: ['foodName'],
+    storeFields: [
+      'foodName',
+      'amount',
+      'serving',
+      'bestChoice',
+    ]
+
   })
 
   miniSearch.addAll(_.map(list, addIndexAsId));
@@ -25,12 +32,21 @@ function perform(miniSearch: MiniSearch<PredefinedSuggestion>, foodName: string)
   return miniSearch.search(foodName, options);
 }
 
+function toSuggestion(res: SearchResult): PredefinedSuggestion {
+  return {
+    foodName: _.get(res, 'foodName'),
+    amount: _.get(res, 'amount'),
+    serving: _.get(res, 'serving'),
+    bestChoice: _.get(res, 'bestChoice'),
+  }
+}
+
 export function search(
   docs: { miniSearch: MiniSearch<PredefinedSuggestion>, lookUp: (res: SearchResult) => PredefinedSuggestion },
   foodName: string
 ) {
-  const { miniSearch, lookUp } = docs;
-  return _.map(perform(miniSearch, foodName), lookUp);
+  const { miniSearch } = docs;
+  return _.map(perform(miniSearch, foodName), toSuggestion);
 }
 
 export function autoSuggest<T>(
