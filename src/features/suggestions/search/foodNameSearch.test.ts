@@ -120,13 +120,13 @@ test("given a new suggestion is added, when search for it, should get back same 
   add({ foodName: "Mangosteen", amount: "3 fruits", serving: { fruit: 1 } });
   {
     const results = findNameSuggestions("Mangosteen");
-    expect(_.size(results)).toBeGreaterThanOrEqual(1);
+    expect(_.size(results)).toEqual(1);
     expect(results[0]).toMatchObject({ foodName: "Mangosteen" });
   }
 
   {
     const results = findSuggestions("Mangosteen");
-    expect(_.size(results)).toBeGreaterThanOrEqual(1);
+    expect(_.size(results)).toEqual(1);
     expect(results[0]).toMatchObject({ foodName: "Mangosteen", amount: "3 fruits", serving: { fruit: 1 } });
   }
 
