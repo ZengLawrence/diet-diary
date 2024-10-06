@@ -1,9 +1,9 @@
 import _ from "lodash";
-import portions from "../portion/portions";
-import { buildDocuments, search, autoSuggest } from "./foodNameMiniSearch";
-import servings from "../serving/servings";
-import parseAmount from "../parser/DecomposedAmount";
 import { isMeasurementConvertible, Unit } from "../convert";
+import parseAmount from "../parser/DecomposedAmount";
+import portions from "../portion/portions";
+import servings from "../serving/servings";
+import { autoSuggest, buildDocuments, search } from "./foodNameMiniSearch";
 import { PredefinedSuggestion } from "./PredefinedSuggestion";
 
 const suggestions = buildDocuments(_.concat(servings, portions));
