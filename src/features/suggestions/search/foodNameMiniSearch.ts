@@ -1,35 +1,47 @@
 import _ from 'lodash';
 import MiniSearch, { SearchOptions, SearchResult } from 'minisearch';
+import { PredefinedSuggestion } from './PredefinedSuggestion';
 
-function addIndexAsId(obj: object, i: number) { return _.set(obj, "id", i); }
+function addIndexAsId(obj: object, i: number) { return _.set(obj, "id", _.toString(i)); }
 
-function find<T>(list: T[], res: SearchResult) {
-  return list[res.id];
-}
-
-export function buildDocuments<T extends { foodName: string; }>(list: T[]) {
+export function buildDocuments(list: PredefinedSuggestion[]) {
   const miniSearch = new MiniSearch({
-    fields: ['foodName']
+    fields: ['foodName'],
+    storeFields: [
+      'foodName',
+      'amount',
+      'serving',
+      'bestChoice',
+    ]
+
   })
 
   miniSearch.addAll(_.map(list, addIndexAsId));
   return {
-    miniSearch,
-    lookUp: _.partial(find, list),
+    miniSearch
   }
 }
 
-function perform<T>(miniSearch: MiniSearch<T>, foodName: string) {
+function perform(miniSearch: MiniSearch<PredefinedSuggestion>, foodName: string) {
   const options = { fuzzy: true };
   return miniSearch.search(foodName, options);
 }
 
-export function search<T>(
-  docs: { miniSearch: MiniSearch<T>, lookUp: (res: SearchResult) => T },
+function toSuggestion(res: SearchResult): PredefinedSuggestion {
+  return {
+    foodName: _.get(res, 'foodName'),
+    amount: _.get(res, 'amount'),
+    serving: _.get(res, 'serving'),
+    bestChoice: _.get(res, 'bestChoice'),
+  }
+}
+
+export function search(
+  docs: { miniSearch: MiniSearch<PredefinedSuggestion> },
   foodName: string
 ) {
-  const { miniSearch, lookUp } = docs;
-  return _.map(perform(miniSearch, foodName), lookUp);
+  const { miniSearch } = docs;
+  return _.map(perform(miniSearch, foodName), toSuggestion);
 }
 
 export function autoSuggest<T>(
