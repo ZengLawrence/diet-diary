@@ -7,7 +7,7 @@ function find<T>(list: T[], res: SearchResult) {
   return list[res.id];
 }
 
-export function buildDocuments<T extends object>(list: T[]) {
+export function buildDocuments<T extends { foodName: string; }>(list: T[]) {
   const miniSearch = new MiniSearch({
     fields: ['foodName']
   })
