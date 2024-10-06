@@ -68,9 +68,11 @@ function addOrReplace(docs: ReturnType<typeof buildDocuments>, food: { foodName:
   }
 }
 
-export default {
+const FoodNameMiniSearch = {
   buildDocuments,
   search,
   autoSuggest,
   addOrReplace,
 }
+
+export default FoodNameMiniSearch;
