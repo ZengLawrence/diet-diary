@@ -1,12 +1,8 @@
-import _, { Dictionary } from 'lodash';
+import _ from 'lodash';
 import MiniSearch, { SearchOptions, SearchResult } from 'minisearch';
 import { PredefinedSuggestion } from './PredefinedSuggestion';
 
 function addIndexAsId(obj: object, i: number) { return _.set(obj, "id", _.toString(i)); }
-
-function find(dict: Dictionary<PredefinedSuggestion>, res: SearchResult) {
-  return dict[res.id];
-}
 
 export function buildDocuments(list: PredefinedSuggestion[]) {
   const miniSearch = new MiniSearch({
@@ -22,8 +18,7 @@ export function buildDocuments(list: PredefinedSuggestion[]) {
 
   miniSearch.addAll(_.map(list, addIndexAsId));
   return {
-    miniSearch,
-    lookUp: _.partial(find, _.keyBy(list, 'id')),
+    miniSearch
   }
 }
 
