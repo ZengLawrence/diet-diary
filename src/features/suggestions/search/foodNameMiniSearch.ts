@@ -55,7 +55,7 @@ function autoSuggest<T>(
   return _.map(miniSearch.autoSuggest(partialFoodName, options), "suggestion");
 }
 
-function addIfNotExist(docs: ReturnType<typeof buildDocuments>, food: { foodName: string; }) {
+function addOrReplace(docs: ReturnType<typeof buildDocuments>, food: { foodName: string; }) {
   const { miniSearch } = docs;
   const newFood = {
     id: food.foodName,
@@ -72,5 +72,5 @@ export default {
   buildDocuments,
   search,
   autoSuggest,
-  addIfNotExist,
+  addOrReplace,
 }

@@ -85,5 +85,5 @@ export function findNameSuggestions(foodName: string) {
 }
 
 export function addOrReplace(suggestion: PredefinedSuggestion) {
-  fnms.addIfNotExist(suggestions, suggestion);
+  fnms.addOrReplace(suggestions, suggestion);
 }
