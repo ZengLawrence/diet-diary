@@ -63,7 +63,6 @@ export function findSuggestions(foodName: string, options?: { convertibleFrom?: 
   const isSuggestionConvertibleFromUnit = _.partial(isSuggestionConvertible, _, options?.convertibleFrom);
   const results = _.slice(searchFoodServingPortionSize(foodName), 0, 5)
     .filter(isSuggestionConvertibleFromUnit);
-//    console.log(results);
   const ranked = _.sortBy(_.map(results, _.partial(rank, _, _, foodName)),
     [
       'prefixRank',
