@@ -1,11 +1,11 @@
-import _ from 'lodash';
+import _, { Dictionary } from 'lodash';
 import MiniSearch, { SearchOptions, SearchResult } from 'minisearch';
 import { PredefinedSuggestion } from './PredefinedSuggestion';
 
-function addIndexAsId(obj: object, i: number) { return _.set(obj, "id", i); }
+function addIndexAsId(obj: object, i: number) { return _.set(obj, "id", _.toString(i)); }
 
-function find(list: PredefinedSuggestion[], res: SearchResult) {
-  return list[res.id];
+function find(dict: Dictionary<PredefinedSuggestion>, res: SearchResult) {
+  return dict[res.id];
 }
 
 export function buildDocuments(list: PredefinedSuggestion[]) {
@@ -16,7 +16,7 @@ export function buildDocuments(list: PredefinedSuggestion[]) {
   miniSearch.addAll(_.map(list, addIndexAsId));
   return {
     miniSearch,
-    lookUp: _.partial(find, list),
+    lookUp: _.partial(find, _.keyBy(list, 'id')),
   }
 }
 
