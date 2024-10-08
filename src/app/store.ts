@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import _ from 'lodash';
-import { SavedMeal } from '../features/saved-meal/savedMealsSlice';
+import { SavedMeal } from "../features/saved-meal/SavedMeal";
 import decompose from '../features/suggestions/parser/DecomposedFoodDescription';
 import { addOrReplace } from '../features/suggestions/search/foodNameSearch';
 import { PredefinedSuggestion } from '../features/suggestions/search/PredefinedSuggestion';
