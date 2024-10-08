@@ -34,13 +34,15 @@ function toSuggestion(food: Food): PredefinedSuggestion {
   }
 }
 
-const savedMeals: SavedMeal[] = _.get(persistedState, 'savedMeals');
-_.filter(savedMeals, isSingleFoodMeal)
-  .flatMap(meal => meal.foods)
-  .map(toSuggestion)
-  .forEach(suggestion =>
-    addOrReplace(suggestion)
-  );
+function addSavedMeals(savedMeals: SavedMeal[]) {
+  _.filter(savedMeals, isSingleFoodMeal)
+    .flatMap(meal => meal.foods)
+    .map(toSuggestion)
+    .forEach(suggestion =>
+      addOrReplace(suggestion)
+    );
+}
+addSavedMeals(_.get(persistedState, 'savedMeals'));
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>
