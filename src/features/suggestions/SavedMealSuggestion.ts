@@ -21,7 +21,7 @@ function toSuggestion(food: Food): PredefinedSuggestion {
   }
 }
 
-export function addSavedMeals(savedMeals: SavedMeal[]) {
+export function addSuggestions(savedMeals: SavedMeal[]) {
   _.filter(savedMeals, isSingleFoodMeal)
     .flatMap(meal => meal.foods)
     .map(toSuggestion)
