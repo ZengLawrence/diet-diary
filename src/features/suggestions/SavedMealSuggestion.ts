@@ -1,11 +1,10 @@
 import _ from "lodash";
-import { SavedMeal } from "../saved-meal/SavedMeal";
 import decompose from "./parser/DecomposedFoodDescription";
 import { addOrReplace } from "./search/foodNameSearch";
 import { PredefinedSuggestion } from "./search/PredefinedSuggestion";
 import { Food } from "../../model/Food";
 
-function isSingleFoodMeal(meal: SavedMeal): boolean {
+function isSingleFoodMeal(meal: { foods: Food[]; }): boolean {
   const { foods } = meal;
   return (_.size(foods) === 1) && (_.size(foods[0].description) > 1);
 }
@@ -21,7 +20,7 @@ function toSuggestion(food: Food): PredefinedSuggestion {
   }
 }
 
-export function addSuggestions(savedMeals: SavedMeal[]) {
+export function addSuggestions(savedMeals: { foods: Food[]; }[]) {
   _.filter(savedMeals, isSingleFoodMeal)
     .flatMap(meal => meal.foods)
     .map(toSuggestion)
