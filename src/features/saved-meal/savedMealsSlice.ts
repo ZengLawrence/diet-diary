@@ -1,8 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Meal } from "../../model/Food";
-import { SavedMeal } from "./SavedMeal";
+import { Food, Meal } from "../../model/Food";
 
 const MAX_SAVED_COUNT = 50;
+
+interface SavedMeal {
+  foods: Food[];
+}
 
 const savedMealsSlice = createSlice({
   name: "savedMeals",
