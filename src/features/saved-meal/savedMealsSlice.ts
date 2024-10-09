@@ -3,7 +3,7 @@ import { Food, Meal } from "../../model/Food";
 
 const MAX_SAVED_COUNT = 50;
 
-export interface SavedMeal {
+interface SavedMeal {
   foods: Food[];
 }
 
