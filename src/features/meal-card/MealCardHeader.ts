@@ -5,6 +5,7 @@ import { MealCardHeader } from "../../components/meal-card/MealCardHeader";
 import { deleteMeal, enterMealEditMode, exitMealEditMode, hideSavedMealAlert, showSavedMealAlert } from "../day-page/mealStatesSlice";
 import { Meal } from "../../model/Food";
 import { save } from "../saved-meal/savedMealsSlice";
+import { addSuggestion } from "../suggestions/SavedMealSuggestion";
 
 function showShowDeleteButton(state: RootState, mealIndex: number) {
   const mealState = mealStatesSelector(state)[mealIndex];
@@ -27,6 +28,7 @@ const mapDispatchToProps = (dispatch: AppDispatch, ownProps: { mealIndex: number
   saveMeal: (mealIndex: number, meal: Meal) => {
     dispatch(save(meal));
     dispatch(showSavedMealAlert(mealIndex));
+    addSuggestion(meal);
   },
 })
 

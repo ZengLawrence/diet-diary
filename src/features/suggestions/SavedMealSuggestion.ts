@@ -28,3 +28,9 @@ export function addSuggestions(savedMeals: { foods: Food[]; }[]) {
       addOrReplace(suggestion)
     );
 }
+
+export function addSuggestion(meal: { foods: Food[]; }) {
+  if (isSingleFoodMeal(meal)) {
+    addOrReplace(toSuggestion(meal.foods[0]));
+  }
+}
