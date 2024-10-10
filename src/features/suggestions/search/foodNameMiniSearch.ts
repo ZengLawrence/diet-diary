@@ -68,11 +68,20 @@ function addOrReplace(docs: ReturnType<typeof buildDocuments>, food: { foodName:
   }
 }
 
+function remove(docs: ReturnType<typeof buildDocuments>, food: { foodName: string; }) {
+  const { miniSearch } = docs;
+  const id = _.lowerCase(food.foodName);
+  if (miniSearch.has(id)) {
+    miniSearch.discard(id);
+  }
+}
+
 const FoodNameMiniSearch = {
   buildDocuments,
   search,
   autoSuggest,
   addOrReplace,
+  remove,
 }
 
 export default FoodNameMiniSearch;

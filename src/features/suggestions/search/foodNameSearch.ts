@@ -86,3 +86,7 @@ export function findNameSuggestions(foodName: string) {
 export function addOrReplace(suggestion: PredefinedSuggestion) {
   fnms.addOrReplace(suggestions, suggestion);
 }
+
+export function remove(suggestion: PredefinedSuggestion) {
+  fnms.remove(suggestions, suggestion);
+}
