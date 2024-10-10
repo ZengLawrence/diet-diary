@@ -1,8 +1,8 @@
 import _ from "lodash";
+import { Food } from "../../model/Food";
 import decompose from "./parser/DecomposedFoodDescription";
 import { addOrReplace } from "./search/foodNameSearch";
 import { PredefinedSuggestion } from "./search/PredefinedSuggestion";
-import { Food } from "../../model/Food";
 
 function isSingleFoodMeal(meal: { foods: Food[]; }): boolean {
   const { foods } = meal;
@@ -27,4 +27,10 @@ export function addSuggestions(savedMeals: { foods: Food[]; }[]) {
     .forEach(suggestion =>
       addOrReplace(suggestion)
     );
+}
+
+export function addSuggestion(meal: { foods: Food[]; }) {
+  if (isSingleFoodMeal(meal)) {
+    addOrReplace(toSuggestion(meal.foods[0]));
+  }
 }
