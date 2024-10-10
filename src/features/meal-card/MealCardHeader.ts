@@ -2,8 +2,8 @@ import { connect } from "react-redux";
 import { editModeSelector, mealsSelector, mealStatesSelector } from "../../app/selectors";
 import { AppDispatch, RootState } from "../../app/store";
 import { MealCardHeader } from "../../components/meal-card/MealCardHeader";
-import { deleteMeal, enterMealEditMode, exitMealEditMode, hideSavedMealAlert, showSavedMealAlert } from "../day-page/mealStatesSlice";
 import { Meal } from "../../model/Food";
+import { deleteMeal, enterMealEditMode, exitMealEditMode, hideSavedMealAlert, showSavedMealAlert } from "../day-page/mealStatesSlice";
 import { save } from "../saved-meal/savedMealsSlice";
 import { addSuggestion } from "../suggestions/SavedMealSuggestion";
 
