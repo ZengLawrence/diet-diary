@@ -58,7 +58,7 @@ function autoSuggest<T>(
 function addOrReplace(docs: ReturnType<typeof buildDocuments>, food: { foodName: string; }) {
   const { miniSearch } = docs;
   const newFood = {
-    id: food.foodName,
+    id: _.lowerCase(food.foodName),
     ...food
   }
   if (miniSearch.has(newFood.id)) {
