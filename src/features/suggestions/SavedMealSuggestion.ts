@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { Food } from "../../model/Food";
 import decompose from "./parser/DecomposedFoodDescription";
-import { addOrReplace } from "./search/foodNameSearch";
+import { addOrReplace, remove } from "./search/foodNameSearch";
 import { PredefinedSuggestion } from "./search/PredefinedSuggestion";
 
 function isSingleFoodMeal(meal: { foods: Food[]; }): boolean {
@@ -32,5 +32,11 @@ export function addSuggestions(savedMeals: { foods: Food[]; }[]) {
 export function addSuggestion(meal: { foods: Food[]; }) {
   if (isSingleFoodMeal(meal)) {
     addOrReplace(toSuggestion(meal.foods[0]));
+  }
+}
+
+export function removeSuggestion(meal: { foods: Food[]; }) {
+  if (isSingleFoodMeal(meal)) {
+    remove(toSuggestion(meal.foods[0]));
   }
 }

@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { addOrReplace, findNameSuggestions, findSuggestions } from "./foodNameSearch";
+import { addOrReplace, findNameSuggestions, findSuggestions, remove } from "./foodNameSearch";
 
 describe("search for serving", () => {
   test("search for exact name e.g. Broccoli should return at least one row and first row is Broccoli", () => {
@@ -142,6 +142,26 @@ describe("dynamically add new suggestions", () => {
     const results = findSuggestions("Mangosteen");
     expect(_.size(results)).toEqual(1);
     expect(results[0]).toMatchObject({ foodName: "Mangosteen", amount: "2 fruits", serving: { fruit: 1 } });
+  })
+
+  describe("given a suggestion is added then removed", () => {
+    const suggestion = { foodName: "Mangosteen", amount: "3 fruits", serving: { fruit: 1 } };
+    addOrReplace(suggestion);
+    const results = findNameSuggestions("Mango");
+    expect(_.size(results)).toEqual(2);
+    expect(results[0]).toMatchObject({ foodName: "Mango" });
+    expect(results[1]).toMatchObject({ foodName: "Mangosteen" });
+
+    remove(suggestion);
+
+    describe("when search for it", () => {
+      const results = findNameSuggestions("Mango");
+
+      it("should NOT get it back", () => {
+        expect(_.size(results)).toEqual(1);
+        expect(results[0]).toMatchObject({ foodName: "Mango" });
+      });
+    });
   })
 
 });
