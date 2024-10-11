@@ -11,7 +11,6 @@ function isSingleFoodMeal(meal: { foods: Food[]; }): boolean {
 
 function toSuggestion(food: Food): PredefinedSuggestion {
   const { description, serving } = food;
-  console.log(description);
   const { foodName, amount } = decompose(description);
   return {
     foodName,
