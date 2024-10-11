@@ -145,14 +145,14 @@ describe("dynamically add new suggestions", () => {
   })
 
   describe("given a suggestion is added then removed", () => {
-    const meal = { foodName: "Mangosteen", amount: "3 fruits", serving: { fruit: 1 } };
-    addOrReplace(meal);
+    const suggestion = { foodName: "Mangosteen", amount: "3 fruits", serving: { fruit: 1 } };
+    addOrReplace(suggestion);
     const results = findNameSuggestions("Mango");
     expect(_.size(results)).toEqual(2);
     expect(results[0]).toMatchObject({ foodName: "Mango" });
     expect(results[1]).toMatchObject({ foodName: "Mangosteen" });
 
-    remove(meal);
+    remove(suggestion);
 
     describe("when search for it", () => {
       const results = findNameSuggestions("Mango");
