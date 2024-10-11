@@ -10,14 +10,14 @@ interface Props {
   mealIndex: number;
   meal: { foods: Food[]; };
   selectMeal: (mealIndex: number, meal: { foods: Food[]; }) => void;
-  deleteMeal: (mealIndex: number) => void;
+  deleteMeal: (mealIndex: number, meal: { foods: Food[]; }) => void;
 }
 
 export const MealCardHeader = (props: Props) => (
   <Card.Header>
     <Row>
       <Col xs="auto">
-        <Button variant={VariantDanger} onClick={() => props.deleteMeal(props.mealIndex)}>Delete</Button>
+        <Button variant={VariantDanger} onClick={() => props.deleteMeal(props.mealIndex, props.meal)}>Delete</Button>
       </Col>
       <Col />
       <Col xs="auto">
@@ -25,7 +25,7 @@ export const MealCardHeader = (props: Props) => (
       </Col>
     </Row>
     <Row>
-      <MealCalorieServingPanel meal={props.meal} />    
+      <MealCalorieServingPanel meal={props.meal} />
     </Row>
   </Card.Header>
 )

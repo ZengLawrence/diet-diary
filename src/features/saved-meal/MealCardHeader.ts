@@ -5,18 +5,20 @@ import { MealCardHeader } from "../../components/saved-meal/MealCardHeader";
 import { remove, select } from "./savedMealsSlice";
 import { Food } from "../../model/Food";
 import { addSavedMeal } from "../day-page/mealStatesSlice";
+import { removeSuggestion } from "../suggestions/SavedMealSuggestion";
 
 const mapStateToProps = (state: RootState, ownProps: { mealIndex: number; }) => ({
   meal: savedMealsSelector(state)[ownProps.mealIndex],
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  selectMeal: (mealIndex: number, meal: { foods: Food[]; } ) => {
+  selectMeal: (mealIndex: number, meal: { foods: Food[]; }) => {
     dispatch(addSavedMeal(meal));
     dispatch(select(mealIndex));
   },
-  deleteMeal: (mealIndex: number) => {
+  deleteMeal: (mealIndex: number, meal: { foods: Food[]; }) => {
     dispatch(remove(mealIndex));
+    removeSuggestion(meal);
   },
 })
 
