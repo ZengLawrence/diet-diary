@@ -2,10 +2,10 @@ import { connect } from "react-redux";
 import { savedMealsSelector } from "../../app/selectors";
 import { AppDispatch, RootState } from "../../app/store";
 import { MealCardHeader } from "../../components/saved-meal/MealCardHeader";
-import { remove, select } from "./savedMealsSlice";
 import { Food } from "../../model/Food";
 import { addSavedMeal } from "../day-page/mealStatesSlice";
 import { removeSuggestion } from "../suggestions/SavedMealSuggestion";
+import { remove, select } from "./savedMealsSlice";
 
 const mapStateToProps = (state: RootState, ownProps: { mealIndex: number; }) => ({
   meal: savedMealsSelector(state)[ownProps.mealIndex],
