@@ -11,7 +11,7 @@
     "antlr4": "~4.13.2",
     "bootstrap": "^5.3.3",
     "convert-units": "3.0.0-beta.2",
-    "export-to-csv": "^0.2.1",
+    "export-to-csv": "^0.2.2",
     "fraction.js": "^4.1.1",
     "lodash": "^4.17.21",
     "minisearch": "^7.1.0",
