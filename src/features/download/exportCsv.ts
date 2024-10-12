@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { ExportToCsv } from 'export-to-csv';
+import { mkConfig, generateCsv, download } from 'export-to-csv';
 import { Food, Meal } from "../../model/Food";
 import { calcFoodCalories } from "../../model/calorieFunction";
 
@@ -35,8 +35,8 @@ export default function exportCsv(date: string, meals: Meal[]) {
     useKeysAsHeaders: true,
     // headers: ['Column 1', 'Column 2', etc...] <-- Won't work with useKeysAsHeaders present!
   };
-
-  const csvExporter = new ExportToCsv(options);
-
-  csvExporter.generateCsv(data);
+  const csvConfig = mkConfig(options);
+  // Converts your Array<Object> to a CsvOutput string based on the configs
+  const csv = generateCsv(csvConfig)(data);
+  download(csvConfig)(csv);
 }
