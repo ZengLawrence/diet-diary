@@ -9,6 +9,7 @@ plugins {
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
     antlr
+    java
 }
 
 repositories {
@@ -19,7 +20,7 @@ repositories {
 dependencies {
 
     antlr("org.antlr:antlr4:4.13.2")
-    implementation("org.antlr:antlr4-runtime:4.13.2")
+    implementation("org.antlr:antlr4:4.13.2")
 
     // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)
@@ -43,4 +44,13 @@ java {
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+task("generateJsTarget", JavaExec::class) {
+  classpath = sourceSets["main"].runtimeClasspath
+
+  mainClass = "org.antlr.v4.Tool"
+
+  // arguments to pass to the application
+  args  = listOf("-Dlanguage=JavaScript", "./src/main/antlr/FoodDescription.g4", "-o", "./build/js/")
 }
