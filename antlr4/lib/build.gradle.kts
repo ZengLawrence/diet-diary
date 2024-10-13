@@ -8,6 +8,7 @@
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
+    antlr
 }
 
 repositories {
@@ -16,6 +17,10 @@ repositories {
 }
 
 dependencies {
+
+    antlr("org.antlr:antlr4:4.13.2")
+    implementation("org.antlr:antlr4-runtime:4.13.2")
+
     // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)
 
