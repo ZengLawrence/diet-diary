@@ -41,6 +41,8 @@ tasks.named<Test>("test") {
 }
 
 task("generateJsTarget", JavaExec::class) {
+  dependsOn("build")
+
   classpath = sourceSets["main"].runtimeClasspath
 
   mainClass = "org.antlr.v4.Tool"
