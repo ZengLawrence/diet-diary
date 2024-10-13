@@ -52,5 +52,5 @@ task("generateJsTarget", JavaExec::class) {
   mainClass = "org.antlr.v4.Tool"
 
   // arguments to pass to the application
-  args  = listOf("-Dlanguage=JavaScript", "./src/main/antlr/FoodDescription.g4", "-o", "./build/js/")
+  args  = listOf("-Dlanguage=JavaScript", "-o", "./build/js/", "./src/main/antlr/FoodDescription.g4")
 }
