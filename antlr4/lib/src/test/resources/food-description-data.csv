@@ -1,0 +1,2 @@
+input,expected
+"broccoli 1 cup","(foodDescription (foodName broccoli) (measurement (quantity 1) (unit cup)))"
