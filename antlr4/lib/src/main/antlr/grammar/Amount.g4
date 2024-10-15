@@ -1,4 +1,8 @@
 grammar Amount;
+@header {
+package grammar;
+}
+
 amount
   : measurement? ('or' measurement?)?
   ;

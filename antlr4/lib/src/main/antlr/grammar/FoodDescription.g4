@@ -1,4 +1,8 @@
 grammar FoodDescription;
+@header {
+package grammar;
+}
+
 foodDescription
   : foodName measurement?
   ;
