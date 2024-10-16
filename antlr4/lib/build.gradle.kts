@@ -50,16 +50,10 @@ task("generateJsTarget", JavaExec::class) {
   // arguments to pass to the application
   args  = listOf(
     "-Dlanguage=JavaScript", 
-    "-o", "./build/generated-js/", 
+    "-o", "./build/js/", 
+    "-Xexact-output-dir",
     "./src/main/antlr/grammar/FoodDescription.g4", 
     "./src/main/antlr/grammar/Amount.g4"
   )
 
-  doLast {
-    copy {
-        from("build/generated-js/src/main/antlr/grammar")
-        into("build/js")
-        include("*.js")
-    }
-  }
 }
