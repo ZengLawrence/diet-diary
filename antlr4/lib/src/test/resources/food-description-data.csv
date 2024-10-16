@@ -1,4 +1,4 @@
-input|expected
+input|parsed tree
 "2% milk 1 cup"|"(foodDescription (foodName 2% milk) (measurement (quantity 1) (unit cup)))"
 "Orange 3/4 cup sections or 1 medium"|"(foodDescription (foodName Orange) (measurement (quantity 3/4) (unit cup sections or)))"
 "broccoli 1 cup"|"(foodDescription (foodName broccoli) (measurement (quantity 1) (unit cup)))"
