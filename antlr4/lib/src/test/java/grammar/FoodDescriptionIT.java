@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 public class FoodDescriptionIT {
 
   @ParameterizedTest
-  @CsvFileSource(resources = "/food-description-data.csv", useHeadersInDisplayName = true)
+  @CsvFileSource(resources = "/food-description-data.csv", useHeadersInDisplayName = true, delimiter = '|')
   public void testGrammar(final String input, final String expected) {
     final var charStream = CharStreams.fromString(input);
     final var lexer = new FoodDescriptionLexer(charStream);
