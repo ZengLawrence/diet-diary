@@ -51,13 +51,13 @@ task("generateJsTarget", JavaExec::class) {
   args  = listOf(
     "-Dlanguage=JavaScript", 
     "-o", "./build/generated-js/", 
-    "./src/main/antlr/FoodDescription.g4", 
-    "./src/main/antlr/Amount.g4"
+    "./src/main/antlr/grammar/FoodDescription.g4", 
+    "./src/main/antlr/grammar/Amount.g4"
   )
 
   doLast {
     copy {
-        from("build/generated-js/src/main/antlr")
+        from("build/generated-js/src/main/antlr/grammar")
         into("build/js")
         include("*.js")
     }
