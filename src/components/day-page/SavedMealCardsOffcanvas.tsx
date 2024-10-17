@@ -3,6 +3,7 @@ import SavedMealCards from "../../features/saved-meal/SavedMealCards";
 
 interface Props {
   show: boolean,
+  count: number,
   onHide: () => void,
 }
 
@@ -13,6 +14,7 @@ function SavedMealCardsOffcanvas(props: Props) {
         <Offcanvas.Title>Saved Meals</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
+        <div>Total: {props.count}</div>
         <SavedMealCards />
       </Offcanvas.Body>
     </Offcanvas>
