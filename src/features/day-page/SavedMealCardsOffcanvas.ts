@@ -1,9 +1,9 @@
-import { connect } from "react-redux";
-import SavedMealCardsOffcanvas from "../../components/day-page/SavedMealCardsOffcanvas";
-import { AppDispatch, RootState } from "../../app/store";
-import { savedMealsSelector, showSavedMealsSelector } from "../../app/selectors";
-import { hide } from "./showSavedMealsSlice";
 import _ from "lodash";
+import { connect } from "react-redux";
+import { savedMealsSelector, showSavedMealsSelector } from "../../app/selectors";
+import { AppDispatch, RootState } from "../../app/store";
+import SavedMealCardsOffcanvas from "../../components/day-page/SavedMealCardsOffcanvas";
+import { hide } from "./showSavedMealsSlice";
 
 const mapStateToProps = (state: RootState) => ({
   show: showSavedMealsSelector(state),
