@@ -58,7 +58,7 @@ const Trees = {
                     return ruleNames[t.ruleIndex]+":"+altNumber;
                 }
                 return ruleNames[t.ruleIndex];
-            } else if ( t instanceof ErrorNode) {
+            } else if ( typeof t === ErrorNode) {
                 return t.toString();
             } else if(t instanceof TerminalNode) {
                 if(t.symbol!==null) {
