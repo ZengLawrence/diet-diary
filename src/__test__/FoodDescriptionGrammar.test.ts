@@ -13,9 +13,9 @@ function testGrammar(input: string, expectedParsedTree: string) {
   expect(lispTree).toBe(expectedParsedTree);
 }
 
-describe("Food description grammar", () => {
+describe("Full description", () => {
 
-  test("Full description", () => {
+  test("food name + measurement", () => {
     testGrammar("broccoli 1 cup", "(foodDescription (foodName broccoli) (measurement (quantity 1) (unit cup)))");
   });
 })
