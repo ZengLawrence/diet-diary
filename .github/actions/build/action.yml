@@ -15,8 +15,8 @@ runs:
         distribution: 'temurin'
         cache: 'gradle'
         cache-dependency-path: | # optional
-          antlr4/*.gradle*
-          antlr4/**/gradle-wrapper.properties
+          packages/parser/antlr4/*.gradle*
+          packages/parser/antlr4/**/gradle-wrapper.properties
     - run: npm ci
       shell: bash
     - run: npm test
