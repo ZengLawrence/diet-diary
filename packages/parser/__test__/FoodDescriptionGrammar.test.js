@@ -3,7 +3,7 @@ import FoodDescriptionLexer from "../FoodDescriptionLexer";
 import FoodDescriptionParser from "../FoodDescriptionParser";
 import Trees from "./Trees";
 
-function parseTree(input: string) {
+function parseTree(input) {
   const charStream = CharStreams.fromString(input);
   const lexer = new FoodDescriptionLexer(charStream);
   const tokens = new CommonTokenStream(lexer);

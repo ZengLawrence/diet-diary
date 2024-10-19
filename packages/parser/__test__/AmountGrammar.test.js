@@ -3,7 +3,7 @@ import AmountLexer from "../AmountLexer";
 import AmountParser from "../AmountParser";
 import Trees from "./Trees";
 
-function parseTree(input: string) {
+function parseTree(input) {
   const charStream = CharStreams.fromString(input);
   const lexer = new AmountLexer(charStream);
   const tokens = new CommonTokenStream(lexer);

@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "Grammar parser for food description",
   "main": "index.js",
-  "devDependencies": {},
+  "type": "module",
+  "devDependencies": {
+    "jest-config": "^29.7.0"
+  },
   "scripts": {
-    "test": "jest"
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest"
   },
   "author": "",
   "license": "MIT"
