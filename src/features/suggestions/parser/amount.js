@@ -1,9 +1,9 @@
 import antlr4 from 'antlr4';
 import Fraction from 'fraction.js';
 import _ from 'lodash';
-import AmountLexer from '../../../generated/parser/AmountLexer';
-import AmountListener from '../../../generated/parser/AmountListener';
-import AmountParser from '../../../generated/parser/AmountParser';
+import AmountLexer from 'parser/AmountLexer';
+import AmountListener from 'parser/AmountListener';
+import AmountParser from 'parser/AmountParser';
 import { CaseChangingStream } from './CaseChangingStream';
 
 function toNumber(str) {

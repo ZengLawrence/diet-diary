@@ -1,9 +1,9 @@
 import antlr4 from 'antlr4';
 import Fraction from 'fraction.js';
 import _ from 'lodash';
-import FoodDescriptionLexer from '../../../generated/parser/FoodDescriptionLexer';
-import FoodDescriptionListener from '../../../generated/parser/FoodDescriptionListener';
-import FoodDescriptionParser from '../../../generated/parser/FoodDescriptionParser';
+import FoodDescriptionLexer from 'parser/FoodDescriptionLexer';
+import FoodDescriptionListener from 'parser/FoodDescriptionListener';
+import FoodDescriptionParser from 'parser/FoodDescriptionParser';
 import { CaseChangingStream } from './CaseChangingStream';
 
 function toNumber(str) {
