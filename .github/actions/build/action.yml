@@ -17,9 +17,6 @@ runs:
         cache-dependency-path: | # optional
           antlr4/*.gradle*
           antlr4/**/gradle-wrapper.properties
-    - name: Generate parser source code
-      run: npm run gen-parser
-      shell: bash
     - run: npm ci
       shell: bash
     - run: npm test
