@@ -1,9 +1,9 @@
 import { CharStreams, CommonTokenStream } from "antlr4";
-import AmountLexer from "../generated/parser/AmountLexer";
-import AmountParser from "../generated/parser/AmountParser";
+import AmountLexer from "../AmountLexer";
+import AmountParser from "../AmountParser";
 import Trees from "./Trees";
 
-function parseTree(input: string) {
+function parseTree(input) {
   const charStream = CharStreams.fromString(input);
   const lexer = new AmountLexer(charStream);
   const tokens = new CommonTokenStream(lexer);

@@ -36,3 +36,8 @@ cypress/downloads/
 .next
 next-env.d.ts
 dist/
+
+# parser module
+packages/parser/*Lexer.js
+packages/parser/*Parser.js
+packages/parser/*Listener.js

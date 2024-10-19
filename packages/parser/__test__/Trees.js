@@ -8,7 +8,7 @@
  * can be found in the LICENSE.txt file in the project root.
  */
 
-import { Token, ErrorNode, TerminalNode, RuleNode } from 'antlr4';
+import { Token, TerminalNode, RuleNode } from 'antlr4';
 import escapeWhitespace from "./escapeWhitespace.js";
 
 /** A set of utility routines useful for all kinds of ANTLR trees. */
@@ -58,8 +58,9 @@ const Trees = {
                     return ruleNames[t.ruleIndex]+":"+altNumber;
                 }
                 return ruleNames[t.ruleIndex];
-            } else if ( typeof t === ErrorNode) {
-                return t.toString();
+// error importing ErrorNode
+//            } else if ( typeof t === ErrorNode) {
+//                return t.toString();
             } else if(t instanceof TerminalNode) {
                 if(t.symbol!==null) {
                     return t.symbol.text;

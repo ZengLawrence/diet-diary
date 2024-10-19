@@ -8,6 +8,9 @@ runs:
       with:
         node-version: 22.x
         cache: 'npm'
+        cache-dependency-path: |
+          package-lock.json
+          packages/parser/package-lock.json
     - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
@@ -15,11 +18,8 @@ runs:
         distribution: 'temurin'
         cache: 'gradle'
         cache-dependency-path: | # optional
-          antlr4/*.gradle*
-          antlr4/**/gradle-wrapper.properties
-    - name: Generate parser source code
-      run: npm run gen-parser
-      shell: bash
+          packages/parser/antlr4/*.gradle*
+          packages/parser/antlr4/**/gradle-wrapper.properties
     - run: npm ci
       shell: bash
     - run: npm test

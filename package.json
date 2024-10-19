@@ -1,6 +1,6 @@
 {
   "name": "diet-diary",
-  "version": "2.16.1",
+  "version": "2.17.0",
   "private": true,
   "homepage": ".",
   "dependencies": {
@@ -44,7 +44,6 @@
     "start:ci": "npx --yes serve ./build --listen 3000",
     "test": "jest",
     "test:watch": "jest --watch",
-    "gen-parser": "./gen-parser.sh",
     "cypress:open": "cypress open"
   },
   "browserslist": {
@@ -58,5 +57,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "workspaces": [
+    "packages/parser"
+  ]
 }
