@@ -1,6 +1,6 @@
 import { CharStreams, CommonTokenStream } from "antlr4";
-import FoodDescriptionLexer from "../generated/parser/FoodDescriptionLexer";
-import FoodDescriptionParser from "../generated/parser/FoodDescriptionParser";
+import FoodDescriptionLexer from "../FoodDescriptionLexer";
+import FoodDescriptionParser from "../FoodDescriptionParser";
 import Trees from "./Trees";
 
 function parseTree(input: string) {
