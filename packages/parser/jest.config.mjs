@@ -4,7 +4,6 @@ import {defaults} from 'jest-config';
 const config = {
   ...defaults,
   testEnvironment: 'jsdom',
-  verbose: true,
 };
 
 export default config;
