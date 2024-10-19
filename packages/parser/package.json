@@ -10,7 +10,8 @@
   "scripts": {
     "clean": "rm *Lexer.js *Listener.js *Parser.js",
     "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest",
-    "test:watch": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest --watch"
+    "test:watch": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest --watch",
+    "gen-parser": "./gen-parser.sh"
   },
   "author": "",
   "license": "MIT"

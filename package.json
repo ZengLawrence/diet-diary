@@ -44,7 +44,6 @@
     "start:ci": "npx --yes serve ./build --listen 3000",
     "test": "jest",
     "test:watch": "jest --watch",
-    "gen-parser": "./gen-parser.sh",
     "cypress:open": "cypress open"
   },
   "browserslist": {
