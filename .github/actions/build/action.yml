@@ -8,6 +8,9 @@ runs:
       with:
         node-version: 22.x
         cache: 'npm'
+        cache-dependency-path: |
+          package-lock.json
+          packages/parser/package-lock.json
     - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
