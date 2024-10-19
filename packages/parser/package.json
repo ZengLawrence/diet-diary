@@ -1,7 +1,7 @@
 {
   "name": "parser",
   "version": "1.0.0",
-  "description": "Grammer parser for food description",
+  "description": "Grammar parser for food description",
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
