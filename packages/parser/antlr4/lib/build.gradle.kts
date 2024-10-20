@@ -9,6 +9,7 @@ plugins {
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
     java
+    antlr
 }
 
 repositories {
@@ -18,6 +19,7 @@ repositories {
 
 dependencies {
 
+    antlr("org.antlr:antlr4:4.13.2")
     implementation("org.antlr:antlr4:4.13.2")
 
     // Use JUnit Jupiter for testing.
@@ -39,7 +41,8 @@ tasks.named<Test>("test") {
 }
 
 task("generateJsTarget", JavaExec::class) {
-
+  dependsOn("build")
+  
   classpath = sourceSets["main"].runtimeClasspath
 
   mainClass = "org.antlr.v4.Tool"
