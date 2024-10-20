@@ -1,6 +1,6 @@
 import CalorieSummary from "../../features/summary/CalorieSummary";
 import ServingSummary from "../../features/summary/ServingSummary";
-import { WarningBorder } from "../WarningBorder";
+import WarningBorder from "../../features/warning/WarningBorder";
 
 export const TotalSummary = () => (
   <div className="d-flex">

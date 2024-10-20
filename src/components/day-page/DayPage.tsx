@@ -5,7 +5,7 @@ import Summary from "../../features/day-page/Summary";
 import AddMealButtons from "../../features/meal-card/AddMealButtons";
 import MealCards from "../../features/meal-card/MealCards";
 import { Header } from "./Header";
-import { WarningBorder } from "../WarningBorder";
+import WarningBorder from "../../features/warning/WarningBorder";
 
 interface Props {
   showButton: boolean;
