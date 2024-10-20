@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { targetSelector, totalCaloriesSelector } from "../../app/selectors";
 import { RootState } from "../../app/store";
-import { WarningBorder } from "../../components/WarningBorder";
+import { WarningBorder } from "../../components/warning/WarningBorder";
 import { hasATarget } from "../../model/Target";
 
 function shouldShow(state: RootState): boolean {
