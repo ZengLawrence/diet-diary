@@ -21,8 +21,8 @@ function DayPage(props: Props) {
             <Header />
           </div>
         </div>
+        <WarningAlert />
         <WarningBorder>
-          <WarningAlert />
           <div className="d-flex mb-2">
             <div className="flex-fill">
               <Summary />
