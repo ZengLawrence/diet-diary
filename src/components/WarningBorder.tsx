@@ -1,11 +1,12 @@
 interface Props extends React.PropsWithChildren {
+  show?: boolean;
   flexFill?: boolean;
   critical?: boolean;
 }
 
-function className(options: { flexFill?: boolean; critical?: boolean }) {
+function className(options: { show?: boolean; flexFill?: boolean; critical?: boolean }) {
   const borderColor = options.critical ? "border-danger" : "border-warning";
-  const border = "border rounded border-2 " + borderColor;
+  const border = options.show ? "border rounded border-2 " + borderColor : "";
   return (options.flexFill ? "d-flex flex-fill " : "") + border
 }
 
