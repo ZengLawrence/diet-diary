@@ -5,6 +5,7 @@ import Summary from "../../features/day-page/Summary";
 import AddMealButtons from "../../features/meal-card/AddMealButtons";
 import MealCards from "../../features/meal-card/MealCards";
 import { Header } from "./Header";
+import WarningBorder from "../../features/warning/WarningBorder";
 
 interface Props {
   showButton: boolean;
@@ -19,15 +20,18 @@ function DayPage(props: Props) {
             <Header />
           </div>
         </div>
-        <div className="d-flex mb-2">
-          <div className="flex-fill">
-            <Summary />
+        <WarningBorder>
+          <div className="d-flex mb-2">
+            <div className="flex-fill">
+              <Summary />
+            </div>
           </div>
-        </div>
-        <div className="mb-2">
-          <MealCards />
-          {props.showButton && <AddMealButtons />}
-        </div>
+          <div className="mb-2">
+            <MealCards />
+            {props.showButton && <AddMealButtons />}
+          </div>
+        </WarningBorder>
+
         <Footer />
       </div>
 
