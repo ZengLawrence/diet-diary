@@ -5,7 +5,7 @@ import WarningBorder from "../../features/warning/WarningBorder";
 export const DifferenceSummary = () => {
   return (
     <div className="d-flex">
-      <WarningBorder flexFill>
+      <WarningBorder flex>
         <CalorieDifference />
       </WarningBorder>
       <div className="flex-fill">

@@ -4,7 +4,7 @@ import WarningBorder from "../../features/warning/WarningBorder";
 
 export const TotalSummary = () => (
   <div className="d-flex">
-    <WarningBorder flexFill>
+    <WarningBorder flex>
       <CalorieSummary />
     </WarningBorder>
     <div className="flex-fill">
