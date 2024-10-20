@@ -13,7 +13,10 @@ function alertText() {
   return "Total calories exceed target by 5%.";
 }
 export const WarningAlert = (props: Props) => (
-  <Alert variant={variant()}>
+  <Alert 
+    variant={variant()} 
+    show={props.show}
+    dismissible>
     {alertText()}
   </Alert>
 )
