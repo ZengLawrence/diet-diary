@@ -12,6 +12,7 @@ function variant() {
 function alertText() {
   return "Total calories exceed target by 5%.";
 }
+
 export const WarningAlert = (props: Props) => (
   <Alert 
     variant={variant()} 
