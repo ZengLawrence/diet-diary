@@ -10,8 +10,15 @@ function shouldShow(state: RootState): boolean {
   return hasATarget(target) && (total / target.calorie) > 1.05;
 }
 
+function isCritical(state: RootState): boolean {
+  const total = totalCaloriesSelector(state);
+  const target = targetSelector(state);
+  return hasATarget(target) && (total / target.calorie) > 1.10;
+}
+
 const mapStateToProps = (state: RootState) => ({
   show: shouldShow(state),
+  critical: isCritical(state),
 })
 
 export default connect(mapStateToProps)(WarningBorder);
