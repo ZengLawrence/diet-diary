@@ -4,9 +4,6 @@
   "description": "Grammar parser for food description",
   "main": "index.js",
   "type": "module",
-  "devDependencies": {
-    "jest-config": "^29.7.0"
-  },
   "scripts": {
     "clean": "./antlr4/gradlew -p ./antlr4 clean && rm *Lexer.js *Listener.js *Parser.js",
     "prepare": "npm run gen-parser",
