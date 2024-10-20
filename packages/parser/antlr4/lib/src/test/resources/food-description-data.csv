@@ -1,0 +1,7 @@
+input                               |parsed tree                                                                             |test case
+2% milk 1 cup                       |(foodDescription (foodName 2% milk) (measurement (quantity 1) (unit cup)))              |% in food name
+Orange 3/4 cup sections or 1 medium |(foodDescription (foodName Orange) (measurement (quantity 3/4) (unit cup sections or))) |alternate amount
+broccoli 1 cup                      |(foodDescription (foodName broccoli) (measurement (quantity 1) (unit cup)))             |basic case - food name and measurement
+Nuts, peanuts 8 wholes              |(foodDescription (foodName Nuts peanuts) (measurement (quantity 8) (unit wholes)))      |comma in food name
+Canadian-style bacon                |(foodDescription (foodName Canadian-style bacon))                                       |dash in food name
+pizza 1 of 12-inch                  |(foodDescription (foodName pizza) (measurement (quantity 1) (unit of 12-inch)))         |dash in unit
