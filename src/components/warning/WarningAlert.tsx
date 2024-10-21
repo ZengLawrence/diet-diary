@@ -9,15 +9,11 @@ function variant() {
   return "warning";
 }
 
-function alertText() {
-  return "Total calories exceed target by 5%.";
-}
-
 export const WarningAlert = (props: Props) => (
   <Alert 
     variant={variant()} 
     show={props.show}
     dismissible>
-    {alertText()}
+    Total calories exceed target by <span className="fw-bold">5%</span>.
   </Alert>
 )
