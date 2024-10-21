@@ -6,6 +6,7 @@ import summaryType from "../features/day-page/summaryTypeSlice";
 import targetState from "../features/target/targetStateSlice";
 import savedMeals from "../features/saved-meal/savedMealsSlice";
 import showSavedMeals from "../features/day-page/showSavedMealsSlice";
+import warning from "../features/warning/warningSlice"
 
 
 export default combineReducers(
@@ -17,5 +18,6 @@ export default combineReducers(
     targetState,
     savedMeals,
     showSavedMeals,
+    warning,
   }
 )
