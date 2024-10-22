@@ -24,6 +24,7 @@ function show(state: RootState) {
 const mapStateToProps = (state: RootState) => ({
   show: show(state),
   critical: isCritical(state),
+  dismissible: !isCritical(state),
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({

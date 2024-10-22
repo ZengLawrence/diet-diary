@@ -4,6 +4,7 @@ interface Props {
   show: boolean;
   closeAlert: () => void;
   critical: boolean;
+  dismissible: boolean;
 }
 
 function variant(critical : boolean) {
@@ -15,7 +16,7 @@ export const WarningAlert = (props: Props) => (
     variant={variant(props.critical)} 
     show={props.show}
     onClose={props.closeAlert}
-    dismissible>
+    dismissible={props.dismissible}>
     Total calories exceed target by <span className="fw-bold">{props.critical ? "10%" : "5%"}</span>.
   </Alert>
 )
