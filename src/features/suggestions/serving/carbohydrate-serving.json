@@ -5,13 +5,13 @@
       "servingSize": "6 crackers"
     },
     {
-      "foodName": "Biscuits, plain or buttermilk",
-      "servingSize": "1 small"
-    },
-    {
       "foodName": "Bagel, whole-grain",
       "servingSize": "1/2 bagel (3-inch)",
       "bestChoice": true
+    },
+    {
+      "foodName": "Biscuits, plain or buttermilk",
+      "servingSize": "1 small"
     },
     {
       "foodName": "Bread, white or sourdough",
