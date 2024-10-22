@@ -23,7 +23,7 @@ interface Props {
 
 export const MealCardHeader = (props: Props) => {
 
-  const alertRow = (
+  const mealSavedAlertRow = (
     <Row>
       <Alert
         variant="success"
@@ -57,7 +57,7 @@ export const MealCardHeader = (props: Props) => {
 
   return (
     <Card.Header>
-      {props.showMealSavedAlert && alertRow}
+      {props.showMealSavedAlert && mealSavedAlertRow}
       <Row>
         {props.showDeleteButton && deleteButtonCol}
         <Col>{props.meal.mealTime}</Col>
