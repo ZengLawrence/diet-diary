@@ -17,6 +17,8 @@ function show(state: RootState) {
       return true;
     }
   }
+
+  return false;
 }
 
 const mapStateToProps = (state: RootState) => ({

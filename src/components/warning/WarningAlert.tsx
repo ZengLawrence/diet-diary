@@ -1,12 +1,12 @@
 import { Alert } from "react-bootstrap";
 
 interface Props {
-  show?: boolean;
+  show: boolean;
   closeAlert: () => void;
-  critical?: boolean;
+  critical: boolean;
 }
 
-function variant(critical? : boolean) {
+function variant(critical : boolean) {
   return critical ? "danger" : "warning";
 }
 
