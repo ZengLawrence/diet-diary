@@ -11,7 +11,7 @@ const warningSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(newDay, (state, _action) => {
+      .addCase(newDay, (state) => {
         state.dismissWarning = false;
       })
   }
