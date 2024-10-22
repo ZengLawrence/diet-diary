@@ -7,7 +7,7 @@ import { deleteMeal, enterMealEditMode, exitMealEditMode, hideSavedMealAlert, sh
 import { save } from "../saved-meal/savedMealsSlice";
 import { addSuggestion } from "../suggestions/SavedMealSuggestion";
 
-function showShowDeleteButton(state: RootState, mealIndex: number) {
+function inAddOrEditState(state: RootState, mealIndex: number) {
   const mealState = mealStatesSelector(state)[mealIndex];
   return editModeSelector(state) &&
     (mealState.editState === "add" || mealState.editState === "edit");
@@ -16,7 +16,7 @@ function showShowDeleteButton(state: RootState, mealIndex: number) {
 const mapStateToProps = (state: RootState, ownProps: { mealIndex: number; }) => ({
   meal: mealsSelector(state)[ownProps.mealIndex],
   showButton: editModeSelector(state),
-  showDeleteButton: showShowDeleteButton(state, ownProps.mealIndex),
+  showDeleteButton: inAddOrEditState(state, ownProps.mealIndex),
   showMealSavedAlert: mealStatesSelector(state)[ownProps.mealIndex].showMealSavedAlert,
 })
 
