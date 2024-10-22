@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { newDay } from "../day-page/dateSlice";
 
 const warningSlice = createSlice({
   name: "warning",
@@ -7,6 +8,12 @@ const warningSlice = createSlice({
     dismissWarning(state) {
       state.dismissWarning = true;
     }
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(newDay, (state, _action) => {
+        state.dismissWarning = false;
+      })
   }
 })
 
