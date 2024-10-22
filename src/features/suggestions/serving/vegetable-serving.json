@@ -1,6 +1,21 @@
 {
   "servings": [
     {
+      "foodName": "Alfalfa sprouts",
+      "servingSize": "1 cup",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Artichoke bud",
+      "servingSize": "1 bud",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Artichoke hearts",
+      "servingSize": "1/2 cup",
+      "bestChoice": true
+    },
+    {
       "foodName": "Arugula",
       "servingSize": "2 cups",
       "bestChoice": true
@@ -13,6 +28,30 @@
     {
       "foodName": "Bamboo shoots",
       "servingSize": "1/2 cup",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Bean sprouts",
+      "servingSize": "1 cup",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Beans, green, canned or frozen",
+      "servingSize": "2/3 cup"
+    },
+    {
+      "foodName": "Beans, green, fresh",
+      "servingSize": "2/3 cup",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Beets",
+      "servingSize": "1/2 cup sliced",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Bell pepper, green, red or yellow",
+      "servingSize": "1 cup sliced or 1 medium",
       "bestChoice": true
     },
     {
@@ -46,6 +85,16 @@
       "bestChoice": true
     },
     {
+      "foodName": "Celery",
+      "servingSize": "1 cup diced or 4 medium stalks",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Collard greens, cooked",
+      "servingSize": "1/2 cup",
+      "bestChoice": true
+    },
+    {
       "foodName": "Cucumber",
       "servingSize": "1 cup sliced or 1 medium",
       "bestChoice": true
@@ -53,6 +102,21 @@
     {
       "foodName": "Eggplant, cooked",
       "servingSize": "1 cup cubed",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Jicama (yambean)",
+      "servingSize": "1/2 cup sliced",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Kale, cooked",
+      "servingSize": "2/3 cup",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Leek, cooked",
+      "servingSize": "1/2 cup",
       "bestChoice": true
     },
     {
@@ -64,6 +128,10 @@
       "foodName": "Lettuce, romaine",
       "servingSize": "2 cups chopped",
       "bestChoice": true
+    },
+    {
+      "foodName": "Marinara and pizza sauce, canned",
+      "servingSize": "2 tablespoons"
     },
     {
       "foodName": "Mushrooms",
@@ -85,8 +153,22 @@
       "bestChoice": true
     },
     {
-      "foodName": "Scallions (young green onions)",
+      "foodName": "Onions, young green (scallions)",
       "servingSize": "3/4 cup or 8 shoots",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Radishes",
+      "servingSize": "25 medium",
+      "bestChoice": true
+    },
+    {
+      "foodName": "Salsa, vegetable",
+      "servingSize": "1/4 cup"
+    },
+    {
+      "foodName": "Shallots",
+      "servingSize": "2 tablespoons chopped",
       "bestChoice": true
     },
     {
@@ -100,6 +182,11 @@
       "bestChoice": true
     },
     {
+      "foodName": "Tomatillo",
+      "servingSize": "1/2 cup diced or 2 medium",
+      "bestChoice": true
+    },
+    {
       "foodName": "Tomato",
       "servingSize": "1 medium",
       "bestChoice": true
@@ -110,8 +197,25 @@
       "bestChoice": true
     },
     {
+      "foodName": "Tomato, stewed, canned",
+      "servingSize": "1/2 cup"
+    },
+    {
+      "foodName": "Tomato paste, canned",
+      "servingSize": "2 tablespoons"
+    },
+    {
+      "foodName": "Tomato sauce, canned",
+      "servingSize": "1/3 cup"
+    },
+    {
       "foodName": "Water chestnuts, sliced, canned",
       "servingSize": "3/4 cup"
+    },
+    {
+      "foodName": "Zucchini, fresh or cooked",
+      "servingSize": "3/4 cup",
+      "bestChoice": true
     }
   ]
 }
