@@ -15,6 +15,7 @@ interface Props {
   showButton: boolean;
   showDeleteButton: boolean;
   showMealSavedAlert?: boolean;
+  showWarningAlert?: boolean;
   hideMealSavedAlert: () => void;
   deleteMeal: (mealIndex: number) => void;
   editMeal: (mealIndex: number) => void;
@@ -65,7 +66,7 @@ export const MealCardHeader = (props: Props) => {
   return (
     <Card.Header>
       {props.showMealSavedAlert && mealSavedAlertRow}
-      <WarningAlertRow />
+      {props.showWarningAlert && <WarningAlertRow />}
       <Row>
         {props.showDeleteButton && deleteButtonCol}
         <Col>{props.meal.mealTime}</Col>
