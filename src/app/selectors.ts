@@ -11,6 +11,7 @@ export const summaryTypeSelector = (state: RootState) => state.summaryType;
 export const targetStateSelector = (state: RootState) => state.targetState;
 export const savedMealsSelector = (state: RootState) => state.savedMeals;
 export const showSavedMealsSelector = (state: RootState) => state.showSavedMeals;
+export const warningSelector = (state: RootState) => state.warning;
 
 export const targetSelector = createSelector(
   targetStateSelector,
