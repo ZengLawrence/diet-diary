@@ -18,6 +18,7 @@ const mapStateToProps = (state: RootState, ownProps: { mealIndex: number; }) => 
   showButton: editModeSelector(state),
   showDeleteButton: inAddOrEditState(state, ownProps.mealIndex),
   showMealSavedAlert: mealStatesSelector(state)[ownProps.mealIndex].showMealSavedAlert,
+  showWarningAlert: inAddOrEditState(state, ownProps.mealIndex),
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch, ownProps: { mealIndex: number; }) => ({
