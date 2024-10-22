@@ -7,6 +7,7 @@ import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServing
 import { Meal } from "../../model/Food";
 import { VariantDanger } from "../ButtonVariant";
 import Button from "react-bootstrap/Button";
+import WarningAlert from "../../features/warning/WarningAlert";
 
 interface Props {
   meal: Meal;
@@ -20,6 +21,12 @@ interface Props {
   saveMeal: (mealIndex: number, meal: Meal) => void;
   doneEdit: (mealIndex: number) => void;
 }
+
+const WarningAlertRow = () => (
+  <Row>
+    <WarningAlert />
+  </Row>
+)
 
 export const MealCardHeader = (props: Props) => {
 
@@ -58,6 +65,7 @@ export const MealCardHeader = (props: Props) => {
   return (
     <Card.Header>
       {props.showMealSavedAlert && mealSavedAlertRow}
+      <WarningAlertRow />
       <Row>
         {props.showDeleteButton && deleteButtonCol}
         <Col>{props.meal.mealTime}</Col>
