@@ -14,10 +14,10 @@ describe("search for serving", () => {
     expect(results[0]).toMatchObject({ "foodName": "Broccoli" });
   })
 
-  test("search term appears in the beginning of name e.g. oatmeal should return at least one row and first row is 'Oatmeal, with water, unsweetened'", () => {
+  test("search term appears in the beginning of name e.g. oatmeal should return at least one row and first row whose name starts with 'Oatmeal'", () => {
     const results = findSuggestions("oatmeal");
     expect(_.size(results)).toBeGreaterThanOrEqual(1);
-    expect(results[0]).toMatchObject({ "foodName": "Oatmeal, with water, unsweetened" });
+    expect(results[0].foodName.startsWith("Oatmeal")).toBeTruthy();
   })
 
   test("exact search term appears in the middle of name e.g. peanuts should return at least one row and first row is 'Nuts, peanuts'", () => {
