@@ -86,6 +86,10 @@
       "servingSize": "2 teaspoons"
     },
     {
+      "foodName": "Margarine-like spread, light, trans fat-free",
+      "servingSize": "1 tablespoon"
+    },
+    {
       "foodName": "Mayonnaise, fat-free",
       "servingSize": "4 tablespoons"
     },
@@ -187,11 +191,11 @@
       "servingSize": "2 teaspoons"
     },
     {
-      "foodName": "Salad dressing, fat-free, mayonnaise-type",
+      "foodName": "Salad dressing, mayonnaise-type, fat-free",
       "servingSize": "3 tablespoons"
     },
     {
-      "foodName": "Salad dressing, regular, mayonnaise-type",
+      "foodName": "Salad dressing, mayonnaise-type, regular",
       "servingSize": "2 teaspoons"
     },
     {
@@ -214,7 +218,7 @@
       "servingSize": "1 tablespoon"
     },
     {
-      "foodName": "Vegetable shortening",
+      "foodName": "Shortening, vegetable",
       "servingSize": "1 tablespoon"
     },
     {
@@ -232,6 +236,10 @@
     {
       "foodName": "Tartar sauce, fat-free",
       "servingSize": "2 tablespoons"
+    },
+    {
+      "foodName": "Whipped topping, non-diary",
+      "servingSize": "4 tablespoons"
     }
   ]
 }
