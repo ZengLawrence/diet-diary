@@ -45,23 +45,27 @@
       "servingSize": "1 1/2 tablespoons"
     },
     {
-      "foodName": "Brown sugar",
-      "servingSize": "2 teaspoons"
+      "foodName": "Rhubarb, cooked and sweetened",
+      "servingSize": "1/4 cup"
+    },
+    {
+      "foodName": "Sugar, brown, unpacked",
+      "servingSize": "2 tablespoons"
     },
     {
       "foodName": "Sugar, granulated, white",
       "servingSize": "4 teaspoons"
     },
     {
-      "foodName": "Powdered sugar",
-      "servingSize": "2 teaspoons"
+      "foodName": "Sugar, powdered",
+      "servingSize": "2 tablespoons"
     },
     {
       "foodName": "Syrup, light corn",
       "servingSize": "1 tablespoon"
     },
     {
-      "foodName": "Maple syrup",
+      "foodName": "Syrup, maple",
       "servingSize": "1 1/2 tablespoons"
     },
     {
