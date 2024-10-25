@@ -254,21 +254,6 @@
         "carbohydrate": 1,
         "fat": 1
       }
-    },
-    {
-      "foodName": "Yogurt, plain, low-fat, low-calorie sweetener",
-      "portionSize": "1 cup (8 ounces)",
-      "serving": {
-        "proteinDiary": 1
-      }
-    },
-    {
-      "foodName": "Yogurt with fruit, low-fat, low-calorie sweetener",
-      "portionSize": "1 cup (8 ounces)",
-      "serving": {
-        "fruit": 1,
-        "proteinDiary": 1
-      }
     }
   ]
 }
