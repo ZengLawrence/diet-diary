@@ -1,13 +1,6 @@
 {
   "portions": [
     {
-      "foodName": "Bacon, Canadian-style",
-      "portionSize": "2 1/2 ounces",
-      "serving": {
-        "proteinDiary": 1
-      }
-    },
-    {
       "foodName": "Bacon, fried",
       "portionSize": "1 strip",
       "serving": {
