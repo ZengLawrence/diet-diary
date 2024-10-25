@@ -14,13 +14,15 @@ function variant(critical: boolean) {
 }
 
 export const WarningAlert = (props: Props) => {
+  const icon = props.critical ? <FontAwesomeIcon icon={faBan} /> : <FontAwesomeIcon icon={faTriangleExclamation} />;
+
   return (
     <Alert
       variant={variant(props.critical)}
       show={props.show}
       onClose={props.closeAlert}
       dismissible={props.dismissible}>
-      {props.critical ? <FontAwesomeIcon icon={faBan} /> : <FontAwesomeIcon icon={faTriangleExclamation} />}Total calories exceed target by <span className="fw-bold">{props.critical ? "10%" : "5%"}</span>.
+      {icon}Total calories exceed target by <span className="fw-bold">{props.critical ? "10%" : "5%"}</span>.
     </Alert>
   );
 }
