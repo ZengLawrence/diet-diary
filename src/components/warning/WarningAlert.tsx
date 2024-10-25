@@ -9,16 +9,18 @@ interface Props {
   dismissible: boolean;
 }
 
-function variant(critical : boolean) {
+function variant(critical: boolean) {
   return critical ? "danger" : "warning";
 }
 
-export const WarningAlert = (props: Props) => (
-  <Alert 
-    variant={variant(props.critical)} 
-    show={props.show}
-    onClose={props.closeAlert}
-    dismissible={props.dismissible}>
-    {props.critical ? <FontAwesomeIcon icon={faBan} /> : <FontAwesomeIcon icon={faTriangleExclamation} />}Total calories exceed target by <span className="fw-bold">{props.critical ? "10%" : "5%"}</span>.
-  </Alert>
-)
+export const WarningAlert = (props: Props) => {
+  return (
+    <Alert
+      variant={variant(props.critical)}
+      show={props.show}
+      onClose={props.closeAlert}
+      dismissible={props.dismissible}>
+      {props.critical ? <FontAwesomeIcon icon={faBan} /> : <FontAwesomeIcon icon={faTriangleExclamation} />}Total calories exceed target by <span className="fw-bold">{props.critical ? "10%" : "5%"}</span>.
+    </Alert>
+  );
+}
