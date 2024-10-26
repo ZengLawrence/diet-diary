@@ -43,12 +43,17 @@ const food = createSlice({
     unsetFoodGroupServing(state, action: PayloadAction<FoodGroup>) {
       _.unset(state.serving, action.payload)
     },
-    setBestChoice(state, action:PayloadAction<boolean>) {
+    setBestChoice(state, action: PayloadAction<boolean>) {
       state.bestChoice = action.payload;
     }
   },
 })
-const { setDescription, setServing, setFoodGroupServing, unsetFoodGroupServing, setBestChoice } = food.actions;
+const {
+  setDescription,
+  setServing,
+  setFoodGroupServing, unsetFoodGroupServing,
+  setBestChoice
+} = food.actions;
 
 const error = createSlice({
   name: "error",
@@ -115,8 +120,8 @@ const updateFoodDescription = (dispatch: React.Dispatch<Action>, generateSuggest
 
 const updateFoodDescriptionServing = (dispatch: React.Dispatch<Action>, name: string, serving?: Serving, bestChoice?: boolean) => {
   dispatch(setDescription(name));
-  if (serving) { 
-    dispatch(setServing(serving)); 
+  if (serving) {
+    dispatch(setServing(serving));
   }
   dispatch(setBestChoice(_.defaultTo(bestChoice, false)));
 }
