@@ -1,4 +1,4 @@
-import { AnyAction, combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Action, combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { useEffect, useReducer, useRef } from "react";
 import { generateSuggestions, Suggestion } from "../../features/suggestions";
@@ -29,7 +29,7 @@ const {
 
 const food = createSlice({
   name: "food",
-  initialState: { description: "", serving: {} } as Food,
+  initialState: { description: "", serving: {}, bestChoice: false } as Food,
   reducers: {
     setDescription(state, action: PayloadAction<string>) {
       state.description = action.payload
@@ -43,9 +43,17 @@ const food = createSlice({
     unsetFoodGroupServing(state, action: PayloadAction<FoodGroup>) {
       _.unset(state.serving, action.payload)
     },
+    setBestChoice(state, action: PayloadAction<boolean>) {
+      state.bestChoice = action.payload;
+    }
   },
 })
-const { setDescription, setServing, setFoodGroupServing, unsetFoodGroupServing } = food.actions;
+const {
+  setDescription,
+  setServing,
+  setFoodGroupServing, unsetFoodGroupServing,
+  setBestChoice
+} = food.actions;
 
 const error = createSlice({
   name: "error",
@@ -105,23 +113,24 @@ function checkValidity(error: ValidationError) {
 
 const debouncedGenerateSuggestions = _.debounce(generateSuggestions, 500, { maxWait: 2000 });
 
-const updateFoodDescription = (dispatch: React.Dispatch<AnyAction>, generateSuggestions: (desc: string) => void, name: string) => {
+const updateFoodDescription = (dispatch: React.Dispatch<Action>, generateSuggestions: (desc: string) => void, name: string) => {
   dispatch(setDescription(name));
   generateSuggestions(name);
 }
 
-const updateFoodDescriptionServing = (dispatch: React.Dispatch<AnyAction>, name: string, serving?: Serving) => {
+const updateFoodDescriptionServing = (dispatch: React.Dispatch<Action>, name: string, serving?: Serving, bestChoice?: boolean) => {
   dispatch(setDescription(name));
-  if (serving) { 
-    dispatch(setServing(serving)); 
+  if (serving) {
+    dispatch(setServing(serving));
   }
+  dispatch(setBestChoice(_.defaultTo(bestChoice, false)));
 }
 
-const updateFoodGroupServing = (dispatch: React.Dispatch<AnyAction>, foodGroup: FoodGroup, serving: number) =>
+const updateFoodGroupServing = (dispatch: React.Dispatch<Action>, foodGroup: FoodGroup, serving: number) =>
   serving ? dispatch(setFoodGroupServing({ foodGroup, serving })) : dispatch(unsetFoodGroupServing(foodGroup));
 
 const handleSubmit = (
-  dispatch: React.Dispatch<AnyAction>,
+  dispatch: React.Dispatch<Action>,
   state: { food: Food },
   onSaveFood: (food: Food) => void,
   event: React.FormEvent<HTMLFormElement>

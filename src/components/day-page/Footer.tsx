@@ -1,6 +1,7 @@
+import { BestChoiceLegend } from "../BestChoiceLegend";
 import { FoodGroupLegend } from "../FoodGroupLegend";
-import { EatLessToTargetIcon, EatMoreToTargetIcon, MeetTargetIcon } from "../summary/TargetActionIcon";
 import { Legend } from "../Legend";
+import { EatLessToTargetIcon, EatMoreToTargetIcon, MeetTargetIcon } from "../summary/TargetActionIcon";
 
 const IconReferLink = () => (
   <a
@@ -61,6 +62,7 @@ export const Footer = (props: { showTargetActionLegends: boolean }) => (
       <FoodGroupLegends />
     </div>
     {props.showTargetActionLegends && <TargetActionLegends />}
+    <BestChoiceLegend />
     <div className="d-flex justify-content-center">
       <Icons8Referral />
     </div>
