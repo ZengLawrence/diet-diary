@@ -44,7 +44,7 @@
     },
     {
       "foodName": "Cake, gingerbread",
-      "portionSize": "1/8 of 8-x-6-inch cake",
+      "portionSize": "1/8 of 8-x-8-inch cake",
       "serving": {
         "carbohydrate": 1,
         "fat": 1,
@@ -131,7 +131,7 @@
       }
     },
     {
-      "foodName": "Ice cream, light (most flavor)",
+      "foodName": "Ice cream, light (most flavors)",
       "portionSize": "1/2 cup",
       "serving": {
         "fat": 1,
@@ -139,7 +139,7 @@
       }
     },
     {
-      "foodName": "Ice cream, regular (most flavor)",
+      "foodName": "Ice cream, regular (most flavors)",
       "portionSize": "1/2 cup",
       "serving": {
         "fat": 2,
