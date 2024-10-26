@@ -187,13 +187,6 @@
       "serving": {
         "sweet": 1
       }
-    },
-    {
-      "foodName": "Sugar",
-      "portionSize": "2 teaspoons",
-      "serving": {
-        "sweet": 0.5
-      }
     }
   ]
 }
