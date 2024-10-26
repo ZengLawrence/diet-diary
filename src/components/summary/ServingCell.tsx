@@ -23,10 +23,10 @@ const FoodGroupLabel = (props: { foodGroup: FoodGroup; }) => (
   </Fragment>
 );
 
-interface Props { 
-  foodGroup: FoodGroup; 
-  amount?: number; 
-  showTargetActionIcon: boolean 
+interface Props {
+  foodGroup: FoodGroup;
+  amount?: number;
+  showTargetActionIcon: boolean
 }
 
 export const ServingCell = (props: Props) => (
