@@ -146,9 +146,9 @@
       "foodName": "Meatballs, Swedish with cream or white sauce",
       "portionSize": "1 cup (about 5 meatballs)",
       "serving": {
-        "carbohydrate": 2,
+        "carbohydrate": 1,
         "proteinDiary": 2,
-        "fat": 1
+        "fat": 2
       }
     },
     {
