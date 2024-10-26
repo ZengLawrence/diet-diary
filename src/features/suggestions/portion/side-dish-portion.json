@@ -144,13 +144,6 @@
       }
     },
     {
-      "foodName": "Salsa",
-      "portionSize": "1/4 cup",
-      "serving": {
-        "vegetable": 1
-      }
-    },
-    {
       "foodName": "Tortilla, flour",
       "portionSize": "1 round (6-inch)",
       "serving": {
