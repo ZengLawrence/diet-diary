@@ -75,7 +75,7 @@
       "foodName": "Fajita, beef, pork or chicken with veggies",
       "portionSize": "2 fajitas",
       "serving": {
-        "vegetable": 3,
+        "vegetable": 2,
         "carbohydrate": 2,
         "proteinDiary": 1,
         "fat": 1
