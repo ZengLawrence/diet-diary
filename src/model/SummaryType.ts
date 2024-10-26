@@ -1,1 +1,1 @@
-export type SummaryType = "total" | "difference";
+export type SummaryType = "total" | "difference" | "best-choice-percentage";

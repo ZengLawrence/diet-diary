@@ -2,7 +2,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import { calcFoodCalories, displayCalorieValue } from "../../model/calorieFunction";
+import { calcFoodCalories, toIntString } from "../../model/calorieFunction";
 import { Food } from "../../model/Food";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { FoodDescriptionComboBox } from "./FoodDescriptionComboBox";
@@ -41,7 +41,7 @@ export const FoodInputForm = (props: Props) => {
       </Form.Group>
 
       <Form.Group as={Row} controlId="formServings" className="mb-3">
-        <div>Servings (Calories: {displayCalorieValue(calcFoodCalories(food))})</div>
+        <div>Servings (Calories: {toIntString(calcFoodCalories(food))})</div>
         <Row className="justify-content-between">
           <Col xs={4} sm={3} lg={2}>
             <ServingInputControl foodGroup="vegetable" serving={food.serving} isInvalid={error.vegetable} onChange={updateFoodGroupServing} />

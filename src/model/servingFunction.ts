@@ -55,12 +55,9 @@ export function calcServingDifference(meals: Meal[], servingGoal: Serving) {
   return minus(calcMealsServingSummary(meals), servingGoal);
 }
 
-export function displayServingValue(val: number | undefined) {
-  if (val) {
-    return numeral(val).format('0[.][00]');
-  } else {
-    return val;
-  }
+export function displayServingValue(val: number | undefined, isPercent?: boolean): string {
+  const formatString = isPercent ? '0' : '0[.][00]';
+  return numeral(val).format(formatString);
 }
 
 export function positiveServing(serving: Serving) {
@@ -73,4 +70,38 @@ export function oneServingOf(foodGroup: FoodGroup) {
 
 export function multiply(s: Serving, multiplier: number): Serving {
   return _.fromPairs(_.toPairs(s).map(([key, val]) => [key, val * multiplier]));
+}
+
+function calcBestChoiceServingSummary(meals: Meal[]): Serving {
+  const bcMeals = _.map(meals, m => {
+    return { 
+      ...m,
+      foods: _.filter(m.foods, 'bestChoice')
+    }
+  });
+  return calcMealsServingSummary(bcMeals);
+}
+
+/** return percentage of n1 / n2 */
+function _percent(n1: number | undefined, n2: number | undefined) {
+  const denominator = _.defaultTo(n2, 0);
+  if (denominator == 0) return 0;
+  return _.defaultTo(n1, 0) / denominator * 100;
+}
+
+function percent(s1: Serving, s2: Serving): Serving {
+  return {
+    vegetable: _percent(s1.vegetable, s2.vegetable),
+    fruit: _percent(s1.fruit, s2.fruit),
+    carbohydrate: _percent(s1.carbohydrate, s2.carbohydrate),
+    proteinDiary: _percent(s1.proteinDiary, s2.proteinDiary),
+    fat: _percent(s1.fat, s2.fat),
+    sweet: _percent(s1.sweet, s2.sweet),
+  };
+}
+
+export function calcBestChoiceServingPercentage(meals: Meal[]): Serving {
+  const totalServing = calcMealsServingSummary(meals);
+  const bcServing = calcBestChoiceServingSummary(meals);
+  return percent(bcServing, totalServing);
 }
