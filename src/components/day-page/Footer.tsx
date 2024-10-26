@@ -1,7 +1,7 @@
-import { FoodGroupLegend } from "../FoodGroupLegend";
-import { EatLessToTargetIcon, EatMoreToTargetIcon, MeetTargetIcon } from "../summary/TargetActionIcon";
-import { Legend } from "../Legend";
 import { BestChoiceLegend } from "../BestChoiceLegend";
+import { FoodGroupLegend } from "../FoodGroupLegend";
+import { Legend } from "../Legend";
+import { EatLessToTargetIcon, EatMoreToTargetIcon, MeetTargetIcon } from "../summary/TargetActionIcon";
 
 const IconReferLink = () => (
   <a
