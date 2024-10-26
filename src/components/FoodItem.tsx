@@ -2,12 +2,13 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { Food } from "../model/Food";
 import { FoodGroupServingBadgePanel } from "./panels/FoodGroupServingBadgePanel";
+import { BlueStar } from "./BlueStar";
 
 export const FoodItem = (props: { food: Food; }) => {
-  const { description, serving } = props.food;
+  const { description, serving, bestChoice } = props.food;
   return (
     <Row>
-      <Col>{description}</Col>
+      <Col>{bestChoice && <BlueStar />}{description}</Col>
       <Col xs="auto">
         <FoodGroupServingBadgePanel serving={serving}/>
       </Col>
