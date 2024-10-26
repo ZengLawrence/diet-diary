@@ -215,7 +215,8 @@
     },
     {
       "foodName": "Seeds, sunflower",
-      "servingSize": "1 tablespoon"
+      "servingSize": "1 tablespoon",
+      "bestChoice": true
     },
     {
       "foodName": "Shortening, vegetable",
