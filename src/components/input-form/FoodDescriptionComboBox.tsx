@@ -59,7 +59,7 @@ interface Props {
   suggestions: Suggestion[];
   invalid?: boolean;
   updateFoodDescription: (desc: string) => void;
-  updateFoodDescriptionServing: (desc: string, serving?: Serving) => void;
+  updateFoodDescriptionServing: (desc: string, serving?: Serving, bestChoice?: boolean) => void;
 }
 
 export const FoodDescriptionComboBox = (props: Props) => {
@@ -74,7 +74,7 @@ export const FoodDescriptionComboBox = (props: Props) => {
   }
 
   const handleItemClick = (suggestion: Suggestion) => {
-    props.updateFoodDescriptionServing(foodDescription(suggestion), suggestion.serving);
+    props.updateFoodDescriptionServing(foodDescription(suggestion), suggestion.serving, suggestion.bestChoice);
     setInputFocus();
   }
 

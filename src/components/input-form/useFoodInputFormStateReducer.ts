@@ -29,7 +29,7 @@ const {
 
 const food = createSlice({
   name: "food",
-  initialState: { description: "", serving: {} } as Food,
+  initialState: { description: "", serving: {}, bestChoice: false } as Food,
   reducers: {
     setDescription(state, action: PayloadAction<string>) {
       state.description = action.payload
@@ -43,9 +43,12 @@ const food = createSlice({
     unsetFoodGroupServing(state, action: PayloadAction<FoodGroup>) {
       _.unset(state.serving, action.payload)
     },
+    setBestChoice(state, action:PayloadAction<boolean>) {
+      state.bestChoice = action.payload;
+    }
   },
 })
-const { setDescription, setServing, setFoodGroupServing, unsetFoodGroupServing } = food.actions;
+const { setDescription, setServing, setFoodGroupServing, unsetFoodGroupServing, setBestChoice } = food.actions;
 
 const error = createSlice({
   name: "error",
@@ -110,11 +113,12 @@ const updateFoodDescription = (dispatch: React.Dispatch<AnyAction>, generateSugg
   generateSuggestions(name);
 }
 
-const updateFoodDescriptionServing = (dispatch: React.Dispatch<AnyAction>, name: string, serving?: Serving) => {
+const updateFoodDescriptionServing = (dispatch: React.Dispatch<AnyAction>, name: string, serving?: Serving, bestChoice?: boolean) => {
   dispatch(setDescription(name));
   if (serving) { 
     dispatch(setServing(serving)); 
   }
+  dispatch(setBestChoice(_.defaultTo(bestChoice, false)));
 }
 
 const updateFoodGroupServing = (dispatch: React.Dispatch<AnyAction>, foodGroup: FoodGroup, serving: number) =>

@@ -12,6 +12,7 @@ export interface Serving {
 export interface Food {
   description: string;
   serving: Serving;
+  bestChoice?: boolean;
 }
 
 export interface Meal {
