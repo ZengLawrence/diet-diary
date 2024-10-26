@@ -8,13 +8,6 @@
       }
     },
     {
-      "foodName": "Beef, sirloin steak, trimmed of fat",
-      "portionSize": "2 ounces",
-      "serving": {
-        "proteinDiary": 1
-      }
-    },
-    {
       "foodName": "Burrito, beef, beans and cheese",
       "portionSize": "1 burrito",
       "serving": {
@@ -49,13 +42,6 @@
         "carbohydrate": 1,
         "proteinDiary": 3,
         "fat": 2
-      }
-    },
-    {
-      "foodName": "Chicken breast or drumstick, grilled",
-      "portionSize": "2 1/2 ounces",
-      "serving": {
-        "proteinDiary": 1
       }
     },
     {
