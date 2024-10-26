@@ -66,9 +66,9 @@
       "foodName": "Crab cake, breaded and fried",
       "portionSize": "1 entree",
       "serving": {
-        "vegetable": 3,
-        "carbohydrate": 1,
-        "proteinDiary": 1
+        "carbohydrate": 0.5,
+        "proteinDiary": 1,
+        "fat": 2
       }
     },
     {
