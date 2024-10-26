@@ -105,12 +105,11 @@
       "serving": {
         "vegetable": 2,
         "carbohydrate": 1.5,
-        "proteinDiary": 2,
         "fat": 3
       }
     },
     {
-      "foodName": "Potato, baked, with cheese adn broccoli (fast food)",
+      "foodName": "Potato, baked, with cheese and broccoli (fast food)",
       "portionSize": "1 potato",
       "serving": {
         "vegetable": 1,
@@ -141,14 +140,7 @@
       "portionSize": "1/2 cup",
       "serving": {
         "carbohydrate": 1,
-        "fat": 1
-      }
-    },
-    {
-      "foodName": "Salsa",
-      "portionSize": "1/4 cup",
-      "serving": {
-        "vegetable": 1
+        "fat": 0.5
       }
     },
     {
