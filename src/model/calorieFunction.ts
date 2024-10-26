@@ -36,7 +36,7 @@ export function calcCaloriesDifference(meals: Meal[], calorieGoal: number) {
   return calcCaloriesTotal(meals) - calorieGoal;
 }
 
-export function displayCalorieValue(val: number | undefined) {
+export function toIntString(val: number | undefined) {
   if (val) {
     return numeral(val).format('0');
   } else {
