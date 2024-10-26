@@ -1,4 +1,4 @@
-import { AnyAction, combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Action, combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { useEffect, useReducer, useRef } from "react";
 import { generateSuggestions, Suggestion } from "../../features/suggestions";
@@ -108,12 +108,12 @@ function checkValidity(error: ValidationError) {
 
 const debouncedGenerateSuggestions = _.debounce(generateSuggestions, 500, { maxWait: 2000 });
 
-const updateFoodDescription = (dispatch: React.Dispatch<AnyAction>, generateSuggestions: (desc: string) => void, name: string) => {
+const updateFoodDescription = (dispatch: React.Dispatch<Action>, generateSuggestions: (desc: string) => void, name: string) => {
   dispatch(setDescription(name));
   generateSuggestions(name);
 }
 
-const updateFoodDescriptionServing = (dispatch: React.Dispatch<AnyAction>, name: string, serving?: Serving, bestChoice?: boolean) => {
+const updateFoodDescriptionServing = (dispatch: React.Dispatch<Action>, name: string, serving?: Serving, bestChoice?: boolean) => {
   dispatch(setDescription(name));
   if (serving) { 
     dispatch(setServing(serving)); 
@@ -121,11 +121,11 @@ const updateFoodDescriptionServing = (dispatch: React.Dispatch<AnyAction>, name:
   dispatch(setBestChoice(_.defaultTo(bestChoice, false)));
 }
 
-const updateFoodGroupServing = (dispatch: React.Dispatch<AnyAction>, foodGroup: FoodGroup, serving: number) =>
+const updateFoodGroupServing = (dispatch: React.Dispatch<Action>, foodGroup: FoodGroup, serving: number) =>
   serving ? dispatch(setFoodGroupServing({ foodGroup, serving })) : dispatch(unsetFoodGroupServing(foodGroup));
 
 const handleSubmit = (
-  dispatch: React.Dispatch<AnyAction>,
+  dispatch: React.Dispatch<Action>,
   state: { food: Food },
   onSaveFood: (food: Food) => void,
   event: React.FormEvent<HTMLFormElement>
