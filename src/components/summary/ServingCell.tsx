@@ -23,7 +23,13 @@ const FoodGroupLabel = (props: { foodGroup: FoodGroup; }) => (
   </Fragment>
 );
 
-export const ServingCell = (props: { foodGroup: FoodGroup; amount?: number; showTargetActionIcon: boolean }) => (
+interface Props { 
+  foodGroup: FoodGroup; 
+  amount?: number; 
+  showTargetActionIcon: boolean 
+}
+
+export const ServingCell = (props: Props) => (
   <div className="d-flex flex-column align-items-center m-1">
     <CalorieText amount={props.amount} />
     <div className="d-flex align-items-center">
