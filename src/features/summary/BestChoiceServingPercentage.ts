@@ -5,6 +5,7 @@ import { ServingSummary } from "../../components/summary/ServingSummary";
 
 const mapStateToProps = (state: RootState) => ({
   serving: bestChoiceServingPercentSelector(state),
+  isPercent: true,
 })
 
 export default connect(mapStateToProps)(ServingSummary);
