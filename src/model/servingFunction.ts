@@ -55,12 +55,8 @@ export function calcServingDifference(meals: Meal[], servingGoal: Serving) {
   return minus(calcMealsServingSummary(meals), servingGoal);
 }
 
-export function displayServingValue(val: number | undefined) {
-  if (val) {
-    return numeral(val).format('0[.][00]');
-  } else {
-    return val;
-  }
+export function displayServingValue(val: number | undefined): string {
+  return numeral(val).format('0[.][00]');
 }
 
 export function positiveServing(serving: Serving) {
