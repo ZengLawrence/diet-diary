@@ -131,7 +131,7 @@
       }
     },
     {
-      "foodName": "Ice cream, light (most flavor)",
+      "foodName": "Ice cream, light (most flavors)",
       "portionSize": "1/2 cup",
       "serving": {
         "fat": 1,
@@ -139,7 +139,7 @@
       }
     },
     {
-      "foodName": "Ice cream, regular (most flavor)",
+      "foodName": "Ice cream, regular (most flavors)",
       "portionSize": "1/2 cup",
       "serving": {
         "fat": 2,
