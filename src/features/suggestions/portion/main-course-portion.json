@@ -8,13 +8,6 @@
       }
     },
     {
-      "foodName": "Beef, sirloin steak, trimmed of fat",
-      "portionSize": "2 ounces",
-      "serving": {
-        "proteinDiary": 1
-      }
-    },
-    {
       "foodName": "Burrito, beef, beans and cheese",
       "portionSize": "1 burrito",
       "serving": {
@@ -52,13 +45,6 @@
       }
     },
     {
-      "foodName": "Chicken breast or drumstick, grilled",
-      "portionSize": "2 1/2 ounces",
-      "serving": {
-        "proteinDiary": 1
-      }
-    },
-    {
       "foodName": "Chicken patty, breaded and fried (fast food)",
       "portionSize": "3-ounce patty",
       "serving": {
@@ -80,26 +66,19 @@
       "foodName": "Crab cake, breaded and fried",
       "portionSize": "1 entree",
       "serving": {
-        "vegetable": 3,
-        "carbohydrate": 1,
-        "proteinDiary": 1
+        "carbohydrate": 0.5,
+        "proteinDiary": 1,
+        "fat": 2
       }
     },
     {
       "foodName": "Fajita, beef, pork or chicken with veggies",
       "portionSize": "2 fajitas",
       "serving": {
-        "vegetable": 3,
+        "vegetable": 2,
         "carbohydrate": 2,
         "proteinDiary": 1,
         "fat": 1
-      }
-    },
-    {
-      "foodName": "Fish, cod, haddock or halibut, grilled or boiled",
-      "portionSize": "3-ounce fillet",
-      "serving": {
-        "proteinDiary": 1
       }
     },
     {
@@ -167,9 +146,9 @@
       "foodName": "Meatballs, Swedish with cream or white sauce",
       "portionSize": "1 cup (about 5 meatballs)",
       "serving": {
-        "carbohydrate": 2,
+        "carbohydrate": 1,
         "proteinDiary": 2,
-        "fat": 1
+        "fat": 2
       }
     },
     {
@@ -273,7 +252,7 @@
       "foodName": "Shrimp, breaded and fried",
       "portionSize": "4 ounces",
       "serving": {
-        "carbohydrate": 2,
+        "carbohydrate": 1,
         "proteinDiary": 1,
         "fat": 2
       }
@@ -289,7 +268,7 @@
       }
     },
     {
-      "foodName": "Spaghetti with meatballs adn tomato sauce, canned",
+      "foodName": "Spaghetti with meatballs and tomato sauce, canned",
       "portionSize": "1 cup",
       "serving": {
         "vegetable": 2,
