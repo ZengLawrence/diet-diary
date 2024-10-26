@@ -1,7 +1,7 @@
-import { Percentage } from "./Percentage";
+import BestChoicePercentage from "../../features/summary/BestChoicePercentage";
 
 export const BestChoicePercentageSummary = () => (
   <div className="d-flex">
-    <Percentage value={0}/>
+    <BestChoicePercentage />
   </div>
 )

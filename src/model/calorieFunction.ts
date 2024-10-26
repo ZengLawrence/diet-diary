@@ -39,3 +39,14 @@ export function calcCaloriesDifference(meals: Meal[], calorieGoal: number) {
 export function toIntString(val?: number): string {
   return numeral(val).format('0');
 }
+
+function calcBestChoice(meals: Meal[]) {
+  const foods = _.flatMap(meals, m => m.foods);
+  return _.sum(_.map(_.filter(foods, 'bestChoice'), calcFoodCalories));
+}
+
+export function calcBestChoicePercent(meals: Meal[]) {
+  const bc = calcBestChoice(meals);
+  const total = calcCaloriesTotal(meals);
+  return bc / total * 100;
+}
