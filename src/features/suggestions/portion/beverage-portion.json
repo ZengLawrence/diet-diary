@@ -15,7 +15,7 @@
       }
     },
     {
-      "foodName": "Distilled spirits (gin, rum, vodka, whiskey",
+      "foodName": "Distilled spirits (gin, rum, vodka, whiskey)",
       "portionSize": "1 fluid ounce",
       "serving": {
         "sweet": 1
@@ -115,7 +115,7 @@
       }
     },
     {
-      "foodName": "Orange, breakfast drink, ready-to-serve",
+      "foodName": "Orange breakfast drink, ready-to-serve",
       "portionSize": "8 fluid ounces",
       "serving": {
         "sweet": 1.5
@@ -186,13 +186,6 @@
       "portionSize": "12 fluid ounces",
       "serving": {
         "sweet": 1
-      }
-    },
-    {
-      "foodName": "Sugar",
-      "portionSize": "2 teaspoons",
-      "serving": {
-        "sweet": 0.5
       }
     }
   ]
