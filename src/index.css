@@ -51,3 +51,7 @@ code {
 .dd-summary-total-width {
   min-width: 110px;
 }
+
+.dd-blue-color {
+  color: var(--bs-blue);
+}
