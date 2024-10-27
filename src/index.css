@@ -43,3 +43,7 @@ code {
 .dd-x-small-font {
   font-size: x-small;
 }
+
+.dd-foot-note {
+  font-size: smaller;
+}
