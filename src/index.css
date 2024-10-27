@@ -43,3 +43,15 @@ code {
 .dd-x-small-font {
   font-size: x-small;
 }
+
+.dd-foot-note {
+  font-size: smaller;
+}
+
+.dd-summary-total-width {
+  min-width: 110px;
+}
+
+.dd-blue-color {
+  color: var(--bs-blue);
+}

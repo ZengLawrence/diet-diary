@@ -19,7 +19,7 @@ const Icon8WebSiteReferLink = () => (
 
 const Icons8Referral = () => {
   return (
-    <p style={{ fontSize: "smaller" }}>
+    <p className="dd-foot-note">
       <IconReferLink /> icon by <Icon8WebSiteReferLink />
     </p>
   );

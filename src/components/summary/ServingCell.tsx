@@ -9,7 +9,7 @@ const CalorieText = (props: { amount?: number; percentAmount?: boolean; }) => (
   <Fragment>
     <div className="d-block d-sm-none">{displayServingValue(props.amount, props.percentAmount)}{props.percentAmount && '%'}</div>
     <div className="d-none d-sm-block text-center">
-      <span style={{ fontSize: '32px', minWidth: '110px' }}>{displayServingValue(props.amount, props.percentAmount)}</span>{props.percentAmount && '%'}
+      <span className="fs-2" >{displayServingValue(props.amount, props.percentAmount)}</span>{props.percentAmount && '%'}
     </div>
   </Fragment>
 );

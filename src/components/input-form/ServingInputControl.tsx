@@ -52,7 +52,7 @@ export const ServingInputControl = (props: Props) => {
         isInvalid={isInvalid}
         onChange={handleChange}
       />
-      <Form.Control.Feedback type="invalid" style={{ maxWidth: "100px" }}>Good one!  Please enter a positive number.</Form.Control.Feedback>
+      <Form.Control.Feedback type="invalid" >Positive number only.</Form.Control.Feedback>
     </Form.Group>
   );
 };
