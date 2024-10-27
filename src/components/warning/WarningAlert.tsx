@@ -14,7 +14,7 @@ function variant(critical: boolean) {
 }
 
 export const WarningAlert = (props: Props) => {
-  const icon = props.critical ? <FontAwesomeIcon icon={faBan} /> : <FontAwesomeIcon icon={faTriangleExclamation} />;
+  const icon = props.critical ? <FontAwesomeIcon icon={faBan}  size="xl" /> : <FontAwesomeIcon icon={faTriangleExclamation} size="xl" />;
 
   return (
     <Alert
