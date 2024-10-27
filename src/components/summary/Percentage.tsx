@@ -1,7 +1,7 @@
 import { toIntString } from "../../model/calorieFunction";
 
 const ValueSpan = (props: { value: number; }) => (
-  <span style={{ fontSize: '40px' }}>
+  <span className="fs-1">
     {toIntString(props.value)}
   </span>
 )
