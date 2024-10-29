@@ -10,12 +10,13 @@ function isSingleFoodMeal(meal: { foods: Food[]; }): boolean {
 }
 
 function toSuggestion(food: Food): PredefinedSuggestion {
-  const { description, serving } = food;
+  const { description, serving, bestChoice } = food;
   const { foodName, amount } = decompose(description);
   return {
     foodName,
     amount: _.toString(amount),
-    serving
+    serving,
+    bestChoice
   }
 }
 
