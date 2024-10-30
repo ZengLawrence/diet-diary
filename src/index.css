@@ -55,3 +55,7 @@ code {
 .dd-blue-color {
   color: var(--bs-blue);
 }
+
+.dd-chart-best-choice-column {
+  fill: var(--bs-blue);
+}
