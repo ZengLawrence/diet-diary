@@ -76,6 +76,9 @@ const error = createSlice({
       .addCase(unsetFoodGroupServing, (state, action) => {
         state[action.payload] = false;
       })
+      .addCase(toggleBestChoice, (state) => {
+        state.bestChoice = false;
+      })
   }
 })
 const { validationFailed } = error.actions;
@@ -106,7 +109,7 @@ function validateFood(food: Food): ValidationError {
     proteinDiary: lessThanZero(serving.proteinDiary),
     fat: lessThanZero(serving.fat),
     sweet: lessThanZero(serving.sweet),
-    bestChoice: hasMoreThanOneFoodGroup(serving) || _.defaultTo(serving.sweet, 0) > 0,
+    bestChoice: food.bestChoice ? (hasMoreThanOneFoodGroup(serving) || _.defaultTo(serving.sweet, 0) > 0) : false,
   };
 }
 
