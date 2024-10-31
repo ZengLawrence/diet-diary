@@ -70,3 +70,7 @@ const FOOD_GROUP_DISPLAY_NAMES = {
 export function displayName(foodGroup: FoodGroup) {
   return _.get(FOOD_GROUP_DISPLAY_NAMES, foodGroup);
 }
+
+export function hasMoreThanOneFoodGroup(serving: Serving) {
+  return _.size(_.filter(_.values(serving), v => _.defaultTo(v, 0) > 0)) > 1;
+}

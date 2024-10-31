@@ -2,7 +2,7 @@ import { Action, combineReducers, createSlice, PayloadAction } from "@reduxjs/to
 import _ from "lodash";
 import { useEffect, useReducer, useRef } from "react";
 import { generateSuggestions, Suggestion } from "../../features/suggestions";
-import { Food, FoodGroup, Serving } from "../../model/Food";
+import { Food, FoodGroup, hasMoreThanOneFoodGroup, Serving } from "../../model/Food";
 
 interface ValidationError {
   foodDescription?: boolean;
@@ -12,6 +12,7 @@ interface ValidationError {
   proteinDiary?: boolean;
   fat?: boolean;
   sweet?: boolean;
+  bestChoice?: boolean;
 }
 
 const suggestions = createSlice({
@@ -105,6 +106,7 @@ function validateFood(food: Food): ValidationError {
     proteinDiary: lessThanZero(serving.proteinDiary),
     fat: lessThanZero(serving.fat),
     sweet: lessThanZero(serving.sweet),
+    bestChoice: hasMoreThanOneFoodGroup(serving) || _.defaultTo(serving.sweet, 0) > 0,
   };
 }
 
