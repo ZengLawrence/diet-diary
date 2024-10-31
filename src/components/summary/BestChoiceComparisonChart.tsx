@@ -5,8 +5,8 @@ interface Props {
   others: number;
 }
 
-const Column = (props: { height: number; x: number; className?: string }) => (
-  <rect width="25" height={props.height} x={props.x} y={100 - props.height} className={props.className} />
+const Column = (props: { height: number; x: number; y: number; className?: string }) => (
+  <rect width="25" {...props} />
 );
 
 function height(value: number, max: number) {
@@ -19,8 +19,8 @@ export const BestChoiceComparisonChart = (props: Props) => {
 
   return (
     <svg width="51" height="100" xmlns="http://www.w3.org/2000/svg">
-      <Column x={0} height={height(bestChoice, maxHeight)} className="dd-chart-best-choice-column" />
-      <Column x={26} height={height(others, maxHeight)} className="dd-chart-others-column" />
+      <Column x={0} y={100 - height(bestChoice, maxHeight)} height={height(bestChoice, maxHeight)} className="dd-chart-best-choice-column" />
+      <Column x={26} y={100 - height(others, maxHeight)} height={height(others, maxHeight)} className="dd-chart-others-column" />
     </svg>
   );
 }
