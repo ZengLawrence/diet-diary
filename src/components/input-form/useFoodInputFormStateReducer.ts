@@ -45,6 +45,9 @@ const food = createSlice({
     },
     setBestChoice(state, action: PayloadAction<boolean>) {
       state.bestChoice = action.payload;
+    },
+    toggleBestChoice(state) {
+      state.bestChoice = !_.defaultTo(state.bestChoice, false);
     }
   },
 })
@@ -52,7 +55,7 @@ const {
   setDescription,
   setServing,
   setFoodGroupServing, unsetFoodGroupServing,
-  setBestChoice
+  setBestChoice, toggleBestChoice
 } = food.actions;
 
 const error = createSlice({
@@ -146,6 +149,8 @@ const handleSubmit = (
   }
 }
 
+const _toggleBestChoice = (dispatch: React.Dispatch<Action>) => dispatch(toggleBestChoice());
+
 export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialFood, initialState);
 
@@ -168,6 +173,7 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
     updateFoodDescriptionServing: _.partial(updateFoodDescriptionServing, dispatch),
     updateFoodGroupServing: _.partial(updateFoodGroupServing, dispatch),
     handleSubmit: _.partial(handleSubmit, dispatch, state, onSaveFood),
+    toggleBestChoice: _.partial(_toggleBestChoice, dispatch),
   }
   return [state, fns] as [typeof state, typeof fns];
 }
