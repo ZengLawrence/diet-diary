@@ -78,11 +78,6 @@ export function calcBestChoiceServingSummary(meals: Meal[]): Serving {
 }
 
 export function calcOthersServingSummary(meals: Meal[]): Serving {
-  const bcMeals = _.map(meals, m => {
-    return { 
-      ...m,
-      foods: _.filter(m.foods, f => _.defaultTo(f.bestChoice, false) == false)
-    }
-  });
-  return calcMealsServingSummary(bcMeals);
+  const foods = _.flatMap(meals, m => _.filter(m.foods, f => _.defaultTo(f.bestChoice, false) == false));
+  return calcFoodsServingSummary(foods);
 }
