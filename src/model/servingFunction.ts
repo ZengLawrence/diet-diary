@@ -72,11 +72,21 @@ export function multiply(s: Serving, multiplier: number): Serving {
   return _.fromPairs(_.toPairs(s).map(([key, val]) => [key, val * multiplier]));
 }
 
-function calcBestChoiceServingSummary(meals: Meal[]): Serving {
+export function calcBestChoiceServingSummary(meals: Meal[]): Serving {
   const bcMeals = _.map(meals, m => {
     return { 
       ...m,
       foods: _.filter(m.foods, 'bestChoice')
+    }
+  });
+  return calcMealsServingSummary(bcMeals);
+}
+
+export function calcOthersServingSummary(meals: Meal[]): Serving {
+  const bcMeals = _.map(meals, m => {
+    return { 
+      ...m,
+      foods: _.filter(m.foods, f => _.defaultTo(f.bestChoice, false) == false)
     }
   });
   return calcMealsServingSummary(bcMeals);
