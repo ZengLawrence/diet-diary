@@ -55,9 +55,8 @@ export function calcServingDifference(meals: Meal[], servingGoal: Serving) {
   return minus(calcMealsServingSummary(meals), servingGoal);
 }
 
-export function displayServingValue(val: number | undefined, isPercent?: boolean): string {
-  const formatString = isPercent ? '0' : '0[.][00]';
-  return numeral(val).format(formatString);
+export function displayServingValue(val: number | undefined): string {
+  return numeral(val).format('0[.][00]');
 }
 
 export function positiveServing(serving: Serving) {
