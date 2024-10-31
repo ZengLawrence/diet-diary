@@ -1,7 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { calcBestChoicePercent, calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunction";
-import { calcBestChoiceServingPercentage, calcMealsServingSummary, calcServingDifference } from "../model/servingFunction";
+import { calcBestChoiceServingPercentage, calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServingSummary, calcServingDifference } from "../model/servingFunction";
 import { RootState } from "./store";
 
 export const dateSelector = (state: RootState) => state.date;
@@ -59,4 +59,14 @@ export const bestChoicePercentSelector = createSelector(
 export const bestChoiceServingPercentSelector = createSelector(
   mealsSelector,
   (meals) => calcBestChoiceServingPercentage(meals)
+)
+
+export const bestChoiceServingTotalSelector = createSelector(
+  mealsSelector,
+  (meals) => calcBestChoiceServingSummary(meals)
+)
+
+export const othersServingTotalSelector = createSelector(
+  mealsSelector,
+  (meals) => calcOthersServingSummary(meals)
 )
