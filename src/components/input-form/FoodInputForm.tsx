@@ -40,6 +40,12 @@ export const FoodInputForm = (props: Props) => {
         />
       </Form.Group>
 
+      <Form.Check 
+        label="Best Choice"
+        checked={food.bestChoice}
+        className="mb-3" 
+        />
+
       <Form.Group as={Row} controlId="formServings" className="mb-3">
         <div>Servings (Calories: {toIntString(calcFoodCalories(food))})</div>
         <Row className="justify-content-between">
