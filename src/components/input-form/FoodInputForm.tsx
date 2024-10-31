@@ -48,7 +48,7 @@ export const FoodInputForm = (props: Props) => {
       <Form.Check
         label="Best Choice"
         checked={food.bestChoice}
-        onClick={toggleBestChoice}
+        onChange={toggleBestChoice}
         isInvalid={error.bestChoice}
         feedback="Can only be best choice if food has only one food group and it is not sweet."
         feedbackType="invalid"
