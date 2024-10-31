@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { useEffect, useRef, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 import { Suggestion } from "../../features/suggestions/Suggestion";
@@ -62,6 +62,21 @@ interface Props {
   updateFoodDescriptionServing: (desc: string, serving?: Serving, bestChoice?: boolean) => void;
 }
 
+function useClickOutside(ref: RefObject<HTMLDivElement>, handler: () => void) {
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        handler();
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [ref, handler]);
+}
+
 export const FoodDescriptionComboBox = (props: Props) => {
 
   const { invalid } = props;
@@ -82,8 +97,11 @@ export const FoodDescriptionComboBox = (props: Props) => {
     if (invalid) { setToggle(false); }
   }, [invalid]);
 
+  const ref = useRef<HTMLDivElement>(null);
+  useClickOutside(ref, () => setToggle(false));
+
   return (
-    <Dropdown show={toggle} onSelect={() => setToggle(false)}>
+    <Dropdown ref={ref} show={toggle} onSelect={() => setToggle(false)}>
 
       <Form.Label htmlFor="inputFoodDescription">Food description</Form.Label>
       <Form.Control
