@@ -26,7 +26,10 @@ export const BestChoiceComparisonChart = (props: Props) => {
   return (
     <svg width="51" height={CANVAS_HEIGHT} xmlns="http://www.w3.org/2000/svg">
       <Column x={0} y={bcY} height={bcHeight} className="dd-chart-best-choice-column" />
+      <text x="2" y={bcY - 5} fill="currentColor" textLength={25} >{bestChoice}</text>
+
       <Column x={26} y={othersY} height={othersHight} className="dd-chart-others-column" />
-    </svg>
+      <text x="26" y={othersY - 5} fill="currentColor" textLength={25} >{others}</text>
+  </svg>
   );
 }
