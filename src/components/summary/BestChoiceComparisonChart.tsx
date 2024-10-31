@@ -13,7 +13,8 @@ function height(value: number, max: number) {
   return value / max * 100;
 }
 
-const CANVAS_HEIGHT = 100;
+const CANVAS_HEIGHT = 120;
+const TEXT_HEIGHT = 5;
 
 export const BestChoiceComparisonChart = (props: Props) => {
   const { bestChoice, others } = props;
@@ -26,10 +27,10 @@ export const BestChoiceComparisonChart = (props: Props) => {
   return (
     <svg width="51" height={CANVAS_HEIGHT} xmlns="http://www.w3.org/2000/svg">
       <Column x={0} y={bcY} height={bcHeight} className="dd-chart-best-choice-column" />
-      <text x="2" y={bcY - 5} fill="currentColor" textLength={25} >{bestChoice}</text>
+      <text x="2" y={bcY - TEXT_HEIGHT} fill="currentColor" textLength={25} >{bestChoice}</text>
 
       <Column x={26} y={othersY} height={othersHight} className="dd-chart-others-column" />
-      <text x="26" y={othersY - 5} fill="currentColor" textLength={25} >{others}</text>
+      <text x="26" y={othersY - TEXT_HEIGHT} fill="currentColor" textLength={25} >{others}</text>
   </svg>
   );
 }
