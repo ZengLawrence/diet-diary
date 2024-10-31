@@ -73,13 +73,8 @@ export function multiply(s: Serving, multiplier: number): Serving {
 }
 
 export function calcBestChoiceServingSummary(meals: Meal[]): Serving {
-  const bcMeals = _.map(meals, m => {
-    return { 
-      ...m,
-      foods: _.filter(m.foods, 'bestChoice')
-    }
-  });
-  return calcMealsServingSummary(bcMeals);
+  const bcFoods = _.flatMap(meals, m => _.filter(m.foods, 'bestChoice'));
+  return calcFoodsServingSummary(bcFoods);
 }
 
 export function calcOthersServingSummary(meals: Meal[]): Serving {
