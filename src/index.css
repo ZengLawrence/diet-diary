@@ -59,3 +59,7 @@ code {
 .dd-chart-best-choice-column {
   fill: var(--bs-blue);
 }
+
+.dd-chart-others-column {
+  fill: #ced4da;
+}
