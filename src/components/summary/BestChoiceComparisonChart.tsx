@@ -24,18 +24,22 @@ const TEXT_HEIGHT = 5;
 export const BestChoiceComparisonChart = (props: Props) => {
   const { bestChoice, others } = props;
   const maxHeight = _.defaultTo(_.max([bestChoice, others, 10]), 10);
+
   const bcHeight = height(bestChoice, maxHeight);
   const bcY = CANVAS_HEIGHT - bcHeight;
+  const bcVal = format(bestChoice);
+
   const othersHight = height(others, maxHeight);
   const othersY = CANVAS_HEIGHT - othersHight;
+  const othersVal = format(others);
 
   return (
     <svg width="51" height={CANVAS_HEIGHT} xmlns="http://www.w3.org/2000/svg">
       <Column x={0} y={bcY} height={bcHeight} className="dd-chart-best-choice-column" />
-      <text x="2" y={bcY - TEXT_HEIGHT} fill="currentColor" >{format(bestChoice)}</text>
+      <text x="2" y={bcY - TEXT_HEIGHT} fill="currentColor" >{bcVal}</text>
 
       <Column x={26} y={othersY} height={othersHight} className="dd-chart-others-column" />
-      <text x="26" y={othersY - TEXT_HEIGHT} fill="currentColor" >{format(others)}</text>
+      <text x="26" y={othersY - TEXT_HEIGHT} fill="currentColor" >{othersVal}</text>
   </svg>
   );
 }
