@@ -21,7 +21,12 @@ interface Props {
 export const FoodInputForm = (props: Props) => {
   const [state, fns] = useFoodInputFormStateReducer(props.food, props.onSaveFood);
   const { food, error, suggestions } = state;
-  const { updateFoodDescription, updateFoodDescriptionServing, updateFoodGroupServing, handleSubmit } = fns;
+  const {
+    updateFoodDescription,
+    updateFoodDescriptionServing,
+    updateFoodGroupServing,
+    toggleBestChoice,
+    handleSubmit } = fns;
 
   return (
     <Form
@@ -40,11 +45,12 @@ export const FoodInputForm = (props: Props) => {
         />
       </Form.Group>
 
-      <Form.Check 
+      <Form.Check
         label="Best Choice"
         checked={food.bestChoice}
-        className="mb-3" 
-        />
+        onClick={toggleBestChoice}
+        className="mb-3"
+      />
 
       <Form.Group as={Row} controlId="formServings" className="mb-3">
         <div>Servings (Calories: {toIntString(calcFoodCalories(food))})</div>
