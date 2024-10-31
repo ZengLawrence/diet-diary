@@ -76,6 +76,9 @@ const error = createSlice({
       .addCase(unsetFoodGroupServing, (state, action) => {
         state[action.payload] = false;
       })
+      .addCase(toggleBestChoice, (state) => {
+        state.bestChoice = false;
+      })
   }
 })
 const { validationFailed } = error.actions;
