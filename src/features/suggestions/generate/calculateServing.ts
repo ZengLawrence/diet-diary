@@ -5,13 +5,6 @@ import parseAmount, { DecomposedAmount } from '../parser/DecomposedAmount';
 import convert, { isMeasurementConvertible, Unit } from '../convert';
 
 function measurementFor(unit: Unit, { measurement, alternateMeasurement }: DecomposedAmount) {
-  if (unit === "unknown") {
-    if (alternateMeasurement && alternateMeasurement.unit === "unknown") {
-      return alternateMeasurement;
-    }
-    return measurement;
-  };
-
   const isUnitConvertibleTo = _.partial(isMeasurementConvertible, unit);
   const allMeasurements = alternateMeasurement ? [measurement, alternateMeasurement] : [measurement];
   const found = _.filter(allMeasurements, isUnitConvertibleTo);
