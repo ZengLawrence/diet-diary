@@ -7,8 +7,8 @@ import convert, { isMeasurementConvertible, Unit } from '../convert';
 function measurementFor(unit: Unit, { measurement, alternateMeasurement }: DecomposedAmount) {
   const isUnitConvertibleTo = _.partial(isMeasurementConvertible, unit);
   const allMeasurements = alternateMeasurement ? [measurement, alternateMeasurement] : [measurement];
-  const found = _.filter(allMeasurements, isUnitConvertibleTo);
-  return _.defaultTo(_.head(found), measurement);
+  const canBeConverted = _.filter(allMeasurements, isUnitConvertibleTo);
+  return _.defaultTo(_.head(canBeConverted), measurement);
 }
 
 function servingFor(unitServing: Serving, servingAmount: DecomposedAmount, amount: string) {
