@@ -8,11 +8,7 @@ function measurementFor(unit: Unit, { measurement, alternateMeasurement }: Decom
   const isUnitConvertibleTo = _.partial(isMeasurementConvertible, unit);
   const allMeasurements = alternateMeasurement ? [measurement, alternateMeasurement] : [measurement];
   const found = _.filter(allMeasurements, isUnitConvertibleTo);
-  if (found) {
-    return found[0];
-  } else {
-    return measurement;
-  }
+  return _.defaultTo(_.head(found), measurement);
 }
 
 function servingFor(unitServing: Serving, servingAmount: DecomposedAmount, amount: string) {
