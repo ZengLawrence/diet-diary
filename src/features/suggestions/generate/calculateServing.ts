@@ -9,7 +9,7 @@ function measurementFor(unit: Unit, { measurement, alternateMeasurement }: Decom
   const allMeasurements = alternateMeasurement ? [measurement, alternateMeasurement] : [measurement];
   const found = _.filter(allMeasurements, isUnitConvertibleTo);
   if (found) {
-    return found[0] as typeof measurement;
+    return found[0];
   } else {
     return measurement;
   }
