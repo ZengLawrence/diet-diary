@@ -13,12 +13,13 @@ function measurementFor(unit: Unit, { measurement, alternateMeasurement }: Decom
   };
 
   const isUnitConvertibleTo = _.partial(isMeasurementConvertible, unit);
-  if (isUnitConvertibleTo(measurement)) {
+  const allMeasurements = alternateMeasurement ? [measurement, alternateMeasurement] : [measurement];
+  const found = _.filter(allMeasurements, isUnitConvertibleTo);
+  if (found) {
+    return found[0] as typeof measurement;
+  } else {
     return measurement;
-  } else if (alternateMeasurement && isUnitConvertibleTo(alternateMeasurement)) {
-    return alternateMeasurement;
   }
-  return measurement;
 }
 
 function servingFor(unitServing: Serving, servingAmount: DecomposedAmount, amount: string) {
