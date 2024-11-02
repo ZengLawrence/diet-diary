@@ -20,7 +20,7 @@ function offset(s: string) {
 
 const CANVAS_HEIGHT = 72;
 const COLUMN_HEIGHT = 48
-const Y_TEXT_OFFSET = 5;
+const Y_TEXT_OFFSET = 2;
 
 export const BestChoiceComparisonChart = (props: Props) => {
   const { bestChoice, others } = props;
