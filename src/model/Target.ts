@@ -80,14 +80,6 @@ export function isMinLimit(foodGroup: FoodGroup) {
   return (foodGroup === "vegetable" || foodGroup === "fruit");
 }
 
-function isNoTarget(target: Target) {
-  return target.calorie === 0;
-}
-
-export function hasATarget(target: Target) {
-  return !isNoTarget(target);
-}
-
 export function targetsByGender(gender: Gender) {
   if (gender === "woman") {
     return [
