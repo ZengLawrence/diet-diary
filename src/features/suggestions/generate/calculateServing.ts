@@ -4,26 +4,36 @@ import { multiply } from '../../../model/servingFunction';
 import parseAmount, { DecomposedAmount } from '../parser/DecomposedAmount';
 import convert, { isMeasurementConvertible, Unit } from '../convert';
 
-function measurementFor(unit: Unit, { measurement, alternateMeasurement }: DecomposedAmount) {
-  if (unit === "unknown") {
-    if (alternateMeasurement && alternateMeasurement.unit === "unknown") {
-      return alternateMeasurement;
-    }
-    return measurement;
-  };
-
+function measurementFor(unit: Unit, { measurement, alternateMeasurement }: DecomposedAmount, prepMethod?: string) {
   const isUnitConvertibleTo = _.partial(isMeasurementConvertible, unit);
-  if (isUnitConvertibleTo(measurement)) {
-    return measurement;
-  } else if (alternateMeasurement && isUnitConvertibleTo(alternateMeasurement)) {
-    return alternateMeasurement;
+  const allMeasurements = alternateMeasurement ? [measurement, alternateMeasurement] : [measurement];
+  const canBeConverted = _.filter(allMeasurements, isUnitConvertibleTo);
+
+  if (prepMethod) {
+    const containsPrepMethod = (m: typeof measurement) => {
+      const words = _.words(_.lowerCase(m.unitText));
+      return _.includes(words, prepMethod);
+    }
+    const matchedPrepMethod = _.filter(canBeConverted, containsPrepMethod);
+    if (matchedPrepMethod) {
+      return _.defaultTo(_.head(matchedPrepMethod), measurement);
+    }
   }
-  return measurement;
+  return _.defaultTo(_.head(canBeConverted), measurement);
+}
+
+function prepMethod(unitText: string | undefined) {
+  const words = _.words(_.lowerCase(unitText));
+  if (_.size(words) > 1) {
+    return words[1];
+  } else {
+    return undefined;
+  }
 }
 
 function servingFor(unitServing: Serving, servingAmount: DecomposedAmount, amount: string) {
   const from = parseAmount(amount).measurement;
-  const to = measurementFor(from.unit, servingAmount);
+  const to = measurementFor(from.unit, servingAmount, prepMethod(from.unitText));
 
   try {
     const normalizedQuantity = convert(from.quantity, from.unit, to.unit);
