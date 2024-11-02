@@ -1,5 +1,4 @@
 import Container from "react-bootstrap/Container";
-import Footer from "../../features/day-page/Footer";
 import SavedMealCardsOffcanvas from "../../features/day-page/SavedMealCardsOffcanvas";
 import Summary from "../../features/day-page/Summary";
 import AddMealButtons from "../../features/meal-card/AddMealButtons";
@@ -7,6 +6,7 @@ import MealCards from "../../features/meal-card/MealCards";
 import { Header } from "./Header";
 import WarningBorder from "../../features/warning/WarningBorder";
 import WarningAlert from "../../features/warning/WarningAlert";
+import { Footer } from "./Footer";
 
 interface Props {
   showButton: boolean;

@@ -80,7 +80,7 @@ export function isMinLimit(foodGroup: FoodGroup) {
   return (foodGroup === "vegetable" || foodGroup === "fruit");
 }
 
-export function isNoTarget(target: Target) {
+function isNoTarget(target: Target) {
   return target.calorie === 0;
 }
 
