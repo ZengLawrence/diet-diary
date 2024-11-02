@@ -14,7 +14,7 @@ interface Props {
 
 function DayPage(props: Props) {
   return (
-    <Container>
+    <Container fluid="md">
       <div>
         <div className="d-flex mb-2">
           <div className="flex-fill">
