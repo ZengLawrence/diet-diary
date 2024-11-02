@@ -4,10 +4,12 @@ import numeral from "numeral";
 interface Props {
   bestChoice: number;
   others: number;
+  canvasHeight?: number;
+  columnHeight?: number;
 }
 
-function height(value: number, max: number) {
-  return value / max * COLUMN_HEIGHT;
+function height(value: number, max: number, columnHeight: number) {
+  return value / max * columnHeight;
 }
 
 function format(val: number) {
@@ -18,24 +20,24 @@ function offset(s: string) {
   return _.size(s) == 1 ? 5 : 0;
 }
 
-const CANVAS_HEIGHT = 68;
-const COLUMN_HEIGHT = 46
 const Y_TEXT_OFFSET = 2;
 
 export const BestChoiceComparisonChart = (props: Props) => {
   const { bestChoice, others } = props;
   const maxHeight = _.defaultTo(_.max([bestChoice, others, 10]), 10);
+  const canvasHeight = _.defaultTo(props.canvasHeight, 68);
+  const columnHeight = _.defaultTo(props.columnHeight, 46);
 
-  const bcHeight = height(bestChoice, maxHeight);
-  const bcY = CANVAS_HEIGHT - bcHeight;
+  const bcHeight = height(bestChoice, maxHeight, columnHeight);
+  const bcY = canvasHeight - bcHeight;
   const bcVal = format(bestChoice);
 
-  const othersHight = height(others, maxHeight);
-  const othersY = CANVAS_HEIGHT - othersHight;
+  const othersHight = height(others, maxHeight, columnHeight);
+  const othersY = canvasHeight - othersHight;
   const othersVal = format(others);
 
   return (
-    <svg width="51" height={CANVAS_HEIGHT} xmlns="http://www.w3.org/2000/svg">
+    <svg width="51" height={canvasHeight} xmlns="http://www.w3.org/2000/svg">
       <rect x={0} y={bcY} width="25" height={bcHeight} className="dd-chart-best-choice-column" />
       <text x={2 + offset(bcVal)} y={bcY - Y_TEXT_OFFSET} fill="currentColor" >{bcVal}</text>
 
