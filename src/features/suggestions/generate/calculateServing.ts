@@ -14,9 +14,9 @@ function measurementFor(unit: Unit, { measurement, alternateMeasurement }: Decom
       const words = _.words(_.lowerCase(m.unitText));
       return _.includes(words, prepMethod);
     }
-    const hasPrepMethod = _.filter(canBeConverted, containsPrepMethod);
-    if (hasPrepMethod) {
-      return _.defaultTo(_.head(hasPrepMethod), measurement);
+    const matchedPrepMethod = _.filter(canBeConverted, containsPrepMethod);
+    if (matchedPrepMethod) {
+      return _.defaultTo(_.head(matchedPrepMethod), measurement);
     }
   }
   return _.defaultTo(_.head(canBeConverted), measurement);
