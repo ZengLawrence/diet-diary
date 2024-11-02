@@ -2,15 +2,13 @@ import _ from "lodash";
 import { Fragment } from "react";
 import { Dropdown } from "react-bootstrap";
 import GenderToggle from "../../features/target/GenderToggle";
-import { isNoTarget, Target } from "../../model/Target";
+import { Target } from "../../model/Target";
 import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
 
 const MenuItemLabel = (props: { target: Target }) => (
-  isNoTarget(props.target) ?
-    <Fragment>No Target</Fragment>
-    : <Fragment>
-      {props.target.calorie}{' '} Cal.<FoodGroupServingGoalBadgePanel serving={props.target.serving} />
-    </Fragment>
+  <Fragment>
+    {props.target.calorie}{' '} Cal.<FoodGroupServingGoalBadgePanel serving={props.target.serving} />
+  </Fragment>
 )
 
 const menuItem = (target: Target) => (
@@ -35,7 +33,7 @@ export const TargetDropDown = (props: {
   return (
     <Dropdown onSelect={handleSelect}>
       <Dropdown.Toggle variant="outline-info" id="dropdown-goal">
-        {props.selectedCalorie === 0 ? "No Target" : props.selectedCalorie}
+        {props.selectedCalorie}
       </Dropdown.Toggle>
 
       <Dropdown.Menu>

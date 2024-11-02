@@ -56,12 +56,12 @@ const TargetActionLegends = () => (
   </div>
 )
 
-export const Footer = (props: { showTargetActionLegends: boolean }) => (
+export const Footer = () => (
   <div>
     <div className="d-block d-sm-none mb-1">
       <FoodGroupLegends />
     </div>
-    {props.showTargetActionLegends && <TargetActionLegends />}
+    <TargetActionLegends />
     <BestChoiceLegend />
     <div className="d-flex justify-content-center">
       <Icons8Referral />
