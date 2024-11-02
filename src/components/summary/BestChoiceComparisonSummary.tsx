@@ -14,8 +14,8 @@ const ServingComparison = (props: { foodGroup: FoodGroup; bestChoice: number; ot
       <BestChoiceComparisonChart
         bestChoice={props.bestChoice}
         others={props.others}
-        canvasHeight={68}
-        columnHeight={46}
+        canvasHeight={72}
+        columnHeight={50}
       />
     </div>
     <div className="d-none d-sm-block">
