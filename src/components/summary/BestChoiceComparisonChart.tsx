@@ -7,7 +7,7 @@ interface Props {
 }
 
 function height(value: number, max: number) {
-  return value / max * 100;
+  return value / max * COLUMN_HEIGHT;
 }
 
 function format(val: number) {
@@ -18,7 +18,8 @@ function offset(s: string) {
   return _.size(s) == 1 ? 5 : 0;
 }
 
-const CANVAS_HEIGHT = 120;
+const CANVAS_HEIGHT = 72;
+const COLUMN_HEIGHT = 48
 const TEXT_HEIGHT = 5;
 
 export const BestChoiceComparisonChart = (props: Props) => {
