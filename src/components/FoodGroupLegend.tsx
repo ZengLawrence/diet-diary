@@ -5,7 +5,7 @@ import { Legend } from "./Legend";
 export const FoodGroupLegend = (props: { foodGroup: FoodGroup; }) => {
   const { foodGroup } = props;
   return (
-    <Legend>
+    <Legend className="d-flex flex-nowrap">
       <FoodGroupLabelBadge foodGroup={foodGroup} />{displayName(foodGroup)}
     </Legend>
   );

@@ -48,8 +48,8 @@ code {
   font-size: smaller;
 }
 
-.dd-summary-total-width {
-  min-width: 110px;
+.dd-calorie-summary {
+  min-width: 90px;
 }
 
 .dd-blue-color {
