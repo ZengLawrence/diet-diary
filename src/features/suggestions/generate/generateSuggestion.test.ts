@@ -311,3 +311,28 @@ test("diameter size calculation", () => {
   generateSuggestions(new MockRefObject("cheese pizza 1/8 of 12-inch "), assert);
 
 })
+
+test("use prep method -- word after unit e.g. 1 cup cooked to determine the measurement", () => {
+  const assert = (suggestions: Suggestion[]) => {
+    expect(_.size(suggestions)).toBeGreaterThanOrEqual(2);
+    // the input
+    expect(suggestions[0]).toEqual(
+      {
+        foodName: "cabbage, green or red",
+        amount: "1 cup cooked",
+      }
+    );
+    expect(suggestions[1]).toMatchObject(
+      {
+        foodName: "cabbage, green or red",
+        amount: "1 cup cooked",
+        serving: {
+          "vegetable": 2,
+        }
+      }
+    );
+
+  }
+  generateSuggestions(new MockRefObject("cabbage, green or red 1 cup cooked"), assert);
+
+})
