@@ -16,14 +16,13 @@ const CalorieText = (props: { amount?: number; }) => (
 interface Props {
   foodGroup: FoodGroup;
   amount?: number;
-  showTargetActionIcon: boolean;
 }
 
 export const ServingCell = (props: Props) => (
   <div className="d-flex flex-column align-items-center m-1">
     <CalorieText amount={props.amount} />
     <div className="d-flex align-items-center">
-      {props.showTargetActionIcon && <TargetActionIcon foodGroup={props.foodGroup} />}
+      {<TargetActionIcon foodGroup={props.foodGroup} />}
       <FoodGroupLabel foodGroup={props.foodGroup} />
     </div>
   </div>
