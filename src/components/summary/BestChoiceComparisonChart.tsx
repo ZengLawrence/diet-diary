@@ -4,8 +4,8 @@ import numeral from "numeral";
 interface Props {
   bestChoice: number;
   others: number;
-  canvasHeight?: number;
-  columnHeight?: number;
+  canvasHeight: number;
+  columnHeight: number;
 }
 
 function height(value: number, max: number, columnHeight: number) {
@@ -23,10 +23,8 @@ function offset(s: string) {
 const Y_TEXT_OFFSET = 2;
 
 export const BestChoiceComparisonChart = (props: Props) => {
-  const { bestChoice, others } = props;
+  const { bestChoice, others, canvasHeight, columnHeight } = props;
   const maxHeight = _.defaultTo(_.max([bestChoice, others, 10]), 10);
-  const canvasHeight = _.defaultTo(props.canvasHeight, 68);
-  const columnHeight = _.defaultTo(props.columnHeight, 46);
 
   const bcHeight = height(bestChoice, maxHeight, columnHeight);
   const bcY = canvasHeight - bcHeight;
@@ -43,6 +41,6 @@ export const BestChoiceComparisonChart = (props: Props) => {
 
       <rect x={26} y={othersY} width="25" height={othersHight} className="dd-chart-others-column" />
       <text x={26 + offset(othersVal)} y={othersY - Y_TEXT_OFFSET} fill="currentColor" >{othersVal}</text>
-  </svg>
+    </svg>
   );
 }
