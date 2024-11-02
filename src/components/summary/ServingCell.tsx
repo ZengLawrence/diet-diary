@@ -19,7 +19,7 @@ interface Props {
 }
 
 export const ServingCell = (props: Props) => (
-  <div className="col d-flex flex-column align-items-center">
+  <div className="d-flex flex-column align-items-center">
     <CalorieText amount={props.amount} />
     <div className="d-flex align-items-center">
       {<TargetActionIcon foodGroup={props.foodGroup} />}
