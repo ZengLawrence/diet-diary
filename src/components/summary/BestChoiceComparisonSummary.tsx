@@ -10,23 +10,7 @@ interface Props {
 
 const ServingComparison = (props: { foodGroup: FoodGroup; bestChoice: number; others: number }) => (
   <div className="d-flex flex-column align-items-center">
-    <div className="d-block d-sm-none">
-      <BestChoiceComparisonChart
-        bestChoice={props.bestChoice}
-        others={props.others}
-        canvasHeight={72}
-        columnHeight={50}
-      />
-    </div>
-    <div className="d-none d-sm-block">
-      <BestChoiceComparisonChart
-        bestChoice={props.bestChoice}
-        others={props.others}
-        canvasHeight={106}
-        columnHeight={84}
-      />
-    </div>
-
+    <BestChoiceComparisonChart bestChoice={props.bestChoice} others={props.others} />
     <FoodGroupLabel foodGroup={props.foodGroup} />
   </div>
 )

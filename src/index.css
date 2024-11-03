@@ -63,3 +63,9 @@ code {
 .dd-chart-others-column {
   fill: #ced4da;
 }
+
+@media (min-width: 576px) {
+  .dd-serving-cell-calorie {
+    font-size: calc(1.325rem + 0.9vw) !important;
+  }
+}

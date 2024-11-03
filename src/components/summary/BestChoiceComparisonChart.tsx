@@ -1,11 +1,10 @@
 import _ from "lodash";
 import numeral from "numeral";
+import { useMediaQuery } from "../useMediaQuery";
 
 interface Props {
   bestChoice: number;
   others: number;
-  canvasHeight: number;
-  columnHeight: number;
 }
 
 function height(value: number, max: number, columnHeight: number) {
@@ -23,7 +22,12 @@ function offset(s: string) {
 const Y_TEXT_OFFSET = 2;
 
 export const BestChoiceComparisonChart = (props: Props) => {
-  const { bestChoice, others, canvasHeight, columnHeight } = props;
+
+  const isAboveSmallBreakPoint = useMediaQuery('(min-width: 576px)');
+
+  const { bestChoice, others } = props;
+  const canvasHeight = isAboveSmallBreakPoint ? 106 : 72;
+  const columnHeight = isAboveSmallBreakPoint ? 84 : 50;
   const maxHeight = _.defaultTo(_.max([bestChoice, others, 10]), 10);
 
   const bcHeight = height(bestChoice, maxHeight, columnHeight);
