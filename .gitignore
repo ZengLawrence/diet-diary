@@ -22,12 +22,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .vscode/
-scratch*.*
 
 # ingore ANTLR and Maven target
 antlr4/*/target/
 .antlr
-src/generated/
 
 # cypress
 cypress/downloads/
