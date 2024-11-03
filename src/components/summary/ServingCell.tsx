@@ -1,16 +1,10 @@
-import { Fragment } from "react";
 import TargetActionIcon from "../../features/summary/TargetActionIcon";
 import { FoodGroup } from "../../model/Food";
 import { displayServingValue } from "../../model/servingFunction";
 import { FoodGroupLabel } from "./FoodGroupLabel";
 
 const CalorieText = (props: { amount?: number; }) => (
-  <Fragment>
-    <div className="d-block d-sm-none">{displayServingValue(props.amount)}</div>
-    <div className="d-none d-sm-block text-center">
-      <span className="fs-2" >{displayServingValue(props.amount)}</span>
-    </div>
-  </Fragment>
+    <div className="dd-serving-cell-calorie">{displayServingValue(props.amount)}</div>
 );
 
 interface Props {
