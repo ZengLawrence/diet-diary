@@ -22,17 +22,15 @@ function DayPage(props: Props) {
           </div>
         </div>
         <WarningAlert />
-        <WarningBorder>
-          <div className="d-flex mb-2">
-            <div className="flex-fill">
-              <TabbedSummary />
-            </div>
+        <div className="d-flex mb-2">
+          <div className="flex-fill">
+            <TabbedSummary />
           </div>
-          <div className="mb-2">
-            <MealCards />
-            {props.showButton && <AddMealButtons />}
-          </div>
-        </WarningBorder>
+        </div>
+        <div className="mb-2">
+          <MealCards />
+          {props.showButton && <AddMealButtons />}
+        </div>
 
         <Footer />
       </div>
