@@ -3,7 +3,6 @@ import SavedMealCardsOffcanvas from "../../features/day-page/SavedMealCardsOffca
 import AddMealButtons from "../../features/meal-card/AddMealButtons";
 import MealCards from "../../features/meal-card/MealCards";
 import { Header } from "./Header";
-import WarningBorder from "../../features/warning/WarningBorder";
 import WarningAlert from "../../features/warning/WarningAlert";
 import { Footer } from "./Footer";
 import TabbedSummary from "../../features/summary/TabbedSummary";
