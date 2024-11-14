@@ -1,8 +1,8 @@
 import _ from "lodash";
 import { Card, ListGroup } from "react-bootstrap";
-import SavedMealFoodListGroupItems from "../../features/saved-meal/FoodListGroupItems";
 import { Food } from "../../model/Food";
 import MealCardHeader from "../../features/saved-meal/MealCardHeader";
+import { FoodListGroupItems } from "../meal-card/FoodListGroupItems";
 
 interface Props {
   meals: { index: number; foods: Food[]; }[]
@@ -15,7 +15,7 @@ export const SavedMealCards = (props: Props) => (
         <MealCardHeader meal={m} />
 
         <ListGroup>
-          <SavedMealFoodListGroupItems mealIndex={m.index} />
+          <FoodListGroupItems mealIndex={m.index} foods={m.foods} />
         </ListGroup>
       </Card>
     ))}
