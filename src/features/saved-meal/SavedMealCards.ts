@@ -6,7 +6,7 @@ import { SavedMealCards } from "../../components/saved-meal/SavedMealCards";
 import { Food } from "../../model/Food";
 
 function indexedMeals(meals: { foods: Food[] }[]) {
-  return _.map(meals, (m, index) => { return { index: index, foods: m.foods }; });
+  return _.map(meals, (m, index) => ({ index: index, foods: m.foods }));
 }
 
 const mapStateToProps = (state: RootState) => ({
