@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { SummaryType } from "../../model/SummaryType";
+import { newDay } from "./dateSlice";
 
 const summaryTypeSlice = createSlice({
   name: "summaryType",
@@ -8,6 +9,10 @@ const summaryTypeSlice = createSlice({
     setSummaryType(_state, action: PayloadAction<SummaryType>) {
       return action.payload;
     }
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(newDay, () => "total")
   }
 })
 
