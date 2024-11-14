@@ -7,21 +7,20 @@ import { Food } from "../../model/Food";
 import { VariantDanger, VariantSecondary } from "../ButtonVariant";
 
 interface Props {
-  mealIndex: number;
-  meal: { foods: Food[]; };
-  selectMeal: (mealIndex: number, meal: { foods: Food[]; }) => void;
-  deleteMeal: (mealIndex: number, meal: { foods: Food[]; }) => void;
+  meal: { index: number; foods: Food[]; };
+  selectMeal: (meal: { index: number; foods: Food[]; }) => void;
+  deleteMeal: (meal: { index: number; foods: Food[]; }) => void;
 }
 
 export const MealCardHeader = (props: Props) => (
   <Card.Header>
     <Row>
       <Col xs="auto">
-        <Button variant={VariantDanger} onClick={() => props.deleteMeal(props.mealIndex, props.meal)}>Delete</Button>
+        <Button variant={VariantDanger} onClick={() => props.deleteMeal(props.meal)}>Delete</Button>
       </Col>
       <Col />
       <Col xs="auto">
-        <Button variant={VariantSecondary} onClick={() => props.selectMeal(props.mealIndex, props.meal)}>Select</Button>
+        <Button variant={VariantSecondary} onClick={() => props.selectMeal(props.meal)}>Select</Button>
       </Col>
     </Row>
     <Row>
