@@ -1,9 +1,11 @@
+import _ from "lodash";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import SavedMealCards from "../../features/saved-meal/SavedMealCards";
+import { Food } from "../../model/Food";
+import { SavedMealCards } from "./SavedMealCards";
 
 interface Props {
   show: boolean,
-  count: number,
+  meals: { index: number; foods: Food[]; }[],
   onHide: () => void,
 }
 
@@ -14,8 +16,8 @@ function SavedMealCardsOffcanvas(props: Props) {
         <Offcanvas.Title>Saved Meals</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <div>Total: {props.count}</div>
-        <SavedMealCards />
+        <div>Total: {_.size(props.meals)}</div>
+        <SavedMealCards meals={props.meals}/>
       </Offcanvas.Body>
     </Offcanvas>
   );
