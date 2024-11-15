@@ -1,7 +1,7 @@
 import _ from "lodash";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Food } from "../../model/Food";
-import { SavedMealCards } from "../saved-meal/SavedMealCards";
+import { SavedMealCards } from "./SavedMealCards";
 
 interface Props {
   show: boolean,

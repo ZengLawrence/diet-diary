@@ -1,5 +1,5 @@
 import Container from "react-bootstrap/Container";
-import SavedMealCardsOffcanvas from "../../features/day-page/SavedMealCardsOffcanvas";
+import SavedMealCardsOffcanvas from "../../features/saved-meal/SavedMealCardsOffcanvas";
 import AddMealButtons from "../../features/meal-card/AddMealButtons";
 import MealCards from "../../features/meal-card/MealCards";
 import TabbedSummary from "../../features/summary/TabbedSummary";
