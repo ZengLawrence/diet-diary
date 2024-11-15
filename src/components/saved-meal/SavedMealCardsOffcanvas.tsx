@@ -1,4 +1,5 @@
 import _ from "lodash";
+import Form from "react-bootstrap/Form";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Food } from "../../model/Food";
 import { SavedMealCards } from "./SavedMealCards";
@@ -16,8 +17,11 @@ function SavedMealCardsOffcanvas(props: Props) {
         <Offcanvas.Title>Saved Meals</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
+        <Form>
+          <Form.Control type="text" placeholder="Type to search" />
+        </Form>
         <div>Total: {_.size(props.meals)}</div>
-        <SavedMealCards meals={props.meals}/>
+        <SavedMealCards meals={props.meals} />
       </Offcanvas.Body>
     </Offcanvas>
   );
