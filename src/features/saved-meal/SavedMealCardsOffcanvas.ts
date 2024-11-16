@@ -11,8 +11,7 @@ function indexedMeals(meals: { foods: Food[] }[]) {
 }
 
 function hasTerm(meal: { foods: Food[] }, term: string): boolean {
-  const found = _.find(meal.foods, food => _.lowerCase(food.description).includes(term));
-  return found ? true : false;
+  return meal.foods.some(food => _.lowerCase(food.description).includes(term));
 }
 
 function filterMeals(state: RootState) {
