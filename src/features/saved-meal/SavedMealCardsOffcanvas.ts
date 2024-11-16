@@ -17,7 +17,8 @@ function hasTerm(meal: { foods: Food[] }, term: string): boolean {
 
 function filterMeals(state: RootState) {
   const searchTerm = savedMealStateSelector(state).searchTerm;
-  return _.filter(indexedMeals(savedMealsSelector(state)), m => hasTerm(m, searchTerm));
+  const meals = indexedMeals(savedMealsSelector(state));
+  return _.filter(meals, m => hasTerm(m, searchTerm));
 }
 
 const mapStateToProps = (state: RootState) => ({
