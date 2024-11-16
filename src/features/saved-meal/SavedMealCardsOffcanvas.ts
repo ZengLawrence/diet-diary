@@ -11,12 +11,12 @@ function indexedMeals(meals: { foods: Food[] }[]) {
 }
 
 function hasTerm(meal: { foods: Food[] }, term: string): boolean {
-  const found = _.find(meal.foods, food => food.description.includes(term));
+  const found = _.find(meal.foods, food => _.lowerCase(food.description).includes(term));
   return found ? true : false;
 }
 
 function filterMeals(state: RootState) {
-  const searchTerm = savedMealStateSelector(state).searchTerm;
+  const searchTerm = _.lowerCase(savedMealStateSelector(state).searchTerm);
   const meals = indexedMeals(savedMealsSelector(state));
   return _.filter(meals, m => hasTerm(m, searchTerm));
 }
