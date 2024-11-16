@@ -1,20 +1,14 @@
 import _ from "lodash";
-import Form from "react-bootstrap/Form";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Food } from "../../model/Food";
 import { SavedMealCards } from "./SavedMealCards";
+import { SearchTermInput } from "./SearchTermInput";
 
 interface Props {
   show: boolean,
   meals: { index: number; foods: Food[]; }[],
   onHide: () => void,
 }
-
-const SearchTermInput = () => (
-  <Form>
-    <Form.Control type="text" placeholder="Type to search" />
-  </Form>
-)
 
 function SavedMealCardsOffcanvas(props: Props) {
   return (
