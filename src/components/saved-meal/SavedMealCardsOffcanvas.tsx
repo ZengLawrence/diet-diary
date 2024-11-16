@@ -1,8 +1,8 @@
 import _ from "lodash";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import SearchTermInput from "../../features/saved-meal/SearchTermInput";
 import { Food } from "../../model/Food";
 import { SavedMealCards } from "./SavedMealCards";
-import { SearchTermInput } from "./SearchTermInput";
 
 interface Props {
   show: boolean,
