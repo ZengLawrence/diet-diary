@@ -10,6 +10,12 @@ interface Props {
   onHide: () => void,
 }
 
+const SearchTermInput = () => (
+  <Form>
+    <Form.Control type="text" placeholder="Type to search" />
+  </Form>
+)
+
 function SavedMealCardsOffcanvas(props: Props) {
   return (
     <Offcanvas id="savedMeals" show={props.show} onHide={props.onHide}>
@@ -17,9 +23,7 @@ function SavedMealCardsOffcanvas(props: Props) {
         <Offcanvas.Title>Saved Meals</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <Form>
-          <Form.Control type="text" placeholder="Type to search" />
-        </Form>
+        <SearchTermInput />
         <div>Total: {_.size(props.meals)}</div>
         <SavedMealCards meals={props.meals} />
       </Offcanvas.Body>
