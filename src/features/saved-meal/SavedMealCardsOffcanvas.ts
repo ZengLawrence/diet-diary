@@ -12,11 +12,11 @@ function indexedMeals(meals: { foods: Food[] }[]) {
 
 function includesAllWords(meal: { foods: Food[] }, searchTerm: string) {
   const includesWord = (word: string) => meal.foods.some(food => _.lowerCase(food.description).includes(word));
-  return _.words(searchTerm).every(includesWord);
+  return _.words(_.lowerCase(searchTerm)).every(includesWord);
 }
 
 function filterMeals(state: RootState) {
-  const searchTerm = _.lowerCase(savedMealStateSelector(state).searchTerm);
+  const searchTerm = savedMealStateSelector(state).searchTerm;
   const meals = indexedMeals(savedMealsSelector(state));
   return _.filter(meals, m => includesAllWords(m, searchTerm));
 }
