@@ -10,14 +10,15 @@ function indexedMeals(meals: { foods: Food[] }[]) {
   return _.map(meals, (m, index) => ({ index: index, foods: m.foods }));
 }
 
-function includesWord(meal: { foods: Food[] }, word: string): boolean {
-  return meal.foods.some(food => _.lowerCase(food.description).includes(word));
+function includesAllWords(meal: { foods: Food[] }, searchTerm: string) {
+  const includesWord = (word: string) => meal.foods.some(food => _.lowerCase(food.description).includes(word));
+  return _.words(searchTerm).every(includesWord);
 }
 
 function filterMeals(state: RootState) {
   const searchTerm = _.lowerCase(savedMealStateSelector(state).searchTerm);
   const meals = indexedMeals(savedMealsSelector(state));
-  return _.filter(meals, m => includesWord(m, searchTerm));
+  return _.filter(meals, m => includesAllWords(m, searchTerm));
 }
 
 const mapStateToProps = (state: RootState) => ({
