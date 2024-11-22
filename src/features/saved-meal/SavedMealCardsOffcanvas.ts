@@ -12,8 +12,8 @@ function indexedMeals(meals: { foods: Food[] }[]) {
 
 function includesAllWords(meal: { foods: Food[] }, searchTerm: string) {
   const foodDescriptions = _.map(meal.foods, f => _.lowerCase(f.description));
-  const includesWord = (word: string) => foodDescriptions.some(desc => desc.includes(word));
-  return _.words(_.lowerCase(searchTerm)).every(includesWord);
+  const wordIncludedInFoodDescription = (word: string) => foodDescriptions.some(desc => desc.includes(word));
+  return _.words(_.lowerCase(searchTerm)).every(wordIncludedInFoodDescription);
 }
 
 function filterMeals(state: RootState) {
