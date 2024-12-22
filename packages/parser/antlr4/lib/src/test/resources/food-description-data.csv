@@ -15,3 +15,4 @@ banana 1                            |(foodDescription (foodName banana) (measure
 pizza 12-inch pie                   |(foodDescription (foodName pizza 12-inch pie))                                             |number dash in food name
 cup noodle large 1 cup              |(foodDescription (foodName cup noodle large) (measurement (quantity 1) (unit cup)))        |unit name in food name
 brocoli 1 1/2 cups                  |(foodDescription (foodName brocoli) (measurement (quantity 1 1/2) (unit cups)))            |whole number fraction quantity
+Muffin 1 large (4 ounces)           |(foodDescription (foodName Muffin) (measurement (quantity 1) (unit large ( 4 ounces ))))   |parentheses in unit
