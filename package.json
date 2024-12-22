@@ -18,7 +18,7 @@
     "next": "15.1.2",
     "numeral": "^2.0.6",
     "react": "19.0.0",
-    "react-bootstrap": "^2.10.5",
+    "react-bootstrap": "^2.10.7",
     "react-dom": "19.0.0",
     "react-redux": "^9.2.0"
   },
