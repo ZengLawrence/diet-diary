@@ -12,7 +12,7 @@ quantity
   ;
 
 unit
-  : WORD+
+  : WORD+ | WORD LEFT_PAREN (WHOLE_NUMBER | WORD)+ RIGHT_PAREN
   ;
 
 WORD
@@ -23,6 +23,9 @@ fragment DIGIT : [0-9];
 DECIMAL : DIGIT+ '.' DIGIT* | '.' DIGIT+;
 FRACTION: DIGIT+ '/' DIGIT+;
 WHOLE_NUMBER: DIGIT+;
+
+LEFT_PAREN : '(';
+RIGHT_PAREN : ')';
 
 COMMA : ',' -> channel(HIDDEN) ;
 

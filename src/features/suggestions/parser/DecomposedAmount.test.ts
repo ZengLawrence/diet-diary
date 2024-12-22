@@ -93,6 +93,16 @@ test("variable unit e.g. diameter unit '12-inch'", () => {
   });
 })
 
+test("parenthesis in unit e.g. 1/2 large (4 ounces)", () => {
+  expect(parseAmount("1/2 large (4 ounces)")).toMatchObject({
+    measurement: {
+      quantity: 0.5,
+      unit: "large",
+      unitText: "large (4 ounces)",
+    }
+  });
+})
+
 function givenPluralHasSameSpelling() {
   return {
     testCases: _.partialRight(testCases, [], { pluralSameSpelling: true })
