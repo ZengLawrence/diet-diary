@@ -16,7 +16,7 @@ quantity
   ;
 
 unit
-  : WORD+
+  : WORD+ | WORD LEFT_PARENTHESES (WHOLE_NUMBER | WORD)+ RIGHT_PARENTHESES
   ;
 
 WORD
@@ -27,6 +27,9 @@ fragment DIGIT : [0-9];
 DECIMAL : DIGIT+ '.' DIGIT* | '.' DIGIT+;
 FRACTION: DIGIT+ '/' DIGIT+;
 WHOLE_NUMBER: DIGIT+;
+
+LEFT_PARENTHESES : '(';
+RIGHT_PARENTHESES : ')';
 
 COMMA : ',' -> channel(HIDDEN) ;
 

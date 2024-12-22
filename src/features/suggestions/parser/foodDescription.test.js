@@ -222,3 +222,16 @@ test("alternate measurement, takes only the first one", () => {
     }
   );
 })
+
+test("parenthesis in unit", () => {
+  expect(parseFoodDescription("Muffin 1 large (4 ounces)")).toMatchObject(
+    {
+      foodName: "Muffin",
+      amount: "1 large (4 ounces)",
+      measurement: {
+        quantity: 1,
+        unitText: "large (4 ounces)",
+      }
+    }
+  );
+})

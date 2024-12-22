@@ -8,3 +8,4 @@ input                        |parsed tree                                       
 1 cup cooked                 |(amount (measurement (quantity 1) (unit cup cooked)))                                                 |multi-word unit
 1                            |(amount (measurement (quantity 1)))                                                                   |no unit
 1 1/2 cups                   |(amount (measurement (quantity 1 1/2) (unit cups)))                                                   |whole number fraction quantity
+1 large (4 ounces) |(amount (measurement (quantity 1) (unit large ( 4 ounces )))) |parentheses in unit
