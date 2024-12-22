@@ -62,7 +62,7 @@ interface Props {
   updateFoodDescriptionServing: (desc: string, serving?: Serving, bestChoice?: boolean) => void;
 }
 
-function useClickOutside(ref: RefObject<HTMLDivElement>, handler: () => void) {
+function useClickOutside(ref: RefObject<HTMLDivElement | null>, handler: () => void) {
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (ref.current && !ref.current.contains(event.target as Node)) {
