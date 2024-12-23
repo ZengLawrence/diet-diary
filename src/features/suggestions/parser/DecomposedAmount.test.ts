@@ -103,6 +103,16 @@ test("parenthesis in unit e.g. 1/2 large (4 ounces)", () => {
   });
 })
 
+test("parenthesis in unit includes /", () => {
+  expect(parseAmount("1 pack (3/4 ounce)")).toMatchObject({
+    measurement: {
+      quantity: 1,
+      unit: "unknown",
+      unitText: "pack (3/4 ounce)",
+    }
+  });
+})
+
 function givenPluralHasSameSpelling() {
   return {
     testCases: _.partialRight(testCases, [], { pluralSameSpelling: true })
