@@ -1,18 +1,22 @@
-input                               |parsed tree                                                                                |test case
-2% milk 1 cup                       |(foodDescription (foodName 2% milk) (measurement (quantity 1) (unit cup)))                 |% in food name
-Orange 3/4 cup sections or 1 medium |(foodDescription (foodName Orange) (measurement (quantity 3/4) (unit cup sections or)))    |alternate amount
-broccoli 1 cup                      |(foodDescription (foodName broccoli) (measurement (quantity 1) (unit cup)))                |basic case - food name and measurement
-Nuts, peanuts 8 wholes              |(foodDescription (foodName Nuts peanuts) (measurement (quantity 8) (unit wholes)))         |comma in food name
-Canadian-style bacon                |(foodDescription (foodName Canadian-style bacon))                                          |dash in food name
-pizza 1 of 12-inch                  |(foodDescription (foodName pizza) (measurement (quantity 1) (unit of 12-inch)))            |dash in unit
-brocoli 1.5 cups                    |(foodDescription (foodName brocoli) (measurement (quantity 1.5) (unit cups)))              |decimal quantity
-brocoli .5 cup                      |(foodDescription (foodName brocoli) (measurement (quantity .5) (unit cup)))                |decimal quantity with no leading zero
-broccoli                            |(foodDescription (foodName broccoli))                                                      |food name only
-brocoli 1/2 cup                     |(foodDescription (foodName brocoli) (measurement (quantity 1/2) (unit cup)))               |fraction quantity
-broccoli creamed cooked 1 cup       |(foodDescription (foodName broccoli creamed cooked) (measurement (quantity 1) (unit cup))) |multi-word food name
-broccoli 1 cup cooked               |(foodDescription (foodName broccoli) (measurement (quantity 1) (unit cup cooked)))         |multi-word unit
-banana 1                            |(foodDescription (foodName banana) (measurement (quantity 1)))                             |no unit
-pizza 12-inch pie                   |(foodDescription (foodName pizza 12-inch pie))                                             |number dash in food name
-cup noodle large 1 cup              |(foodDescription (foodName cup noodle large) (measurement (quantity 1) (unit cup)))        |unit name in food name
-brocoli 1 1/2 cups                  |(foodDescription (foodName brocoli) (measurement (quantity 1 1/2) (unit cups)))            |whole number fraction quantity
-Muffin 1 large (4 ounces)           |(foodDescription (foodName Muffin) (measurement (quantity 1) (unit large ( 4 ounces ))))   |parentheses in unit
+input                                   |parsed tree                                                                                            |test case
+2% milk 1 cup                           |(foodDescription (foodName 2% milk) (measurement (quantity 1) (unit cup)))                             |% in food name
+Orange 3/4 cup sections or 1 medium     |(foodDescription (foodName Orange) (measurement (quantity 3/4) (unit cup sections or)))                |alternate amount
+broccoli 1 cup                          |(foodDescription (foodName broccoli) (measurement (quantity 1) (unit cup)))                            |basic case - food name and measurement
+Nuts, peanuts 8 wholes                  |(foodDescription (foodName Nuts peanuts) (measurement (quantity 8) (unit wholes)))                     |comma in food name
+Canadian-style bacon                    |(foodDescription (foodName Canadian-style bacon))                                                      |dash in food name
+pizza 1 of 12-inch                      |(foodDescription (foodName pizza) (measurement (quantity 1) (unit of 12-inch)))                        |dash in unit
+brocoli 1.5 cups                        |(foodDescription (foodName brocoli) (measurement (quantity 1.5) (unit cups)))                          |decimal quantity
+brocoli .5 cup                          |(foodDescription (foodName brocoli) (measurement (quantity .5) (unit cup)))                            |decimal quantity with no leading zero
+broccoli                                |(foodDescription (foodName broccoli))                                                                  |food name only
+brocoli 1/2 cup                         |(foodDescription (foodName brocoli) (measurement (quantity 1/2) (unit cup)))                           |fraction quantity
+broccoli creamed cooked 1 cup           |(foodDescription (foodName broccoli creamed cooked) (measurement (quantity 1) (unit cup)))             |multi-word food name
+broccoli 1 cup cooked                   |(foodDescription (foodName broccoli) (measurement (quantity 1) (unit cup cooked)))                     |multi-word unit
+banana 1                                |(foodDescription (foodName banana) (measurement (quantity 1)))                                         |no unit
+pizza 12-inch pie                       |(foodDescription (foodName pizza 12-inch pie))                                                         |number dash in food name
+cup noodle large 1 cup                  |(foodDescription (foodName cup noodle large) (measurement (quantity 1) (unit cup)))                    |unit name in food name
+brocoli 1 1/2 cups                      |(foodDescription (foodName brocoli) (measurement (quantity 1 1/2) (unit cups)))                        |whole number fraction quantity
+Muffin 1 large (4 ounces)               |(foodDescription (foodName Muffin) (measurement (quantity 1) (unit large ( 4 ounces ))))               |parentheses in unit
+Muffin 1 (2 ounces)                     |(foodDescription (foodName Muffin) (measurement (quantity 1) (unit ( 2 ounces ))))                     |unit starts with parentheses
+Fruit leather pieces 1 pack (3/4 ounce) |(foodDescription (foodName Fruit leather pieces) (measurement (quantity 1) (unit pack ( 3/4 ounce )))) |parentheses in unit include /
+Doughnut 1 (3 1/4 inch dia.)            |(foodDescription (foodName Doughnut) (measurement (quantity 1) (unit ( 3 1/4 inch dia . ))))           |parentheses in unit include / and .
+Meatballs 1 cup (about 5 meatballs)     |(foodDescription (foodName Meatballs) (measurement (quantity 1) (unit cup ( about 5 meatballs ))))     |parentheses in unit starts with a word

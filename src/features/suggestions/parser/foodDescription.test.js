@@ -235,3 +235,16 @@ test("parenthesis in unit", () => {
     }
   );
 })
+
+test("parenthesis in unit includes /", () => {
+  expect(parseFoodDescription("Fruit leather pieces 1 pack (3/4 ounce)")).toMatchObject(
+    {
+      foodName: "Fruit leather pieces",
+      amount: "1 pack (3/4 ounce)",
+      measurement: {
+        quantity: 1,
+        unitText: "pack (3/4 ounce)",
+      }
+    }
+  );
+})
