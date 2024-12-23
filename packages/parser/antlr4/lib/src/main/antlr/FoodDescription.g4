@@ -16,7 +16,7 @@ quantity
   ;
 
 unit
-  : WORD+ | WORD* LEFT_PAREN (WHOLE_NUMBER | WORD)+ RIGHT_PAREN
+  : WORD+ | WORD* LEFT_PAREN (WHOLE_NUMBER | WORD | SLASH)+ RIGHT_PAREN
   ;
 
 WORD
@@ -30,6 +30,7 @@ WHOLE_NUMBER: DIGIT+;
 
 LEFT_PAREN : '(';
 RIGHT_PAREN : ')';
+SLASH : '/';
 
 COMMA : ',' -> channel(HIDDEN) ;
 

@@ -17,3 +17,4 @@ cup noodle large 1 cup              |(foodDescription (foodName cup noodle large
 brocoli 1 1/2 cups                  |(foodDescription (foodName brocoli) (measurement (quantity 1 1/2) (unit cups)))            |whole number fraction quantity
 Muffin 1 large (4 ounces)           |(foodDescription (foodName Muffin) (measurement (quantity 1) (unit large ( 4 ounces ))))   |parentheses in unit
 Muffin 1 (2 ounces)                 |(foodDescription (foodName Muffin) (measurement (quantity 1) (unit ( 2 ounces ))))         |unit starts with parentheses
+Fruit leather pieces 1 pack (3/4 ounce)|(foodDescription (foodName Fruit leather pieces) (measurement (quantity 1) (unit pack ( 3/4 ounce ))))|parentheses in unit include /
