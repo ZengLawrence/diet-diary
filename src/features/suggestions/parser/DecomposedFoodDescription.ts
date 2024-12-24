@@ -14,7 +14,8 @@ function isEndedWithRightParenthesis(s: string) {
 }
 
 export default function decompose(foodDescription: string) {
-  const { foodName, amount, measurement } = parse(foodDescription);
+  const parsed = parse(foodDescription);
+  const { foodName, amount, measurement } = parsed;
   const unitText = measurement?.unitText;
   const foodNameCompleted = isSpaceAfter(foodDescription, _.size(foodName));
   const unitCompleted = (amount && unitText) ? isEndedWithSpace(foodDescription) || isEndedWithRightParenthesis(foodDescription) : false;
