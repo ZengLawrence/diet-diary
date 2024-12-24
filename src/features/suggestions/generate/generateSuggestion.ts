@@ -8,10 +8,11 @@ import { generateAutoSuggestion } from './autoSuggestion';
 import { isAmountParsable } from './isAmountParsable';
 
 function unitOfMeasurement(amount?: string) {
-  if (_.isUndefined(amount) || !isAmountParsable(amount)) return undefined;
-
-  const { measurement } = parseAmount(amount);
-  return measurement.unit;
+  if (amount && isAmountParsable(amount)) {
+    const { measurement } = parseAmount(amount);
+    return measurement.unit;
+  }
+  return undefined;
 }
 
 export function generateSuggestions(
