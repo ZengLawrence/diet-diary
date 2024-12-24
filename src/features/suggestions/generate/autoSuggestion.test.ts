@@ -259,3 +259,59 @@ test("unknown unit from input, choose the measurement whose unit is also unknown
     }
   });
 })
+
+test("unit with parenthesis should generate serving suggestion", () => {
+  const autoCompletion = {
+    foodName: "Doughnut",
+    amount: "1 (3 1/4 inch dia.)"
+  }
+  const suggestions = [
+    {
+      foodName: "Doughnut, cake (plain)",
+      amount: "1 (3 1/4 inch dia.)",
+      serving: {
+        carbohydrate: 0.5,
+        fat: 3,
+        sweet: 0.5,
+      }
+    }
+  ]
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
+  expect(result).toEqual({
+    foodName: "Doughnut",
+    amount: "1 (3 1/4 inch dia.)",
+    serving: {
+      carbohydrate: 0.5,
+      fat: 3,
+      sweet: 0.5,
+  }
+  });
+})
+
+test("unit with open parenthesis should not generate serving suggestion", () => {
+  const autoCompletion = {
+    foodName: "Doughnut",
+    amount: "1 ("
+  }
+  const suggestions = [
+    {
+      foodName: "Doughnut, cake (plain)",
+      amount: "1 (3 1/4 inch dia.)",
+      serving: {
+        carbohydrate: 0.5,
+        fat: 3,
+        sweet: 0.5,
+      }
+    }
+  ]
+  const result = generateAutoSuggestion(autoCompletion, suggestions);
+  expect(result).toEqual({
+    foodName: "Doughnut",
+    amount: "1 (3 1/4 inch dia.)",
+    serving: {
+      carbohydrate: 0.5,
+      fat: 3,
+      sweet: 0.5,
+  }
+  });
+})

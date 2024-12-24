@@ -10,13 +10,26 @@ export function generateAutoSuggestion(autoCompletion: Suggestion, suggestions: 
   return createAutoSuggestion(autoCompletion, bestMatch);
 }
 
+/**
+ * Amount string is parsable if it has matching parentheses. Default to true if there is no parentheses.
+ * 
+ * @param amount Amount string to check if it is parsable
+ * @returns true if amount is parsable, false otherwise
+ */
+function isAmountParsable(amount: string) {
+  if (_.endsWith(amount, ")")) {
+    return amount.includes("(");
+  }
+  return !amount.includes("(");
+}
+
 function createAutoSuggestion(nameSuggestion: Suggestion, suggestion: PredefinedSuggestion) {
   const { foodName, amount } = nameSuggestion;
   const autoSuggestion = {
     ...suggestion,
     foodName
   };
-  if (amount) {
+  if (amount && isAmountParsable(amount)) {
     const serving = baseOn(suggestion).servingFor(amount);
     return {
       ...autoSuggestion,
