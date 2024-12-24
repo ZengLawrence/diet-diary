@@ -21,8 +21,7 @@ function isUnitCompleted(foodDescription: string, amount: string | undefined, un
 }
 
 export default function decompose(foodDescription: string) {
-  const parsed = parse(foodDescription);
-  const { foodName, amount, measurement } = parsed;
+  const { foodName, amount, measurement } = parse(foodDescription);
   const unitText = measurement?.unitText;
   const foodNameCompleted = isSpaceAfter(foodDescription, _.size(foodName));
   const unitCompleted = isUnitCompleted(foodDescription, amount, unitText);
