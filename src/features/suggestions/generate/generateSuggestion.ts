@@ -22,7 +22,8 @@ export function generateSuggestions(
 
   const firstAutoCompletion = autoCompletions[0];
   const servingSuggestions = findSuggestions(foodDescription.foodName, { convertibleFrom: unitOfMeasurement(firstAutoCompletion.amount) });
-  const allSuggestions = _.concat(autoCompletions, generateAutoSuggestion(firstAutoCompletion, servingSuggestions), servingSuggestions);
+  const autoSuggestions = generateAutoSuggestion(firstAutoCompletion, servingSuggestions);
+  const allSuggestions = _.concat(autoCompletions, autoSuggestions, servingSuggestions);
   const results = _.uniqWith(_.compact(allSuggestions), _.isEqual)
     .slice(0, 5);
   return callback(results);
