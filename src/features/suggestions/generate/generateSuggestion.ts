@@ -14,7 +14,7 @@ function unitOfMeasurement(amount?: string) {
 }
 
 export function generateSuggestions(
-  foodDescriptionRef: React.MutableRefObject<string>,
+  foodDescriptionRef: React.RefObject<string>,
   callback: (suggestions: Suggestion[]) => void
 ) {
   const foodDescription = decompose(foodDescriptionRef.current + "");
