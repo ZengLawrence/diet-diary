@@ -13,8 +13,8 @@ function isEndedWithRightParenthesis(s: string) {
   return s.substring(_.size(s) - 1, _.size(s)) === ")";
 }
 
-function isUnitCompleted(foodDescription: string, amount: string | undefined, unitText: string | undefined) {
-    if (amount && unitText) {
+function isUnitCompleted(foodDescription: string, unitText: string | undefined) {
+    if (unitText) {
       return isEndedWithSpace(foodDescription) || isEndedWithRightParenthesis(foodDescription);
     }
     return false;
@@ -24,7 +24,7 @@ export default function decompose(foodDescription: string) {
   const { foodName, amount, measurement } = parse(foodDescription);
   const unitText = measurement?.unitText;
   const foodNameCompleted = isSpaceAfter(foodDescription, _.size(foodName));
-  const unitCompleted = isUnitCompleted(foodDescription, amount, unitText);
+  const unitCompleted = isUnitCompleted(foodDescription, unitText);
   return {
     foodName,
     amount,
