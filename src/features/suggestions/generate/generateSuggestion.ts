@@ -5,9 +5,10 @@ import findAutoCompletions from '../search/autoCompletion';
 import { findSuggestions } from '../search/foodNameSearch';
 import { Suggestion } from '../Suggestion';
 import { generateAutoSuggestion } from './autoSuggestion';
+import { isAmountParsable } from './isAmountParsable';
 
 function unitOfMeasurement(amount?: string) {
-  if (_.isUndefined(amount)) return undefined;
+  if (_.isUndefined(amount) || !isAmountParsable(amount)) return undefined;
 
   const { measurement } = parseAmount(amount);
   return measurement.unit;
