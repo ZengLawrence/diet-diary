@@ -2,6 +2,7 @@ import _ from 'lodash';
 import { Suggestion } from "../Suggestion";
 import baseOn from './calculateServing';
 import { PredefinedSuggestion } from "../search/PredefinedSuggestion";
+import { isAmountParsable } from './isAmountParsable';
 
 export function generateAutoSuggestion(autoCompletion: Suggestion, suggestions: PredefinedSuggestion[]) {
   if (_.size(suggestions) === 0) return null;
@@ -16,7 +17,7 @@ function createAutoSuggestion(nameSuggestion: Suggestion, suggestion: Predefined
     ...suggestion,
     foodName
   };
-  if (amount) {
+  if (amount && isAmountParsable(amount)) {
     const serving = baseOn(suggestion).servingFor(amount);
     return {
       ...autoSuggestion,

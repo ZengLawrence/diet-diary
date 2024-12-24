@@ -4,16 +4,20 @@ import { createSuggestion, Suggestion } from '../Suggestion';
 import autoCompleteUnit from './unitMiniSearch';
 import { DecomposedFoodDescription } from '../parser/DecomposedFoodDescription';
 import { findNameSuggestions } from './foodNameSearch';
+import { isAmountParsable } from '../generate/isAmountParsable';
 
 export default function findAutoCompletions(foodDescription: DecomposedFoodDescription): Suggestion[] {
   const { foodName, amount, foodNameCompleted, unitCompleted } = foodDescription;
   if (foodNameCompleted) {
     if (amount && !unitCompleted) {
       const suggestionWithAmount = _.partial(createSuggestion, foodName);
-      const amountAutoCompletions = findAmountAutoCompletions(parseAmount(amount))
-        .map(suggestionWithAmount);
-      if (_.size(amountAutoCompletions) > 0)
-        return amountAutoCompletions;
+      if (isAmountParsable(amount)) {
+        const amountAutoCompletions = findAmountAutoCompletions(parseAmount(amount))
+          .map(suggestionWithAmount);
+        if (_.size(amountAutoCompletions) > 0) {
+          return amountAutoCompletions;
+        }
+      }
     }
     return [createSuggestion(foodName, amount)];
   }

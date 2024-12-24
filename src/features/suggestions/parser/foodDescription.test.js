@@ -248,3 +248,15 @@ test("parenthesis in unit includes /", () => {
     }
   );
 })
+
+test("parenthesis in unit with no content", () => {
+  expect(parseFoodDescription("Muffin 1 large (")).toMatchObject(
+    {
+      foodName: "Muffin",
+      amount: "1 large (",
+      measurement: {
+        unitText: "large (",
+      }
+    }
+  );
+})
