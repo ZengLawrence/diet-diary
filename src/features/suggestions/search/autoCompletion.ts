@@ -12,8 +12,9 @@ export default function findAutoCompletions(foodDescription: DecomposedFoodDescr
       const suggestionWithAmount = _.partial(createSuggestion, foodName);
       const amountAutoCompletions = findAmountAutoCompletions(parseAmount(amount))
         .map(suggestionWithAmount);
-      if (_.size(amountAutoCompletions) > 0)
+      if (_.size(amountAutoCompletions) > 0) {
         return amountAutoCompletions;
+      }
     }
     return [createSuggestion(foodName, amount)];
   }
