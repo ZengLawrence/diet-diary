@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Food, Meal } from "../../model/Food";
 
-const MAX_SAVED_COUNT = 100;
+const MAX_SAVED_COUNT = 200;
 
 interface SavedMeal {
   foods: Food[];
