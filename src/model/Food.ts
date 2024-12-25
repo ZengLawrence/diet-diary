@@ -25,7 +25,8 @@ export type FoodGroup = "vegetable" | "fruit" | "carbohydrate" | "proteinDiary" 
 export function newFood(): Food {
   return {
     description: "",
-    serving: {}
+    serving: {},
+    bestChoice: false,
   }
 }
 
