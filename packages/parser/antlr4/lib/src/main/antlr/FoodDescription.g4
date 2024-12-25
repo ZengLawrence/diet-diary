@@ -4,7 +4,7 @@ foodDescription
   ;
   
 foodName
-    : WORD (COMMA | WORD)*
+    : WORD (COMMA | WORD | LEFT_PAREN | RIGHT_PAREN)*
     ;
 
 measurement
