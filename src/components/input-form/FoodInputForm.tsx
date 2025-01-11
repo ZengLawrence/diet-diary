@@ -82,7 +82,7 @@ export const FoodInputForm = (props: Props) => {
 
       <Row>
         <Col>
-          {props.buttonLabel === "Update"
+          {props.onDeleteFood
             && <Button variant={VariantDanger} onClick={props.onDeleteFood}>Delete</Button>}
         </Col>
         <Col xs="auto">
