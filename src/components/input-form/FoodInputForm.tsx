@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { calcFoodCalories, toIntString } from "../../model/calorieFunction";
 import { Food } from "../../model/Food";
-import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
+import { VariantDanger, VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { FoodDescriptionComboBox } from "./FoodDescriptionComboBox";
 import { ServingInputControl } from "./ServingInputControl";
 import { useFoodInputFormStateReducer } from "./useFoodInputFormStateReducer";
@@ -15,7 +15,8 @@ interface Props {
   food: Food;
   buttonLabel: ButtonLabel;
   onSaveFood: (food: Food) => void;
-  onCancel: () => void
+  onCancel: () => void;
+  onDeleteFood?: () => void;
 }
 
 export const FoodInputForm = (props: Props) => {
@@ -80,7 +81,10 @@ export const FoodInputForm = (props: Props) => {
       </Form.Group>
 
       <Row>
-        <Col />
+        <Col>
+          {props.onDeleteFood
+            && <Button variant={VariantDanger} onClick={props.onDeleteFood}>Delete</Button>}
+        </Col>
         <Col xs="auto">
           <Button variant={VariantSecondary} onClick={props.onCancel}>Cancel</Button>&nbsp;
           <Button variant={VariantPrimary} type="submit" >{props.buttonLabel}</Button>

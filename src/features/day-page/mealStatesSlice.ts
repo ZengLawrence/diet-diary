@@ -65,6 +65,11 @@ const mealStatesSlice = createSlice({
       const { mealIndex, foodIndex, food } = action.payload;
       state[mealIndex].meal.foods[foodIndex] = food;
     },
+    deleteFood(state, action: PayloadAction<{ mealIndex: number; foodIndex: number; }>) {
+      const { mealIndex, foodIndex } = action.payload;
+      state[mealIndex].meal.foods.splice(foodIndex, 1);
+      state[mealIndex].foodEditIndex = undefined;
+    },
     cancelAddFood(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
       state[mealIndex].editState = undefined;
     },
@@ -103,7 +108,7 @@ const mealStatesSlice = createSlice({
 
 export const {
   addMeal, addSavedMeal, deleteMeal,
-  addFood, updateFood, cancelAddFood,
+  addFood, updateFood, deleteFood, cancelAddFood,
   enterMealEditMode, enterMealAddMode, exitMealEditMode,
   enterFoodEditMode, exitFoodEditMode,
   showSavedMealAlert, hideSavedMealAlert
