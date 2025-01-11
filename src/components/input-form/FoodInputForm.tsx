@@ -81,7 +81,7 @@ export const FoodInputForm = (props: Props) => {
 
       <Row>
         <Col>
-          <Button variant={VariantDanger} >Delete</Button>
+          {props.buttonLabel === "Update" && <Button variant={VariantDanger} >Delete</Button>}
         </Col>
         <Col xs="auto">
           <Button variant={VariantSecondary} onClick={props.onCancel}>Cancel</Button>&nbsp;
