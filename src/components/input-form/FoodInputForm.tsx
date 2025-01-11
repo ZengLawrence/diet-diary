@@ -15,7 +15,8 @@ interface Props {
   food: Food;
   buttonLabel: ButtonLabel;
   onSaveFood: (food: Food) => void;
-  onCancel: () => void
+  onCancel: () => void;
+  onDeleteFood?: () => void;
 }
 
 export const FoodInputForm = (props: Props) => {
@@ -81,7 +82,8 @@ export const FoodInputForm = (props: Props) => {
 
       <Row>
         <Col>
-          {props.buttonLabel === "Update" && <Button variant={VariantDanger} >Delete</Button>}
+          {props.buttonLabel === "Update"
+            && <Button variant={VariantDanger} onClick={props.onDeleteFood}>Delete</Button>}
         </Col>
         <Col xs="auto">
           <Button variant={VariantSecondary} onClick={props.onCancel}>Cancel</Button>&nbsp;
