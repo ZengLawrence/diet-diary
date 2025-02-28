@@ -10,10 +10,6 @@ const summaryTypeSlice = createSlice({
       return action.payload;
     }
   },
-  extraReducers: builder => {
-    builder
-      .addCase(newDay, () => "total")
-  }
 })
 
 export const { setSummaryType } = summaryTypeSlice.actions;
