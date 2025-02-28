@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { SummaryType } from "../../model/SummaryType";
-import { newDay } from "./dateSlice";
 
 const summaryTypeSlice = createSlice({
   name: "summaryType",
