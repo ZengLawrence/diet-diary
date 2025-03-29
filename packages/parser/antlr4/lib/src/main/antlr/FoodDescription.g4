@@ -8,7 +8,7 @@ foodName
     ;
 
 measurement
-    : quantity unit?
+    : quantity unit? | OUNCE_UNIT WORD*
     ;
 
 quantity
@@ -17,6 +17,10 @@ quantity
 
 unit
   : WORD+ | WORD* LEFT_PAREN (WHOLE_NUMBER | FRACTION | WORD | SLASH | PERIOD)* RIGHT_PAREN?
+  ;
+
+OUNCE_UNIT
+  : WHOLE_NUMBER '-ounce'
   ;
 
 WORD
