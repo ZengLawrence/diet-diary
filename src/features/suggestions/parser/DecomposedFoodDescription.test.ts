@@ -67,3 +67,13 @@ test("Given food name and amount with a right parenthesis, then food name comple
     unitCompleted: true,
   });
 })
+
+test("Given food with ounce unit i.e. 2-ounce roll, then food name completed and unit completed flag are false", () => {
+  const result = decompose("egg rolls 2-ounce roll");
+  expect(result).toMatchObject({
+    foodName: "egg rolls",
+    foodNameCompleted: true,
+    amount: "2-ounce roll",
+    unitCompleted: false,
+  });
+})
