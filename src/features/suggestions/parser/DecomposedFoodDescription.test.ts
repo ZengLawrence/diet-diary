@@ -58,7 +58,7 @@ test("Given food name and amount with a trailing space, then amount with trailin
   });
 })
 
-test("Given food name and amount with a right parenthesis, then food name completed and unit completed flag are true", () => {
+test("Given food name and amount with a right parenthesis, then food name completed is true and unit completed flag is false", () => {
   const result = decompose("doughnut 1 (3 1/4 dia.)");
   expect(result).toMatchObject({
     foodName: "doughnut",
