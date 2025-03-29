@@ -8,7 +8,7 @@ function compose(quantityText: string | undefined, unitText: string) {
 
 function createMeasurement(measurement?: Measurement) {
   return {
-    quantity: measurement?.quantity || 0,
+    quantity: measurement?.quantity || 1,
     unit: parseUnit(measurement?.unitText),
     unitText: measurement?.unitText,
     amountWithUnitText: _.partial(compose, measurement?.quantityText),

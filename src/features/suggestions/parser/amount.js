@@ -50,6 +50,14 @@ class AmountDecomposer extends AmountListener {
     }
   }
 
+  exitMeasurement(ctx) {
+    const val = this.input.substring(ctx.start.column, ctx.stop.stop + 1);
+    const measurement = getCurrentMeasurement(this.content);
+    if (_.isEmpty(measurement)) {
+      _.set(measurement, "unitText", val);
+    }
+  }
+
   getContent() {
     return this.content;
   }
