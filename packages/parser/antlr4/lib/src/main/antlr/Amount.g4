@@ -4,7 +4,7 @@ amount
   ;
   
 measurement
-    : quantity unit?
+    : quantity unit? | OUNCE_UNIT WORD*
     ;
 
 quantity
@@ -13,6 +13,10 @@ quantity
 
 unit
   : WORD+ | WORD* LEFT_PAREN (WORD | DECIMAL | FRACTION | WHOLE_NUMBER | WHOLE_NUMBER FRACTION | PERIOD)+ RIGHT_PAREN
+  ;
+
+OUNCE_UNIT
+  : WHOLE_NUMBER '-ounce'
   ;
 
 WORD
