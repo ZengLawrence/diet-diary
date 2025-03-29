@@ -77,3 +77,13 @@ test("Given food with ounce unit i.e. 2-ounce roll, then food name completed is 
     unitCompleted: false,
   });
 })
+
+test("Given 'egg rolls 1 2-ounce roll', then food name completed is true and unit completed flag is false", () => {
+  const result = decompose("egg rolls 1 2-ounce roll");
+  expect(result).toMatchObject({
+    foodName: "egg rolls",
+    foodNameCompleted: true,
+    amount: "1 2-ounce roll",
+    unitCompleted: false,
+  });
+})

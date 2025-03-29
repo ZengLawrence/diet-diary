@@ -22,3 +22,4 @@ Doughnut 1 (3 1/4 inch dia.)           | (foodDescription (foodName Doughnut) (m
 Meatballs 1 cup (about 5 meatballs)    | (foodDescription (foodName Meatballs) (measurement (quantity 1) (unit cup ( about 5 meatballs ))))    | parentheses in unit starts with a word
 Doughnut, cake (plain)                 | (foodDescription (foodName Doughnut cake ( plain )))                                                  | food name with parentheses
 Egg rolls 2-ounce roll                 | (foodDescription (foodName Egg rolls) (measurement 2-ounce roll))                                     | ounce unit as measurement
+Egg rolls 1 2-ounce roll               | (foodDescription (foodName Egg rolls) (measurement (quantity 1) 2-ounce roll))                        | quantity and ounce unit as measurement

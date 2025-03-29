@@ -8,7 +8,7 @@ foodName
     ;
 
 measurement
-    : quantity unit? | OUNCE_UNIT WORD*
+    : quantity unit? | OUNCE_UNIT WORD* | quantity OUNCE_UNIT WORD*
     ;
 
 quantity
