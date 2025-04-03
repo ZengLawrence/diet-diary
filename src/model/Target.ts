@@ -68,7 +68,7 @@ const CUSTOM_TARGET_1200_CALORIE: Target = {
     vegetable: 6,
     fruit: 2,
     carbohydrate: 5,
-    proteinDiary: 3,
+    proteinDiary: 4,
     fat: 3,
     sweet: 0,
   }
