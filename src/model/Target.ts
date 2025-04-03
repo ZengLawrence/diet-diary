@@ -1,6 +1,6 @@
 import { FoodGroup } from "./Food";
 
-export type Gender = "man" | "woman";
+export type Gender = "man" | "woman" | "custom";
 
 const TARGET_1200_CALORIE: Target = {
   calorie: 1200,
@@ -62,6 +62,66 @@ const TARGET_2000_CALORIE: Target = {
   }
 }
 
+const CUSTOM_TARGET_1200_CALORIE: Target = {
+  calorie: 1200,
+  serving: {
+    vegetable: 6,
+    fruit: 2,
+    carbohydrate: 5,
+    proteinDiary: 3,
+    fat: 3,
+    sweet: 0,
+  }
+}
+
+const CUSTOM_TARGET_1400_CALORIE: Target = {
+  calorie: 1400,
+  serving: {
+    vegetable: 6,
+    fruit: 2,
+    carbohydrate: 6,
+    proteinDiary: 5,
+    fat: 3,
+    sweet: 0,
+  }
+}
+
+const CUSTOM_TARGET_1600_CALORIE: Target = {
+  calorie: 1600,
+  serving: {
+    vegetable: 6,
+    fruit: 2,
+    carbohydrate: 7,
+    proteinDiary: 6,
+    fat: 3,
+    sweet: 0,
+  }
+}
+
+const CUSTOM_TARGET_1800_CALORIE: Target = {
+  calorie: 1800,
+  serving: {
+    vegetable: 6,
+    fruit: 2,
+    carbohydrate: 8,
+    proteinDiary: 7,
+    fat: 4,
+    sweet: 0,
+  }
+}
+
+const CUSTOM_TARGET_2000_CALORIE: Target = {
+  calorie: 2000,
+  serving: {
+    vegetable: 6,
+    fruit: 2,
+    carbohydrate: 9,
+    proteinDiary: 8,
+    fat: 5,
+    sweet: 0,
+  }
+}
+
 export const DEFAULT_TARGET = TARGET_1600_CALORIE;
 
 export interface Target {
@@ -88,7 +148,15 @@ export function targetsByGender(gender: Gender) {
       TARGET_1600_CALORIE,
       TARGET_1800_CALORIE,
     ];  
-  } else {
+  } else if (gender === "custom") {
+    return [
+      CUSTOM_TARGET_1200_CALORIE,
+      CUSTOM_TARGET_1400_CALORIE,
+      CUSTOM_TARGET_1600_CALORIE,
+      CUSTOM_TARGET_1800_CALORIE,
+      CUSTOM_TARGET_2000_CALORIE,
+    ];  
+  }  {
     return [
       TARGET_1400_CALORIE,
       TARGET_1600_CALORIE,
