@@ -48,7 +48,7 @@ export const ServingInputControl = (props: Props) => {
         type="number"
         inputMode={props.useNumeric ? "numeric" : "decimal"}
         min={0}
-        max={9.99}
+        max={9}
         value={servingStr}
         isInvalid={isInvalid}
         onChange={handleChange}
