@@ -15,7 +15,7 @@ function updateFoodGroupServing(foodGroup: string, serving: number) {
 
 const TargetEditForm = (props: Props) => (
     <Form>
-        <Row className="justify-content-between">
+        <Row className="justify-content-between mb-3">
             <Col>
                 <ServingInputControl foodGroup="vegetable" serving={props.target.serving} isInvalid={false} onChange={updateFoodGroupServing} />
             </Col>
@@ -26,7 +26,7 @@ const TargetEditForm = (props: Props) => (
                 <ServingInputControl foodGroup="carbohydrate" serving={props.target.serving} isInvalid={false} onChange={updateFoodGroupServing} />
             </Col>
         </Row>
-        <Row className="justify-content-between">
+        <Row className="justify-content-between mb-3">
             <Col>
                 <ServingInputControl foodGroup="proteinDiary" serving={props.target.serving} isInvalid={false} onChange={updateFoodGroupServing} />
             </Col>
