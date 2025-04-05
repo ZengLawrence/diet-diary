@@ -19,7 +19,7 @@ const menuItem = (target: Target) => (
   </Dropdown.Item>
 )
 
-function editButtonMenuItem() {
+const EditButtonMenuItem = (props: {}) => {
 
   const [showEditCustomTargets, setShowEditCustomTargets] = useState(false);
 
@@ -61,7 +61,7 @@ export const TargetDropDown = (props: Props) => {
 
       <Dropdown.Menu>
         {_.map(props.targets, menuItem)}
-        {props.showEditButton && editButtonMenuItem()}
+        {props.showEditButton && <EditButtonMenuItem />}
         <Dropdown.Divider />
         <div className="w-100 d-flex justify-content-center">
           <GenderToggle />
