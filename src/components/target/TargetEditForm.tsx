@@ -3,9 +3,11 @@ import Form from "react-bootstrap/Form";
 import { Target } from "../../model/Target";
 import Col from "react-bootstrap/Col";
 import { ServingInputControl } from "../input-form/ServingInputControl";
+import { Button } from "react-bootstrap";
 
 interface Props {
     target: Target;
+    hide: () => void;
 }
 
 function updateFoodGroupServing(foodGroup: string, serving: number) {
@@ -36,6 +38,11 @@ const TargetEditForm = (props: Props) => (
             <Col>
                 <ServingInputControl foodGroup="sweet" serving={props.target.serving} onChange={updateFoodGroupServing} />
             </Col>
+        </Row>
+        <Row>
+            <Button variant="secondary" type="button" onClick={props.hide}>Cancel</Button>
+            &nbsp;
+            <Button variant="primary" type="submit">Update</Button>
         </Row>
     </Form>
 )

@@ -32,7 +32,7 @@ function targetRow(target: Target) {
       <Row>{target.calorie}{' '} Cal.</Row>
       <Row>
         {showEditForm
-          ? <TargetEditForm target={target} />
+          ? <TargetEditForm target={target} hide={() => setShowEditForm(false)} />
           : <TargetPanel target={target} onClick={() => setShowEditForm(true)} />
         }
       </Row>
