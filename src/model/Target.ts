@@ -148,9 +148,7 @@ export function targetsByGender(gender: Gender) {
       TARGET_1600_CALORIE,
       TARGET_1800_CALORIE,
     ];  
-  } else if (gender === "custom") {
-    return customTargets();  
-  }  {
+  } else {
     return [
       TARGET_1400_CALORIE,
       TARGET_1600_CALORIE,
