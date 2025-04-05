@@ -29,6 +29,7 @@ function reducer(state: Target, action: { type: FoodGroup; payload: number }) : 
 interface Props {
     target: Target;
     hide: () => void;
+    update: (target: Target) => void;
 }
 
 const TargetEditForm = (props: Props) => {
@@ -37,6 +38,12 @@ const TargetEditForm = (props: Props) => {
 
     const updateFoodGroupServing = (foodGroup: FoodGroup, serving: number) => 
         dispatch({ type: foodGroup, payload: serving });
+
+    const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        props.update(target);
+        props.hide();
+    };
     
     return (
         <Form>
@@ -66,7 +73,7 @@ const TargetEditForm = (props: Props) => {
                 <Col />
                 <Col xs="auto">
                     <Button variant="secondary" type="button" onClick={props.hide}>Cancel</Button>&nbsp;
-                    <Button variant="primary" type="submit" onClick={props.hide}>Update</Button>
+                    <Button variant="primary" type="submit" onClick={handleSubmit}>Update</Button>
                 </Col>
             </Row>
         </Form>
