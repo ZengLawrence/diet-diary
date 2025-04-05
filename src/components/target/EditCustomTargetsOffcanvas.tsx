@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import { Target } from "../../model/Target";
 import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
 import { Fragment, useState } from "react";
-import TargetEditForm from "./TargetEditForm";
+import TargetEditForm from "../../features/target/TargetEditForm";
 
 interface Props {
   show: boolean,
@@ -32,7 +32,7 @@ function targetRow(target: Target) {
       <Row>{target.calorie}{' '} Cal.</Row>
       <Row>
         {showEditForm
-          ? <TargetEditForm target={target} hide={() => setShowEditForm(false)} update={() => {}}/>
+          ? <TargetEditForm target={target} hide={() => setShowEditForm(false)} />
           : <TargetPanel target={target} onClick={() => setShowEditForm(true)} />
         }
       </Row>
