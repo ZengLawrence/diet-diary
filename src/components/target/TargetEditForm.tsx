@@ -17,24 +17,24 @@ const TargetEditForm = (props: Props) => (
     <Form>
         <Row className="justify-content-between mb-3">
             <Col>
-                <ServingInputControl foodGroup="vegetable" serving={props.target.serving} isInvalid={false} onChange={updateFoodGroupServing} />
+                <ServingInputControl foodGroup="vegetable" serving={props.target.serving} onChange={updateFoodGroupServing} />
             </Col>
             <Col>
-                <ServingInputControl foodGroup="fruit" serving={props.target.serving} isInvalid={false} onChange={updateFoodGroupServing} />
+                <ServingInputControl foodGroup="fruit" serving={props.target.serving} onChange={updateFoodGroupServing} />
             </Col>
             <Col>
-                <ServingInputControl foodGroup="carbohydrate" serving={props.target.serving} isInvalid={false} onChange={updateFoodGroupServing} />
+                <ServingInputControl foodGroup="carbohydrate" serving={props.target.serving} onChange={updateFoodGroupServing} />
             </Col>
         </Row>
         <Row className="justify-content-between mb-3">
             <Col>
-                <ServingInputControl foodGroup="proteinDiary" serving={props.target.serving} isInvalid={false} onChange={updateFoodGroupServing} />
+                <ServingInputControl foodGroup="proteinDiary" serving={props.target.serving} onChange={updateFoodGroupServing} />
             </Col>
             <Col>
-                <ServingInputControl foodGroup="fat" serving={props.target.serving} isInvalid={false} onChange={updateFoodGroupServing} />
+                <ServingInputControl foodGroup="fat" serving={props.target.serving} onChange={updateFoodGroupServing} />
             </Col>
             <Col>
-                <ServingInputControl foodGroup="sweet" serving={props.target.serving} isInvalid={false} onChange={updateFoodGroupServing} />
+                <ServingInputControl foodGroup="sweet" serving={props.target.serving} onChange={updateFoodGroupServing} />
             </Col>
         </Row>
     </Form>
