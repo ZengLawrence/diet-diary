@@ -23,12 +23,13 @@ const TargetPanel = (props: {
   </Fragment>
 );
 
-function targetRow(target: Target) {
+const TargetRow = (props: { target: Target }) => {
 
+  const { target } = props;
   const [showEditForm, setShowEditForm] = useState(false);
 
   return (
-    <Row key={String(target.calorie)}>
+    <Row>
       <Row>{target.calorie}{' '} Cal.</Row>
       <Row>
         {showEditForm
@@ -46,7 +47,7 @@ const EditCustomTargetsOffcanvas = (props: Props) => (
       <Offcanvas.Title>Custom Targets</Offcanvas.Title>
     </Offcanvas.Header>
     <Offcanvas.Body className="container">
-      {props.targets.map(targetRow)}
+      {props.targets.map(target => <TargetRow key={target.calorie} target={target} />)}
     </Offcanvas.Body>
   </Offcanvas>
 );
