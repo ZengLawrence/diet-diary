@@ -19,7 +19,7 @@ const menuItem = (target: Target) => (
 )
 
 const editButtonMenuItem = () => (
-  <Dropdown.Item>
+  <Dropdown.Item className="d-flex flex-row-reverse">
     <Button>Edit</Button>
   </Dropdown.Item>
 )
