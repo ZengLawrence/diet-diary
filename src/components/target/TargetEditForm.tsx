@@ -49,24 +49,24 @@ const TargetEditForm = (props: Props) => {
         <Form>
             <Row className="justify-content-between mb-3">
                 <Col>
-                    <ServingInputControl foodGroup="vegetable" serving={target.serving} onChange={updateFoodGroupServing} />
+                    <ServingInputControl foodGroup="vegetable" serving={target.serving} useNumeric={true} onChange={updateFoodGroupServing} />
                 </Col>
                 <Col>
-                    <ServingInputControl foodGroup="fruit" serving={target.serving} onChange={updateFoodGroupServing} />
+                    <ServingInputControl foodGroup="fruit" serving={target.serving} useNumeric={true} onChange={updateFoodGroupServing} />
                 </Col>
                 <Col>
-                    <ServingInputControl foodGroup="carbohydrate" serving={target.serving} onChange={updateFoodGroupServing} />
+                    <ServingInputControl foodGroup="carbohydrate" serving={target.serving} useNumeric={true} onChange={updateFoodGroupServing} />
                 </Col>
             </Row>
             <Row className="justify-content-between mb-3">
                 <Col>
-                    <ServingInputControl foodGroup="proteinDiary" serving={target.serving} onChange={updateFoodGroupServing} />
+                    <ServingInputControl foodGroup="proteinDiary" serving={target.serving} useNumeric={true} onChange={updateFoodGroupServing} />
                 </Col>
                 <Col>
-                    <ServingInputControl foodGroup="fat" serving={target.serving} onChange={updateFoodGroupServing} />
+                    <ServingInputControl foodGroup="fat" serving={target.serving} useNumeric={true} onChange={updateFoodGroupServing} />
                 </Col>
                 <Col>
-                    <ServingInputControl foodGroup="sweet" serving={target.serving} onChange={updateFoodGroupServing} />
+                    <ServingInputControl foodGroup="sweet" serving={target.serving} useNumeric={true} onChange={updateFoodGroupServing} />
                 </Col>
             </Row>
             <Row className="mb-3">

@@ -28,6 +28,7 @@ interface Props {
   serving: Serving;
   isInvalid?: boolean;
   onChange: (foodGroup: FoodGroup, serving: number) => void;
+  useNumeric?: boolean;
 }
 
 export const ServingInputControl = (props: Props) => {
@@ -45,7 +46,7 @@ export const ServingInputControl = (props: Props) => {
       </div>
       <Form.Control
         type="number"
-        inputMode="decimal"
+        inputMode={props.useNumeric ? "numeric" : "decimal"}
         min={0}
         max={9.99}
         value={servingStr}
