@@ -43,7 +43,7 @@ const TargetEditForm = (props: Props) => (
             <Col />
             <Col xs="auto">
                 <Button variant="secondary" type="button" onClick={props.hide}>Cancel</Button>&nbsp;
-                <Button variant="primary" type="submit">Update</Button>
+                <Button variant="primary" type="submit" onClick={props.hide}>Update</Button>
             </Col>
         </Row>
     </Form>
