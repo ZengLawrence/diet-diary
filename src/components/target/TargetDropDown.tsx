@@ -1,10 +1,11 @@
 import _ from "lodash";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import GenderToggle from "../../features/target/GenderToggle";
 import { Target } from "../../model/Target";
 import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
+import EditCustomTargetsOffcanvas from "./EditCustomTargetsOffcanvas";
 
 const MenuItemLabel = (props: { target: Target }) => (
   <Fragment>
@@ -18,12 +19,23 @@ const menuItem = (target: Target) => (
   </Dropdown.Item>
 )
 
-const editButtonMenuItem = () => (
-  <Dropdown.Item className="d-flex flex-row-reverse">
-    <Button>Edit</Button>
-  </Dropdown.Item>
-)
+const editButtonMenuItem = () => {
 
+  const [showEditCustomTargets, setShowEditCustomTargets] = useState(false);
+
+  return (
+    <>
+      <Dropdown.Item className="d-flex flex-row-reverse">
+        <Button onClick={() => setShowEditCustomTargets(true)}>Edit</Button>
+      </Dropdown.Item>
+
+      <EditCustomTargetsOffcanvas 
+        show={showEditCustomTargets} 
+        onHide={() => setShowEditCustomTargets(false)}
+        />
+    </>
+  )
+}
 interface Props {
   selectedCalorie: number;
   targets: Target[];
