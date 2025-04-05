@@ -18,4 +18,4 @@ function EditCustomTargetsOffcanvas(props: Props) {
     );
   }
   
-  export default EditCustomTargetsOffcanvas;
+export default EditCustomTargetsOffcanvas;
