@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { Fragment, useState } from "react";
 import GenderToggle from "../../features/target/GenderToggle";
-import { Target } from "../../model/Target";
+import { customTargets, Target } from "../../model/Target";
 import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
@@ -32,6 +32,7 @@ function editButtonMenuItem() {
       <EditCustomTargetsOffcanvas 
         show={showEditCustomTargets} 
         onHide={() => setShowEditCustomTargets(false)}
+        targets={customTargets()}
         />
     </Fragment>
   )
