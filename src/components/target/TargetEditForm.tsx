@@ -63,6 +63,10 @@ const INIT_ERROR_STATE: Error = {
     sweet: false
 };
 
+function hasError(error: Error): boolean {
+    return error.vegetable || error.fruit || error.carbohydrate || error.proteinDiary || error.fat || error.sweet;
+}
+
 interface Props {
     target: Target;
     hide: () => void;
@@ -84,6 +88,10 @@ const TargetEditForm = (props: Props) => {
 
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
+        if (hasError(error)) {
+            return;
+        }
+        
         props.update(target);
         props.hide();
     };
