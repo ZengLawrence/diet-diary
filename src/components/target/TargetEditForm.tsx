@@ -39,10 +39,12 @@ const TargetEditForm = (props: Props) => (
                 <ServingInputControl foodGroup="sweet" serving={props.target.serving} onChange={updateFoodGroupServing} />
             </Col>
         </Row>
-        <Row>
-            <Button variant="secondary" type="button" onClick={props.hide}>Cancel</Button>
-            &nbsp;
-            <Button variant="primary" type="submit">Update</Button>
+        <Row className="mb-3">
+            <Col />
+            <Col xs="auto">
+                <Button variant="secondary" type="button" onClick={props.hide}>Cancel</Button>&nbsp;
+                <Button variant="primary" type="submit">Update</Button>
+            </Col>
         </Row>
     </Form>
 )
