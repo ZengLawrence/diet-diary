@@ -8,6 +8,7 @@ import { changeTarget } from "./targetStateSlice";
 const mapStateToProps = (state: RootState) => ({
   selectedCalorie: targetSelector(state).calorie,
   targets: targetsByGender(targetStateSelector(state).gender),
+  showEditButton: targetStateSelector(state).gender == "custom"
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({

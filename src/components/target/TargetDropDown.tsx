@@ -1,9 +1,10 @@
 import _ from "lodash";
 import { Fragment } from "react";
-import { Dropdown } from "react-bootstrap";
 import GenderToggle from "../../features/target/GenderToggle";
 import { Target } from "../../model/Target";
 import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
+import Dropdown from "react-bootstrap/Dropdown";
+import Button from "react-bootstrap/Button";
 
 const MenuItemLabel = (props: { target: Target }) => (
   <Fragment>
@@ -21,6 +22,7 @@ interface Props {
   selectedCalorie: number;
   targets: Target[];
   onSelect: (target: Target) => void;
+  showEditButton?: boolean;
 }
 
 export const TargetDropDown = (props: Props) => {
@@ -40,6 +42,7 @@ export const TargetDropDown = (props: Props) => {
 
       <Dropdown.Menu>
         {_.map(props.targets, menuItem)}
+        {props.showEditButton && <Button>Edit</Button>}
         <Dropdown.Divider />
         <div className="w-100 d-flex justify-content-center">
           <GenderToggle />
