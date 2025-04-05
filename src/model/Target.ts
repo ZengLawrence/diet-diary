@@ -148,15 +148,7 @@ export function targetsByGender(gender: Gender) {
       TARGET_1600_CALORIE,
       TARGET_1800_CALORIE,
     ];  
-  } else if (gender === "custom") {
-    return [
-      CUSTOM_TARGET_1200_CALORIE,
-      CUSTOM_TARGET_1400_CALORIE,
-      CUSTOM_TARGET_1600_CALORIE,
-      CUSTOM_TARGET_1800_CALORIE,
-      CUSTOM_TARGET_2000_CALORIE,
-    ];  
-  }  {
+  } else {
     return [
       TARGET_1400_CALORIE,
       TARGET_1600_CALORIE,
@@ -164,4 +156,14 @@ export function targetsByGender(gender: Gender) {
       TARGET_2000_CALORIE,
     ];  
   }
+}
+
+export function customTargets() {
+  return [
+    CUSTOM_TARGET_1200_CALORIE,
+    CUSTOM_TARGET_1400_CALORIE,
+    CUSTOM_TARGET_1600_CALORIE,
+    CUSTOM_TARGET_1800_CALORIE,
+    CUSTOM_TARGET_2000_CALORIE,
+  ];
 }
