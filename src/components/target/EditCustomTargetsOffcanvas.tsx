@@ -1,9 +1,9 @@
-import Offcanvas from "react-bootstrap/Offcanvas";
-import { Target } from "../../model/Target";
-import Row from "react-bootstrap/Row";
-import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
-import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Offcanvas from "react-bootstrap/Offcanvas";
+import Row from "react-bootstrap/Row";
+import { Target } from "../../model/Target";
+import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
 
 interface Props {
   show: boolean,
