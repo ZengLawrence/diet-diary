@@ -18,6 +18,12 @@ const menuItem = (target: Target) => (
   </Dropdown.Item>
 )
 
+const editButtonMenuItem = () => (
+  <Dropdown.Item>
+    <Button>Edit</Button>
+  </Dropdown.Item>
+)
+
 interface Props {
   selectedCalorie: number;
   targets: Target[];
@@ -42,7 +48,7 @@ export const TargetDropDown = (props: Props) => {
 
       <Dropdown.Menu>
         {_.map(props.targets, menuItem)}
-        {props.showEditButton && <Button>Edit</Button>}
+        {props.showEditButton && editButtonMenuItem()}
         <Dropdown.Divider />
         <div className="w-100 d-flex justify-content-center">
           <GenderToggle />
