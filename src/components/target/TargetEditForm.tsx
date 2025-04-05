@@ -1,13 +1,14 @@
-import Row from "react-bootstrap/Row";
-import Form from "react-bootstrap/Form";
-import { Target } from "../../model/Target";
-import Col from "react-bootstrap/Col";
-import { ServingInputControl } from "../input-form/ServingInputControl";
-import { Button } from "react-bootstrap";
-import { FoodGroup } from "../../model/Food";
+import _ from "lodash";
 import { useReducer } from "react";
+import { Button } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import { FoodGroup } from "../../model/Food";
+import { Target } from "../../model/Target";
+import { ServingInputControl } from "../input-form/ServingInputControl";
 
-function reducer(state: Target, action: { type: FoodGroup; payload: number }) : Target {
+function reducer(state: Target, action: { type: FoodGroup; payload: number }): Target {
     switch (action.type) {
         case "vegetable":
             return { ...state, serving: { ...state.serving, vegetable: action.payload } };
@@ -35,7 +36,7 @@ interface Error {
     sweet: boolean;
 }
 
-function errorReducer(state: Error, action: { type: FoodGroup; payload: boolean }) : Error {
+function errorReducer(state: Error, action: { type: FoodGroup; payload: boolean }): Error {
     switch (action.type) {
         case "vegetable":
             return { ...state, vegetable: action.payload };
@@ -82,7 +83,7 @@ const TargetEditForm = (props: Props) => {
         const isValid = serving >= 0 && serving <= 9;
         dispatchError({ type: foodGroup, payload: !isValid });
         if (isValid) {
-            dispatch({ type: foodGroup, payload: serving });
+            dispatch({ type: foodGroup, payload: _.toInteger(serving) });
         }
     }
 
@@ -91,11 +92,11 @@ const TargetEditForm = (props: Props) => {
         if (hasError(error)) {
             return;
         }
-        
+
         props.update(target);
         props.hide();
     };
-    
+
     return (
         <Form>
             <Row className="justify-content-between mb-3">
