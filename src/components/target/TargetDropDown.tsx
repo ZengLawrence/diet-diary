@@ -19,7 +19,7 @@ const menuItem = (target: Target) => (
   </Dropdown.Item>
 )
 
-const EditButtonMenuItem = (props: {}) => {
+const EditButtonMenuItem = () => {
 
   const [showEditCustomTargets, setShowEditCustomTargets] = useState(false);
 
