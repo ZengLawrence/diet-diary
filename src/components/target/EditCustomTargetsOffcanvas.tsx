@@ -4,6 +4,8 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import Row from "react-bootstrap/Row";
 import { Target } from "../../model/Target";
 import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
+import { Fragment, useState } from "react";
+import TargetEditForm from "./TargetEditForm";
 
 interface Props {
   show: boolean,
@@ -11,13 +13,28 @@ interface Props {
   targets: Target[],
 }
 
+const TargetPanel = (props: {
+  target: Target,
+  onClick: () => void,
+}) => (
+  <Fragment>
+    <Col><FoodGroupServingGoalBadgePanel serving={props.target.serving} /></Col>
+    <Col xs="auto"><Button onClick={props.onClick}>Edit</Button></Col>
+  </Fragment>
+);
+
 function targetRow(target: Target) {
+
+  const [showEditForm, setShowEditForm] = useState(false);
+
   return (
     <Row key={String(target.calorie)}>
       <Row>{target.calorie}{' '} Cal.</Row>
       <Row>
-        <Col><FoodGroupServingGoalBadgePanel serving={target.serving} /></Col>
-        <Col xs="auto"><Button>Edit</Button></Col>
+        {showEditForm
+          ? <TargetEditForm target={target} />
+          : <TargetPanel target={target} onClick={() => setShowEditForm(true)} />
+        }
       </Row>
     </Row>
   );
