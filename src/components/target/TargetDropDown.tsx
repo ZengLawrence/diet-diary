@@ -17,11 +17,13 @@ const menuItem = (target: Target) => (
   </Dropdown.Item>
 )
 
-export const TargetDropDown = (props: {
+interface Props {
   selectedCalorie: number;
   targets: Target[];
   onSelect: (target: Target) => void;
-}) => {
+}
+
+export const TargetDropDown = (props: Props) => {
   const handleSelect = (eventKey: string | null) => {
     const selectedCalorie = _.toNumber(eventKey);
     const selectedTarget = _.find(props.targets, { 'calorie': selectedCalorie });
