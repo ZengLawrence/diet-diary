@@ -26,6 +26,43 @@ function reducer(state: Target, action: { type: FoodGroup; payload: number }) : 
     }
 }
 
+interface Error {
+    vegetable: boolean;
+    fruit: boolean;
+    carbohydrate: boolean;
+    proteinDiary: boolean;
+    fat: boolean;
+    sweet: boolean;
+}
+
+function errorReducer(state: Error, action: { type: FoodGroup; payload: boolean }) : Error {
+    switch (action.type) {
+        case "vegetable":
+            return { ...state, vegetable: action.payload };
+        case "fruit":
+            return { ...state, fruit: action.payload };
+        case "carbohydrate":
+            return { ...state, carbohydrate: action.payload };
+        case "proteinDiary":
+            return { ...state, proteinDiary: action.payload };
+        case "fat":
+            return { ...state, fat: action.payload };
+        case "sweet":
+            return { ...state, sweet: action.payload };
+        default:
+            return state;
+    }
+}
+
+const INIT_ERROR_STATE: Error = {
+    vegetable: false,
+    fruit: false,
+    carbohydrate: false,
+    proteinDiary: false,
+    fat: false,
+    sweet: false
+};
+
 interface Props {
     target: Target;
     hide: () => void;
@@ -35,9 +72,15 @@ interface Props {
 const TargetEditForm = (props: Props) => {
 
     const [target, dispatch] = useReducer(reducer, props.target);
+    const [error, dispatchError] = useReducer(errorReducer, INIT_ERROR_STATE);
 
-    const updateFoodGroupServing = (foodGroup: FoodGroup, serving: number) => 
-        dispatch({ type: foodGroup, payload: serving });
+    const updateFoodGroupServing = (foodGroup: FoodGroup, serving: number) => {
+        const isValid = serving >= 0 && serving <= 9;
+        dispatchError({ type: foodGroup, payload: !isValid });
+        if (isValid) {
+            dispatch({ type: foodGroup, payload: serving });
+        }
+    }
 
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -49,24 +92,24 @@ const TargetEditForm = (props: Props) => {
         <Form>
             <Row className="justify-content-between mb-3">
                 <Col>
-                    <ServingInputControl foodGroup="vegetable" serving={target.serving} useNumeric={true} onChange={updateFoodGroupServing} />
+                    <ServingInputControl foodGroup="vegetable" serving={target.serving} useNumeric={true} isInvalid={error.vegetable} onChange={updateFoodGroupServing} />
                 </Col>
                 <Col>
-                    <ServingInputControl foodGroup="fruit" serving={target.serving} useNumeric={true} onChange={updateFoodGroupServing} />
+                    <ServingInputControl foodGroup="fruit" serving={target.serving} useNumeric={true} isInvalid={error.fruit} onChange={updateFoodGroupServing} />
                 </Col>
                 <Col>
-                    <ServingInputControl foodGroup="carbohydrate" serving={target.serving} useNumeric={true} onChange={updateFoodGroupServing} />
+                    <ServingInputControl foodGroup="carbohydrate" serving={target.serving} useNumeric={true} isInvalid={error.carbohydrate} onChange={updateFoodGroupServing} />
                 </Col>
             </Row>
             <Row className="justify-content-between mb-3">
                 <Col>
-                    <ServingInputControl foodGroup="proteinDiary" serving={target.serving} useNumeric={true} onChange={updateFoodGroupServing} />
+                    <ServingInputControl foodGroup="proteinDiary" serving={target.serving} useNumeric={true} isInvalid={error.proteinDiary} onChange={updateFoodGroupServing} />
                 </Col>
                 <Col>
-                    <ServingInputControl foodGroup="fat" serving={target.serving} useNumeric={true} onChange={updateFoodGroupServing} />
+                    <ServingInputControl foodGroup="fat" serving={target.serving} useNumeric={true} isInvalid={error.fat} onChange={updateFoodGroupServing} />
                 </Col>
                 <Col>
-                    <ServingInputControl foodGroup="sweet" serving={target.serving} useNumeric={true} onChange={updateFoodGroupServing} />
+                    <ServingInputControl foodGroup="sweet" serving={target.serving} useNumeric={true} isInvalid={error.sweet} onChange={updateFoodGroupServing} />
                 </Col>
             </Row>
             <Row className="mb-3">
