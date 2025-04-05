@@ -24,7 +24,7 @@ const editButtonMenuItem = () => {
   const [showEditCustomTargets, setShowEditCustomTargets] = useState(false);
 
   return (
-    <>
+    <Fragment>
       <Dropdown.Item className="d-flex flex-row-reverse">
         <Button onClick={() => setShowEditCustomTargets(true)}>Edit</Button>
       </Dropdown.Item>
@@ -33,7 +33,7 @@ const editButtonMenuItem = () => {
         show={showEditCustomTargets} 
         onHide={() => setShowEditCustomTargets(false)}
         />
-    </>
+    </Fragment>
   )
 }
 
