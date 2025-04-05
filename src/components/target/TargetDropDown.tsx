@@ -36,6 +36,7 @@ const editButtonMenuItem = () => {
     </>
   )
 }
+
 interface Props {
   selectedCalorie: number;
   targets: Target[];
