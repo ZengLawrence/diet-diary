@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import { FoodGroup } from "../../model/Food";
 import { Target } from "../../model/Target";
 import { ServingInputControl } from "../input-form/ServingInputControl";
+import { calcFoodCalories, toIntString } from "../../model/calorieFunction";
 
 function reducer(state: Target, action: { type: FoodGroup; payload: number }): Target {
     switch (action.type) {
@@ -99,6 +100,7 @@ const TargetEditForm = (props: Props) => {
 
     return (
         <Form>
+            <div>Servings (Calories: {toIntString(calcFoodCalories(target))})</div>
             <Row className="justify-content-between mb-3">
                 <Col>
                     <ServingInputControl foodGroup="vegetable" serving={target.serving} useNumeric={true} isInvalid={error.vegetable} onChange={updateFoodGroupServing} />
