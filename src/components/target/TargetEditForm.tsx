@@ -77,6 +77,7 @@ interface Props {
 
 const TargetEditForm = (props: Props) => {
 
+    const limit = props.target.calorie + 60;
     const [target, dispatch] = useReducer(reducer, props.target);
     const [error, dispatchError] = useReducer(errorReducer, INIT_ERROR_STATE);
 
@@ -103,9 +104,9 @@ const TargetEditForm = (props: Props) => {
             <Row>
                 <InputGroup hasValidation>
                     <div>Servings (Calories: {toIntString(calcFoodCalories(target))})</div>
-                    <Form.Control type="hidden" isInvalid={false} />
+                    <Form.Control type="hidden" isInvalid={true} />
                     <Form.Control.Feedback type="invalid">
-                        Total calories must be less and equal to 2000.
+                        Total calories must be less and equal to {limit}.
                     </Form.Control.Feedback>
                 </InputGroup>
             </Row>
