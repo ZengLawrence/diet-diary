@@ -86,7 +86,7 @@ const TargetEditForm = (props: Props) => {
     const [totalExceeds, setTotalExceeds] = useState(calcFoodCalories(target) > limit);
     useEffect(() => {
         setTotalExceeds(calcFoodCalories(target) > limit);
-    }, [target]);
+    }, [target, limit]);
 
     const updateFoodGroupServing = (foodGroup: FoodGroup, serving: number) => {
         const isValid = serving >= 0 && serving <= 9;
