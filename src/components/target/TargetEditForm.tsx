@@ -1,14 +1,14 @@
 import _ from "lodash";
 import { useEffect, useReducer, useState } from "react";
+import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
+import { calcFoodCalories, toIntString } from "../../model/calorieFunction";
 import { FoodGroup } from "../../model/Food";
 import { Target } from "../../model/Target";
 import { ServingInputControl } from "../input-form/ServingInputControl";
-import { calcFoodCalories, toIntString } from "../../model/calorieFunction";
-import InputGroup from "react-bootstrap/InputGroup";
-import Button from "react-bootstrap/Button";
 
 function reducer(state: Target, action: { type: FoodGroup; payload: number }): Target {
     switch (action.type) {
