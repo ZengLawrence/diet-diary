@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { useReducer } from "react";
-import { Button } from "react-bootstrap";
+import { Button, InputGroup } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -100,7 +100,15 @@ const TargetEditForm = (props: Props) => {
 
     return (
         <Form>
-            <Row>Servings (Calories: {toIntString(calcFoodCalories(target))})</Row>
+            <Row>
+                <InputGroup hasValidation>
+                    <div>Servings (Calories: {toIntString(calcFoodCalories(target))})</div>
+                    <Form.Control type="hidden" isInvalid={false} />
+                    <Form.Control.Feedback type="invalid">
+                        Total calories must be less and equal to 2000.
+                    </Form.Control.Feedback>
+                </InputGroup>
+            </Row>
             <Row className="justify-content-between mb-3">
                 <Col>
                     <ServingInputControl foodGroup="vegetable" serving={target.serving} useNumeric={true} isInvalid={error.vegetable} onChange={updateFoodGroupServing} />
