@@ -1,12 +1,14 @@
 import _ from "lodash";
-import { useReducer } from "react";
-import { Button } from "react-bootstrap";
+import { useEffect, useReducer, useState } from "react";
+import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
+import { calcFoodCalories, toIntString } from "../../model/calorieFunction";
 import { FoodGroup } from "../../model/Food";
 import { Target } from "../../model/Target";
-import { ServingInputControl } from "../input-form/ServingInputControl";
+import { ServingInputControl } from "../form/ServingInputControl";
 
 function reducer(state: Target, action: { type: FoodGroup; payload: number }): Target {
     switch (action.type) {
@@ -68,6 +70,8 @@ function hasError(error: Error): boolean {
     return error.vegetable || error.fruit || error.carbohydrate || error.proteinDiary || error.fat || error.sweet;
 }
 
+const LIMIT_TOLERANCE = 60;
+
 interface Props {
     target: Target;
     hide: () => void;
@@ -76,8 +80,14 @@ interface Props {
 
 const TargetEditForm = (props: Props) => {
 
+    const limit = props.target.calorie + LIMIT_TOLERANCE;
+
     const [target, dispatch] = useReducer(reducer, props.target);
     const [error, dispatchError] = useReducer(errorReducer, INIT_ERROR_STATE);
+    const [totalExceeds, setTotalExceeds] = useState(calcFoodCalories(target) > limit);
+    useEffect(() => {
+        setTotalExceeds(calcFoodCalories(target) > limit);
+    }, [target, limit]);
 
     const updateFoodGroupServing = (foodGroup: FoodGroup, serving: number) => {
         const isValid = serving >= 0 && serving <= 9;
@@ -89,7 +99,7 @@ const TargetEditForm = (props: Props) => {
 
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        if (hasError(error)) {
+        if (hasError(error) || totalExceeds) {
             return;
         }
 
@@ -99,6 +109,15 @@ const TargetEditForm = (props: Props) => {
 
     return (
         <Form>
+            <Row>
+                <InputGroup hasValidation>
+                    <div>Servings (Calories: {toIntString(calcFoodCalories(target))})</div>
+                    <Form.Control type="hidden" isInvalid={totalExceeds} />
+                    <Form.Control.Feedback type="invalid">
+                        Total calories must be less and equal to {limit}.
+                    </Form.Control.Feedback>
+                </InputGroup>
+            </Row>
             <Row className="justify-content-between mb-3">
                 <Col>
                     <ServingInputControl foodGroup="vegetable" serving={target.serving} useNumeric={true} isInvalid={error.vegetable} onChange={updateFoodGroupServing} />
