@@ -6,7 +6,7 @@ import { calcFoodCalories, toIntString } from "../../model/calorieFunction";
 import { Food } from "../../model/Food";
 import { VariantDanger, VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { FoodDescriptionComboBox } from "./FoodDescriptionComboBox";
-import { ServingInputControl } from "./ServingInputControl";
+import { ServingInputControl } from "../form/ServingInputControl";
 import { useFoodInputFormStateReducer } from "./useFoodInputFormStateReducer";
 
 export type ButtonLabel = "Add" | "Update";

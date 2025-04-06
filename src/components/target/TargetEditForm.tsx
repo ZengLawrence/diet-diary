@@ -8,7 +8,7 @@ import Row from "react-bootstrap/Row";
 import { calcFoodCalories, toIntString } from "../../model/calorieFunction";
 import { FoodGroup } from "../../model/Food";
 import { Target } from "../../model/Target";
-import { ServingInputControl } from "../input-form/ServingInputControl";
+import { ServingInputControl } from "../form/ServingInputControl";
 
 function reducer(state: Target, action: { type: FoodGroup; payload: number }): Target {
     switch (action.type) {
