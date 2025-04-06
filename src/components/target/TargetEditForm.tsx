@@ -98,7 +98,7 @@ const TargetEditForm = (props: Props) => {
 
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        if (hasError(error)) {
+        if (hasError(error) || totalExceeds) {
             return;
         }
 
