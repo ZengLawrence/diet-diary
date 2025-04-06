@@ -100,7 +100,7 @@ const TargetEditForm = (props: Props) => {
 
     return (
         <Form>
-            <div>Servings (Calories: {toIntString(calcFoodCalories(target))})</div>
+            <Row>Servings (Calories: {toIntString(calcFoodCalories(target))})</Row>
             <Row className="justify-content-between mb-3">
                 <Col>
                     <ServingInputControl foodGroup="vegetable" serving={target.serving} useNumeric={true} isInvalid={error.vegetable} onChange={updateFoodGroupServing} />
