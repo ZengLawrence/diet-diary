@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { Button, InputGroup } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -80,8 +80,13 @@ interface Props {
 const TargetEditForm = (props: Props) => {
 
     const limit = props.target.calorie + LIMIT_TOLERANCE;
+
     const [target, dispatch] = useReducer(reducer, props.target);
     const [error, dispatchError] = useReducer(errorReducer, INIT_ERROR_STATE);
+    const [totalExceeds, setTotalExceeds] = useState(calcFoodCalories(target) > limit);
+    useEffect(() => {
+        setTotalExceeds(calcFoodCalories(target) > limit);
+    }, [target]);
 
     const updateFoodGroupServing = (foodGroup: FoodGroup, serving: number) => {
         const isValid = serving >= 0 && serving <= 9;
@@ -106,7 +111,7 @@ const TargetEditForm = (props: Props) => {
             <Row>
                 <InputGroup hasValidation>
                     <div>Servings (Calories: {toIntString(calcFoodCalories(target))})</div>
-                    <Form.Control type="hidden" isInvalid={true} />
+                    <Form.Control type="hidden" isInvalid={totalExceeds} />
                     <Form.Control.Feedback type="invalid">
                         Total calories must be less and equal to {limit}.
                     </Form.Control.Feedback>
