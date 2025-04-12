@@ -4,7 +4,7 @@ import { targetSelector, totalServingSelector } from "../../app/selectors";
 import { RootState } from "../../app/store";
 import { TargetActionIcon, TargetAction } from "../../components/summary/TargetActionIcon";
 import { FoodGroup, Serving } from "../../model/Food";
-import { isMinLimit } from "../../model/Target";
+import { isMinLimit } from "../../model/isMinLimit";
 
 function servingForFoodGroup(serving: Serving, foodGroup: FoodGroup) {
   return _.defaultTo(_.get(serving, foodGroup), 0);

@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { abbreviation, FoodGroup, Serving } from "../../model/Food";
 import { displayServingValue } from "../../model/servingFunction";
-import { isMinLimit } from "../../model/Target";
+import { isMinLimit } from "../../model/isMinLimit";
 
 const backgroundColorCss = (foodGroup: FoodGroup) => {
   return "dd-bg-" + (foodGroup == "proteinDiary" ? "protein-diary" : foodGroup);
