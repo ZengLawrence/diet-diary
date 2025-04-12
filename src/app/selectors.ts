@@ -7,11 +7,11 @@ import { Gender, Target } from "../model/Target";
 import { MealState } from "../features/day-page/mealStatesSlice";
 import { Meal } from "../model/Food";
 
-const dateSelector = (state: RootState) => state.date;
-const editModeSelector = (state: RootState) => state.editMode;
+const _dateSelector = (state: RootState) => state.date;
+const _editModeSelector = (state: RootState) => state.editMode;
 const _mealStatesSelector = (state: RootState) => state.mealStates;
 export const summaryTypeSelector = (state: RootState) => state.summaryType;
-const targetStateSelector = (state: RootState) => state.targetState;
+const _targetStateSelector = (state: RootState) => state.targetState;
 export const savedMealsSelector = (state: RootState) => state.savedMeals;
 export const showSavedMealsSelector = (state: RootState) => state.showSavedMeals;
 export const warningSelector = (state: RootState) => state.warning;
@@ -29,9 +29,9 @@ export interface DayPageState {
 }
 
 export const dayPageSelector: (state: RootState) => DayPageState = createSelector(
-  dateSelector,
-  editModeSelector,
-  targetStateSelector,
+  _dateSelector,
+  _editModeSelector,
+  _targetStateSelector,
   _mealStatesSelector,
   (date, editMode, targetState, mealStates) => ({ 
       date, 
@@ -55,7 +55,7 @@ export const targetSelector: (state: RootState) => Target = createSelector(
 );
 
 export const genderSelector: (state: RootState) => Gender = createSelector(
-  targetStateSelector,
+  _targetStateSelector,
   (targetState) => targetState.gender,
 );
 
