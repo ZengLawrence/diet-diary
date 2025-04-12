@@ -48,10 +48,10 @@ export const unlimitedFruitSelector: (state: RootState) => boolean = createSelec
   (dayPage) => dayPage.targetState.unlimitedFruit,
 );
 
-export const targetSelector = createSelector(
-  targetStateSelector,
-  (targetState) => targetState.target
-)
+export const targetSelector: (state: RootState) => Target = createSelector(
+  dayPageSelector,
+  (dayPage) => dayPage.targetState.target
+);
 
 export const genderSelector: (state: RootState) => Gender = createSelector(
   targetStateSelector,
