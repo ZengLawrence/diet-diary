@@ -7,7 +7,6 @@ interface Props {
 
 const UnlimitedFruitCheckBox = (props: Props) => (
   <Form.Check
-    type="switch"
     id="unlimited-fruit"
     label="Unlimited Fruit" 
     checked={props.unlimitedFruit}
