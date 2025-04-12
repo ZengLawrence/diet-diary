@@ -3,12 +3,13 @@ import _ from "lodash";
 import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunction";
 import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServingSummary, calcServingDifference } from "../model/servingFunction";
 import { RootState } from "./store";
+import { Gender, Target } from "../model/Target";
 
 const dateSelector = (state: RootState) => state.date;
 const editModeSelector = (state: RootState) => state.editMode;
 export const mealStatesSelector = (state: RootState) => state.mealStates;
 export const summaryTypeSelector = (state: RootState) => state.summaryType;
-export const targetStateSelector = (state: RootState) => state.targetState;
+const targetStateSelector = (state: RootState) => state.targetState;
 export const savedMealsSelector = (state: RootState) => state.savedMeals;
 export const showSavedMealsSelector = (state: RootState) => state.showSavedMeals;
 export const warningSelector = (state: RootState) => state.warning;
@@ -18,18 +19,40 @@ export const customTargetsStateSelector = (state: RootState) => state.customTarg
 export interface DayPageState {
   date: string,
   editMode: boolean,
+  targetState: {
+    target: Target,
+    unlimitedFruit: boolean,
+  },
 }
 
 export const dayPageSelector: (state: RootState) => DayPageState = createSelector(
   dateSelector,
   editModeSelector,
-  (date, editMode) => ({ date, editMode })
+  targetStateSelector,
+  (date, editMode, targetState) => ({ 
+      date, 
+      editMode,
+      targetState: {
+        target: targetState.target,
+        unlimitedFruit: targetState.unlimitedFruit,
+      }
+    })
+);
+
+export const unlimitedFruitSelector: (state: RootState) => boolean = createSelector(
+  dayPageSelector,
+  (dayPage) => dayPage.targetState.unlimitedFruit,
 );
 
 export const targetSelector = createSelector(
   targetStateSelector,
   (targetState) => targetState.target
 )
+
+export const genderSelector: (state: RootState) => Gender = createSelector(
+  targetStateSelector,
+  (targetState) => targetState.gender,
+);
 
 export const diarySelector = createSelector(
   dateSelector,

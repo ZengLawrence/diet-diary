@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { connect } from "react-redux";
-import { targetSelector, targetStateSelector, totalServingSelector } from "../../app/selectors";
+import { targetSelector, totalServingSelector, unlimitedFruitSelector } from "../../app/selectors";
 import { RootState } from "../../app/store";
 import { TargetAction, TargetActionIcon } from "../../components/summary/TargetActionIcon";
 import { FoodGroup, Serving } from "../../model/Food";
@@ -49,7 +49,7 @@ const mapStateToProps = (state: RootState, ownProps: { foodGroup: FoodGroup }) =
   const serving = servingForFoodGroup(totalServingSelector(state), foodGroup);
   const targetServing = servingForFoodGroup(targetSelector(state).serving, foodGroup);
   const toTarget = compare(serving, targetServing);
-  const action = translateToTargetAction(toTarget, foodGroup, targetStateSelector(state).unlimitedFruit);
+  const action = translateToTargetAction(toTarget, foodGroup, unlimitedFruitSelector(state));
   const eatLessWarning = (foodGroup === "sweet" && toTarget === "more");
   return {
     action,

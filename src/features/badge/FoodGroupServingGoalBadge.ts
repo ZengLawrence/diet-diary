@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
-import { targetStateSelector } from "../../app/selectors";
+import { unlimitedFruitSelector } from "../../app/selectors";
 import { RootState } from "../../app/store";
 import { FoodGroupServingGoalBadge } from "../../components/badge";
 
 const mapStateToProps = (state: RootState) => ({
-  unlimitedFruit: targetStateSelector(state).unlimitedFruit,
+  unlimitedFruit: unlimitedFruitSelector(state),
 })
 
 export default connect(mapStateToProps)(FoodGroupServingGoalBadge);
