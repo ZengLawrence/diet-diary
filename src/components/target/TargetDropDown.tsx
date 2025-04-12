@@ -6,7 +6,7 @@ import EditCustomTargetsOffcanvas from "../../features/target/EditCustomTargetsO
 import GenderToggle from "../../features/target/GenderToggle";
 import { Target } from "../../model/Target";
 import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
-import UnlimitedFruitCheckBox from "./UnlimitedFruitCheckBox";
+import UnlimitedFruitCheckBox from "../../features/target/UnlimitedFruitCheckBox";
 
 const MenuItemLabel = (props: { target: Target }) => (
   <Fragment>
@@ -64,7 +64,7 @@ export const TargetDropDown = (props: Props) => {
         {_.map(props.targets, menuItem)}
         {props.showEditButton && <EditButtonMenuItem />}
         <Dropdown.Divider />
-        <UnlimitedFruitCheckBox unlimitedFruit={true} toggleUnlimitedFruit={() => {}}/>
+        <UnlimitedFruitCheckBox />
         <Dropdown.Divider />
         <div className="w-100 d-flex justify-content-center">
           <GenderToggle />
