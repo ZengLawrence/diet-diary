@@ -4,10 +4,11 @@ import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunct
 import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServingSummary, calcServingDifference } from "../model/servingFunction";
 import { RootState } from "./store";
 import { Gender, Target } from "../model/Target";
+import { MealState } from "../features/day-page/mealStatesSlice";
 
 const dateSelector = (state: RootState) => state.date;
 const editModeSelector = (state: RootState) => state.editMode;
-export const mealStatesSelector = (state: RootState) => state.mealStates;
+const _mealStatesSelector = (state: RootState) => state.mealStates;
 export const summaryTypeSelector = (state: RootState) => state.summaryType;
 const targetStateSelector = (state: RootState) => state.targetState;
 export const savedMealsSelector = (state: RootState) => state.savedMeals;
@@ -23,19 +24,22 @@ export interface DayPageState {
     target: Target,
     unlimitedFruit: boolean,
   },
+  mealStates: MealState[],
 }
 
 export const dayPageSelector: (state: RootState) => DayPageState = createSelector(
   dateSelector,
   editModeSelector,
   targetStateSelector,
-  (date, editMode, targetState) => ({ 
+  _mealStatesSelector,
+  (date, editMode, targetState, mealStates) => ({ 
       date, 
       editMode,
       targetState: {
         target: targetState.target,
         unlimitedFruit: targetState.unlimitedFruit,
-      }
+      },
+      mealStates,
     })
 );
 
@@ -52,6 +56,11 @@ export const targetSelector = createSelector(
 export const genderSelector: (state: RootState) => Gender = createSelector(
   targetStateSelector,
   (targetState) => targetState.gender,
+);
+
+export const mealStatesSelector: (state: RootState) => MealState[] = createSelector(
+  dayPageSelector,
+  (dayPage) => dayPage.mealStates,
 );
 
 export const diarySelector = createSelector(
