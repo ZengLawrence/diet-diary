@@ -1,10 +1,18 @@
 import Form from "react-bootstrap/Form";
 
-const UnlimitedFruitCheckBox = () => (
+interface Props {
+  unlimitedFruit: boolean,
+  toggleUnlimitedFruit: () => void,
+}
+
+const UnlimitedFruitCheckBox = (props: Props) => (
   <Form.Check
     type="switch"
     id="unlimited-fruit"
-    label="Unlimited Fruit" />
+    label="Unlimited Fruit" 
+    checked={props.unlimitedFruit}
+    onChange={props.toggleUnlimitedFruit}
+    />
 );
 
 export default UnlimitedFruitCheckBox;

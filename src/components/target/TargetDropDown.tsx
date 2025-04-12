@@ -64,7 +64,7 @@ export const TargetDropDown = (props: Props) => {
         {_.map(props.targets, menuItem)}
         {props.showEditButton && <EditButtonMenuItem />}
         <Dropdown.Divider />
-        <UnlimitedFruitCheckBox />
+        <UnlimitedFruitCheckBox unlimitedFruit={true} toggleUnlimitedFruit={() => {}}/>
         <Dropdown.Divider />
         <div className="w-100 d-flex justify-content-center">
           <GenderToggle />
