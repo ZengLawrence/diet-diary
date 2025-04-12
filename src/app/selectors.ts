@@ -33,15 +33,15 @@ export const dayPageSelector: (state: RootState) => DayPageState = createSelecto
   _editModeSelector,
   _targetStateSelector,
   _mealStatesSelector,
-  (date, editMode, targetState, mealStates) => ({ 
-      date, 
-      editMode,
-      targetState: {
-        target: targetState.target,
-        unlimitedFruit: targetState.unlimitedFruit,
-      },
-      mealStates,
-    })
+  (date, editMode, targetState, mealStates) => ({
+    date,
+    editMode,
+    targetState: {
+      target: targetState.target,
+      unlimitedFruit: targetState.unlimitedFruit,
+    },
+    mealStates,
+  })
 );
 
 export const unlimitedFruitSelector: (state: RootState) => boolean = createSelector(
@@ -64,11 +64,11 @@ export const mealStatesSelector: (state: RootState) => MealState[] = createSelec
   (dayPage) => dayPage.mealStates,
 );
 
-export const diarySelector: (state: RootState) => {date: string, meals: Meal[] } = createSelector(
+export const diarySelector: (state: RootState) => { date: string, meals: Meal[] } = createSelector(
   dayPageSelector,
-  (dayPage) => ({ 
+  (dayPage) => ({
     date: dayPage.date,
-    meals: _.map(dayPage.mealStates, 'meal') 
+    meals: _.map(dayPage.mealStates, 'meal')
   })
 );
 
