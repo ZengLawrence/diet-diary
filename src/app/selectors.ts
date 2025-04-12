@@ -5,6 +5,7 @@ import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServin
 import { RootState } from "./store";
 import { Gender, Target } from "../model/Target";
 import { MealState } from "../features/day-page/mealStatesSlice";
+import { Meal } from "../model/Food";
 
 const dateSelector = (state: RootState) => state.date;
 const editModeSelector = (state: RootState) => state.editMode;
@@ -63,11 +64,13 @@ export const mealStatesSelector: (state: RootState) => MealState[] = createSelec
   (dayPage) => dayPage.mealStates,
 );
 
-export const diarySelector = createSelector(
-  dateSelector,
-  mealStatesSelector,
-  (date, mealStates) => ({ date, meals: _.map(mealStates, 'meal') })
-)
+export const diarySelector: (state: RootState) => {date: string, meals: Meal[] } = createSelector(
+  dayPageSelector,
+  (dayPage) => ({ 
+    date: dayPage.date,
+    meals: _.map(dayPage.mealStates, 'meal') 
+  })
+);
 
 export const mealsSelector = createSelector(
   mealStatesSelector,
