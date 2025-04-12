@@ -1,11 +1,11 @@
 import { createSelector } from "@reduxjs/toolkit";
 import _ from "lodash";
-import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunction";
-import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServingSummary, calcServingDifference } from "../model/servingFunction";
-import { RootState } from "./store";
-import { Gender, Target } from "../model/Target";
 import { MealState } from "../features/day-page/mealStatesSlice";
+import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunction";
 import { Meal } from "../model/Food";
+import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServingSummary, calcServingDifference } from "../model/servingFunction";
+import { Gender, Target } from "../model/Target";
+import { RootState } from "./store";
 
 const _dateSelector = (state: RootState) => state.date;
 const _editModeSelector = (state: RootState) => state.editMode;
