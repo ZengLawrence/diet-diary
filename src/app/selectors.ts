@@ -2,7 +2,7 @@ import { createSelector } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { MealState } from "../features/day-page/mealStatesSlice";
 import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunction";
-import { Meal } from "../model/Food";
+import { Meal, Serving } from "../model/Food";
 import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServingSummary, calcServingDifference } from "../model/servingFunction";
 import { Gender, Target } from "../model/Target";
 import { RootState } from "./store";
@@ -72,22 +72,22 @@ export const diarySelector: (state: RootState) => { date: string, meals: Meal[] 
   })
 );
 
-export const mealsSelector = createSelector(
+export const mealsSelector: (state: RootState) => Meal[] = createSelector(
   mealStatesSelector,
   (mealStates) => _.map(mealStates, 'meal')
 )
 
-export const totalCaloriesSelector = createSelector(
+export const totalCaloriesSelector: (state: RootState) => number = createSelector(
   mealsSelector,
   (meals) => calcCaloriesTotal(meals)
 )
 
-export const totalServingSelector = createSelector(
+export const totalServingSelector: (state: RootState) => Serving = createSelector(
   mealsSelector,
   (meals) => calcMealsServingSummary(meals)
 )
 
-export const calorieDifferenceSelector = createSelector(
+export const calorieDifferenceSelector: (state: RootState) => number = createSelector(
   mealsSelector,
   targetSelector,
   (meals, target) => calcCaloriesDifference(meals, target.calorie)
