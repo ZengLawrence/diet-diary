@@ -93,18 +93,18 @@ export const calorieDifferenceSelector: (state: RootState) => number = createSel
   (meals, target) => calcCaloriesDifference(meals, target.calorie)
 )
 
-export const servingDifferenceSelector = createSelector(
+export const servingDifferenceSelector: (state: RootState) => Serving = createSelector(
   mealsSelector,
   targetSelector,
   (meals, target) => calcServingDifference(meals, target.serving)
 )
 
-export const bestChoiceServingTotalSelector = createSelector(
+export const bestChoiceServingTotalSelector: (state: RootState) => Serving = createSelector(
   mealsSelector,
   (meals) => calcBestChoiceServingSummary(meals)
 )
 
-export const othersServingTotalSelector = createSelector(
+export const othersServingTotalSelector: (state: RootState) => Serving = createSelector(
   mealsSelector,
   (meals) => calcOthersServingSummary(meals)
 )
