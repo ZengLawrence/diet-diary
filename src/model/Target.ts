@@ -1,4 +1,3 @@
-import { FoodGroup } from "./Food";
 
 export type Gender = "man" | "woman" | "custom";
 
@@ -74,10 +73,6 @@ export interface Target {
     fat: number;
     sweet: number;
   };
-}
-
-export function isMinLimit(foodGroup: FoodGroup) {
-  return (foodGroup === "vegetable" || foodGroup === "fruit");
 }
 
 export function targetsByGender(gender: Gender) {

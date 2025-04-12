@@ -1,10 +1,10 @@
 import _ from "lodash";
 import { connect } from "react-redux";
-import { targetSelector, totalServingSelector } from "../../app/selectors";
+import { targetSelector, targetStateSelector, totalServingSelector } from "../../app/selectors";
 import { RootState } from "../../app/store";
-import { TargetActionIcon, TargetAction } from "../../components/summary/TargetActionIcon";
+import { TargetAction, TargetActionIcon } from "../../components/summary/TargetActionIcon";
 import { FoodGroup, Serving } from "../../model/Food";
-import { isMinLimit } from "../../model/Target";
+import { isMinLimit } from "../target/isMinLimit";
 
 function servingForFoodGroup(serving: Serving, foodGroup: FoodGroup) {
   return _.defaultTo(_.get(serving, foodGroup), 0);
@@ -25,10 +25,10 @@ function compare(serving: number, targetServing: number) {
 
 type ToTarget = ReturnType<typeof compare>;
 
-function translateToTargetAction(toTarget: ToTarget, foodGroup: FoodGroup): TargetAction {
+function translateToTargetAction(toTarget: ToTarget, foodGroup: FoodGroup, unlimitedFruit: boolean): TargetAction {
 
   if (toTarget === "more") {
-    if (isMinLimit(foodGroup)) {
+    if (isMinLimit(foodGroup, unlimitedFruit)) {
       return "MeetTarget";
     } else {
       return "DoLess";
@@ -49,7 +49,7 @@ const mapStateToProps = (state: RootState, ownProps: { foodGroup: FoodGroup }) =
   const serving = servingForFoodGroup(totalServingSelector(state), foodGroup);
   const targetServing = servingForFoodGroup(targetSelector(state).serving, foodGroup);
   const toTarget = compare(serving, targetServing);
-  const action = translateToTargetAction(toTarget, foodGroup);
+  const action = translateToTargetAction(toTarget, foodGroup, targetStateSelector(state).unlimitedFruit);
   const eatLessWarning = (foodGroup === "sweet" && toTarget === "more");
   return {
     action,

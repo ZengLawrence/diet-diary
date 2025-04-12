@@ -1,5 +1,5 @@
 import { Serving } from "../../model/Food";
-import { FoodGroupServingGoalBadge } from "../badge";
+import FoodGroupServingGoalBadge from "../../features/badge/FoodGroupServingGoalBadge";
 
 export const FoodGroupServingGoalBadgePanel = (props: { serving: Serving; }) => (
   <div>
