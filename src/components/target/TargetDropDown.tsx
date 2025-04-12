@@ -2,11 +2,11 @@ import _ from "lodash";
 import { Fragment, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
-import Form from "react-bootstrap/Form";
 import EditCustomTargetsOffcanvas from "../../features/target/EditCustomTargetsOffcanvas";
 import GenderToggle from "../../features/target/GenderToggle";
 import { Target } from "../../model/Target";
 import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
+import UnlimitedFruitCheckBox from "./UnlimitedFruitCheckBox";
 
 const MenuItemLabel = (props: { target: Target }) => (
   <Fragment>
@@ -37,13 +37,6 @@ const EditButtonMenuItem = () => {
     </Fragment>
   )
 }
-
-const UnlimitedFruitCheckBox = () => (
-  <Form.Check
-    type="switch"
-    id="unlimited-fruit"
-    label="Unlimited Fruit" />
-);
 
 interface Props {
   selectedCalorie: number;
