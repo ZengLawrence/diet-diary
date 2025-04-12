@@ -24,8 +24,8 @@ export const FoodGroupServingBadge = (props: { foodGroup: FoodGroup; serving: Se
 export const FoodGroupServingGoalBadge = (
   props: { 
     foodGroup: FoodGroup; 
-    serving: Serving;}
-  ) => {
+    serving: Serving;
+  }) => {
   const { foodGroup, serving } = props;
   const value = _.get(serving, foodGroup);
   const displayValue = isMinLimit(foodGroup) ? value + "+" : value;
