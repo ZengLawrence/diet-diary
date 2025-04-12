@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { editModeSelector, mealsSelector, mealStatesSelector } from "../../app/selectors";
+import { dayPageSelector, mealsSelector, mealStatesSelector } from "../../app/selectors";
 import { AppDispatch, RootState } from "../../app/store";
 import { MealCardHeader } from "../../components/meal-card/MealCardHeader";
 import { Meal } from "../../model/Food";
@@ -9,13 +9,13 @@ import { addSuggestion } from "../suggestions/SavedMealSuggestion";
 
 function inAddOrEditState(state: RootState, mealIndex: number) {
   const mealState = mealStatesSelector(state)[mealIndex];
-  return editModeSelector(state) &&
+  return dayPageSelector(state).editMode &&
     (mealState.editState === "add" || mealState.editState === "edit");
 }
 
 const mapStateToProps = (state: RootState, ownProps: { mealIndex: number; }) => ({
   meal: mealsSelector(state)[ownProps.mealIndex],
-  showButton: editModeSelector(state),
+  showButton: dayPageSelector(state).editMode,
   showDeleteButton: inAddOrEditState(state, ownProps.mealIndex),
   showMealSavedAlert: mealStatesSelector(state)[ownProps.mealIndex].showMealSavedAlert,
   showWarningAlert: inAddOrEditState(state, ownProps.mealIndex),

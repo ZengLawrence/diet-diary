@@ -5,7 +5,7 @@ import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServin
 import { RootState } from "./store";
 
 const dateSelector = (state: RootState) => state.date;
-export const editModeSelector = (state: RootState) => state.editMode;
+const editModeSelector = (state: RootState) => state.editMode;
 export const mealStatesSelector = (state: RootState) => state.mealStates;
 export const summaryTypeSelector = (state: RootState) => state.summaryType;
 export const targetStateSelector = (state: RootState) => state.targetState;
@@ -17,11 +17,13 @@ export const customTargetsStateSelector = (state: RootState) => state.customTarg
 
 export interface DayPageState {
   date: string,
+  editMode: boolean,
 }
 
 export const dayPageSelector: (state: RootState) => DayPageState = createSelector(
   dateSelector,
-  (date) => ({ date })
+  editModeSelector,
+  (date, editMode) => ({ date, editMode })
 );
 
 export const targetSelector = createSelector(
