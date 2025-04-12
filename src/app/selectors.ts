@@ -4,7 +4,7 @@ import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunct
 import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServingSummary, calcServingDifference } from "../model/servingFunction";
 import { RootState } from "./store";
 
-export const dateSelector = (state: RootState) => state.date;
+const dateSelector = (state: RootState) => state.date;
 export const editModeSelector = (state: RootState) => state.editMode;
 export const mealStatesSelector = (state: RootState) => state.mealStates;
 export const summaryTypeSelector = (state: RootState) => state.summaryType;
@@ -14,6 +14,15 @@ export const showSavedMealsSelector = (state: RootState) => state.showSavedMeals
 export const warningSelector = (state: RootState) => state.warning;
 export const savedMealStateSelector = (state: RootState) => state.savedMealState;
 export const customTargetsStateSelector = (state: RootState) => state.customTargets;
+
+export interface DayPageState {
+  date: string,
+}
+
+export const dayPageSelector: (state: RootState) => DayPageState = createSelector(
+  dateSelector,
+  (date) => ({ date })
+);
 
 export const targetSelector = createSelector(
   targetStateSelector,
