@@ -2,7 +2,7 @@ import { faBan, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert } from "react-bootstrap";
 
-interface Props {
+interface Props extends React.PropsWithChildren {
   show: boolean;
   closeAlert: () => void;
   critical: boolean;
@@ -22,7 +22,7 @@ export const WarningAlert = (props: Props) => {
       show={props.show}
       onClose={props.closeAlert}
       dismissible={props.dismissible}>
-      {icon}Total calories exceed target by <span className="fw-bold">{props.critical ? "10%" : "5%"}</span>.
+      {icon}{props.children}
     </Alert>
   );
 }

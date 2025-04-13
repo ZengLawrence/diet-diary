@@ -6,6 +6,7 @@ import TabbedSummary from "../../features/summary/TabbedSummary";
 import WarningAlert from "../../features/warning/WarningAlert";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
+import CaloriesExceedAlertText from "../../features/warning/CaloriesExceedAlertText";
 
 interface Props {
   showButton: boolean;
@@ -20,7 +21,9 @@ function DayPage(props: Props) {
             <Header />
           </div>
         </div>
-        <WarningAlert />
+        <WarningAlert>
+          <CaloriesExceedAlertText />
+        </WarningAlert>
         <div className="d-flex mb-2">
           <div className="flex-fill">
             <TabbedSummary />
