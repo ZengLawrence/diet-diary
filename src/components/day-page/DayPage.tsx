@@ -3,8 +3,7 @@ import AddMealButtons from "../../features/meal-card/AddMealButtons";
 import MealCards from "../../features/meal-card/MealCards";
 import SavedMealCardsOffcanvas from "../../features/saved-meal/SavedMealCardsOffcanvas";
 import TabbedSummary from "../../features/summary/TabbedSummary";
-import CaloriesExceedAlertText from "../../features/warning/CaloriesExceedAlertText";
-import CaloriesExceedWarningAlert from "../../features/warning/CaloriesExceedWarningAlert";
+import Warnings from "../warning/Warnings";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 
@@ -21,9 +20,7 @@ function DayPage(props: Props) {
             <Header />
           </div>
         </div>
-        <CaloriesExceedWarningAlert>
-          <CaloriesExceedAlertText />
-        </CaloriesExceedWarningAlert>
+        <Warnings />
         <div className="d-flex mb-2">
           <div className="flex-fill">
             <TabbedSummary />
