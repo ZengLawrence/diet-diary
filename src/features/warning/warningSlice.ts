@@ -1,9 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { newDay } from "../day-page/dateSlice";
 
+interface WarningState {
+  dismissWarning: boolean;
+}
+
+const initialState: WarningState = {
+  dismissWarning: false,
+};
+
 const warningSlice = createSlice({
   name: "warning",
-  initialState: {dismissWarning: false},
+  initialState,
   reducers: {
     dismissWarning(state) {
       state.dismissWarning = true;
