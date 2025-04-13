@@ -3,10 +3,10 @@ import AddMealButtons from "../../features/meal-card/AddMealButtons";
 import MealCards from "../../features/meal-card/MealCards";
 import SavedMealCardsOffcanvas from "../../features/saved-meal/SavedMealCardsOffcanvas";
 import TabbedSummary from "../../features/summary/TabbedSummary";
+import CaloriesExceedAlertText from "../../features/warning/CaloriesExceedAlertText";
 import WarningAlert from "../../features/warning/WarningAlert";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
-import CaloriesExceedAlertText from "../../features/warning/CaloriesExceedAlertText";
 
 interface Props {
   showButton: boolean;
