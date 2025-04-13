@@ -3,10 +3,12 @@ import { newDay } from "../day-page/dateSlice";
 
 interface WarningState {
   dismissWarning: boolean;
+  showCanNotAddNewDayWarning: boolean;
 }
 
 const initialState: WarningState = {
   dismissWarning: false,
+  showCanNotAddNewDayWarning: false,
 };
 
 const warningSlice = createSlice({
@@ -15,15 +17,19 @@ const warningSlice = createSlice({
   reducers: {
     dismissWarning(state) {
       state.dismissWarning = true;
-    }
+    },
+    toggleCanNotAddNewDayWarning(state) {
+      state.showCanNotAddNewDayWarning = !state.showCanNotAddNewDayWarning;
+    },
   },
   extraReducers: builder => {
     builder
       .addCase(newDay, (state) => {
         state.dismissWarning = false;
+        state.showCanNotAddNewDayWarning = false;
       })
   }
 })
 
-export const { dismissWarning } = warningSlice.actions;
+export const { dismissWarning, toggleCanNotAddNewDayWarning } = warningSlice.actions;
 export default warningSlice.reducer;
