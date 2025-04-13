@@ -26,3 +26,9 @@ export const WarningAlert = (props: Props) => {
     </Alert>
   );
 }
+
+WarningAlert.defaultProps = {
+  closeAlert: () => {},
+  critical: false,
+  dismissible: false,
+};
