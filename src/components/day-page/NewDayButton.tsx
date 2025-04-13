@@ -6,13 +6,17 @@ import { newDay } from "../../features/day-page/dateSlice";
 import { VariantDanger } from "../ButtonVariant";
 
 const NewDayButton = () => {
+
   const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(newDay());
+  };
 
   return (
     <div className="align-self-center">
       <Button 
         variant={VariantDanger}
-        onClick={() => dispatch(newDay())} >
+        onClick={handleClick} >
         <FontAwesomeIcon icon={faPlus} />
       </Button>
     </div>
