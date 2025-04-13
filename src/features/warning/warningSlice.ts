@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { newDay } from "../day-page/dateSlice";
 
 interface WarningState {
@@ -18,8 +18,8 @@ const warningSlice = createSlice({
     dismissWarning(state) {
       state.dismissWarning = true;
     },
-    toggleCanNotAddNewDayWarning(state) {
-      state.showCanNotAddNewDayWarning = !state.showCanNotAddNewDayWarning;
+    seShowCanNotAddNewDayWarning(state, acton: PayloadAction<boolean>) {
+      state.showCanNotAddNewDayWarning = acton.payload;
     },
   },
   extraReducers: builder => {
@@ -31,5 +31,5 @@ const warningSlice = createSlice({
   }
 })
 
-export const { dismissWarning, toggleCanNotAddNewDayWarning } = warningSlice.actions;
+export const { dismissWarning, seShowCanNotAddNewDayWarning } = warningSlice.actions;
 export default warningSlice.reducer;
