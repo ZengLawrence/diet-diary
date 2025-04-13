@@ -5,9 +5,10 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import MealButtons from "../../features/meal-card/MealButtons";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
-import WarningAlert from "../../features/warning/WarningAlert";
+import CaloriesExceedWarningAlert from "../../features/warning/CaloriesExceedWarningAlert";
 import { Meal } from "../../model/Food";
 import { VariantDanger } from "../ButtonVariant";
+import CaloriesExceedAlertText from "../../features/warning/CaloriesExceedAlertText";
 
 interface Props {
   meal: Meal;
@@ -25,7 +26,9 @@ interface Props {
 
 const WarningAlertRow = () => (
   <Row>
-    <WarningAlert />
+    <CaloriesExceedWarningAlert>
+      <CaloriesExceedAlertText />
+    </CaloriesExceedWarningAlert>
   </Row>
 )
 
