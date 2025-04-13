@@ -1,12 +1,13 @@
 import { faBan, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import _ from "lodash";
 import { Alert } from "react-bootstrap";
 
 interface Props extends React.PropsWithChildren {
   show: boolean;
-  closeAlert: () => void;
-  critical: boolean;
-  dismissible: boolean;
+  closeAlert?: () => void;
+  critical?: boolean;
+  dismissible?: boolean;
 }
 
 function variant(critical: boolean) {
@@ -18,17 +19,11 @@ export const WarningAlert = (props: Props) => {
 
   return (
     <Alert
-      variant={variant(props.critical)}
+      variant={variant(_.defaultTo(props.critical, false))}
       show={props.show}
       onClose={props.closeAlert}
-      dismissible={props.dismissible}>
+      dismissible={_.defaultTo(props.dismissible, true)}>
       {icon}{props.children}
     </Alert>
   );
 }
-
-WarningAlert.defaultProps = {
-  closeAlert: () => {},
-  critical: false,
-  dismissible: false,
-};
