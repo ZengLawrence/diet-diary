@@ -21,10 +21,7 @@ export const customTargetsStateSelector = (state: RootState) => state.customTarg
 export interface DayPageState {
   date: string,
   editMode: boolean,
-  targetState: {
-    target: Target,
-    unlimitedFruit: boolean,
-  },
+  target: Target & { unlimitedFruit: boolean },
   mealStates: MealState[],
 }
 
@@ -36,9 +33,9 @@ export const dayPageSelector: (state: RootState) => DayPageState = createSelecto
   (date, editMode, targetState, mealStates) => ({
     date,
     editMode,
-    targetState: {
-      target: targetState.target,
-      unlimitedFruit: targetState.unlimitedFruit,
+    target: {
+      ...targetState.target,
+      unlimitedFruit: targetState.unlimitedFruit
     },
     mealStates,
   })
@@ -46,12 +43,12 @@ export const dayPageSelector: (state: RootState) => DayPageState = createSelecto
 
 export const unlimitedFruitSelector: (state: RootState) => boolean = createSelector(
   dayPageSelector,
-  (dayPage) => dayPage.targetState.unlimitedFruit,
+  (dayPage) => dayPage.target.unlimitedFruit,
 );
 
 export const targetSelector: (state: RootState) => Target = createSelector(
   dayPageSelector,
-  (dayPage) => dayPage.targetState.target
+  (dayPage) => dayPage.target
 );
 
 export const genderSelector: (state: RootState) => Gender = createSelector(
