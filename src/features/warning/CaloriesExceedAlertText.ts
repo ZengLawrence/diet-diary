@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
 import { RootState } from "../../app/store";
 import CaloriesExceedAlertText from "../../components/warning/CaloriesExceedAlertText";
-import { isCritical } from "./warnings";
+import { percentage } from "./warnings";
 
 const mapStateToProps = (state: RootState) => ({
-  percentage: isCritical(state) ? 10 : 5,
+  percentage: percentage(state),
 })
 
 export default connect(mapStateToProps)(CaloriesExceedAlertText);
