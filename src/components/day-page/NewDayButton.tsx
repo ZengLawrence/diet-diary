@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { newDay } from "../../features/day-page/dateSlice";
 import { VariantDanger } from "../ButtonVariant";
 
-const NewDaySymbolButton = () => {
+const NewDayButton = () => {
   const dispatch = useDispatch();
 
   return (
@@ -19,4 +19,4 @@ const NewDaySymbolButton = () => {
   );
 }
 
-export default NewDaySymbolButton;
+export default NewDayButton;
