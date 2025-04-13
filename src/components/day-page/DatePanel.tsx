@@ -1,4 +1,4 @@
-import { NewDaySymbolButton } from "./NewDaySymbolButton";
+import NewDaySymbolButton from "./NewDaySymbolButton";
 
 export const DatePanel = (props: { date: string; showNewDayButton: boolean }) => (
   <div className="d-flex flex-row">
