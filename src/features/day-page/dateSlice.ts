@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-function today() {
+export function today() {
   return new Date().toLocaleDateString();
 }
 
