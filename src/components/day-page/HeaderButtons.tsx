@@ -21,7 +21,12 @@ const UneditableViewButtons = (props: { showDownloadButton: boolean; }) => {
   )
 }
 
-export const HeaderButtons = (props: { editMode: boolean; showDownloadButton: boolean; }) => {
+interface Props {
+  editMode: boolean,
+  showDownloadButton: boolean,
+}
+
+export const HeaderButtons = (props: Props) => {
   const { editMode, showDownloadButton } = props;
   return (
     <span>
