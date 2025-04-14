@@ -25,7 +25,7 @@ export interface DayPageState {
   mealStates: MealState[],
 }
 
-export const dayPageSelector: (state: RootState) => DayPageState = createSelector(
+const _todaySelector: (state: RootState) => DayPageState = createSelector(
   _dateSelector,
   _editModeSelector,
   _targetStateSelector,
@@ -39,6 +39,11 @@ export const dayPageSelector: (state: RootState) => DayPageState = createSelecto
     },
     mealStates,
   })
+);
+
+export const dayPageSelector: (state: RootState) => DayPageState = createSelector(
+  _todaySelector,
+  (dayPage) => dayPage,
 );
 
 export const dateSelector: (state: RootState) => string = createSelector(
