@@ -1,7 +1,12 @@
 import BackButton from "../button/BackButton";
 import NewDayButton from "./NewDayButton";
 
-export const DatePanel = (props: { date: string; showNewDayButton: boolean }) => (
+interface Props {
+  date: string,
+  showNewDayButton: boolean,
+}
+
+export const DatePanel = (props: Props) => (
   <div className="d-flex flex-row">
     <div className="align-self-center">
       <BackButton />
