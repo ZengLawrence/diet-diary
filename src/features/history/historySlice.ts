@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Meal } from "../../model/Food";
 import { Target } from "../../model/Target";
+import { newDay } from "../day-page/dateSlice";
 
 export interface DayHistory {
   date: string,
@@ -49,6 +50,10 @@ const historySlice = createSlice({
     atEnd(state) {
       state.dateIndex = TODAY;
     },
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(newDay, (state) => { state.dateIndex = TODAY });
   }
 })
 
