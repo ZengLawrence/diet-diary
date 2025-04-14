@@ -4,7 +4,11 @@ import EditButton from "../../features/day-page/EditButton";
 import { useDownload } from "../../features/download/useDownload";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 
-const ReadOnlyViewButtons = (props: { showDownloadButton: boolean; }) => {
+interface Props {
+  showDownloadButton: boolean,
+}
+
+const ReadOnlyViewButtons = (props: Props) => {
   const handleClicked = useDownload();
   return (
     <Fragment>
