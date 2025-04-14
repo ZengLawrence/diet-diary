@@ -9,7 +9,7 @@ const EditableViewButtons = () => (
   <DoneButton variant={VariantPrimary}>Done</DoneButton>
 )
 
-const UneditableViewButtons = (props: { showDownloadButton: boolean; }) => {
+const ReadOnlyViewButtons = (props: { showDownloadButton: boolean; }) => {
   const handleClicked = useDownload();
   return (
     <Fragment>
@@ -32,7 +32,7 @@ export const HeaderButtons = (props: Props) => {
     <span>
       {editMode ?
         <EditableViewButtons />
-        : <UneditableViewButtons showDownloadButton={showDownloadButton} />}
+        : <ReadOnlyViewButtons showDownloadButton={showDownloadButton} />}
     </span>
   )
 }
