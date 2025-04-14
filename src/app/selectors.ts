@@ -6,6 +6,7 @@ import { Meal, Serving } from "../model/Food";
 import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServingSummary, calcServingDifference } from "../model/servingFunction";
 import { Gender, Target } from "../model/Target";
 import { RootState } from "./store";
+import { DayHistory, History } from "../features/history/historySlice";
 
 const _dateSelector = (state: RootState) => state.date;
 const _editModeSelector = (state: RootState) => state.editMode;
@@ -17,6 +18,7 @@ export const showSavedMealsSelector = (state: RootState) => state.showSavedMeals
 export const warningSelector = (state: RootState) => state.warning;
 export const savedMealStateSelector = (state: RootState) => state.savedMealState;
 export const customTargetsStateSelector = (state: RootState) => state.customTargets;
+const _historySelector = (state: RootState) => state.history;
 
 export interface DayPageState {
   date: string,
@@ -25,7 +27,7 @@ export interface DayPageState {
   mealStates: MealState[],
 }
 
-export const dayPageSelector: (state: RootState) => DayPageState = createSelector(
+const _todaySelector: (state: RootState) => DayPageState = createSelector(
   _dateSelector,
   _editModeSelector,
   _targetStateSelector,
@@ -39,6 +41,43 @@ export const dayPageSelector: (state: RootState) => DayPageState = createSelecto
     },
     mealStates,
   })
+);
+
+function toMealState(meal: Meal): MealState {
+  return ({
+    meal
+  });
+}
+
+function toDayPage(dayHistory: DayHistory): DayPageState {
+  return ({
+    date: dayHistory.date,
+    editMode: false,
+    target: dayHistory.target,
+    mealStates: dayHistory.meals.map(toMealState),
+  });
+}
+
+export const isTodaySelector: (state: RootState) => boolean = createSelector(
+  _historySelector,
+  (history) => history.dateIndex == -1,
+);
+
+function getDay(history: History): DayPageState {
+  const i = history.dateIndex;
+  const days = history.days;
+  if (0 <= i && i < days.length) {
+    return toDayPage(history.days[history.dateIndex]);
+  } else {
+    return toDayPage(history.days[0]);
+  }
+}
+
+export const dayPageSelector: (state: RootState) => DayPageState = createSelector(
+  isTodaySelector,
+  _historySelector,
+  _todaySelector,
+  (isToday, history, dayPage) => isToday ? dayPage : getDay(history),
 );
 
 export const dateSelector: (state: RootState) => string = createSelector(

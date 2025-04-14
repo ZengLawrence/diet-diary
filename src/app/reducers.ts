@@ -9,6 +9,7 @@ import showSavedMeals from "../features/day-page/showSavedMealsSlice";
 import warning from "../features/warning/warningSlice";
 import savedMealState from "../features/saved-meal/savedMealStateSlice";
 import customTargets from "../features/target/customTargetsSlice";
+import history from "../features/history/historySlice";
 
 export default combineReducers(
   {
@@ -22,5 +23,6 @@ export default combineReducers(
     warning,
     savedMealState,
     customTargets,
+    history,
   }
 )

@@ -1,33 +1,17 @@
-import { Fragment } from "react";
-import { Button } from "react-bootstrap";
-import DoneButton from "../../features/day-page/DoneButton";
-import EditButton from "../../features/day-page/EditButton";
-import { useDownload } from "../../features/download/useDownload";
-import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
+import ReadOnlyViewButtons from "../../features/day-page/ReadOnlyViewButtons";
+import EditableViewButtons from "./EditableViewButtons";
 
-const EditableViewButtons = () => (
-  <DoneButton variant={VariantPrimary}>Done</DoneButton>
-)
-
-const UneditableViewButtons = (props: { showDownloadButton: boolean; }) => {
-  const handleClicked = useDownload();
-  return (
-    <Fragment>
-      {props.showDownloadButton &&
-        <Button variant={VariantSecondary} onClick={handleClicked}>Download</Button>
-      }{' '}
-      <EditButton variant={VariantPrimary}>Edit</EditButton>
-    </Fragment>
-  )
+interface Props {
+  editMode: boolean,
 }
 
-export const HeaderButtons = (props: { editMode: boolean; showDownloadButton: boolean; }) => {
-  const { editMode, showDownloadButton } = props;
+export const HeaderButtons = (props: Props) => {
+  const { editMode } = props;
   return (
     <span>
       {editMode ?
         <EditableViewButtons />
-        : <UneditableViewButtons showDownloadButton={showDownloadButton} />}
+        : <ReadOnlyViewButtons />}
     </span>
   )
 }
