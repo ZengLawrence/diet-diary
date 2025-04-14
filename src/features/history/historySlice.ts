@@ -8,7 +8,7 @@ export interface DayHistory {
   meals: Meal[],
 }
 
-interface History {
+export interface History {
   days: DayHistory[],
   dateIndex: number,
 }
@@ -46,8 +46,11 @@ const historySlice = createSlice({
         state.dateIndex -= 1;
       }
     },
+    atEnd(state) {
+      state.dateIndex = TODAY;
+    },
   }
 })
 
-export const { add, atStart, back, next } = historySlice.actions;
+export const { add, atStart, back, next, atEnd } = historySlice.actions;
 export default historySlice.reducer;
