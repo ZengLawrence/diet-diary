@@ -5,7 +5,7 @@ import { DatePanel } from "../../components/day-page/DatePanel";
 
 const mapStateToProps = (state: RootState) => ({
   date: dayPageSelector(state).date,
-  showNewDayButton: !dayPageSelector(state).editMode,
+  showNewDayButton: !dayPageSelector(state).editMode && isTodaySelector(state),
   showHistoryStepButtons: !isTodaySelector(state),
 })
 
