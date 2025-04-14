@@ -7,19 +7,21 @@ import NewDayButton from "./NewDayButton";
 interface Props {
   date: string,
   showNewDayButton: boolean,
+  showHistoryStepButtons?: boolean,
 }
 
 export const DatePanel = (props: Props) => (
   <div className="d-flex flex-row">
     <div className="align-self-center">
-      <StartPositionButton />
+      {props.showHistoryStepButtons && <StartPositionButton />}
       <BackButton />
     </div>
     <div data-cy="date" className="fs-1">{props.date}</div>&nbsp;
-    <div className="align-self-center">
-      <NextButton />
-      <EndPositionButton />
-    </div>
+    {props.showHistoryStepButtons && 
+      <div className="align-self-center">
+        <NextButton />
+        <EndPositionButton />
+      </div>}
     {props.showNewDayButton && <NewDayButton />}
   </div>
 );
