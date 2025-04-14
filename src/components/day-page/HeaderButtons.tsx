@@ -1,18 +1,17 @@
+import ReadOnlyViewButtons from "../../features/day-page/ReadOnlyViewButtons";
 import EditableViewButtons from "./EditableViewButtons";
-import ReadOnlyViewButtons from "./ReadOnlyViewButtons";
 
 interface Props {
   editMode: boolean,
-  showDownloadButton: boolean,
 }
 
 export const HeaderButtons = (props: Props) => {
-  const { editMode, showDownloadButton } = props;
+  const { editMode } = props;
   return (
     <span>
       {editMode ?
         <EditableViewButtons />
-        : <ReadOnlyViewButtons showDownloadButton={showDownloadButton} />}
+        : <ReadOnlyViewButtons />}
     </span>
   )
 }

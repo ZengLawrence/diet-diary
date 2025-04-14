@@ -1,8 +1,8 @@
 import _ from "lodash";
 import { connect } from "react-redux";
-import { dayPageSelector, mealsSelector } from "../../app/selectors";
+import { mealsSelector } from "../../app/selectors";
 import { RootState } from "../../app/store";
-import { HeaderButtons } from "../../components/day-page/HeaderButtons";
+import ReadOnlyViewButtons from "../../components/day-page/ReadOnlyViewButtons";
 import { Meal } from "../../model/Food";
 
 function hasAtLeastOneFood(meals: Meal[]) {
@@ -11,7 +11,7 @@ function hasAtLeastOneFood(meals: Meal[]) {
 }
 
 const mapStateToProps = (state: RootState) => ({
-  editMode: dayPageSelector(state).editMode,
+  showDownloadButton: hasAtLeastOneFood(mealsSelector(state)),
 })
 
-export default connect(mapStateToProps)(HeaderButtons);
+export default connect(mapStateToProps)(ReadOnlyViewButtons);
