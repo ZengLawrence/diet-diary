@@ -1,10 +1,5 @@
-import DoneButton from "../../features/day-page/DoneButton";
-import { VariantPrimary } from "../ButtonVariant";
+import EditableViewButtons from "./EditableViewButtons";
 import ReadOnlyViewButtons from "./ReadOnlyViewButtons";
-
-const EditableViewButtons = () => (
-  <DoneButton variant={VariantPrimary}>Done</DoneButton>
-)
 
 interface Props {
   editMode: boolean,
