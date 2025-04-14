@@ -58,10 +58,16 @@ function toDayPage(dayHistory: DayHistory): DayPageState {
   });
 }
 
+export const isTodaySelector: (state: RootState) => boolean = createSelector(
+  _historySelector,
+  (history) => history.dateIndex == -1,
+);
+
 export const dayPageSelector: (state: RootState) => DayPageState = createSelector(
+  isTodaySelector,
   _historySelector,
   _todaySelector,
-  (history, dayPage) => history.dateIndex == -1 ? dayPage : toDayPage(history.days[history.dateIndex]),
+  (isToday, history, dayPage) => isToday ? dayPage : toDayPage(history.days[history.dateIndex]),
 );
 
 export const dateSelector: (state: RootState) => string = createSelector(

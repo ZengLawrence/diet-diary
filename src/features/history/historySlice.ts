@@ -36,8 +36,13 @@ const historySlice = createSlice({
         state.dateIndex += 1;
       }
     },
+    next(state) {
+      if (state.dateIndex - 1 >= TODAY) {
+        state.dateIndex -= 1;
+      }
+    },
   }
 })
 
-export const { add, back } = historySlice.actions;
+export const { add, back, next } = historySlice.actions;
 export default historySlice.reducer;
