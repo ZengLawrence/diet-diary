@@ -3,8 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "react-bootstrap/Button";
 import { VariantSecondary } from "../ButtonVariant";
 
-const StartPositionButton = () => (
-  <Button variant={VariantSecondary}><FontAwesomeIcon icon={faBackwardStep} /></Button>
-);
+const StartPositionButton = () => {
+  return (
+    <Button
+      variant={VariantSecondary}>
+      <FontAwesomeIcon icon={faBackwardStep} />
+    </Button>
+  );
+}
 
 export default StartPositionButton;
