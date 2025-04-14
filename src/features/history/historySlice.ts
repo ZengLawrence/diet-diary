@@ -32,7 +32,9 @@ const historySlice = createSlice({
       }
     },
     back(state) {
-      state.dateIndex += 1;
+      if (state.dateIndex + 1 < state.days.length) {
+        state.dateIndex += 1;
+      }
     },
   }
 })
