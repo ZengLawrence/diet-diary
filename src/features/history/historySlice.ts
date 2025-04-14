@@ -35,5 +35,5 @@ const historySlice = createSlice({
   }
 })
 
-export const { back } = historySlice.actions;
+export const { add, back } = historySlice.actions;
 export default historySlice.reducer;
