@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Meal } from "../../model/Food";
+import { Target } from "../../model/Target";
 
 export interface DayHistory {
   date: string,
+  target: Target & { unlimitedFruit: boolean }
   meals: Meal[],
 }
 

@@ -6,6 +6,7 @@ import { Meal, Serving } from "../model/Food";
 import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServingSummary, calcServingDifference } from "../model/servingFunction";
 import { Gender, Target } from "../model/Target";
 import { RootState } from "./store";
+import { DayHistory } from "../features/history/historySlice";
 
 const _dateSelector = (state: RootState) => state.date;
 const _editModeSelector = (state: RootState) => state.editMode;
@@ -17,6 +18,7 @@ export const showSavedMealsSelector = (state: RootState) => state.showSavedMeals
 export const warningSelector = (state: RootState) => state.warning;
 export const savedMealStateSelector = (state: RootState) => state.savedMealState;
 export const customTargetsStateSelector = (state: RootState) => state.customTargets;
+const _historySelector = (state: RootState) => state.history;
 
 export interface DayPageState {
   date: string,
@@ -41,9 +43,25 @@ const _todaySelector: (state: RootState) => DayPageState = createSelector(
   })
 );
 
+function toMealState(meal: Meal): MealState {
+  return ({
+    meal
+  });
+}
+
+function toDayPage(dayHistory: DayHistory): DayPageState {
+  return ({
+    date: dayHistory.date,
+    editMode: false,
+    target: dayHistory.target,
+    mealStates: dayHistory.meals.map(toMealState),
+  });
+}
+
 export const dayPageSelector: (state: RootState) => DayPageState = createSelector(
+  _historySelector,
   _todaySelector,
-  (dayPage) => dayPage,
+  (history, dayPage) => history.dateIndex == -1 ? dayPage : toDayPage(history.days[history.dateIndex]),
 );
 
 export const dateSelector: (state: RootState) => string = createSelector(

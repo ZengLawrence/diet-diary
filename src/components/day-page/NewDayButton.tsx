@@ -11,6 +11,7 @@ import { VariantDanger } from "../ButtonVariant";
 function toDayHistory(dayPage: DayPageState): DayHistory {
   return {
     date: dayPage.date,
+    target: dayPage.target,
     meals: dayPage.mealStates.map(ms => ms.meal),
   }
 }
