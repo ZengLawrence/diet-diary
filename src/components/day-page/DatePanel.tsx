@@ -13,13 +13,13 @@ interface Props {
 export const DatePanel = (props: Props) => (
   <div className="d-flex flex-row">
     <div className="align-self-center">
-      {props.showHistoryStepButtons && <StartPositionButton />}
+      {props.showHistoryStepButtons && <StartPositionButton />}&nbsp;
       <BackButton />
-    </div>
+    </div>&nbsp;
     <div data-cy="date" className="fs-1">{props.date}</div>&nbsp;
     {props.showHistoryStepButtons && 
       <div className="align-self-center">
-        <NextButton />
+        <NextButton />&nbsp;
         <EndPositionButton />
       </div>}
     {props.showNewDayButton && <NewDayButton />}
