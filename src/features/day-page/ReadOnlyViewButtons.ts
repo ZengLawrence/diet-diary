@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { connect } from "react-redux";
-import { mealsSelector } from "../../app/selectors";
+import { isTodaySelector, mealsSelector } from "../../app/selectors";
 import { RootState } from "../../app/store";
 import ReadOnlyViewButtons from "../../components/day-page/ReadOnlyViewButtons";
 import { Meal } from "../../model/Food";
@@ -12,6 +12,7 @@ function hasAtLeastOneFood(meals: Meal[]) {
 
 const mapStateToProps = (state: RootState) => ({
   showDownloadButton: hasAtLeastOneFood(mealsSelector(state)),
+  showEditButton: isTodaySelector(state),
 })
 
 export default connect(mapStateToProps)(ReadOnlyViewButtons);

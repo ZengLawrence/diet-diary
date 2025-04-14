@@ -6,6 +6,7 @@ import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 
 interface Props {
   showDownloadButton: boolean,
+  showEditButton: boolean,
 }
 
 const ReadOnlyViewButtons = (props: Props) => {
@@ -15,7 +16,7 @@ const ReadOnlyViewButtons = (props: Props) => {
       {props.showDownloadButton &&
         <Button variant={VariantSecondary} onClick={handleClicked}>Download</Button>
       }{' '}
-      <EditButton variant={VariantPrimary}>Edit</EditButton>
+      {props.showEditButton && <EditButton variant={VariantPrimary}>Edit</EditButton>}
     </Fragment>
   )
 }
