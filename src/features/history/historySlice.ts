@@ -15,6 +15,11 @@ export interface History {
 }
 
 const TODAY = -1;
+
+export function isToday(index: number) {
+  return index == TODAY;
+}
+
 const MAX_DAYS = 7;
 
 const initialState: History = {

@@ -6,7 +6,7 @@ import { Meal, Serving } from "../model/Food";
 import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServingSummary, calcServingDifference } from "../model/servingFunction";
 import { Gender, Target } from "../model/Target";
 import { RootState } from "./store";
-import { DayHistory, History } from "../features/history/historySlice";
+import { DayHistory, History, isToday } from "../features/history/historySlice";
 
 const _dateSelector = (state: RootState) => state.date;
 const _editModeSelector = (state: RootState) => state.editMode;
@@ -60,7 +60,7 @@ function toDayPage(dayHistory: DayHistory): DayPageState {
 
 export const isTodaySelector: (state: RootState) => boolean = createSelector(
   _historySelector,
-  (history) => history.dateIndex == -1,
+  (history) => isToday(history.dateIndex),
 );
 
 function getDay(history: History): DayPageState {
