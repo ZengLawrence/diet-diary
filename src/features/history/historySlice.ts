@@ -37,11 +37,6 @@ const historySlice = createSlice({
         state.days = state.days.slice(0, MAX_DAYS);
       }
     },
-    atStart(state) {
-      if (state.days.length > 0) {
-        state.dateIndex = state.days.length - 1;
-      }
-    },
     back(state) {
       if (state.dateIndex + 1 < state.days.length) {
         state.dateIndex += 1;
@@ -62,5 +57,5 @@ const historySlice = createSlice({
   }
 })
 
-export const { add, atStart, back, next, atEnd } = historySlice.actions;
+export const { add, back, next, atEnd } = historySlice.actions;
 export default historySlice.reducer;
