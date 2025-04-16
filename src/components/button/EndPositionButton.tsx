@@ -1,11 +1,9 @@
-import { faForwardStep } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
 import { atEnd } from "../../features/history/historySlice";
 import { VariantSecondary } from "../ButtonVariant";
 
-const EndPositionButton = () => {
+const GoToTodayButton = () => {
   const dispatch = useDispatch();
   const handleClick = () => {
     dispatch(atEnd())
@@ -15,9 +13,9 @@ const EndPositionButton = () => {
     <Button
       variant={VariantSecondary}
       onClick={handleClick}>
-      <FontAwesomeIcon icon={faForwardStep} />
+      Today
     </Button>
   );
 }
 
-export default EndPositionButton;
+export default GoToTodayButton;

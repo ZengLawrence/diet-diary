@@ -1,5 +1,5 @@
 import BackButton from "../button/BackButton";
-import EndPositionButton from "../button/EndPositionButton";
+import GoToTodayButton from "../button/EndPositionButton";
 import NextButton from "../button/NextButton";
 import NewDayButton from "./NewDayButton";
 
@@ -18,7 +18,7 @@ export const DatePanel = (props: Props) => (
     {props.showHistoryStepButtons && 
       <div className="align-self-center">
         <NextButton />&nbsp;
-        <EndPositionButton />
+        <GoToTodayButton />
       </div>}
     {props.showNewDayButton && <NewDayButton />}
   </div>
