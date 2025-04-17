@@ -3,7 +3,6 @@ import BackButton from "../button/BackButton";
 import GoToTodayButton from "../button/GoToTodayButton";
 import NextButton from "../button/NextButton";
 import NewDayButton from "./NewDayButton";
-import { Fragment } from "react";
 
 interface Props {
   date: string,
