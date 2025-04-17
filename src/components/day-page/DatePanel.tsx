@@ -13,7 +13,7 @@ interface Props {
 
 export const DatePanel = (props: Props) => (
   <Row className="flex-fill">
-    <Col xs="4">
+    <Col xs="3" className="d-flex flex-row-reverse">
       <BackButton />
     </Col>
     <Col data-cy="date" className="fs-1" xs="4">{props.date}</Col>
