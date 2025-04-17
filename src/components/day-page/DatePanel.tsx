@@ -14,7 +14,7 @@ interface Props {
 export const DatePanel = (props: Props) => (
   <Row className="flex-fill">
     <Col />
-    <Col>
+    <Col xs="auto" className="align-content-center">
       <div className="d-flex flex-row">
         <div className="align-content-center">
           <BackButton />
