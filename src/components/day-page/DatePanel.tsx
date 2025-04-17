@@ -13,19 +13,19 @@ interface Props {
 
 export const DatePanel = (props: Props) => (
   <Row className="flex-fill">
-    <Col xs="3" className="d-flex flex-row-reverse">
-      <BackButton />
-    </Col>
-    <Col data-cy="date" className="fs-1" xs="4">{props.date}</Col>
-    <Col xs="4">
-      <Row>
+    <Col />
+    <Col>
+      <div className="d-flex flex-row">
+        <BackButton />&nbsp;
+        <div data-cy="date" className="fs-1">{props.date}</div>&nbsp;
         {props.showHistoryStepButtons &&
-          <div>
-            <NextButton />
-            <GoToTodayButton />
-          </div>}
+          <NextButton />}
         {props.showNewDayButton && <NewDayButton />}
-      </Row>
+      </div>
+    </Col>
+    <Col>
+      {props.showHistoryStepButtons &&
+        <GoToTodayButton />}
     </Col>
   </Row>
 );
