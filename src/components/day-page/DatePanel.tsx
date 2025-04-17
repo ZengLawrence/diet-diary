@@ -27,7 +27,7 @@ export const DatePanel = (props: Props) => (
         {props.showNewDayButton && <NewDayButton />}
       </div>
     </Col>
-    <Col>
+    <Col className="align-content-center">
       {props.showHistoryStepButtons &&
         <GoToTodayButton />}
     </Col>
