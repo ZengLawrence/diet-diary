@@ -16,10 +16,14 @@ export const DatePanel = (props: Props) => (
     <Col />
     <Col>
       <div className="d-flex flex-row">
-        <BackButton />&nbsp;
+        <div className="align-content-center">
+          <BackButton />
+        </div>&nbsp;
         <div data-cy="date" className="fs-1">{props.date}</div>&nbsp;
         {props.showHistoryStepButtons &&
-          <NextButton />}
+          <div className="align-content-center">
+            <NextButton />
+          </div>}
         {props.showNewDayButton && <NewDayButton />}
       </div>
     </Col>
