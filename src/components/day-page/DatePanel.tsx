@@ -35,6 +35,6 @@ export const DatePanel = (props: Props) => (
           <GoToTodayButton />}
       </Row>
     </Col>
-    <Col />
+    <Col className="d-block d-none d-sm-block" />
   </Row>
 );
