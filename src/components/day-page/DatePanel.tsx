@@ -29,6 +29,9 @@ export const DatePanel = (props: Props) => (
         </div>}
       {props.showNewDayButton && <NewDayButton />}
     </Col>
+    {!props.showHistoryStepButtons &&
+      !props.showNewDayButton &&
+      <Col xs="auto" />}
     {props.showHistoryStepButtons &&
       <Col xs="auto" className="align-content-center">
         <Row>
