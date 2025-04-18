@@ -1,4 +1,5 @@
-import { Col, Row } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 import BackButton from "../button/BackButton";
 import GoToTodayButton from "../button/GoToTodayButton";
 import NextButton from "../button/NextButton";
