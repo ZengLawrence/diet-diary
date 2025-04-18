@@ -35,6 +35,8 @@ export const DatePanel = (props: Props) => (
           <GoToTodayButton />}
       </Row>
     </Col>
-    <Col className="d-block d-none d-sm-block" />
+    {props.showHistoryStepButtons
+      ? <Col className="d-block d-none d-sm-block" />
+      : <Col />}
   </Row>
 );
