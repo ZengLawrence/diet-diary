@@ -29,12 +29,17 @@ export const DatePanel = (props: Props) => (
         </div>}
       {props.showNewDayButton && <NewDayButton />}
     </Col>
-    <Col xs="auto" className="align-content-center">
-      <Row>
-        {props.showHistoryStepButtons &&
-          <GoToTodayButton />}
-      </Row>
-    </Col>
-    <Col className="d-block d-none d-sm-block" />
+    {!props.showHistoryStepButtons &&
+      !props.showNewDayButton &&
+      <Col xs="auto" />}
+    {props.showHistoryStepButtons &&
+      <Col xs="auto" className="align-content-center">
+        <Row>
+          <GoToTodayButton />
+        </Row>
+      </Col>}
+    {props.showHistoryStepButtons
+      ? <Col className="d-block d-none d-sm-block" />
+      : <Col />}
   </Row>
 );
