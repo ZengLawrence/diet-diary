@@ -14,7 +14,8 @@ interface Props {
 export const DatePanel = (props: Props) => (
   <Row className="flex-fill">
     <Col />
-    {props.showHistoryStepButtons && <Col xs="auto" sm="1" />}
+    {props.showHistoryStepButtons &&
+      <Col sm="1" className="d-block d-none d-sm-block" />}
     <Col xs="auto" className="align-content-center">
       <BackButton />
     </Col>
