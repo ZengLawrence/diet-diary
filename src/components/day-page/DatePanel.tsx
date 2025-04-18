@@ -1,4 +1,5 @@
-import { Col, Row } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 import BackButton from "../button/BackButton";
 import GoToTodayButton from "../button/GoToTodayButton";
 import NextButton from "../button/NextButton";
@@ -13,22 +14,26 @@ interface Props {
 export const DatePanel = (props: Props) => (
   <Row className="flex-fill">
     <Col />
+    {props.showHistoryStepButtons && <Col xs="auto" sm="1" />}
     <Col xs="auto" className="align-content-center">
-      <div className="d-flex flex-row">
-        <div className="align-content-center">
-          <BackButton />
-        </div>&nbsp;
-        <div data-cy="date" className="fs-1">{props.date}</div>&nbsp;
-        {props.showHistoryStepButtons &&
-          <div className="align-content-center">
-            <NextButton />
-          </div>}
-        {props.showNewDayButton && <NewDayButton />}
-      </div>
+      <BackButton />
     </Col>
-    <Col className="align-content-center">
+    <Col xs="auto" className="align-content-center">
+      <div data-cy="date" className="fs-1">{props.date}</div>
+    </Col>
+    <Col xs="auto" className="align-content-center">
       {props.showHistoryStepButtons &&
-        <GoToTodayButton />}
+        <div className="align-content-center">
+          <NextButton />
+        </div>}
+      {props.showNewDayButton && <NewDayButton />}
     </Col>
+    <Col xs="auto" className="align-content-center">
+      <Row>
+        {props.showHistoryStepButtons &&
+          <GoToTodayButton />}
+      </Row>
+    </Col>
+    <Col />
   </Row>
 );
