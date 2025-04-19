@@ -1,13 +1,9 @@
 import Col from "react-bootstrap/Col";
-import ProgressBar from "react-bootstrap/ProgressBar";
 import Row from "react-bootstrap/Row";
 import BackButton from "../button/BackButton";
 import GoToTodayButton from "../button/GoToTodayButton";
 import NextButton from "../button/NextButton";
-
-const ViewProgressBar = () => (
-  <ProgressBar now={80} />
-);
+import ViewProgressBar from "./ViewProgressBar";
 
 const ViewProgressBarRow = () => (
   <Row className="flex-fill">
