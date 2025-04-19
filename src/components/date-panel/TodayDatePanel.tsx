@@ -6,9 +6,7 @@ import { useSelector } from "react-redux";
 import { viewOptionsSelector } from "../../app/selectors";
 
 const TodayDatePanel = (props: React.PropsWithChildren) => {
-  const editMode = useSelector(viewOptionsSelector).editMode;
-  const isToday = useSelector(viewOptionsSelector).isToday;
-  const showNewDayButton = !editMode && isToday;
+  const showNewDayButton = useSelector(viewOptionsSelector).canAddNewDay;
   
   return (
     <Row className="flex-fill">
