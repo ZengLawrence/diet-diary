@@ -170,6 +170,15 @@ export const othersServingTotalSelector: (state: RootState) => Serving = createS
   (meals) => calcOthersServingSummary(meals)
 )
 
+export const historyDaysProgressSelector: (state: RootState) => { daysRemaining: number, totalDays: number } = createSelector(
+  _historySelector,
+  (history) => {
+    const totalDays = history.days.length;
+    const daysRemaining = totalDays - (history.dateIndex + 1);
+    return { daysRemaining, totalDays };
+  }
+);
+
 function hasAtLeastOneFood(meals: Meal[]) {
   return _.size(meals) > 0
     && _.size(meals[0].foods) > 0;
