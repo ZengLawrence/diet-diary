@@ -5,6 +5,10 @@ import GoToTodayButton from "../button/GoToTodayButton";
 import NextButton from "../button/NextButton";
 import NewDayButton from "./NewDayButton";
 
+const DateSpan = (props: { date: string }) => (
+  <span data-cy="date" className="fs-1">{props.date}</span>
+);
+
 interface Props {
   date: string,
   showNewDayButton: boolean,
@@ -20,7 +24,7 @@ export const DatePanel = (props: Props) => (
       <BackButton />
     </Col>
     <Col xs="auto" className="align-content-center">
-      <span data-cy="date" className="fs-1">{props.date}</span>
+      <DateSpan date={props.date} />
     </Col>
     <Col xs="auto" className="align-content-center">
       {props.showHistoryStepButtons &&
