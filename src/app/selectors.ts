@@ -23,6 +23,7 @@ const _historySelector = (state: RootState) => state.history;
 interface ViewOptions {
   editMode: boolean,
   isToday: boolean,
+  allowEdit: boolean,
 }
 
 export interface DayPageState {
@@ -42,6 +43,7 @@ const _todaySelector: (state: RootState) => DayPageState = createSelector(
     viewOptions: {
       editMode,
       isToday: true,
+      allowEdit: true,
     },
     target: {
       ...targetState.target,
@@ -63,6 +65,7 @@ function toDayPage(dayHistory: DayHistory): DayPageState {
     viewOptions: {
       editMode: false,
       isToday: false,
+      allowEdit: false,
     },
     target: dayHistory.target,
     mealStates: dayHistory.meals.map(toMealState),

@@ -12,7 +12,7 @@ function hasAtLeastOneFood(meals: Meal[]) {
 
 const mapStateToProps = (state: RootState) => ({
   showDownloadButton: hasAtLeastOneFood(mealsSelector(state)),
-  showEditButton: viewOptionsSelector(state).isToday,
+  showEditButton: viewOptionsSelector(state).allowEdit,
 })
 
 export default connect(mapStateToProps)(ReadOnlyViewButtons);
