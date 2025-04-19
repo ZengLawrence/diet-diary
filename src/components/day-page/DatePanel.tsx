@@ -5,9 +5,7 @@ import { DateSpan } from "./DateSpan";
 import HistoryDatePanel from "./HistoryDatePanel";
 import NewDayButton from "./NewDayButton";
 
-type ShowNewDayButtonProps = Pick<Props, 'showNewDayButton'>;
-
-const TodayDatePanel = (props: React.PropsWithChildren<ShowNewDayButtonProps>) => (
+const TodayDatePanel = (props: React.PropsWithChildren<{ showNewDayButton: boolean }>) => (
   <Row className="flex-fill">
     <Col />
     <Col xs="auto" className="align-content-center">
