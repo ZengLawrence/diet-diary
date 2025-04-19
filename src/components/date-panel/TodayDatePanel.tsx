@@ -3,11 +3,11 @@ import Row from "react-bootstrap/Row";
 import BackButton from "../button/BackButton";
 import NewDayButton from "../day-page/NewDayButton";
 import { useSelector } from "react-redux";
-import { dayPageSelector, isTodaySelector } from "../../app/selectors";
+import { isTodaySelector, viewOptionsSelector } from "../../app/selectors";
 
 
 const TodayDatePanel = (props: React.PropsWithChildren) => {
-  const editMode = useSelector(dayPageSelector).editMode;
+  const editMode = useSelector(viewOptionsSelector).editMode;
   const isToday = useSelector(isTodaySelector);
   const showNewDayButton = !editMode && isToday;
   

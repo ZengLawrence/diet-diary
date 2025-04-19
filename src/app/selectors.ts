@@ -20,9 +20,13 @@ export const savedMealStateSelector = (state: RootState) => state.savedMealState
 export const customTargetsStateSelector = (state: RootState) => state.customTargets;
 const _historySelector = (state: RootState) => state.history;
 
+interface ViewOptions {
+  editMode: boolean,
+}
+
 export interface DayPageState {
   date: string,
-  editMode: boolean,
+  viewOptions: ViewOptions,
   target: Target & { unlimitedFruit: boolean },
   mealStates: MealState[],
 }
@@ -34,7 +38,9 @@ const _todaySelector: (state: RootState) => DayPageState = createSelector(
   _mealStatesSelector,
   (date, editMode, targetState, mealStates) => ({
     date,
-    editMode,
+    viewOptions: {
+      editMode,
+    },
     target: {
       ...targetState.target,
       unlimitedFruit: targetState.unlimitedFruit
@@ -52,7 +58,9 @@ function toMealState(meal: Meal): MealState {
 function toDayPage(dayHistory: DayHistory): DayPageState {
   return ({
     date: dayHistory.date,
-    editMode: false,
+    viewOptions: {
+      editMode: false,
+    },
     target: dayHistory.target,
     mealStates: dayHistory.meals.map(toMealState),
   });
@@ -78,6 +86,11 @@ export const dayPageSelector: (state: RootState) => DayPageState = createSelecto
   _historySelector,
   _todaySelector,
   (isToday, history, dayPage) => isToday ? dayPage : getDay(history),
+);
+
+export const viewOptionsSelector: (state: RootState) => ViewOptions = createSelector(
+  dayPageSelector,
+  (dayPage) => dayPage.viewOptions,
 );
 
 export const unlimitedFruitSelector: (state: RootState) => boolean = createSelector(

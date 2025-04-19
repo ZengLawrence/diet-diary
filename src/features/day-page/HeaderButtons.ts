@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
-import { dayPageSelector } from "../../app/selectors";
+import { viewOptionsSelector } from "../../app/selectors";
 import { RootState } from "../../app/store";
 import { HeaderButtons } from "../../components/day-page/HeaderButtons";
 
 const mapStateToProps = (state: RootState) => ({
-  editMode: dayPageSelector(state).editMode,
+  editMode: viewOptionsSelector(state).editMode,
 })
 
 export default connect(mapStateToProps)(HeaderButtons);
