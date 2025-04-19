@@ -5,10 +5,14 @@ import BackButton from "../button/BackButton";
 import GoToTodayButton from "../button/GoToTodayButton";
 import NextButton from "../button/NextButton";
 
+const ViewProgressBar = () => (
+  <ProgressBar now={80} />
+);
+
 const ViewProgressBarRow = () => {
   return (
     <Row className="flex-fill">
-      <ProgressBar now={80} />
+      <ViewProgressBar />
     </Row>
   );
 }
