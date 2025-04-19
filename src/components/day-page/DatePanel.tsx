@@ -20,7 +20,7 @@ export const DatePanel = (props: Props) => (
       <BackButton />
     </Col>
     <Col xs="auto" className="align-content-center">
-      <div data-cy="date" className="fs-1">{props.date}</div>
+      <span data-cy="date" className="fs-1">{props.date}</span>
     </Col>
     <Col xs="auto" className="align-content-center">
       {props.showHistoryStepButtons &&
