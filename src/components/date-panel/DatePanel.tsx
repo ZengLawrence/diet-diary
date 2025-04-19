@@ -6,14 +6,19 @@ interface Props {
   showHistoryStepButtons?: boolean,
 }
 
-const DatePanel = (props: Props) => (
-  props.showHistoryStepButtons
-    ? <HistoryDatePanel>
-      <DateSpan />
-    </HistoryDatePanel>
-    : <TodayDatePanel >
-      <DateSpan />
-    </TodayDatePanel>
-);
+const DatePanel = (props: Props) => {
+  const { showHistoryStepButtons } = props;
+  const isToday = !showHistoryStepButtons;
+
+  return (
+    isToday
+      ? <TodayDatePanel >
+        <DateSpan />
+      </TodayDatePanel>
+      : <HistoryDatePanel>
+        <DateSpan />
+      </HistoryDatePanel>
+  );
+}
 
 export default DatePanel;
