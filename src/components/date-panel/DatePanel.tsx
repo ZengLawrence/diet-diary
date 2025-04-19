@@ -3,7 +3,6 @@ import HistoryDatePanel from "./HistoryDatePanel";
 import TodayDatePanel from "./TodayDatePanel";
 
 interface Props {
-  showNewDayButton: boolean,
   showHistoryStepButtons?: boolean,
 }
 
@@ -12,7 +11,7 @@ export const DatePanel = (props: Props) => (
     ? <HistoryDatePanel>
       <DateSpan />
     </HistoryDatePanel>
-    : <TodayDatePanel showNewDayButton={props.showNewDayButton}>
+    : <TodayDatePanel >
       <DateSpan />
     </TodayDatePanel>
 );
