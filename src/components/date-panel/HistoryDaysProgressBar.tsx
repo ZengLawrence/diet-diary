@@ -2,7 +2,7 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import { useSelector } from "react-redux";
 import { historyDaysProgressSelector } from "../../app/selectors";
 
-const ViewProgressBar = () => {
+const HistoryDaysProgressBar = () => {
   const { percent, daysRemaining } = useSelector(historyDaysProgressSelector);
   const label = daysRemaining > 1 ? `${daysRemaining} days` : `${daysRemaining} day`;
   return (
@@ -10,4 +10,4 @@ const ViewProgressBar = () => {
   );
 }
 
-export default ViewProgressBar;
+export default HistoryDaysProgressBar;

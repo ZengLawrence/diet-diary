@@ -3,11 +3,11 @@ import Row from "react-bootstrap/Row";
 import BackButton from "../button/BackButton";
 import GoToTodayButton from "../button/GoToTodayButton";
 import NextButton from "../button/NextButton";
-import ViewProgressBar from "./ViewProgressBar";
+import HistoryDaysProgressBar from "./HistoryDaysProgressBar";
 
 const ViewProgressBarRow = () => (
   <Row className="flex-fill">
-    <ViewProgressBar />
+    <HistoryDaysProgressBar />
   </Row>
 );
 
