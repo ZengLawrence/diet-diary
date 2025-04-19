@@ -3,7 +3,7 @@ import TargetCaloriePanel from "../../features/target/TargetCaloriePanel";
 import DatePanel from "../date-panel/DatePanel";
 
 export const Header = () => (
-  <div className="d-flex flex-column">
+  <div className="d-flex flex-column flex-fill">
     <div className="d-flex justify-content-center mb-1">
       <DatePanel />
     </div>

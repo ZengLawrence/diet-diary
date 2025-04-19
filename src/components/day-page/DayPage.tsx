@@ -15,10 +15,8 @@ function DayPage(props: Props) {
   return (
     <Container fluid="md">
       <div>
-        <div className="d-flex mb-2">
-          <div className="flex-fill">
-            <Header />
-          </div>
+        <div className="d-flex flex-fill mb-2">
+          <Header />
         </div>
         <Warnings />
         <div className="d-flex mb-2">
