@@ -6,7 +6,7 @@ interface Props {
   showHistoryStepButtons?: boolean,
 }
 
-export const DatePanel = (props: Props) => (
+const DatePanel = (props: Props) => (
   props.showHistoryStepButtons
     ? <HistoryDatePanel>
       <DateSpan />
@@ -15,3 +15,5 @@ export const DatePanel = (props: Props) => (
       <DateSpan />
     </TodayDatePanel>
 );
+
+export default DatePanel;
