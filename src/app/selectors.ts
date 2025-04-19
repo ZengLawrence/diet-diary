@@ -80,11 +80,6 @@ export const dayPageSelector: (state: RootState) => DayPageState = createSelecto
   (isToday, history, dayPage) => isToday ? dayPage : getDay(history),
 );
 
-export const dateSelector: (state: RootState) => string = createSelector(
-  dayPageSelector,
-  (dayPage) => dayPage.date,
-);
-
 export const unlimitedFruitSelector: (state: RootState) => boolean = createSelector(
   dayPageSelector,
   (dayPage) => dayPage.target.unlimitedFruit,
