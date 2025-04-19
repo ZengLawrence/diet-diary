@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 import { historyDaysProgressSelector } from "../../app/selectors";
 
 const HistoryDaysProgressBar = () => {
-  const { percent, daysRemaining } = useSelector(historyDaysProgressSelector);
+  const { daysRemaining, totalDays } = useSelector(historyDaysProgressSelector);
   const label = daysRemaining > 1 ? `${daysRemaining} days` : `${daysRemaining} day`;
   return (
-    <ProgressBar now={percent} label={label} />
+    <ProgressBar now={daysRemaining} min={0} max={totalDays} label={label} />
   );
 }
 

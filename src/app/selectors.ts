@@ -170,13 +170,12 @@ export const othersServingTotalSelector: (state: RootState) => Serving = createS
   (meals) => calcOthersServingSummary(meals)
 )
 
-export const historyDaysProgressSelector: (state: RootState) => { percent: number, daysRemaining: number } = createSelector(
+export const historyDaysProgressSelector: (state: RootState) => { daysRemaining: number, totalDays: number } = createSelector(
   _historySelector,
   (history) => {
     const totalDays = history.days.length;
     const daysRemaining = totalDays - history.dateIndex - 1;
-    const percent = Math.round((daysRemaining / totalDays) * 100);
-    return { percent, daysRemaining };
+    return { daysRemaining, totalDays };
   }
 );
 
