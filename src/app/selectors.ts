@@ -69,7 +69,7 @@ function toDayPage(dayHistory: DayHistory): DayPageState {
   });
 }
 
-export const isTodaySelector: (state: RootState) => boolean = createSelector(
+const _isTodaySelector: (state: RootState) => boolean = createSelector(
   _historySelector,
   (history) => isToday(history.dateIndex),
 );
@@ -85,7 +85,7 @@ function getDay(history: History): DayPageState {
 }
 
 export const dayPageSelector: (state: RootState) => DayPageState = createSelector(
-  isTodaySelector,
+  _isTodaySelector,
   _historySelector,
   _todaySelector,
   (isToday, history, dayPage) => isToday ? dayPage : getDay(history),
