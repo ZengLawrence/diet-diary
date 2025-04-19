@@ -24,6 +24,7 @@ interface ViewOptions {
   editMode: boolean,
   isToday: boolean,
   allowEdit: boolean,
+  canDownload: boolean,
 }
 
 export interface DayPageState {
@@ -44,6 +45,7 @@ const _todaySelector: (state: RootState) => DayPageState = createSelector(
       editMode,
       isToday: true,
       allowEdit: true,
+      canDownload: hasAtLeastOneFood(meals(mealStates)),
     },
     target: {
       ...targetState.target,
@@ -66,6 +68,7 @@ function toDayPage(dayHistory: DayHistory): DayPageState {
       editMode: false,
       isToday: false,
       allowEdit: false,
+      canDownload: hasAtLeastOneFood(dayHistory.meals),
     },
     target: dayHistory.target,
     mealStates: dayHistory.meals.map(toMealState),
@@ -163,3 +166,12 @@ export const othersServingTotalSelector: (state: RootState) => Serving = createS
   mealsSelector,
   (meals) => calcOthersServingSummary(meals)
 )
+
+function hasAtLeastOneFood(meals: Meal[]) {
+  return _.size(meals) > 0
+    && _.size(meals[0].foods) > 0;
+}
+
+function meals(mealStates: MealState[]) {
+  return _.map(mealStates, 'meal');
+}
