@@ -21,7 +21,7 @@ export const customTargetsStateSelector = (state: RootState) => state.customTarg
 const _historySelector = (state: RootState) => state.history;
 
 interface ViewOptions {
-  editMode: boolean,
+  canEdit: boolean,
   isToday: boolean,
   allowEdit: boolean,
   canDownload: boolean,
@@ -43,7 +43,7 @@ const _todaySelector: (state: RootState) => DayPageState = createSelector(
   (date, editMode, targetState, mealStates) => ({
     date,
     viewOptions: {
-      editMode,
+      canEdit: editMode,
       isToday: true,
       allowEdit: true,
       canDownload: hasAtLeastOneFood(meals(mealStates)),
@@ -67,7 +67,7 @@ function toDayPage(dayHistory: DayHistory): DayPageState {
   return ({
     date: dayHistory.date,
     viewOptions: {
-      editMode: false,
+      canEdit: false,
       isToday: false,
       allowEdit: false,
       canDownload: hasAtLeastOneFood(dayHistory.meals),

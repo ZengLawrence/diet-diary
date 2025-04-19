@@ -9,13 +9,13 @@ import { addSuggestion } from "../suggestions/SavedMealSuggestion";
 
 function inAddOrEditState(state: RootState, mealIndex: number) {
   const mealState = mealStatesSelector(state)[mealIndex];
-  return viewOptionsSelector(state).editMode &&
+  return viewOptionsSelector(state).canEdit &&
     (mealState.editState === "add" || mealState.editState === "edit");
 }
 
 const mapStateToProps = (state: RootState, ownProps: { mealIndex: number; }) => ({
   meal: mealsSelector(state)[ownProps.mealIndex],
-  showButton: viewOptionsSelector(state).editMode,
+  showButton: viewOptionsSelector(state).canEdit,
   showDeleteButton: inAddOrEditState(state, ownProps.mealIndex),
   showMealSavedAlert: mealStatesSelector(state)[ownProps.mealIndex].showMealSavedAlert,
   showWarningAlert: inAddOrEditState(state, ownProps.mealIndex),

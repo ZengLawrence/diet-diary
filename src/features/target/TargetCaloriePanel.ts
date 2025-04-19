@@ -4,7 +4,7 @@ import { RootState } from "../../app/store";
 import { TargetCaloriePanel } from "../../components/target/TargetCaloriePanel";
 
 const mapStateToProps = (state: RootState) => ({
-  editTarget: viewOptionsSelector(state).editMode,
+  editTarget: viewOptionsSelector(state).canEdit,
 })
 
 export default connect(mapStateToProps)(TargetCaloriePanel);

@@ -4,7 +4,7 @@ import { RootState } from "../../app/store";
 import { HeaderButtons } from "../../components/day-page/HeaderButtons";
 
 const mapStateToProps = (state: RootState) => ({
-  editMode: viewOptionsSelector(state).editMode,
+  editMode: viewOptionsSelector(state).canEdit,
 })
 
 export default connect(mapStateToProps)(HeaderButtons);

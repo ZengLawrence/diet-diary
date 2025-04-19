@@ -4,7 +4,7 @@ import { RootState } from "../../app/store";
 import DayPage from "../../components/day-page/DayPage";
 
 const mapStateToProps = (state: RootState) => ({
-  showButton: viewOptionsSelector(state).editMode,
+  showButton: viewOptionsSelector(state).canEdit,
 })
 
 export default connect(mapStateToProps)(DayPage);
