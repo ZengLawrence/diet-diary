@@ -9,6 +9,50 @@ const DateSpan = (props: { date: string }) => (
   <span data-cy="date" className="fs-1">{props.date}</span>
 );
 
+const HistoryDatePanel = (props: React.PropsWithChildren) => (
+  <Row className="flex-fill">
+    <Col />
+    <Col sm="1" className="d-block d-none d-sm-block" />
+    <Col xs="auto" className="align-content-center">
+      <BackButton />
+    </Col>
+    <Col xs="auto" className="align-content-center">
+      {props.children}
+    </Col>
+    <Col xs="auto" className="align-content-center">
+      <div className="align-content-center">
+        <NextButton />
+      </div>
+    </Col>
+    <Col xs="auto" className="align-content-center">
+      <Row>
+        <GoToTodayButton />
+      </Row>
+    </Col>
+    <Col className="d-block d-none d-sm-block" />
+  </Row>
+);
+
+type ShowNewDayButtonProps = Pick<Props, 'showNewDayButton'>;
+
+const TodayDatePanel = (props: React.PropsWithChildren<ShowNewDayButtonProps>) => (
+  <Row className="flex-fill">
+    <Col />
+    <Col xs="auto" className="align-content-center">
+      <BackButton />
+    </Col>
+    <Col xs="auto" className="align-content-center">
+      {props.children}
+    </Col>
+    <Col xs="auto" className="align-content-center">
+      {props.showNewDayButton && <NewDayButton />}
+    </Col>
+    {!props.showNewDayButton &&
+      <Col xs="auto" />}
+    <Col />
+  </Row>
+);
+
 interface Props {
   date: string,
   showNewDayButton: boolean,
@@ -16,34 +60,11 @@ interface Props {
 }
 
 export const DatePanel = (props: Props) => (
-  <Row className="flex-fill">
-    <Col />
-    {props.showHistoryStepButtons &&
-      <Col sm="1" className="d-block d-none d-sm-block" />}
-    <Col xs="auto" className="align-content-center">
-      <BackButton />
-    </Col>
-    <Col xs="auto" className="align-content-center">
-      <DateSpan date={props.date} />
-    </Col>
-    <Col xs="auto" className="align-content-center">
-      {props.showHistoryStepButtons &&
-        <div className="align-content-center">
-          <NextButton />
-        </div>}
-      {props.showNewDayButton && <NewDayButton />}
-    </Col>
-    {!props.showHistoryStepButtons &&
-      !props.showNewDayButton &&
-      <Col xs="auto" />}
-    {props.showHistoryStepButtons &&
-      <Col xs="auto" className="align-content-center">
-        <Row>
-          <GoToTodayButton />
-        </Row>
-      </Col>}
-    {props.showHistoryStepButtons
-      ? <Col className="d-block d-none d-sm-block" />
-      : <Col />}
-  </Row>
+  props.showHistoryStepButtons
+    ? <HistoryDatePanel>
+      <DateSpan date={props.date}></DateSpan>
+    </HistoryDatePanel>
+    : <TodayDatePanel showNewDayButton={props.showNewDayButton}>
+      <DateSpan date={props.date}></DateSpan>
+    </TodayDatePanel>
 );
