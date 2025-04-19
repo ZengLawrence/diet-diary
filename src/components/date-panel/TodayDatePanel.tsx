@@ -1,7 +1,7 @@
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import BackButton from "../button/BackButton";
-import NewDayButton from "./NewDayButton";
+import NewDayButton from "../day-page/NewDayButton";
 
 interface TodayDatePanelProps {
   showNewDayButton: boolean;
