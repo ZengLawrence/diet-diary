@@ -1,4 +1,4 @@
-import { DateSpan } from "./DateSpan";
+import DateSpan from "./DateSpan";
 import HistoryDatePanel from "./HistoryDatePanel";
 import TodayDatePanel from "./TodayDatePanel";
 
