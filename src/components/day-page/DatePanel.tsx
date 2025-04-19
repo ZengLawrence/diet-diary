@@ -4,10 +4,7 @@ import BackButton from "../button/BackButton";
 import GoToTodayButton from "../button/GoToTodayButton";
 import NextButton from "../button/NextButton";
 import NewDayButton from "./NewDayButton";
-
-const DateSpan = (props: { date: string }) => (
-  <span data-cy="date" className="fs-1">{props.date}</span>
-);
+import { DateSpan } from "./DateSpan";
 
 const HistoryDatePanel = (props: React.PropsWithChildren) => (
   <Row className="flex-fill">
