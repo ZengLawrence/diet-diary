@@ -174,7 +174,7 @@ export const historyDaysProgressSelector: (state: RootState) => { daysRemaining:
   _historySelector,
   (history) => {
     const totalDays = history.days.length;
-    const daysRemaining = totalDays - history.dateIndex - 1;
+    const daysRemaining = totalDays - (history.dateIndex + 1);
     return { daysRemaining, totalDays };
   }
 );
