@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
-import { isTodaySelector } from "../../app/selectors";
+import { viewOptionsSelector } from "../../app/selectors";
 import DateSpan from "./DateSpan";
 import HistoryDatePanel from "./HistoryDatePanel";
 import TodayDatePanel from "./TodayDatePanel";
 
 const DatePanel = () => {
-  const isToday = useSelector(isTodaySelector);
+  const isToday = useSelector(viewOptionsSelector).isToday;
 
   return (
     isToday
