@@ -1,6 +1,6 @@
-import DatePanel from "../../features/day-page/DatePanel";
 import HeaderButtons from "../../features/day-page/HeaderButtons";
 import TargetCaloriePanel from "../../features/target/TargetCaloriePanel";
+import DatePanel from "../date-panel/DatePanel";
 
 export const Header = () => (
   <div className="d-flex flex-column">
