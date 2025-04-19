@@ -9,13 +9,11 @@ const ViewProgressBar = () => (
   <ProgressBar now={80} />
 );
 
-const ViewProgressBarRow = () => {
-  return (
-    <Row className="flex-fill">
-      <ViewProgressBar />
-    </Row>
-  );
-}
+const ViewProgressBarRow = () => (
+  <Row className="flex-fill">
+    <ViewProgressBar />
+  </Row>
+);
 
 const DatePanelRow = (props: React.PropsWithChildren) => (
   <Row className="flex-fill">
