@@ -22,7 +22,6 @@ interface Props {
   selectedCalorie: number;
   targets: Target[];
   onSelect: (target: Target) => void;
-  showEditButton?: boolean;
 }
 
 export const TargetDropDown = (props: Props) => {
