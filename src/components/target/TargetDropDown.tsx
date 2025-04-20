@@ -5,7 +5,6 @@ import GenderToggle from "../../features/target/GenderToggle";
 import UnlimitedFruitCheckBox from "../../features/target/UnlimitedFruitCheckBox";
 import { Target } from "../../model/Target";
 import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
-import EditButtonMenuItem from "./EditButtonMenuItem";
 
 const MenuItemLabel = (props: { target: Target }) => (
   <Fragment>
@@ -43,7 +42,6 @@ export const TargetDropDown = (props: Props) => {
 
       <Dropdown.Menu>
         {_.map(props.targets, menuItem)}
-        {props.showEditButton && <EditButtonMenuItem />}
         <Dropdown.Divider />
         <div className="px-1">
           <UnlimitedFruitCheckBox />
