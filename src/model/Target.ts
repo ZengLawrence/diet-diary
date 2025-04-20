@@ -1,5 +1,14 @@
+export type Gender = "man" | "woman";
 
-export type Gender = "man" | "woman" | "custom";
+export function defaultGender(gender: Gender) {
+  switch(gender) {
+    case "man":
+    case "woman":
+      return gender;
+    default:
+      return "man";
+  }
+}
 
 const TARGET_1200_CALORIE: Target = {
   calorie: 1200,
@@ -75,25 +84,7 @@ export interface Target {
   };
 }
 
-export function targetsByGender(gender: Gender) {
-  if (gender === "woman") {
-    return [
-      TARGET_1200_CALORIE,
-      TARGET_1400_CALORIE,
-      TARGET_1600_CALORIE,
-      TARGET_1800_CALORIE,
-    ];  
-  } else {
-    return [
-      TARGET_1400_CALORIE,
-      TARGET_1600_CALORIE,
-      TARGET_1800_CALORIE,
-      TARGET_2000_CALORIE,
-    ];  
-  }
-}
-
-export function customTargets() {
+export function defaultTargets() {
   return [
     TARGET_1200_CALORIE,
     TARGET_1400_CALORIE,
@@ -101,4 +92,12 @@ export function customTargets() {
     TARGET_1800_CALORIE,
     TARGET_2000_CALORIE,
   ];
+}
+
+export function manTarget(target: Target) {
+  return target.calorie >= 1400 && target.calorie <= 2000;
+}
+
+export function womanTarget(target: Target) {
+  return target.calorie >= 1200 && target.calorie <= 1800;
 }

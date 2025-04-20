@@ -1,17 +1,25 @@
 import { Fragment, useState } from "react";
 import Button from "react-bootstrap/Button";
 import EditCustomTargetsOffcanvas from "../../features/target/EditCustomTargetsOffcanvas";
+import { VariantSecondary } from "../ButtonVariant";
 
 const EditCustomTargetButton = () => {
   const [showEditCustomTargets, setShowEditCustomTargets] = useState(false);
 
+  const handleClick = () => setShowEditCustomTargets(true);
+  const handleHide = () => setShowEditCustomTargets(false);
+
   return (
     <Fragment>
-      <Button onClick={() => setShowEditCustomTargets(true)}>Custom</Button>
+      <Button
+        variant={VariantSecondary}
+        onClick={handleClick}>
+        Custom
+      </Button>
 
       <EditCustomTargetsOffcanvas
         show={showEditCustomTargets}
-        onHide={() => setShowEditCustomTargets(false)}
+        onHide={handleHide}
       />
     </Fragment>
   );
