@@ -6,6 +6,5 @@ export const GenderToggle = (props: { value: string; onChange: (val: Gender) => 
   <ToggleButtonGroup name="genderToggle" value={props.value} onChange={props.onChange}>
     <ToggleButton id="tbg-gender-btn-man" variant={VariantPrimary} value="man">Man</ToggleButton>
     <ToggleButton id="tbg-gender-btn-woman" variant={VariantPrimary} value="woman">Woman</ToggleButton>
-    <ToggleButton id="tbg-gender-btn-custom" variant={VariantPrimary} value="custom">Custom</ToggleButton>
   </ToggleButtonGroup>
 )
