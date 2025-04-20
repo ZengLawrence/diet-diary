@@ -2,12 +2,12 @@ import { Fragment, useState } from "react";
 import Button from "react-bootstrap/Button";
 import EditCustomTargetsOffcanvas from "../../features/target/EditCustomTargetsOffcanvas";
 
-const EditButtonMenuItem = () => {
+const EditCustomTargetButton = () => {
   const [showEditCustomTargets, setShowEditCustomTargets] = useState(false);
 
   return (
     <Fragment>
-      <Button onClick={() => setShowEditCustomTargets(true)}>Edit</Button>
+      <Button onClick={() => setShowEditCustomTargets(true)}>Custom</Button>
 
       <EditCustomTargetsOffcanvas
         show={showEditCustomTargets}
@@ -17,4 +17,4 @@ const EditButtonMenuItem = () => {
   );
 };
 
-export default EditButtonMenuItem;
+export default EditCustomTargetButton;
