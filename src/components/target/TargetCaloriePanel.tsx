@@ -1,9 +1,9 @@
 import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/esm/Col";
+import Row from "react-bootstrap/esm/Row";
 import TargetDropDown from "../../features/target/TargetDropDown";
 import TargetFoodGroupServingGoalBadgePanel from "../../features/target/TargetFoodGroupServingGoalBadgePanel";
 import TargetLabel from "../../features/target/TargetLabel";
-import Row from "react-bootstrap/esm/Row";
-import Col from "react-bootstrap/esm/Col";
 
 export const TargetCaloriePanel = (props: { editTarget: boolean; }) => {
   const { editTarget } = props;
@@ -22,7 +22,7 @@ export const TargetCaloriePanel = (props: { editTarget: boolean; }) => {
           </div>
         </div>
       </Col>
-      <Col >
+      <Col className="align-content-center">
         {customizeButton}
       </Col>
     </Row>
