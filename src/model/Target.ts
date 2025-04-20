@@ -1,4 +1,3 @@
-
 export type Gender = "man" | "woman";
 
 const TARGET_1200_CALORIE: Target = {
@@ -83,4 +82,12 @@ export function customTargets() {
     TARGET_1800_CALORIE,
     TARGET_2000_CALORIE,
   ];
+}
+
+export function manTarget(target: Target) {
+  return target.calorie >= 1400 && target.calorie <= 2000;
+}
+
+export function womanTarget(target: Target) {
+  return target.calorie >= 1200 && target.calorie <= 1800;
 }

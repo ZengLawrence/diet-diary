@@ -4,7 +4,7 @@ import { MealState } from "../features/day-page/mealStatesSlice";
 import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunction";
 import { Meal, Serving } from "../model/Food";
 import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServingSummary, calcServingDifference } from "../model/servingFunction";
-import { Gender, Target } from "../model/Target";
+import { Gender, Target, manTarget, womanTarget } from "../model/Target";
 import { RootState } from "./store";
 import { DayHistory, History, isToday } from "../features/history/historySlice";
 
@@ -179,9 +179,6 @@ export const historyDaysProgressSelector: (state: RootState) => { daysRemaining:
   }
 );
 
-function manTarget(target: Target) { return target.calorie >= 1400 && target.calorie <= 2000; }
-function womanTarget(target: Target) { return target.calorie >= 1200 && target.calorie <= 1800; }
-
 export const targetsSelector: (state: RootState) => Target[] = createSelector(
   genderSelector,
   customTargetsStateSelector,
@@ -190,7 +187,7 @@ export const targetsSelector: (state: RootState) => Target[] = createSelector(
     if (gender == "woman") {
       return _.filter(allTargets, womanTarget);
     } else {
-      return _.filter(allTargets, manTarget);;
+      return _.filter(allTargets, manTarget);
     }
   }
 );
