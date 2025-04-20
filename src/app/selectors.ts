@@ -4,7 +4,7 @@ import { MealState } from "../features/day-page/mealStatesSlice";
 import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunction";
 import { Meal, Serving } from "../model/Food";
 import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServingSummary, calcServingDifference } from "../model/servingFunction";
-import { Gender, Target, manTarget, womanTarget } from "../model/Target";
+import { Gender, Target, defaultGender, manTarget, womanTarget } from "../model/Target";
 import { RootState } from "./store";
 import { DayHistory, History, isToday } from "../features/history/historySlice";
 
@@ -117,7 +117,7 @@ export const targetSelector: (state: RootState) => Target = createSelector(
 
 export const genderSelector: (state: RootState) => Gender = createSelector(
   _targetStateSelector,
-  (targetState) => targetState.gender,
+  (targetState) => defaultGender(targetState.gender),
 );
 
 export const mealStatesSelector: (state: RootState) => MealState[] = createSelector(

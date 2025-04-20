@@ -1,5 +1,15 @@
 export type Gender = "man" | "woman";
 
+export function defaultGender(gender: Gender) {
+  switch(gender) {
+    case "man":
+    case "woman":
+      return gender;
+    default:
+      return "man";
+  }
+}
+
 const TARGET_1200_CALORIE: Target = {
   calorie: 1200,
   serving: {
