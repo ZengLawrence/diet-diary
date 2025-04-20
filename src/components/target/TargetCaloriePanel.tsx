@@ -17,7 +17,7 @@ export const TargetCaloriePanel = (props: { editTarget: boolean; }) => {
           <div className="d-flex flex-nowrap  align-items-end">
             Target:&nbsp; {caloriePanel} &nbsp;Cal.
           </div>
-          <div className="d-flex flex-nowrap  align-items-end">
+          <div className="d-flex flex-nowrap align-items-end">
             <TargetFoodGroupServingGoalBadgePanel />
           </div>
         </div>
