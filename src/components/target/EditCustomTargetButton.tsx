@@ -5,16 +5,19 @@ import EditCustomTargetsOffcanvas from "../../features/target/EditCustomTargetsO
 const EditCustomTargetButton = () => {
   const [showEditCustomTargets, setShowEditCustomTargets] = useState(false);
 
+  const handleClick = () => setShowEditCustomTargets(true);
+  const handleHide = () => setShowEditCustomTargets(false);
+
   return (
     <Fragment>
       <Button
-        onClick={() => setShowEditCustomTargets(true)}>
+        onClick={handleClick}>
         Custom
       </Button>
 
       <EditCustomTargetsOffcanvas
         show={showEditCustomTargets}
-        onHide={() => setShowEditCustomTargets(false)}
+        onHide={handleHide}
       />
     </Fragment>
   );
