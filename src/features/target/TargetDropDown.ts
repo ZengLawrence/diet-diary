@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { customTargetsStateSelector, genderSelector, targetSelector } from "../../app/selectors";
+import { customTargetsStateSelector, genderSelector, targetSelector, targetsSelector } from "../../app/selectors";
 import { AppDispatch, RootState } from "../../app/store";
 import { TargetDropDown } from "../../components/target/TargetDropDown";
 import { Target, targetsByGender } from "../../model/Target";
@@ -16,7 +16,7 @@ function mapTargets(state: RootState) {
 
 const mapStateToProps = (state: RootState) => ({
   selectedCalorie: targetSelector(state).calorie,
-  targets: mapTargets(state),
+  targets: targetsSelector(state),
   showEditButton: genderSelector(state) == "custom"
 })
 
