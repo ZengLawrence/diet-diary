@@ -7,7 +7,10 @@ const EditCustomTargetButton = () => {
 
   return (
     <Fragment>
-      <Button onClick={() => setShowEditCustomTargets(true)}>Custom</Button>
+      <Button
+        onClick={() => setShowEditCustomTargets(true)}>
+        Custom
+      </Button>
 
       <EditCustomTargetsOffcanvas
         show={showEditCustomTargets}
