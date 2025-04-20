@@ -75,24 +75,6 @@ export interface Target {
   };
 }
 
-export function targetsByGender(gender: Gender) {
-  if (gender === "woman") {
-    return [
-      TARGET_1200_CALORIE,
-      TARGET_1400_CALORIE,
-      TARGET_1600_CALORIE,
-      TARGET_1800_CALORIE,
-    ];  
-  } else {
-    return [
-      TARGET_1400_CALORIE,
-      TARGET_1600_CALORIE,
-      TARGET_1800_CALORIE,
-      TARGET_2000_CALORIE,
-    ];  
-  }
-}
-
 export function customTargets() {
   return [
     TARGET_1200_CALORIE,
