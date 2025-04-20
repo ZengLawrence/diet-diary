@@ -74,7 +74,7 @@ export interface Target {
   };
 }
 
-export function customTargets() {
+export function defaultTargets() {
   return [
     TARGET_1200_CALORIE,
     TARGET_1400_CALORIE,

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { customTargets, Target } from "../../model/Target";
+import { defaultTargets, Target } from "../../model/Target";
 import _ from "lodash";
 
 interface CustomTargetsState {
@@ -7,7 +7,7 @@ interface CustomTargetsState {
 }
 
 const initialState: CustomTargetsState = {
-    targets: customTargets(),
+    targets: defaultTargets(),
 }
 
 const customTargetsSlice = createSlice({
