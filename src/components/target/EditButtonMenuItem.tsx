@@ -1,6 +1,5 @@
 import { Fragment, useState } from "react";
 import Button from "react-bootstrap/Button";
-import Dropdown from "react-bootstrap/Dropdown";
 import EditCustomTargetsOffcanvas from "../../features/target/EditCustomTargetsOffcanvas";
 
 const EditButtonMenuItem = () => {
@@ -8,9 +7,7 @@ const EditButtonMenuItem = () => {
 
   return (
     <Fragment>
-      <Dropdown.Item className="d-flex flex-row-reverse">
-        <Button onClick={() => setShowEditCustomTargets(true)}>Edit</Button>
-      </Dropdown.Item>
+      <Button onClick={() => setShowEditCustomTargets(true)}>Edit</Button>
 
       <EditCustomTargetsOffcanvas
         show={showEditCustomTargets}
