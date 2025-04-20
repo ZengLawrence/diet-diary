@@ -1,5 +1,5 @@
 
-export type Gender = "man" | "woman" | "custom";
+export type Gender = "man" | "woman";
 
 const TARGET_1200_CALORIE: Target = {
   calorie: 1200,
