@@ -14,7 +14,7 @@ jobs:
         id: new_tag
         run: |
           # Set the new tag
-          echo "tag=2.43.0" >> $GITHUB_ENV
+          tag="2.43.0"
 
       - name: Create draft release
         env:
