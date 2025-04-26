@@ -40,7 +40,6 @@ function translateToTargetAction(toTarget: ToTarget, foodGroup: FoodGroup, unlim
     return "DoMore";
   }
 
-  if (foodGroup === "sweet") return "DoLess";
   return "MeetTarget"
 }
 
