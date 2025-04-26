@@ -101,3 +101,20 @@ export function manTarget(target: Target) {
 export function womanTarget(target: Target) {
   return target.calorie >= 1200 && target.calorie <= 1800;
 }
+
+export function getDefaultTarget(calorie: number) {
+  switch (calorie) {
+    case 1200:
+      return TARGET_1200_CALORIE;
+    case 1400:
+      return TARGET_1400_CALORIE;
+    case 1600:
+      return TARGET_1600_CALORIE;
+    case 1800:
+      return TARGET_1800_CALORIE;
+    case 2000:
+      return TARGET_2000_CALORIE;
+    default:
+      return DEFAULT_TARGET;
+  }
+}

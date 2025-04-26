@@ -6,11 +6,21 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import { calcFoodCalories, toIntString } from "../../model/calorieFunction";
-import { FoodGroup } from "../../model/Food";
-import { Target } from "../../model/Target";
+import { FoodGroup, Serving } from "../../model/Food";
+import { getDefaultTarget, Target } from "../../model/Target";
 import { ServingInputControl } from "../form/ServingInputControl";
 
-function reducer(state: Target, action: { type: FoodGroup; payload: number }): Target {
+type FoodGroupServingAction = {
+    type: FoodGroup;
+    payload: number;
+}
+
+type TargetAction = {
+    type: "all";
+    payload: Serving;
+}
+
+function reducer(state: Target, action: FoodGroupServingAction | TargetAction): Target {
     switch (action.type) {
         case "vegetable":
             return { ...state, serving: { ...state.serving, vegetable: action.payload } };
@@ -24,6 +34,8 @@ function reducer(state: Target, action: { type: FoodGroup; payload: number }): T
             return { ...state, serving: { ...state.serving, fat: action.payload } };
         case "sweet":
             return { ...state, serving: { ...state.serving, sweet: action.payload } };
+        case "all":
+            return { ...state, serving: { ...state.serving, ...action.payload } };
         default:
             return state;
     }
@@ -107,6 +119,11 @@ const TargetEditForm = (props: Props) => {
         props.hide();
     };
 
+    const handleReset = () => {
+        const defaultTarget = getDefaultTarget(props.target.calorie);
+        dispatch({ type: "all", payload: defaultTarget.serving });
+    }
+
     return (
         <Form>
             <Row>
@@ -141,6 +158,9 @@ const TargetEditForm = (props: Props) => {
                 </Col>
             </Row>
             <Row className="mb-3">
+                <Col>
+                    <Button variant="secondary" type="button" onClick={handleReset}>Reset</Button>
+                </Col>
                 <Col />
                 <Col xs="auto">
                     <Button variant="secondary" type="button" onClick={props.hide}>Cancel</Button>&nbsp;
