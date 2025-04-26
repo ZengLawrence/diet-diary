@@ -24,7 +24,7 @@ jobs:
           tag="${{ steps.new_tag.outputs.tag }}"
           # Get the latest tag
           latest_tag="$(git describe --tags --abbrev=0)"
-          # Get the commit message since the last tag
-          commit_message=$(git log $latest_tag..HEAD --pretty=format:"%s" | sed 's/^/ - /')
+          # Get the last commit message
+          last_commit_message=$(git log -1 --pretty=%B)
           # Create a draft release
-          gh release create "v$tag" --title "v$tag $commit_message" --generate-notes --notes-start-tag "$latest_tag" --draft
+          gh release create "v$tag" --title "v$tag $last_commit_message" --generate-notes --notes-start-tag "$latest_tag" --draft
