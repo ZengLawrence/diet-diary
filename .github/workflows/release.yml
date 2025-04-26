@@ -1,7 +1,7 @@
 name: Draft Release
 on:
   push:
-    branches: [ main ]
+    branches: [ main, draft-release ]
   
 jobs:
   release:
@@ -12,11 +12,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: new tag version
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: New tag version
         id: new_tag
         run: |
           # Set the new tag
-          tag="2.43.0"
+          version=$(jq -r '.version' package.json)
+          tag="v${version}"
           echo "tag=$tag" >> $GITHUB_OUTPUT
 
       - name: Create draft release
