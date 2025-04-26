@@ -1,0 +1,35 @@
+name: 'Create New Tag'
+description: 'Create a new tag for the release'
+runs:
+  using: "composite"
+  steps:
+    # fetch all tags for validation
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Install jq
+      shell: bash
+      run: sudo apt-get install -y jq
+
+    - name: New tag version
+      shell: bash
+      id: new_tag
+      run: |
+        # Set the new tag
+        version=$(jq -r '.version' package.json)
+        tag="v${version}"
+        echo "tag=$tag" >> $GITHUB_OUTPUT
+
+    - name: Verify new tag not exists
+      shell: bash
+      run: |
+        tag="${{ steps.new_tag.outputs.tag }}"
+        # Check if the tag already exists
+        if git rev-parse "$tag" >/dev/null 2>&1; then
+          echo "Tag $tag already exists. Exiting."
+          echo "Update the version in package.json and try again."
+          exit 1
+        fi
+        echo "Tag $tag does not exist. Proceeding."

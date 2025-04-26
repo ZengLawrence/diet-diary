@@ -31,3 +31,19 @@ jobs:
       - uses: actions/checkout@v4
       - name: Integration test
         uses: ./.github/actions/integration-test
+
+  verify-new-tag-not-exists:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Verify if new tag not exists
+        id: new_tag
+        uses: ./.github/actions/new-tag
+
+      - name: echo tag
+        run: |
+          tag="${{ steps.new_tag.outputs.tag }}"
+          echo "Tag: $tag"
