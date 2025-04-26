@@ -28,7 +28,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
-          tag="v${{ steps.new_tag.outputs.tag }}"
+          tag="${{ steps.new_tag.outputs.tag }}"
           echo "Using tag: $tag"
           # Get the latest tag
           latest_tag="$(git describe --tags --abbrev=0)"
