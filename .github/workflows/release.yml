@@ -31,4 +31,4 @@ jobs:
           # Get the last commit message
           last_commit_message=$(git log -1 --pretty=%B)
           # Create a draft release
-          gh release create "$tag" --title "$tag $last_commit_message" --generate-notes --notes-start-tag "$latest_tag" --draft
+          gh release create "$tag" --generate-notes --notes-start-tag "$latest_tag" --draft
