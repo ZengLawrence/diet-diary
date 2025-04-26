@@ -1,0 +1,38 @@
+name: Draft Release
+on:
+  push:
+    branches: [ main ]
+  
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: New tag version
+        id: new_tag
+        run: |
+          # Set the new tag
+          version=$(jq -r '.version' package.json)
+          tag="v${version}"
+          echo "tag=$tag" >> $GITHUB_OUTPUT
+
+      - name: Create draft release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          tag="v${{ steps.new_tag.outputs.tag }}"
+          echo "Using tag: $tag"
+          # Get the latest tag
+          latest_tag="$(git describe --tags --abbrev=0)"
+          # Get the last commit message
+          last_commit_message=$(git log -1 --pretty=%B)
+          # Create a draft release
+          gh release create "$tag" --title "$tag $last_commit_message" --generate-notes --notes-start-tag "$latest_tag" --draft
