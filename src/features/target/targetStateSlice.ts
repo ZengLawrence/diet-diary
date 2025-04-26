@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { DEFAULT_TARGET, Gender, Target } from "../../model/Target";
+import { Gender, getDefaultTarget, Target } from "../../model/Target";
 
 interface TargetState {
   target: Target,
@@ -8,7 +8,7 @@ interface TargetState {
 }
 
 const initialState = {
-  target: DEFAULT_TARGET,
+  target: getDefaultTarget(),
   gender: "man" as Gender,
   unlimitedFruit: true,
 } as TargetState;

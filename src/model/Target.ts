@@ -70,7 +70,7 @@ const TARGET_2000_CALORIE: Target = {
   }
 }
 
-export const DEFAULT_TARGET = TARGET_1600_CALORIE;
+const DEFAULT_TARGET = TARGET_1600_CALORIE;
 
 export interface Target {
   calorie: number;
@@ -102,7 +102,7 @@ export function womanTarget(target: Target) {
   return target.calorie >= 1200 && target.calorie <= 1800;
 }
 
-export function getDefaultTarget(calorie: number) {
+export function getDefaultTarget(calorie?: number) {
   switch (calorie) {
     case 1200:
       return TARGET_1200_CALORIE;
