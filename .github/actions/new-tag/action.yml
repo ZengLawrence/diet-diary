@@ -14,9 +14,15 @@ runs:
         # Set the new tag
         version=$(jq -r '.version' package.json)
         tag="v${version}"
-        # error if the tag already exists
+        echo "tag=$tag" >> $GITHUB_OUTPUT
+
+    - name: Verify new tag not exists
+      shell: bash
+      run: |
+        tag="${{ steps.new_tag.outputs.tag }}"
+        # Check if the tag already exists
         if git rev-parse "$tag" >/dev/null 2>&1; then
           echo "Tag $tag already exists. Exiting."
           exit 1
         fi
-        echo "tag=$tag" >> $GITHUB_OUTPUT
+        echo "Tag $tag does not exist. Proceeding."
