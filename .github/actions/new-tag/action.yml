@@ -1,0 +1,22 @@
+name: 'Create New Tag'
+description: 'Create a new tag for the release'
+runs:
+  using: "composite"
+  steps:
+    - name: Install jq
+      shell: bash
+      run: sudo apt-get install -y jq
+
+    - name: New tag version
+      shell: bash
+      id: new_tag
+      run: |
+        # Set the new tag
+        version=$(jq -r '.version' package.json)
+        tag="v${version}"
+        # error if the tag already exists
+        if git rev-parse "$tag" >/dev/null 2>&1; then
+          echo "Tag $tag already exists. Exiting."
+          exit 1
+        fi
+        echo "tag=$tag" >> $GITHUB_OUTPUT
