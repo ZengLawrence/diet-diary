@@ -7,14 +7,14 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      - name: New tag version
+        id: new_tag
+        uses: ./.github/actions/new-tag
+
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: New tag version
-        id: new_tag
-        uses: ./.github/actions/new-tag
 
       - name: Create draft release
         env:
