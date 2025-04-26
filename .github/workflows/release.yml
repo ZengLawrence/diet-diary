@@ -1,7 +1,7 @@
 name: Draft Release
 on:
   push:
-    branches: [ main, tag_error ]
+    branches: [ main, tag-error ]
   
 jobs:
   release:
