@@ -1,0 +1,23 @@
+name: Draft Release
+on:
+  push:
+    branches: [ main ]
+  
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create draft release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          # Get the latest tag
+          latest_tag='2.43.0'
+          # Get the commit message since the last tag
+          commit_message=$(git log $latest_tag..HEAD --pretty=format:"%s" | sed 's/^/ - /')
+          # Create a draft release
+          gh release create "v$latest_tag" --title "v$latest_tag $commit_message" --generate-notes --draft
