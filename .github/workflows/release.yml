@@ -15,7 +15,7 @@ jobs:
         run: |
           # Set the new tag
           tag="2.43.0"
-          echo "::set-output name=tag::$tag"
+          echo "tag=$tag" >> $GITHUB_OUTPUT
 
       - name: Create draft release
         env:
