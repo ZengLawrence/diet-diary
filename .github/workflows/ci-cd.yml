@@ -36,9 +36,6 @@ jobs:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Verify if new tag not exists
         id: new_tag
         uses: ./.github/actions/new-tag
