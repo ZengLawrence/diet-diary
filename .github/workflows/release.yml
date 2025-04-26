@@ -21,12 +21,12 @@ jobs:
           # Set the new tag
           version=$(jq -r '.version' package.json)
           tag="v${version}"
-          echo "tag=$tag" >> $GITHUB_OUTPUT
           # error if the tag already exists
           if git rev-parse "$tag" >/dev/null 2>&1; then
             echo "Tag $tag already exists. Exiting."
             exit 1
           fi
+          echo "tag=$tag" >> $GITHUB_OUTPUT
 
       - name: Create draft release
         env:
