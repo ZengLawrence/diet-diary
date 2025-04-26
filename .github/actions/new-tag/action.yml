@@ -1,5 +1,9 @@
 name: 'Create New Tag'
 description: 'Create a new tag for the release'
+outputs:
+  tag:
+    description: 'The new tag created for the release'
+    value: ${{ steps.new_tag.outputs.tag }}
 runs:
   using: "composite"
   steps:
