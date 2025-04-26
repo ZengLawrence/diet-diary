@@ -23,6 +23,7 @@ runs:
         # Check if the tag already exists
         if git rev-parse "$tag" >/dev/null 2>&1; then
           echo "Tag $tag already exists. Exiting."
+          echo "Update the version in package.json and try again."
           exit 1
         fi
         echo "Tag $tag does not exist. Proceeding."
