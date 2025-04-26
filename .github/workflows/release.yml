@@ -29,7 +29,6 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           tag="${{ steps.new_tag.outputs.tag }}"
-          echo "Using tag: $tag"
           # Get the latest tag
           latest_tag="$(git describe --tags --abbrev=0)"
           # Get the last commit message
