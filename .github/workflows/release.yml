@@ -15,16 +15,18 @@ jobs:
         run: |
           # Set the new tag
           tag="2.43.0"
+          echo "::set-output name=tag::$tag"
 
       - name: Create draft release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
-          tag="${{ steps.new_tag.outputs.tag }}"
+          tag="v${{ steps.new_tag.outputs.tag }}"
+          echo "Using tag: $tag"
           # Get the latest tag
           latest_tag="$(git describe --tags --abbrev=0)"
           # Get the last commit message
           last_commit_message=$(git log -1 --pretty=%B)
           # Create a draft release
-          gh release create "v$tag" --title "v$tag $last_commit_message" --generate-notes --notes-start-tag "$latest_tag" --draft
+          gh release create "$tag" --title "$tag $last_commit_message" --generate-notes --notes-start-tag "$latest_tag" --draft
