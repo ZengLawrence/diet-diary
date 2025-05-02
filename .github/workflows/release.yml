@@ -26,5 +26,7 @@ jobs:
           latest_tag="$(git describe --tags --abbrev=0)"
           # Get the last commit message
           last_commit_message=$(git log -1 --pretty=%B)
-          # Create a release
-          gh release create "$tag" --title "$tag $last_commit_message" --generate-notes --notes-start-tag "$latest_tag"
+          # Create a release as draft
+          gh release create "$tag" --title "$tag $last_commit_message" --generate-notes --notes-start-tag "$latest_tag" --draft
+          # publish the release
+          gh release edit "$tag" --draft=false
