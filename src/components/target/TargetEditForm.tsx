@@ -9,7 +9,7 @@ import { calcFoodCalories, toIntString } from "../../model/calorieFunction";
 import { FoodGroup, Serving } from "../../model/Food";
 import { getDefaultTarget, Target } from "../../model/Target";
 import { ServingInputControl } from "../form/ServingInputControl";
-import { exceedsTotalCaloriesLimit, isValid } from "../../bl/customTarget";
+import { exceedsTotalCaloriesLimit, isValid, totalCaloriesLimit } from "../../bl/customTarget";
 
 type FoodGroupServingAction = {
     type: FoodGroup;
@@ -83,8 +83,6 @@ function hasError(error: Error): boolean {
     return error.vegetable || error.fruit || error.carbohydrate || error.proteinDiary || error.fat || error.sweet;
 }
 
-const LIMIT_TOLERANCE = 60;
-
 interface Props {
     target: Target;
     hide: () => void;
@@ -93,8 +91,8 @@ interface Props {
 
 const TargetEditForm = (props: Props) => {
 
-    const limit = props.target.calorie + LIMIT_TOLERANCE;
     const { calorie: calorieLevel } = props.target;
+    const limit = totalCaloriesLimit(calorieLevel);
 
     const [target, dispatch] = useReducer(reducer, props.target);
     const [error, dispatchError] = useReducer(errorReducer, INIT_ERROR_STATE);

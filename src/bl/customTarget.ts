@@ -7,7 +7,10 @@ export function isValid(serving: number): boolean {
 
 const LIMIT_TOLERANCE = 60;
 
+export function totalCaloriesLimit(calorieLevel: number): number {
+  return calorieLevel + LIMIT_TOLERANCE;
+}
+
 export function exceedsTotalCaloriesLimit(target: { serving: Serving }, calorieLevel: number): boolean {
-  const limit = calorieLevel + LIMIT_TOLERANCE;
-  return calcFoodCalories(target) > limit;
+  return calcFoodCalories(target) > totalCaloriesLimit(calorieLevel);
 }

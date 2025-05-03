@@ -1,4 +1,4 @@
-import { exceedsTotalCaloriesLimit, isValid } from './customTarget';
+import { exceedsTotalCaloriesLimit, isValid, totalCaloriesLimit } from './customTarget';
 
 describe('isValid', () => {
     it('should return true for valid serving values', () => {
@@ -49,5 +49,18 @@ describe('exceedsTotalCaloriesLimit', () => {
         }; // 2060 calorie
         const calorieLevel = 2000;
         expect(exceedsTotalCaloriesLimit(target, calorieLevel)).toBe(false);
+    });
+
+    describe('totalCaloriesLimit', () => {
+        it('should return the correct limit when a calorie level is provided', () => {
+            expect(totalCaloriesLimit(2000)).toBe(2060);
+            expect(totalCaloriesLimit(1500)).toBe(1560);
+            expect(totalCaloriesLimit(0)).toBe(60);
+        });
+
+        it('should handle negative calorie levels correctly', () => {
+            expect(totalCaloriesLimit(-100)).toBe(-40);
+            expect(totalCaloriesLimit(-500)).toBe(-440);
+        });
     });
 })
