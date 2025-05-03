@@ -1,21 +1,21 @@
 import _ from 'lodash';
-import { exceedsTotalCaloriesLimit, isValid, totalCaloriesLimit, update } from './customTarget';
+import { exceedsTotalCaloriesLimit, isValidServing, totalCaloriesLimit, update } from './customTarget';
 
 describe('isValid', () => {
     it('should return true for valid serving values', () => {
-        expect(isValid(0)).toBe(true);
-        expect(isValid(5)).toBe(true);
-        expect(isValid(9)).toBe(true);
+        expect(isValidServing(0)).toBe(true);
+        expect(isValidServing(5)).toBe(true);
+        expect(isValidServing(9)).toBe(true);
     });
 
     it('should return false for serving values less than 0', () => {
-        expect(isValid(-1)).toBe(false);
-        expect(isValid(-10)).toBe(false);
+        expect(isValidServing(-1)).toBe(false);
+        expect(isValidServing(-10)).toBe(false);
     });
 
     it('should return false for serving values greater than 9', () => {
-        expect(isValid(10)).toBe(false);
-        expect(isValid(100)).toBe(false);
+        expect(isValidServing(10)).toBe(false);
+        expect(isValidServing(100)).toBe(false);
     });
 
 
