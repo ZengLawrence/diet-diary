@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { exceedsTotalCaloriesLimit, isValid, totalCaloriesLimit, update } from './customTarget';
 
 describe('isValid', () => {
@@ -81,8 +82,8 @@ describe('update', () => {
             { calorie: 1400, serving: ZERO_SERVING }
         ];
         const targetToUpdate = { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: 5 } };
-        const updatedTargets = update(targets, targetToUpdate);
-        expect(updatedTargets[0]).toEqual(targetToUpdate);
+        expect(update(targets, targetToUpdate)).toBeTruthy();
+        expect(targets[0]).toEqual(targetToUpdate);
     });
 
     it('should not update the target if it does not exist in the array', () => {
@@ -91,7 +92,8 @@ describe('update', () => {
             { calorie: 1400, serving: ZERO_SERVING }
         ];
         const targetToUpdate = { calorie: 1600, serving: ZERO_SERVING };
-        const updatedTargets = update(targets, targetToUpdate);
-        expect(updatedTargets).toEqual(targets);
+        const targetsSameAsBefore = _.cloneDeep(targets);
+        expect(update(targets, targetToUpdate)).toBeFalsy;
+        expect(targets).toEqual(targetsSameAsBefore);
     });
 });

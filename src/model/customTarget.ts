@@ -17,10 +17,11 @@ export function exceedsTotalCaloriesLimit(target: { serving: Serving }, calorieL
   return calcFoodCalories(target) > totalCaloriesLimit(calorieLevel);
 }
 
-export function update(targets: Target[], target: Target): Target[] {
+export function update(targets: Target[], target: Target): boolean {
   const i = _.findIndex(targets, { calorie: target.calorie });
   if (i > -1) {
     targets[i] = target;
+    return true;
   }
-  return targets;
+  return false;
 }
