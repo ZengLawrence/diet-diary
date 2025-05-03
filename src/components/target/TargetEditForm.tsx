@@ -9,6 +9,7 @@ import { calcFoodCalories, toIntString } from "../../model/calorieFunction";
 import { FoodGroup, Serving } from "../../model/Food";
 import { getDefaultTarget, Target } from "../../model/Target";
 import { ServingInputControl } from "../form/ServingInputControl";
+import { isValid } from "../../bl/CustomTarget";
 
 type FoodGroupServingAction = {
     type: FoodGroup;
@@ -102,9 +103,9 @@ const TargetEditForm = (props: Props) => {
     }, [target, limit]);
 
     const updateFoodGroupServing = (foodGroup: FoodGroup, serving: number) => {
-        const isValid = serving >= 0 && serving <= 9;
-        dispatchError({ type: foodGroup, payload: !isValid });
-        if (isValid) {
+        const validServing = isValid(serving);
+        dispatchError({ type: foodGroup, payload: !validServing });
+        if (validServing) {
             dispatch({ type: foodGroup, payload: _.toInteger(serving) });
         }
     }
