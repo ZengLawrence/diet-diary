@@ -93,7 +93,7 @@ describe('update', () => {
         ];
         const targetToUpdate = { calorie: 1600, serving: ZERO_SERVING };
         const targetsSameAsBefore = _.cloneDeep(targets);
-        expect(update(targets, targetToUpdate)).toBeFalsy;
+        expect(update(targets, targetToUpdate)).toBeFalsy();
         expect(targets).toEqual(targetsSameAsBefore);
     });
 });

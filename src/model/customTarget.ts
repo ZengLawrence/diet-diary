@@ -27,6 +27,7 @@ export function exceedsTotalCaloriesLimit(target: { serving: Serving }, calorieL
 export function update(targets: Target[], target: Target): boolean {
   const i = _.findIndex(targets, { calorie: target.calorie });
   const found = i > -1;
+  //TODO more validation
   if (found) {
     targets[i] = target;
     return true;
