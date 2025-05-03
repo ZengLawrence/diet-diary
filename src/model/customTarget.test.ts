@@ -1,4 +1,4 @@
-import { exceedsTotalCaloriesLimit, isValid, totalCaloriesLimit } from './customTarget';
+import { exceedsTotalCaloriesLimit, isValid, totalCaloriesLimit, update } from './customTarget';
 
 describe('isValid', () => {
     it('should return true for valid serving values', () => {
@@ -62,5 +62,36 @@ describe('totalCaloriesLimit', () => {
     it('should handle negative calorie levels correctly', () => {
         expect(totalCaloriesLimit(-100)).toBe(-40);
         expect(totalCaloriesLimit(-500)).toBe(-440);
+    });
+});
+
+const ZERO_SERVING = {
+    vegetable: 0,
+    fruit: 0,
+    carbohydrate: 0,
+    proteinDiary: 0,
+    fat: 0,
+    sweet: 0
+};
+
+describe('update', () => {
+    it('should update the target in the array if it exists', () => {
+        const targets = [
+            { calorie: 1200, serving: ZERO_SERVING },
+            { calorie: 1400, serving: ZERO_SERVING }
+        ];
+        const targetToUpdate = { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: 5 } };
+        const updatedTargets = update(targets, targetToUpdate);
+        expect(updatedTargets[0]).toEqual(targetToUpdate);
+    });
+
+    it('should not update the target if it does not exist in the array', () => {
+        const targets = [
+            { calorie: 1200, serving: ZERO_SERVING },
+            { calorie: 1400, serving: ZERO_SERVING }
+        ];
+        const targetToUpdate = { calorie: 1600, serving: ZERO_SERVING };
+        const updatedTargets = update(targets, targetToUpdate);
+        expect(updatedTargets).toEqual(targets);
     });
 });
