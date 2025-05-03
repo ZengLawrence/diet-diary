@@ -6,7 +6,8 @@ name: Deploy Next.js site to Pages
 
 on:
   push:
-    branches: [ main ]
+    tags:
+      - 'v2.[0-9]+.[0-9]+'
   release:
     types: [published]
   
