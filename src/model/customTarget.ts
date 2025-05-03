@@ -1,7 +1,10 @@
 import _ from "lodash";
 import { calcFoodCalories } from "./calorieFunction";
 import { Serving } from "./Food";
-import { Target } from "./Target";
+import { Target, defaultTargets } from "./Target";
+
+export { defaultTargets };
+export type { Target };
 
 export function isValid(serving: number): boolean {
   return serving >= 0 && serving <= 9;
