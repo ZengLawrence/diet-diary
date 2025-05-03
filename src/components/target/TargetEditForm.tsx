@@ -10,7 +10,7 @@ import { toIntString } from "../toIntString";
 import { FoodGroup, Serving } from "../../model/Food";
 import { getDefaultTarget, Target } from "../../model/Target";
 import { ServingInputControl } from "../form/ServingInputControl";
-import { exceedsTotalCaloriesLimit, isValidServing, totalCaloriesLimit } from "../../model/customTarget";
+import { exceedsTotalCaloriesLimit, isServingWithInRange, totalCaloriesLimit } from "../../model/customTarget";
 
 type FoodGroupServingAction = {
     type: FoodGroup;
@@ -103,7 +103,7 @@ const TargetEditForm = (props: Props) => {
     }, [target, calorieLevel]);
 
     const updateFoodGroupServing = (foodGroup: FoodGroup, serving: number) => {
-        const validServing = isValidServing(serving);
+        const validServing = isServingWithInRange(serving);
         dispatchError({ type: foodGroup, payload: !validServing });
         if (validServing) {
             dispatch({ type: foodGroup, payload: _.toInteger(serving) });

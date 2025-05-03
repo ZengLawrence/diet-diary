@@ -6,7 +6,7 @@ import { Target, defaultTargets } from "./Target";
 export { defaultTargets };
 export type { Target };
 
-export function isValidServing(serving: number): boolean {
+export function isServingWithInRange(serving: number): boolean {
   return serving >= 0 && serving <= 9;
 }
 
