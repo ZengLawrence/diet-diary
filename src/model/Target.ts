@@ -82,7 +82,7 @@ export interface Target {
   };
 }
 
-export function defaultTargets() {
+export function defaultTargets(): Target[] {
   return [
     TARGET_1200_CALORIE,
     TARGET_1400_CALORIE,
