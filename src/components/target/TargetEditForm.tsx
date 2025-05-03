@@ -9,7 +9,7 @@ import { calcFoodCalories, toIntString } from "../../model/calorieFunction";
 import { FoodGroup, Serving } from "../../model/Food";
 import { getDefaultTarget, Target } from "../../model/Target";
 import { ServingInputControl } from "../form/ServingInputControl";
-import { isValid } from "../../bl/customTarget";
+import { exceedsTotalCaloriesLimit, isValid } from "../../bl/customTarget";
 
 type FoodGroupServingAction = {
     type: FoodGroup;
@@ -94,13 +94,14 @@ interface Props {
 const TargetEditForm = (props: Props) => {
 
     const limit = props.target.calorie + LIMIT_TOLERANCE;
+    const { calorie: calorieLevel } = props.target;
 
     const [target, dispatch] = useReducer(reducer, props.target);
     const [error, dispatchError] = useReducer(errorReducer, INIT_ERROR_STATE);
-    const [totalExceeds, setTotalExceeds] = useState(calcFoodCalories(target) > limit);
+    const [totalExceeds, setTotalExceeds] = useState(exceedsTotalCaloriesLimit(target, calorieLevel));
     useEffect(() => {
-        setTotalExceeds(calcFoodCalories(target) > limit);
-    }, [target, limit]);
+        setTotalExceeds(exceedsTotalCaloriesLimit(target, calorieLevel));
+    }, [target, calorieLevel]);
 
     const updateFoodGroupServing = (foodGroup: FoodGroup, serving: number) => {
         const validServing = isValid(serving);
