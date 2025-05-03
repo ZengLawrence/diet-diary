@@ -10,7 +10,7 @@ import { toIntString } from "../toIntString";
 import { FoodGroup, Serving } from "../../model/Food";
 import { getDefaultTarget, Target } from "../../model/Target";
 import { ServingInputControl } from "../form/ServingInputControl";
-import { exceedsTotalCaloriesLimit, isValid, totalCaloriesLimit } from "../../bl/customTarget";
+import { exceedsTotalCaloriesLimit, isValid, totalCaloriesLimit } from "../../model/customTarget";
 
 type FoodGroupServingAction = {
     type: FoodGroup;

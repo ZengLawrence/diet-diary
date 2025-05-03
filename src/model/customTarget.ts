@@ -1,5 +1,5 @@
-import { calcFoodCalories } from "../model/calorieFunction";
-import { Serving } from "../model/Food";
+import { calcFoodCalories } from "./calorieFunction";
+import { Serving } from "./Food";
 
 export function isValid(serving: number): boolean {
   return serving >= 0 && serving <= 9;
