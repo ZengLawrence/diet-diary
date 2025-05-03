@@ -20,9 +20,9 @@ export function exceedsTotalCaloriesLimit(target: { serving: Serving }, calorieL
 /**
  * Updates a target in the targets array if it exists.
  *
- * @param {Target[]} targets - The array of targets to update.
- * @param {Target} target - The target to update in the array.
- * @returns {boolean} - Returns true if the target was updated, false otherwise.
+ * @param targets - The array of targets to update.
+ * @param target - The target to update in the array.
+ * @returns Returns true if the target was updated, false otherwise.
  */
 export function update(targets: Target[], target: Target): boolean {
   const i = _.findIndex(targets, { calorie: target.calorie });
