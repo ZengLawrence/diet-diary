@@ -1,4 +1,4 @@
-name: Draft Release
+name: Publish Release
 on:
   push:
     branches: [ main ]
@@ -26,5 +26,5 @@ jobs:
           latest_tag="$(git describe --tags --abbrev=0)"
           # Get the last commit message
           last_commit_message=$(git log -1 --pretty=%B)
-          # Create a release as draft
-          gh release create "$tag" --title "$tag $last_commit_message" --generate-notes --notes-start-tag "$latest_tag" --draft
+          # Publish a release but does not trigger published event
+          gh release create "$tag" --title "$tag $last_commit_message" --generate-notes --notes-start-tag "$latest_tag"
