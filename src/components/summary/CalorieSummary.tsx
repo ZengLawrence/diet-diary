@@ -1,4 +1,4 @@
-import { toIntString } from "../../model/calorieFunction";
+import { toIntString } from "../toIntString";
 
 export const CalorieSummary = (props: { calories: number; }) => (
   <div className="d-flex flex-column justify-content-center border rounded bg-info text-white text-center p-1">
