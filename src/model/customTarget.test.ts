@@ -123,6 +123,28 @@ describe('mutation', () => {
             expect(update(targets, targetToUpdate)).toBeFalsy();
             expect(targets).toEqual(targetsBeforeUpdate);
         });
+
+        it('should not update the target if it exceeds calorie limit', () => {
+            const targets = [
+                { calorie: 1200, serving: ZERO_SERVING },
+                { calorie: 1400, serving: ZERO_SERVING },
+                { calorie: 2000, serving: ZERO_SERVING }
+            ];
+            const targetToUpdate = {
+                calorie: 2000,
+                serving: {
+                    vegetable: 5,
+                    fruit: 4,
+                    carbohydrate: 5,
+                    proteinDiary: 9,
+                    fat: 3,
+                    sweet: 3
+                }
+            }; // Exceeds limit
+            const targetsBeforeUpdate = _.cloneDeep(targets);
+            expect(update(targets, targetToUpdate)).toBeFalsy();
+            expect(targets).toEqual(targetsBeforeUpdate);
+        });
     });
 });
 

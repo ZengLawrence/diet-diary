@@ -33,9 +33,12 @@ export const validation = {
  * @returns Returns true if the target was updated, false otherwise.
  */
 function update(targets: Target[], target: Target): boolean {
+  if (exceedsTotalCaloriesLimit(target, target.calorie)) {
+    return false;
+  }
+  
   const i = _.findIndex(targets, { calorie: target.calorie });
   const found = i > -1;
-  //TODO more validation
   if (found) {
     targets[i] = target;
     return true;
