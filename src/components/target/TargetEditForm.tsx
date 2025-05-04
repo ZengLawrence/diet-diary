@@ -6,11 +6,11 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import { calcFoodCalories } from "../../model/calorieFunction";
-import { toIntString } from "../toIntString";
+import { Target, validation } from "../../model/customTarget";
 import { FoodGroup, Serving } from "../../model/Food";
 import { getDefaultTarget } from "../../model/Target";
 import { ServingInputControl } from "../form/ServingInputControl";
-import { validation, Target } from "../../model/customTarget";
+import { toIntString } from "../toIntString";
 
 type FoodGroupServingAction = {
     type: FoodGroup;
@@ -90,7 +90,7 @@ interface Props {
     update: (target: Target) => void;
 }
 
-const {totalCaloriesLimit, exceedsTotalCaloriesLimit, isServingWithInRange} = validation;
+const { totalCaloriesLimit, exceedsTotalCaloriesLimit, isServingWithInRange } = validation;
 
 const TargetEditForm = (props: Props) => {
 
