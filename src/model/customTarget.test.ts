@@ -1,71 +1,79 @@
 import _ from 'lodash';
 import { validation, mutation } from './customTarget';
 
-const { isServingWithInRange, exceedsTotalCaloriesLimit, totalCaloriesLimit } = validation;
+describe('validation', () => {
 
-describe('isValid', () => {
-    it('should return true for valid serving values', () => {
-        expect(isServingWithInRange(0)).toBe(true);
-        expect(isServingWithInRange(5)).toBe(true);
-        expect(isServingWithInRange(9)).toBe(true);
+    const {
+        isServingWithInRange,
+        exceedsTotalCaloriesLimit,
+        totalCaloriesLimit,
+    } = validation;
+
+    describe('isValid', () => {
+        it('should return true for valid serving values', () => {
+            expect(isServingWithInRange(0)).toBe(true);
+            expect(isServingWithInRange(5)).toBe(true);
+            expect(isServingWithInRange(9)).toBe(true);
+        });
+
+        it('should return false for serving values less than 0', () => {
+            expect(isServingWithInRange(-1)).toBe(false);
+            expect(isServingWithInRange(-10)).toBe(false);
+        });
+
+        it('should return false for serving values greater than 9', () => {
+            expect(isServingWithInRange(10)).toBe(false);
+            expect(isServingWithInRange(100)).toBe(false);
+        });
+
+
     });
 
-    it('should return false for serving values less than 0', () => {
-        expect(isServingWithInRange(-1)).toBe(false);
-        expect(isServingWithInRange(-10)).toBe(false);
+    describe('exceedsTotalCaloriesLimit', () => {
+        it('should return true if total calories exceed the limit', () => {
+            const target = {
+                serving: {
+                    vegetable: 5,
+                    fruit: 4,
+                    carbohydrate: 5,
+                    proteinDiary: 9,
+                    fat: 3,
+                    sweet: 3
+                }
+            }; // 2065 calorie
+            const calorieLevel = 2000;
+            expect(exceedsTotalCaloriesLimit(target, calorieLevel)).toBe(true);
+        });
+
+        it('should return false if total calories do not exceed the limit', () => {
+            const target = {
+                serving: {
+                    vegetable: 5,
+                    fruit: 4,
+                    carbohydrate: 6,
+                    proteinDiary: 9,
+                    fat: 3,
+                    sweet: 2
+                }
+            }; // 2060 calorie
+            const calorieLevel = 2000;
+            expect(exceedsTotalCaloriesLimit(target, calorieLevel)).toBe(false);
+        });
+    })
+
+    describe('totalCaloriesLimit', () => {
+        it('should return the correct limit when a calorie level is provided', () => {
+            expect(totalCaloriesLimit(2000)).toBe(2060);
+            expect(totalCaloriesLimit(1500)).toBe(1560);
+            expect(totalCaloriesLimit(0)).toBe(60);
+        });
+
+        it('should handle negative calorie levels correctly', () => {
+            expect(totalCaloriesLimit(-100)).toBe(-40);
+            expect(totalCaloriesLimit(-500)).toBe(-440);
+        });
     });
 
-    it('should return false for serving values greater than 9', () => {
-        expect(isServingWithInRange(10)).toBe(false);
-        expect(isServingWithInRange(100)).toBe(false);
-    });
-
-
-});
-
-describe('exceedsTotalCaloriesLimit', () => {
-    it('should return true if total calories exceed the limit', () => {
-        const target = {
-            serving: {
-                vegetable: 5,
-                fruit: 4,
-                carbohydrate: 5,
-                proteinDiary: 9,
-                fat: 3,
-                sweet: 3
-            }
-        }; // 2065 calorie
-        const calorieLevel = 2000;
-        expect(exceedsTotalCaloriesLimit(target, calorieLevel)).toBe(true);
-    });
-
-    it('should return false if total calories do not exceed the limit', () => {
-        const target = {
-            serving: {
-                vegetable: 5,
-                fruit: 4,
-                carbohydrate: 6,
-                proteinDiary: 9,
-                fat: 3,
-                sweet: 2
-            }
-        }; // 2060 calorie
-        const calorieLevel = 2000;
-        expect(exceedsTotalCaloriesLimit(target, calorieLevel)).toBe(false);
-    });
-})
-
-describe('totalCaloriesLimit', () => {
-    it('should return the correct limit when a calorie level is provided', () => {
-        expect(totalCaloriesLimit(2000)).toBe(2060);
-        expect(totalCaloriesLimit(1500)).toBe(1560);
-        expect(totalCaloriesLimit(0)).toBe(60);
-    });
-
-    it('should handle negative calorie levels correctly', () => {
-        expect(totalCaloriesLimit(-100)).toBe(-40);
-        expect(totalCaloriesLimit(-500)).toBe(-440);
-    });
 });
 
 const ZERO_SERVING = {
@@ -90,7 +98,8 @@ describe('mutation', () => {
                 expect.objectContaining({ calorie: 1600 }),
                 expect.objectContaining({ calorie: 1800 }),
                 expect.objectContaining({ calorie: 2000 })
-            ]));});
+            ]));
+        });
     });
 
     describe('update', () => {
