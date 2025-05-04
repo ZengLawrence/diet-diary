@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { initTargets, Target, mutation } from "../../model/customTarget";
+import { Target, mutation } from "../../model/customTarget";
 
 interface CustomTargetsState {
     targets: Target[],
 }
 
 const initialState: CustomTargetsState = {
-    targets: initTargets(),
+    targets: mutation.initTargets(),
 }
 
 const customTargetsSlice = createSlice({
