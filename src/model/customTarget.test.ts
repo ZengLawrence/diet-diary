@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { validation, mutation } from './customTarget';
+import { mutation, retrieval, validation } from './customTarget';
 
 describe('validation', () => {
 
@@ -122,6 +122,22 @@ describe('mutation', () => {
             const targetsSameAsBefore = _.cloneDeep(targets);
             expect(update(targets, targetToUpdate)).toBeFalsy();
             expect(targets).toEqual(targetsSameAsBefore);
+        });
+    });
+});
+
+describe('retrieval', () => {
+    const { getDefaultTarget } = retrieval;
+
+    describe('getDefaultTarget', () => {
+        it('should return the default target for a given calorie level', () => {
+            const calorieLevel = 1200;
+            expect(getDefaultTarget(calorieLevel)).toEqual(expect.objectContaining({ calorie: 1200 }));
+        });
+
+        it('should return calorie level 1600 for an invalid calorie level', () => {
+            const calorieLevel = 999;
+            expect(getDefaultTarget(calorieLevel)).toEqual(expect.objectContaining({ calorie: 1600 }));
         });
     });
 });
