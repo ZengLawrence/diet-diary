@@ -8,9 +8,9 @@ import Row from "react-bootstrap/Row";
 import { calcFoodCalories } from "../../model/calorieFunction";
 import { toIntString } from "../toIntString";
 import { FoodGroup, Serving } from "../../model/Food";
-import { getDefaultTarget, Target } from "../../model/Target";
+import { getDefaultTarget } from "../../model/Target";
 import { ServingInputControl } from "../form/ServingInputControl";
-import { validation } from "../../model/customTarget";
+import { validation, Target } from "../../model/customTarget";
 
 type FoodGroupServingAction = {
     type: FoodGroup;
