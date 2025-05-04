@@ -3,7 +3,7 @@ import { calcFoodCalories } from "./calorieFunction";
 import { Serving } from "./Food";
 import { Target, defaultTargets } from "./Target";
 
-export { defaultTargets };
+export { defaultTargets as initTargets };
 export type { Target };
 
 export function isServingWithInRange(serving: number): boolean {
