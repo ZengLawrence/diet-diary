@@ -25,6 +25,18 @@ export const validation = {
   totalCaloriesLimit,
 }
 
+function isValid(target: Target): boolean {
+  return (
+    isServingWithInRange(target.serving.vegetable) &&
+    isServingWithInRange(target.serving.fruit) &&
+    isServingWithInRange(target.serving.carbohydrate) &&
+    isServingWithInRange(target.serving.proteinDiary) &&
+    isServingWithInRange(target.serving.fat) &&
+    isServingWithInRange(target.serving.sweet) &&
+    !exceedsTotalCaloriesLimit(target, target.calorie)
+  );
+}
+
 /**
  * Updates a target in the targets array if it exists.
  *
@@ -33,7 +45,7 @@ export const validation = {
  * @returns Returns true if the target was updated, false otherwise.
  */
 function update(targets: Target[], target: Target): boolean {
-  if (exceedsTotalCaloriesLimit(target, target.calorie)) {
+  if (!isValid(target)) {
     return false;
   }
   
