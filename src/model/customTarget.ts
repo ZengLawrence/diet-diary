@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { calcFoodCalories } from "./calorieFunction";
 import { Serving } from "./Food";
-import { Target, defaultTargets } from "./Target";
+import { Target, defaultTargets, getDefaultTarget } from "./Target";
 
 export type { Target };
 
@@ -46,4 +46,8 @@ function update(targets: Target[], target: Target): boolean {
 export const mutation = {
   initTargets: defaultTargets,
   update,
+}
+
+export const retrieval = {
+  getDefaultTarget,
 }
