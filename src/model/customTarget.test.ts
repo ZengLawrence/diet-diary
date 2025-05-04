@@ -77,7 +77,19 @@ const ZERO_SERVING = {
 
 describe('mutation', () => {
 
-    const { update } = mutation;
+    const { initTargets, update } = mutation;
+
+    describe('initTargets', () => {
+        it('should return 5 default targets for calorie level 1200, 1400, 1600, 1800 and 2000', () => {
+            const targets = initTargets();
+            expect(targets).toHaveLength(5);
+            expect(targets[0]).toEqual(expect.objectContaining({ calorie: 1200}));
+            expect(targets[1]).toEqual(expect.objectContaining({ calorie: 1400}));
+            expect(targets[2]).toEqual(expect.objectContaining({ calorie: 1600}));
+            expect(targets[3]).toEqual(expect.objectContaining({ calorie: 1800}));
+            expect(targets[4]).toEqual(expect.objectContaining({ calorie: 2000}));
+        });
+    });
 
     describe('update', () => {
         it('should update the target in the array if it exists', () => {
