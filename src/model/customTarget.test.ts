@@ -126,8 +126,6 @@ describe('mutation', () => {
 
         it('should not update the target if it exceeds calorie limit', () => {
             const targets = [
-                { calorie: 1200, serving: ZERO_SERVING },
-                { calorie: 1400, serving: ZERO_SERVING },
                 { calorie: 2000, serving: ZERO_SERVING }
             ];
             const targetToUpdate = {
