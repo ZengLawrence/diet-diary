@@ -10,7 +10,7 @@ import { toIntString } from "../toIntString";
 import { FoodGroup, Serving } from "../../model/Food";
 import { getDefaultTarget, Target } from "../../model/Target";
 import { ServingInputControl } from "../form/ServingInputControl";
-import { exceedsTotalCaloriesLimit, isServingWithInRange, totalCaloriesLimit } from "../../model/customTarget";
+import { validation } from "../../model/customTarget";
 
 type FoodGroupServingAction = {
     type: FoodGroup;
@@ -89,6 +89,8 @@ interface Props {
     hide: () => void;
     update: (target: Target) => void;
 }
+
+const {totalCaloriesLimit, exceedsTotalCaloriesLimit, isServingWithInRange} = validation;
 
 const TargetEditForm = (props: Props) => {
 

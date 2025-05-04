@@ -1,5 +1,7 @@
 import _ from 'lodash';
-import { exceedsTotalCaloriesLimit, isServingWithInRange, totalCaloriesLimit, mutation } from './customTarget';
+import { validation, mutation } from './customTarget';
+
+const { isServingWithInRange, exceedsTotalCaloriesLimit, totalCaloriesLimit } = validation;
 
 describe('isValid', () => {
     it('should return true for valid serving values', () => {

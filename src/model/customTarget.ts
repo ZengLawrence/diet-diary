@@ -5,18 +5,24 @@ import { Target, defaultTargets } from "./Target";
 
 export type { Target };
 
-export function isServingWithInRange(serving: number): boolean {
+function isServingWithInRange(serving: number): boolean {
   return serving >= 0 && serving <= 9;
 }
 
 const LIMIT_TOLERANCE = 60;
 
-export function totalCaloriesLimit(calorieLevel: number): number {
+function totalCaloriesLimit(calorieLevel: number): number {
   return calorieLevel + LIMIT_TOLERANCE;
 }
 
-export function exceedsTotalCaloriesLimit(target: { serving: Serving }, calorieLevel: number): boolean {
+function exceedsTotalCaloriesLimit(target: { serving: Serving }, calorieLevel: number): boolean {
   return calcFoodCalories(target) > totalCaloriesLimit(calorieLevel);
+}
+
+export const validation = {
+  isServingWithInRange,
+  exceedsTotalCaloriesLimit,
+  totalCaloriesLimit,
 }
 
 /**
