@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { exceedsTotalCaloriesLimit, isServingWithInRange, totalCaloriesLimit, update } from './customTarget';
+import { exceedsTotalCaloriesLimit, isServingWithInRange, totalCaloriesLimit, mutation } from './customTarget';
 
 describe('isValid', () => {
     it('should return true for valid serving values', () => {
@@ -74,6 +74,8 @@ const ZERO_SERVING = {
     fat: 0,
     sweet: 0
 };
+
+const { update } = mutation;
 
 describe('update', () => {
     it('should update the target in the array if it exists', () => {

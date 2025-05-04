@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { initTargets, Target, update } from "../../model/customTarget";
+import { initTargets, Target, mutation } from "../../model/customTarget";
 
 interface CustomTargetsState {
     targets: Target[],
@@ -14,7 +14,7 @@ const customTargetsSlice = createSlice({
     initialState,
     reducers: {
         updateTarget(state, action: PayloadAction<Target>) {
-            update(state.targets, action.payload);
+            mutation.update(state.targets, action.payload);
         },
     },
 });

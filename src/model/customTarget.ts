@@ -27,7 +27,7 @@ export function exceedsTotalCaloriesLimit(target: { serving: Serving }, calorieL
  * @param target - The target to update in the array.
  * @returns Returns true if the target was updated, false otherwise.
  */
-export function update(targets: Target[], target: Target): boolean {
+function update(targets: Target[], target: Target): boolean {
   const i = _.findIndex(targets, { calorie: target.calorie });
   const found = i > -1;
   //TODO more validation
@@ -36,4 +36,8 @@ export function update(targets: Target[], target: Target): boolean {
     return true;
   }
   return false;
+}
+
+export const mutation = {
+  update,
 }
