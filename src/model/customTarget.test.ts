@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { mutation, retrieval, validation } from './customTarget';
+import { FoodGroup } from './Food';
 
 describe('validation', () => {
 
@@ -144,45 +145,46 @@ describe('mutation', () => {
             expect(targets).toEqual(targetsBeforeUpdate);
         });
 
-        it('should not update the target if any serving value is outside lower limit of range', () => {
-            const targets = [
-                { calorie: 1200, serving: ZERO_SERVING }
-            ];
-            const invalidTargetToUpdate = {
-                calorie: 1200,
-                serving: {
-                    vegetable: -1,
-                    fruit: -1,
-                    carbohydrate: -1,
-                    proteinDiary: -1,
-                    fat: -1,
-                    sweet: -1
-                }
-            };
-            const targetsBeforeUpdate = _.cloneDeep(targets);
-            expect(update(targets, invalidTargetToUpdate)).toBeFalsy();
-            expect(targets).toEqual(targetsBeforeUpdate);
-        });
+        // Parameterized test for each food group.
+        const foodGroup: FoodGroup[] = ["vegetable", "fruit", "carbohydrate", "proteinDiary", "fat", "sweet"];
 
-        it('should not update the target if any serving value is outside upper limit of range', () => {
-            const targets = [
-                { calorie: 1200, serving: ZERO_SERVING }
-            ];
-            const invalidTargetToUpdate = {
-                calorie: 1200,
-                serving: {
-                    vegetable: 10,
-                    fruit: 10,
-                    carbohydrate: 10,
-                    proteinDiary: 10,
-                    fat: 10,
-                    sweet: 10
-                }
-            };
-            const targetsBeforeUpdate = _.cloneDeep(targets);
-            expect(update(targets, invalidTargetToUpdate)).toBeFalsy();
-            expect(targets).toEqual(targetsBeforeUpdate);
-        });
+        it.each(foodGroup)(
+            'should not update the target if %s serving value is outside lower limit of range',
+            (servingType) => {
+                const targets = [
+                    { calorie: 1200, serving: ZERO_SERVING }
+                ];
+                const invalidTargetToUpdate = {
+                    calorie: 1200,
+                    serving: {
+                        ...ZERO_SERVING,
+                        [servingType]: -1
+                    }
+                };
+                const targetsBeforeUpdate = _.cloneDeep(targets);
+                expect(update(targets, invalidTargetToUpdate)).toBeFalsy();
+                expect(targets).toEqual(targetsBeforeUpdate);
+            }
+        );
+
+        it.each(foodGroup)(
+            'should not update the target if %s serving value is outside upper limit of range',
+            (servingType) => {
+                const targets = [
+                    { calorie: 1200, serving: ZERO_SERVING }
+                ];
+                const invalidTargetToUpdate = {
+                    calorie: 1200,
+                    serving: {
+                        ...ZERO_SERVING,
+                        [servingType]: 10
+                    }
+                };
+                const targetsBeforeUpdate = _.cloneDeep(targets);
+                expect(update(targets, invalidTargetToUpdate)).toBeFalsy();
+                expect(targets).toEqual(targetsBeforeUpdate);
+            }
+        );
     });
 });
 
