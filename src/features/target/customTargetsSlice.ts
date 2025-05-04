@@ -1,13 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { defaultTargets, Target } from "../../model/Target";
-import _ from "lodash";
-
+import customTarget, { Target } from "../../model/customTarget";
 interface CustomTargetsState {
     targets: Target[],
 }
 
 const initialState: CustomTargetsState = {
-    targets: defaultTargets(),
+    targets: customTarget.initTargets(),
 }
 
 const customTargetsSlice = createSlice({
@@ -15,10 +13,7 @@ const customTargetsSlice = createSlice({
     initialState,
     reducers: {
         updateTarget(state, action: PayloadAction<Target>) {
-            const i = _.findIndex(state.targets, { calorie: action.payload.calorie });
-            if (i > -1) {
-                state.targets[i] = action.payload;
-            }
+            customTarget.update(state.targets, action.payload);
         },
     },
 });

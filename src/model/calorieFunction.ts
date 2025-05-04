@@ -1,5 +1,4 @@
 import _ from "lodash";
-import numeral from "numeral";
 import { FoodGroup, Serving, Food, Meal } from "./Food";
 
 const FOOD_GROUP_CALORIES = {
@@ -34,8 +33,4 @@ export function calcCaloriesTotal(meals: Meal[]) {
 
 export function calcCaloriesDifference(meals: Meal[], calorieGoal: number) {
   return calcCaloriesTotal(meals) - calorieGoal;
-}
-
-export function toIntString(val?: number): string {
-  return numeral(val).format('0');
 }

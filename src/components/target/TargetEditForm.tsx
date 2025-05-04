@@ -5,10 +5,11 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
-import { calcFoodCalories, toIntString } from "../../model/calorieFunction";
+import { calcFoodCalories } from "../../model/calorieFunction";
+import { retrieval, Target, validation } from "../../model/customTarget";
 import { FoodGroup, Serving } from "../../model/Food";
-import { getDefaultTarget, Target } from "../../model/Target";
 import { ServingInputControl } from "../form/ServingInputControl";
+import { toIntString } from "../toIntString";
 
 type FoodGroupServingAction = {
     type: FoodGroup;
@@ -82,29 +83,31 @@ function hasError(error: Error): boolean {
     return error.vegetable || error.fruit || error.carbohydrate || error.proteinDiary || error.fat || error.sweet;
 }
 
-const LIMIT_TOLERANCE = 60;
-
 interface Props {
     target: Target;
     hide: () => void;
     update: (target: Target) => void;
 }
 
+const { getDefaultTarget } = retrieval;
+const { totalCaloriesLimit, exceedsTotalCaloriesLimit, isServingWithInRange } = validation;
+
 const TargetEditForm = (props: Props) => {
 
-    const limit = props.target.calorie + LIMIT_TOLERANCE;
+    const { calorie: calorieLevel } = props.target;
+    const limit = totalCaloriesLimit(calorieLevel);
 
     const [target, dispatch] = useReducer(reducer, props.target);
     const [error, dispatchError] = useReducer(errorReducer, INIT_ERROR_STATE);
-    const [totalExceeds, setTotalExceeds] = useState(calcFoodCalories(target) > limit);
+    const [totalExceeds, setTotalExceeds] = useState(exceedsTotalCaloriesLimit(target, calorieLevel));
     useEffect(() => {
-        setTotalExceeds(calcFoodCalories(target) > limit);
-    }, [target, limit]);
+        setTotalExceeds(exceedsTotalCaloriesLimit(target, calorieLevel));
+    }, [target, calorieLevel]);
 
     const updateFoodGroupServing = (foodGroup: FoodGroup, serving: number) => {
-        const isValid = serving >= 0 && serving <= 9;
-        dispatchError({ type: foodGroup, payload: !isValid });
-        if (isValid) {
+        const validServing = isServingWithInRange(serving);
+        dispatchError({ type: foodGroup, payload: !validServing });
+        if (validServing) {
             dispatch({ type: foodGroup, payload: _.toInteger(serving) });
         }
     }

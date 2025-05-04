@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { AppDispatch } from "../../app/store";
 import TargetEditForm from "../../components/target/TargetEditForm";
-import { Target } from "../../model/Target";
+import { Target } from "../../model/customTarget";
 import { updateTarget } from "./customTargetsSlice";
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
