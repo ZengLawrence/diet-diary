@@ -75,27 +75,30 @@ const ZERO_SERVING = {
     sweet: 0
 };
 
-const { update } = mutation;
+describe('mutation', () => {
 
-describe('update', () => {
-    it('should update the target in the array if it exists', () => {
-        const targets = [
-            { calorie: 1200, serving: ZERO_SERVING },
-            { calorie: 1400, serving: ZERO_SERVING }
-        ];
-        const targetToUpdate = { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: 5 } };
-        expect(update(targets, targetToUpdate)).toBeTruthy();
-        expect(targets[0]).toEqual(targetToUpdate);
-    });
+    const { update } = mutation;
 
-    it('should not update the target if it does not exist in the array', () => {
-        const targets = [
-            { calorie: 1200, serving: ZERO_SERVING },
-            { calorie: 1400, serving: ZERO_SERVING }
-        ];
-        const targetToUpdate = { calorie: 1600, serving: ZERO_SERVING };
-        const targetsSameAsBefore = _.cloneDeep(targets);
-        expect(update(targets, targetToUpdate)).toBeFalsy();
-        expect(targets).toEqual(targetsSameAsBefore);
+    describe('update', () => {
+        it('should update the target in the array if it exists', () => {
+            const targets = [
+                { calorie: 1200, serving: ZERO_SERVING },
+                { calorie: 1400, serving: ZERO_SERVING }
+            ];
+            const targetToUpdate = { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: 5 } };
+            expect(update(targets, targetToUpdate)).toBeTruthy();
+            expect(targets[0]).toEqual(targetToUpdate);
+        });
+
+        it('should not update the target if it does not exist in the array', () => {
+            const targets = [
+                { calorie: 1200, serving: ZERO_SERVING },
+                { calorie: 1400, serving: ZERO_SERVING }
+            ];
+            const targetToUpdate = { calorie: 1600, serving: ZERO_SERVING };
+            const targetsSameAsBefore = _.cloneDeep(targets);
+            expect(update(targets, targetToUpdate)).toBeFalsy();
+            expect(targets).toEqual(targetsSameAsBefore);
+        });
     });
 });
