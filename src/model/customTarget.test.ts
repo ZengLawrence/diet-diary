@@ -119,9 +119,9 @@ describe('mutation', () => {
                 { calorie: 1400, serving: ZERO_SERVING }
             ];
             const targetToUpdate = { calorie: 1600, serving: ZERO_SERVING };
-            const targetsSameAsBefore = _.cloneDeep(targets);
+            const targetsBeforeUpdate = _.cloneDeep(targets);
             expect(update(targets, targetToUpdate)).toBeFalsy();
-            expect(targets).toEqual(targetsSameAsBefore);
+            expect(targets).toEqual(targetsBeforeUpdate);
         });
     });
 });
