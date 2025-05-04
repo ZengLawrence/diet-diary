@@ -63,6 +63,8 @@ export const mutation = {
   update,
 }
 
+export default mutation;
+
 export const retrieval = {
   getDefaultTarget,
 }
