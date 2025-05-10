@@ -1,7 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Food, Meal } from "../../model/Food";
-
-const MAX_SAVED_COUNT = 200;
+import savedMeals from "../../model/savedMeals";
 
 interface SavedMeal {
   foods: Food[];
@@ -13,11 +12,7 @@ const savedMealsSlice = createSlice({
   reducers: {
     save(state, action: PayloadAction<Meal>) {
       const meal = { foods: action.payload.foods };
-      const len = state.unshift(meal);
-      if (len > MAX_SAVED_COUNT) {
-        state.splice(MAX_SAVED_COUNT, len - MAX_SAVED_COUNT);
-      }
-      return state;
+      return savedMeals.save(state, meal);
     },
     select(state, action: PayloadAction<number>) {
       const index = action.payload;

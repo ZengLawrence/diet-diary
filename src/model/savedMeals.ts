@@ -26,3 +26,19 @@ function byDescription<T extends SavedMeal>(meals: T[], searchTerm: string): T[]
 export const search = {
   byDescription
 }
+
+const MAX_SAVED_COUNT = 200;
+
+function save<T extends SavedMeal>(meals: T[], meal: T): T[] {
+  const newMeals = [meal, ...meals];
+  if (newMeals.length > MAX_SAVED_COUNT) {
+    return newMeals.slice(0, MAX_SAVED_COUNT);
+  }
+  return newMeals;
+}
+
+export const mutation = {
+  save,
+}
+
+export default mutation;

@@ -1,4 +1,4 @@
-import { search } from "./savedMeals";
+import { search, mutation } from "./savedMeals";
 
 describe("search", () => {
   describe("by description", () => {
@@ -53,6 +53,36 @@ describe("search", () => {
 
     it("returns all meals if search term is empty", () => {
       expect(search.byDescription(meals, "")).toHaveLength(meals.length);
+    });
+  });
+});
+
+describe("mutation", () => {
+  describe("save", () => {
+    const mealA = { foods: [{ description: "A" }] };
+    const mealB = { foods: [{ description: "B" }] };
+    const mealC = { foods: [{ description: "C" }] };
+    const maxSavedCount = 200;
+
+    it("adds a meal to the beginning of the array", () => {
+      const result = mutation.save([mealA, mealB], mealC);
+      expect(result[0]).toBe(mealC);
+      expect(result[1]).toBe(mealA);
+      expect(result[2]).toBe(mealB);
+    });
+
+    it("does not exceed max limit", () => {
+      const manyMeals = Array(maxSavedCount).fill(mealA);
+      const result = mutation.save(manyMeals, mealB);
+      expect(result.length).toBe(maxSavedCount);
+      expect(result[0]).toBe(mealB);
+    });
+
+    it("returns all meals if under max limit", () => {
+      const fewMeals = [mealA, mealB];
+      const result = mutation.save(fewMeals, mealC);
+      expect(result.length).toBe(3);
+      expect(result).toEqual([mealC, mealA, mealB]);
     });
   });
 });
