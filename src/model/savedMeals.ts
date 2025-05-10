@@ -4,14 +4,16 @@ interface SavedMeal {
   foods: { description: string }[];
 }
 
-function includesAllWords(meal: SavedMeal, searchTerm: string) {
+function includesAllWords(meal: SavedMeal, words: string[]) {
   const foodDescriptions = _.map(meal.foods, f => _.lowerCase(f.description));
+  const lowerCaseWords = words.map(w => _.lowerCase(w));
   const wordIncludedInFoodDescription = (word: string) => foodDescriptions.some(desc => desc.includes(word));
-  return _.words(_.lowerCase(searchTerm)).every(wordIncludedInFoodDescription);
+  return lowerCaseWords.every(wordIncludedInFoodDescription);
 }
 
 function byDescription<T extends SavedMeal>(meals: T[], searchTerm: string): T[] {
-  return _.filter(meals, m => includesAllWords(m, searchTerm));
+  const words = _.words(searchTerm);
+  return _.filter(meals, m => includesAllWords(m, words));
 }
 
 export const search = {
