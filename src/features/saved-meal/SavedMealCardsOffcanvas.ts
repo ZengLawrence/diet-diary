@@ -4,22 +4,17 @@ import { savedMealsSelector, savedMealStateSelector, showSavedMealsSelector } fr
 import { AppDispatch, RootState } from "../../app/store";
 import SavedMealCardsOffcanvas from "../../components/saved-meal/SavedMealCardsOffcanvas";
 import { Food } from "../../model/Food";
+import { search } from "../../model/savedMeals";
 import { hide } from "../day-page/showSavedMealsSlice";
 
 function indexedMeals(meals: { foods: Food[] }[]) {
   return _.map(meals, (m, index) => ({ index: index, foods: m.foods }));
 }
 
-function includesAllWords(meal: { foods: Food[] }, searchTerm: string) {
-  const foodDescriptions = _.map(meal.foods, f => _.lowerCase(f.description));
-  const wordIncludedInFoodDescription = (word: string) => foodDescriptions.some(desc => desc.includes(word));
-  return _.words(_.lowerCase(searchTerm)).every(wordIncludedInFoodDescription);
-}
-
 function filterMeals(state: RootState) {
   const searchTerm = savedMealStateSelector(state).searchTerm;
   const meals = indexedMeals(savedMealsSelector(state));
-  return _.filter(meals, m => includesAllWords(m, searchTerm));
+  return search.byDescription(meals, searchTerm);
 }
 
 const mapStateToProps = (state: RootState) => ({
