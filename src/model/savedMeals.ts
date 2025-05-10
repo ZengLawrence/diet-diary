@@ -11,6 +11,13 @@ function includesAllWords(meal: SavedMeal, words: string[]) {
   return lowerCaseWords.every(wordIncludedInFoodDescription);
 }
 
+/**
+ * Filters meals based on a search term, returning only those that contain all words in the term. Comparison is case-insensitive.
+ * 
+ * @param meals - Array of meals to filter.
+ * @param searchTerm - The search term to match against meal descriptions.
+ * @returns An array of meals that match the search term.
+ */
 function byDescription<T extends SavedMeal>(meals: T[], searchTerm: string): T[] {
   const words = _.words(searchTerm);
   return _.filter(meals, m => includesAllWords(m, words));
