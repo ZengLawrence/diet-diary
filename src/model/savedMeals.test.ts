@@ -110,4 +110,21 @@ describe("mutation", () => {
       expect(result).toEqual([mealA, mealC]);
     });
   });
+
+  describe("remove", () => {
+    const mealA = { foods: [{ description: "A" }] };
+    const mealB = { foods: [{ description: "B" }] };
+    const mealC = { foods: [{ description: "C" }] };
+
+    it("removes the specified meal from the array", () => {
+      const result = mutation.remove([mealA, mealB, mealC], mealB);
+      expect(result).toEqual([mealA, mealC]);
+    });
+
+    it("does not change order if meal is not found", () => {
+      const result = mutation.remove([mealA, mealC], mealB);
+      expect(result).toEqual([mealA, mealC]);
+    });
+  });
+  
 });

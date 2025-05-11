@@ -20,8 +20,7 @@ const savedMealsSlice = createSlice({
     },
     remove(state, action: PayloadAction<number>) {
       const index = action.payload;
-      state.splice(index, 1);
-      return state;
+      return savedMeals.remove(state, state[index]);
     }
   }
 })

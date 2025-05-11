@@ -47,9 +47,19 @@ function selected<T extends SavedMeal>(meals: T[], meal: T): T[] {
   return meals;
 }
 
+function remove<T extends SavedMeal>(meals: T[], meal: T): T[] {
+  const index = meals.findIndex(m => _.isEqual(m, meal));
+  if (index === -1) {
+    return meals;
+  }
+  meals.splice(index, 1);
+  return meals;
+}
+
 export const mutation = {
   save,
-  selected
+  selected,
+  remove,
 }
 
 export default mutation;
