@@ -1,10 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Food, Meal } from "../../model/Food";
+import { Meal } from "../../model/Food";
+import { SavedMeal } from "../../model/SavedMeal";
 import savedMeals from "../../model/savedMeals";
-
-interface SavedMeal {
-  foods: Food[];
-}
 
 const savedMealsSlice = createSlice({
   name: "savedMeals",

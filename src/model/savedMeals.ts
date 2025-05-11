@@ -1,9 +1,5 @@
 import _ from "lodash";
-import { Food } from "./Food";
-
-interface SavedMeal {
-  foods: Food[];
-}
+import { SavedMeal } from "./SavedMeal";
 
 function includesAllWords(meal: SavedMeal, words: string[]) {
   const foodDescriptions = _.map(meal.foods, f => _.lowerCase(f.description));
