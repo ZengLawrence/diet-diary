@@ -1,7 +1,12 @@
 import _ from "lodash";
-import { SavedMeal } from "./SavedMeal";
+import { Food } from "./Food";
 
-function includesAllWords(meal: SavedMeal, words: string[]) {
+type BaseFood = Pick<Food, "description">;
+interface BaseSavedMeal {
+  foods: BaseFood[];
+}
+
+function includesAllWords(meal: BaseSavedMeal, words: string[]) {
   const foodDescriptions = _.map(meal.foods, f => _.lowerCase(f.description));
   const lowerCaseWords = words.map(w => _.lowerCase(w));
   const wordIncludedInFoodDescription = (word: string) => foodDescriptions.some(desc => desc.includes(word));
@@ -15,7 +20,7 @@ function includesAllWords(meal: SavedMeal, words: string[]) {
  * @param searchTerm - The search term to match against meal descriptions.
  * @returns An array of meals that match the search term.
  */
-function byDescription<T extends SavedMeal>(meals: T[], searchTerm: string): T[] {
+function byDescription<T extends BaseSavedMeal>(meals: T[], searchTerm: string): T[] {
   const words = _.words(searchTerm);
   return _.filter(meals, m => includesAllWords(m, words));
 }
@@ -26,7 +31,7 @@ export const search = {
 
 const MAX_SAVED_COUNT = 200;
 
-function save<T extends SavedMeal>(meals: T[], meal: T): T[] {
+function save<T extends BaseSavedMeal>(meals: T[], meal: T): T[] {
   const newMeals = [meal, ...meals];
   if (newMeals.length > MAX_SAVED_COUNT) {
     return newMeals.slice(0, MAX_SAVED_COUNT);
@@ -34,7 +39,7 @@ function save<T extends SavedMeal>(meals: T[], meal: T): T[] {
   return newMeals;
 }
 
-function selected<T extends SavedMeal>(meals: T[], meal: T): T[] {
+function selected<T extends BaseSavedMeal>(meals: T[], meal: T): T[] {
   const index = meals.findIndex(m => _.isEqual(m, meal));
   if (index === -1) {
     return meals;
@@ -44,7 +49,7 @@ function selected<T extends SavedMeal>(meals: T[], meal: T): T[] {
   return meals;
 }
 
-function remove<T extends SavedMeal>(meals: T[], meal: T): T[] {
+function remove<T extends BaseSavedMeal>(meals: T[], meal: T): T[] {
   const index = meals.findIndex(m => _.isEqual(m, meal));
   if (index === -1) {
     return meals;
