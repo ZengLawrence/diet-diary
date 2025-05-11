@@ -1,7 +1,8 @@
 import _ from "lodash";
+import { Food } from "./Food";
 
 interface SavedMeal {
-  foods: { description: string }[];
+  foods: Food[];
 }
 
 function includesAllWords(meal: SavedMeal, words: string[]) {
