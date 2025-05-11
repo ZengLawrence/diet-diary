@@ -85,4 +85,29 @@ describe("mutation", () => {
       expect(result).toEqual([mealC, mealA, mealB]);
     });
   });
+
+  describe("selected", () => {
+    const mealA = { foods: [{ description: "A" }] };
+    const mealB = { foods: [{ description: "B" }] };
+    const mealC = { foods: [{ description: "C" }] };
+
+    it("moves the selected meal to the beginning of the array", () => {
+      const result = mutation.selected([mealA, mealB, mealC], mealB);
+      expect(result[0]).toBe(mealB);
+      expect(result[1]).toBe(mealA);
+      expect(result[2]).toBe(mealC);
+    });
+
+    it("does not change order if meal is already first", () => {
+      const result = mutation.selected([mealB, mealA, mealC], mealB);
+      expect(result[0]).toBe(mealB);
+      expect(result[1]).toBe(mealA);
+      expect(result[2]).toBe(mealC);
+    });
+
+    it("does not change order if meal is not found", () => {
+      const result = mutation.selected([mealA, mealC], mealB);
+      expect(result).toEqual([mealA, mealC]);
+    });
+  });
 });

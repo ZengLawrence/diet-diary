@@ -16,9 +16,7 @@ const savedMealsSlice = createSlice({
     },
     select(state, action: PayloadAction<number>) {
       const index = action.payload;
-      const selected = state.splice(index, 1);
-      state.unshift(selected[0]);
-      return state;
+      return savedMeals.selected(state, state[index]);
     },
     remove(state, action: PayloadAction<number>) {
       const index = action.payload;

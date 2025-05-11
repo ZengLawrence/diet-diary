@@ -37,8 +37,19 @@ function save<T extends SavedMeal>(meals: T[], meal: T): T[] {
   return newMeals;
 }
 
+function selected<T extends SavedMeal>(meals: T[], meal: T): T[] {
+  const index = meals.findIndex(m => _.isEqual(m, meal));
+  if (index === -1) {
+    return meals;
+  }
+  const selected = meals.splice(index, 1);
+  meals.unshift(selected[0]);
+  return meals;
+}
+
 export const mutation = {
   save,
+  selected
 }
 
 export default mutation;
