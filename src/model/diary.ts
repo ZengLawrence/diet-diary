@@ -1,4 +1,4 @@
-import { Meal } from "./Food";
+import { Meal, newMeal } from "./Food";
 import { getDefaultTarget, Target } from "./Target";
 
 export interface DayPage {
@@ -26,7 +26,7 @@ function newDay(): DayPage {
       unlimitedFruit: false,
       ...getDefaultTarget(),
     },
-    meals: [],
+    meals: [newMeal()],
   }
 }
 

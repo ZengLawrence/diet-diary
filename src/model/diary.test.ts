@@ -38,10 +38,15 @@ describe("mutation", () => {
       );
     });
 
-    it("should initialize meals as an empty array", () => {
+    it("should initialize meals as an array of one meal with empty foods array", () => {
       const day = mutation.newDay();
       expect(Array.isArray(day.meals)).toBe(true);
-      expect(day.meals.length).toBe(0);
+      expect(day.meals.length).toBe(1);
+      expect(day.meals[0]).toEqual(
+        expect.objectContaining({
+          foods: [],
+        })
+      );
     });
   });
 });

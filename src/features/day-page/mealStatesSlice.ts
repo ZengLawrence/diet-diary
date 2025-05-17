@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash";
+import diary from "../../model/diary";
 import { Food, Meal, newMeal } from "../../model/Food";
 import { newDay } from "./dateSlice";
 import { exitEditMode } from "./editModeSlice";
@@ -27,7 +28,16 @@ function removeFirstEmptyMeal(state: MealState[]) {
   }
 }
 
-const initialState = [newMealState()];
+function addMealState(meal: Meal): MealState {
+  return {
+    meal,
+    editState: "add",
+  };
+}
+
+function initialState(): MealState[] {
+  return _.map(diary.newDay().meals, addMealState);
+}
 
 const reset = (mealState: MealState) => {
   mealState.editState = undefined;
@@ -38,7 +48,7 @@ const resetAll = (state: MealState[]) => _.forEach(state, reset);
 
 const mealStatesSlice = createSlice({
   name: "mealStates",
-  initialState,
+  initialState: initialState(),
   reducers: {
     addMeal(state) {
       resetAll(state);
@@ -47,7 +57,7 @@ const mealStatesSlice = createSlice({
     addSavedMeal(state, action: PayloadAction<{ foods: Food[]; }>) {
       resetAll(state);
       const mealState = newMealState();
-      const meal = {...mealState.meal, foods: action.payload.foods}
+      const meal = { ...mealState.meal, foods: action.payload.foods }
       mealState.meal = meal;
       removeFirstEmptyMeal(state);
       state.push(mealState);
