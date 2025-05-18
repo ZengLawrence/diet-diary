@@ -158,4 +158,12 @@ describe("mutation", () => {
     });
   });
 
+  describe("toggleUnlimitedFruit", () => {
+    it("should toggle the unlimitedFruit value in the target", () => {
+      const initialDay = mutation.newDay();
+      const updatedDay = mutation.toggleUnlimitedFruit(initialDay);
+      expect(updatedDay.target.unlimitedFruit).toBe(!initialDay.target.unlimitedFruit);
+    });
+  });
+
 });

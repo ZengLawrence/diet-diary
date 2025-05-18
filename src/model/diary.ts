@@ -98,6 +98,16 @@ function updateTarget(day: DayPage, target: Target): DayPage {
   }
 }
 
+function toggleUnlimitedFruit(day: DayPage): DayPage {
+  return {
+    ...day,
+    target: {
+      ...day.target,
+      unlimitedFruit: !day.target.unlimitedFruit,
+    },
+  }
+}
+
 export const mutation = {
   newDay,
   addMeal,
@@ -107,6 +117,7 @@ export const mutation = {
   updateFood,
   deleteFood,
   updateTarget,
+  toggleUnlimitedFruit,
 }
 
 export default mutation;
