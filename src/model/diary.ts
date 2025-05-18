@@ -56,10 +56,19 @@ function addSavedMeal(day: DayPage, foods: Food[]): DayPage {
   }
 }
 
+function deleteMeal(day: DayPage, meal: Meal): DayPage {
+  const meals = day.meals.filter(m => m !== meal);
+  return {
+    ...day,
+    meals,
+  }
+}
+
 export const mutation = {
   newDay,
   addMeal,
-  addSavedMeal
+  addSavedMeal,
+  deleteMeal,
 }
 
 export default mutation;

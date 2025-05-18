@@ -1,5 +1,5 @@
 import { validation, mutation } from "./diary";
-import { Food } from "./Food";
+import { Food, Meal, newMeal } from "./Food";
 import { getDefaultTarget } from "./Target";
 
 describe("validation", () => {
@@ -81,6 +81,22 @@ describe("mutation", () => {
       const updatedDay2 = mutation.addSavedMeal(updatedDay, secondSavedFoods);
       expect(updatedDay2.meals.length).toBe(2);
       expect(updatedDay2.meals[1].foods).toEqual(secondSavedFoods);
+    });
+  });
+
+  describe("deleteMeal", () => {
+    it("should remove the specified meal from the meals array", () => {
+      const initialDay = mutation.newDay();
+      const mealToDelete = initialDay.meals[0];
+      const updatedDay = mutation.deleteMeal(initialDay, mealToDelete);
+      expect(updatedDay.meals.length).toBe(0);
+    });
+
+    it("should not remove any meals if the specified meal is not found", () => {
+      const initialDay = mutation.newDay();
+      const nonExistentMeal: Meal = newMeal();
+      const updatedDay = mutation.deleteMeal(initialDay, nonExistentMeal);
+      expect(updatedDay.meals.length).toBe(1);
     });
   });
 
