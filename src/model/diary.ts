@@ -89,6 +89,16 @@ function deleteFood(day: DayPage, meal: Meal, food: Food): DayPage {
   }
 }
 
+function updateTarget(day: DayPage, target: Target): DayPage {
+  return {
+    ...day,
+    target: {
+      ...day.target,
+      ...target,
+    },
+  }
+}
+
 export const mutation = {
   newDay,
   addMeal,
@@ -97,6 +107,7 @@ export const mutation = {
   addFood,
   updateFood,
   deleteFood,
+  updateTarget,
 }
 
 export default mutation;

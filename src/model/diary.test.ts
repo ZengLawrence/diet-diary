@@ -147,5 +147,15 @@ describe("mutation", () => {
       expect(finalUpdatedDay.meals[0].foods.length).toBe(0);
     });
   });
-  
+
+  describe("updateTarget", () => {
+    it("should update the target values in the day", () => {
+      const initialDay = mutation.newDay();
+      const newTarget = { ...initialDay.target };
+      newTarget.calorie = 2000;
+      const updatedDay = mutation.updateTarget(initialDay, newTarget);
+      expect(updatedDay.target).toEqual(newTarget);
+    });
+  });
+
 });
