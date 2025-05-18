@@ -30,8 +30,16 @@ function newDay(): DayPage {
   }
 }
 
+function addMeal(day: DayPage): DayPage {
+  return {
+    ...day,
+    meals: [...day.meals, newMeal()],
+  }
+}
+
 export const mutation = {
   newDay,
+  addMeal,
 }
 
 export default mutation;

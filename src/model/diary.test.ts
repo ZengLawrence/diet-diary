@@ -49,4 +49,17 @@ describe("mutation", () => {
       );
     });
   });
+
+  describe("addMeal", () => {
+    it("should add a new meal to the meals array", () => {
+      const initialDay = mutation.newDay();
+      const updatedDay = mutation.addMeal(initialDay);
+      expect(updatedDay.meals.length).toBe(2);
+      expect(updatedDay.meals[1]).toEqual(
+        expect.objectContaining({
+          foods: [],
+        })
+      );
+    });
+  });
 });
