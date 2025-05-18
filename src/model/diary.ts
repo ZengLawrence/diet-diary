@@ -73,12 +73,21 @@ function addFood(day: DayPage, meal: Meal, food: Food): DayPage {
   }
 }
 
+function updateFood(day: DayPage, meal: Meal, food: Food, replacedFood: Food): DayPage {
+  const meals = day.meals.map(m => m === meal ? { ...m, foods: m.foods.map(f => f === food ? replacedFood : f) } : m);
+  return {
+    ...day,
+    meals,
+  }
+}
+
 export const mutation = {
   newDay,
   addMeal,
   addSavedMeal,
   deleteMeal,
   addFood,
+  updateFood,
 }
 
 export default mutation;

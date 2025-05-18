@@ -119,4 +119,19 @@ describe("mutation", () => {
     });
   });
 
+  describe("updateFood", () => {
+    it("should update food in the specified meal's foods array", () => {
+      const initialDay = mutation.newDay();
+      const mealToAdd = initialDay.meals[0];
+      const foodToAdd: Food = {description: "Apple", serving: {}};
+      const updatedDay = mutation.addFood(initialDay, mealToAdd, foodToAdd);
+
+      const mealToUpdateFood = updatedDay.meals[0];
+      const foodToUpdate = mealToUpdateFood.foods[0];
+      const replacedFood: Food = {description: "Banana", serving: {}};
+      const finalUpdatedDay = mutation.updateFood(updatedDay, mealToUpdateFood, foodToUpdate, replacedFood);
+      expect(finalUpdatedDay.meals[0].foods[0]).toEqual(replacedFood);
+    });
+  });
+
 });
