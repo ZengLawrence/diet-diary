@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import diary from "../../model/diary";
 
-export function today() {
-  return new Date().toLocaleDateString();
+function today() {
+  return diary.newDay().date;
 }
 
 const dateSlice = createSlice({
