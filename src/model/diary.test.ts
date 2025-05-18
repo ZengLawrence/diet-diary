@@ -100,4 +100,23 @@ describe("mutation", () => {
     });
   });
 
+  describe("addFood", () => {
+    it("should add food to the specified meal's foods array", () => {
+      const initialDay = mutation.newDay();
+      const mealToAddFood = initialDay.meals[0];
+      const foodToAdd: Food = {description: "Apple", serving: {}};
+      const updatedDay = mutation.addFood(initialDay, mealToAddFood, foodToAdd);
+      expect(updatedDay.meals[0].foods.length).toBe(1);
+      expect(updatedDay.meals[0].foods[0]).toEqual(foodToAdd);
+    });
+
+    it("should not modify other meals when adding food to a specific meal", () => {
+      const initialDay = mutation.newDay();
+      const mealToAddFood = initialDay.meals[0];
+      const foodToAdd: Food = {description: "Apple", serving: {}};
+      const updatedDay = mutation.addFood(initialDay, mealToAddFood, foodToAdd);
+      expect(updatedDay.meals.length).toBe(1);
+    });
+  });
+
 });

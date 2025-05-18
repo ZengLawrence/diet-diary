@@ -1,3 +1,4 @@
+import { add } from "lodash";
 import { Food, Meal, newMeal } from "./Food";
 import { getDefaultTarget, Target } from "./Target";
 
@@ -64,11 +65,20 @@ function deleteMeal(day: DayPage, meal: Meal): DayPage {
   }
 }
 
+function addFood(day: DayPage, meal: Meal, food: Food): DayPage {
+  const meals = day.meals.map(m => m === meal ? { ...m, foods: [...m.foods, food] } : m);
+  return {
+    ...day,
+    meals,
+  }
+}
+
 export const mutation = {
   newDay,
   addMeal,
   addSavedMeal,
   deleteMeal,
+  addFood,
 }
 
 export default mutation;
