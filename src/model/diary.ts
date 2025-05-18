@@ -1,4 +1,3 @@
-import { add } from "lodash";
 import { Food, Meal, newMeal } from "./Food";
 import { getDefaultTarget, Target } from "./Target";
 
