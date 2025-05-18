@@ -1,4 +1,5 @@
 import { validation, mutation } from "./diary";
+import { Food } from "./Food";
 import { getDefaultTarget } from "./Target";
 
 describe("validation", () => {
@@ -62,4 +63,25 @@ describe("mutation", () => {
       );
     });
   });
+
+  describe("addSavedMeal", () => {
+    it("should add a new meal with saved foods to the meals array and remove first empty meal", () => {
+      const initialDay = mutation.newDay();
+      const savedFoods: Food[] = [{description: "Apple", serving: {}}];
+      const updatedDay = mutation.addSavedMeal(initialDay, savedFoods);
+      expect(updatedDay.meals.length).toBe(1);
+      expect(updatedDay.meals[0].foods).toEqual(savedFoods);
+    });
+
+    it("should add two meals if the first one is not empty", () => {  
+      const initialDay = mutation.newDay();
+      const savedFoods: Food[] = [{description: "Apple", serving: {}}];
+      const updatedDay = mutation.addSavedMeal(initialDay, savedFoods);
+      const secondSavedFoods: Food[] = [{description: "Banana", serving: {}}];
+      const updatedDay2 = mutation.addSavedMeal(updatedDay, secondSavedFoods);
+      expect(updatedDay2.meals.length).toBe(2);
+      expect(updatedDay2.meals[1].foods).toEqual(secondSavedFoods);
+    });
+  });
+
 });

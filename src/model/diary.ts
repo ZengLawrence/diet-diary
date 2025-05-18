@@ -1,4 +1,4 @@
-import { Meal, newMeal } from "./Food";
+import { Food, Meal, newMeal } from "./Food";
 import { getDefaultTarget, Target } from "./Target";
 
 export interface DayPage {
@@ -37,9 +37,29 @@ function addMeal(day: DayPage): DayPage {
   }
 }
 
+function removeFirstEmptyMeal(day: DayPage): DayPage {
+  const firstMeal = day.meals[0];
+  if (firstMeal && firstMeal.foods.length === 0) {
+    return {
+      ...day,
+      meals: day.meals.slice(1),
+    }
+  }
+  return day;
+}
+
+function addSavedMeal(day: DayPage, foods: Food[]): DayPage {
+  const _day = removeFirstEmptyMeal(day);
+  return {
+    ..._day,
+    meals: [..._day.meals, { ...newMeal(), foods }],
+  }
+}
+
 export const mutation = {
   newDay,
   addMeal,
+  addSavedMeal
 }
 
 export default mutation;
