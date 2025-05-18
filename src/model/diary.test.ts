@@ -134,4 +134,18 @@ describe("mutation", () => {
     });
   });
 
+  describe("deleteFood", () => {
+    it("should remove food from the specified meal's foods array", () => {
+      const initialDay = mutation.newDay();
+      const mealToAddFood = initialDay.meals[0];
+      const foodToAdd: Food = {description: "Apple", serving: {}};
+      const updatedDay = mutation.addFood(initialDay, mealToAddFood, foodToAdd);
+
+      const mealToDeleteFood = updatedDay.meals[0];
+      const foodToDelete = mealToDeleteFood.foods[0];
+      const finalUpdatedDay = mutation.deleteFood(updatedDay, mealToDeleteFood, foodToDelete);
+      expect(finalUpdatedDay.meals[0].foods.length).toBe(0);
+    });
+  });
+  
 });

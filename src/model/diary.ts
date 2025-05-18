@@ -81,6 +81,14 @@ function updateFood(day: DayPage, meal: Meal, food: Food, replacedFood: Food): D
   }
 }
 
+function deleteFood(day: DayPage, meal: Meal, food: Food): DayPage {
+  const meals = day.meals.map(m => m === meal ? { ...m, foods: m.foods.filter(f => f !== food) } : m);
+  return {
+    ...day,
+    meals,
+  }
+}
+
 export const mutation = {
   newDay,
   addMeal,
@@ -88,6 +96,7 @@ export const mutation = {
   deleteMeal,
   addFood,
   updateFood,
+  deleteFood,
 }
 
 export default mutation;
