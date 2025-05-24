@@ -52,12 +52,19 @@ const _mealStatesWithOptionsSelector:  (state: RootState) => MealState[] = creat
   _mealStatesSelector,
   _mealOptionsSelector,
   (mealStates, mealOptions) => {
-    return _.map(mealStates, (mealState, mealIndex) => ({
+    const mealStatesWithOptions = _.map(mealStates, (mealState, mealIndex) => ({
       ...mealState,
       editState: (mealIndex === mealOptions.mealIndex) ? mealOptions.editState : undefined,
       foodEditIndex: (mealIndex === mealOptions.mealIndex) ? mealOptions.foodIndex : -1,
       showMealSavedAlert: mealIndex === mealOptions.showMealSavedAlertIndex,
     }));
+
+    // set last meal in add state if meal index is -1
+    if (mealOptions.editState === "add" && mealOptions.mealIndex === -1) {
+      const lastMealIndex = mealStatesWithOptions.length - 1;
+      mealStatesWithOptions[lastMealIndex].editState = "add";
+    }
+    return mealStatesWithOptions;
   }
 );
 
