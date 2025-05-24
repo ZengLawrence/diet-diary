@@ -3,9 +3,13 @@ import _ from "lodash";
 import diary from "../../model/diary";
 import { Food, Meal, newMeal } from "../../model/Food";
 import { newDay } from "./dateSlice";
+import { MealEditState } from "./pageOptionsSlice";
 
 export interface MealState {
   meal: Meal;
+  editState?: MealEditState;
+  foodEditIndex?: number;
+  showMealSavedAlert?: boolean;
 }
 
 function newMealState(): MealState {
