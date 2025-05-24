@@ -9,7 +9,7 @@ export interface PageOptions {
   mealOptions: MealOptions;
 }
 
-interface MealOptions {
+export interface MealOptions {
   editState: MealEditState;
   mealIndex: number;
   foodIndex: number;

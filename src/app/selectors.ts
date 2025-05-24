@@ -6,7 +6,7 @@ import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServin
 import { Gender, Target, defaultGender, manTarget, womanTarget } from "../model/Target";
 import { RootState } from "./store";
 import { DayHistory, History, isToday } from "../features/history/historySlice";
-import { MealEditState } from "../features/day-page/pageOptionsSlice";
+import { MealEditState, MealOptions } from "../features/day-page/pageOptionsSlice";
 
 const _dateSelector = (state: RootState) => state.date;
 const _editModeSelector = (state: RootState) => state.editMode;
@@ -43,7 +43,10 @@ export interface MealState {
   showMealSavedAlert?: boolean;
 }
 
-const _mealOptionsSelector = (state: RootState) => state.pageOptions.mealOptions;
+const _mealOptionsSelector: (state: RootState) => MealOptions = createSelector(
+  _pageOptionsSelector,
+  (pageOptions) => pageOptions.mealOptions
+);
 
 const _todaySelector: (state: RootState) => DayPageState = createSelector(
   _dateSelector,
