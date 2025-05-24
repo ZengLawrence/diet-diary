@@ -3,20 +3,14 @@ import _ from "lodash";
 import diary from "../../model/diary";
 import { Food, Meal, newMeal } from "../../model/Food";
 import { newDay } from "./dateSlice";
-import { exitEditMode } from "./editModeSlice";
-import { MealEditState } from "./pageOptionsSlice";
 
 export interface MealState {
   meal: Meal;
-  editState?: MealEditState;
-  foodEditIndex?: number;
-  showMealSavedAlert?: boolean;
 }
 
 function newMealState(): MealState {
   return {
     meal: newMeal(),
-    editState: "add",
   };
 }
 
@@ -30,7 +24,6 @@ function removeFirstEmptyMeal(state: MealState[]) {
 function addMealState(meal: Meal): MealState {
   return {
     meal,
-    editState: "add",
   };
 }
 
@@ -38,23 +31,14 @@ function initialState(): MealState[] {
   return _.map(diary.newDay().meals, addMealState);
 }
 
-const reset = (mealState: MealState) => {
-  mealState.editState = undefined;
-  mealState.showMealSavedAlert = false;
-}
-
-const resetAll = (state: MealState[]) => _.forEach(state, reset);
-
 const mealStatesSlice = createSlice({
   name: "mealStates",
   initialState: initialState(),
   reducers: {
     addMeal(state) {
-      resetAll(state);
       state.push(newMealState())
     },
     addSavedMeal(state, action: PayloadAction<{ foods: Food[]; }>) {
-      resetAll(state);
       const mealState = newMealState();
       const meal = { ...mealState.meal, foods: action.payload.foods }
       mealState.meal = meal;
@@ -77,13 +61,11 @@ const mealStatesSlice = createSlice({
     deleteFood(state, action: PayloadAction<{ mealIndex: number; foodIndex: number; }>) {
       const { mealIndex, foodIndex } = action.payload;
       state[mealIndex].meal.foods.splice(foodIndex, 1);
-      state[mealIndex].foodEditIndex = undefined;
     },
   },
   extraReducers: builder => {
     builder
       .addCase(newDay, () => [newMealState()])
-      .addCase(exitEditMode, (state) => resetAll(state));
   }
 })
 

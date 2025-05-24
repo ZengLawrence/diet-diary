@@ -1,4 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { newDay } from "./dateSlice";
+import { exitEditMode } from "./editModeSlice";
+import { deleteFood } from "./mealStatesSlice";
 
 export type MealEditState = "add" | "edit" | undefined;
 
@@ -69,6 +72,14 @@ const pageOptionsSlice = createSlice({
       state.mealState.showMealSavedAlertIndex = -1;
     },
   },
+  extraReducers: builder => {
+    builder
+      .addCase(newDay, () => initialState())
+      .addCase(exitEditMode, () => initialState())
+      .addCase(deleteFood, (state) => {
+        state.mealState.foodIndex = -1;
+      })
+  }
 });
 
 export const { 
