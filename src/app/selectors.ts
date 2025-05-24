@@ -1,12 +1,12 @@
 import { createSelector } from "@reduxjs/toolkit";
 import _ from "lodash";
-import { MealState } from "../features/day-page/mealStatesSlice";
 import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunction";
 import { Meal, Serving } from "../model/Food";
 import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServingSummary, calcServingDifference } from "../model/servingFunction";
 import { Gender, Target, defaultGender, manTarget, womanTarget } from "../model/Target";
 import { RootState } from "./store";
 import { DayHistory, History, isToday } from "../features/history/historySlice";
+import { MealEditState, MealOptions } from "../features/day-page/pageOptionsSlice";
 
 const _dateSelector = (state: RootState) => state.date;
 const _editModeSelector = (state: RootState) => state.editMode;
@@ -19,6 +19,7 @@ export const warningSelector = (state: RootState) => state.warning;
 export const savedMealStateSelector = (state: RootState) => state.savedMealState;
 export const customTargetsStateSelector = (state: RootState) => state.customTargets;
 const _historySelector = (state: RootState) => state.history;
+const _pageOptionsSelector = (state: RootState) => state.pageOptions;
 
 interface ViewOptions {
   canEdit: boolean,
@@ -35,11 +36,43 @@ export interface DayPageState {
   mealStates: MealState[],
 }
 
+export interface MealState {
+  meal: Meal;
+  editState?: MealEditState;
+  foodEditIndex?: number;
+  showMealSavedAlert?: boolean;
+}
+
+const _mealOptionsSelector: (state: RootState) => MealOptions = createSelector(
+  _pageOptionsSelector,
+  (pageOptions) => pageOptions.mealOptions
+);
+
+const _mealStatesWithOptionsSelector:  (state: RootState) => MealState[] = createSelector( 
+  _mealStatesSelector,
+  _mealOptionsSelector,
+  (mealStates, mealOptions) => {
+    const mealStatesWithOptions = _.map(mealStates, (mealState, mealIndex) => ({
+      ...mealState,
+      editState: (mealIndex === mealOptions.mealIndex) ? mealOptions.editState : undefined,
+      foodEditIndex: (mealIndex === mealOptions.mealIndex) ? mealOptions.foodIndex : -1,
+      showMealSavedAlert: mealIndex === mealOptions.showMealSavedAlertIndex,
+    }));
+
+    // set last meal in add state if meal index is -1
+    if (mealOptions.editState === "add" && mealOptions.mealIndex === -1) {
+      const lastMealIndex = mealStatesWithOptions.length - 1;
+      mealStatesWithOptions[lastMealIndex].editState = "add";
+    }
+    return mealStatesWithOptions;
+  }
+);
+
 const _todaySelector: (state: RootState) => DayPageState = createSelector(
   _dateSelector,
   _editModeSelector,
   _targetStateSelector,
-  _mealStatesSelector,
+  _mealStatesWithOptionsSelector,
   (date, editMode, targetState, mealStates) => ({
     date,
     viewOptions: {

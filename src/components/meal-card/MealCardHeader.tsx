@@ -21,7 +21,7 @@ interface Props {
   deleteMeal: (mealIndex: number) => void;
   editMeal: (mealIndex: number) => void;
   saveMeal: (mealIndex: number, meal: Meal) => void;
-  doneEdit: (mealIndex: number) => void;
+  doneEdit: () => void;
 }
 
 const WarningAlertRow = () => (
@@ -61,7 +61,7 @@ export const MealCardHeader = (props: Props) => {
         mealIndex={props.mealIndex}
         editMeal={() => props.editMeal(props.mealIndex)}
         saveMeal={() => props.saveMeal(props.mealIndex, props.meal)}
-        doneEdit={() => props.doneEdit(props.mealIndex)}
+        doneEdit={() => props.doneEdit()}
       />
     </Col>
   );

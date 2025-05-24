@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
-import { MealEditState } from "../../features/day-page/mealStatesSlice";
+import { MealEditState } from "../../features/day-page/pageOptionsSlice";
 import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
 import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
 import EditFoodButton from "../../features/meal-card/EditFoodButton";

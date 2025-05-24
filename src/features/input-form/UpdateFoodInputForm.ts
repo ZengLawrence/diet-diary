@@ -2,7 +2,8 @@ import { connect } from "react-redux";
 import { AppDispatch } from "../../app/store";
 import { ButtonLabel, FoodInputForm } from "../../components/input-form/FoodInputForm";
 import { Food } from "../../model/Food";
-import { deleteFood, exitFoodEditMode, updateFood } from "../day-page/mealStatesSlice";
+import { deleteFood, updateFood } from "../day-page/mealStatesSlice";
+import { exitFoodEditMode } from "../day-page/pageOptionsSlice";
 
 const mapStateToProps = () => ({
   buttonLabel: "Update" as ButtonLabel,
@@ -13,9 +14,9 @@ const mapDispatchToProps = (dispatch: AppDispatch, ownProps: { mealIndex: number
   return {
     onSaveFood: (food: Food) => {
       dispatch(updateFood({ mealIndex, foodIndex, food }));
-      dispatch(exitFoodEditMode({ mealIndex }));
+      dispatch(exitFoodEditMode());
     },
-    onCancel: () => dispatch(exitFoodEditMode({ mealIndex })),
+    onCancel: () => dispatch(exitFoodEditMode()),
     onDeleteFood: () => dispatch(deleteFood({ mealIndex, foodIndex })),
   }
 }

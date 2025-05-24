@@ -3,7 +3,8 @@ import { mealsSelector, mealStatesSelector, viewOptionsSelector } from "../../ap
 import { AppDispatch, RootState } from "../../app/store";
 import { MealCardHeader } from "../../components/meal-card/MealCardHeader";
 import { Meal } from "../../model/Food";
-import { deleteMeal, enterMealEditMode, exitMealEditMode, hideSavedMealAlert, showSavedMealAlert } from "../day-page/mealStatesSlice";
+import { deleteMeal } from "../day-page/mealStatesSlice";
+import { enterMealEditMode, exitMealEditMode, hideSavedMealAlert, showSavedMealAlert } from "../day-page/pageOptionsSlice";
 import { save } from "../saved-meal/savedMealsSlice";
 import { addSuggestion } from "../suggestions/SavedMealSuggestion";
 
@@ -22,10 +23,10 @@ const mapStateToProps = (state: RootState, ownProps: { mealIndex: number; }) => 
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch, ownProps: { mealIndex: number; }) => ({
-  hideMealSavedAlert: () => dispatch(hideSavedMealAlert(ownProps.mealIndex)),
+  hideMealSavedAlert: () => dispatch(hideSavedMealAlert()),
   deleteMeal: () => dispatch(deleteMeal(ownProps.mealIndex)),
   editMeal: (mealIndex: number) => dispatch(enterMealEditMode({ mealIndex })),
-  doneEdit: (mealIndex: number) => dispatch(exitMealEditMode({ mealIndex })),
+  doneEdit: () => dispatch(exitMealEditMode()),
   saveMeal: (mealIndex: number, meal: Meal) => {
     dispatch(save(meal));
     dispatch(showSavedMealAlert(mealIndex));
