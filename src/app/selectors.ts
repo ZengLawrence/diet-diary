@@ -43,13 +43,15 @@ export interface MealState {
   showMealSavedAlert?: boolean;
 }
 
+const _mealOptionsSelector = (state: RootState) => state.pageOptions.mealOptions;
+
 const _todaySelector: (state: RootState) => DayPageState = createSelector(
   _dateSelector,
   _editModeSelector,
   _targetStateSelector,
   _mealStatesSelector,
-  _pageOptionsSelector,
-  (date, editMode, targetState, mealStates, pageOptions) => ({
+  _mealOptionsSelector,
+  (date, editMode, targetState, mealStates, mealOptions) => ({
     date,
     viewOptions: {
       canEdit: editMode,
@@ -64,9 +66,9 @@ const _todaySelector: (state: RootState) => DayPageState = createSelector(
     },
     mealStates: _.map(mealStates, (mealState, mealIndex) => ({
       ...mealState,
-      editState: (mealIndex === pageOptions.mealOptions.mealIndex) ? pageOptions.mealOptions.editState : undefined,
-      foodEditIndex: (mealIndex === pageOptions.mealOptions.mealIndex) ? pageOptions.mealOptions.foodIndex : -1,
-      showMealSavedAlert: mealIndex === pageOptions.mealOptions.showMealSavedAlertIndex,
+      editState: (mealIndex === mealOptions.mealIndex) ? mealOptions.editState : undefined,
+      foodEditIndex: (mealIndex === mealOptions.mealIndex) ? mealOptions.foodIndex : -1,
+      showMealSavedAlert: mealIndex === mealOptions.showMealSavedAlertIndex,
     })),
   })
 );
