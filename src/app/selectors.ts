@@ -64,9 +64,9 @@ const _todaySelector: (state: RootState) => DayPageState = createSelector(
     },
     mealStates: _.map(mealStates, (mealState, mealIndex) => ({
       ...mealState,
-      editState: (mealIndex = pageOptions.mealOptions.mealIndex) ? pageOptions.mealOptions.editState : undefined,
-      foodEditIndex: (mealIndex = pageOptions.mealOptions.mealIndex) ? pageOptions.mealOptions.foodIndex : -1,
-      showMealSavedAlert: pageOptions.mealOptions.showMealSavedAlertIndex === mealIndex,
+      editState: (mealIndex === pageOptions.mealOptions.mealIndex) ? pageOptions.mealOptions.editState : undefined,
+      foodEditIndex: (mealIndex === pageOptions.mealOptions.mealIndex) ? pageOptions.mealOptions.foodIndex : -1,
+      showMealSavedAlert: mealIndex === pageOptions.mealOptions.showMealSavedAlertIndex,
     })),
   })
 );
