@@ -6,17 +6,17 @@ import { deleteFood } from "./mealStatesSlice";
 export type MealEditState = "add" | "edit" | undefined;
 
 export interface PageOptions {
-  mealState: MealState;
+  mealOptions: MealOptions;
 }
 
-interface MealState {
+interface MealOptions {
   editState: MealEditState;
   mealIndex: number;
   foodIndex: number;
   showMealSavedAlertIndex: number;
 }
 
-function newMealState(): MealState {
+function newMealOptions(): MealOptions {
   return {
     editState: undefined,
     mealIndex: -1,
@@ -27,7 +27,7 @@ function newMealState(): MealState {
 
 function initialState(): PageOptions {
   return {
-    mealState: newMealState(),
+    mealOptions: newMealOptions(),
   };
 }
 
@@ -36,40 +36,40 @@ const pageOptionsSlice = createSlice({
   initialState: initialState(),
   reducers: {
     enterMealEditMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
-      state.mealState = {
-        ...newMealState(),
+      state.mealOptions = {
+        ...newMealOptions(),
         editState: "edit",
         mealIndex,
       }
     },
     enterMealAddMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
-      state.mealState = {
-        ...newMealState(),
+      state.mealOptions = {
+        ...newMealOptions(),
         editState: "add",
         mealIndex,
       }
     },
     exitMealEditMode(state) {
-      state.mealState = newMealState();
+      state.mealOptions = newMealOptions();
     },
     enterFoodEditMode(state, action: PayloadAction<{ mealIndex: number; foodIndex: number }>) {
-      state.mealState = {
-        ...state.mealState,
+      state.mealOptions = {
+        ...state.mealOptions,
         ...action.payload,
       };
     },
     exitFoodEditMode(state) {
-      state.mealState.foodIndex = -1;
+      state.mealOptions.foodIndex = -1;
     },
     exitFoodAddMode(state) {
-      state.mealState.editState = undefined;
-      state.mealState.foodIndex = -1;
+      state.mealOptions.editState = undefined;
+      state.mealOptions.foodIndex = -1;
     },
     showSavedMealAlert(state, action: PayloadAction<number>) {
-      state.mealState.showMealSavedAlertIndex = action.payload;
+      state.mealOptions.showMealSavedAlertIndex = action.payload;
     },
     hideSavedMealAlert(state) {
-      state.mealState.showMealSavedAlertIndex = -1;
+      state.mealOptions.showMealSavedAlertIndex = -1;
     },
   },
   extraReducers: builder => {
@@ -77,7 +77,7 @@ const pageOptionsSlice = createSlice({
       .addCase(newDay, () => initialState())
       .addCase(exitEditMode, () => initialState())
       .addCase(deleteFood, (state) => {
-        state.mealState.foodIndex = -1;
+        state.mealOptions.foodIndex = -1;
       })
   }
 });
