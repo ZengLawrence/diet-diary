@@ -80,7 +80,14 @@ const pageOptionsSlice = createSlice({
         state.mealOptions.foodIndex = -1;
       })
       .addCase(addMeal, () => initialState())
-      .addCase(deleteMeal, () => initialState())
+      .addCase(deleteMeal, () => {
+        return {
+          mealOptions: {
+            ...newMealOptions(),
+            editState: undefined,
+          }
+        };
+      })
   }
 });
 
