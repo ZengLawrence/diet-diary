@@ -49,9 +49,21 @@ const pageOptionsSlice = createSlice({
     exitMealEditMode(state) {
       state.mealState = newMealState();
     },
+    enterFoodEditMode(state, action: PayloadAction<{ mealIndex: number; foodIndex: number }>) {
+      state.mealState = {
+        ...state.mealState,
+        ...action.payload,
+      };
+    },
+    exitFoodEditMode(state) {
+      state.mealState.foodIndex = -1;
+    },
   },
 });
 
-export const { enterMealEditMode, enterMealAddMode, exitMealEditMode } = pageOptionsSlice.actions;
+export const { 
+  enterMealEditMode, enterMealAddMode, exitMealEditMode,
+  enterFoodEditMode, exitFoodEditMode,
+} = pageOptionsSlice.actions;
 
 export default pageOptionsSlice.reducer;
