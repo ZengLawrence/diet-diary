@@ -82,31 +82,6 @@ const mealStatesSlice = createSlice({
     cancelAddFood(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
       state[mealIndex].editState = undefined;
     },
-    enterMealEditMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
-      resetAll(state);
-      state[mealIndex].editState = "edit";
-    },
-    enterMealAddMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
-      state[mealIndex].editState = "add";
-    },
-    exitMealEditMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
-      state[mealIndex].editState = undefined;
-    },
-    enterFoodEditMode(state, action: PayloadAction<{ mealIndex: number; foodIndex: number }>) {
-      const { mealIndex, foodIndex } = action.payload;
-      state[mealIndex].foodEditIndex = foodIndex;
-    },
-    exitFoodEditMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
-      state[mealIndex].foodEditIndex = undefined;
-    },
-    showSavedMealAlert(state, action: PayloadAction<number>) {
-      const i = action.payload;
-      state[i].showMealSavedAlert = true;
-    },
-    hideSavedMealAlert(state, action: PayloadAction<number>) {
-      const i = action.payload;
-      state[i].showMealSavedAlert = false;
-    },
   },
   extraReducers: builder => {
     builder
