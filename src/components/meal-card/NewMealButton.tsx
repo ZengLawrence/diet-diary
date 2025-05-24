@@ -8,7 +8,7 @@ interface OwnProps {
   onClick: () => void;
 }
 
-export const NewMealButton = (props: OwnProps) => (
+export const NewFoodButton = (props: OwnProps) => (
   <Button variant={VariantPrimary}  data-cy="buttonNewFood" onClick={props.onClick}>
     <FontAwesomeIcon icon={faPlus} />
   </Button>
