@@ -18,7 +18,7 @@ export interface MealOptions {
 
 function newMealOptions(): MealOptions {
   return {
-    editState: undefined,
+    editState: "add",
     mealIndex: -1,
     foodIndex: -1,
     showMealSavedAlertIndex: -1,
@@ -79,14 +79,7 @@ const pageOptionsSlice = createSlice({
       .addCase(deleteFood, (state) => {
         state.mealOptions.foodIndex = -1;
       })
-      .addCase(addMeal, () => {
-        return {
-          mealOptions: {
-            ...newMealOptions(),
-            editState: "add",
-          },
-        };
-      })
+      .addCase(addMeal, () => initialState())
       .addCase(deleteMeal, () => initialState())
   }
 });
