@@ -64,7 +64,6 @@ const pageOptionsSlice = createSlice({
     hideSavedMealAlert(state) {
       state.mealState.showMealSavedAlertIndex = -1;
     },
-
   },
 });
 
