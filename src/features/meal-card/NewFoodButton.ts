@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { AppDispatch } from "../../app/store";
 import { enterMealAddMode } from "../day-page/mealStatesSlice";
-import { NewFoodButton } from "../../components/meal-card/NewMealButton";
+import { NewFoodButton } from "../../components/meal-card/NewFoodButton";
 
 const mapDispatchToProps = (dispatch: AppDispatch, ownProps: { mealIndex: number; }) => ({
   onClick: () => dispatch(enterMealAddMode(ownProps)),
