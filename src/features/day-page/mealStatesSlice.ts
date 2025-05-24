@@ -118,9 +118,6 @@ const mealStatesSlice = createSlice({
 export const {
   addMeal, addSavedMeal, deleteMeal,
   addFood, updateFood, deleteFood, cancelAddFood,
-  enterMealEditMode, enterMealAddMode, exitMealEditMode,
-  enterFoodEditMode, exitFoodEditMode,
-  showSavedMealAlert, hideSavedMealAlert
 } = mealStatesSlice.actions;
 
 export default mealStatesSlice.reducer;
