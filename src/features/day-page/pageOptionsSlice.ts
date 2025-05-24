@@ -58,6 +58,10 @@ const pageOptionsSlice = createSlice({
     exitFoodEditMode(state) {
       state.mealState.foodIndex = -1;
     },
+    exitFoodAddMode(state) {
+      state.mealState.editState = undefined;
+      state.mealState.foodIndex = -1;
+    },
     showSavedMealAlert(state, action: PayloadAction<number>) {
       state.mealState.showMealSavedAlertIndex = action.payload;
     },
@@ -69,7 +73,7 @@ const pageOptionsSlice = createSlice({
 
 export const { 
   enterMealEditMode, enterMealAddMode, exitMealEditMode,
-  enterFoodEditMode, exitFoodEditMode,
+  enterFoodEditMode, exitFoodEditMode, exitFoodAddMode,
   showSavedMealAlert, hideSavedMealAlert,
 } = pageOptionsSlice.actions;
 

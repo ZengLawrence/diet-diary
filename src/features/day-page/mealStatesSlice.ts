@@ -79,9 +79,6 @@ const mealStatesSlice = createSlice({
       state[mealIndex].meal.foods.splice(foodIndex, 1);
       state[mealIndex].foodEditIndex = undefined;
     },
-    cancelAddFood(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
-      state[mealIndex].editState = undefined;
-    },
   },
   extraReducers: builder => {
     builder
@@ -92,7 +89,7 @@ const mealStatesSlice = createSlice({
 
 export const {
   addMeal, addSavedMeal, deleteMeal,
-  addFood, updateFood, deleteFood, cancelAddFood,
+  addFood, updateFood, deleteFood,
 } = mealStatesSlice.actions;
 
 export default mealStatesSlice.reducer;
