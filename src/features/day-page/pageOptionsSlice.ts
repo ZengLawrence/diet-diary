@@ -1,0 +1,1 @@
+export type MealEditState = "add" | "edit" | undefined;

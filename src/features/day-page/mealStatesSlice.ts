@@ -4,8 +4,7 @@ import diary from "../../model/diary";
 import { Food, Meal, newMeal } from "../../model/Food";
 import { newDay } from "./dateSlice";
 import { exitEditMode } from "./editModeSlice";
-
-export type MealEditState = "add" | "edit" | undefined;
+import { MealEditState } from "./pageOptionsSlice";
 
 export interface MealState {
   meal: Meal;
