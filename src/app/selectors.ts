@@ -48,13 +48,25 @@ const _mealOptionsSelector: (state: RootState) => MealOptions = createSelector(
   (pageOptions) => pageOptions.mealOptions
 );
 
+const _mealStatesWithOptionsSelector:  (state: RootState) => MealState[] = createSelector( 
+  _mealStatesSelector,
+  _mealOptionsSelector,
+  (mealStates, mealOptions) => {
+    return _.map(mealStates, (mealState, mealIndex) => ({
+      ...mealState,
+      editState: (mealIndex === mealOptions.mealIndex) ? mealOptions.editState : undefined,
+      foodEditIndex: (mealIndex === mealOptions.mealIndex) ? mealOptions.foodIndex : -1,
+      showMealSavedAlert: mealIndex === mealOptions.showMealSavedAlertIndex,
+    }));
+  }
+);
+
 const _todaySelector: (state: RootState) => DayPageState = createSelector(
   _dateSelector,
   _editModeSelector,
   _targetStateSelector,
-  _mealStatesSelector,
-  _mealOptionsSelector,
-  (date, editMode, targetState, mealStates, mealOptions) => ({
+  _mealStatesWithOptionsSelector,
+  (date, editMode, targetState, mealStates) => ({
     date,
     viewOptions: {
       canEdit: editMode,
@@ -67,12 +79,7 @@ const _todaySelector: (state: RootState) => DayPageState = createSelector(
       ...targetState.target,
       unlimitedFruit: targetState.unlimitedFruit
     },
-    mealStates: _.map(mealStates, (mealState, mealIndex) => ({
-      ...mealState,
-      editState: (mealIndex === mealOptions.mealIndex) ? mealOptions.editState : undefined,
-      foodEditIndex: (mealIndex === mealOptions.mealIndex) ? mealOptions.foodIndex : -1,
-      showMealSavedAlert: mealIndex === mealOptions.showMealSavedAlertIndex,
-    })),
+    mealStates,
   })
 );
 
