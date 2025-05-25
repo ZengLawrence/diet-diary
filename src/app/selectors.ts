@@ -48,15 +48,44 @@ const _mealOptionsSelector: (state: RootState) => MealOptions = createSelector(
   (pageOptions) => pageOptions.mealOptions
 );
 
-const _mealStatesWithOptionsSelector:  (state: RootState) => MealState[] = createSelector( 
+function applyOptions(mealOptions: MealOptions, mealIndex: number): Pick<MealState, 'editState' | 'foodEditIndex' | 'showMealSavedAlert'> {
+  let mealState = undefined;
+  switch (mealOptions.editState) {
+    case "add":
+      if (mealIndex === mealOptions.mealIndex) {
+        mealState = {
+          editState: mealOptions.editState,
+        }
+      }
+      break;
+    case "edit":
+      if (mealIndex === mealOptions.mealIndex) {
+        mealState = {
+          editState: mealOptions.editState,
+          foodEditIndex: mealOptions.foodIndex,
+        }
+      }
+      break;
+    default:
+      if (mealIndex === mealOptions.showMealSavedAlertIndex) {
+        mealState = {
+          showMealSavedAlert: true,
+        }
+      }
+      break;
+  }
+  return mealState || {
+    editState: undefined,
+  };
+}
+
+const _mealStatesWithOptionsSelector: (state: RootState) => MealState[] = createSelector(
   _mealStatesSelector,
   _mealOptionsSelector,
   (mealStates, mealOptions) => {
     const mealStatesWithOptions = _.map(mealStates, (mealState, mealIndex) => ({
       ...mealState,
-      editState: (mealIndex === mealOptions.mealIndex) ? mealOptions.editState : undefined,
-      foodEditIndex: (mealIndex === mealOptions.mealIndex) ? mealOptions.foodIndex : -1,
-      showMealSavedAlert: mealIndex === mealOptions.showMealSavedAlertIndex,
+      ...applyOptions(mealOptions, mealIndex),
     }));
 
     // set last meal in add state if meal index is -1
