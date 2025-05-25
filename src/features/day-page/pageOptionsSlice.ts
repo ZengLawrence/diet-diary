@@ -75,7 +75,14 @@ const pageOptionsSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(newDay, () => initialState())
-      .addCase(exitEditMode, () => initialState())
+      .addCase(exitEditMode, () => {
+        return {
+          mealOptions: {
+            ...newMealOptions(),
+            editState: undefined,
+          }
+        }
+      })
       .addCase(deleteFood, (state) => {
         state.mealOptions.foodIndex = -1;
       })
