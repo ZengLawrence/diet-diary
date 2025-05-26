@@ -80,12 +80,12 @@ function useClickOutside(ref: RefObject<HTMLDivElement | null>, handler: () => v
 export const FoodDescriptionComboBox = (props: Props) => {
 
   const { invalid } = props;
-  const [toggle, setToggle] = useState(false);
+  const [showDropDown, setShowDropDown] = useState(false);
   const { inputRef, setInputFocus } = useFocus();
 
   const handleChange = (e: { target: { value: string; }; }) => {
     props.updateFoodDescription(e.target.value);
-    setToggle(true);
+    setShowDropDown(true);
   }
 
   const handleItemClick = (suggestion: Suggestion) => {
@@ -94,14 +94,21 @@ export const FoodDescriptionComboBox = (props: Props) => {
   }
 
   useEffect(() => {
-    if (invalid) { setToggle(false); }
+    if (invalid) { setShowDropDown(false); }
   }, [invalid]);
 
   const ref = useRef<HTMLDivElement>(null);
-  useClickOutside(ref, () => setToggle(false));
+  useClickOutside(ref, () => setShowDropDown(false));
+
+  const handleEscapeKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Escape') {
+      setShowDropDown(false);
+      event.preventDefault(); // Prevent default behavior if needed
+    }
+  };
 
   return (
-    <Dropdown ref={ref} show={toggle} onSelect={() => setToggle(false)}>
+    <Dropdown ref={ref} show={showDropDown} onSelect={() => setShowDropDown(false)}>
 
       <Form.Label htmlFor="inputFoodDescription">Food description</Form.Label>
       <Form.Control
@@ -110,6 +117,7 @@ export const FoodDescriptionComboBox = (props: Props) => {
         placeholder="Broccoli steamed 1 cup"
         value={props.foodName}
         onChange={handleChange}
+        onKeyDown={handleEscapeKeyDown}
         required
         isInvalid={props.invalid}
         autoFocus
