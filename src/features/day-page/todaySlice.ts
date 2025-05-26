@@ -3,11 +3,11 @@ import diary, { DayPage } from "../../model/diary";
 import { Target } from "../../model/Target";
 import { Food } from "../../model/Food";
 
-function getMeal(state: DayPage, i: number) {
-  if (i < 0 || i >= state.meals.length) {
-    throw new Error(`Invalid meal index: ${i}`);
+function getMeal(state: DayPage, index: number) {
+  if (index < 0 || index >= state.meals.length) {
+    throw new Error(`Invalid meal index: ${index}`);
   }
-  return state.meals[i];
+  return state.meals[index];
 }
 
 const todaySlice = createSlice({
