@@ -77,7 +77,7 @@ function applyOptions(mealOptions: MealOptions, mealIndex: number): Pick<MealSta
   };
 }
 
-const _mealStatesWithOptionsSelector: (state: RootState) => MealState[] = createSelector(
+const _mealStatesSelector: (state: RootState) => MealState[] = createSelector(
   _todaySelector,
   _mealOptionsSelector,
   (today, mealOptions) => {
@@ -98,7 +98,7 @@ const _mealStatesWithOptionsSelector: (state: RootState) => MealState[] = create
 const _todayStateSelector: (state: RootState) => DayPageState = createSelector(
   _todaySelector,
   _editModeSelector,
-  _mealStatesWithOptionsSelector,
+  _mealStatesSelector,
   (today, editMode, mealStates) => ({
     date: today.date,
     viewOptions: {
