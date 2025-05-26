@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { AppDispatch } from "../../app/store";
-import { addMeal } from "./mealStatesSlice";
 import { ButtonWrapper } from "../../components/ButtonWrapper";
+import { addMeal } from "./todaySlice";
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   onClick: () => dispatch(addMeal()),

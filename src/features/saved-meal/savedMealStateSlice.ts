@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { addSavedMeal } from "../day-page/mealStatesSlice";
 import { hide } from "../day-page/showSavedMealsSlice";
+import { addSavedMeal } from "../day-page/todaySlice";
 
 interface SavedMealState {
   searchTerm: string;

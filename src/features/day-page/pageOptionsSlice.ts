@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { exitEditMode } from "./editModeSlice";
-import { addMeal, deleteFood, deleteMeal } from "./mealStatesSlice";
-import { newDay } from "./todaySlice";
+import { addMeal, deleteFood, deleteMeal, newDay } from "./todaySlice";
 
 export type MealEditState = "add" | "edit" | undefined;
 
