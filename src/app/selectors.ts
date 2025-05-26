@@ -1,12 +1,12 @@
 import { createSelector } from "@reduxjs/toolkit";
 import _ from "lodash";
+import { MealEditState, MealOptions } from "../features/day-page/pageOptionsSlice";
+import { DayHistory, History, isToday } from "../features/history/historySlice";
 import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunction";
 import { Meal, Serving } from "../model/Food";
 import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServingSummary, calcServingDifference } from "../model/servingFunction";
 import { Gender, Target, defaultGender, manTarget, womanTarget } from "../model/Target";
 import { RootState } from "./store";
-import { DayHistory, History, isToday } from "../features/history/historySlice";
-import { MealEditState, MealOptions } from "../features/day-page/pageOptionsSlice";
 
 const _editModeSelector = (state: RootState) => state.editMode;
 export const summaryTypeSelector = (state: RootState) => state.summaryType;
