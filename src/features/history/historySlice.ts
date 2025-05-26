@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Meal } from "../../model/Food";
 import { Target } from "../../model/Target";
-import { newDay } from "../day-page/dateSlice";
+import { newDay } from "../day-page/todaySlice";
 
 export interface DayHistory {
   date: string,
