@@ -19,6 +19,7 @@ export const customTargetsStateSelector = (state: RootState) => state.customTarg
 const _historySelector = (state: RootState) => state.history;
 const _pageOptionsSelector = (state: RootState) => state.pageOptions;
 const _todaySelector = (state: RootState) => state.today;
+
 interface ViewOptions {
   canEdit: boolean,
   isToday: boolean,
