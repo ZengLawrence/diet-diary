@@ -11,6 +11,7 @@ import savedMealState from "../features/saved-meal/savedMealStateSlice";
 import customTargets from "../features/target/customTargetsSlice";
 import history from "../features/history/historySlice";
 import pageOptions from "../features/day-page/pageOptionsSlice";
+import today from "../features/day-page/todaySlice";
 
 export default combineReducers(
   {
@@ -26,5 +27,6 @@ export default combineReducers(
     customTargets,
     history,
     pageOptions,
+    today,
   }
 )
