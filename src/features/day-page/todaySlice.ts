@@ -1,0 +1,62 @@
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import diary, { DayPage } from "../../model/diary";
+import { Target } from "../../model/Target";
+import { Food } from "../../model/Food";
+
+function getMeal(state: DayPage, i: number) {
+  if (i < 0 || i >= state.meals.length) {
+    throw new Error(`Invalid meal index: ${i}`);
+  }
+  return state.meals[i];
+}
+
+const todaySlice = createSlice({
+  name: "date",
+  initialState: diary.newDay(),
+  reducers: {
+    newDay() {
+      return diary.newDay();
+    },
+    changeTarget(state, action: PayloadAction<Target>) {
+      return diary.updateTarget(state, action.payload);
+    },
+    toggleUnlimitedFruit(state) {
+      return diary.toggleUnlimitedFruit(state);
+    },
+    addMeal(state) {
+      return diary.addMeal(state);
+    },
+    addSavedMeal(state, action: PayloadAction<{ foods: Food[]; }>) {
+      return diary.addSavedMeal(state, action.payload.foods);
+    },
+    deleteMeal(state, action: PayloadAction<number>) {
+      const meal = getMeal(state, action.payload);
+      return diary.deleteMeal(state, meal);
+    },
+    addFood(state, action: PayloadAction<{ mealIndex: number; food: Food }>) {
+      const { mealIndex, food } = action.payload;
+      const meal = getMeal(state, mealIndex);
+      return diary.addFood(state, meal, food);
+    },
+    updateFood(state, action: PayloadAction<{ mealIndex: number; foodIndex: number; food: Food }>) {
+      const { mealIndex, foodIndex, food } = action.payload;
+      const meal = getMeal(state, mealIndex);
+      const foodToReplace = meal.foods[foodIndex];
+      return diary.updateFood(state, meal, foodToReplace, food);
+    },
+    deleteFood(state, action: PayloadAction<{ mealIndex: number; foodIndex: number; }>) {
+      const { mealIndex, foodIndex } = action.payload;
+      const meal = getMeal(state, mealIndex);
+      const food = meal.foods[foodIndex];
+      return diary.deleteFood(state, meal, food);
+    },
+  }
+})
+
+export const { 
+  newDay, 
+  changeTarget, toggleUnlimitedFruit,
+  addMeal, addSavedMeal, deleteMeal,
+  addFood, updateFood, deleteFood,
+ } = todaySlice.actions;
+export default todaySlice.reducer;
