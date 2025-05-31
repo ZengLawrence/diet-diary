@@ -65,6 +65,7 @@ export const loadState = (): any => {
     }
     const state = JSON.parse(serializedState);
     if (isDeprecatedState(state)) {
+      console.log("Converting deprecated state to new format");
       return convert(state);
     }
     return state;
