@@ -26,13 +26,13 @@ function isDeprecatedState(state: any): state is DeprecatedRootState {
     'date' in state &&
     'mealStates' in state &&
     'targetState' in state &&
-    'target' in state.target &&   // Check if target is present   
-    'unlimitedFruit' in state.target && // Check if unlimitedFruit is present
-    'gender' in state.target;
+    'target' in state.targetState &&   
+    'unlimitedFruit' in state.targetState && 
+    'gender' in state.targetState;
 }
 
 function convert(state: DeprecatedRootState): RootState {
-  const convertedState: RootState = {
+  const convertedState = {
     summaryType: state.summaryType,
     editMode: state.editMode,
     targetState: {
@@ -65,11 +65,11 @@ export const loadState = (): any => {
     }
     const state = JSON.parse(serializedState);
     if (isDeprecatedState(state)) {
-      console.log("Converting deprecated state to new format");
       return convert(state);
     }
     return state;
-  } catch {
+  } catch (e) {
+    console.error("Error loading state from localStorage", e);
     return undefined;
   }
 };
