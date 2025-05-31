@@ -65,7 +65,7 @@ const pageOptionsSlice = createSlice({
       }
     },
     exitMealEditMode(state) {
-      state.mealOptions = newMealOptions();
+      state.mealOptions = defaultMealOptions();
     },
     enterFoodEditMode(state, action: PayloadAction<{ mealIndex: number; foodIndex: number }>) {
       state.mealOptions = {
