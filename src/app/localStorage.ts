@@ -1,12 +1,73 @@
+import { Meal } from "../model/Food";
+import { Gender, Target } from "../model/Target";
 import { RootState } from "./store";
 
-export const loadState = () => {
+type DeprecatedTargetState = {
+  target: Target;
+  gender: Gender;
+  unlimitedFruit: boolean;
+};
+
+type DeprecatedRootState = Pick<RootState,
+  'editMode' | 'summaryType' | 'savedMeals' | 'showSavedMeals' | 'warning' | 'savedMealState' | 'customTargets' |
+  'history' | 'pageOptions'> & { date: string; mealStates: { meal: Meal }[]; targetState: DeprecatedTargetState };
+
+function isDeprecatedState(state: any): state is DeprecatedRootState {
+  return state && typeof state === 'object' &&
+    'editMode' in state &&
+    'summaryType' in state &&
+    'savedMeals' in state &&
+    'showSavedMeals' in state &&
+    'warning' in state &&
+    'savedMealState' in state &&
+    'customTargets' in state &&
+    'history' in state &&
+    'pageOptions' in state &&
+    'date' in state &&
+    'mealStates' in state &&
+    'targetState' in state &&
+    'target' in state.target &&   // Check if target is present   
+    'unlimitedFruit' in state.target && // Check if unlimitedFruit is present
+    'gender' in state.target;
+}
+
+function convert(state: DeprecatedRootState): RootState {
+  const convertedState: RootState = {
+    summaryType: state.summaryType,
+    editMode: state.editMode,
+    targetState: {
+      gender: state.targetState.gender,
+    },
+    savedMeals: state.savedMeals,
+    showSavedMeals: state.showSavedMeals,
+    warning: state.warning,
+    savedMealState: state.savedMealState,
+    customTargets: state.customTargets,
+    history: state.history,
+    pageOptions: state.pageOptions,
+    today: {
+      date: state.date,
+      target: {
+        ...state.targetState.target,
+        unlimitedFruit: state.targetState.unlimitedFruit,
+      },
+      meals: state.mealStates.map(ms => ms.meal),
+    },
+  };
+  return convertedState;
+}
+
+export const loadState = (): any => {
   try {
     const serializedState = localStorage.getItem('state');
     if (serializedState === null) {
       return undefined;
     }
-    return JSON.parse(serializedState);
+    const state = JSON.parse(serializedState);
+    if (isDeprecatedState(state)) {
+      return convert(state);
+    }
+    return state;
   } catch {
     return undefined;
   }
