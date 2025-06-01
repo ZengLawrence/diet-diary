@@ -3,7 +3,7 @@ import { targetSelector, targetsSelector } from "../../app/selectors";
 import { AppDispatch, RootState } from "../../app/store";
 import { TargetDropDown } from "../../components/target/TargetDropDown";
 import { Target } from "../../model/Target";
-import { changeTarget } from "./targetStateSlice";
+import { changeTarget } from "../day-page/todaySlice";
 
 const mapStateToProps = (state: RootState) => ({
   selectedCalorie: targetSelector(state).calorie,

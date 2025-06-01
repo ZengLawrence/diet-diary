@@ -1,16 +1,14 @@
 import { createSelector } from "@reduxjs/toolkit";
 import _ from "lodash";
+import { MealEditState, MealOptions } from "../features/day-page/pageOptionsSlice";
+import { DayHistory, History, isToday } from "../features/history/historySlice";
 import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunction";
 import { Meal, Serving } from "../model/Food";
 import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServingSummary, calcServingDifference } from "../model/servingFunction";
 import { Gender, Target, defaultGender, manTarget, womanTarget } from "../model/Target";
 import { RootState } from "./store";
-import { DayHistory, History, isToday } from "../features/history/historySlice";
-import { MealEditState, MealOptions } from "../features/day-page/pageOptionsSlice";
 
-const _dateSelector = (state: RootState) => state.date;
 const _editModeSelector = (state: RootState) => state.editMode;
-const _mealStatesSelector = (state: RootState) => state.mealStates;
 export const summaryTypeSelector = (state: RootState) => state.summaryType;
 const _targetStateSelector = (state: RootState) => state.targetState;
 export const savedMealsSelector = (state: RootState) => state.savedMeals;
@@ -20,6 +18,7 @@ export const savedMealStateSelector = (state: RootState) => state.savedMealState
 export const customTargetsStateSelector = (state: RootState) => state.customTargets;
 const _historySelector = (state: RootState) => state.history;
 const _pageOptionsSelector = (state: RootState) => state.pageOptions;
+const _todaySelector = (state: RootState) => state.today;
 
 interface ViewOptions {
   canEdit: boolean,
@@ -79,12 +78,12 @@ function applyOptions(mealOptions: MealOptions, mealIndex: number): Pick<MealSta
   };
 }
 
-const _mealStatesWithOptionsSelector: (state: RootState) => MealState[] = createSelector(
-  _mealStatesSelector,
+const _mealStatesSelector: (state: RootState) => MealState[] = createSelector(
+  _todaySelector,
   _mealOptionsSelector,
-  (mealStates, mealOptions) => {
-    const mealStatesWithOptions = _.map(mealStates, (mealState, mealIndex) => ({
-      ...mealState,
+  (today, mealOptions) => {
+    const mealStatesWithOptions = _.map(today.meals, (meal, mealIndex) => ({
+      meal,
       ...applyOptions(mealOptions, mealIndex),
     }));
 
@@ -97,13 +96,12 @@ const _mealStatesWithOptionsSelector: (state: RootState) => MealState[] = create
   }
 );
 
-const _todaySelector: (state: RootState) => DayPageState = createSelector(
-  _dateSelector,
+const _todayStateSelector: (state: RootState) => DayPageState = createSelector(
+  _todaySelector,
   _editModeSelector,
-  _targetStateSelector,
-  _mealStatesWithOptionsSelector,
-  (date, editMode, targetState, mealStates) => ({
-    date,
+  _mealStatesSelector,
+  (today, editMode, mealStates) => ({
+    date: today.date,
     viewOptions: {
       canEdit: editMode,
       isToday: true,
@@ -111,10 +109,7 @@ const _todaySelector: (state: RootState) => DayPageState = createSelector(
       canDownload: hasAtLeastOneFood(meals(mealStates)),
       canAddNewDay: !editMode,
     },
-    target: {
-      ...targetState.target,
-      unlimitedFruit: targetState.unlimitedFruit
-    },
+    target: today.target,
     mealStates,
   })
 );
@@ -158,7 +153,7 @@ function getDay(history: History): DayPageState {
 export const dayPageSelector: (state: RootState) => DayPageState = createSelector(
   _isTodaySelector,
   _historySelector,
-  _todaySelector,
+  _todayStateSelector,
   (isToday, history, dayPage) => isToday ? dayPage : getDay(history),
 );
 
