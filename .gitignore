@@ -39,3 +39,6 @@ dist/
 packages/parser/*Lexer.js
 packages/parser/*Parser.js
 packages/parser/*Listener.js
+
+# scratch files
+.scratch/

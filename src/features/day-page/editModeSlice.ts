@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { newDay } from "./dateSlice";
+import { newDay } from "./todaySlice";
 
 const initialState = true;
 

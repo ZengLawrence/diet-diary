@@ -2,8 +2,8 @@ import { connect } from "react-redux";
 import { AppDispatch } from "../../app/store";
 import { ButtonLabel, FoodInputForm } from "../../components/input-form/FoodInputForm";
 import { Food, newFood } from "../../model/Food";
-import { addFood } from "../day-page/mealStatesSlice";
 import { exitFoodAddMode } from "../day-page/pageOptionsSlice";
+import { addFood } from "../day-page/todaySlice";
 
 const mapStateToProps = () => ({
   food: newFood(),

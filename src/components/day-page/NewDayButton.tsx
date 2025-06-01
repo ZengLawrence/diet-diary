@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { dayPageSelector, DayPageState } from "../../app/selectors";
-import { newDay } from "../../features/day-page/dateSlice";
+import { newDay } from "../../features/day-page/todaySlice";
 import { add, DayHistory } from "../../features/history/historySlice";
 import { seShowCanNotAddNewDayWarning } from "../../features/warning/warningSlice";
 import { validation } from "../../model/diary";
