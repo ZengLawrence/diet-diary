@@ -12,6 +12,7 @@ type DeprecatedRootState = Pick<RootState,
   'editMode' | 'summaryType' | 'savedMeals' | 'showSavedMeals' | 'warning' | 'savedMealState' | 'customTargets' |
   'history' | 'pageOptions'> & { date: string; mealStates: { meal: Meal }[]; targetState: DeprecatedTargetState };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isDeprecatedState(state: any): state is DeprecatedRootState {
   return state && typeof state === 'object' &&
     'editMode' in state &&
@@ -57,6 +58,7 @@ function convert(state: DeprecatedRootState): RootState {
   return convertedState;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const loadState = (): any => {
   try {
     const serializedState = localStorage.getItem('state');
