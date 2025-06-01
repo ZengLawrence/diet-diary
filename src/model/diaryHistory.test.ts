@@ -1,21 +1,24 @@
 import { mutations } from "./diaryHistory";
 import { DayPage } from "./diary";
 
-describe("mutations.add", () => {
-  function makeDay(date: string): DayPage {
-    return {
-      date,
-      target: { unlimitedFruit: false, calorie: 2000, serving: {
+function makeDay(date: string): DayPage {
+  return {
+    date,
+    target: {
+      unlimitedFruit: false, calorie: 2000, serving: {
         vegetable: 0,
         fruit: 0,
         carbohydrate: 0,
         proteinDiary: 0,
         fat: 0,
         sweet: 0
-      }},
-      meals: [],
-    };
-  }
+      }
+    },
+    meals: [],
+  };
+}
+
+describe("mutations.add", () => {
 
   it("adds a new day to empty history", () => {
     const day = makeDay("2025-06-01");
