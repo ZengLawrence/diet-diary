@@ -14,8 +14,8 @@ const todaySlice = createSlice({
   name: "date",
   initialState: diary.newDay(),
   reducers: {
-    newDay() {
-      return diary.newDay();
+    newDay(state) {
+      return diary.newDay(state);
     },
     changeTarget(state, action: PayloadAction<Target>) {
       return diary.updateTarget(state, action.payload);
