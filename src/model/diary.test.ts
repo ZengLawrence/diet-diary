@@ -49,6 +49,49 @@ describe("mutation", () => {
         })
       );
     });
+
+    it("should return a new object reference each time", () => {
+      const day1 = mutation.newDay();
+      const day2 = mutation.newDay();
+      expect(day1).not.toBe(day2);
+    });
+
+    it("should use the provided current DayPage's target if given", () => {
+      const customTarget = { ...getDefaultTarget(), unlimitedFruit: true, calorie: 1234 };
+      const current = {
+        date: "old-date",
+        target: customTarget,
+        meals: [newMeal()],
+      };
+      const day = mutation.newDay(current);
+      expect(day.target).toEqual(customTarget);
+    });
+
+    it("should reset meals to a single empty meal even if current has multiple meals", () => {
+      const meal1 = newMeal();
+      meal1.foods.push({ description: "A", serving: {} });
+      const meal2 = newMeal();
+      meal2.foods.push({ description: "B", serving: {} });
+      const current = {
+        date: "old-date",
+        target: { ...getDefaultTarget(), unlimitedFruit: false },
+        meals: [meal1, meal2],
+      };
+      const day = mutation.newDay(current);
+      expect(day.meals.length).toBe(1);
+      expect(day.meals[0].foods).toEqual([]);
+    });
+
+    it("should set the date to today even if current has a different date", () => {
+      const current = {
+        date: "not-today",
+        target: { ...getDefaultTarget(), unlimitedFruit: false },
+        meals: [newMeal()],
+      };
+      const day = mutation.newDay(current);
+      const today = new Date().toLocaleDateString();
+      expect(day.date).toBe(today);
+    });
   });
 
   describe("addMeal", () => {

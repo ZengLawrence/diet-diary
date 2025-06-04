@@ -19,13 +19,11 @@ export const validation = {
   isToday,
 }
 
-function newDay(): DayPage {
+function newDay(current: DayPage | undefined = undefined): DayPage {
+  const target = current?.target || { unlimitedFruit: false, ...getDefaultTarget() };
   return {
     date: today(),
-    target: {
-      unlimitedFruit: false,
-      ...getDefaultTarget(),
-    },
+    target,
     meals: [newMeal()],
   }
 }
