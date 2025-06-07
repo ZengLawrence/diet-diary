@@ -42,6 +42,10 @@ export const loadState = (): any => {
     if (isDeprecatedState(state)) {
       return convert(state);
     }
+    const history = localStorage.getItem('history');
+    if (history !== null) {
+      state.history = JSON.parse(history);
+    }
     return state;
   } catch (e) {
     console.error("Error loading state from localStorage", e);
@@ -49,11 +53,31 @@ export const loadState = (): any => {
   }
 };
 
-export const saveState = (state: RootState) => {
+function removeHistory(state: RootState): Omit<RootState, 'history'> {
+  const { history, ...rest } = state;
+  return rest;
+}
+
+function saveStateWithOutHistory(state: RootState): void {
+  const stateWithoutHistory = removeHistory(state);
   try {
-    const serializedState = JSON.stringify(state);
+    const serializedState = JSON.stringify(stateWithoutHistory);
     localStorage.setItem('state', serializedState);
   } catch {
     // ignore write errors
   }
+}
+
+function saveHistory(history: RootState['history']): void {
+  try {
+    const serializedHistory = JSON.stringify(history);
+    localStorage.setItem('history', serializedHistory);
+  } catch {
+    // ignore write errors
+  }
+}
+
+export const saveState = (state: RootState) => {
+  saveStateWithOutHistory(state);
+  saveHistory(state.history);
 };
