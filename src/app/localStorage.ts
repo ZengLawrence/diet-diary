@@ -1,12 +1,20 @@
 import { PageOptions } from "../features/day-page/pageOptionsSlice";
+import { DayPage } from "../model/diary";
 import { RootState } from "./store";
 
-type DeprecatedState = Omit<RootState, 'pageOptions' > & {
+type DeprecatedState = Omit<RootState, 'pageOptions' | 'history' > & {
   pageOptions: Omit<PageOptions, 'currentDate'>;
+  history: {
+    days: DayPage[];
+    dateIndex: number;
+  }
 };
 
 function isDeprecatedState(state: any): state is DeprecatedState {
-  return 'pageOptions' in state && 'currentDate' in state.pageOptions;
+  return 'pageOptions' in state &&
+         'history' in state &&
+         'dateIndex' in state.history &&
+         typeof state.history.dateIndex === 'number';;
 }
 
 function convert(state: DeprecatedState): RootState {
@@ -15,6 +23,9 @@ function convert(state: DeprecatedState): RootState {
     pageOptions: {
       ...state.pageOptions,
       currentDate: "today", // Default to "today" for deprecated states
+    },
+    history: {
+      days: state.history.days,
     },
   };
 }
