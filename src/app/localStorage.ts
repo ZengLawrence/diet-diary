@@ -31,21 +31,37 @@ function convert(state: DeprecatedState): RootState {
   };
 }
 
+function getState(): RootState | null {
+  const state = localStorage.getItem('state');
+  if (state === null) {
+    return null;
+  }
+  return JSON.parse(state);
+}
+
+function getHistory(): RootState['history'] | null {
+  const history = localStorage.getItem('history');
+  if (history === null) {
+    return null;
+  }
+  return JSON.parse(history);
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const loadState = (): any => {
   try {
-    const serializedState = localStorage.getItem('state');
-    if (serializedState === null) {
+    const state = getState();
+    if (state === null) {
       return undefined;
     }
-    const state = JSON.parse(serializedState);
     if (isDeprecatedState(state)) {
       return convert(state);
     }
-    const history = localStorage.getItem('history');
-    if (history !== null) {
-      state.history = JSON.parse(history);
+    const history = getHistory();
+    if (history === null) {
+      return state;
     }
+    state.history = history;
     return state;
   } catch (e) {
     console.error("Error loading state from localStorage", e);
