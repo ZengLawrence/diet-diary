@@ -142,15 +142,14 @@ const _currentDateSelector: (state: RootState) => string | "today" = createSelec
 );
 
 const _isTodaySelector: (state: RootState) => boolean = createSelector(
-  _pageOptionsSelector,
-  (pageOptions) => isToday(pageOptions.currentDate),
+  _currentDateSelector,
+  (currentDate) => isToday(currentDate),
 );
 
 const _historyDaySelector: (state: RootState) => DayPageState = createSelector(
-  _pageOptionsSelector,
+  _currentDateSelector,
   _historySelector,
-  (pageOptions, history) => {
-    const currentDate = pageOptions.currentDate;
+  (currentDate, history) => {
     const dateIndex = history.days.findIndex(day => day.date === currentDate);
     if (dateIndex >= 0) {
       return toDayPage(history.days[dateIndex]);
