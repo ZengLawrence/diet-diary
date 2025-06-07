@@ -1,8 +1,9 @@
 import { createSelector } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { MealEditState, MealOptions } from "../features/day-page/pageOptionsSlice";
-import { DayHistory, History, isToday } from "../features/history/historySlice";
+import { History, isToday } from "../features/history/historySlice";
 import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunction";
+import { DayPage } from "../model/diary";
 import { Meal, Serving } from "../model/Food";
 import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServingSummary, calcServingDifference } from "../model/servingFunction";
 import { Gender, Target, defaultGender, manTarget, womanTarget } from "../model/Target";
@@ -120,7 +121,7 @@ function toMealState(meal: Meal): MealState {
   });
 }
 
-function toDayPage(dayHistory: DayHistory): DayPageState {
+function toDayPage(dayHistory: DayPage): DayPageState {
   return ({
     date: dayHistory.date,
     viewOptions: {
