@@ -1,16 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Meal } from "../../model/Food";
-import { Target } from "../../model/Target";
 import { newDay } from "../day-page/todaySlice";
-
-export interface DayHistory {
-  date: string,
-  target: Target & { unlimitedFruit: boolean }
-  meals: Meal[],
-}
+import { DayPage } from "../../model/diary";
 
 export interface History {
-  days: DayHistory[],
+  days: DayPage[],
   dateIndex: number,
 }
 
@@ -31,7 +24,7 @@ const historySlice = createSlice({
   name: "history",
   initialState,
   reducers: {
-    add(state, action: PayloadAction<DayHistory>) {
+    add(state, action: PayloadAction<DayPage>) {
       state.days.unshift(action.payload);
       if (state.days.length > MAX_DAYS) {
         state.days = state.days.slice(0, MAX_DAYS);
