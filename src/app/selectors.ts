@@ -141,16 +141,6 @@ const _isTodaySelector: (state: RootState) => boolean = createSelector(
   (pageOptions) => isToday(pageOptions.currentDate),
 );
 
-function getDay(history: History): DayPageState {
-  const i = history.dateIndex;
-  const days = history.days;
-  if (0 <= i && i < days.length) {
-    return toDayPage(history.days[history.dateIndex]);
-  } else {
-    return toDayPage(history.days[0]);
-  }
-}
-
 const _historyDaySelector: (state: RootState) => DayPageState = createSelector(
   _pageOptionsSelector,
   _historySelector,

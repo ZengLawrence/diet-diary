@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { newDay } from "../day-page/todaySlice";
 import { DayPage } from "../../model/diary";
 
 export interface History {
@@ -8,11 +7,6 @@ export interface History {
 }
 
 const TODAY = -1;
-
-export function isToday(index: number) {
-  return index == TODAY;
-}
-
 const MAX_DAYS = 7;
 
 const initialState: History = {
@@ -30,25 +24,8 @@ const historySlice = createSlice({
         state.days = state.days.slice(0, MAX_DAYS);
       }
     },
-    back(state) {
-      if (state.dateIndex + 1 < state.days.length) {
-        state.dateIndex += 1;
-      }
-    },
-    next(state) {
-      if (state.dateIndex - 1 >= TODAY) {
-        state.dateIndex -= 1;
-      }
-    },
-    goToToday(state) {
-      state.dateIndex = TODAY;
-    },
   },
-  extraReducers: builder => {
-    builder
-      .addCase(newDay, (state) => { state.dateIndex = TODAY });
-  }
 })
 
-export const { add, back, next, goToToday } = historySlice.actions;
+export const { add } = historySlice.actions;
 export default historySlice.reducer;
