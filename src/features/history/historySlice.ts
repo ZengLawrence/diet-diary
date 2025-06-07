@@ -3,10 +3,8 @@ import { DayPage } from "../../model/diary";
 
 export interface History {
   days: DayPage[],
-  dateIndex: number,
 }
 
-const TODAY = -1;
 const MAX_DAYS = 7;
 
 export function getDaysRemaining(history: History, currentDate: string): { daysRemaining: number, totalDays: number } {
@@ -21,7 +19,6 @@ export function getDaysRemaining(history: History, currentDate: string): { daysR
 
 const initialState: History = {
   days: [],
-  dateIndex: TODAY,
 }
 
 const historySlice = createSlice({
