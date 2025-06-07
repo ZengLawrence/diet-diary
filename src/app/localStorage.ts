@@ -10,6 +10,7 @@ type DeprecatedState = Omit<RootState, 'pageOptions' | 'history' > & {
   }
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isDeprecatedState(state: any): state is DeprecatedState {
   return 'pageOptions' in state &&
          'history' in state &&
