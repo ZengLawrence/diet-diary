@@ -9,6 +9,16 @@ export interface History {
 const TODAY = -1;
 const MAX_DAYS = 7;
 
+export function getDaysRemaining(history: History, currentDate: string): { daysRemaining: number, totalDays: number } {
+  const totalDays = history.days.length;
+  const dateIndex = history.days.findIndex(day => day.date === currentDate);
+  if (dateIndex === -1) {
+    return { daysRemaining: 0, totalDays };
+  }
+  const daysRemaining = totalDays - (dateIndex + 1);
+  return { daysRemaining, totalDays };
+}
+
 const initialState: History = {
   days: [],
   dateIndex: TODAY,
