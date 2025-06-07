@@ -2,13 +2,14 @@ import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
-import { next } from "../../features/history/historySlice";
+import { AppDispatch } from "../../app/store";
+import { next } from "../../features/day-page/pageOptionsSlice";
 import { VariantSecondary } from "../ButtonVariant";
 
 const NextButton = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const handleClick = () => {
-    dispatch(next())
+    dispatch(next());
   }
 
   return (

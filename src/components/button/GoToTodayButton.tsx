@@ -1,12 +1,13 @@
 import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
-import { goToToday } from "../../features/history/historySlice";
+import { AppDispatch } from "../../app/store";
+import { goToToday } from "../../features/day-page/pageOptionsSlice";
 import { VariantSecondary } from "../ButtonVariant";
 
 const GoToTodayButton = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const handleClick = () => {
-    dispatch(goToToday())
+    dispatch(goToToday());
   }
 
   return (
