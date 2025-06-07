@@ -1,12 +1,12 @@
 import { createSelector } from "@reduxjs/toolkit";
 import _ from "lodash";
-import { MealEditState, MealOptions } from "../features/day-page/pageOptionsSlice";
-import { History, isToday } from "../features/history/historySlice";
+import { isToday, MealEditState, MealOptions } from "../features/day-page/pageOptionsSlice";
+import { History } from "../features/history/historySlice";
 import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunction";
 import { DayPage } from "../model/diary";
 import { Meal, Serving } from "../model/Food";
 import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServingSummary, calcServingDifference } from "../model/servingFunction";
-import { Gender, Target, defaultGender, manTarget, womanTarget } from "../model/Target";
+import { defaultGender, Gender, manTarget, Target, womanTarget } from "../model/Target";
 import { RootState } from "./store";
 
 const _editModeSelector = (state: RootState) => state.editMode;
@@ -137,8 +137,8 @@ function toDayPage(dayHistory: DayPage): DayPageState {
 }
 
 const _isTodaySelector: (state: RootState) => boolean = createSelector(
-  _historySelector,
-  (history) => isToday(history.dateIndex),
+  _pageOptionsSelector,
+  (pageOptions) => isToday(pageOptions.currentDate),
 );
 
 function getDay(history: History): DayPageState {
@@ -151,11 +151,25 @@ function getDay(history: History): DayPageState {
   }
 }
 
+const _historyDaySelector: (state: RootState) => DayPageState = createSelector(
+  _pageOptionsSelector,
+  _historySelector,
+  (pageOptions, history) => {
+    const currentDate = pageOptions.currentDate;
+    const dateIndex = history.days.findIndex(day => day.date === currentDate);
+    if (dateIndex >= 0) {
+      return toDayPage(history.days[dateIndex]);
+    } else {
+      return toDayPage(history.days[0]);
+    }
+  }
+);
+
 export const dayPageSelector: (state: RootState) => DayPageState = createSelector(
   _isTodaySelector,
-  _historySelector,
+  _historyDaySelector,
   _todayStateSelector,
-  (isToday, history, dayPage) => isToday ? dayPage : getDay(history),
+  (isToday, historyDay, today) => isToday ? today : historyDay,
 );
 
 export const viewOptionsSelector: (state: RootState) => ViewOptions = createSelector(
