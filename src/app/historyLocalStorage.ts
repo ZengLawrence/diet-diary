@@ -1,9 +1,9 @@
 import { RootState } from "./store";
 
-export function loadHistory(): RootState['history'] | null {
+export function loadHistory(): RootState['history'] | undefined {
   const history = localStorage.getItem('history');
   if (history === null) {
-    return null;
+    return undefined;
   }
   return JSON.parse(history);
 }

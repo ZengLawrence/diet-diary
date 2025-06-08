@@ -51,7 +51,7 @@ export const loadState = (): any => {
       return convert(state);
     }
     const history = loadHistory();
-    if (history === null) {
+    if (history === undefined) {
       return state;
     }
     state.history = history;
