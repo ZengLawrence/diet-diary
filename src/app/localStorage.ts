@@ -39,7 +39,7 @@ function _loadState(): RootState | null {
   return JSON.parse(state);
 }
 
-function getHistory(): RootState['history'] | null {
+function loadHistory(): RootState['history'] | null {
   const history = localStorage.getItem('history');
   if (history === null) {
     return null;
@@ -57,7 +57,7 @@ export const loadState = (): any => {
     if (isDeprecatedState(state)) {
       return convert(state);
     }
-    const history = getHistory();
+    const history = loadHistory();
     if (history === null) {
       return state;
     }
