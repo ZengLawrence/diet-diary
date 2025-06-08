@@ -12,7 +12,7 @@ type DeprecatedDateIndex = Omit<RootState, 'pageOptions' | 'history'> & {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isDeprecatedState(state: any): state is DeprecatedDateIndex {
+function isDeprecatedDateIndex(state: any): state is DeprecatedDateIndex {
   return 'pageOptions' in state &&
     'history' in state &&
     'dateIndex' in state.history &&
@@ -51,7 +51,7 @@ export const loadState = (): any => {
   if (state === null) {
     return undefined;
   }
-  if (isDeprecatedState(state)) {
+  if (isDeprecatedDateIndex(state)) {
     return convert(state);
   }
   const history = loadHistory();
