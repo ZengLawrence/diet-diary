@@ -2,7 +2,7 @@ import { PageOptions } from "../features/day-page/pageOptionsSlice";
 import { DayPage } from "../model/diary";
 import { RootState } from "./store";
 
-type DeprecatedState = Omit<RootState, 'pageOptions' | 'history' > & {
+type DeprecatedDateIndex = Omit<RootState, 'pageOptions' | 'history' > & {
   pageOptions: Omit<PageOptions, 'currentDate'>;
   history: {
     days: DayPage[];
@@ -11,14 +11,14 @@ type DeprecatedState = Omit<RootState, 'pageOptions' | 'history' > & {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isDeprecatedState(state: any): state is DeprecatedState {
+function isDeprecatedState(state: any): state is DeprecatedDateIndex {
   return 'pageOptions' in state &&
          'history' in state &&
          'dateIndex' in state.history &&
          typeof state.history.dateIndex === 'number';;
 }
 
-function convert(state: DeprecatedState): RootState {
+function convert(state: DeprecatedDateIndex): RootState {
   return {
     ...state,
     pageOptions: {
