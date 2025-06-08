@@ -31,7 +31,7 @@ function convert(state: DeprecatedState): RootState {
   };
 }
 
-function getState(): RootState | null {
+function _loadState(): RootState | null {
   const state = localStorage.getItem('state');
   if (state === null) {
     return null;
@@ -50,7 +50,7 @@ function getHistory(): RootState['history'] | null {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const loadState = (): any => {
   try {
-    const state = getState();
+    const state = _loadState();
     if (state === null) {
       return undefined;
     }
