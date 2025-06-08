@@ -1,7 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { isToday, MealEditState, MealOptions } from "../features/day-page/pageOptionsSlice";
-import { getDaysRemaining } from "../features/history/historySlice";
+import { getDaysRemaining, History } from "../features/history/historySlice";
 import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunction";
 import { DayPage } from "../model/diary";
 import { Meal, Serving } from "../model/Food";
@@ -141,29 +141,20 @@ const _currentDateSelector: (state: RootState) => string | "today" = createSelec
   (pageOptions) => pageOptions.currentDate,
 );
 
-const _isTodaySelector: (state: RootState) => boolean = createSelector(
-  _currentDateSelector,
-  (currentDate) => isToday(currentDate),
-);
-
-const _historyDaySelector: (state: RootState) => DayPageState = createSelector(
-  _currentDateSelector,
-  _historySelector,
-  (currentDate, history) => {
-    const dateIndex = history.days.findIndex(day => day.date === currentDate);
-    if (dateIndex >= 0) {
-      return toDayPage(history.days[dateIndex]);
-    } else {
-      return toDayPage(history.days[0]);
-    }
+function getHistoryDay(currentDate: string, history: History): DayPageState {
+  const dateIndex = history.days.findIndex(day => day.date === currentDate);
+  if (dateIndex >= 0) {
+    return toDayPage(history.days[dateIndex]);
+  } else {
+    return toDayPage(history.days[0]);
   }
-);
+}
 
 export const dayPageSelector: (state: RootState) => DayPageState = createSelector(
-  _isTodaySelector,
-  _historyDaySelector,
+  _currentDateSelector,
   _todayStateSelector,
-  (isToday, historyDay, today) => isToday ? today : historyDay,
+  _historySelector,
+  (currentDate, today, history) => isToday(currentDate) ? today : getHistoryDay(currentDate, history),
 );
 
 export const viewOptionsSelector: (state: RootState) => ViewOptions = createSelector(
