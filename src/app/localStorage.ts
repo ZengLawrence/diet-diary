@@ -1,6 +1,7 @@
 import { PageOptions } from "../features/day-page/pageOptionsSlice";
 import { DayPage } from "../model/diary";
 import { RootState } from "./store";
+import { loadHistory, saveHistory } from "./historyLocalStorage";
 
 type DeprecatedDateIndex = Omit<RootState, 'pageOptions' | 'history' > & {
   pageOptions: Omit<PageOptions, 'currentDate'>;
@@ -39,14 +40,6 @@ function _loadState(): RootState | null {
   return JSON.parse(state);
 }
 
-function loadHistory(): RootState['history'] | null {
-  const history = localStorage.getItem('history');
-  if (history === null) {
-    return null;
-  }
-  return JSON.parse(history);
-}
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const loadState = (): any => {
   try {
@@ -79,15 +72,6 @@ function saveStateWithOutHistory(state: RootState): void {
   try {
     const serializedState = JSON.stringify(stateWithoutHistory);
     localStorage.setItem('state', serializedState);
-  } catch {
-    // ignore write errors
-  }
-}
-
-function saveHistory(history: RootState['history']): void {
-  try {
-    const serializedHistory = JSON.stringify(history);
-    localStorage.setItem('history', serializedHistory);
   } catch {
     // ignore write errors
   }
