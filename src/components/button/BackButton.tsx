@@ -2,14 +2,15 @@ import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
-import { back } from "../../features/history/historySlice";
 import { VariantSecondary } from "../ButtonVariant";
+import { back } from "../../features/day-page/pageOptionsSlice";
+import { AppDispatch } from "../../app/store";
 
 const BackButton = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const handleClick = () => {
-    dispatch(back())
+    dispatch(back());
   }
 
   return (

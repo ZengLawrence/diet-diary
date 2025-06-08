@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
+import { History } from "../history/historySlice";
 import { exitEditMode } from "./editModeSlice";
 import { addMeal, deleteFood, deleteMeal, newDay } from "./todaySlice";
 
@@ -6,6 +7,7 @@ export type MealEditState = "add" | "edit" | undefined;
 
 export interface PageOptions {
   mealOptions: MealOptions;
+  currentDate: string | "today";
 }
 
 export interface AddMealOptions {
@@ -40,9 +42,42 @@ function defaultMealOptions(): DefaultMealOptions {
   };
 }
 
+export function isToday(date: string | "today"): date is "today" {
+  return date === "today";
+}
+
+export function back() {
+  return (dispatch: Dispatch, getState: () => { pageOptions: PageOptions; history: History }) => {
+    const state = getState();
+    const { currentDate } = state.pageOptions;
+    const history = state.history;
+    const dateIndex = history.days.findIndex(date => date.date === currentDate);
+    if (dateIndex + 1 < history.days.length) {
+      const previousDate = history.days[dateIndex + 1].date;
+      dispatch(pageOptionsSlice.actions.setCurrentDate(previousDate));
+    }
+  }
+}
+
+export function next() {
+  return (dispatch: Dispatch, getState: () => { pageOptions: PageOptions; history: History }) => {
+    const state = getState();
+    const { currentDate } = state.pageOptions;
+    const history = state.history;
+    const dateIndex = history.days.findIndex(date => date.date === currentDate);
+    if (dateIndex - 1 >= 0) {
+      const nextDate = history.days[dateIndex - 1].date;
+      dispatch(pageOptionsSlice.actions.setCurrentDate(nextDate));
+    } else {
+      dispatch(pageOptionsSlice.actions.setCurrentDate("today"));
+    }
+  }
+}
+
 function initialState(): PageOptions {
   return {
     mealOptions: newMealOptions(),
+    currentDate: "today",
   };
 }
 
@@ -90,6 +125,12 @@ const pageOptionsSlice = createSlice({
     hideSavedMealAlert(state) {
       state.mealOptions = defaultMealOptions();
     },
+    setCurrentDate(state, action: PayloadAction<string | "today">) {
+      state.currentDate = action.payload;
+    },
+    goToToday(state) {
+      state.currentDate = "today";
+    },
   },
   extraReducers: builder => {
     builder
@@ -109,10 +150,11 @@ const pageOptionsSlice = createSlice({
   }
 });
 
-export const { 
+export const {
   enterMealEditMode, enterMealAddMode, exitMealEditMode,
   enterFoodEditMode, exitFoodEditMode, exitFoodAddMode,
   showSavedMealAlert, hideSavedMealAlert,
+  goToToday,
 } = pageOptionsSlice.actions;
 
 export default pageOptionsSlice.reducer;
