@@ -3,7 +3,7 @@ import { DayPage } from "../model/diary";
 import { RootState } from "./store";
 import { loadHistory, saveHistory } from "./historyLocalStorage";
 
-type DeprecatedDateIndex = Omit<RootState, 'pageOptions' | 'history' > & {
+type DeprecatedDateIndex = Omit<RootState, 'pageOptions' | 'history'> & {
   pageOptions: Omit<PageOptions, 'currentDate'>;
   history: {
     days: DayPage[];
@@ -14,9 +14,9 @@ type DeprecatedDateIndex = Omit<RootState, 'pageOptions' | 'history' > & {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isDeprecatedState(state: any): state is DeprecatedDateIndex {
   return 'pageOptions' in state &&
-         'history' in state &&
-         'dateIndex' in state.history &&
-         typeof state.history.dateIndex === 'number';;
+    'history' in state &&
+    'dateIndex' in state.history &&
+    typeof state.history.dateIndex === 'number';;
 }
 
 function convert(state: DeprecatedDateIndex): RootState {
@@ -33,33 +33,33 @@ function convert(state: DeprecatedDateIndex): RootState {
 }
 
 function _loadState(): RootState | null {
-  const state = localStorage.getItem('state');
-  if (state === null) {
+  try {
+    const serializedState = localStorage.getItem('state');
+    if (serializedState === null) {
+      return null;
+    }
+    return JSON.parse(serializedState);
+  } catch (e) {
+    console.error("Error loading state from localStorage", e);
     return null;
   }
-  return JSON.parse(state);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const loadState = (): any => {
-  try {
-    const state = _loadState();
-    if (state === null) {
-      return undefined;
-    }
-    if (isDeprecatedState(state)) {
-      return convert(state);
-    }
-    const history = loadHistory();
-    if (history === undefined) {
-      return state;
-    }
-    state.history = history;
-    return state;
-  } catch (e) {
-    console.error("Error loading state from localStorage", e);
+  const state = _loadState();
+  if (state === null) {
     return undefined;
   }
+  if (isDeprecatedState(state)) {
+    return convert(state);
+  }
+  const history = loadHistory();
+  if (history === undefined) {
+    return state;
+  }
+  state.history = history;
+  return state;
 };
 
 function removeHistory(state: RootState): Omit<RootState, 'history'> {
