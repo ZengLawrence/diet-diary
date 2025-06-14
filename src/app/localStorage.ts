@@ -2,6 +2,7 @@ import { PageOptions } from "../features/day-page/pageOptionsSlice";
 import { DayPage } from "../model/diary";
 import { RootState } from "./store";
 import { loadHistory, saveHistory } from "./historyLocalStorage";
+import { loadToday, saveToday } from "./todayLocalStorage";
 
 type DeprecatedDateIndex = Omit<RootState, 'pageOptions' | 'history'> & {
   pageOptions: Omit<PageOptions, 'currentDate'>;
@@ -59,19 +60,37 @@ export const loadState = (): any => {
     return state;
   }
   state.history = history;
+  const today = loadToday();
+  if (today === undefined) {
+    return state;
+  }
+  state.today = today;
   return state;
 };
 
-function removeHistory(state: RootState): Omit<RootState, 'history'> {
+type RootStateWithoutHistory = Omit<RootState, 'history'>;
+
+function removeHistory(state: RootState): RootStateWithoutHistory {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { history: _unused, ...rest } = state;
   return rest;
 }
 
-function saveStateWithOutHistory(state: RootState): void {
-  const stateWithoutHistory = removeHistory(state);
+type ReduxState = Omit<RootStateWithoutHistory, 'today'>;
+
+function removeToday(state: RootStateWithoutHistory): ReduxState {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { today: _unused, ...rest } = state;
+  return rest;
+}
+
+function reduxState(state: RootState): ReduxState {
+  return removeToday(removeHistory(state));
+}
+
+function saveReduxState(state: ReduxState): void {
   try {
-    const serializedState = JSON.stringify(stateWithoutHistory);
+    const serializedState = JSON.stringify(state);
     localStorage.setItem('state', serializedState);
   } catch {
     // ignore write errors
@@ -79,6 +98,7 @@ function saveStateWithOutHistory(state: RootState): void {
 }
 
 export const saveState = (state: RootState) => {
-  saveStateWithOutHistory(state);
+  saveReduxState(reduxState(state));
   saveHistory(state.history);
+  saveToday(state.today);
 };
