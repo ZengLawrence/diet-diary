@@ -1,6 +1,6 @@
-import { RootState } from "./store";
+import { DayPage } from "../model/diary";
 
-export function loadToday(): RootState['today'] | undefined {
+export function loadToday(): DayPage | undefined {
   try {
     const serializedState = localStorage.getItem('today');
     if (serializedState === null) {
@@ -13,7 +13,7 @@ export function loadToday(): RootState['today'] | undefined {
   }
 }
 
-export function saveToday(state: RootState['today']): void {
+export function saveToday(state: DayPage): void {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('today', serializedState);
