@@ -45,6 +45,19 @@ function _loadState(): RootState | null {
   }
 }
 
+function loadToday(): RootState['today'] | undefined {
+  try {
+    const serializedState = localStorage.getItem('today');
+    if (serializedState === null) {
+      return undefined;
+    }
+    return JSON.parse(serializedState);
+  } catch (e) {
+    console.error("Error loading today from localStorage", e);
+    return undefined;
+  }
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const loadState = (): any => {
   const state = _loadState();
@@ -59,6 +72,11 @@ export const loadState = (): any => {
     return state;
   }
   state.history = history;
+  const today = loadToday();
+  if (today === undefined) {
+    return state;
+  }
+  state.today = today;
   return state;
 };
 
