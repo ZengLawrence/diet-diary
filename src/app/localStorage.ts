@@ -70,6 +70,18 @@ function removeHistory(state: RootState): RootStateWithoutHistory {
   return rest;
 }
 
+type RootStateWithoutToday = Omit<RootStateWithoutHistory, 'today'>;
+
+function removeToday(state: RootStateWithoutHistory): RootStateWithoutToday {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { today: _unused, ...rest } = state;
+  return rest;
+}
+
+function reduxState(state: RootState): RootStateWithoutToday {
+  return removeToday(removeHistory(state));
+}
+
 function saveStateWithOutHistory(state: RootState): void {
   const stateWithoutHistory = removeHistory(state);
   try {
