@@ -82,17 +82,26 @@ function reduxState(state: RootState): ReduxState {
   return removeToday(removeHistory(state));
 }
 
-function saveStateWithOutHistory(state: RootState): void {
-  const stateWithoutHistory = removeHistory(state);
+function saveReduxState(state: ReduxState): void {
   try {
-    const serializedState = JSON.stringify(stateWithoutHistory);
+    const serializedState = JSON.stringify(state);
     localStorage.setItem('state', serializedState);
   } catch {
     // ignore write errors
   }
 }
 
+function saveToday(state: RootState['today']): void {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem('today', serializedState);
+  } catch {
+    // ignore write errors
+  }
+}
+
 export const saveState = (state: RootState) => {
-  saveStateWithOutHistory(state);
+  saveReduxState(reduxState(state));
   saveHistory(state.history);
+  saveToday(state.today);
 };
