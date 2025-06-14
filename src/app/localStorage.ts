@@ -62,7 +62,9 @@ export const loadState = (): any => {
   return state;
 };
 
-function removeHistory(state: RootState): Omit<RootState, 'history'> {
+type RootStateWithoutHistory = Omit<RootState, 'history'>;
+
+function removeHistory(state: RootState): RootStateWithoutHistory {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { history: _unused, ...rest } = state;
   return rest;
