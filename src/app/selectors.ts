@@ -20,6 +20,7 @@ export const customTargetsStateSelector = (state: RootState) => state.customTarg
 const _historySelector = (state: RootState) => state.history;
 const _pageOptionsSelector = (state: RootState) => state.pageOptions;
 const _todaySelector = (state: RootState) => state.today;
+const _dayPageSelector = (state: RootState) => state.dayPage;
 
 interface ViewOptions {
   canEdit: boolean,
@@ -153,8 +154,8 @@ function getHistoryDay(currentDate: string, history: History): DayPageState {
 export const dayPageSelector: (state: RootState) => DayPageState = createSelector(
   _currentDateSelector,
   _todayStateSelector,
-  _historySelector,
-  (currentDate, today, history) => isToday(currentDate) ? today : getHistoryDay(currentDate, history),
+  _dayPageSelector,
+  (currentDate, today, history) => isToday(currentDate) ? today : toDayPage(history),
 );
 
 export const viewOptionsSelector: (state: RootState) => ViewOptions = createSelector(
