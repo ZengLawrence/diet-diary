@@ -1,7 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { isToday, MealEditState, MealOptions } from "../features/day-page/pageOptionsSlice";
-import { getDaysRemaining, History } from "../features/history/historySlice";
+import { getDaysRemaining } from "../features/history/historySlice";
 import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunction";
 import { DayPage } from "../model/diary";
 import { Meal, Serving } from "../model/Food";
@@ -141,15 +141,6 @@ const _currentDateSelector: (state: RootState) => string | "today" = createSelec
   _pageOptionsSelector,
   (pageOptions) => pageOptions.currentDate,
 );
-
-function getHistoryDay(currentDate: string, history: History): DayPageState {
-  const dateIndex = history.days.findIndex(day => day.date === currentDate);
-  if (dateIndex >= 0) {
-    return toDayPage(history.days[dateIndex]);
-  } else {
-    return toDayPage(history.days[0]);
-  }
-}
 
 export const dayPageSelector: (state: RootState) => DayPageState = createSelector(
   _currentDateSelector,
