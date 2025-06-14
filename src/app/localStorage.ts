@@ -2,6 +2,7 @@ import { PageOptions } from "../features/day-page/pageOptionsSlice";
 import { DayPage } from "../model/diary";
 import { RootState } from "./store";
 import { loadHistory, saveHistory } from "./historyLocalStorage";
+import { loadToday, saveToday } from "./todayLocalStorage";
 
 type DeprecatedDateIndex = Omit<RootState, 'pageOptions' | 'history'> & {
   pageOptions: Omit<PageOptions, 'currentDate'>;
@@ -42,19 +43,6 @@ function _loadState(): RootState | null {
   } catch (e) {
     console.error("Error loading state from localStorage", e);
     return null;
-  }
-}
-
-function loadToday(): RootState['today'] | undefined {
-  try {
-    const serializedState = localStorage.getItem('today');
-    if (serializedState === null) {
-      return undefined;
-    }
-    return JSON.parse(serializedState);
-  } catch (e) {
-    console.error("Error loading today from localStorage", e);
-    return undefined;
   }
 }
 
@@ -104,15 +92,6 @@ function saveReduxState(state: ReduxState): void {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('state', serializedState);
-  } catch {
-    // ignore write errors
-  }
-}
-
-function saveToday(state: RootState['today']): void {
-  try {
-    const serializedState = JSON.stringify(state);
-    localStorage.setItem('today', serializedState);
   } catch {
     // ignore write errors
   }
