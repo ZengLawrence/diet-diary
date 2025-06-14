@@ -1,4 +1,4 @@
-import { mutations } from "./diaryHistory";
+import { mutations, DiaryHistory, DiaryHistoryLoader, DiaryHistorySaver } from "./diaryHistory";
 import { DayPage } from "./diary";
 
 function makeDay(date: string): DayPage {
@@ -43,5 +43,26 @@ describe("mutations", () => {
       expect(result.slice(1)).toEqual(days.slice(0, 6));
     });
 
+  });
+});
+
+describe("DiaryHistory class", () => {
+  describe("load history before add and save after", () => {
+    it("should load existing history, add a new day, and save the updated history", () => {
+      const loader: DiaryHistoryLoader = {
+        load: jest.fn().mockReturnValue([{ date: "2025-05-31", meals: [] }]),
+      };
+      const saver: DiaryHistorySaver = {
+        save: jest.fn(),
+      };
+      const history = new DiaryHistory(loader, saver);
+
+      const newDay = makeDay("2025-06-01");
+      const result = history.add(newDay);
+
+      expect(loader.load).toHaveBeenCalled();
+      expect(saver.save).toHaveBeenCalledWith([newDay, { date: "2025-05-31", meals: [] }]);
+      expect(result).toEqual([newDay, { date: "2025-05-31", meals: [] }]);
+    });
   });
 });
