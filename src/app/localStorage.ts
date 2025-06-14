@@ -68,14 +68,15 @@ export const loadState = (): any => {
     const dayPage = findHistoryDay(convertedState, convertedState.pageOptions.currentDate) || convertedState.today;
     return {...convertedState, dayPage};
   }
-  if (isMissingDayPage(state)) {
-    state.dayPage = findHistoryDay(state, state.pageOptions.currentDate) || state.today;
-  }
   const history = loadHistory();
   if (history === undefined) {
     return state;
   }
   state.history = history;
+  // must load history before checking for missing dayPage
+  if (isMissingDayPage(state)) {
+    state.dayPage = findHistoryDay(state, state.pageOptions.currentDate) || state.today;
+  }
   const today = loadToday();
   if (today === undefined) {
     return state;
