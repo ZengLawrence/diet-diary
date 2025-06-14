@@ -122,7 +122,7 @@ function toMealState(meal: Meal): MealState {
   });
 }
 
-function toDayPage(dayHistory: DayPage): DayPageState {
+function toDayPageState(dayHistory: DayPage): DayPageState {
   return ({
     date: dayHistory.date,
     viewOptions: {
@@ -146,7 +146,7 @@ export const dayPageSelector: (state: RootState) => DayPageState = createSelecto
   _currentDateSelector,
   _todayStateSelector,
   _dayPageSelector,
-  (currentDate, today, history) => isToday(currentDate) ? today : toDayPage(history),
+  (currentDate, today, history) => isToday(currentDate) ? today : toDayPageState(history),
 );
 
 export const viewOptionsSelector: (state: RootState) => ViewOptions = createSelector(
