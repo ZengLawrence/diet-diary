@@ -70,15 +70,15 @@ function removeHistory(state: RootState): RootStateWithoutHistory {
   return rest;
 }
 
-type RootStateWithoutToday = Omit<RootStateWithoutHistory, 'today'>;
+type ReduxState = Omit<RootStateWithoutHistory, 'today'>;
 
-function removeToday(state: RootStateWithoutHistory): RootStateWithoutToday {
+function removeToday(state: RootStateWithoutHistory): ReduxState {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { today: _unused, ...rest } = state;
   return rest;
 }
 
-function reduxState(state: RootState): RootStateWithoutToday {
+function reduxState(state: RootState): ReduxState {
   return removeToday(removeHistory(state));
 }
 
