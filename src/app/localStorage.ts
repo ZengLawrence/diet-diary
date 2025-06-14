@@ -33,7 +33,7 @@ function convert(state: DeprecatedDateIndex): RootState {
   };
 }
 
-function _loadState(): RootState | DeprecatedDateIndex |null {
+function _loadState(): RootState | DeprecatedDateIndex | null {
   try {
     const serializedState = localStorage.getItem('state');
     if (serializedState === null) {
