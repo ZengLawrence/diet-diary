@@ -1,7 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { isToday, MealEditState, MealOptions } from "../features/day-page/pageOptionsSlice";
-import { getDaysRemaining, History } from "../features/history/historySlice";
+import { getDaysRemaining } from "../features/history/historySlice";
 import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunction";
 import { DayPage } from "../model/diary";
 import { Meal, Serving } from "../model/Food";
@@ -20,6 +20,7 @@ export const customTargetsStateSelector = (state: RootState) => state.customTarg
 const _historySelector = (state: RootState) => state.history;
 const _pageOptionsSelector = (state: RootState) => state.pageOptions;
 const _todaySelector = (state: RootState) => state.today;
+const _dayPageSelector = (state: RootState) => state.dayPage;
 
 interface ViewOptions {
   canEdit: boolean,
@@ -121,7 +122,7 @@ function toMealState(meal: Meal): MealState {
   });
 }
 
-function toDayPage(dayHistory: DayPage): DayPageState {
+function toDayPageState(dayHistory: DayPage): DayPageState {
   return ({
     date: dayHistory.date,
     viewOptions: {
@@ -141,20 +142,11 @@ const _currentDateSelector: (state: RootState) => string | "today" = createSelec
   (pageOptions) => pageOptions.currentDate,
 );
 
-function getHistoryDay(currentDate: string, history: History): DayPageState {
-  const dateIndex = history.days.findIndex(day => day.date === currentDate);
-  if (dateIndex >= 0) {
-    return toDayPage(history.days[dateIndex]);
-  } else {
-    return toDayPage(history.days[0]);
-  }
-}
-
 export const dayPageSelector: (state: RootState) => DayPageState = createSelector(
   _currentDateSelector,
   _todayStateSelector,
-  _historySelector,
-  (currentDate, today, history) => isToday(currentDate) ? today : getHistoryDay(currentDate, history),
+  _dayPageSelector,
+  (currentDate, today, history) => isToday(currentDate) ? today : toDayPageState(history),
 );
 
 export const viewOptionsSelector: (state: RootState) => ViewOptions = createSelector(

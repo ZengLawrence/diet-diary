@@ -2,6 +2,7 @@ import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
 import { History } from "../history/historySlice";
 import { exitEditMode } from "./editModeSlice";
 import { addMeal, deleteFood, deleteMeal, newDay } from "./todaySlice";
+import { setDayPage } from "./dayPageSlice";
 
 export type MealEditState = "add" | "edit" | undefined;
 
@@ -53,8 +54,9 @@ export function back() {
     const history = state.history;
     const dateIndex = history.days.findIndex(date => date.date === currentDate);
     if (dateIndex + 1 < history.days.length) {
-      const previousDate = history.days[dateIndex + 1].date;
-      dispatch(pageOptionsSlice.actions.setCurrentDate(previousDate));
+      const previousDate = history.days[dateIndex + 1];
+      dispatch(setDayPage(previousDate))
+      dispatch(pageOptionsSlice.actions.setCurrentDate(previousDate.date));
     }
   }
 }
@@ -66,8 +68,9 @@ export function next() {
     const history = state.history;
     const dateIndex = history.days.findIndex(date => date.date === currentDate);
     if (dateIndex - 1 >= 0) {
-      const nextDate = history.days[dateIndex - 1].date;
-      dispatch(pageOptionsSlice.actions.setCurrentDate(nextDate));
+      const nextDate = history.days[dateIndex - 1];
+      dispatch(setDayPage(nextDate));
+      dispatch(pageOptionsSlice.actions.setCurrentDate(nextDate.date));
     } else {
       dispatch(pageOptionsSlice.actions.setCurrentDate("today"));
     }

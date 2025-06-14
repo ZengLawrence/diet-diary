@@ -12,6 +12,8 @@ type DeprecatedDateIndex = Omit<RootState, 'pageOptions' | 'history'> & {
   }
 };
 
+type MissingDayPage = Omit<RootState, 'dayPage'>;
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isDeprecatedDateIndex(state: any): state is DeprecatedDateIndex {
   return 'pageOptions' in state &&
@@ -20,7 +22,7 @@ function isDeprecatedDateIndex(state: any): state is DeprecatedDateIndex {
     typeof state.history.dateIndex === 'number';;
 }
 
-function convert(state: DeprecatedDateIndex): RootState {
+function convert(state: DeprecatedDateIndex): MissingDayPage {
   return {
     ...state,
     pageOptions: {
@@ -33,7 +35,16 @@ function convert(state: DeprecatedDateIndex): RootState {
   };
 }
 
-function _loadState(): RootState | null {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function isMissingDayPage(state: any): state is MissingDayPage {
+  return 'dayPage' in state === false;
+}
+
+function findHistoryDay(state: MissingDayPage, date: string): DayPage | undefined {
+  return state.history.days.find(day => day.date === date);
+}
+
+function _loadState(): RootState | DeprecatedDateIndex | null {
   try {
     const serializedState = localStorage.getItem('state');
     if (serializedState === null) {
@@ -53,13 +64,19 @@ export const loadState = (): any => {
     return undefined;
   }
   if (isDeprecatedDateIndex(state)) {
-    return convert(state);
+    const convertedState = convert(state);
+    const dayPage = findHistoryDay(convertedState, convertedState.pageOptions.currentDate) || convertedState.today;
+    return {...convertedState, dayPage};
   }
   const history = loadHistory();
   if (history === undefined) {
     return state;
   }
   state.history = history;
+  // must load history before checking for missing dayPage
+  if (isMissingDayPage(state)) {
+    state.dayPage = findHistoryDay(state, state.pageOptions.currentDate) || state.today;
+  }
   const today = loadToday();
   if (today === undefined) {
     return state;
