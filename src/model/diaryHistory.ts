@@ -35,6 +35,13 @@ export interface DiaryHistorySaver {
   save(history: DayPage[]): void;
 }
 
+export interface DayWithProgress {
+  day: DayPage;
+  progress: {
+    daysRemaining: number;
+    totalDays: number;
+  };
+}
 export class DiaryHistory {
   constructor(private loader: DiaryHistoryLoader, private saver: DiaryHistorySaver) {}
 
@@ -53,7 +60,7 @@ export class DiaryHistory {
     return newHistory;
   }
 
-  dayBefore(date: string): {day: DayPage, progress: {daysRemaining: number, totalDays: number}} {
+  dayBefore(date: string): DayWithProgress {
     const history = this.load() || [];
     if (history.length === 0) {
       throw new Error("No history available to find the day before.");
