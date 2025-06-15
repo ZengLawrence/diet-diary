@@ -18,8 +18,8 @@ const warningSlice = createSlice({
     dismissWarning(state) {
       state.dismissWarning = true;
     },
-    seShowCanNotAddNewDayWarning(state, acton: PayloadAction<boolean>) {
-      state.showCanNotAddNewDayWarning = acton.payload;
+    setShowCanNotAddNewDayWarning(state, action: PayloadAction<boolean>) {
+      state.showCanNotAddNewDayWarning = action.payload;
     },
   },
   extraReducers: builder => {
@@ -31,5 +31,5 @@ const warningSlice = createSlice({
   }
 })
 
-export const { dismissWarning, seShowCanNotAddNewDayWarning } = warningSlice.actions;
+export const { dismissWarning, setShowCanNotAddNewDayWarning } = warningSlice.actions;
 export default warningSlice.reducer;

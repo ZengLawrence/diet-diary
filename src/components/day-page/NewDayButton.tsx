@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { dayPageSelector } from "../../app/selectors";
 import { AppDispatch } from "../../app/store";
 import { newDay } from "../../features/day-page/todaySlice";
-import { seShowCanNotAddNewDayWarning } from "../../features/warning/warningSlice";
+import { setShowCanNotAddNewDayWarning } from "../../features/warning/warningSlice";
 import { validation } from "../../model/diary";
 import { VariantDanger } from "../ButtonVariant";
 
@@ -15,7 +15,7 @@ const NewDayButton = () => {
   const dispatch = useDispatch<AppDispatch>();
   const handleClick = () => {
     if (validation.isToday(dayPage.date)) {
-      dispatch(seShowCanNotAddNewDayWarning(true));
+      dispatch(setShowCanNotAddNewDayWarning(true));
     } else {
       dispatch(newDay());
     }
