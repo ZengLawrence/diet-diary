@@ -19,8 +19,8 @@ export function newDay() {
   return (dispatch: Dispatch, getState: () => {today: DayPage}) => {
     const currentDate = getState().today;
     const newDay = diary.newDay(currentDate);
-    diaryHistory.add(newDay);
     dispatch(todaySlice.actions.replaceState(newDay));
+    diaryHistory.add(newDay);
   };
 }
 
