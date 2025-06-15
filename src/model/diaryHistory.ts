@@ -10,6 +10,15 @@ function add(history: DayPage[], day: DayPage): DayPage[] {
   return newHistory;
 }
 
+function dayBefore(history: DayPage[], date: string): DayPage {
+  const index = history.findIndex(day => day.date === date);
+  if (index > 0) {
+    return history[index - 1];
+  }
+  // either today or day not in history; default to the first day in history.
+  return history[0];
+}
+
 export const mutations = {
   add,
 };
@@ -40,5 +49,13 @@ export class DiaryHistory {
     const newHistory = mutations.add(history, day);
     this.save(newHistory);
     return newHistory;
+  }
+
+  dayBefore(date: string): DayPage {
+    const history = this.load() || [];
+    if (history.length === 0) {
+      throw new Error("No history available to find the day before.");
+    }
+    return dayBefore(history, date);
   }
 }

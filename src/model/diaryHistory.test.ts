@@ -65,4 +65,53 @@ describe("DiaryHistory class", () => {
       expect(result).toEqual([newDay, { date: "2025-05-31", meals: [] }]);
     });
   });
+
+  describe("dayBefore", () => {
+    it("returns the previous day if date is found and not the first", () => {
+      const loader: DiaryHistoryLoader = {
+        load: jest.fn().mockReturnValue([
+          makeDay("2025-05-30"),
+          makeDay("2025-05-31"),
+          makeDay("2025-06-01"),
+        ]),
+      };
+      const saver: DiaryHistorySaver = { save: jest.fn() };
+      const history = new DiaryHistory(loader, saver);
+      const result = history.dayBefore("2025-05-31");
+      expect(result.date).toBe("2025-05-30");
+    });
+
+    it("returns the first day if date is the first in history", () => {
+      const loader: DiaryHistoryLoader = {
+        load: jest.fn().mockReturnValue([
+          makeDay("2025-05-30"),
+          makeDay("2025-05-31"),
+        ]),
+      };
+      const saver: DiaryHistorySaver = { save: jest.fn() };
+      const history = new DiaryHistory(loader, saver);
+      const result = history.dayBefore("2025-05-30");
+      expect(result.date).toBe("2025-05-30");
+    });
+
+    it("returns the first day if date is not found in history", () => {
+      const loader: DiaryHistoryLoader = {
+        load: jest.fn().mockReturnValue([
+          makeDay("2025-05-30"),
+          makeDay("2025-05-31"),
+        ]),
+      };
+      const saver: DiaryHistorySaver = { save: jest.fn() };
+      const history = new DiaryHistory(loader, saver);
+      const result = history.dayBefore("2025-06-02");
+      expect(result.date).toBe("2025-05-30");
+    });
+
+    it("throws if history is empty", () => {
+      const loader: DiaryHistoryLoader = { load: jest.fn().mockReturnValue([]) };
+      const saver: DiaryHistorySaver = { save: jest.fn() };
+      const history = new DiaryHistory(loader, saver);
+      expect(() => history.dayBefore("2025-06-01")).toThrow("No history available to find the day before.");
+    });
+  });
 });
