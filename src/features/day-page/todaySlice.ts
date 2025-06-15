@@ -20,6 +20,7 @@ export function newDay() {
     const currentDate = getState().today;
     const newDay = diary.newDay(currentDate);
     dispatch(todaySlice.actions.replaceState(newDay));
+    dispatch(todaySlice.actions.todayReset());
     diaryHistory.add(newDay);
   };
 }
@@ -64,6 +65,10 @@ const todaySlice = createSlice({
       const food = meal.foods[foodIndex];
       return diary.deleteFood(state, meal, food);
     },
+    todayReset(state) {
+      // marker action to indicate that the state should be reset to the initial state
+      return state;
+    },
   }
 })
 
@@ -71,5 +76,6 @@ export const {
   changeTarget, toggleUnlimitedFruit,
   addMeal, addSavedMeal, deleteMeal,
   addFood, updateFood, deleteFood,
+  todayReset,
  } = todaySlice.actions;
 export default todaySlice.reducer;

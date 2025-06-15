@@ -1,8 +1,8 @@
 import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
 import { History } from "../history/historySlice";
-import { exitEditMode } from "./editModeSlice";
-import { addMeal, deleteFood, deleteMeal, newDay } from "./todaySlice";
 import { setDayPage } from "./dayPageSlice";
+import { exitEditMode } from "./editModeSlice";
+import { addMeal, deleteFood, deleteMeal, todayReset } from "./todaySlice";
 
 export type MealEditState = "add" | "edit" | undefined;
 
@@ -137,7 +137,7 @@ const pageOptionsSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(newDay, () => initialState())
+      .addCase(todayReset, () => initialState())
       .addCase(exitEditMode, (state) => {
         state.mealOptions = defaultMealOptions();
       })

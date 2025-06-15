@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { newDay } from "../day-page/todaySlice";
+import { todayReset } from "../day-page/todaySlice";
 
 interface WarningState {
   dismissWarning: boolean;
@@ -24,7 +24,7 @@ const warningSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(newDay, (state) => {
+      .addCase(todayReset, (state) => {
         state.dismissWarning = false;
         state.showCanNotAddNewDayWarning = false;
       })
