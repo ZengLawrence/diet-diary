@@ -10,13 +10,15 @@ function add(history: DayPage[], day: DayPage): DayPage[] {
   return newHistory;
 }
 
-function dayBefore(history: DayPage[], date: string): DayPage {
+function dayBefore(history: DayPage[], date: string){
+  const totalDays = history.length;
   const index = history.findIndex(day => day.date === date);
   if (index > 0) {
-    return history[index - 1];
+    const prevIndex = index + 1;
+    return { day: history[prevIndex], progress: { daysRemaining: totalDays - (prevIndex + 1), totalDays } };
   }
   // either today or day not in history; default to the first day in history.
-  return history[0];
+  return { day: history[0], progress: { daysRemaining: totalDays - 1, totalDays } };
 }
 
 export const mutations = {
@@ -51,7 +53,7 @@ export class DiaryHistory {
     return newHistory;
   }
 
-  dayBefore(date: string): DayPage {
+  dayBefore(date: string): {day: DayPage, progress: {daysRemaining: number, totalDays: number}} {
     const history = this.load() || [];
     if (history.length === 0) {
       throw new Error("No history available to find the day before.");
