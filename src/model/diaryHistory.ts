@@ -45,6 +45,19 @@ export interface DayWithProgress {
     totalDays: number;
   };
 }
+export class DiaryTimeline {
+  private loader: DiaryHistoryLoader;
+
+  constructor(loader: DiaryHistoryLoader) {
+    this.loader = loader;
+  }
+
+  dayBefore(date: string): DayWithProgress | undefined {
+    const history = this.loader.load() || [];
+    return dayBefore(history, date);
+  }
+}
+
 export class DiaryHistory {
   constructor(private loader: DiaryHistoryLoader, private saver: DiaryHistorySaver) { }
 
@@ -63,7 +76,4 @@ export class DiaryHistory {
     return newHistory;
   }
 
-  dayBefore(date: string): DayWithProgress | undefined {
-    return dayBefore(this.load() || [], date);
-  }
 }

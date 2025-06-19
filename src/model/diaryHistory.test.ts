@@ -1,4 +1,4 @@
-import { mutations, DiaryHistory, DiaryHistoryLoader, DiaryHistorySaver } from "./diaryHistory";
+import { mutations, DiaryHistory, DiaryHistoryLoader, DiaryHistorySaver, DiaryTimeline } from "./diaryHistory";
 import { DayPage } from "./diary";
 
 function makeDay(date: string): DayPage {
@@ -75,9 +75,8 @@ describe("DiaryHistory class", () => {
           makeDay("2025-05-30"),
         ]),
       };
-      const saver: DiaryHistorySaver = { save: jest.fn() };
-      const history = new DiaryHistory(loader, saver);
-      const result = history.dayBefore("2025-05-31");
+      const timeline = new DiaryTimeline(loader);
+      const result = timeline.dayBefore("2025-05-31");
       expect(result).toBeDefined();
       if (result) {
         expect(result.day.date).toBe("2025-05-30");
@@ -92,9 +91,8 @@ describe("DiaryHistory class", () => {
           makeDay("2025-05-31"),
         ]),
       };
-      const saver: DiaryHistorySaver = { save: jest.fn() };
-      const history = new DiaryHistory(loader, saver);
-      const result = history.dayBefore("2025-06-01");
+      const timeline = new DiaryTimeline(loader);
+      const result = timeline.dayBefore("2025-06-01");
       expect(result).toBeDefined();
       if (result) {
         expect(result.day.date).toBe("2025-06-01");
@@ -109,9 +107,8 @@ describe("DiaryHistory class", () => {
           makeDay("2025-05-31"),
         ]),
       };
-      const saver: DiaryHistorySaver = { save: jest.fn() };
-      const history = new DiaryHistory(loader, saver);
-      const result = history.dayBefore("2025-06-02");
+      const timeline = new DiaryTimeline(loader);
+      const result = timeline.dayBefore("2025-06-02");
       expect(result).toBeDefined();
       if (result) {
         expect(result.day.date).toBe("2025-06-01");
@@ -121,9 +118,8 @@ describe("DiaryHistory class", () => {
 
     it("returns undefined if history is empty", () => {
       const loader: DiaryHistoryLoader = { load: jest.fn().mockReturnValue([]) };
-      const saver: DiaryHistorySaver = { save: jest.fn() };
-      const history = new DiaryHistory(loader, saver);
-      const result = history.dayBefore("2025-06-01");
+      const timeline = new DiaryTimeline(loader);
+      const result = timeline.dayBefore("2025-06-01");
       expect(result).toBeUndefined();
     });
   });
