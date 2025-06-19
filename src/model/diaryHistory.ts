@@ -49,7 +49,7 @@ export const mutations = {
 export default mutations;
 
 export interface DiaryHistoryLoader {
-  load(): DayPage[] | undefined;
+  load(): DayPage[];
 }
 
 export interface DiaryHistorySaver {
@@ -71,12 +71,12 @@ export class DiaryTimeline {
   }
 
   dayBefore(date: string): DayWithProgress | undefined {
-    const history = this.loader.load() || [];
+    const history = this.loader.load();
     return dayBefore(history, date);
   }
 
   dayAfter(date: string): DayWithProgress | undefined {
-    const history = this.loader.load() || [];
+    const history = this.loader.load();
     return dayAfter(history, date);
   }
 }
@@ -84,7 +84,7 @@ export class DiaryTimeline {
 export class DiaryHistory {
   constructor(private loader: DiaryHistoryLoader, private saver: DiaryHistorySaver) { }
 
-  private load(): DayPage[] | undefined {
+  private load() {
     return this.loader.load();
   }
 
@@ -93,7 +93,7 @@ export class DiaryHistory {
   }
 
   add(day: DayPage): DayPage[] {
-    const history = this.load() || [];
+    const history = this.load();
     const newHistory = mutations.add(history, day);
     this.save(newHistory);
     return newHistory;

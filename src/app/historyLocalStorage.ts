@@ -28,9 +28,9 @@ export function saveHistory(history: SerializedHistory): void {
 }
 
 export class HistoryLocalStorage implements DiaryHistoryLoader, DiaryHistorySaver {
-  load(): DayPage[] | undefined {
+  load(): DayPage[] {
     const history = loadHistory();
-    return history ? history.days : undefined;
+    return history ? history.days : [];
   }
 
   save(history: DayPage[]): void {
