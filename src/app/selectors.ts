@@ -1,7 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { isToday, MealEditState, MealOptions } from "../features/day-page/pageOptionsSlice";
-import { getDaysRemaining } from "../features/history/historySlice";
 import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunction";
 import { DayPage } from "../model/diary";
 import { Meal, Serving } from "../model/Food";
@@ -17,7 +16,6 @@ export const showSavedMealsSelector = (state: RootState) => state.showSavedMeals
 export const warningSelector = (state: RootState) => state.warning;
 export const savedMealStateSelector = (state: RootState) => state.savedMealState;
 export const customTargetsStateSelector = (state: RootState) => state.customTargets;
-const _historySelector = (state: RootState) => state.history;
 const _pageOptionsSelector = (state: RootState) => state.pageOptions;
 const _todaySelector = (state: RootState) => state.today;
 const _dayPageSelector = (state: RootState) => state.dayPage;
@@ -220,10 +218,9 @@ export const othersServingTotalSelector: (state: RootState) => Serving = createS
 )
 
 export const historyDaysProgressSelector: (state: RootState) => { daysRemaining: number, totalDays: number } = createSelector(
-  _historySelector,
-  _currentDateSelector,
-  (history, currentDate) => {
-    return getDaysRemaining(history, currentDate);
+  _pageOptionsSelector,
+  (pageOptions) => {
+    return pageOptions.progress;
   }
 );
 

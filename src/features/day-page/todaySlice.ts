@@ -1,7 +1,12 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
+import { HistoryLocalStorage } from "../../app/historyLocalStorage";
 import diary, { DayPage } from "../../model/diary";
-import { Target } from "../../model/Target";
+import { DiaryHistory } from "../../model/diaryHistory";
 import { Food } from "../../model/Food";
+import { Target } from "../../model/Target";
+
+const diaryHistoryStorage = new HistoryLocalStorage();
+const diaryHistory = new DiaryHistory(diaryHistoryStorage, diaryHistoryStorage);
 
 function getMeal(state: DayPage, index: number) {
   if (index < 0 || index >= state.meals.length) {
@@ -10,12 +15,22 @@ function getMeal(state: DayPage, index: number) {
   return state.meals[index];
 }
 
+export function newDay() {
+  return (dispatch: Dispatch, getState: () => {today: DayPage}) => {
+    const currentDate = getState().today;
+    const newDay = diary.newDay(currentDate);
+    dispatch(todaySlice.actions.replaceState(newDay));
+    dispatch(todaySlice.actions.todayReset());
+    diaryHistory.add(newDay);
+  };
+}
+
 const todaySlice = createSlice({
   name: "date",
   initialState: diary.newDay(),
   reducers: {
-    newDay(state) {
-      return diary.newDay(state);
+    replaceState(_state, action: PayloadAction<DayPage>) {
+      return action.payload;
     },
     changeTarget(state, action: PayloadAction<Target>) {
       return diary.updateTarget(state, action.payload);
@@ -50,13 +65,17 @@ const todaySlice = createSlice({
       const food = meal.foods[foodIndex];
       return diary.deleteFood(state, meal, food);
     },
+    todayReset(state) {
+      // marker action to indicate that the state should be reset to the initial state
+      return state;
+    },
   }
 })
 
 export const { 
-  newDay, 
   changeTarget, toggleUnlimitedFruit,
   addMeal, addSavedMeal, deleteMeal,
   addFood, updateFood, deleteFood,
+  todayReset,
  } = todaySlice.actions;
 export default todaySlice.reducer;

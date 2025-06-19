@@ -2,30 +2,21 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { dayPageSelector, DayPageState } from "../../app/selectors";
+import { dayPageSelector } from "../../app/selectors";
+import { AppDispatch } from "../../app/store";
 import { newDay } from "../../features/day-page/todaySlice";
-import { add } from "../../features/history/historySlice";
-import { seShowCanNotAddNewDayWarning } from "../../features/warning/warningSlice";
-import { DayPage, validation } from "../../model/diary";
+import { setShowCanNotAddNewDayWarning } from "../../features/warning/warningSlice";
+import { validation } from "../../model/diary";
 import { VariantDanger } from "../ButtonVariant";
-
-function toDayHistory(dayPage: DayPageState): DayPage {
-  return {
-    date: dayPage.date,
-    target: dayPage.target,
-    meals: dayPage.mealStates.map(ms => ms.meal),
-  }
-}
 
 const NewDayButton = () => {
 
   const dayPage = useSelector(dayPageSelector);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const handleClick = () => {
     if (validation.isToday(dayPage.date)) {
-      dispatch(seShowCanNotAddNewDayWarning(true));
+      dispatch(setShowCanNotAddNewDayWarning(true));
     } else {
-      dispatch(add(toDayHistory(dayPage)));
       dispatch(newDay());
     }
   };

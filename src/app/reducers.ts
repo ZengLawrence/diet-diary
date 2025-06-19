@@ -7,7 +7,6 @@ import showSavedMeals from "../features/day-page/showSavedMealsSlice";
 import warning from "../features/warning/warningSlice";
 import savedMealState from "../features/saved-meal/savedMealStateSlice";
 import customTargets from "../features/target/customTargetsSlice";
-import history from "../features/history/historySlice";
 import pageOptions from "../features/day-page/pageOptionsSlice";
 import today from "../features/day-page/todaySlice";
 import dayPage from "../features/day-page/dayPageSlice";
@@ -22,7 +21,6 @@ export default combineReducers(
     warning,
     savedMealState,
     customTargets,
-    history,
     pageOptions,
     today,
     dayPage,
