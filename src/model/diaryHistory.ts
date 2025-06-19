@@ -12,6 +12,9 @@ function add(history: DayPage[], day: DayPage): DayPage[] {
 
 function dayBefore(history: DayPage[], date: string) {
   const totalDays = history.length;
+  if (totalDays === 0) {
+    return undefined; // no history available
+  }
   const index = history.findIndex(day => day.date === date);
   if (index > 0) {
     const prevIndex = index + 1;
@@ -61,10 +64,6 @@ export class DiaryHistory {
   }
 
   dayBefore(date: string): DayWithProgress | undefined {
-    const history = this.load() || [];
-    if (history.length === 0) {
-      return undefined;
-    }
-    return dayBefore(history, date);
+    return dayBefore(this.load() || [], date);
   }
 }
