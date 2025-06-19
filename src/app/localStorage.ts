@@ -22,7 +22,7 @@ function isDeprecatedDateIndex(state: any): state is DeprecatedDateIndex {
     typeof state.history.dateIndex === 'number';;
 }
 
-function convert(state: DeprecatedDateIndex): MissingDayPage {
+function convert(state: DeprecatedDateIndex): MissingDayPage & { history: { days: DayPage[] } } {
   return {
     ...state,
     pageOptions: {
@@ -40,8 +40,17 @@ function isMissingDayPage(state: any): state is MissingDayPage {
   return 'dayPage' in state === false;
 }
 
-function findHistoryDay(state: MissingDayPage, date: string): DayPage | undefined {
+function findHistoryDay(state: { history: { days: DayPage[] } }, date: string): DayPage | undefined {
   return state.history.days.find(day => day.date === date);
+}
+
+type MissingProgress = Omit<RootState, 'pageOptions'> & {
+  pageOptions: Omit<PageOptions, 'progress'>;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function isMissingProgress(state: any): state is MissingProgress {
+  return 'pageOptions' in state && 'progress' in state.pageOptions === false;
 }
 
 function _loadState(): RootState | DeprecatedDateIndex | null {
@@ -65,44 +74,42 @@ export const loadState = (): any => {
   }
   if (isDeprecatedDateIndex(state)) {
     const convertedState = convert(state);
+    saveHistory(convertedState.history);
     const dayPage = findHistoryDay(convertedState, convertedState.pageOptions.currentDate) || convertedState.today;
     return {...convertedState, dayPage};
   }
-  const history = loadHistory();
-  if (history === undefined) {
-    return state;
-  }
-  state.history = history;
-  // must load history before checking for missing dayPage
   if (isMissingDayPage(state)) {
-    state.dayPage = findHistoryDay(state, state.pageOptions.currentDate) || state.today;
+    const history = loadHistory() || { days: [] };
+    state.dayPage = findHistoryDay({history}, state.pageOptions.currentDate) || state.today;
   }
   const today = loadToday();
   if (today === undefined) {
     return state;
   }
   state.today = today;
+
+  if (isMissingProgress(state)) {
+    state.pageOptions.currentDate = "today";
+    const history = loadHistory() || { days: [] };
+    const totalDays = history.days.length;
+    state.pageOptions.progress = {
+      daysRemaining: totalDays,
+      totalDays,
+    };
+  }
   return state;
 };
 
-type RootStateWithoutHistory = Omit<RootState, 'history'>;
+type ReduxState = Omit<RootState, 'today'>;
 
-function removeHistory(state: RootState): RootStateWithoutHistory {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { history: _unused, ...rest } = state;
-  return rest;
-}
-
-type ReduxState = Omit<RootStateWithoutHistory, 'today'>;
-
-function removeToday(state: RootStateWithoutHistory): ReduxState {
+function removeToday(state: RootState): ReduxState {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { today: _unused, ...rest } = state;
   return rest;
 }
 
 function reduxState(state: RootState): ReduxState {
-  return removeToday(removeHistory(state));
+  return removeToday(state);
 }
 
 function saveReduxState(state: ReduxState): void {
@@ -116,6 +123,5 @@ function saveReduxState(state: ReduxState): void {
 
 export const saveState = (state: RootState) => {
   saveReduxState(reduxState(state));
-  saveHistory(state.history);
   saveToday(state.today);
 };

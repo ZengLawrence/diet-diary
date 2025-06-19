@@ -1,8 +1,11 @@
 import { DayPage } from "../model/diary";
 import { DiaryHistoryLoader, DiaryHistorySaver } from "../model/diaryHistory";
-import { RootState } from "./store";
 
-export function loadHistory(): RootState['history'] | undefined {
+export interface SerializedHistory {
+  days: DayPage[];
+}
+
+export function loadHistory(): SerializedHistory | undefined {
   try {
     const history = localStorage.getItem('history');
     if (history === null) {
@@ -15,7 +18,7 @@ export function loadHistory(): RootState['history'] | undefined {
   }
 }
 
-export function saveHistory(history: RootState['history']): void {
+export function saveHistory(history: SerializedHistory): void {
   try {
     const serializedHistory = JSON.stringify(history);
     localStorage.setItem('history', serializedHistory);
