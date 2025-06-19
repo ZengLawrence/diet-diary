@@ -142,6 +142,13 @@ describe("DiaryTimeline class", () => {
         expect(result.day.date).toBe("2025-05-31");
         expect(result.progress).toEqual({ daysRemaining: 1, totalDays: 3 });
       }
+
+      const result2 = timeline.dayAfter("2025-05-31");
+      expect(result2).toBeDefined();
+      if (result2) {
+        expect(result2.day.date).toBe("2025-06-01");
+        expect(result2.progress).toEqual({ daysRemaining: 2, totalDays: 3 });
+      }
     });
 
     it("returns undefined if date is the last in history", () => {

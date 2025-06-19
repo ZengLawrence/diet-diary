@@ -39,7 +39,7 @@ function dayAfter(history: DayPage[], date: string) {
     return undefined;
   }
   const nextIndex = index - 1;
-  return { day: history[nextIndex], progress: { daysRemaining: nextIndex, totalDays } };
+  return { day: history[nextIndex], progress: { daysRemaining: totalDays - (nextIndex + 1), totalDays } };
 }
 
 export const mutations = {
