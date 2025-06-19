@@ -65,7 +65,9 @@ describe("DiaryHistory class", () => {
       expect(result).toEqual([newDay, { date: "2025-05-31", meals: [] }]);
     });
   });
+});
 
+describe("DiaryTimeline class", () => {
   describe("dayBefore", () => {
     it("returns the previous day and progress if date is found and not the first", () => {
       const loader: DiaryHistoryLoader = {
