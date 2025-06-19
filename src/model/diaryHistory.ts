@@ -84,18 +84,10 @@ export class DiaryTimeline {
 export class DiaryHistory {
   constructor(private loader: DiaryHistoryLoader, private saver: DiaryHistorySaver) { }
 
-  private load() {
-    return this.loader.load();
-  }
-
-  private save(history: DayPage[]): void {
-    this.saver.save(history);
-  }
-
   add(day: DayPage): DayPage[] {
-    const history = this.load();
+    const history = this.loader.load();
     const newHistory = mutations.add(history, day);
-    this.save(newHistory);
+    this.saver.save(newHistory);
     return newHistory;
   }
 
