@@ -10,7 +10,7 @@ function add(history: DayPage[], day: DayPage): DayPage[] {
   return newHistory;
 }
 
-function dayBefore(history: DayPage[], date: string){
+function dayBefore(history: DayPage[], date: string) {
   const totalDays = history.length;
   const index = history.findIndex(day => day.date === date);
   if (index > 0) {
@@ -43,7 +43,7 @@ export interface DayWithProgress {
   };
 }
 export class DiaryHistory {
-  constructor(private loader: DiaryHistoryLoader, private saver: DiaryHistorySaver) {}
+  constructor(private loader: DiaryHistoryLoader, private saver: DiaryHistorySaver) { }
 
   private load(): DayPage[] | undefined {
     return this.loader.load();
