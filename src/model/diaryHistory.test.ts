@@ -86,7 +86,7 @@ describe("DiaryTimeline class", () => {
       }
     });
 
-    it("returns the first day and progress if date is the first in history", () => {
+    it("returns the next day and progress if date is the first in history", () => {
       const loader: DiaryHistoryLoader = {
         load: jest.fn().mockReturnValue([
           makeDay("2025-06-01"),
@@ -97,8 +97,8 @@ describe("DiaryTimeline class", () => {
       const result = timeline.dayBefore("2025-06-01");
       expect(result).toBeDefined();
       if (result) {
-        expect(result.day.date).toBe("2025-06-01");
-        expect(result.progress).toEqual({ daysRemaining: 1, totalDays: 2 });
+        expect(result.day.date).toBe("2025-05-31");
+        expect(result.progress).toEqual({ daysRemaining: 0, totalDays: 2 });
       }
     });
 

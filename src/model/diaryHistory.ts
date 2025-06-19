@@ -16,12 +16,16 @@ function dayBefore(history: DayPage[], date: string) {
     return undefined; // no history available
   }
   const index = history.findIndex(day => day.date === date);
-  if (index > 0) {
-    const prevIndex = index + 1;
-    return { day: history[prevIndex], progress: { daysRemaining: totalDays - (prevIndex + 1), totalDays } };
-  }
   // either today or day not in history; default to the first day in history.
-  return { day: history[0], progress: { daysRemaining: totalDays - 1, totalDays } };
+  if (index === -1) {
+    return { day: history[0], progress: { daysRemaining: totalDays - 1, totalDays } };
+  }
+  // if it is last day in history, stay on the last day.
+  if (index === history.length - 1) {
+    return { day: history[index], progress: { daysRemaining: 0, totalDays } };
+  }
+  const prevIndex = index + 1;
+  return { day: history[prevIndex], progress: { daysRemaining: totalDays - (prevIndex + 1), totalDays } };
 }
 
 function dayAfter(history: DayPage[], date: string) {
