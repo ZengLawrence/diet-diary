@@ -125,4 +125,54 @@ describe("DiaryTimeline class", () => {
       expect(result).toBeUndefined();
     });
   });
+
+  describe("dayAfter", () => {
+    it("returns the next day and progress if date is found and not the last", () => {
+      const loader: DiaryHistoryLoader = {
+        load: jest.fn().mockReturnValue([
+          makeDay("2025-06-01"),
+          makeDay("2025-05-31"),
+          makeDay("2025-05-30"),
+        ]),
+      };
+      const timeline = new DiaryTimeline(loader);
+      const result = timeline.dayAfter("2025-05-30");
+      expect(result).toBeDefined();
+      if (result) {
+        expect(result.day.date).toBe("2025-05-31");
+        expect(result.progress).toEqual({ daysRemaining: 1, totalDays: 3 });
+      }
+    });
+
+    it("returns undefined if date is the last in history", () => {
+      const loader: DiaryHistoryLoader = {
+        load: jest.fn().mockReturnValue([
+          makeDay("2025-06-01"),
+          makeDay("2025-05-31"),
+        ]),
+      };
+      const timeline = new DiaryTimeline(loader);
+      const result = timeline.dayAfter("2025-06-01");
+      expect(result).toBeUndefined();
+    });
+
+    it("returns undefined if date is not found in history", () => {
+      const loader: DiaryHistoryLoader = {
+        load: jest.fn().mockReturnValue([
+          makeDay("2025-06-01"),
+          makeDay("2025-05-31"),
+        ]),
+      };
+      const timeline = new DiaryTimeline(loader);
+      const result = timeline.dayAfter("2025-06-02");
+      expect(result).toBeUndefined();
+    });
+
+    it("returns undefined if history is empty", () => {
+      const loader: DiaryHistoryLoader = { load: jest.fn().mockReturnValue([]) };
+      const timeline = new DiaryTimeline(loader);
+      const result = timeline.dayAfter("2025-06-01");
+      expect(result).toBeUndefined();
+    });
+  });
 });

@@ -24,6 +24,20 @@ function dayBefore(history: DayPage[], date: string) {
   return { day: history[0], progress: { daysRemaining: totalDays - 1, totalDays } };
 }
 
+function dayAfter(history: DayPage[], date: string) {
+  const totalDays = history.length;
+  if (totalDays === 0) {
+    return undefined; // no history available
+  }
+  const index = history.findIndex(day => day.date === date);
+  // either last day in history or not found return undefined.
+  if (index === 0 || index === -1) {
+    return undefined;
+  }
+  const nextIndex = index - 1;
+  return { day: history[nextIndex], progress: { daysRemaining: nextIndex, totalDays } };
+}
+
 export const mutations = {
   add,
 };
@@ -55,6 +69,11 @@ export class DiaryTimeline {
   dayBefore(date: string): DayWithProgress | undefined {
     const history = this.loader.load() || [];
     return dayBefore(history, date);
+  }
+
+  dayAfter(date: string): DayWithProgress | undefined {
+    const history = this.loader.load() || [];
+    return dayAfter(history, date);
   }
 }
 
