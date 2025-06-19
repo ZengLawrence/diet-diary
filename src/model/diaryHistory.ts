@@ -60,10 +60,10 @@ export class DiaryHistory {
     return newHistory;
   }
 
-  dayBefore(date: string): DayWithProgress {
+  dayBefore(date: string): DayWithProgress | undefined {
     const history = this.load() || [];
     if (history.length === 0) {
-      throw new Error("No history available to find the day before.");
+      return undefined;
     }
     return dayBefore(history, date);
   }

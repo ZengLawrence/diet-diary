@@ -78,8 +78,11 @@ describe("DiaryHistory class", () => {
       const saver: DiaryHistorySaver = { save: jest.fn() };
       const history = new DiaryHistory(loader, saver);
       const result = history.dayBefore("2025-05-31");
-      expect(result.day.date).toBe("2025-05-30");
-      expect(result.progress).toEqual({ daysRemaining: 0, totalDays: 3 });
+      expect(result).toBeDefined();
+      if (result) {
+        expect(result.day.date).toBe("2025-05-30");
+        expect(result.progress).toEqual({ daysRemaining: 0, totalDays: 3 });
+      }
     });
 
     it("returns the first day and progress if date is the first in history", () => {
@@ -92,8 +95,11 @@ describe("DiaryHistory class", () => {
       const saver: DiaryHistorySaver = { save: jest.fn() };
       const history = new DiaryHistory(loader, saver);
       const result = history.dayBefore("2025-06-01");
-      expect(result.day.date).toBe("2025-06-01");
-      expect(result.progress).toEqual({ daysRemaining: 1, totalDays: 2 });
+      expect(result).toBeDefined();
+      if (result) {
+        expect(result.day.date).toBe("2025-06-01");
+        expect(result.progress).toEqual({ daysRemaining: 1, totalDays: 2 });
+      }
     });
 
     it("returns the first day and progress if date is not found in history", () => {
@@ -106,15 +112,19 @@ describe("DiaryHistory class", () => {
       const saver: DiaryHistorySaver = { save: jest.fn() };
       const history = new DiaryHistory(loader, saver);
       const result = history.dayBefore("2025-06-02");
-      expect(result.day.date).toBe("2025-06-01");
-      expect(result.progress).toEqual({ daysRemaining: 1, totalDays: 2 });
+      expect(result).toBeDefined();
+      if (result) {
+        expect(result.day.date).toBe("2025-06-01");
+        expect(result.progress).toEqual({ daysRemaining: 1, totalDays: 2 });
+      }
     });
 
-    it("throws if history is empty", () => {
+    it("returns undefined if history is empty", () => {
       const loader: DiaryHistoryLoader = { load: jest.fn().mockReturnValue([]) };
       const saver: DiaryHistorySaver = { save: jest.fn() };
       const history = new DiaryHistory(loader, saver);
-      expect(() => history.dayBefore("2025-06-01")).toThrow("No history available to find the day before.");
+      const result = history.dayBefore("2025-06-01");
+      expect(result).toBeUndefined();
     });
   });
 });
