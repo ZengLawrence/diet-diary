@@ -17,11 +17,11 @@ function getMeal(state: DayPage, index: number) {
 
 export function newDay() {
   return (dispatch: Dispatch, getState: () => {today: DayPage}) => {
-    const currentDate = getState().today;
-    const newDay = diary.newDay(currentDate);
+    const previousDate = getState().today;
+    const newDay = diary.newDay(previousDate);
     dispatch(todaySlice.actions.replaceState(newDay));
     dispatch(todaySlice.actions.todayReset());
-    diaryHistory.add(currentDate);
+    diaryHistory.add(previousDate);
   };
 }
 
