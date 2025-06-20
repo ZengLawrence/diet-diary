@@ -21,7 +21,7 @@ export function newDay() {
     const newDay = diary.newDay(currentDate);
     dispatch(todaySlice.actions.replaceState(newDay));
     dispatch(todaySlice.actions.todayReset());
-    diaryHistory.add(newDay);
+    diaryHistory.add(currentDate);
   };
 }
 
