@@ -153,7 +153,16 @@ const pageOptionsSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(todayReset, () => initialState())
+      .addCase(todayReset, (state) => {
+        state.mealOptions = newMealOptions();
+        state.currentDate = "today";
+        // TODO: reset based on actual history
+        const totalDays = state.progress.totalDays + 1;
+        state.progress = {
+          daysRemaining: totalDays,
+          totalDays,
+        };
+      })
       .addCase(exitEditMode, (state) => {
         state.mealOptions = defaultMealOptions();
       })
@@ -162,7 +171,8 @@ const pageOptionsSlice = createSlice({
           state.mealOptions.foodIndex = -1;
         }
       })
-      .addCase(addMeal, () => initialState())
+      .addCase(addMeal, (state) => {
+        state.mealOptions = newMealOptions();})
       .addCase(deleteMeal, (state) => {
         state.mealOptions = defaultMealOptions();
       })
