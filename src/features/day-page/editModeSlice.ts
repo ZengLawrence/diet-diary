@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { todayReset } from "./todaySlice";
+import { todayReset } from "./dayPageSlice";
 
 const initialState = true;
 
