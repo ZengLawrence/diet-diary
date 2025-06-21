@@ -180,4 +180,10 @@ export class Today {
     this._saveToday(newDay);
     return newDay;
   }
+
+  deleteFood(meal: Meal, food: Food): DayPage {
+    const newDay = deleteFood(this._loadToday(), meal, food);
+    this._saveToday(newDay);
+    return newDay;
+  }
 }
