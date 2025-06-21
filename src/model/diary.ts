@@ -1,5 +1,6 @@
 import { Food, Meal, newMeal } from "./Food";
 import { getDefaultTarget, Target } from "./Target";
+import { DiaryHistory } from "./diaryHistory";
 
 export interface DayPage {
   date: string,
@@ -131,10 +132,12 @@ export interface TodaySaver {
 export class Today {
   private loader: TodayLoader;
   private saver: TodaySaver;
+  private diaryHistory: DiaryHistory;
 
-  constructor(loader: TodayLoader, saver: TodaySaver) {
+  constructor(loader: TodayLoader, saver: TodaySaver, diaryHistory: DiaryHistory) {
     this.loader = loader;
     this.saver = saver;
+    this.diaryHistory = diaryHistory;
   }
 
   _loadToday(): DayPage {
