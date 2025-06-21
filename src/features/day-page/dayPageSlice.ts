@@ -26,6 +26,7 @@ export function addMeal() {
   return (dispatch: Dispatch) => {
     const newDay = today.addMeal();
     dispatch(dayPageSlice.actions.setDayPage(newDay));
+    dispatch(dayPageSlice.actions.mealAdded());
   }
 }
 
@@ -33,6 +34,7 @@ export function addSavedMeal(meal: { foods: Food[] }) {
   return (dispatch: Dispatch) => {
     const newDay = today.addSavedMeal(meal.foods);
     dispatch(dayPageSlice.actions.setDayPage(newDay));
+    dispatch(dayPageSlice.actions.mealAdded());
     //TODO: should it be done in other way?
     dispatch(showSavedMealsSlice.hide())
   }
@@ -61,7 +63,6 @@ export function addFood(payload: {mealIndex: number, food: Food}) {
     const meal = getMeal(state, mealIndex);
     const newDay = today.addFood(meal, food);
     dispatch(dayPageSlice.actions.setDayPage(newDay));
-    dispatch(dayPageSlice.actions.mealAdded());
   }
 }
 
