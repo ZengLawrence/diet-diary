@@ -168,7 +168,8 @@ const pageOptionsSlice = createSlice({
         }
       })
       .addCase(mealAdded, (state) => {
-        state.mealOptions = newMealOptions();})
+        state.mealOptions = newMealOptions();
+      })
       .addCase(deleteMeal, (state) => {
         state.mealOptions = defaultMealOptions();
       })
