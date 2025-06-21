@@ -88,7 +88,9 @@ const _mealStatesSelector: (state: RootState) => MealState[] = createSelector(
     }));
 
     // set last meal in add state if meal index is -1
-    if (mealOptions.editState === "add" && mealOptions.mealIndex === -1) {
+    if (mealOptions.editState === "add" 
+      && mealOptions.mealIndex === -1
+      && mealStatesWithOptions.length > 0) {
       const lastMealIndex = mealStatesWithOptions.length - 1;
       mealStatesWithOptions[lastMealIndex].editState = "add";
     }
