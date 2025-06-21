@@ -272,4 +272,22 @@ describe("Today class", () => {
       expect(updatedDay.meals.length).toBe(1);
     });
   });
+
+  describe("addFood", () => {
+    it("should add food to a specific meal in today's meals", () => {
+      const meal = newMeal();
+      const mockLoader: TodayLoader =
+        { load: jest.fn().mockReturnValue({
+          date: new Date().toLocaleDateString(),
+          target: getDefaultTarget(),
+          meals: [meal],
+        }) };
+      const mockSaver: TodaySaver = { save: jest.fn() };
+      const today = new Today(mockLoader, mockSaver);
+      const foodToAdd: Food = { description: "Apple", serving: {} };
+      const updatedDay = today.addFood(meal, foodToAdd);
+      expect(updatedDay.meals[0].foods.length).toBe(1);
+      expect(updatedDay.meals[0].foods[0]).toEqual(foodToAdd);
+    });
+  });
 });
