@@ -8,7 +8,6 @@ import warning from "../features/warning/warningSlice";
 import savedMealState from "../features/saved-meal/savedMealStateSlice";
 import customTargets from "../features/target/customTargetsSlice";
 import pageOptions from "../features/day-page/pageOptionsSlice";
-import today from "../features/day-page/todaySlice";
 import dayPage from "../features/day-page/dayPageSlice";
 
 export default combineReducers(
@@ -22,7 +21,6 @@ export default combineReducers(
     savedMealState,
     customTargets,
     pageOptions,
-    today,
     dayPage,
   }
 )
