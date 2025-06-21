@@ -156,4 +156,10 @@ export class Today {
     this.saver.save(newDay);
     return newDay;
   }
+
+  addSavedMeal(foods: Food[]): DayPage {
+    const newDay = addSavedMeal(this._loadToday(), foods);
+    this.saver.save(newDay);
+    return newDay;
+  }
 }
