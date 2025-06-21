@@ -73,7 +73,7 @@ function addFood(day: DayPage, meal: Meal, food: Food): DayPage {
 }
 
 function updateFood(day: DayPage, meal: Meal, food: Food, replacedFood: Food): DayPage {
-  const meals = day.meals.map(m => _.isEqual(m, meal) ? { ...m, foods: m.foods.map(f => f === food ? replacedFood : f) } : m);
+  const meals = day.meals.map(m => _.isEqual(m, meal) ? { ...m, foods: m.foods.map(f => _.isEqual(f, food) ? replacedFood : f) } : m);
   return {
     ...day,
     meals,
