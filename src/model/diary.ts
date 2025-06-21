@@ -186,4 +186,10 @@ export class Today {
     this._saveToday(newDay);
     return newDay;
   }
+
+  updateTarget(target: Target): DayPage {
+    const newDay = updateTarget(this._loadToday(), target);
+    this._saveToday(newDay);
+    return newDay;
+  }
 }
