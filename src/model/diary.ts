@@ -162,4 +162,10 @@ export class Today {
     this.saver.save(newDay);
     return newDay;
   }
+
+  deleteMeal(meal: Meal): DayPage {
+    const newDay = deleteMeal(this._loadToday(), meal);
+    this.saver.save(newDay);
+    return newDay;
+  }
 }
