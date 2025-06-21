@@ -18,6 +18,13 @@ export function newDay() {
   };
 }
 
+export function addMeal() {
+  return (dispatch: Dispatch) => {
+    const newDay = today.addMeal();
+    dispatch(dayPageSlice.actions.setDayPage(newDay));
+  }
+}
+
 const dayPageSlice = createSlice({
   name: 'dayPage',
   initialState: today.newDay(),
