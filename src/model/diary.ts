@@ -174,4 +174,10 @@ export class Today {
     this._saveToday(newDay);
     return newDay;
   }
+
+  updateFood(meal: Meal, food: Food, replacedFood: Food): DayPage {
+    const newDay = updateFood(this._loadToday(), meal, food, replacedFood);
+    this._saveToday(newDay);
+    return newDay;
+  }
 }
