@@ -93,6 +93,13 @@ export function changeTarget(target: Target) {
   }
 }
 
+export function toggleUnlimitedFruit() {
+  return (dispatch: Dispatch) => {
+    const newDay = today.toggleUnlimitedFruit();
+    dispatch(dayPageSlice.actions.setDayPage(newDay));
+  }
+}
+
 const dayPageSlice = createSlice({
   name: 'dayPage',
   initialState: today.newDay(),
