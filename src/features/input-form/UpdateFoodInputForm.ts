@@ -3,7 +3,8 @@ import { AppDispatch } from "../../app/store";
 import { ButtonLabel, FoodInputForm } from "../../components/input-form/FoodInputForm";
 import { Food } from "../../model/Food";
 import { exitFoodEditMode } from "../day-page/pageOptionsSlice";
-import { deleteFood, updateFood } from "../day-page/todaySlice";
+import { deleteFood } from "../day-page/todaySlice";
+import { updateFood } from "../day-page/dayPageSlice";
 
 const mapStateToProps = () => ({
   buttonLabel: "Update" as ButtonLabel,
