@@ -147,25 +147,25 @@ export class Today {
 
   newDay(): DayPage {
     const day = newDay(this._loadToday());
-    this.saver.save(day);
+    this._saveToday(day);
     return day;
   }
 
   addMeal(): DayPage {
     const newDay = addMeal(this._loadToday());
-    this.saver.save(newDay);
+    this._saveToday(newDay);
     return newDay;
   }
 
   addSavedMeal(foods: Food[]): DayPage {
     const newDay = addSavedMeal(this._loadToday(), foods);
-    this.saver.save(newDay);
+    this._saveToday(newDay);
     return newDay;
   }
 
   deleteMeal(meal: Meal): DayPage {
     const newDay = deleteMeal(this._loadToday(), meal);
-    this.saver.save(newDay);
+    this._saveToday(newDay);
     return newDay;
   }
 }
