@@ -2,9 +2,9 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HistoryLocalStorage } from "../../app/historyLocalStorage";
 import { DayPage } from "../../model/diary";
 import { DiaryTimeline } from "../../model/diaryHistory";
-import { foodDeleted, mealAdded } from "./dayPageSlice";
+import { foodDeleted, mealAdded, todayReset } from "./dayPageSlice";
 import { exitEditMode } from "./editModeSlice";
-import { deleteMeal, todayReset } from "./todaySlice";
+import { deleteMeal } from "./todaySlice";
 
 export type MealEditState = "add" | "edit" | undefined;
 
