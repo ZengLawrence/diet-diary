@@ -50,6 +50,7 @@ export function deleteMeal(mealIndex: number) {
     const meal = getMeal(getState().dayPage, mealIndex);
     const newDay = today.deleteMeal(meal);
     dispatch(dayPageSlice.actions.setDayPage(newDay));
+    dispatch(dayPageSlice.actions.mealDeleted());
   }
 }
 
@@ -120,6 +121,10 @@ const dayPageSlice = createSlice({
       // marker action to indicate that a meal was added; no state change
       return state;
     },
+    mealDeleted(state) {
+      // marker action to indicate that a meal was deleted; no state change
+      return state;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(back.fulfilled, (_state, action) => {
@@ -133,6 +138,6 @@ const dayPageSlice = createSlice({
 
 export const { 
   setDayPage, 
-  todayReset, foodDeleted , mealAdded
+  todayReset, foodDeleted , mealAdded, mealDeleted
 } = dayPageSlice.actions;
 export default dayPageSlice.reducer;
