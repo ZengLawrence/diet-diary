@@ -1,4 +1,4 @@
-import { validation, mutation } from "./diary";
+import { validation, mutation, Today, TodayLoader, TodaySaver } from "./diary";
 import { Food, Meal, newMeal } from "./Food";
 import { getDefaultTarget } from "./Target";
 
@@ -110,17 +110,17 @@ describe("mutation", () => {
   describe("addSavedMeal", () => {
     it("should add a new meal with saved foods to the meals array and remove first empty meal", () => {
       const initialDay = mutation.newDay();
-      const savedFoods: Food[] = [{description: "Apple", serving: {}}];
+      const savedFoods: Food[] = [{ description: "Apple", serving: {} }];
       const updatedDay = mutation.addSavedMeal(initialDay, savedFoods);
       expect(updatedDay.meals.length).toBe(1);
       expect(updatedDay.meals[0].foods).toEqual(savedFoods);
     });
 
-    it("should add two meals if the first one is not empty", () => {  
+    it("should add two meals if the first one is not empty", () => {
       const initialDay = mutation.newDay();
-      const savedFoods: Food[] = [{description: "Apple", serving: {}}];
+      const savedFoods: Food[] = [{ description: "Apple", serving: {} }];
       const updatedDay = mutation.addSavedMeal(initialDay, savedFoods);
-      const secondSavedFoods: Food[] = [{description: "Banana", serving: {}}];
+      const secondSavedFoods: Food[] = [{ description: "Banana", serving: {} }];
       const updatedDay2 = mutation.addSavedMeal(updatedDay, secondSavedFoods);
       expect(updatedDay2.meals.length).toBe(2);
       expect(updatedDay2.meals[1].foods).toEqual(secondSavedFoods);
@@ -147,7 +147,7 @@ describe("mutation", () => {
     it("should add food to the specified meal's foods array", () => {
       const initialDay = mutation.newDay();
       const mealToAddFood = initialDay.meals[0];
-      const foodToAdd: Food = {description: "Apple", serving: {}};
+      const foodToAdd: Food = { description: "Apple", serving: {} };
       const updatedDay = mutation.addFood(initialDay, mealToAddFood, foodToAdd);
       expect(updatedDay.meals[0].foods.length).toBe(1);
       expect(updatedDay.meals[0].foods[0]).toEqual(foodToAdd);
@@ -156,7 +156,7 @@ describe("mutation", () => {
     it("should not modify other meals when adding food to a specific meal", () => {
       const initialDay = mutation.newDay();
       const mealToAddFood = initialDay.meals[0];
-      const foodToAdd: Food = {description: "Apple", serving: {}};
+      const foodToAdd: Food = { description: "Apple", serving: {} };
       const updatedDay = mutation.addFood(initialDay, mealToAddFood, foodToAdd);
       expect(updatedDay.meals.length).toBe(1);
     });
@@ -166,12 +166,12 @@ describe("mutation", () => {
     it("should update food in the specified meal's foods array", () => {
       const initialDay = mutation.newDay();
       const mealToAdd = initialDay.meals[0];
-      const foodToAdd: Food = {description: "Apple", serving: {}};
+      const foodToAdd: Food = { description: "Apple", serving: {} };
       const updatedDay = mutation.addFood(initialDay, mealToAdd, foodToAdd);
 
       const mealToUpdateFood = updatedDay.meals[0];
       const foodToUpdate = mealToUpdateFood.foods[0];
-      const replacedFood: Food = {description: "Banana", serving: {}};
+      const replacedFood: Food = { description: "Banana", serving: {} };
       const finalUpdatedDay = mutation.updateFood(updatedDay, mealToUpdateFood, foodToUpdate, replacedFood);
       expect(finalUpdatedDay.meals[0].foods[0]).toEqual(replacedFood);
     });
@@ -181,7 +181,7 @@ describe("mutation", () => {
     it("should remove food from the specified meal's foods array", () => {
       const initialDay = mutation.newDay();
       const mealToAddFood = initialDay.meals[0];
-      const foodToAdd: Food = {description: "Apple", serving: {}};
+      const foodToAdd: Food = { description: "Apple", serving: {} };
       const updatedDay = mutation.addFood(initialDay, mealToAddFood, foodToAdd);
 
       const mealToDeleteFood = updatedDay.meals[0];
@@ -209,4 +209,33 @@ describe("mutation", () => {
     });
   });
 
+});
+
+describe("Today class", () => {
+  describe("newDay", () => {
+    it("should create a new DayPage with today's date", () => {
+      const mockLoader: TodayLoader =
+        { load: jest.fn().mockReturnValue(mutation.newDay()) };
+      const mockSaver: TodaySaver = { save: jest.fn() };
+      const today = new Today(mockLoader, mockSaver);
+      const day = today.newDay();
+      const todayDate = new Date().toLocaleDateString();
+      expect(day.date).toBe(todayDate);
+    });
+  });
+  
+  describe("addMeal", () => {
+    it("should add a new meal to today's meals", () => {
+      const mockLoader: TodayLoader =
+        { load: jest.fn().mockReturnValue({
+          date: new Date().toLocaleDateString(),
+          target: getDefaultTarget(),
+          meals: [newMeal()], 
+        }) };
+      const mockSaver: TodaySaver = { save: jest.fn() };
+      const today = new Today(mockLoader, mockSaver);
+      const updatedDay = today.addMeal();
+      expect(updatedDay.meals.length).toBe(2);
+    });
+  });
 });
