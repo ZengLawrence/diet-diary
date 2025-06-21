@@ -56,7 +56,7 @@ function addSavedMeal(day: DayPage, foods: Food[]): DayPage {
 }
 
 function deleteMeal(day: DayPage, meal: Meal): DayPage {
-  const meals = day.meals.filter(m => m !== meal);
+  const meals = day.meals.filter(m => m.mealTime !== meal.mealTime);
   return {
     ...day,
     meals,
@@ -64,7 +64,7 @@ function deleteMeal(day: DayPage, meal: Meal): DayPage {
 }
 
 function addFood(day: DayPage, meal: Meal, food: Food): DayPage {
-  const meals = day.meals.map(m => m === meal ? { ...m, foods: [...m.foods, food] } : m);
+  const meals = day.meals.map(m => m.mealTime === meal.mealTime ? { ...m, foods: [...m.foods, food] } : m);
   return {
     ...day,
     meals,
@@ -72,7 +72,7 @@ function addFood(day: DayPage, meal: Meal, food: Food): DayPage {
 }
 
 function updateFood(day: DayPage, meal: Meal, food: Food, replacedFood: Food): DayPage {
-  const meals = day.meals.map(m => m === meal ? { ...m, foods: m.foods.map(f => f === food ? replacedFood : f) } : m);
+  const meals = day.meals.map(m => m.mealTime === meal.mealTime ? { ...m, foods: m.foods.map(f => f === food ? replacedFood : f) } : m);
   return {
     ...day,
     meals,
@@ -80,7 +80,7 @@ function updateFood(day: DayPage, meal: Meal, food: Food, replacedFood: Food): D
 }
 
 function deleteFood(day: DayPage, meal: Meal, food: Food): DayPage {
-  const meals = day.meals.map(m => m === meal ? { ...m, foods: m.foods.filter(f => f !== food) } : m);
+  const meals = day.meals.map(m => m.mealTime === meal.mealTime ? { ...m, foods: m.foods.filter(f => f !== food) } : m);
   return {
     ...day,
     meals,

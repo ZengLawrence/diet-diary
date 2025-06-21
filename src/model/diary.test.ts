@@ -138,7 +138,7 @@ describe("mutation", () => {
 
     it("should not remove any meals if the specified meal is not found", () => {
       const initialDay = mutation.newDay();
-      const nonExistentMeal: Meal = newMeal();
+      const nonExistentMeal: Meal = { mealTime: "not exist", foods: [] };
       const updatedDay = mutation.deleteMeal(initialDay, nonExistentMeal);
       expect(updatedDay.meals.length).toBe(1);
     });
@@ -273,8 +273,12 @@ describe("Today class", () => {
 
   describe("deleteMeal", () => {
     it("should delete a meal from today's meals", () => {
-      const mealToDelete = newMeal();
-      mealToDelete.foods.push({ description: "Banana", serving: {} });
+      const mealToDelete = {
+        mealTime: "lunch",
+        foods: [
+          { description: "Banana", serving: {} },
+        ],
+      };
       const mockLoader: TodayLoader =
       {
         load: jest.fn().mockReturnValue({
