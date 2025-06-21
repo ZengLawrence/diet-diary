@@ -107,7 +107,7 @@ const _todayViewOptionsSelector: (state: RootState) => ViewOptions = createSelec
     allowEdit: true,
     canDownload: hasAtLeastOneFood(meals(mealStates)),
     canAddNewDay: !editMode,
-    hasHistory: pageOptions.progress.totalDays > 0,
+    hasHistory: pageOptions.hasHistory,
   })
 );
 
