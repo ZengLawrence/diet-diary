@@ -96,19 +96,25 @@ const _mealStatesSelector: (state: RootState) => MealState[] = createSelector(
   }
 );
 
-const _todayStateSelector: (state: RootState) => DayPageState = createSelector(
-  _todaySelector,
+const _todayViewOptionsSelector: (state: RootState) => ViewOptions = createSelector(
   _editModeSelector,
   _mealStatesSelector,
-  (today, editMode, mealStates) => ({
+  (editMode, mealStates) => ({
+    canEdit: editMode,
+    isToday: true,
+    allowEdit: true,
+    canDownload: hasAtLeastOneFood(meals(mealStates)),
+    canAddNewDay: !editMode,
+  })
+);
+
+const _todayStateSelector: (state: RootState) => DayPageState = createSelector(
+  _todaySelector,
+  _todayViewOptionsSelector,
+  _mealStatesSelector,
+  (today, viewOptions, mealStates) => ({
     date: today.date,
-    viewOptions: {
-      canEdit: editMode,
-      isToday: true,
-      allowEdit: true,
-      canDownload: hasAtLeastOneFood(meals(mealStates)),
-      canAddNewDay: !editMode,
-    },
+    viewOptions,
     target: today.target,
     mealStates,
   })
