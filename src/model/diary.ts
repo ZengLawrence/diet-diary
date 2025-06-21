@@ -168,4 +168,10 @@ export class Today {
     this._saveToday(newDay);
     return newDay;
   }
+
+  addFood(meal: Meal, food: Food): DayPage {
+    const newDay = addFood(this._loadToday(), meal, food);
+    this._saveToday(newDay);
+    return newDay;
+  }
 }
