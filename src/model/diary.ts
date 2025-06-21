@@ -119,3 +119,41 @@ export const mutation = {
 }
 
 export default mutation;
+
+export interface TodayLoader {
+  load: (defaultFn: () => DayPage) => DayPage;
+}
+
+export interface TodaySaver {
+  save: (day: DayPage) => void;
+}
+
+export class Today {
+  private loader: TodayLoader;
+  private saver: TodaySaver;
+
+  constructor(loader: TodayLoader, saver: TodaySaver) {
+    this.loader = loader;
+    this.saver = saver;
+  }
+
+  _loadToday(): DayPage {
+    return this.loader.load(() => newDay());
+  }
+
+  _saveToday(day: DayPage): void {
+    this.saver.save(day);
+  }
+
+  newDay(): DayPage {
+    const day = newDay(this._loadToday());
+    this.saver.save(day);
+    return day;
+  }
+
+  addMeal(): DayPage {
+    const newDay = addMeal(this._loadToday());
+    this.saver.save(newDay);
+    return newDay;
+  }
+}
