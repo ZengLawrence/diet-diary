@@ -62,6 +62,17 @@ export function addFood(payload: {mealIndex: number, food: Food}) {
   }
 }
 
+export function updateFood(payload: {mealIndex: number, foodIndex: number, food: Food}) {
+  const { mealIndex, foodIndex, food } = payload;
+  return (dispatch: Dispatch, getState: () => {dayPage: DayPage}) => {
+    const state = getState().dayPage;
+    const meal = getMeal(state, mealIndex);
+    const foodToReplace = meal.foods[foodIndex];
+    const newDay = today.updateFood(meal, foodToReplace, food);
+    dispatch(dayPageSlice.actions.setDayPage(newDay));
+  }
+}
+
 const dayPageSlice = createSlice({
   name: 'dayPage',
   initialState: today.newDay(),
