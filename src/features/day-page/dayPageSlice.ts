@@ -1,8 +1,10 @@
 import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
+import { HistoryLocalStorage } from "../../app/historyLocalStorage";
 import { TodayLocalStorage } from "../../app/todayLocalStorage";
 import { DayPage, Today } from "../../model/diary";
-import { HistoryLocalStorage } from "../../app/historyLocalStorage";
 import { DiaryHistory } from "../../model/diaryHistory";
+import { Food } from "../../model/Food";
+import * as showSavedMealsSlice from "./showSavedMealsSlice";
 
 const historyLocalStorage = new HistoryLocalStorage();
 const diaryHistory = new DiaryHistory(historyLocalStorage, historyLocalStorage);
@@ -23,6 +25,15 @@ export function addMeal() {
   return (dispatch: Dispatch) => {
     const newDay = today.addMeal();
     dispatch(dayPageSlice.actions.setDayPage(newDay));
+  }
+}
+
+export function addSavedMeal(meal: { foods: Food[] }) {
+  return (dispatch: Dispatch) => {
+    const newDay = today.addSavedMeal(meal.foods);
+    dispatch(dayPageSlice.actions.setDayPage(newDay));
+    //TODO: should it be done in other way?
+    dispatch(showSavedMealsSlice.hide())
   }
 }
 
