@@ -328,4 +328,21 @@ describe("Today class", () => {
       expect(finalUpdatedDay.meals[0].foods.length).toBe(0);
     });
   });
+
+  describe("updateTarget", () => {
+    it("should update the target values in today's day", () => {
+      const currentDay = {
+        date: new Date().toLocaleDateString(),
+        target: { unlimitedFruit: false, ...getDefaultTarget(2000) },
+        meals: [newMeal()],
+      }
+      const mockLoader: TodayLoader =
+        { load: jest.fn().mockReturnValue(mutation.newDay()) };
+      const mockSaver: TodaySaver = { save: jest.fn() };
+      const today = new Today(mockLoader, mockSaver);
+      const newTarget = { ...currentDay.target, calorie: 2500 };
+      const updatedDay = today.updateTarget(newTarget);
+      expect(updatedDay.target.calorie).toBe(2500);
+    });
+  });
 });
