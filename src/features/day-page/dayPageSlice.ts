@@ -1,9 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import diary, { DayPage } from "../../model/diary";
+import { TodayLocalStorage } from "../../app/todayLocalStorage";
+import { DayPage, Today } from "../../model/diary";
+
+const todayLocalStorage = new TodayLocalStorage();
+const today = new Today(todayLocalStorage, todayLocalStorage);
 
 const dayPageSlice = createSlice({
   name: 'dayPage',
-  initialState: diary.newDay(),
+  initialState: today.newDay(),
   reducers: {
     setDayPage(_state, action: PayloadAction<DayPage>) {
       return action.payload;
