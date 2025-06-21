@@ -149,7 +149,12 @@ export class Today {
   }
 
   newDay(): DayPage {
+    const currentDay = this._loadToday();
+    if (isToday(currentDay.date)) {
+      return currentDay;
+    }
     const day = newDay(this._loadToday());
+    this.diaryHistory.add(currentDay);
     this._saveToday(day);
     return day;
   }
