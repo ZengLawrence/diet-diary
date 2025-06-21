@@ -26,6 +26,7 @@ interface ViewOptions {
   allowEdit: boolean,
   canDownload: boolean,
   canAddNewDay: boolean,
+  hasHistory: boolean,
 }
 
 export interface DayPageState {
@@ -99,12 +100,14 @@ const _mealStatesSelector: (state: RootState) => MealState[] = createSelector(
 const _todayViewOptionsSelector: (state: RootState) => ViewOptions = createSelector(
   _editModeSelector,
   _mealStatesSelector,
-  (editMode, mealStates) => ({
+  _pageOptionsSelector,
+  (editMode, mealStates, pageOptions) => ({
     canEdit: editMode,
     isToday: true,
     allowEdit: true,
     canDownload: hasAtLeastOneFood(meals(mealStates)),
     canAddNewDay: !editMode,
+    hasHistory: pageOptions.progress.totalDays > 0,
   })
 );
 
@@ -135,6 +138,7 @@ function toDayPageState(dayHistory: DayPage): DayPageState {
       allowEdit: false,
       canDownload: hasAtLeastOneFood(dayHistory.meals),
       canAddNewDay: false,
+      hasHistory: true,
     },
     target: dayHistory.target,
     mealStates: dayHistory.meals.map(toMealState),
