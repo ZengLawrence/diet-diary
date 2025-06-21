@@ -15,6 +15,7 @@ export interface PageOptions {
     daysRemaining: number;
     totalDays: number;
   };
+  hasHistory: boolean;
 }
 
 export interface AddMealOptions {
@@ -94,6 +95,7 @@ function initialState(): PageOptions {
       daysRemaining: 0,
       totalDays: 0,
     },
+    hasHistory: false,
   };
 }
 
@@ -155,13 +157,7 @@ const pageOptionsSlice = createSlice({
     builder
       .addCase(todayReset, (state) => {
         state.mealOptions = newMealOptions();
-        state.currentDate = "today";
-        // TODO: reset based on actual history
-        const totalDays = state.progress.totalDays + 1;
-        state.progress = {
-          daysRemaining: totalDays,
-          totalDays,
-        };
+        state.hasHistory = true;
       })
       .addCase(exitEditMode, (state) => {
         state.mealOptions = defaultMealOptions();
