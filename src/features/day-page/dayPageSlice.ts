@@ -5,6 +5,7 @@ import { DayPage, Today } from "../../model/diary";
 import { DiaryHistory } from "../../model/diaryHistory";
 import { Food } from "../../model/Food";
 import * as showSavedMealsSlice from "./showSavedMealsSlice";
+import { Target } from "../../model/Target";
 
 const historyLocalStorage = new HistoryLocalStorage();
 const diaryHistory = new DiaryHistory(historyLocalStorage, historyLocalStorage);
@@ -80,6 +81,14 @@ export function deleteFood(payload: {mealIndex: number, foodIndex: number}) {
     const meal = getMeal(state, mealIndex);
     const food = meal.foods[foodIndex];
     const newDay = today.deleteFood(meal, food);
+    dispatch(dayPageSlice.actions.setDayPage(newDay));
+  }
+}
+
+export function changeTarget(target: Target) {
+  return (dispatch: Dispatch, getState: () => {dayPage: DayPage}) => {
+    const state = getState().dayPage;
+    const newDay = today.updateTarget(target);
     dispatch(dayPageSlice.actions.setDayPage(newDay));
   }
 }
