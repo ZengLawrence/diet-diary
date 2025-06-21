@@ -34,7 +34,6 @@ export function addSavedMeal(meal: { foods: Food[] }) {
   return (dispatch: Dispatch) => {
     const newDay = today.addSavedMeal(meal.foods);
     dispatch(dayPageSlice.actions.setDayPage(newDay));
-    dispatch(dayPageSlice.actions.mealAdded());
     //TODO: should it be done in other way?
     dispatch(showSavedMealsSlice.hide())
   }
