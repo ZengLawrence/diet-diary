@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { dayPageSelector } from "../../app/selectors";
 import { AppDispatch } from "../../app/store";
-import { newDay } from "../../features/day-page/todaySlice";
+import { newDay } from "../../features/day-page/dayPageSlice";
 import { setShowCanNotAddNewDayWarning } from "../../features/warning/warningSlice";
 import { validation } from "../../model/diary";
 import { VariantDanger } from "../ButtonVariant";
