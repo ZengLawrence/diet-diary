@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { todayReset } from "../day-page/todaySlice";
+import { todayReset } from "../day-page/dayPageSlice";
 
 interface WarningState {
   dismissWarning: boolean;
