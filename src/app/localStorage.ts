@@ -53,6 +53,15 @@ function isMissingProgress(state: any): state is MissingProgress {
   return 'pageOptions' in state && 'progress' in state.pageOptions === false;
 }
 
+type MissingHasHistory = Omit<RootState, 'pageOptions'> & {
+  pageOptions: Omit<PageOptions, 'hasHistory'>;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function isMissingHasHistory(state: any): state is MissingHasHistory {
+  return 'pageOptions' in state && 'hasHistory' in state.pageOptions === false;
+}
+
 function _loadState(): RootState | DeprecatedDateIndex | null {
   try {
     const serializedState = localStorage.getItem('state');
@@ -96,6 +105,11 @@ export const loadState = (): any => {
       daysRemaining: totalDays,
       totalDays,
     };
+  }
+
+  if (isMissingHasHistory(state)) {
+    const history = loadHistory() || { days: [] };
+    state.pageOptions.hasHistory = history.days.length > 0;
   }
   return state;
 };
