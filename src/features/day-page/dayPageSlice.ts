@@ -5,6 +5,7 @@ import { DayPage, Today } from "../../model/diary";
 import { DiaryHistory } from "../../model/diaryHistory";
 import { Food } from "../../model/Food";
 import * as showSavedMealsSlice from "./showSavedMealsSlice";
+import { get } from "lodash";
 
 const historyLocalStorage = new HistoryLocalStorage();
 const diaryHistory = new DiaryHistory(historyLocalStorage, historyLocalStorage);
@@ -34,6 +35,21 @@ export function addSavedMeal(meal: { foods: Food[] }) {
     dispatch(dayPageSlice.actions.setDayPage(newDay));
     //TODO: should it be done in other way?
     dispatch(showSavedMealsSlice.hide())
+  }
+}
+
+function getMeal(state: DayPage, index: number) {
+  if (index < 0 || index >= state.meals.length) {
+    throw new Error(`Invalid meal index: ${index}`);
+  }
+  return state.meals[index];
+}
+
+export function deleteMeal(mealIndex: number) {
+  return (dispatch: Dispatch, getState: () => {dayPage: DayPage}) => {
+    const meal = getMeal(getState().dayPage, mealIndex);
+    const newDay = today.deleteMeal(meal);
+    dispatch(dayPageSlice.actions.setDayPage(newDay));
   }
 }
 
