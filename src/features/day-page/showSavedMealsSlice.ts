@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addSavedMeal } from "./todaySlice";
 
 const showSavedMealsSlice = createSlice({
   name: "showSavedMeals",
@@ -12,11 +11,6 @@ const showSavedMealsSlice = createSlice({
       return false;
     }
   },
-  extraReducers: (builder) => {
-    builder.addCase(addSavedMeal, () => {
-      return false;
-    });
-  }
 })
 
 export const { show, hide } = showSavedMealsSlice.actions;

@@ -4,7 +4,7 @@ import { AppDispatch, RootState } from "../../app/store";
 import { MealCardHeader } from "../../components/meal-card/MealCardHeader";
 import { Meal } from "../../model/Food";
 import { enterMealEditMode, exitMealEditMode, hideSavedMealAlert, showSavedMealAlert } from "../day-page/pageOptionsSlice";
-import { deleteMeal } from "../day-page/todaySlice";
+import { deleteMeal } from "../day-page/dayPageSlice";
 import { save } from "../saved-meal/savedMealsSlice";
 import { addSuggestion } from "../suggestions/SavedMealSuggestion";
 

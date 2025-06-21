@@ -1,4 +1,5 @@
 import { DayPage } from "../model/diary";
+import { TodayLoader, TodaySaver } from "../model/diary";
 
 export function loadToday(): DayPage | undefined {
   try {
@@ -19,5 +20,19 @@ export function saveToday(state: DayPage): void {
     localStorage.setItem('today', serializedState);
   } catch {
     // ignore write errors
+  }
+}
+
+export class TodayLocalStorage implements TodayLoader, TodaySaver {
+  load(defaultFn: () => DayPage): DayPage {
+    const today = loadToday();
+    if (today) {
+      return today;
+    }
+    return defaultFn();
+  }
+
+  save(day: DayPage): void {
+    saveToday(day);
   }
 }

@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { hide } from "../day-page/showSavedMealsSlice";
-import { addSavedMeal } from "../day-page/todaySlice";
 
 interface SavedMealState {
   searchTerm: string;
@@ -15,9 +14,7 @@ const savedMealStateSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(addSavedMeal, (state) => {
-      state.searchTerm = "";
-    }).addCase(hide, (state) => {
+    builder.addCase(hide, (state) => {
       state.searchTerm = "";
     });
   }

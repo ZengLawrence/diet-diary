@@ -2,14 +2,15 @@ import { PageOptions } from "../features/day-page/pageOptionsSlice";
 import { DayPage } from "../model/diary";
 import { RootState } from "./store";
 import { loadHistory, saveHistory } from "./historyLocalStorage";
-import { loadToday, saveToday } from "./todayLocalStorage";
+import { loadToday } from "./todayLocalStorage";
 
 type DeprecatedDateIndex = Omit<RootState, 'pageOptions' | 'history'> & {
   pageOptions: Omit<PageOptions, 'currentDate'>;
   history: {
     days: DayPage[];
     dateIndex: number;
-  }
+  },
+  today: DayPage;
 };
 
 type MissingDayPage = Omit<RootState, 'dayPage'>;
@@ -84,18 +85,21 @@ export const loadState = (): any => {
   if (isDeprecatedDateIndex(state)) {
     const convertedState = convert(state);
     saveHistory(convertedState.history);
-    const dayPage = findHistoryDay(convertedState, convertedState.pageOptions.currentDate) || convertedState.today;
+    const dayPage = findHistoryDay(convertedState, convertedState.pageOptions.currentDate) || state.today;
     return {...convertedState, dayPage};
   }
   if (isMissingDayPage(state)) {
     const history = loadHistory() || { days: [] };
-    state.dayPage = findHistoryDay({history}, state.pageOptions.currentDate) || state.today;
+    const historyDay = findHistoryDay({history}, state.pageOptions.currentDate);
+    if (historyDay) {
+      state.dayPage = historyDay;
+    } else {
+      const today = loadToday();
+      if (today) {
+        state.dayPage = today;
+      }
+    }
   }
-  const today = loadToday();
-  if (today === undefined) {
-    return state;
-  }
-  state.today = today;
 
   if (isMissingProgress(state)) {
     state.pageOptions.currentDate = "today";
@@ -111,22 +115,17 @@ export const loadState = (): any => {
     const history = loadHistory() || { days: [] };
     state.pageOptions.hasHistory = history.days.length > 0;
   }
+
+  if (state.pageOptions.currentDate === "today") {
+    const today = loadToday();
+    if (today) {
+      state.dayPage = today;
+    }
+  }
   return state;
 };
 
-type ReduxState = Omit<RootState, 'today'>;
-
-function removeToday(state: RootState): ReduxState {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { today: _unused, ...rest } = state;
-  return rest;
-}
-
-function reduxState(state: RootState): ReduxState {
-  return removeToday(state);
-}
-
-function saveReduxState(state: ReduxState): void {
+function saveReduxState(state: RootState): void {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('state', serializedState);
@@ -136,6 +135,5 @@ function saveReduxState(state: ReduxState): void {
 }
 
 export const saveState = (state: RootState) => {
-  saveReduxState(reduxState(state));
-  saveToday(state.today);
+  saveReduxState(state);
 };
