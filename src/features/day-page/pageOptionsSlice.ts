@@ -2,9 +2,8 @@ import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
 import { HistoryLocalStorage } from "../../app/historyLocalStorage";
 import { DayPage } from "../../model/diary";
 import { DiaryTimeline } from "../../model/diaryHistory";
-import { foodDeleted, mealAdded, setDayPage, todayReset } from "./dayPageSlice";
+import { foodDeleted, mealAdded, mealDeleted, setDayPage, todayReset } from "./dayPageSlice";
 import { exitEditMode } from "./editModeSlice";
-import { deleteMeal } from "./todaySlice";
 
 export type MealEditState = "add" | "edit" | undefined;
 
@@ -170,7 +169,7 @@ const pageOptionsSlice = createSlice({
       .addCase(mealAdded, (state) => {
         state.mealOptions = newMealOptions();
       })
-      .addCase(deleteMeal, (state) => {
+      .addCase(mealDeleted, (state) => {
         state.mealOptions = defaultMealOptions();
       })
   }
