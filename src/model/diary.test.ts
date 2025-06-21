@@ -255,4 +255,21 @@ describe("Today class", () => {
       expect(updatedDay.meals[0].foods).toEqual(savedFoods);
     });
   });
+
+  describe("deleteMeal", () => {
+    it("should delete a meal from today's meals", () => {
+      const mealToDelete = newMeal();
+      mealToDelete.foods.push({ description: "Banana", serving: {} });
+      const mockLoader: TodayLoader =
+        { load: jest.fn().mockReturnValue({
+          date: new Date().toLocaleDateString(),
+          target: getDefaultTarget(),
+          meals: [newMeal(), mealToDelete],
+        }) };
+      const mockSaver: TodaySaver = { save: jest.fn() };
+      const today = new Today(mockLoader, mockSaver);
+      const updatedDay = today.deleteMeal(mealToDelete);
+      expect(updatedDay.meals.length).toBe(1);
+    });
+  });
 });
