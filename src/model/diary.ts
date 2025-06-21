@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { Food, Meal, newMeal } from "./Food";
 import { getDefaultTarget, Target } from "./Target";
 import { DiaryHistory } from "./diaryHistory";
@@ -80,7 +81,7 @@ function updateFood(day: DayPage, meal: Meal, food: Food, replacedFood: Food): D
 }
 
 function deleteFood(day: DayPage, meal: Meal, food: Food): DayPage {
-  const meals = day.meals.map(m => m.mealTime === meal.mealTime ? { ...m, foods: m.foods.filter(f => f !== food) } : m);
+  const meals = day.meals.map(m => m.mealTime === meal.mealTime ? { ...m, foods: m.foods.filter(f => !_.isEqual(f,food)) } : m);
   return {
     ...day,
     meals,
