@@ -192,4 +192,10 @@ export class Today {
     this._saveToday(newDay);
     return newDay;
   }
+
+  toggleUnlimitedFruit(): DayPage {
+    const newDay = toggleUnlimitedFruit(this._loadToday());
+    this._saveToday(newDay);
+    return newDay;
+  }
 }
