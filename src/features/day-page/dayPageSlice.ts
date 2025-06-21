@@ -81,6 +81,7 @@ export function deleteFood(payload: {mealIndex: number, foodIndex: number}) {
     const food = meal.foods[foodIndex];
     const newDay = today.deleteFood(meal, food);
     dispatch(dayPageSlice.actions.setDayPage(newDay));
+    dispatch(dayPageSlice.actions.foodDeleted());
   }
 }
 
@@ -109,8 +110,12 @@ const dayPageSlice = createSlice({
       // mark the day as reset; no state change
       return state;
     },
+    foodDeleted(state) {
+      // marker action to indicate that a food was deleted; no state change
+      return state;
+    }
   },
 });
 
-export const { setDayPage, todayReset } = dayPageSlice.actions;
+export const { setDayPage, todayReset, foodDeleted } = dayPageSlice.actions;
 export default dayPageSlice.reducer;
