@@ -345,4 +345,30 @@ describe("Today class", () => {
       expect(updatedDay.target.calorie).toBe(2500);
     });
   });
+
+  describe("toggleUnlimitedFruit", () => {
+    it("should toggle to true if value is false", () => {
+      const mockLoader: TodayLoader =
+        { load: jest.fn().mockReturnValue({
+          date: "6/1/2025",
+          target: { unlimitedFruit: false, ...getDefaultTarget() },
+          meals: [],
+        }) };
+      const mockSaver: TodaySaver = { save: jest.fn() };
+      const today = new Today(mockLoader, mockSaver);
+      expect(today.toggleUnlimitedFruit().target.unlimitedFruit).toBeTruthy();
+    });
+
+    it("should toggle to false if value is true", () => {
+      const mockLoader: TodayLoader =
+        { load: jest.fn().mockReturnValue({
+          date: "6/1/2025",
+          target: { unlimitedFruit: true, ...getDefaultTarget() },
+          meals: [],
+        }) };
+      const mockSaver: TodaySaver = { save: jest.fn() };
+      const today = new Today(mockLoader, mockSaver);
+      expect(today.toggleUnlimitedFruit().target.unlimitedFruit).toBeFalsy();
+    }); 
+  });
 });
