@@ -85,8 +85,7 @@ export function deleteFood(payload: {mealIndex: number, foodIndex: number}) {
 }
 
 export function changeTarget(target: Target) {
-  return (dispatch: Dispatch, getState: () => {dayPage: DayPage}) => {
-    const state = getState().dayPage;
+  return (dispatch: Dispatch) => {
     const newDay = today.updateTarget(target);
     dispatch(dayPageSlice.actions.setDayPage(newDay));
   }
