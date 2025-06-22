@@ -130,7 +130,7 @@ export interface TodaySaver {
   save: (day: DayPage) => void;
 }
 
-export class ReadyOnlyToday {
+export class ReadOnlyToday {
 
   constructor(private loader: TodayLoader) {}
 
@@ -143,7 +143,7 @@ export class ReadyOnlyToday {
   }
 }
 
-export class Today extends ReadyOnlyToday {
+export class Today extends ReadOnlyToday {
 
   constructor(loader: TodayLoader, private saver: TodaySaver, private diaryHistory: DiaryHistory) {
     super(loader);
