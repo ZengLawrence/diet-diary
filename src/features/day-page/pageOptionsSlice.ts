@@ -1,8 +1,7 @@
-import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HistoryLocalStorage } from "../../app/historyLocalStorage";
 import { DayPage } from "../../model/diary";
 import { DiaryTimeline } from "../../model/diaryHistory";
-import { setDayPage } from "./dayPageSlice";
 import { exitEditMode } from "./editModeSlice";
 import { addMeal, deleteFood, deleteMeal, todayReset } from "./todaySlice";
 
@@ -55,37 +54,39 @@ export function isToday(date: string | "today"): date is "today" {
 }
 
 const diaryTimeline = new DiaryTimeline(new HistoryLocalStorage());
-export function back() {
-  return (dispatch: Dispatch, getState: () => { pageOptions: PageOptions; dayPage: DayPage; today: DayPage }) => {
-    const state = getState();
+
+interface PartialRootState {
+  pageOptions: PageOptions;
+  today: DayPage;
+}
+
+export const back = createAsyncThunk(
+  'pageOptions/back',
+  async (_, { getState }) => {
+    const state = getState() as PartialRootState;
     const { currentDate } = state.pageOptions;
     const dayBefore = diaryTimeline.dayBefore(currentDate);
     if (dayBefore) {
-      dispatch(setDayPage(dayBefore.day));
-      dispatch(pageOptionsSlice.actions.setCurrentDate(dayBefore.day.date));
-      dispatch(pageOptionsSlice.actions.setProgress(dayBefore.progress));
+      return {...dayBefore, currentDate: dayBefore.day.date };
     } else {
-      dispatch(pageOptionsSlice.actions.setCurrentDate("today"));
-      dispatch(setDayPage(state.today));
+      return { day: state.today, currentDate: "today" };
     }
   }
-}
+);
 
-export function next() {
-  return (dispatch: Dispatch, getState: () => { pageOptions: PageOptions; dayPage: DayPage; today: DayPage }) => {
-    const state = getState();
+export const next = createAsyncThunk(
+  'pageOptions/next',
+  async (_, { getState }) => {
+    const state = getState() as PartialRootState;
     const { currentDate } = state.pageOptions;
     const dayAfter = diaryTimeline.dayAfter(currentDate);
     if (dayAfter) {
-      dispatch(setDayPage(dayAfter.day));
-      dispatch(pageOptionsSlice.actions.setCurrentDate(dayAfter.day.date));
-      dispatch(pageOptionsSlice.actions.setProgress(dayAfter.progress));
+      return { ...dayAfter, currentDate: dayAfter.day.date };
     } else {
-      dispatch(pageOptionsSlice.actions.setCurrentDate("today"));
-      dispatch(setDayPage(state.today));
+      return { day: state.today, currentDate: "today" };
     }
   }
-}
+);
 
 function initialState(): PageOptions {
   return {
@@ -172,7 +173,19 @@ const pageOptionsSlice = createSlice({
       .addCase(deleteMeal, (state) => {
         state.mealOptions = defaultMealOptions();
       })
-  }
+      .addCase(back.fulfilled, (state, action) => {
+        state.currentDate = action.payload.currentDate;
+        if ('progress' in action.payload) {
+          state.progress = action.payload.progress;
+        }
+      })
+      .addCase(next.fulfilled, (state, action) => {
+        state.currentDate = action.payload.currentDate;
+        if ('progress' in action.payload) {
+          state.progress = action.payload.progress;
+        }
+      });
+    }
 });
 
 export const {
