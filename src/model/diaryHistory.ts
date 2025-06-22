@@ -38,22 +38,6 @@ export class ReadOnlyDiaryHistory {
   protected _loadHistory(): DayPage[] {
     return this.loader.load();
   }
-}
-
-export class DiaryHistory extends ReadOnlyDiaryHistory {
-  private saver: DiaryHistorySaver;
-
-  constructor(loader: DiaryHistoryLoader, saver: DiaryHistorySaver) {
-    super(loader);
-    this.saver = saver;
-  }
-
-  add(day: DayPage): DayPage[] {
-    const history = this._loadHistory();
-    const newHistory = mutations.add(history, day);
-    this.saver.save(newHistory);
-    return newHistory;
-  }
 
   dayBefore(date: string): DayWithProgress | undefined {
     const history = this._loadHistory();
@@ -84,5 +68,21 @@ export class DiaryHistory extends ReadOnlyDiaryHistory {
     }
     const nextIndex = index - 1;
     return { day: history[nextIndex], progress: { daysRemaining: totalDays - (nextIndex + 1), totalDays } };
+  }
+}
+
+export class DiaryHistory extends ReadOnlyDiaryHistory {
+  private saver: DiaryHistorySaver;
+
+  constructor(loader: DiaryHistoryLoader, saver: DiaryHistorySaver) {
+    super(loader);
+    this.saver = saver;
+  }
+
+  add(day: DayPage): DayPage[] {
+    const history = this._loadHistory();
+    const newHistory = mutations.add(history, day);
+    this.saver.save(newHistory);
+    return newHistory;
   }
 }
