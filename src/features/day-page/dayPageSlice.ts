@@ -11,7 +11,7 @@ const dayPageSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(back.fulfilled, (state, action) => {
+    builder.addCase(back.fulfilled, (_state, action) => {
       return action.payload.day;
     })
     .addCase(next.fulfilled, (_state, action) => {
