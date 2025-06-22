@@ -58,7 +58,6 @@ const diaryTimeline = new DiaryTimeline(new HistoryLocalStorage());
 
 interface PartialRootState {
   pageOptions: PageOptions;
-  dayPage: DayPage;
   today: DayPage;
 }
 
