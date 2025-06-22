@@ -88,12 +88,12 @@ export const changeTarget = createAsyncThunk<DayPage, Target>(
   }
 );
 
-export function toggleUnlimitedFruit() {
-  return (dispatch: Dispatch) => {
-    const newDay = today.toggleUnlimitedFruit();
-    dispatch(dayPageSlice.actions.setDayPage(newDay));
+export const toggleUnlimitedFruit = createAsyncThunk<DayPage>(
+  'dayPage/toggleUnlimitedFruit',
+  async () => {
+    return today.toggleUnlimitedFruit();
   }
-}
+);
 
 const dayPageSlice = createSlice({
   name: 'dayPage',
@@ -136,6 +136,9 @@ const dayPageSlice = createSlice({
       return action.payload;
     })
     .addCase(changeTarget.fulfilled, (_state, action) => {
+      return action.payload;
+    })
+    .addCase(toggleUnlimitedFruit.fulfilled, (_state, action) => {
       return action.payload;
     });
   },
