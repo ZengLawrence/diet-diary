@@ -1,4 +1,4 @@
-import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
 import { HistoryLocalStorage } from "../../app/historyLocalStorage";
 import { DayPage } from "../../model/diary";
 import { DiaryTimeline } from "../../model/diaryHistory";
@@ -55,21 +55,26 @@ export function isToday(date: string | "today"): date is "today" {
 }
 
 const diaryTimeline = new DiaryTimeline(new HistoryLocalStorage());
-export function back() {
-  return (dispatch: Dispatch, getState: () => { pageOptions: PageOptions; dayPage: DayPage; today: DayPage }) => {
-    const state = getState();
+
+interface PartialRootState {
+  pageOptions: PageOptions;
+  dayPage: DayPage;
+  today: DayPage;
+}
+
+export const back = createAsyncThunk(
+  'pageOptions/back',
+  async (_, { dispatch, getState }) => {
+    const state = getState() as PartialRootState;
     const { currentDate } = state.pageOptions;
     const dayBefore = diaryTimeline.dayBefore(currentDate);
     if (dayBefore) {
-      dispatch(setDayPage(dayBefore.day));
-      dispatch(pageOptionsSlice.actions.setCurrentDate(dayBefore.day.date));
-      dispatch(pageOptionsSlice.actions.setProgress(dayBefore.progress));
+      return {...dayBefore, currentDate: dayBefore.day.date };
     } else {
-      dispatch(pageOptionsSlice.actions.setCurrentDate("today"));
-      dispatch(setDayPage(state.today));
+      return { day: state.today, currentDate: "today" };
     }
   }
-}
+);
 
 export function next() {
   return (dispatch: Dispatch, getState: () => { pageOptions: PageOptions; dayPage: DayPage; today: DayPage }) => {
@@ -171,6 +176,12 @@ const pageOptionsSlice = createSlice({
         state.mealOptions = newMealOptions();})
       .addCase(deleteMeal, (state) => {
         state.mealOptions = defaultMealOptions();
+      })
+      .addCase(back.fulfilled, (state, action: PayloadAction<{ day: DayPage; currentDate: string; progress: { daysRemaining: number; totalDays: number } } | {day: DayPage; currentDate: string;}>) => {
+        state.currentDate = action.payload.currentDate;
+        if ('progress' in action.payload) {
+          state.progress = action.payload.progress;
+        }
       })
   }
 });
