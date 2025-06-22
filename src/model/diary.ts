@@ -130,7 +130,11 @@ export interface TodaySaver {
   save: (day: DayPage) => void;
 }
 
-export class Today {
+export interface ReadyOnlyToday {
+  currentDay: () => DayPage;
+}
+
+export class Today implements ReadyOnlyToday {
   private loader: TodayLoader;
   private saver: TodaySaver;
   private diaryHistory: DiaryHistory;
