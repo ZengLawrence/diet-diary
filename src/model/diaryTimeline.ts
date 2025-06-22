@@ -22,7 +22,18 @@ export class DiaryTimeline {
     };
   }
 
-  dayAfter(date: string) {
-    return this.history.dayAfter(date);
+  dayAfter(date: string): DayWithProgress & { currentDate: string | "today" } {
+    const historyDay = this.history.dayAfter(date);
+    if (historyDay) {
+      return {...historyDay, currentDate: historyDay.day.date };
+    }
+    return {
+      day: this.today.currentDay(),
+      currentDate: "today",
+      progress: {
+        daysRemaining: 0,
+        totalDays: 0,
+      },
+    };
   }
 }

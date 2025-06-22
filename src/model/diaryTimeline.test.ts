@@ -56,14 +56,28 @@ describe("DiaryTimeline", () => {
 
   describe("dayAfter", () => {
     it("calls dayAfter on history and returns its value", () => {
-      const mockResult: DayWithProgress = {
+      const mockResult = {
         day: { date: "2025-06-23", target: { unlimitedFruit: false, calorie: 0, serving: mockServing }, meals: [] },
+        currentDate: "2025-06-23",
         progress: { daysRemaining: 0, totalDays: 2 },
       };
       history.dayAfter.mockReturnValueOnce(mockResult);
       const result = timeline.dayAfter("2025-06-22");
       expect(history.dayAfter).toHaveBeenCalledWith("2025-06-22");
-      expect(result).toBe(mockResult);
+      expect(result).toStrictEqual(mockResult);
+    });
+
+    it("returns today's current day when no history is available", () => {
+      const mockToday = { date: "2025-06-22", target: { unlimitedFruit: false, calorie: 0, serving: mockServing }, meals: [] };
+      today.currentDay.mockReturnValueOnce(mockToday);
+      history.dayAfter.mockReturnValueOnce(undefined);
+      const result = timeline.dayAfter("2025-06-22");
+      expect(today.currentDay).toHaveBeenCalled();
+      expect(result).toStrictEqual({
+        day: mockToday,
+        currentDate: "today",
+        progress: { daysRemaining: 0, totalDays: 0 },
+      });
     });
   });
 });

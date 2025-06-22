@@ -82,12 +82,7 @@ export const next = createAsyncThunk(
   async (_, { getState }) => {
     const state = getState() as PartialRootState;
     const { currentDate } = state.pageOptions;
-    const dayAfter = diaryTimeline.dayAfter(currentDate);
-    if (dayAfter) {
-      return { ...dayAfter, currentDate: dayAfter.day.date };
-    } else {
-      return { day: state.today, currentDate: "today" };
-    }
+    return diaryTimeline.dayAfter(currentDate);
   }
 );
 
