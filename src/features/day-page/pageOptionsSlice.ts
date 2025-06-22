@@ -1,8 +1,7 @@
-import { createAsyncThunk, createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HistoryLocalStorage } from "../../app/historyLocalStorage";
 import { DayPage } from "../../model/diary";
 import { DiaryTimeline } from "../../model/diaryHistory";
-import { setDayPage } from "./dayPageSlice";
 import { exitEditMode } from "./editModeSlice";
 import { addMeal, deleteFood, deleteMeal, todayReset } from "./todaySlice";
 
@@ -75,21 +74,19 @@ export const back = createAsyncThunk(
   }
 );
 
-export function next() {
-  return (dispatch: Dispatch, getState: () => { pageOptions: PageOptions; dayPage: DayPage; today: DayPage }) => {
-    const state = getState();
+export const next = createAsyncThunk(
+  'pageOptions/next',
+  async (_, { getState }) => {
+    const state = getState() as PartialRootState;
     const { currentDate } = state.pageOptions;
     const dayAfter = diaryTimeline.dayAfter(currentDate);
     if (dayAfter) {
-      dispatch(setDayPage(dayAfter.day));
-      dispatch(pageOptionsSlice.actions.setCurrentDate(dayAfter.day.date));
-      dispatch(pageOptionsSlice.actions.setProgress(dayAfter.progress));
+      return { ...dayAfter, currentDate: dayAfter.day.date };
     } else {
-      dispatch(pageOptionsSlice.actions.setCurrentDate("today"));
-      dispatch(setDayPage(state.today));
+      return { day: state.today, currentDate: "today" };
     }
   }
-}
+);
 
 function initialState(): PageOptions {
   return {
@@ -182,7 +179,13 @@ const pageOptionsSlice = createSlice({
           state.progress = action.payload.progress;
         }
       })
-  }
+      .addCase(next.fulfilled, (state, action: PayloadAction<{ day: DayPage; currentDate: string; progress: { daysRemaining: number; totalDays: number } } | {day: DayPage; currentDate: string;}>) => {
+        state.currentDate = action.payload.currentDate;
+        if ('progress' in action.payload) {
+          state.progress = action.payload.progress;
+        }
+      });
+    }
 });
 
 export const {
