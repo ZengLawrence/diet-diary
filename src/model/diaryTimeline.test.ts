@@ -85,7 +85,7 @@ describe("DiaryTimeline", () => {
     it("returns today's current day with 'today' as currentDate", () => {
       const mockToday = { date: "2025-06-22", target: { unlimitedFruit: false, calorie: 0, serving: mockServing }, meals: [] };
       today.currentDay.mockReturnValueOnce(mockToday);
-      const result = timeline.gotoToday();
+      const result = timeline.goToToday();
       expect(today.currentDay).toHaveBeenCalled();
       expect(result).toStrictEqual({
         day: mockToday,

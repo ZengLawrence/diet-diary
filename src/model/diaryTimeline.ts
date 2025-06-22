@@ -37,7 +37,7 @@ export class DiaryTimeline {
     };
   }
 
-  gotoToday(): DayWithProgress & { currentDate: string | "today" } {
+  goToToday(): DayWithProgress & { currentDate: string | "today" } {
     const todayDay = this.today.currentDay();
     return {
       day: todayDay,
