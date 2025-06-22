@@ -401,5 +401,24 @@ describe("Today class", () => {
       const today = new Today(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
       expect(today.toggleUnlimitedFruit().target.unlimitedFruit).toBeFalsy();
     });
+
+    describe("currentDay", () => {
+      it("should return current day from loader", () => {
+        const mockLoader: TodayLoader =
+        {
+          load: jest.fn().mockReturnValue({
+            date: "6/1/2025", 
+            target: getDefaultTarget(), 
+            meals: []
+          })
+        };
+        const mockSaver: TodaySaver = { save: jest.fn() };
+        const today = new Today(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
+        const currentDay = today.currentDay();
+        expect(currentDay.date).toBe("6/1/2025");
+        expect(currentDay.target).toEqual(getDefaultTarget());
+        expect(currentDay.meals).toEqual([]);
+      });
+    });
   });
 });

@@ -149,6 +149,10 @@ export class Today {
     this.saver.save(day);
   }
 
+  currentDay(): DayPage {
+    return this._loadToday();
+  }
+
   newDay(): DayPage {
     const currentDay = this._loadToday();
     if (isToday(currentDay.date)) {
