@@ -16,8 +16,7 @@ const today = new Today(todayLocalStorage, todayLocalStorage, diaryHistory);
 export const newDay = createAsyncThunk<DayPage>(
   'dayPage/newDay',
   async () => {
-    const newDay = today.newDay();
-    return newDay;
+    return today.newDay();
   }
 );
 
