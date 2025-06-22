@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HistoryLocalStorage } from "../../app/historyLocalStorage";
 import { DayPage } from "../../model/diary";
-import { DiaryTimeline } from "../../model/diaryHistory";
+import { DiaryHistory, DiaryTimeline } from "../../model/diaryHistory";
 import { addMeal, deleteMeal, deleteFood, newDay } from "./dayPageSlice";
 import { exitEditMode } from "./editModeSlice";
 
@@ -53,7 +53,8 @@ export function isToday(date: string | "today"): date is "today" {
   return date === "today";
 }
 
-const diaryTimeline = new DiaryTimeline(new HistoryLocalStorage());
+const historyLocalStorage = new HistoryLocalStorage();
+const diaryTimeline = new DiaryTimeline(new DiaryHistory(historyLocalStorage, historyLocalStorage));
 
 interface PartialRootState {
   pageOptions: PageOptions;

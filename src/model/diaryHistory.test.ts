@@ -1,4 +1,4 @@
-import { mutations, DiaryHistory, DiaryHistoryLoader, DiaryHistorySaver, DiaryTimeline } from "./diaryHistory";
+import { mutations, DiaryHistory, DiaryHistoryLoader, DiaryHistorySaver } from "./diaryHistory";
 import { DayPage } from "./diary";
 
 function makeDay(date: string): DayPage {
@@ -65,9 +65,7 @@ describe("DiaryHistory class", () => {
       expect(result).toEqual([newDay, { date: "2025-05-31", meals: [] }]);
     });
   });
-});
 
-describe("DiaryTimeline class", () => {
   describe("dayBefore", () => {
     it("returns the previous day and progress if date is found and not the first", () => {
       const loader: DiaryHistoryLoader = {
@@ -77,8 +75,8 @@ describe("DiaryTimeline class", () => {
           makeDay("2025-05-30"),
         ]),
       };
-      const timeline = new DiaryTimeline(loader);
-      const result = timeline.dayBefore("2025-05-31");
+      const history = new DiaryHistory(loader, { save: () => {} });
+      const result = history.dayBefore("2025-05-31");
       expect(result).toBeDefined();
       if (result) {
         expect(result.day.date).toBe("2025-05-30");
@@ -93,8 +91,8 @@ describe("DiaryTimeline class", () => {
           makeDay("2025-05-31"),
         ]),
       };
-      const timeline = new DiaryTimeline(loader);
-      const result = timeline.dayBefore("2025-06-01");
+      const history = new DiaryHistory(loader, { save: () => {} });
+      const result = history.dayBefore("2025-06-01");
       expect(result).toBeDefined();
       if (result) {
         expect(result.day.date).toBe("2025-05-31");
@@ -109,8 +107,8 @@ describe("DiaryTimeline class", () => {
           makeDay("2025-05-31"),
         ]),
       };
-      const timeline = new DiaryTimeline(loader);
-      const result = timeline.dayBefore("2025-06-02");
+      const history = new DiaryHistory(loader, { save: () => {} });
+      const result = history.dayBefore("2025-06-02");
       expect(result).toBeDefined();
       if (result) {
         expect(result.day.date).toBe("2025-06-01");
@@ -120,8 +118,8 @@ describe("DiaryTimeline class", () => {
 
     it("returns undefined if history is empty", () => {
       const loader: DiaryHistoryLoader = { load: jest.fn().mockReturnValue([]) };
-      const timeline = new DiaryTimeline(loader);
-      const result = timeline.dayBefore("2025-06-01");
+      const history = new DiaryHistory(loader, { save: () => {} });
+      const result = history.dayBefore("2025-06-01");
       expect(result).toBeUndefined();
     });
   });
@@ -135,15 +133,15 @@ describe("DiaryTimeline class", () => {
           makeDay("2025-05-30"),
         ]),
       };
-      const timeline = new DiaryTimeline(loader);
-      const result = timeline.dayAfter("2025-05-30");
+      const history = new DiaryHistory(loader, { save: () => {} });
+      const result = history.dayAfter("2025-05-30");
       expect(result).toBeDefined();
       if (result) {
         expect(result.day.date).toBe("2025-05-31");
         expect(result.progress).toEqual({ daysRemaining: 1, totalDays: 3 });
       }
 
-      const result2 = timeline.dayAfter("2025-05-31");
+      const result2 = history.dayAfter("2025-05-31");
       expect(result2).toBeDefined();
       if (result2) {
         expect(result2.day.date).toBe("2025-06-01");
@@ -158,8 +156,8 @@ describe("DiaryTimeline class", () => {
           makeDay("2025-05-31"),
         ]),
       };
-      const timeline = new DiaryTimeline(loader);
-      const result = timeline.dayAfter("2025-06-01");
+      const history = new DiaryHistory(loader, { save: () => {} });
+      const result = history.dayAfter("2025-06-01");
       expect(result).toBeUndefined();
     });
 
@@ -170,15 +168,15 @@ describe("DiaryTimeline class", () => {
           makeDay("2025-05-31"),
         ]),
       };
-      const timeline = new DiaryTimeline(loader);
-      const result = timeline.dayAfter("2025-06-02");
+      const history = new DiaryHistory(loader, { save: () => {} });
+      const result = history.dayAfter("2025-06-02");
       expect(result).toBeUndefined();
     });
 
     it("returns undefined if history is empty", () => {
       const loader: DiaryHistoryLoader = { load: jest.fn().mockReturnValue([]) };
-      const timeline = new DiaryTimeline(loader);
-      const result = timeline.dayAfter("2025-06-01");
+      const history = new DiaryHistory(loader, { save: () => {} });
+      const result = history.dayAfter("2025-06-01");
       expect(result).toBeUndefined();
     });
   });
