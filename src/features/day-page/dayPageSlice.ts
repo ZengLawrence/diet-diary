@@ -104,7 +104,7 @@ export function toggleUnlimitedFruit() {
 
 const dayPageSlice = createSlice({
   name: 'dayPage',
-  initialState: today.newDay(),
+  initialState: today.currentDay(), // initializer should not change state
   reducers: {
     setDayPage(_state, action: PayloadAction<DayPage>) {
       return action.payload;
