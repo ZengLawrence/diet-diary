@@ -22,13 +22,13 @@ export const newDay = createAsyncThunk<DayPage>(
   }
 );
 
-export function addMeal() {
-  return (dispatch: Dispatch) => {
+export const addMeal = createAsyncThunk<DayPage>(
+  'dayPage/addMeal',
+  async () => {
     const newDay = today.addMeal();
-    dispatch(dayPageSlice.actions.setDayPage(newDay));
-    dispatch(dayPageSlice.actions.mealAdded());
+    return newDay;
   }
-}
+);
 
 export function addSavedMeal(meal: { foods: Food[] }) {
   return (dispatch: Dispatch) => {
@@ -117,10 +117,6 @@ const dayPageSlice = createSlice({
       // marker action to indicate that a food was deleted; no state change
       return state;
     },
-    mealAdded(state) {
-      // marker action to indicate that a meal was added; no state change
-      return state;
-    },
     mealDeleted(state) {
       // marker action to indicate that a meal was deleted; no state change
       return state;
@@ -135,11 +131,14 @@ const dayPageSlice = createSlice({
     })
     .addCase(newDay.fulfilled, (_state, action) => {
       return action.payload;
+    })
+    .addCase(addMeal.fulfilled, (_state, action) => {
+      return action.payload;
     });
   },
 });
 
 export const { 
-  todayReset, foodDeleted , mealAdded, mealDeleted
+  todayReset, foodDeleted, mealDeleted
 } = dayPageSlice.actions;
 export default dayPageSlice.reducer;
