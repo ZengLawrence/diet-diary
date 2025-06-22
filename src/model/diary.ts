@@ -154,7 +154,7 @@ export class Today {
     if (isToday(currentDay.date)) {
       return currentDay;
     }
-    const day = newDay(this._loadToday());
+    const day = newDay(currentDay);
     this.diaryHistory.add(currentDay);
     this._saveToday(day);
     return day;
