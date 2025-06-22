@@ -173,13 +173,13 @@ const pageOptionsSlice = createSlice({
       .addCase(deleteMeal, (state) => {
         state.mealOptions = defaultMealOptions();
       })
-      .addCase(back.fulfilled, (state, action: PayloadAction<{ day: DayPage; currentDate: string; progress: { daysRemaining: number; totalDays: number } } | {day: DayPage; currentDate: string;}>) => {
+      .addCase(back.fulfilled, (state, action) => {
         state.currentDate = action.payload.currentDate;
         if ('progress' in action.payload) {
           state.progress = action.payload.progress;
         }
       })
-      .addCase(next.fulfilled, (state, action: PayloadAction<{ day: DayPage; currentDate: string; progress: { daysRemaining: number; totalDays: number } } | {day: DayPage; currentDate: string;}>) => {
+      .addCase(next.fulfilled, (state, action) => {
         state.currentDate = action.payload.currentDate;
         if ('progress' in action.payload) {
           state.progress = action.payload.progress;
