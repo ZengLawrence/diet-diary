@@ -81,12 +81,12 @@ export const deleteFood = createAsyncThunk<DayPage, { mealIndex: number, foodInd
   }
 );
 
-export function changeTarget(target: Target) {
-  return (dispatch: Dispatch) => {
-    const newDay = today.updateTarget(target);
-    dispatch(dayPageSlice.actions.setDayPage(newDay));
+export const changeTarget = createAsyncThunk<DayPage, Target>(
+  'dayPage/changeTarget',
+  async (target) => {
+    return today.updateTarget(target);
   }
-}
+);
 
 export function toggleUnlimitedFruit() {
   return (dispatch: Dispatch) => {
@@ -133,6 +133,9 @@ const dayPageSlice = createSlice({
       return action.payload;
     })
     .addCase(deleteFood.fulfilled, (_state, action) => {
+      return action.payload;
+    })
+    .addCase(changeTarget.fulfilled, (_state, action) => {
       return action.payload;
     });
   },
