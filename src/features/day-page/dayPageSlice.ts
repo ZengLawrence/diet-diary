@@ -70,17 +70,16 @@ export const updateFood = createAsyncThunk<DayPage, { mealIndex: number, foodInd
   }
 );
 
-export function deleteFood(payload: {mealIndex: number, foodIndex: number}) {
-  const { mealIndex, foodIndex } = payload;
-  return (dispatch: Dispatch, getState: () => {dayPage: DayPage}) => {
-    const state = getState().dayPage;
-    const meal = getMeal(state, mealIndex);
-    const food = meal.foods[foodIndex];
+export const deleteFood = createAsyncThunk<DayPage, { mealIndex: number, foodIndex: number }>(
+  'dayPage/deleteFood',
+  async (payload, { getState }) => {
+    const state = getState() as { dayPage: DayPage };
+    const meal = getMeal(state.dayPage, payload.mealIndex);
+    const food = meal.foods[payload.foodIndex];
     const newDay = today.deleteFood(meal, food);
-    dispatch(dayPageSlice.actions.setDayPage(newDay));
-    dispatch(dayPageSlice.actions.foodDeleted());
+    return newDay;
   }
-}
+);
 
 export function changeTarget(target: Target) {
   return (dispatch: Dispatch) => {
@@ -105,10 +104,6 @@ const dayPageSlice = createSlice({
     },
     todayReset(state) {
       // mark the day as reset; no state change
-      return state;
-    },
-    foodDeleted(state) {
-      // marker action to indicate that a food was deleted; no state change
       return state;
     },
   },
@@ -136,11 +131,14 @@ const dayPageSlice = createSlice({
     })
     .addCase(updateFood.fulfilled, (_state, action) => {
       return action.payload;
+    })
+    .addCase(deleteFood.fulfilled, (_state, action) => {
+      return action.payload;
     });
   },
 });
 
 export const { 
-  todayReset, foodDeleted
+  todayReset
 } = dayPageSlice.actions;
 export default dayPageSlice.reducer;
