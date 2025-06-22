@@ -1,4 +1,4 @@
-import { ReadOnlyDiaryHistory } from "./diaryHistory";
+import { DayWithProgress, ReadOnlyDiaryHistory } from "./diaryHistory";
 import { ReadOnlyToday } from "./diary";
 
 export class DiaryTimeline {
@@ -7,8 +7,19 @@ export class DiaryTimeline {
     private today: ReadOnlyToday
   ) {}
 
-  dayBefore(date: string) {
-    return this.history.dayBefore(date);
+  dayBefore(date: string): DayWithProgress & { currentDate: string | "today" } {
+    const historyDay = this.history.dayBefore(date);
+    if (historyDay) {
+      return {...historyDay, currentDate: historyDay.day.date };
+    }
+    return {
+      day: this.today.currentDay(),
+      currentDate: "today",
+      progress: {
+        daysRemaining: 0,
+        totalDays: 0,
+      },
+    };
   }
 
   dayAfter(date: string) {
