@@ -137,7 +137,6 @@ const dayPageSlice = createSlice({
 });
 
 export const { 
-  setDayPage, 
   todayReset, foodDeleted , mealAdded, mealDeleted
 } = dayPageSlice.actions;
 export default dayPageSlice.reducer;
