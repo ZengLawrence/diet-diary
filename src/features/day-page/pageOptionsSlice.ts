@@ -64,7 +64,7 @@ interface PartialRootState {
 
 export const back = createAsyncThunk(
   'pageOptions/back',
-  async (_, { dispatch, getState }) => {
+  async (_, { getState }) => {
     const state = getState() as PartialRootState;
     const { currentDate } = state.pageOptions;
     const dayBefore = diaryTimeline.dayBefore(currentDate);
