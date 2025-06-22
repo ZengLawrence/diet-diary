@@ -1,15 +1,15 @@
 import { DiaryTimeline } from "./diaryTimeline";
-import { DiaryHistory, DayWithProgress } from "./diaryHistory";
+import { ReadOnlyDiaryHistory, DayWithProgress } from "./diaryHistory";
 
 describe("DiaryTimeline", () => {
-  let history: jest.Mocked<DiaryHistory>;
+  let history: jest.Mocked<ReadOnlyDiaryHistory>;
   let timeline: DiaryTimeline;
 
   beforeEach(() => {
     history = {
       dayBefore: jest.fn(),
       dayAfter: jest.fn(),
-    } as unknown as jest.Mocked<DiaryHistory>;
+    } as unknown as jest.Mocked<ReadOnlyDiaryHistory>;
     timeline = new DiaryTimeline(history);
   });
 
