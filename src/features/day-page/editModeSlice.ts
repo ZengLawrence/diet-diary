@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { todayReset } from "./todaySlice";
+import { newDay } from "./dayPageSlice";
 
 const initialState = true;
 
@@ -16,7 +16,7 @@ const editModeSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(todayReset, () => true)
+      .addCase(newDay.fulfilled, () => true)
   }
 })
 

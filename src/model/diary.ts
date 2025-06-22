@@ -1,5 +1,7 @@
+import _ from "lodash";
 import { Food, Meal, newMeal } from "./Food";
 import { getDefaultTarget, Target } from "./Target";
+import { DiaryHistory } from "./diaryHistory";
 
 export interface DayPage {
   date: string,
@@ -55,7 +57,7 @@ function addSavedMeal(day: DayPage, foods: Food[]): DayPage {
 }
 
 function deleteMeal(day: DayPage, meal: Meal): DayPage {
-  const meals = day.meals.filter(m => m !== meal);
+  const meals = day.meals.filter(m => !_.isEqual(m, meal));
   return {
     ...day,
     meals,
@@ -63,7 +65,7 @@ function deleteMeal(day: DayPage, meal: Meal): DayPage {
 }
 
 function addFood(day: DayPage, meal: Meal, food: Food): DayPage {
-  const meals = day.meals.map(m => m === meal ? { ...m, foods: [...m.foods, food] } : m);
+  const meals = day.meals.map(m => _.isEqual(m, meal) ? { ...m, foods: [...m.foods, food] } : m);
   return {
     ...day,
     meals,
@@ -71,7 +73,7 @@ function addFood(day: DayPage, meal: Meal, food: Food): DayPage {
 }
 
 function updateFood(day: DayPage, meal: Meal, food: Food, replacedFood: Food): DayPage {
-  const meals = day.meals.map(m => m === meal ? { ...m, foods: m.foods.map(f => f === food ? replacedFood : f) } : m);
+  const meals = day.meals.map(m => _.isEqual(m, meal) ? { ...m, foods: m.foods.map(f => _.isEqual(f, food) ? replacedFood : f) } : m);
   return {
     ...day,
     meals,
@@ -79,7 +81,7 @@ function updateFood(day: DayPage, meal: Meal, food: Food, replacedFood: Food): D
 }
 
 function deleteFood(day: DayPage, meal: Meal, food: Food): DayPage {
-  const meals = day.meals.map(m => m === meal ? { ...m, foods: m.foods.filter(f => f !== food) } : m);
+  const meals = day.meals.map(m => _.isEqual(m, meal) ? { ...m, foods: m.foods.filter(f => !_.isEqual(f,food)) } : m);
   return {
     ...day,
     meals,
@@ -119,3 +121,94 @@ export const mutation = {
 }
 
 export default mutation;
+
+export interface TodayLoader {
+  load: (defaultFn: () => DayPage) => DayPage;
+}
+
+export interface TodaySaver {
+  save: (day: DayPage) => void;
+}
+
+export class Today {
+  private loader: TodayLoader;
+  private saver: TodaySaver;
+  private diaryHistory: DiaryHistory;
+
+  constructor(loader: TodayLoader, saver: TodaySaver, diaryHistory: DiaryHistory) {
+    this.loader = loader;
+    this.saver = saver;
+    this.diaryHistory = diaryHistory;
+  }
+
+  _loadToday(): DayPage {
+    return this.loader.load(() => newDay());
+  }
+
+  _saveToday(day: DayPage): void {
+    this.saver.save(day);
+  }
+
+  currentDay(): DayPage {
+    return this._loadToday();
+  }
+
+  newDay(): DayPage {
+    const currentDay = this._loadToday();
+    if (isToday(currentDay.date)) {
+      return currentDay;
+    }
+    const day = newDay(currentDay);
+    this.diaryHistory.add(currentDay);
+    this._saveToday(day);
+    return day;
+  }
+
+  addMeal(): DayPage {
+    const newDay = addMeal(this._loadToday());
+    this._saveToday(newDay);
+    return newDay;
+  }
+
+  addSavedMeal(foods: Food[]): DayPage {
+    const newDay = addSavedMeal(this._loadToday(), foods);
+    this._saveToday(newDay);
+    return newDay;
+  }
+
+  deleteMeal(meal: Meal): DayPage {
+    const newDay = deleteMeal(this._loadToday(), meal);
+    this._saveToday(newDay);
+    return newDay;
+  }
+
+  addFood(meal: Meal, food: Food): DayPage {
+    const newDay = addFood(this._loadToday(), meal, food);
+    this._saveToday(newDay);
+    return newDay;
+  }
+
+  updateFood(meal: Meal, food: Food, replacedFood: Food): DayPage {
+    const newDay = updateFood(this._loadToday(), meal, food, replacedFood);
+    this._saveToday(newDay);
+    return newDay;
+  }
+
+  deleteFood(meal: Meal, food: Food): DayPage {
+    const newDay = deleteFood(this._loadToday(), meal, food);
+    this._saveToday(newDay);
+    return newDay;
+  }
+
+  updateTarget(target: Target): DayPage {
+    const newDay = updateTarget(this._loadToday(), target);
+    this._saveToday(newDay);
+    return newDay;
+  }
+
+  toggleUnlimitedFruit(): DayPage {
+    const newDay = toggleUnlimitedFruit(this._loadToday());
+    this._saveToday(newDay);
+    return newDay;
+  }
+}

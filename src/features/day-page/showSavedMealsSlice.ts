@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addSavedMeal } from "./todaySlice";
+import { addSavedMeal } from "./dayPageSlice";
 
 const showSavedMealsSlice = createSlice({
   name: "showSavedMeals",
@@ -13,7 +13,7 @@ const showSavedMealsSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(addSavedMeal, () => {
+    builder.addCase(addSavedMeal.fulfilled, () => {
       return false;
     });
   }

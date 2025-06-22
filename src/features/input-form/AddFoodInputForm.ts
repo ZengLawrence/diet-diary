@@ -3,7 +3,7 @@ import { AppDispatch } from "../../app/store";
 import { ButtonLabel, FoodInputForm } from "../../components/input-form/FoodInputForm";
 import { Food, newFood } from "../../model/Food";
 import { exitFoodAddMode } from "../day-page/pageOptionsSlice";
-import { addFood } from "../day-page/todaySlice";
+import { addFood } from "../day-page/dayPageSlice";
 
 const mapStateToProps = () => ({
   food: newFood(),

@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HistoryLocalStorage } from "../../app/historyLocalStorage";
 import { DayPage } from "../../model/diary";
 import { DiaryTimeline } from "../../model/diaryHistory";
+import { addMeal, deleteMeal, deleteFood, newDay } from "./dayPageSlice";
 import { exitEditMode } from "./editModeSlice";
-import { addMeal, deleteFood, deleteMeal, todayReset } from "./todaySlice";
 
 export type MealEditState = "add" | "edit" | undefined;
 
@@ -156,21 +156,22 @@ const pageOptionsSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(todayReset, (state) => {
+      .addCase(newDay.fulfilled, (state) => {
         state.mealOptions = newMealOptions();
         state.hasHistory = true;
       })
       .addCase(exitEditMode, (state) => {
         state.mealOptions = defaultMealOptions();
       })
-      .addCase(deleteFood, (state) => {
+      .addCase(deleteFood.fulfilled, (state) => {
         if (state.mealOptions.editState === "edit") {
           state.mealOptions.foodIndex = -1;
         }
       })
-      .addCase(addMeal, (state) => {
-        state.mealOptions = newMealOptions();})
-      .addCase(deleteMeal, (state) => {
+      .addCase(addMeal.fulfilled, (state) => {
+        state.mealOptions = newMealOptions();
+      })
+      .addCase(deleteMeal.fulfilled, (state) => {
         state.mealOptions = defaultMealOptions();
       })
       .addCase(back.fulfilled, (state, action) => {

@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { unlimitedFruitSelector } from "../../app/selectors";
 import { AppDispatch, RootState } from "../../app/store";
 import UnlimitedFruitCheckBox from "../../components/target/UnlimitedFruitCheckBox";
-import { toggleUnlimitedFruit } from "../day-page/todaySlice";
+import { toggleUnlimitedFruit } from "../day-page/dayPageSlice";
 
 const mapStateToProps = (state: RootState) => ({
   unlimitedFruit: unlimitedFruitSelector(state),

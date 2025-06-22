@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { AppDispatch } from "../../app/store";
 import { MealCardHeader } from "../../components/saved-meal/MealCardHeader";
 import { Food } from "../../model/Food";
-import { addSavedMeal } from "../day-page/todaySlice";
+import { addSavedMeal } from "../day-page/dayPageSlice";
 import { removeSuggestion } from "../suggestions/SavedMealSuggestion";
 import { remove, select } from "./savedMealsSlice";
 

@@ -17,7 +17,6 @@ export const warningSelector = (state: RootState) => state.warning;
 export const savedMealStateSelector = (state: RootState) => state.savedMealState;
 export const customTargetsStateSelector = (state: RootState) => state.customTargets;
 const _pageOptionsSelector = (state: RootState) => state.pageOptions;
-const _todaySelector = (state: RootState) => state.today;
 const _dayPageSelector = (state: RootState) => state.dayPage;
 
 interface ViewOptions {
@@ -80,7 +79,7 @@ function applyOptions(mealOptions: MealOptions, mealIndex: number): Pick<MealSta
 }
 
 const _mealStatesSelector: (state: RootState) => MealState[] = createSelector(
-  _todaySelector,
+  _dayPageSelector,
   _mealOptionsSelector,
   (today, mealOptions) => {
     const mealStatesWithOptions = _.map(today.meals, (meal, mealIndex) => ({
@@ -89,7 +88,9 @@ const _mealStatesSelector: (state: RootState) => MealState[] = createSelector(
     }));
 
     // set last meal in add state if meal index is -1
-    if (mealOptions.editState === "add" && mealOptions.mealIndex === -1) {
+    if (mealOptions.editState === "add" 
+      && mealOptions.mealIndex === -1
+      && mealStatesWithOptions.length > 0) {
       const lastMealIndex = mealStatesWithOptions.length - 1;
       mealStatesWithOptions[lastMealIndex].editState = "add";
     }
@@ -112,7 +113,7 @@ const _todayViewOptionsSelector: (state: RootState) => ViewOptions = createSelec
 );
 
 const _todayStateSelector: (state: RootState) => DayPageState = createSelector(
-  _todaySelector,
+  _dayPageSelector,
   _todayViewOptionsSelector,
   _mealStatesSelector,
   (today, viewOptions, mealStates) => ({
