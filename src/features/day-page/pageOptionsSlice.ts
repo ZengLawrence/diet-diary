@@ -86,6 +86,12 @@ export const next = createAsyncThunk(
   }
 );
 
+export const goToToday = createAsyncThunk(
+  'pageOptions/goToToday',
+  async () => {
+    return diaryTimeline.goToToday();
+  }
+);
 function initialState(): PageOptions {
   return {
     mealOptions: newMealOptions(),
@@ -145,9 +151,6 @@ const pageOptionsSlice = createSlice({
     setCurrentDate(state, action: PayloadAction<string | "today">) {
       state.currentDate = action.payload;
     },
-    goToToday(state) {
-      state.currentDate = "today";
-    },
     setProgress(state, action: PayloadAction<{ daysRemaining: number; totalDays: number }>) {
       state.progress = action.payload;
     }
@@ -183,6 +186,10 @@ const pageOptionsSlice = createSlice({
         if ('progress' in action.payload) {
           state.progress = action.payload.progress;
         }
+      })
+      .addCase(goToToday.fulfilled, (state, action) => {
+        state.currentDate = action.payload.currentDate;
+        state.progress = action.payload.progress;
       });
     }
 });
@@ -191,7 +198,6 @@ export const {
   enterMealEditMode, enterMealAddMode, exitMealEditMode,
   enterFoodEditMode, exitFoodEditMode, exitFoodAddMode,
   showSavedMealAlert, hideSavedMealAlert,
-  goToToday,
 } = pageOptionsSlice.actions;
 
 export default pageOptionsSlice.reducer;

@@ -5,7 +5,7 @@ import { DayPage, Today } from "../../model/diary";
 import { DiaryHistory } from "../../model/diaryHistory";
 import { Food } from "../../model/Food";
 import { Target } from "../../model/Target";
-import { back, next } from "./pageOptionsSlice";
+import { back, goToToday, next } from "./pageOptionsSlice";
 
 const historyLocalStorage = new HistoryLocalStorage();
 const diaryHistory = new DiaryHistory(historyLocalStorage, historyLocalStorage);
@@ -132,6 +132,9 @@ const dayPageSlice = createSlice({
     })
     .addCase(toggleUnlimitedFruit.fulfilled, (_state, action) => {
       return action.payload;
+    })
+    .addCase(goToToday.fulfilled, (_state, action) => {
+      return action.payload.day;
     });
   },
 });
