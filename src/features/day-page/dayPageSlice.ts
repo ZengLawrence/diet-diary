@@ -61,16 +61,15 @@ export const addFood = createAsyncThunk<DayPage, { mealIndex: number, food: Food
   }
 );
 
-export function updateFood(payload: {mealIndex: number, foodIndex: number, food: Food}) {
-  const { mealIndex, foodIndex, food } = payload;
-  return (dispatch: Dispatch, getState: () => {dayPage: DayPage}) => {
-    const state = getState().dayPage;
-    const meal = getMeal(state, mealIndex);
-    const foodToReplace = meal.foods[foodIndex];
-    const newDay = today.updateFood(meal, foodToReplace, food);
-    dispatch(dayPageSlice.actions.setDayPage(newDay));
+export const updateFood = createAsyncThunk<DayPage, { mealIndex: number, foodIndex: number, food: Food }>(
+  'dayPage/updateFood',
+  async (payload, { getState }) => {
+    const state = getState() as { dayPage: DayPage };
+    const meal = getMeal(state.dayPage, payload.mealIndex);
+    const foodToReplace = meal.foods[payload.foodIndex];
+    return today.updateFood(meal, foodToReplace, payload.food);
   }
-}
+);
 
 export function deleteFood(payload: {mealIndex: number, foodIndex: number}) {
   const { mealIndex, foodIndex } = payload;
@@ -134,6 +133,9 @@ const dayPageSlice = createSlice({
       return action.payload;
     })
     .addCase(addFood.fulfilled, (_state, action) => {
+      return action.payload;
+    })
+    .addCase(updateFood.fulfilled, (_state, action) => {
       return action.payload;
     });
   },
