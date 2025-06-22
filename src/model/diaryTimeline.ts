@@ -36,4 +36,16 @@ export class DiaryTimeline {
       },
     };
   }
+
+  gotoToday(): DayWithProgress & { currentDate: string | "today" } {
+    const todayDay = this.today.currentDay();
+    return {
+      day: todayDay,
+      currentDate: "today",
+      progress: {
+        daysRemaining: 0,
+        totalDays: 0,
+      },
+    };
+  }
 }
