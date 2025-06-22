@@ -131,16 +131,13 @@ export interface TodaySaver {
 }
 
 export class ReadyOnlyToday {
-  protected loader: TodayLoader;
 
-  constructor(loader: TodayLoader) {
-    this.loader = loader;
-  }
+  constructor(private loader: TodayLoader) {}
 
   protected _loadToday(): DayPage {
     return this.loader.load(() => newDay());
   }
-  
+
   currentDay(): DayPage {
     return this._loadToday();
   }
