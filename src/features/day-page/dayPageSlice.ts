@@ -1,4 +1,4 @@
-import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
 import { HistoryLocalStorage } from "../../app/historyLocalStorage";
 import { TodayLocalStorage } from "../../app/todayLocalStorage";
 import { DayPage, Today } from "../../model/diary";
@@ -14,13 +14,13 @@ const diaryHistory = new DiaryHistory(historyLocalStorage, historyLocalStorage);
 const todayLocalStorage = new TodayLocalStorage();
 const today = new Today(todayLocalStorage, todayLocalStorage, diaryHistory);
 
-export function newDay() {
-  return (dispatch: Dispatch) => {
+export const newDay = createAsyncThunk<DayPage>(
+  'dayPage/newDay',
+  async () => {
     const newDay = today.newDay();
-    dispatch(dayPageSlice.actions.setDayPage(newDay));
-    dispatch(dayPageSlice.actions.todayReset());
-  };
-}
+    return newDay;
+  }
+);
 
 export function addMeal() {
   return (dispatch: Dispatch) => {
@@ -132,6 +132,9 @@ const dayPageSlice = createSlice({
     })
     .addCase(next.fulfilled, (_state, action) => {
       return action.payload.day;
+    })
+    .addCase(newDay.fulfilled, (_state, action) => {
+      return action.payload;
     });
   },
 });
