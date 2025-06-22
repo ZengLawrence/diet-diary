@@ -4,12 +4,12 @@ import { TodayLocalStorage } from "../../app/todayLocalStorage";
 import { DayPage, Today } from "../../model/diary";
 import { DiaryHistory } from "../../model/diaryHistory";
 import { Food } from "../../model/Food";
-import * as showSavedMealsSlice from "./showSavedMealsSlice";
 import { Target } from "../../model/Target";
+import { back, next } from "./pageOptionsSlice";
+import * as showSavedMealsSlice from "./showSavedMealsSlice";
 
 const historyLocalStorage = new HistoryLocalStorage();
 const diaryHistory = new DiaryHistory(historyLocalStorage, historyLocalStorage);
-import { back, next } from "./pageOptionsSlice";
 
 const todayLocalStorage = new TodayLocalStorage();
 const today = new Today(todayLocalStorage, todayLocalStorage, diaryHistory);
