@@ -1,5 +1,6 @@
+import { DiaryHistory } from "./diaryHistory";
 export class DiaryTimeline {
-  constructor(private history: import("./diaryHistory").DiaryHistory) {}
+  constructor(private history: DiaryHistory) {}
 
   dayBefore(date: string) {
     return this.history.dayBefore(date);
