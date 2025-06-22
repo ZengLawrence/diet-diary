@@ -1,5 +1,5 @@
 import { DiaryTimeline } from "./diaryTimeline";
-import { ReadOnlyDiaryHistory, DayWithProgress } from "./diaryHistory";
+import { ReadOnlyDiaryHistory } from "./diaryHistory";
 import { ReadOnlyToday } from "./diary";
 
 describe("DiaryTimeline", () => {
