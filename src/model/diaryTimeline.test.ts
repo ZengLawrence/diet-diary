@@ -1,8 +1,10 @@
 import { DiaryTimeline } from "./diaryTimeline";
 import { ReadOnlyDiaryHistory, DayWithProgress } from "./diaryHistory";
+import { ReadOnlyToday } from "./diary";
 
 describe("DiaryTimeline", () => {
   let history: jest.Mocked<ReadOnlyDiaryHistory>;
+  let today: jest.Mocked<ReadOnlyToday>;
   let timeline: DiaryTimeline;
 
   beforeEach(() => {
@@ -10,7 +12,10 @@ describe("DiaryTimeline", () => {
       dayBefore: jest.fn(),
       dayAfter: jest.fn(),
     } as unknown as jest.Mocked<ReadOnlyDiaryHistory>;
-    timeline = new DiaryTimeline(history);
+    today = {
+      currentDay: jest.fn(),
+    } as unknown as jest.Mocked<ReadOnlyToday>;
+    timeline = new DiaryTimeline(history, today);
   });
 
   const mockServing = {
