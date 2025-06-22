@@ -98,11 +98,7 @@ export const toggleUnlimitedFruit = createAsyncThunk<DayPage>(
 const dayPageSlice = createSlice({
   name: 'dayPage',
   initialState: today.currentDay(), // initializer should not change state
-  reducers: {
-    setDayPage(_state, action: PayloadAction<DayPage>) {
-      return action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(back.fulfilled, (_state, action) => {
       return action.payload.day;
