@@ -72,15 +72,3 @@ export class DiaryHistory {
     return { day: history[nextIndex], progress: { daysRemaining: totalDays - (nextIndex + 1), totalDays } };
   }
 }
-
-export class DiaryTimeline {
-  constructor(private history: DiaryHistory) {}
-
-  dayBefore(date: string) {
-    return this.history.dayBefore(date);
-  }
-
-  dayAfter(date: string) {
-    return this.history.dayAfter(date);
-  }
-}

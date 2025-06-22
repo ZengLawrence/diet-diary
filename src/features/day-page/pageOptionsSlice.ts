@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HistoryLocalStorage } from "../../app/historyLocalStorage";
 import { DayPage } from "../../model/diary";
-import { DiaryHistory, DiaryTimeline } from "../../model/diaryHistory";
+import { DiaryHistory } from "../../model/diaryHistory";
+import { DiaryTimeline } from "../../model/diaryTimeline";
 import { addMeal, deleteMeal, deleteFood, newDay } from "./dayPageSlice";
 import { exitEditMode } from "./editModeSlice";
 
