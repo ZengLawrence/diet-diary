@@ -1,7 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HistoryLocalStorage } from "../../app/historyLocalStorage";
+import { TodayLocalStorage } from "../../app/todayLocalStorage";
 import { DayPage } from "../../model/diary";
-import { DiaryTimeline } from "../../model/diaryHistory";
+import { ReadOnlyDiaryHistory } from "../../model/diaryHistory";
+import { ReadOnlyToday } from "../../model/diary";
+import { DiaryTimeline } from "../../model/diaryTimeline";
 import { addMeal, deleteMeal, deleteFood, newDay } from "./dayPageSlice";
 import { exitEditMode } from "./editModeSlice";
 
@@ -53,7 +56,12 @@ export function isToday(date: string | "today"): date is "today" {
   return date === "today";
 }
 
-const diaryTimeline = new DiaryTimeline(new HistoryLocalStorage());
+const historyLocalStorage = new HistoryLocalStorage();
+const todayLocalStorage = new TodayLocalStorage();
+const diaryTimeline = new DiaryTimeline(
+  new ReadOnlyDiaryHistory(historyLocalStorage),
+  new ReadOnlyToday(todayLocalStorage)
+);
 
 interface PartialRootState {
   pageOptions: PageOptions;
@@ -65,12 +73,7 @@ export const back = createAsyncThunk(
   async (_, { getState }) => {
     const state = getState() as PartialRootState;
     const { currentDate } = state.pageOptions;
-    const dayBefore = diaryTimeline.dayBefore(currentDate);
-    if (dayBefore) {
-      return {...dayBefore, currentDate: dayBefore.day.date };
-    } else {
-      return { day: state.today, currentDate: "today" };
-    }
+    return diaryTimeline.dayBefore(currentDate);
   }
 );
 
@@ -79,15 +82,16 @@ export const next = createAsyncThunk(
   async (_, { getState }) => {
     const state = getState() as PartialRootState;
     const { currentDate } = state.pageOptions;
-    const dayAfter = diaryTimeline.dayAfter(currentDate);
-    if (dayAfter) {
-      return { ...dayAfter, currentDate: dayAfter.day.date };
-    } else {
-      return { day: state.today, currentDate: "today" };
-    }
+    return diaryTimeline.dayAfter(currentDate);
   }
 );
 
+export const goToToday = createAsyncThunk(
+  'pageOptions/goToToday',
+  async () => {
+    return diaryTimeline.goToToday();
+  }
+);
 function initialState(): PageOptions {
   return {
     mealOptions: newMealOptions(),
@@ -147,9 +151,6 @@ const pageOptionsSlice = createSlice({
     setCurrentDate(state, action: PayloadAction<string | "today">) {
       state.currentDate = action.payload;
     },
-    goToToday(state) {
-      state.currentDate = "today";
-    },
     setProgress(state, action: PayloadAction<{ daysRemaining: number; totalDays: number }>) {
       state.progress = action.payload;
     }
@@ -185,6 +186,10 @@ const pageOptionsSlice = createSlice({
         if ('progress' in action.payload) {
           state.progress = action.payload.progress;
         }
+      })
+      .addCase(goToToday.fulfilled, (state, action) => {
+        state.currentDate = action.payload.currentDate;
+        state.progress = action.payload.progress;
       });
     }
 });
@@ -193,7 +198,6 @@ export const {
   enterMealEditMode, enterMealAddMode, exitMealEditMode,
   enterFoodEditMode, exitFoodEditMode, exitFoodAddMode,
   showSavedMealAlert, hideSavedMealAlert,
-  goToToday,
 } = pageOptionsSlice.actions;
 
 export default pageOptionsSlice.reducer;

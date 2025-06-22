@@ -81,7 +81,7 @@ function updateFood(day: DayPage, meal: Meal, food: Food, replacedFood: Food): D
 }
 
 function deleteFood(day: DayPage, meal: Meal, food: Food): DayPage {
-  const meals = day.meals.map(m => _.isEqual(m, meal) ? { ...m, foods: m.foods.filter(f => !_.isEqual(f,food)) } : m);
+  const meals = day.meals.map(m => _.isEqual(m, meal) ? { ...m, foods: m.foods.filter(f => !_.isEqual(f, food)) } : m);
   return {
     ...day,
     meals,
@@ -130,27 +130,27 @@ export interface TodaySaver {
   save: (day: DayPage) => void;
 }
 
-export class Today {
-  private loader: TodayLoader;
-  private saver: TodaySaver;
-  private diaryHistory: DiaryHistory;
+export class ReadOnlyToday {
 
-  constructor(loader: TodayLoader, saver: TodaySaver, diaryHistory: DiaryHistory) {
-    this.loader = loader;
-    this.saver = saver;
-    this.diaryHistory = diaryHistory;
-  }
+  constructor(private loader: TodayLoader) {}
 
-  _loadToday(): DayPage {
+  protected _loadToday(): DayPage {
     return this.loader.load(() => newDay());
-  }
-
-  _saveToday(day: DayPage): void {
-    this.saver.save(day);
   }
 
   currentDay(): DayPage {
     return this._loadToday();
+  }
+}
+
+export class Today extends ReadOnlyToday {
+
+  constructor(loader: TodayLoader, private saver: TodaySaver, private diaryHistory: DiaryHistory) {
+    super(loader);
+  }
+
+  _saveToday(day: DayPage): void {
+    this.saver.save(day);
   }
 
   newDay(): DayPage {

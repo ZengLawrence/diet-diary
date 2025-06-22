@@ -10,38 +10,6 @@ function add(history: DayPage[], day: DayPage): DayPage[] {
   return newHistory;
 }
 
-function dayBefore(history: DayPage[], date: string) {
-  const totalDays = history.length;
-  if (totalDays === 0) {
-    return undefined; // no history available
-  }
-  const index = history.findIndex(day => day.date === date);
-  // either today or day not in history; default to the first day in history.
-  if (index === -1) {
-    return { day: history[0], progress: { daysRemaining: totalDays - 1, totalDays } };
-  }
-  // if it is last day in history, stay on the last day.
-  if (index === history.length - 1) {
-    return { day: history[index], progress: { daysRemaining: 0, totalDays } };
-  }
-  const prevIndex = index + 1;
-  return { day: history[prevIndex], progress: { daysRemaining: totalDays - (prevIndex + 1), totalDays } };
-}
-
-function dayAfter(history: DayPage[], date: string) {
-  const totalDays = history.length;
-  if (totalDays === 0) {
-    return undefined; // no history available
-  }
-  const index = history.findIndex(day => day.date === date);
-  // either last day in history or not found return undefined.
-  if (index === 0 || index === -1) {
-    return undefined;
-  }
-  const nextIndex = index - 1;
-  return { day: history[nextIndex], progress: { daysRemaining: totalDays - (nextIndex + 1), totalDays } };
-}
-
 export const mutations = {
   add,
 };
@@ -63,32 +31,58 @@ export interface DayWithProgress {
     totalDays: number;
   };
 }
-export class DiaryTimeline {
-  private loader: DiaryHistoryLoader;
 
-  constructor(loader: DiaryHistoryLoader) {
-    this.loader = loader;
+export class ReadOnlyDiaryHistory {
+  constructor(private loader: DiaryHistoryLoader) { }
+
+  protected _loadHistory(): DayPage[] {
+    return this.loader.load();
   }
 
   dayBefore(date: string): DayWithProgress | undefined {
-    const history = this.loader.load();
-    return dayBefore(history, date);
+    const history = this._loadHistory();
+    const totalDays = history.length;
+    if (totalDays === 0) {
+      return undefined; // no history available
+    }
+    const index = history.findIndex(day => day.date === date);
+    if (index === -1) {
+      return { day: history[0], progress: { daysRemaining: totalDays - 1, totalDays } };
+    }
+    if (index === history.length - 1) {
+      return { day: history[index], progress: { daysRemaining: 0, totalDays } };
+    }
+    const prevIndex = index + 1;
+    return { day: history[prevIndex], progress: { daysRemaining: totalDays - (prevIndex + 1), totalDays } };
   }
 
   dayAfter(date: string): DayWithProgress | undefined {
-    const history = this.loader.load();
-    return dayAfter(history, date);
+    const history = this._loadHistory();
+    const totalDays = history.length;
+    if (totalDays === 0) {
+      return undefined; // no history available
+    }
+    const index = history.findIndex(day => day.date === date);
+    if (index === 0 || index === -1) {
+      return undefined;
+    }
+    const nextIndex = index - 1;
+    return { day: history[nextIndex], progress: { daysRemaining: totalDays - (nextIndex + 1), totalDays } };
   }
 }
 
-export class DiaryHistory {
-  constructor(private loader: DiaryHistoryLoader, private saver: DiaryHistorySaver) { }
+export class DiaryHistory extends ReadOnlyDiaryHistory {
+  private saver: DiaryHistorySaver;
+
+  constructor(loader: DiaryHistoryLoader, saver: DiaryHistorySaver) {
+    super(loader);
+    this.saver = saver;
+  }
 
   add(day: DayPage): DayPage[] {
-    const history = this.loader.load();
+    const history = this._loadHistory();
     const newHistory = mutations.add(history, day);
     this.saver.save(newHistory);
     return newHistory;
   }
-
 }
