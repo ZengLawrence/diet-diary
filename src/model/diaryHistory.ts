@@ -31,18 +31,32 @@ export interface DayWithProgress {
     totalDays: number;
   };
 }
-export class DiaryHistory {
-  constructor(private loader: DiaryHistoryLoader, private saver: DiaryHistorySaver) { }
+
+export class ReadOnlyDiaryHistory {
+  constructor(private loader: DiaryHistoryLoader) { }
+
+  protected _loadHistory(): DayPage[] {
+    return this.loader.load();
+  }
+}
+
+export class DiaryHistory extends ReadOnlyDiaryHistory {
+  private saver: DiaryHistorySaver;
+
+  constructor(loader: DiaryHistoryLoader, saver: DiaryHistorySaver) {
+    super(loader);
+    this.saver = saver;
+  }
 
   add(day: DayPage): DayPage[] {
-    const history = this.loader.load();
+    const history = this._loadHistory();
     const newHistory = mutations.add(history, day);
     this.saver.save(newHistory);
     return newHistory;
   }
 
   dayBefore(date: string): DayWithProgress | undefined {
-    const history = this.loader.load();
+    const history = this._loadHistory();
     const totalDays = history.length;
     if (totalDays === 0) {
       return undefined; // no history available
@@ -59,7 +73,7 @@ export class DiaryHistory {
   }
 
   dayAfter(date: string): DayWithProgress | undefined {
-    const history = this.loader.load();
+    const history = this._loadHistory();
     const totalDays = history.length;
     if (totalDays === 0) {
       return undefined; // no history available
