@@ -102,10 +102,6 @@ const dayPageSlice = createSlice({
     setDayPage(_state, action: PayloadAction<DayPage>) {
       return action.payload;
     },
-    todayReset(state) {
-      // mark the day as reset; no state change
-      return state;
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(back.fulfilled, (_state, action) => {
@@ -144,7 +140,4 @@ const dayPageSlice = createSlice({
   },
 });
 
-export const { 
-  todayReset
-} = dayPageSlice.actions;
 export default dayPageSlice.reducer;
