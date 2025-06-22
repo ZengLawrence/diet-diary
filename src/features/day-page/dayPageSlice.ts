@@ -6,7 +6,6 @@ import { DiaryHistory } from "../../model/diaryHistory";
 import { Food } from "../../model/Food";
 import { Target } from "../../model/Target";
 import { back, next } from "./pageOptionsSlice";
-import * as showSavedMealsSlice from "./showSavedMealsSlice";
 
 const historyLocalStorage = new HistoryLocalStorage();
 const diaryHistory = new DiaryHistory(historyLocalStorage, historyLocalStorage);
@@ -30,14 +29,12 @@ export const addMeal = createAsyncThunk<DayPage>(
   }
 );
 
-export function addSavedMeal(meal: { foods: Food[] }) {
-  return (dispatch: Dispatch) => {
-    const newDay = today.addSavedMeal(meal.foods);
-    dispatch(dayPageSlice.actions.setDayPage(newDay));
-    //TODO: should it be done in other way?
-    dispatch(showSavedMealsSlice.hide())
+export const addSavedMeal = createAsyncThunk<DayPage, { foods: Food[] }>(
+  'dayPage/addSavedMeal',
+  async (meal) => {
+    return today.addSavedMeal(meal.foods);
   }
-}
+);
 
 function getMeal(state: DayPage, index: number) {
   if (index < 0 || index >= state.meals.length) {
@@ -133,6 +130,9 @@ const dayPageSlice = createSlice({
       return action.payload;
     })
     .addCase(addMeal.fulfilled, (_state, action) => {
+      return action.payload;
+    })
+    .addCase(addSavedMeal.fulfilled, (_state, action) => {
       return action.payload;
     });
   },
