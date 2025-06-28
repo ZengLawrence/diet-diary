@@ -1,6 +1,14 @@
+import { loadSavedMeals, saveSavedMeals } from "./savedMealLocalStorage";
 import { RootState } from "./store";
 
-function loadReduxState(): RootState | null {
+type ReduxState = Omit<RootState, 'savedMeals'>;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function isReduxState(state: any): state is ReduxState {
+  return !state.savedMeals || !Array.isArray(state.savedMeals) || state.savedMeals.length === 0;
+} 
+
+function loadReduxState(): RootState | ReduxState | null {
   try {
     const serializedState = localStorage.getItem('state');
     if (serializedState === null) {
@@ -19,10 +27,20 @@ export const loadState = (): any => {
   if (state === null) {
     return undefined;
   }
+  if (isReduxState(state)) {
+    const savedMeals = loadSavedMeals();
+    return { ...state, savedMeals: savedMeals.meals };
+  }
   return state;
 };
 
-function saveReduxState(state: RootState): void {
+function removeSavedMeals(state: RootState): ReduxState {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { savedMeals: _ignored, ...rest } = state;
+  return rest;
+}
+
+function saveReduxState(state: ReduxState): void {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('state', serializedState);
@@ -32,5 +50,8 @@ function saveReduxState(state: RootState): void {
 }
 
 export const saveState = (state: RootState) => {
-  saveReduxState(state);
+  saveReduxState(removeSavedMeals(state));
+  saveSavedMeals({
+    meals: state.savedMeals,
+  });
 };
