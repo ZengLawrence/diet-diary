@@ -1,6 +1,10 @@
 import { SavedMeal } from "../model/SavedMeal";
 
-export function loadSavedMeals(): { meals: SavedMeal[] } {
+export interface SerializedSavedMeals {
+  meals: SavedMeal[];
+}
+
+export function loadSavedMeals(): SerializedSavedMeals {
   try {
     const serializedMeals = localStorage.getItem('savedMeals');
     if (serializedMeals === null) {
@@ -13,7 +17,7 @@ export function loadSavedMeals(): { meals: SavedMeal[] } {
   }
 }
 
-export function saveSavedMeals(savedMeals: { meals: SavedMeal[] }) {
+export function saveSavedMeals(savedMeals: SerializedSavedMeals): void {
   try {
     const serializedMeals = JSON.stringify(savedMeals);
     localStorage.setItem('savedMeals', serializedMeals);
