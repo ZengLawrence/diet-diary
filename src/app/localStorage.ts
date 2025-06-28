@@ -35,6 +35,7 @@ export const loadState = (): any => {
 };
 
 function removeSavedMeals(state: RootState): ReduxState {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { savedMeals: _ignored, ...rest } = state;
   return rest;
 }
