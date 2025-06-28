@@ -1,6 +1,6 @@
 import { RootState } from "./store";
 
-function _loadState(): RootState | null {
+function loadReduxState(): RootState | null {
   try {
     const serializedState = localStorage.getItem('state');
     if (serializedState === null) {
@@ -15,7 +15,7 @@ function _loadState(): RootState | null {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const loadState = (): any => {
-  const state = _loadState();
+  const state = loadReduxState();
   if (state === null) {
     return undefined;
   }
