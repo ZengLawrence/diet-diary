@@ -1,4 +1,4 @@
-import { SavedMeal } from "../model/SavedMeal";
+import { loadSavedMeals, saveSavedMeals } from "./savedMealLocalStorage";
 import { RootState } from "./store";
 
 type ReduxState = Omit<RootState, 'savedMeals'>;
@@ -21,19 +21,6 @@ function loadReduxState(): RootState | ReduxState | null {
   }
 }
 
-function loadSavedMeals(): {meals:SavedMeal[]} {
-  try {
-    const serializedMeals = localStorage.getItem('savedMeals');
-    if (serializedMeals === null) {
-      return { meals: [] };
-    }
-    return JSON.parse(serializedMeals);
-  } catch (e) {
-    console.error("Error loading saved meals from localStorage", e);
-    return { meals: [] };
-  }
-}
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const loadState = (): any => {
   const state = loadReduxState();
@@ -50,15 +37,6 @@ export const loadState = (): any => {
 function removeSavedMeals(state: RootState): ReduxState {
   const { savedMeals: _ignored, ...rest } = state;
   return rest;
-}
-
-function saveSavedMeals(savedMeals: {meals: SavedMeal[]}) {
-  try {
-    const serializedMeals = JSON.stringify(savedMeals);
-    localStorage.setItem('savedMeals', serializedMeals);
-  } catch {
-    // ignore write errors
-  }
 }
 
 function saveReduxState(state: ReduxState): void {
