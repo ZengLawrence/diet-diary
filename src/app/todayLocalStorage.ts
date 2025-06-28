@@ -1,7 +1,7 @@
 import { DayPage } from "../model/diary";
 import { TodayLoader, TodaySaver } from "../model/diary";
 
-export function loadToday(): DayPage | undefined {
+function loadToday(): DayPage | undefined {
   try {
     const serializedState = localStorage.getItem('today');
     if (serializedState === null) {
@@ -14,7 +14,7 @@ export function loadToday(): DayPage | undefined {
   }
 }
 
-export function saveToday(state: DayPage): void {
+function saveToday(state: DayPage): void {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('today', serializedState);
