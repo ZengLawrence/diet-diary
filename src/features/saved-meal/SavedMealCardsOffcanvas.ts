@@ -4,7 +4,6 @@ import { AppDispatch, RootState } from "../../app/store";
 import SavedMealCardsOffcanvas from "../../components/saved-meal/SavedMealCardsOffcanvas";
 import { hide } from "../day-page/showSavedMealsSlice";
 
-
 const mapStateToProps = (state: RootState) => ({
   show: showSavedMealsSelector(state),
 })
