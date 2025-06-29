@@ -175,4 +175,24 @@ describe("SavedMeals class", () => {
       expect(saver.savedMeals.length).toBe(200);
     });
   });
+
+  describe("remove a meal", () => {
+    it("removes a meal and saves the new list", () => {
+      const loader = new MockLoader([mealA, mealB]);
+      const saver = new MockSaver();
+      const savedMeals = new SavedMeals(loader, saver);
+      const result = savedMeals.remove(mealA);
+      expect(result).toEqual([mealB]);
+      expect(saver.savedMeals).toEqual([mealB]);
+    });
+
+    it("does not change list if meal is not found", () => {
+      const loader = new MockLoader([mealA]);
+      const saver = new MockSaver();
+      const savedMeals = new SavedMeals(loader, saver);
+      const result = savedMeals.remove(mealB);
+      expect(result).toEqual([mealA]);
+      expect(saver.savedMeals).toEqual([mealA]);
+    });
+  });
 });

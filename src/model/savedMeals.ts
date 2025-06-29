@@ -82,4 +82,11 @@ export class SavedMeals {
     this.saver.save(newMeals);
     return newMeals;
   }
+
+  remove(meal: SavedMeal): SavedMeal[] {
+    const meals = this.loader.load();
+    const newMeals = mutation.remove(meals, meal);
+    this.saver.save(newMeals);
+    return newMeals;
+  }
 }
