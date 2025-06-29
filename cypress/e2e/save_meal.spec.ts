@@ -30,6 +30,7 @@ context("Save meal", () => {
 
         const then = () => {
           cy.get("[data-cy=buttonAddSavedMeal]").click();
+          cy.get("input#inputSearchTerm").type("food 1");
           cy.contains("Select").first().click();
         }
 

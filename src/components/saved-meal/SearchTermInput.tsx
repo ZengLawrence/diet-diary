@@ -18,6 +18,7 @@ export const SearchTermInput = (props: Props) => {
   return (
     <Form>
       <Form.Control
+        id="inputSearchTerm"
         type="text"
         placeholder="Type to search"
         value={searchTerm}
