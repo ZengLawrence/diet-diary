@@ -11,7 +11,6 @@ import { RootState } from "./store";
 const _editModeSelector = (state: RootState) => state.editMode;
 export const summaryTypeSelector = (state: RootState) => state.summaryType;
 const _targetStateSelector = (state: RootState) => state.targetState;
-export const savedMealsSelector = (state: RootState) => state.savedMeals;
 export const showSavedMealsSelector = (state: RootState) => state.showSavedMeals;
 export const warningSelector = (state: RootState) => state.warning;
 export const savedMealStateSelector = (state: RootState) => state.savedMealState;

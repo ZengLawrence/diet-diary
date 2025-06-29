@@ -1,14 +1,15 @@
-import { loadSavedMeals, saveSavedMeals } from "./savedMealLocalStorage";
+import { SavedMeal } from "../model/SavedMeal";
+import { saveSavedMeals } from "./savedMealLocalStorage";
 import { RootState } from "./store";
 
-type ReduxState = Omit<RootState, 'savedMeals'>;
+type SerializedReduxState = RootState | RootState & { savedMeals: SavedMeal[] };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isReduxState(state: any): state is ReduxState {
-  return !state.savedMeals || !Array.isArray(state.savedMeals) || state.savedMeals.length === 0;
-} 
+function hasSavedMealsProperty(state: any): state is RootState & { savedMeals: SavedMeal[] } {
+  return state.savedMeals && Array.isArray(state.savedMeals);
+}
 
-function loadReduxState(): RootState | ReduxState | null {
+function loadReduxState(): SerializedReduxState | null {
   try {
     const serializedState = localStorage.getItem('state');
     if (serializedState === null) {
@@ -27,20 +28,16 @@ export const loadState = (): any => {
   if (state === null) {
     return undefined;
   }
-  if (isReduxState(state)) {
-    const savedMeals = loadSavedMeals();
-    return { ...state, savedMeals: savedMeals.meals };
+  if (hasSavedMealsProperty(state)) {
+    saveSavedMeals({
+      meals: state.savedMeals,
+    });
   }
   return state;
 };
 
-function removeSavedMeals(state: RootState): ReduxState {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { savedMeals: _ignored, ...rest } = state;
-  return rest;
-}
 
-function saveReduxState(state: ReduxState): void {
+function saveReduxState(state: RootState): void {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('state', serializedState);
@@ -50,10 +47,5 @@ function saveReduxState(state: ReduxState): void {
 }
 
 export const saveState = (state: RootState) => {
-  saveReduxState(removeSavedMeals(state));
-  // temporarily disabled saving saved meals to localStorage
-  // this is handled by the savedMeals feature
-  // saveSavedMeals({
-  //   meals: state.savedMeals,
-  // });
+  saveReduxState(state);
 };
