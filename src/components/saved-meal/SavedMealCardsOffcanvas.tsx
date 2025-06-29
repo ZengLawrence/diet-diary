@@ -30,6 +30,7 @@ function SavedMealCardsOffcanvas(props: Props) {
   const handleDeleteMeal = (meal: SavedMeal) => {
     const updatedMeals = savedMeals.remove(meal);
     setMeals(updatedMeals);
+    //TODO move into savedMeals.remove
     removeSuggestion(meal);
   }
   
