@@ -96,4 +96,9 @@ export class SavedMeals {
     this.saver.save(newMeals);
     return newMeals;
   }
+
+  searchByDescription(searchTerm: string): SavedMeal[] {
+    const meals = this.loader.load();
+    return search.byDescription(meals, searchTerm);
+  }
 }

@@ -225,5 +225,41 @@ describe("SavedMeals class", () => {
       expect(result).toEqual([mealA]);
       expect(saver.savedMeals).toEqual([mealA]);
     });
-  }); 
+  });
+
+  describe("search by description", () => {
+    const meals = [
+      { foods: [{ description: "Grilled Chicken Breast", serving: {} }] },
+      { foods: [{ description: "Beef Burger", serving: {} }] },
+      { foods: [{ description: "Salmon Sushi Roll", serving: {} }] },
+      { foods: [{ description: "Chicken Caesar Salad", serving: {} }] },
+    ];
+
+    it("finds meals containing all search words in any food description", () => {
+      const loader = new MockLoader(meals);
+      const savedMeals = new SavedMeals(loader, new MockSaver());
+      expect(savedMeals.searchByDescription("chicken")).toHaveLength(2);
+      expect(savedMeals.searchByDescription("burger")).toHaveLength(1);
+      expect(savedMeals.searchByDescription("sushi roll")).toHaveLength(1);
+    });
+
+    it("is case-insensitive and ignores word order", () => {
+      const loader = new MockLoader(meals);
+      const savedMeals = new SavedMeals(loader, new MockSaver());
+      expect(savedMeals.searchByDescription("CHICKEN")).toHaveLength(2);
+      expect(savedMeals.searchByDescription("salad caesar")).toHaveLength(1);
+    });
+
+    it("returns empty array if no meal matches all words", () => {
+      const loader = new MockLoader(meals);
+      const savedMeals = new SavedMeals(loader, new MockSaver());
+      expect(savedMeals.searchByDescription("tofu")).toHaveLength(0);
+    });
+
+    it("returns all meals if search term is empty", () => {
+      const loader = new MockLoader(meals);
+      const savedMeals = new SavedMeals(loader, new MockSaver());
+      expect(savedMeals.searchByDescription("")).toEqual(meals);
+    });
+  });
 });
