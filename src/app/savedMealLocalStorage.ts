@@ -1,4 +1,5 @@
 import { SavedMeal } from "../model/SavedMeal";
+import { SavedMealsLoader, SavedMealsSaver } from "../model/savedMeals";
 
 export interface SerializedSavedMeals {
   meals: SavedMeal[];
@@ -23,5 +24,15 @@ export function saveSavedMeals(savedMeals: SerializedSavedMeals): void {
     localStorage.setItem('savedMeals', serializedMeals);
   } catch {
     // ignore write errors
+  }
+}
+
+export class SavedMealsLocalStorage implements SavedMealsLoader, SavedMealsSaver {
+  load(): SavedMeal[] {
+    return loadSavedMeals().meals;
+  }
+
+  save(meals: SavedMeal[]): void {
+    saveSavedMeals({ meals });
   }
 }

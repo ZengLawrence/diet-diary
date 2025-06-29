@@ -1,4 +1,10 @@
-import { search, mutation } from "./savedMeals";
+import { Food } from "./Food";
+import { SavedMeal } from "./SavedMeal";
+import { search, mutation, SavedMeals, SavedMealsLoader, SavedMealsSaver } from "./savedMeals";
+
+// Helper: minimal valid Food for tests
+const minimalFood: Food = { description: "desc", serving: {} };
+
 
 describe("search", () => {
   describe("by description", () => {
@@ -127,4 +133,133 @@ describe("mutation", () => {
     });
   });
   
+});
+
+describe("SavedMeals class", () => {
+  class MockLoader implements SavedMealsLoader {
+    constructor(private meals: SavedMeal[]) {}
+    load(): SavedMeal[] {
+      return this.meals;
+    }
+  }
+
+  class MockSaver implements SavedMealsSaver {
+    public savedMeals: SavedMeal[] = [];
+    save(meals: SavedMeal[]): void {
+      this.savedMeals = meals;
+    }
+  }
+
+  const mealA: SavedMeal = { foods: [{ ...minimalFood, description: "A" }] };
+  const mealB: SavedMeal = { foods: [{ ...minimalFood, description: "B" }] };
+
+  describe("add a meal", () => {
+    it("adds a meal and saves the new list", () => {
+      const loader = new MockLoader([mealA]);
+      const saver = new MockSaver();
+      const savedMeals = new SavedMeals(loader, saver);
+      const result = savedMeals.add(mealB);
+      expect(result[0]).toBe(mealB);
+      expect(result[1]).toBe(mealA);
+      expect(saver.savedMeals).toEqual([mealB, mealA]);
+    });
+
+    it("does not exceed max saved count", () => {
+      const manyMeals = Array(200).fill(mealA) as SavedMeal[];
+      const loader = new MockLoader(manyMeals);
+      const saver = new MockSaver();
+      const savedMeals = new SavedMeals(loader, saver);
+      const result = savedMeals.add(mealB);
+      expect(result.length).toBe(200);
+      expect(result[0]).toBe(mealB);
+      expect(saver.savedMeals.length).toBe(200);
+    });
+  });
+
+  describe("remove a meal", () => {
+    it("removes a meal and saves the new list", () => {
+      const loader = new MockLoader([mealA, mealB]);
+      const saver = new MockSaver();
+      const savedMeals = new SavedMeals(loader, saver);
+      const result = savedMeals.remove(mealA);
+      expect(result).toEqual([mealB]);
+      expect(saver.savedMeals).toEqual([mealB]);
+    });
+
+    it("does not change list if meal is not found", () => {
+      const loader = new MockLoader([mealA]);
+      const saver = new MockSaver();
+      const savedMeals = new SavedMeals(loader, saver);
+      const result = savedMeals.remove(mealB);
+      expect(result).toEqual([mealA]);
+      expect(saver.savedMeals).toEqual([mealA]);
+    });
+  });
+
+  describe("select a meal", () => {
+    it("moves the selected meal to the front and saves the new list", () => {
+      const loader = new MockLoader([mealA, mealB]);
+      const saver = new MockSaver();
+      const savedMeals = new SavedMeals(loader, saver);
+      const result = savedMeals.select(mealB);
+      expect(result[0]).toBe(mealB);
+      expect(result[1]).toBe(mealA);
+      expect(saver.savedMeals).toEqual([mealB, mealA]);
+    });
+
+    it("does not change order if meal is already first", () => {
+      const loader = new MockLoader([mealB, mealA]);
+      const saver = new MockSaver();
+      const savedMeals = new SavedMeals(loader, saver);
+      const result = savedMeals.select(mealB);
+      expect(result[0]).toBe(mealB);
+      expect(result[1]).toBe(mealA);
+      expect(saver.savedMeals).toEqual([mealB, mealA]);
+    });
+
+    it("does not change order if meal is not found", () => {
+      const loader = new MockLoader([mealA]);
+      const saver = new MockSaver();
+      const savedMeals = new SavedMeals(loader, saver);
+      const result = savedMeals.select(mealB);
+      expect(result).toEqual([mealA]);
+      expect(saver.savedMeals).toEqual([mealA]);
+    });
+  });
+
+  describe("search by description", () => {
+    const meals = [
+      { foods: [{ description: "Grilled Chicken Breast", serving: {} }] },
+      { foods: [{ description: "Beef Burger", serving: {} }] },
+      { foods: [{ description: "Salmon Sushi Roll", serving: {} }] },
+      { foods: [{ description: "Chicken Caesar Salad", serving: {} }] },
+    ];
+
+    it("finds meals containing all search words in any food description", () => {
+      const loader = new MockLoader(meals);
+      const savedMeals = new SavedMeals(loader, new MockSaver());
+      expect(savedMeals.searchByDescription("chicken")).toHaveLength(2);
+      expect(savedMeals.searchByDescription("burger")).toHaveLength(1);
+      expect(savedMeals.searchByDescription("sushi roll")).toHaveLength(1);
+    });
+
+    it("is case-insensitive and ignores word order", () => {
+      const loader = new MockLoader(meals);
+      const savedMeals = new SavedMeals(loader, new MockSaver());
+      expect(savedMeals.searchByDescription("CHICKEN")).toHaveLength(2);
+      expect(savedMeals.searchByDescription("salad caesar")).toHaveLength(1);
+    });
+
+    it("returns empty array if no meal matches all words", () => {
+      const loader = new MockLoader(meals);
+      const savedMeals = new SavedMeals(loader, new MockSaver());
+      expect(savedMeals.searchByDescription("tofu")).toHaveLength(0);
+    });
+
+    it("returns all meals if search term is empty", () => {
+      const loader = new MockLoader(meals);
+      const savedMeals = new SavedMeals(loader, new MockSaver());
+      expect(savedMeals.searchByDescription("")).toEqual(meals);
+    });
+  });
 });

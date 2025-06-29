@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { BaseSavedMeal } from "./SavedMeal";
+import { BaseSavedMeal, SavedMeal } from "./SavedMeal";
 
 function includesAllWords(meal: BaseSavedMeal, words: string[]) {
   const foodDescriptions = _.map(meal.foods, f => _.lowerCase(f.description));
@@ -60,3 +60,45 @@ export const mutation = {
 }
 
 export default mutation;
+
+export interface SavedMealsLoader {
+  load(): SavedMeal[];
+}
+
+export interface SavedMealsSaver {
+  save(meals: SavedMeal[]): void;
+}
+
+export class SavedMeals {
+
+  constructor(
+    private readonly loader: SavedMealsLoader,
+    private readonly saver: SavedMealsSaver,
+  ) {}
+
+  add(meal: SavedMeal): SavedMeal[] {
+    const meals = this.loader.load();
+    const newMeals = mutation.save(meals, meal);
+    this.saver.save(newMeals);
+    return newMeals;
+  }
+
+  remove(meal: SavedMeal): SavedMeal[] {
+    const meals = this.loader.load();
+    const newMeals = mutation.remove(meals, meal);
+    this.saver.save(newMeals);
+    return newMeals;
+  }
+
+  select(meal: SavedMeal): SavedMeal[] {
+    const meals = this.loader.load();
+    const newMeals = mutation.selected(meals, meal);
+    this.saver.save(newMeals);
+    return newMeals;
+  }
+
+  searchByDescription(searchTerm: string): SavedMeal[] {
+    const meals = this.loader.load();
+    return search.byDescription(meals, searchTerm);
+  }
+}
