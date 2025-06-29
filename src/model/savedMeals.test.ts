@@ -153,24 +153,26 @@ describe("SavedMeals class", () => {
   const mealA: SavedMeal = { foods: [{ ...minimalFood, description: "A" }] };
   const mealB: SavedMeal = { foods: [{ ...minimalFood, description: "B" }] };
 
-  it("adds a meal and saves the new list", () => {
-    const loader = new MockLoader([mealA]);
-    const saver = new MockSaver();
-    const savedMeals = new SavedMeals(loader, saver);
-    const result = savedMeals.add(mealB);
-    expect(result[0]).toBe(mealB);
-    expect(result[1]).toBe(mealA);
-    expect(saver.savedMeals).toEqual([mealB, mealA]);
-  });
+  describe("add a meal", () => {
+    it("adds a meal and saves the new list", () => {
+      const loader = new MockLoader([mealA]);
+      const saver = new MockSaver();
+      const savedMeals = new SavedMeals(loader, saver);
+      const result = savedMeals.add(mealB);
+      expect(result[0]).toBe(mealB);
+      expect(result[1]).toBe(mealA);
+      expect(saver.savedMeals).toEqual([mealB, mealA]);
+    });
 
-  it("does not exceed max saved count", () => {
-    const manyMeals = Array(200).fill(mealA) as SavedMeal[];
-    const loader = new MockLoader(manyMeals);
-    const saver = new MockSaver();
-    const savedMeals = new SavedMeals(loader, saver);
-    const result = savedMeals.add(mealB);
-    expect(result.length).toBe(200);
-    expect(result[0]).toBe(mealB);
-    expect(saver.savedMeals.length).toBe(200);
+    it("does not exceed max saved count", () => {
+      const manyMeals = Array(200).fill(mealA) as SavedMeal[];
+      const loader = new MockLoader(manyMeals);
+      const saver = new MockSaver();
+      const savedMeals = new SavedMeals(loader, saver);
+      const result = savedMeals.add(mealB);
+      expect(result.length).toBe(200);
+      expect(result[0]).toBe(mealB);
+      expect(saver.savedMeals.length).toBe(200);
+    });
   });
 });
