@@ -195,4 +195,35 @@ describe("SavedMeals class", () => {
       expect(saver.savedMeals).toEqual([mealA]);
     });
   });
+
+  describe("select a meal", () => {
+    it("moves the selected meal to the front and saves the new list", () => {
+      const loader = new MockLoader([mealA, mealB]);
+      const saver = new MockSaver();
+      const savedMeals = new SavedMeals(loader, saver);
+      const result = savedMeals.select(mealB);
+      expect(result[0]).toBe(mealB);
+      expect(result[1]).toBe(mealA);
+      expect(saver.savedMeals).toEqual([mealB, mealA]);
+    });
+
+    it("does not change order if meal is already first", () => {
+      const loader = new MockLoader([mealB, mealA]);
+      const saver = new MockSaver();
+      const savedMeals = new SavedMeals(loader, saver);
+      const result = savedMeals.select(mealB);
+      expect(result[0]).toBe(mealB);
+      expect(result[1]).toBe(mealA);
+      expect(saver.savedMeals).toEqual([mealB, mealA]);
+    });
+
+    it("does not change order if meal is not found", () => {
+      const loader = new MockLoader([mealA]);
+      const saver = new MockSaver();
+      const savedMeals = new SavedMeals(loader, saver);
+      const result = savedMeals.select(mealB);
+      expect(result).toEqual([mealA]);
+      expect(saver.savedMeals).toEqual([mealA]);
+    });
+  }); 
 });

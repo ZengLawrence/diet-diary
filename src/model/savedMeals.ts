@@ -89,4 +89,11 @@ export class SavedMeals {
     this.saver.save(newMeals);
     return newMeals;
   }
+
+  select(meal: SavedMeal): SavedMeal[] {
+    const meals = this.loader.load();
+    const newMeals = mutation.selected(meals, meal);
+    this.saver.save(newMeals);
+    return newMeals;
+  }
 }
