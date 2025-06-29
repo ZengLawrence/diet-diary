@@ -5,8 +5,8 @@ import { MealCardHeader } from "../../components/meal-card/MealCardHeader";
 import { Meal } from "../../model/Food";
 import { enterMealEditMode, exitMealEditMode, hideSavedMealAlert, showSavedMealAlert } from "../day-page/pageOptionsSlice";
 import { deleteMeal } from "../day-page/dayPageSlice";
-import { save } from "../saved-meal/savedMealsSlice";
 import { addSuggestion } from "../suggestions/SavedMealSuggestion";
+import { savedMeals } from "../saved-meal";
 
 function inAddOrEditState(state: RootState, mealIndex: number) {
   const mealState = mealStatesSelector(state)[mealIndex];
@@ -28,8 +28,9 @@ const mapDispatchToProps = (dispatch: AppDispatch, ownProps: { mealIndex: number
   editMeal: (mealIndex: number) => dispatch(enterMealEditMode({ mealIndex })),
   doneEdit: () => dispatch(exitMealEditMode()),
   saveMeal: (mealIndex: number, meal: Meal) => {
-    dispatch(save(meal));
+    savedMeals.add(meal);
     dispatch(showSavedMealAlert(mealIndex));
+    //TODO: move into savedMeals.add
     addSuggestion(meal);
   },
 })

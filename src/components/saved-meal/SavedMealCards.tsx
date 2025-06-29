@@ -1,23 +1,27 @@
 import _ from "lodash";
 import { Card, ListGroup } from "react-bootstrap";
-import MealCardHeader from "../../features/saved-meal/MealCardHeader";
-import { Food } from "../../model/Food";
 import { FoodListGroupItems } from "../meal-card/FoodListGroupItems";
+import { MealCardHeader } from "./MealCardHeader";
+import { SavedMeal } from "../../model/SavedMeal";
 
 interface Props {
-  meals: { index: number; foods: Food[]; }[]
+  meals: SavedMeal[];
+  selectMeal: (meal: SavedMeal) => void;
+  deleteMeal: (meal: SavedMeal) => void;
 }
 
-export const SavedMealCards = (props: Props) => (
-  <div>
-    {_.map(props.meals, m => (
-      <Card className="mt-1" key={m.index} data-cy="mealCard">
-        <MealCardHeader meal={m} />
+export const SavedMealCards = (props: Props) => {
+  return (
+    <div>
+      {_.map(props.meals, (m, index) => (
+        <Card className="mt-1" key={index} data-cy="mealCard">
+          <MealCardHeader meal={m} selectMeal={props.selectMeal} deleteMeal={props.deleteMeal} />
 
-        <ListGroup>
-          <FoodListGroupItems mealIndex={m.index} foods={m.foods} />
-        </ListGroup>
-      </Card>
-    ))}
-  </div>
-);
+          <ListGroup>
+            <FoodListGroupItems mealIndex={index} foods={m.foods} />
+          </ListGroup>
+        </Card>
+      ))}
+    </div>
+  );
+}

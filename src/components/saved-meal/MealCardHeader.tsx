@@ -3,13 +3,13 @@ import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
-import { Food } from "../../model/Food";
 import { VariantDanger, VariantSecondary } from "../ButtonVariant";
+import { SavedMeal } from "../../model/SavedMeal";
 
 interface Props {
-  meal: { index: number; foods: Food[]; };
-  selectMeal: (meal: { index: number; foods: Food[]; }) => void;
-  deleteMeal: (meal: { index: number; foods: Food[]; }) => void;
+  meal: SavedMeal;
+  selectMeal: (meal: SavedMeal) => void;
+  deleteMeal: (meal: SavedMeal) => void;
 }
 
 export const MealCardHeader = (props: Props) => (

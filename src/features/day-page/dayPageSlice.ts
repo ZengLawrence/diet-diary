@@ -1,17 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { HistoryLocalStorage } from "../../app/historyLocalStorage";
-import { TodayLocalStorage } from "../../app/todayLocalStorage";
-import { DayPage, Today } from "../../model/diary";
-import { DiaryHistory } from "../../model/diaryHistory";
+import { DayPage } from "../../model/diary";
 import { Food } from "../../model/Food";
 import { Target } from "../../model/Target";
+import { today } from "./api";
 import { back, goToToday, next } from "./pageOptionsSlice";
-
-const historyLocalStorage = new HistoryLocalStorage();
-const diaryHistory = new DiaryHistory(historyLocalStorage, historyLocalStorage);
-
-const todayLocalStorage = new TodayLocalStorage();
-const today = new Today(todayLocalStorage, todayLocalStorage, diaryHistory);
 
 export const newDay = createAsyncThunk<DayPage>(
   'dayPage/newDay',
