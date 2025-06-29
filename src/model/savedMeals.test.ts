@@ -1,4 +1,10 @@
-import { search, mutation } from "./savedMeals";
+import { Food } from "./Food";
+import { SavedMeal } from "./SavedMeal";
+import { search, mutation, SavedMeals, SavedMealsLoader, SavedMealsSaver } from "./savedMeals";
+
+// Helper: minimal valid Food for tests
+const minimalFood: Food = { description: "desc", serving: {} };
+
 
 describe("search", () => {
   describe("by description", () => {
@@ -127,4 +133,44 @@ describe("mutation", () => {
     });
   });
   
+});
+
+describe("SavedMeals class", () => {
+  class MockLoader implements SavedMealsLoader {
+    constructor(private meals: SavedMeal[]) {}
+    load(): SavedMeal[] {
+      return this.meals;
+    }
+  }
+
+  class MockSaver implements SavedMealsSaver {
+    public savedMeals: SavedMeal[] = [];
+    save(meals: SavedMeal[]): void {
+      this.savedMeals = meals;
+    }
+  }
+
+  const mealA: SavedMeal = { foods: [{ ...minimalFood, description: "A" }] };
+  const mealB: SavedMeal = { foods: [{ ...minimalFood, description: "B" }] };
+
+  it("adds a meal and saves the new list", () => {
+    const loader = new MockLoader([mealA]);
+    const saver = new MockSaver();
+    const savedMeals = new SavedMeals(loader, saver);
+    const result = savedMeals.add(mealB);
+    expect(result[0]).toBe(mealB);
+    expect(result[1]).toBe(mealA);
+    expect(saver.savedMeals).toEqual([mealB, mealA]);
+  });
+
+  it("does not exceed max saved count", () => {
+    const manyMeals = Array(200).fill(mealA) as SavedMeal[];
+    const loader = new MockLoader(manyMeals);
+    const saver = new MockSaver();
+    const savedMeals = new SavedMeals(loader, saver);
+    const result = savedMeals.add(mealB);
+    expect(result.length).toBe(200);
+    expect(result[0]).toBe(mealB);
+    expect(saver.savedMeals.length).toBe(200);
+  });
 });
