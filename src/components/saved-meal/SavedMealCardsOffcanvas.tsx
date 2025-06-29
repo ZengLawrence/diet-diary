@@ -6,6 +6,8 @@ import { SavedMealCards } from "./SavedMealCards";
 import { SearchTermInput } from "./SearchTermInput";
 import { SavedMeal } from "../../model/SavedMeal";
 import { removeSuggestion } from "../../features/suggestions/SavedMealSuggestion";
+import { useAppDispatch } from "../../app/hooks";
+import { addSavedMeal } from "../../features/day-page/dayPageSlice";
 
 interface Props {
   show: boolean,
@@ -15,6 +17,7 @@ interface Props {
 function SavedMealCardsOffcanvas(props: Props) {
 
   const [meals, setMeals] = useState([] as SavedMeal[]);
+  const dispatch = useAppDispatch();
 
   const handleSearchTermChange = (searchTerm: string) => {
     const filteredMeals = savedMeals.searchByDescription(searchTerm);
@@ -24,6 +27,8 @@ function SavedMealCardsOffcanvas(props: Props) {
   const handleSelectMeal = (meal: SavedMeal) => {
     const selectedMeals = savedMeals.select(meal);
     setMeals(selectedMeals);
+    //TODO move into savedMeals.select
+    dispatch(addSavedMeal(meal));
     props.onHide();
   }
 
