@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { today } from ".";
 import { DayPage } from "../../model/diary";
 import { Food } from "../../model/Food";
 import { Target } from "../../model/Target";
+import { today } from "./api";
 import { back, goToToday, next } from "./pageOptionsSlice";
 
 export const newDay = createAsyncThunk<DayPage>(
