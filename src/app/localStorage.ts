@@ -51,7 +51,9 @@ function saveReduxState(state: ReduxState): void {
 
 export const saveState = (state: RootState) => {
   saveReduxState(removeSavedMeals(state));
-  saveSavedMeals({
-    meals: state.savedMeals,
-  });
+  // temporarily disabled saving saved meals to localStorage
+  // this is handled by the savedMeals feature
+  // saveSavedMeals({
+  //   meals: state.savedMeals,
+  // });
 };

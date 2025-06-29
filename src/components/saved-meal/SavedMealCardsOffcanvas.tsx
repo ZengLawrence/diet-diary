@@ -2,9 +2,10 @@ import _ from "lodash";
 import { useState } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { savedMeals } from "../../features/saved-meal";
-import { Food } from "../../model/Food";
 import { SavedMealCards } from "./SavedMealCards";
 import { SearchTermInput } from "./SearchTermInput";
+import { SavedMeal } from "../../model/SavedMeal";
+import { removeSuggestion } from "../../features/suggestions/SavedMealSuggestion";
 
 interface Props {
   show: boolean,
@@ -13,13 +14,25 @@ interface Props {
 
 function SavedMealCardsOffcanvas(props: Props) {
 
-  const [meals, setMeals] = useState([] as { index: number; foods: Food[]; }[]);
+  const [meals, setMeals] = useState([] as SavedMeal[]);
 
   const handleSearchTermChange = (searchTerm: string) => {
     const filteredMeals = savedMeals.searchByDescription(searchTerm);
-    setMeals(_.map(filteredMeals, (m, index) => ({ index: index, foods: m.foods })));
+    setMeals(filteredMeals);
   }
 
+  const handleSelectMeal = (meal: SavedMeal) => {
+    const selectedMeals = savedMeals.select(meal);
+    setMeals(selectedMeals);
+    props.onHide();
+  }
+
+  const handleDeleteMeal = (meal: SavedMeal) => {
+    const updatedMeals = savedMeals.remove(meal);
+    setMeals(updatedMeals);
+    removeSuggestion(meal);
+  }
+  
   return (
     <Offcanvas id="savedMeals" show={props.show} onHide={props.onHide}>
       <Offcanvas.Header closeButton>
@@ -28,7 +41,7 @@ function SavedMealCardsOffcanvas(props: Props) {
       <Offcanvas.Body>
         <SearchTermInput update={handleSearchTermChange} />
         <div>Total: {_.size(meals)}</div>
-        <SavedMealCards meals={meals} />
+        <SavedMealCards meals={meals} selectMeal={handleSelectMeal} deleteMeal={handleDeleteMeal} />
       </Offcanvas.Body>
     </Offcanvas>
   );
