@@ -30,6 +30,7 @@ const mapDispatchToProps = (dispatch: AppDispatch, ownProps: { mealIndex: number
   saveMeal: (mealIndex: number, meal: Meal) => {
     savedMeals.add(meal);
     dispatch(showSavedMealAlert(mealIndex));
+    //TODO: move into savedMeals.add
     addSuggestion(meal);
   },
 })
