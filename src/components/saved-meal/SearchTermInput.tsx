@@ -5,13 +5,15 @@ interface Props {
   update: (s: string) => void;
 }
 
-export const SearchTermInput = (props: Props) => (
-  <Form>
-    <Form.Control
-      type="text"
-      placeholder="Type to search"
-      value={props.searchTerm}
-      onChange={e => props.update(e.target.value)}
-    />
-  </Form>
-)
+export const SearchTermInput = (props: Props) => {
+  return (
+    <Form>
+      <Form.Control
+        type="text"
+        placeholder="Type to search"
+        value={props.searchTerm}
+        onChange={e => props.update(e.target.value)}
+      />
+    </Form>
+  );
+}
