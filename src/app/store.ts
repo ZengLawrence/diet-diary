@@ -2,8 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import _ from 'lodash';
 import { loadState, saveState } from './localStorage';
 import reducer from './reducers';
-import { addSuggestions } from '../features/suggestions/SavedMealSuggestion';
-import { loadSavedMeals } from './savedMealLocalStorage';
 
 const persistedState = loadState();
 export const store = configureStore({
@@ -14,9 +12,6 @@ export const store = configureStore({
 store.subscribe(_.throttle(() => {
   saveState(store.getState());
 }, 1000));
-
-//TODO: move this to a more appropriate place
-addSuggestions(loadSavedMeals().meals);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>
