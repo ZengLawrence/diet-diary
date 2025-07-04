@@ -26,9 +26,7 @@ const createMockToday = (): Today & { addSavedMeal: jest.Mock } => {
   const addSavedMeal = jest.fn();
   return {
     loader: { load: jest.fn(() => minimalDayPage) },
-    // @ts-ignore
     saver: { save: jest.fn() },
-    // @ts-ignore
     diaryHistory: { add: jest.fn(() => []) },
     _saveToday: jest.fn(),
     _loadToday: jest.fn(() => minimalDayPage),
