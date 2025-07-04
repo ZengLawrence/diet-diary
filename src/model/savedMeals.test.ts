@@ -232,6 +232,10 @@ describe("SavedMeals class", () => {
   });
 
   describe("remove a meal", () => {
+    beforeEach(() => {
+      (suggestions.removeSuggestion as jest.Mock).mockClear();
+    });
+
     it("removes a meal and saves the new list", () => {
       const loader = createMockLoader([mealA, mealB]);
       const saver = createMockSaver();
@@ -239,6 +243,7 @@ describe("SavedMeals class", () => {
       const result = savedMeals.remove(mealA);
       expect(result).toEqual([mealB]);
       expect(getSavedMeals(saver)).toEqual([mealB]);
+      expect(suggestions.removeSuggestion).toHaveBeenCalledWith(mealA);
     });
 
     it("does not change list if meal is not found", () => {
@@ -248,6 +253,7 @@ describe("SavedMeals class", () => {
       const result = savedMeals.remove(mealB);
       expect(result).toEqual([mealA]);
       expect(getSavedMeals(saver)).toEqual([mealA]);
+      expect(suggestions.removeSuggestion).toHaveBeenCalledWith(mealB);
     });
   });
 

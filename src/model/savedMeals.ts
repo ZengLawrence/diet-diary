@@ -92,6 +92,7 @@ export class SavedMeals {
     const meals = this.loader.load();
     const newMeals = mutation.remove(meals, meal);
     this.saver.save(newMeals);
+    this.suggestions.removeSuggestion(meal);
     return newMeals;
   }
 
