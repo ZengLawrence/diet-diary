@@ -1,9 +1,67 @@
 import { Food } from "./Food";
 import { SavedMeal } from "./SavedMeal";
 import { search, mutation, SavedMeals, SavedMealsLoader, SavedMealsSaver } from "./savedMeals";
+import { Today } from "./diary";
 
 // Helper: minimal valid Food for tests
 const minimalFood: Food = { description: "desc", serving: {} };
+
+// Minimal Today mock for constructor
+const minimalTarget = {
+  calorie: 0,
+  serving: {
+    vegetable: 0,
+    fruit: 0,
+    carbohydrate: 0,
+    proteinDiary: 0,
+    fat: 0,
+    sweet: 0,
+  },
+  unlimitedFruit: false,
+};
+const minimalDayPage = { date: '', target: minimalTarget, meals: [] };
+const minimalToday = {
+  loader: { load: () => minimalDayPage },
+  // @ts-ignore
+  saver: { save: () => {} },
+  // @ts-ignore
+  diaryHistory: { add: () => [] },
+  _saveToday: () => {},
+  _loadToday: () => minimalDayPage,
+  currentDay: () => minimalDayPage,
+  newDay: () => ({}),
+  addMeal: () => ({}),
+  addSavedMeal: () => ({}),
+  deleteMeal: () => ({}),
+  addFood: () => ({}),
+  updateFood: () => ({}),
+  deleteFood: () => ({}),
+  updateTarget: () => ({}),
+  toggleUnlimitedFruit: () => ({}),
+} as unknown as Today;
+
+// Jest mock for Today class
+const createMockToday = (): Today => {
+  return {
+    loader: { load: jest.fn(() => minimalDayPage) },
+    // @ts-ignore
+    saver: { save: jest.fn() },
+    // @ts-ignore
+    diaryHistory: { add: jest.fn(() => []) },
+    _saveToday: jest.fn(),
+    _loadToday: jest.fn(() => minimalDayPage),
+    currentDay: jest.fn(() => minimalDayPage),
+    newDay: jest.fn(() => ({})),
+    addMeal: jest.fn(() => ({})),
+    addSavedMeal: jest.fn(() => ({})),
+    deleteMeal: jest.fn(() => ({})),
+    addFood: jest.fn(() => ({})),
+    updateFood: jest.fn(() => ({})),
+    deleteFood: jest.fn(() => ({})),
+    updateTarget: jest.fn(() => ({})),
+    toggleUnlimitedFruit: jest.fn(() => ({})),
+  } as unknown as Today;
+};
 
 
 describe("search", () => {
@@ -160,7 +218,7 @@ describe("SavedMeals class", () => {
     it("adds a meal and saves the new list", () => {
       const loader = createMockLoader([mealA]);
       const saver = createMockSaver();
-      const savedMeals = new SavedMeals(loader, saver);
+      const savedMeals = new SavedMeals(loader, saver, createMockToday());
       const result = savedMeals.add(mealB);
       expect(result[0]).toBe(mealB);
       expect(result[1]).toBe(mealA);
@@ -171,7 +229,7 @@ describe("SavedMeals class", () => {
       const manyMeals = Array(200).fill(mealA) as SavedMeal[];
       const loader = createMockLoader(manyMeals);
       const saver = createMockSaver();
-      const savedMeals = new SavedMeals(loader, saver);
+      const savedMeals = new SavedMeals(loader, saver, createMockToday());
       const result = savedMeals.add(mealB);
       expect(result.length).toBe(200);
       expect(result[0]).toBe(mealB);
@@ -183,7 +241,7 @@ describe("SavedMeals class", () => {
     it("removes a meal and saves the new list", () => {
       const loader = createMockLoader([mealA, mealB]);
       const saver = createMockSaver();
-      const savedMeals = new SavedMeals(loader, saver);
+      const savedMeals = new SavedMeals(loader, saver, createMockToday());
       const result = savedMeals.remove(mealA);
       expect(result).toEqual([mealB]);
       expect(getSavedMeals(saver)).toEqual([mealB]);
@@ -192,7 +250,7 @@ describe("SavedMeals class", () => {
     it("does not change list if meal is not found", () => {
       const loader = createMockLoader([mealA]);
       const saver = createMockSaver();
-      const savedMeals = new SavedMeals(loader, saver);
+      const savedMeals = new SavedMeals(loader, saver, createMockToday());
       const result = savedMeals.remove(mealB);
       expect(result).toEqual([mealA]);
       expect(getSavedMeals(saver)).toEqual([mealA]);
@@ -203,7 +261,7 @@ describe("SavedMeals class", () => {
     it("moves the selected meal to the front and saves the new list", () => {
       const loader = createMockLoader([mealA, mealB]);
       const saver = createMockSaver();
-      const savedMeals = new SavedMeals(loader, saver);
+      const savedMeals = new SavedMeals(loader, saver, createMockToday());
       const result = savedMeals.select(mealB);
       expect(result[0]).toBe(mealB);
       expect(result[1]).toBe(mealA);
@@ -213,7 +271,7 @@ describe("SavedMeals class", () => {
     it("does not change order if meal is already first", () => {
       const loader = createMockLoader([mealB, mealA]);
       const saver = createMockSaver();
-      const savedMeals = new SavedMeals(loader, saver);
+      const savedMeals = new SavedMeals(loader, saver, createMockToday());
       const result = savedMeals.select(mealB);
       expect(result[0]).toBe(mealB);
       expect(result[1]).toBe(mealA);
@@ -223,7 +281,7 @@ describe("SavedMeals class", () => {
     it("does not change order if meal is not found", () => {
       const loader = createMockLoader([mealA]);
       const saver = createMockSaver();
-      const savedMeals = new SavedMeals(loader, saver);
+      const savedMeals = new SavedMeals(loader, saver, createMockToday());
       const result = savedMeals.select(mealB);
       expect(result).toEqual([mealA]);
       expect(getSavedMeals(saver)).toEqual([mealA]);
@@ -240,7 +298,7 @@ describe("SavedMeals class", () => {
 
     it("finds meals containing all search words in any food description", () => {
       const loader = createMockLoader(meals);
-      const savedMeals = new SavedMeals(loader, createMockSaver());
+      const savedMeals = new SavedMeals(loader, createMockSaver(), createMockToday());
       expect(savedMeals.searchByDescription("chicken")).toHaveLength(2);
       expect(savedMeals.searchByDescription("burger")).toHaveLength(1);
       expect(savedMeals.searchByDescription("sushi roll")).toHaveLength(1);
@@ -248,20 +306,20 @@ describe("SavedMeals class", () => {
 
     it("is case-insensitive and ignores word order", () => {
       const loader = createMockLoader(meals);
-      const savedMeals = new SavedMeals(loader, createMockSaver());
+      const savedMeals = new SavedMeals(loader, createMockSaver(), createMockToday());
       expect(savedMeals.searchByDescription("CHICKEN")).toHaveLength(2);
       expect(savedMeals.searchByDescription("salad caesar")).toHaveLength(1);
     });
 
     it("returns empty array if no meal matches all words", () => {
       const loader = createMockLoader(meals);
-      const savedMeals = new SavedMeals(loader, createMockSaver());
+      const savedMeals = new SavedMeals(loader, createMockSaver(), createMockToday());
       expect(savedMeals.searchByDescription("tofu")).toHaveLength(0);
     });
 
     it("returns all meals if search term is empty", () => {
       const loader = createMockLoader(meals);
-      const savedMeals = new SavedMeals(loader, createMockSaver());
+      const savedMeals = new SavedMeals(loader, createMockSaver(), createMockToday());
       expect(savedMeals.searchByDescription("")).toEqual(meals);
     });
   });

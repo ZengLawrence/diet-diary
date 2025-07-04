@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { BaseSavedMeal, SavedMeal } from "./SavedMeal";
+import { Today } from "./diary";
 
 function includesAllWords(meal: BaseSavedMeal, words: string[]) {
   const foodDescriptions = _.map(meal.foods, f => _.lowerCase(f.description));
@@ -74,6 +75,7 @@ export class SavedMeals {
   constructor(
     private readonly loader: SavedMealsLoader,
     private readonly saver: SavedMealsSaver,
+    private readonly today: Today,
   ) {}
 
   add(meal: SavedMeal): SavedMeal[] {
