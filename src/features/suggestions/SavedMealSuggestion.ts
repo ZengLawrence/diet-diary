@@ -21,7 +21,7 @@ function toSuggestion(food: Food): PredefinedSuggestion {
   }
 }
 
-export function addSuggestions(savedMeals: { foods: Food[]; }[]) {
+function addSuggestions(savedMeals: { foods: Food[]; }[]) {
   _.filter(savedMeals, isSingleFoodMeal)
     .flatMap(meal => meal.foods)
     .map(toSuggestion)
@@ -30,13 +30,13 @@ export function addSuggestions(savedMeals: { foods: Food[]; }[]) {
     );
 }
 
-export function addSuggestion(meal: { foods: Food[]; }): void {
+function addSuggestion(meal: { foods: Food[]; }): void {
   if (isSingleFoodMeal(meal)) {
     addOrReplace(toSuggestion(meal.foods[0]));
   }
 }
 
-export function removeSuggestion(meal: { foods: Food[]; }): void {
+function removeSuggestion(meal: { foods: Food[]; }): void {
   if (isSingleFoodMeal(meal)) {
     remove(toSuggestion(meal.foods[0]));
   }
