@@ -40,3 +40,9 @@ export function removeSuggestion(meal: { foods: Food[]; }): void {
     remove(toSuggestion(meal.foods[0]));
   }
 }
+
+export const suggestions = {
+  addSuggestions,
+  addSuggestion,
+  removeSuggestion
+};
