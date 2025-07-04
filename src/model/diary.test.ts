@@ -2,7 +2,6 @@ import { validation, mutation, Today, TodayLoader, TodaySaver, ReadOnlyToday } f
 import { Food, Meal, newMeal } from "./Food";
 import { getDefaultTarget } from "./Target";
 import { DiaryHistory } from "./diaryHistory";
-import { before } from "lodash";
 
 describe("validation", () => {
   describe("isToday", () => {
