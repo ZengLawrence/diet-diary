@@ -29,13 +29,13 @@ export function addSuggestions(savedMeals: { foods: Food[]; }[]) {
     );
 }
 
-export function addSuggestion(meal: { foods: Food[]; }) {
+export function addSuggestion(meal: { foods: Food[]; }): void {
   if (isSingleFoodMeal(meal)) {
     addOrReplace(toSuggestion(meal.foods[0]));
   }
 }
 
-export function removeSuggestion(meal: { foods: Food[]; }) {
+export function removeSuggestion(meal: { foods: Food[]; }): void {
   if (isSingleFoodMeal(meal)) {
     remove(toSuggestion(meal.foods[0]));
   }
