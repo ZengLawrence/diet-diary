@@ -78,7 +78,9 @@ export class SavedMeals {
     private readonly saver: SavedMealsSaver,
     private readonly today: Today,
     private readonly suggestions: Suggestions,
-  ) {}
+  ) {
+    suggestions.addSuggestions(loader.load());
+  }
 
   add(meal: SavedMeal): SavedMeal[] {
     const meals = this.loader.load();
