@@ -20,13 +20,6 @@ export const addMeal = createAsyncThunk<DayPage>(
   }
 );
 
-export const addSavedMeal = createAsyncThunk<DayPage, { foods: Food[] }>(
-  'dayPage/addSavedMeal',
-  async (meal) => {
-    return today.addSavedMeal(meal.foods);
-  }
-);
-
 function getMeal(state: DayPage, index: number) {
   if (index < 0 || index >= state.meals.length) {
     throw new Error(`Invalid meal index: ${index}`);
@@ -109,9 +102,6 @@ const dayPageSlice = createSlice({
       return action.payload;
     })
     .addCase(addMeal.fulfilled, (_state, action) => {
-      return action.payload;
-    })
-    .addCase(addSavedMeal.fulfilled, (_state, action) => {
       return action.payload;
     })
     .addCase(deleteMeal.fulfilled, (_state, action) => {

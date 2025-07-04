@@ -7,7 +7,7 @@ import { SearchTermInput } from "./SearchTermInput";
 import { SavedMeal } from "../../model/SavedMeal";
 import { removeSuggestion } from "../../features/suggestions/SavedMealSuggestion";
 import { useAppDispatch } from "../../app/hooks";
-import { addSavedMeal, refresh } from "../../features/day-page/dayPageSlice";
+import { refresh } from "../../features/day-page/dayPageSlice";
 
 interface Props {
   show: boolean,
