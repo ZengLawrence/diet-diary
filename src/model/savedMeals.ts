@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { BaseSavedMeal, SavedMeal } from "./SavedMeal";
-import { Today } from "./diary";
+import { DayPage, Today } from "./diary";
 
 function includesAllWords(meal: BaseSavedMeal, words: string[]) {
   const foodDescriptions = _.map(meal.foods, f => _.lowerCase(f.description));
@@ -92,12 +92,13 @@ export class SavedMeals {
     return newMeals;
   }
 
-  select(meal: SavedMeal): SavedMeal[] {
+  select(meal: SavedMeal, callback: (today: DayPage) => void): SavedMeal[] {
     const meals = this.loader.load();
     const {meals: newMeals, found} = mutation.selected(meals, meal);
     this.saver.save(newMeals);
     if (found) {
-      this.today.addSavedMeal(meal.foods);
+      const updatedToday = this.today.addSavedMeal(meal.foods);
+      callback(updatedToday);
     }
     return newMeals;
   }

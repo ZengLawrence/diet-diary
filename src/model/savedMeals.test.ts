@@ -40,8 +40,32 @@ const minimalToday = {
   toggleUnlimitedFruit: () => ({}),
 } as unknown as Today;
 
+// Patch createMockToday to return a Jest mock function for addSavedMeal
+const createMockToday = (): Today & { addSavedMeal: jest.Mock } => {
+  const addSavedMeal = jest.fn();
+  return {
+    loader: { load: jest.fn(() => minimalDayPage) },
+    // @ts-ignore
+    saver: { save: jest.fn() },
+    // @ts-ignore
+    diaryHistory: { add: jest.fn(() => []) },
+    _saveToday: jest.fn(),
+    _loadToday: jest.fn(() => minimalDayPage),
+    currentDay: jest.fn(() => minimalDayPage),
+    newDay: jest.fn(() => ({})),
+    addMeal: jest.fn(() => ({})),
+    addSavedMeal,
+    deleteMeal: jest.fn(() => ({})),
+    addFood: jest.fn(() => ({})),
+    updateFood: jest.fn(() => ({})),
+    deleteFood: jest.fn(() => ({})),
+    updateTarget: jest.fn(() => ({})),
+    toggleUnlimitedFruit: jest.fn(() => ({})),
+  } as unknown as Today & { addSavedMeal: jest.Mock };
+};
+
 // Jest mock for Today class
-const createMockToday = (): Today => {
+const createMockTodayWithoutPatch = (): Today => {
   return {
     loader: { load: jest.fn(() => minimalDayPage) },
     // @ts-ignore
@@ -261,39 +285,49 @@ describe("SavedMeals class", () => {
   });
 
   describe("select a meal", () => {
-    it("moves the selected meal to the front and saves the new list", () => {
+    it("moves the selected meal to the front, saves the new list, calls today.addSavedMeal, and calls callback with updatedToday", () => {
       const loader = createMockLoader([mealA, mealB]);
       const saver = createMockSaver();
       const today = createMockToday();
+      const updatedToday = { some: 'updated' };
+      today.addSavedMeal.mockReturnValue(updatedToday);
+      const callback = jest.fn();
       const savedMeals = new SavedMeals(loader, saver, today);
-      const result = savedMeals.select(mealB);
+      const result = savedMeals.select(mealB, callback);
       expect(result[0]).toBe(mealB);
       expect(result[1]).toBe(mealA);
       expect(getSavedMeals(saver)).toEqual([mealB, mealA]);
       expect(today.addSavedMeal).toHaveBeenCalledWith(mealB.foods);
+      expect(callback).toHaveBeenCalledWith(updatedToday);
     });
 
-    it("does not change order if meal is already first", () => {
+    it("does not change order if meal is already first, calls today.addSavedMeal, and calls callback with updatedToday", () => {
       const loader = createMockLoader([mealB, mealA]);
       const saver = createMockSaver();
       const today = createMockToday();
+      const updatedToday = { some: 'updated' };
+      today.addSavedMeal.mockReturnValue(updatedToday);
+      const callback = jest.fn();
       const savedMeals = new SavedMeals(loader, saver, today);
-      const result = savedMeals.select(mealB);
+      const result = savedMeals.select(mealB, callback);
       expect(result[0]).toBe(mealB);
       expect(result[1]).toBe(mealA);
       expect(getSavedMeals(saver)).toEqual([mealB, mealA]);
       expect(today.addSavedMeal).toHaveBeenCalledWith(mealB.foods);
+      expect(callback).toHaveBeenCalledWith(updatedToday);
     });
 
-    it("does not change order if meal is not found", () => {
+    it("does not change order if meal is not found and does not call today.addSavedMeal or callback", () => {
       const loader = createMockLoader([mealA]);
       const saver = createMockSaver();
       const today = createMockToday();
+      const callback = jest.fn();
       const savedMeals = new SavedMeals(loader, saver, today);
-      const result = savedMeals.select(mealB);
+      const result = savedMeals.select(mealB, callback);
       expect(result).toEqual([mealA]);
       expect(getSavedMeals(saver)).toEqual([mealA]);
       expect(today.addSavedMeal).not.toHaveBeenCalled();
+      expect(callback).not.toHaveBeenCalled();
     });
   });
 
