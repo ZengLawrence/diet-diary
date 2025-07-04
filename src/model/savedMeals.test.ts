@@ -20,25 +20,6 @@ const minimalTarget = {
   unlimitedFruit: false,
 };
 const minimalDayPage = { date: '', target: minimalTarget, meals: [] };
-const minimalToday = {
-  loader: { load: () => minimalDayPage },
-  // @ts-ignore
-  saver: { save: () => {} },
-  // @ts-ignore
-  diaryHistory: { add: () => [] },
-  _saveToday: () => {},
-  _loadToday: () => minimalDayPage,
-  currentDay: () => minimalDayPage,
-  newDay: () => ({}),
-  addMeal: () => ({}),
-  addSavedMeal: () => ({}),
-  deleteMeal: () => ({}),
-  addFood: () => ({}),
-  updateFood: () => ({}),
-  deleteFood: () => ({}),
-  updateTarget: () => ({}),
-  toggleUnlimitedFruit: () => ({}),
-} as unknown as Today;
 
 // Patch createMockToday to return a Jest mock function for addSavedMeal
 const createMockToday = (): Today & { addSavedMeal: jest.Mock } => {
@@ -65,27 +46,6 @@ const createMockToday = (): Today & { addSavedMeal: jest.Mock } => {
 };
 
 // Jest mock for Today class
-const createMockTodayWithoutPatch = (): Today => {
-  return {
-    loader: { load: jest.fn(() => minimalDayPage) },
-    // @ts-ignore
-    saver: { save: jest.fn() },
-    // @ts-ignore
-    diaryHistory: { add: jest.fn(() => []) },
-    _saveToday: jest.fn(),
-    _loadToday: jest.fn(() => minimalDayPage),
-    currentDay: jest.fn(() => minimalDayPage),
-    newDay: jest.fn(() => ({})),
-    addMeal: jest.fn(() => ({})),
-    addSavedMeal: jest.fn(() => ({})),
-    deleteMeal: jest.fn(() => ({})),
-    addFood: jest.fn(() => ({})),
-    updateFood: jest.fn(() => ({})),
-    deleteFood: jest.fn(() => ({})),
-    updateTarget: jest.fn(() => ({})),
-    toggleUnlimitedFruit: jest.fn(() => ({})),
-  } as unknown as Today;
-};
 
 
 describe("search", () => {
