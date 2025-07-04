@@ -194,6 +194,7 @@ const createMockSaver = (): SavedMealsSaver & { savedMeals: SavedMeal[] } => {
 
 
 // Helper to get the last saved meals from the mock
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getSavedMeals = (saver: any) => saver.save.mock.calls.length > 0 ? saver.save.mock.calls[saver.save.mock.calls.length - 1][0] : undefined;
 
 describe("SavedMeals class", () => {
