@@ -108,20 +108,6 @@ function toggleUnlimitedFruit(day: DayPage): DayPage {
   }
 }
 
-export const mutation = {
-  newDay,
-  addMeal,
-  addSavedMeal,
-  deleteMeal,
-  addFood,
-  updateFood,
-  deleteFood,
-  updateTarget,
-  toggleUnlimitedFruit,
-}
-
-export default mutation;
-
 export interface TodayLoader {
   load: (defaultFn: () => DayPage) => DayPage;
 }
