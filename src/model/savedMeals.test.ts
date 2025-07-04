@@ -186,7 +186,7 @@ const createMockLoader = (meals: SavedMeal[]): SavedMealsLoader => ({
 const createMockSaver = (): SavedMealsSaver => {
   return {
     savedMeals: [] as SavedMeal[],
-    save: jest.fn(function (this: any, meals: SavedMeal[]) {
+    save: jest.fn(function (this: {savedMeals: SavedMeal[]}, meals: SavedMeal[]) {
       this.savedMeals = meals;
     }),
   } as any;
