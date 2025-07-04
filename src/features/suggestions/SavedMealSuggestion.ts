@@ -3,6 +3,7 @@ import { Food } from "../../model/Food";
 import decompose from "./parser/DecomposedFoodDescription";
 import { addOrReplace, remove } from "./search/foodNameSearch";
 import { PredefinedSuggestion } from "./search/PredefinedSuggestion";
+import { Suggestions } from "../../model/suggestions";
 
 function isSingleFoodMeal(meal: { foods: Food[]; }): boolean {
   const { foods } = meal;
@@ -41,7 +42,7 @@ export function removeSuggestion(meal: { foods: Food[]; }): void {
   }
 }
 
-export const suggestions = {
+export const suggestions: Suggestions = {
   addSuggestions,
   addSuggestion,
   removeSuggestion
