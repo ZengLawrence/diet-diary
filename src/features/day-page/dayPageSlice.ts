@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DayPage } from "../../model/diary";
 import { Food } from "../../model/Food";
 import { Target } from "../../model/Target";
@@ -17,13 +17,6 @@ export const addMeal = createAsyncThunk<DayPage>(
   async () => {
     const newDay = today.addMeal();
     return newDay;
-  }
-);
-
-export const addSavedMeal = createAsyncThunk<DayPage, { foods: Food[] }>(
-  'dayPage/addSavedMeal',
-  async (meal) => {
-    return today.addSavedMeal(meal.foods);
   }
 );
 
@@ -90,7 +83,14 @@ export const toggleUnlimitedFruit = createAsyncThunk<DayPage>(
 const dayPageSlice = createSlice({
   name: 'dayPage',
   initialState: today.currentDay(), // initializer should not change state
-  reducers: {},
+  reducers: {
+    refresh: (state, action: PayloadAction<DayPage>) => {
+      if (state.date === action.payload.date) {
+        return action.payload;
+      }
+      return state; // do not change state if the date is different
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(back.fulfilled, (_state, action) => {
       return action.payload.day;
@@ -102,9 +102,6 @@ const dayPageSlice = createSlice({
       return action.payload;
     })
     .addCase(addMeal.fulfilled, (_state, action) => {
-      return action.payload;
-    })
-    .addCase(addSavedMeal.fulfilled, (_state, action) => {
       return action.payload;
     })
     .addCase(deleteMeal.fulfilled, (_state, action) => {
@@ -131,4 +128,5 @@ const dayPageSlice = createSlice({
   },
 });
 
+export const { refresh } = dayPageSlice.actions;
 export default dayPageSlice.reducer;

@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { BaseSavedMeal, SavedMeal } from "./SavedMeal";
+import { DayPage, Today } from "./diary";
 
 function includesAllWords(meal: BaseSavedMeal, words: string[]) {
   const foodDescriptions = _.map(meal.foods, f => _.lowerCase(f.description));
@@ -34,14 +35,14 @@ function save<T extends BaseSavedMeal>(meals: T[], meal: T): T[] {
   return newMeals;
 }
 
-function selected<T extends BaseSavedMeal>(meals: T[], meal: T): T[] {
+function selected<T extends BaseSavedMeal>(meals: T[], meal: T): {meals: T[], found: boolean} {
   const index = meals.findIndex(m => _.isEqual(m, meal));
   if (index === -1) {
-    return meals;
+    return { meals, found: false };
   }
   const selected = meals.splice(index, 1);
   meals.unshift(selected[0]);
-  return meals;
+  return { meals, found: true };
 }
 
 function remove<T extends BaseSavedMeal>(meals: T[], meal: T): T[] {
@@ -74,6 +75,7 @@ export class SavedMeals {
   constructor(
     private readonly loader: SavedMealsLoader,
     private readonly saver: SavedMealsSaver,
+    private readonly today: Today,
   ) {}
 
   add(meal: SavedMeal): SavedMeal[] {
@@ -90,10 +92,14 @@ export class SavedMeals {
     return newMeals;
   }
 
-  select(meal: SavedMeal): SavedMeal[] {
+  select(meal: SavedMeal, callback: (today: DayPage) => void): SavedMeal[] {
     const meals = this.loader.load();
-    const newMeals = mutation.selected(meals, meal);
+    const {meals: newMeals, found} = mutation.selected(meals, meal);
     this.saver.save(newMeals);
+    if (found) {
+      const updatedToday = this.today.addSavedMeal(meal.foods);
+      callback(updatedToday);
+    }
     return newMeals;
   }
 

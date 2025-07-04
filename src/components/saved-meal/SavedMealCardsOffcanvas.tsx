@@ -7,7 +7,7 @@ import { SearchTermInput } from "./SearchTermInput";
 import { SavedMeal } from "../../model/SavedMeal";
 import { removeSuggestion } from "../../features/suggestions/SavedMealSuggestion";
 import { useAppDispatch } from "../../app/hooks";
-import { addSavedMeal } from "../../features/day-page/dayPageSlice";
+import { refresh } from "../../features/day-page/dayPageSlice";
 
 interface Props {
   show: boolean,
@@ -25,10 +25,10 @@ function SavedMealCardsOffcanvas(props: Props) {
   }
 
   const handleSelectMeal = (meal: SavedMeal) => {
-    const selectedMeals = savedMeals.select(meal);
+    const selectedMeals = savedMeals.select(meal, (today) => {
+      dispatch(refresh(today));
+    });
     setMeals(selectedMeals);
-    //TODO move into savedMeals.select
-    dispatch(addSavedMeal(meal));
     props.onHide();
   }
 

@@ -1,9 +1,49 @@
 import { Food } from "./Food";
 import { SavedMeal } from "./SavedMeal";
 import { search, mutation, SavedMeals, SavedMealsLoader, SavedMealsSaver } from "./savedMeals";
+import { Today } from "./diary";
 
 // Helper: minimal valid Food for tests
 const minimalFood: Food = { description: "desc", serving: {} };
+
+// Minimal Today mock for constructor
+const minimalTarget = {
+  calorie: 0,
+  serving: {
+    vegetable: 0,
+    fruit: 0,
+    carbohydrate: 0,
+    proteinDiary: 0,
+    fat: 0,
+    sweet: 0,
+  },
+  unlimitedFruit: false,
+};
+const minimalDayPage = { date: '', target: minimalTarget, meals: [] };
+
+// Patch createMockToday to return a Jest mock function for addSavedMeal
+const createMockToday = (): Today & { addSavedMeal: jest.Mock } => {
+  const addSavedMeal = jest.fn();
+  return {
+    loader: { load: jest.fn(() => minimalDayPage) },
+    saver: { save: jest.fn() },
+    diaryHistory: { add: jest.fn(() => []) },
+    _saveToday: jest.fn(),
+    _loadToday: jest.fn(() => minimalDayPage),
+    currentDay: jest.fn(() => minimalDayPage),
+    newDay: jest.fn(() => ({})),
+    addMeal: jest.fn(() => ({})),
+    addSavedMeal,
+    deleteMeal: jest.fn(() => ({})),
+    addFood: jest.fn(() => ({})),
+    updateFood: jest.fn(() => ({})),
+    deleteFood: jest.fn(() => ({})),
+    updateTarget: jest.fn(() => ({})),
+    toggleUnlimitedFruit: jest.fn(() => ({})),
+  } as unknown as Today & { addSavedMeal: jest.Mock };
+};
+
+// Jest mock for Today class
 
 
 describe("search", () => {
@@ -98,21 +138,24 @@ describe("mutation", () => {
     const mealC = { foods: [{ description: "C" }] };
 
     it("moves the selected meal to the beginning of the array", () => {
-      const result = mutation.selected([mealA, mealB, mealC], mealB);
+      const { meals: result, found } = mutation.selected([mealA, mealB, mealC], mealB);
+      expect(found).toBe(true);
       expect(result[0]).toBe(mealB);
       expect(result[1]).toBe(mealA);
       expect(result[2]).toBe(mealC);
     });
 
     it("does not change order if meal is already first", () => {
-      const result = mutation.selected([mealB, mealA, mealC], mealB);
+      const { meals: result, found } = mutation.selected([mealB, mealA, mealC], mealB);
+      expect(found).toBe(true);
       expect(result[0]).toBe(mealB);
       expect(result[1]).toBe(mealA);
       expect(result[2]).toBe(mealC);
     });
 
     it("does not change order if meal is not found", () => {
-      const result = mutation.selected([mealA, mealC], mealB);
+      const { meals: result, found } = mutation.selected([mealA, mealC], mealB);
+      expect(found).toBe(false);
       expect(result).toEqual([mealA, mealC]);
     });
   });
@@ -135,95 +178,116 @@ describe("mutation", () => {
   
 });
 
-describe("SavedMeals class", () => {
-  class MockLoader implements SavedMealsLoader {
-    constructor(private meals: SavedMeal[]) {}
-    load(): SavedMeal[] {
-      return this.meals;
-    }
-  }
+// Jest mocks for dependent interfaces
+const createMockLoader = (meals: SavedMeal[]): SavedMealsLoader => ({
+  load: jest.fn(() => meals),
+});
 
-  class MockSaver implements SavedMealsSaver {
-    public savedMeals: SavedMeal[] = [];
-    save(meals: SavedMeal[]): void {
+const createMockSaver = (): SavedMealsSaver & { savedMeals: SavedMeal[] } => {
+  return {
+    savedMeals: [] as SavedMeal[],
+    save: jest.fn(function (this: {savedMeals: SavedMeal[]}, meals: SavedMeal[]) {
       this.savedMeals = meals;
-    }
-  }
+    }),
+  };
+};
 
+
+// Helper to get the last saved meals from the mock
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getSavedMeals = (saver: any) => saver.save.mock.calls.length > 0 ? saver.save.mock.calls[saver.save.mock.calls.length - 1][0] : undefined;
+
+describe("SavedMeals class", () => {
   const mealA: SavedMeal = { foods: [{ ...minimalFood, description: "A" }] };
   const mealB: SavedMeal = { foods: [{ ...minimalFood, description: "B" }] };
 
   describe("add a meal", () => {
     it("adds a meal and saves the new list", () => {
-      const loader = new MockLoader([mealA]);
-      const saver = new MockSaver();
-      const savedMeals = new SavedMeals(loader, saver);
+      const loader = createMockLoader([mealA]);
+      const saver = createMockSaver();
+      const savedMeals = new SavedMeals(loader, saver, createMockToday());
       const result = savedMeals.add(mealB);
       expect(result[0]).toBe(mealB);
       expect(result[1]).toBe(mealA);
-      expect(saver.savedMeals).toEqual([mealB, mealA]);
+      expect(getSavedMeals(saver)).toEqual([mealB, mealA]);
     });
 
     it("does not exceed max saved count", () => {
       const manyMeals = Array(200).fill(mealA) as SavedMeal[];
-      const loader = new MockLoader(manyMeals);
-      const saver = new MockSaver();
-      const savedMeals = new SavedMeals(loader, saver);
+      const loader = createMockLoader(manyMeals);
+      const saver = createMockSaver();
+      const savedMeals = new SavedMeals(loader, saver, createMockToday());
       const result = savedMeals.add(mealB);
       expect(result.length).toBe(200);
       expect(result[0]).toBe(mealB);
-      expect(saver.savedMeals.length).toBe(200);
+      expect(getSavedMeals(saver).length).toBe(200);
     });
   });
 
   describe("remove a meal", () => {
     it("removes a meal and saves the new list", () => {
-      const loader = new MockLoader([mealA, mealB]);
-      const saver = new MockSaver();
-      const savedMeals = new SavedMeals(loader, saver);
+      const loader = createMockLoader([mealA, mealB]);
+      const saver = createMockSaver();
+      const savedMeals = new SavedMeals(loader, saver, createMockToday());
       const result = savedMeals.remove(mealA);
       expect(result).toEqual([mealB]);
-      expect(saver.savedMeals).toEqual([mealB]);
+      expect(getSavedMeals(saver)).toEqual([mealB]);
     });
 
     it("does not change list if meal is not found", () => {
-      const loader = new MockLoader([mealA]);
-      const saver = new MockSaver();
-      const savedMeals = new SavedMeals(loader, saver);
+      const loader = createMockLoader([mealA]);
+      const saver = createMockSaver();
+      const savedMeals = new SavedMeals(loader, saver, createMockToday());
       const result = savedMeals.remove(mealB);
       expect(result).toEqual([mealA]);
-      expect(saver.savedMeals).toEqual([mealA]);
+      expect(getSavedMeals(saver)).toEqual([mealA]);
     });
   });
 
   describe("select a meal", () => {
-    it("moves the selected meal to the front and saves the new list", () => {
-      const loader = new MockLoader([mealA, mealB]);
-      const saver = new MockSaver();
-      const savedMeals = new SavedMeals(loader, saver);
-      const result = savedMeals.select(mealB);
+    it("moves the selected meal to the front, saves the new list, calls today.addSavedMeal, and calls callback with updatedToday", () => {
+      const loader = createMockLoader([mealA, mealB]);
+      const saver = createMockSaver();
+      const today = createMockToday();
+      const updatedToday = { some: 'updated' };
+      today.addSavedMeal.mockReturnValue(updatedToday);
+      const callback = jest.fn();
+      const savedMeals = new SavedMeals(loader, saver, today);
+      const result = savedMeals.select(mealB, callback);
       expect(result[0]).toBe(mealB);
       expect(result[1]).toBe(mealA);
-      expect(saver.savedMeals).toEqual([mealB, mealA]);
+      expect(getSavedMeals(saver)).toEqual([mealB, mealA]);
+      expect(today.addSavedMeal).toHaveBeenCalledWith(mealB.foods);
+      expect(callback).toHaveBeenCalledWith(updatedToday);
     });
 
-    it("does not change order if meal is already first", () => {
-      const loader = new MockLoader([mealB, mealA]);
-      const saver = new MockSaver();
-      const savedMeals = new SavedMeals(loader, saver);
-      const result = savedMeals.select(mealB);
+    it("does not change order if meal is already first, calls today.addSavedMeal, and calls callback with updatedToday", () => {
+      const loader = createMockLoader([mealB, mealA]);
+      const saver = createMockSaver();
+      const today = createMockToday();
+      const updatedToday = { some: 'updated' };
+      today.addSavedMeal.mockReturnValue(updatedToday);
+      const callback = jest.fn();
+      const savedMeals = new SavedMeals(loader, saver, today);
+      const result = savedMeals.select(mealB, callback);
       expect(result[0]).toBe(mealB);
       expect(result[1]).toBe(mealA);
-      expect(saver.savedMeals).toEqual([mealB, mealA]);
+      expect(getSavedMeals(saver)).toEqual([mealB, mealA]);
+      expect(today.addSavedMeal).toHaveBeenCalledWith(mealB.foods);
+      expect(callback).toHaveBeenCalledWith(updatedToday);
     });
 
-    it("does not change order if meal is not found", () => {
-      const loader = new MockLoader([mealA]);
-      const saver = new MockSaver();
-      const savedMeals = new SavedMeals(loader, saver);
-      const result = savedMeals.select(mealB);
+    it("does not change order if meal is not found and does not call today.addSavedMeal or callback", () => {
+      const loader = createMockLoader([mealA]);
+      const saver = createMockSaver();
+      const today = createMockToday();
+      const callback = jest.fn();
+      const savedMeals = new SavedMeals(loader, saver, today);
+      const result = savedMeals.select(mealB, callback);
       expect(result).toEqual([mealA]);
-      expect(saver.savedMeals).toEqual([mealA]);
+      expect(getSavedMeals(saver)).toEqual([mealA]);
+      expect(today.addSavedMeal).not.toHaveBeenCalled();
+      expect(callback).not.toHaveBeenCalled();
     });
   });
 
@@ -236,29 +300,29 @@ describe("SavedMeals class", () => {
     ];
 
     it("finds meals containing all search words in any food description", () => {
-      const loader = new MockLoader(meals);
-      const savedMeals = new SavedMeals(loader, new MockSaver());
+      const loader = createMockLoader(meals);
+      const savedMeals = new SavedMeals(loader, createMockSaver(), createMockToday());
       expect(savedMeals.searchByDescription("chicken")).toHaveLength(2);
       expect(savedMeals.searchByDescription("burger")).toHaveLength(1);
       expect(savedMeals.searchByDescription("sushi roll")).toHaveLength(1);
     });
 
     it("is case-insensitive and ignores word order", () => {
-      const loader = new MockLoader(meals);
-      const savedMeals = new SavedMeals(loader, new MockSaver());
+      const loader = createMockLoader(meals);
+      const savedMeals = new SavedMeals(loader, createMockSaver(), createMockToday());
       expect(savedMeals.searchByDescription("CHICKEN")).toHaveLength(2);
       expect(savedMeals.searchByDescription("salad caesar")).toHaveLength(1);
     });
 
     it("returns empty array if no meal matches all words", () => {
-      const loader = new MockLoader(meals);
-      const savedMeals = new SavedMeals(loader, new MockSaver());
+      const loader = createMockLoader(meals);
+      const savedMeals = new SavedMeals(loader, createMockSaver(), createMockToday());
       expect(savedMeals.searchByDescription("tofu")).toHaveLength(0);
     });
 
     it("returns all meals if search term is empty", () => {
-      const loader = new MockLoader(meals);
-      const savedMeals = new SavedMeals(loader, new MockSaver());
+      const loader = createMockLoader(meals);
+      const savedMeals = new SavedMeals(loader, createMockSaver(), createMockToday());
       expect(savedMeals.searchByDescription("")).toEqual(meals);
     });
   });

@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { hide } from "../day-page/showSavedMealsSlice";
-import { addSavedMeal } from "../day-page/dayPageSlice";
 
 interface SavedMealState {
   searchTerm: string;
@@ -18,9 +17,6 @@ const savedMealStateSlice = createSlice({
     builder.addCase(hide, (state) => {
       state.searchTerm = "";
     })
-    .addCase(addSavedMeal.fulfilled, (state) => {
-      state.searchTerm = "";
-    });
   }
 });
 
