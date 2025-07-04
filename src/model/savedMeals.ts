@@ -84,6 +84,7 @@ export class SavedMeals {
     const meals = this.loader.load();
     const newMeals = mutation.save(meals, meal);
     this.saver.save(newMeals);
+    this.suggestions.addSuggestion(meal);
     return newMeals;
   }
 

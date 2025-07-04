@@ -203,6 +203,10 @@ describe("SavedMeals class", () => {
   const mealB: SavedMeal = { foods: [{ ...minimalFood, description: "B" }] };
 
   describe("add a meal", () => {
+    beforeEach(() => {
+      (suggestions.addSuggestion as jest.Mock).mockClear();
+    });
+
     it("adds a meal and saves the new list", () => {
       const loader = createMockLoader([mealA]);
       const saver = createMockSaver();
@@ -211,6 +215,7 @@ describe("SavedMeals class", () => {
       expect(result[0]).toBe(mealB);
       expect(result[1]).toBe(mealA);
       expect(getSavedMeals(saver)).toEqual([mealB, mealA]);
+      expect(suggestions.addSuggestion).toHaveBeenCalledWith(mealB);
     });
 
     it("does not exceed max saved count", () => {
@@ -222,6 +227,7 @@ describe("SavedMeals class", () => {
       expect(result.length).toBe(200);
       expect(result[0]).toBe(mealB);
       expect(getSavedMeals(saver).length).toBe(200);
+      expect(suggestions.addSuggestion).toHaveBeenCalledWith(mealB);
     });
   });
 
