@@ -15,9 +15,6 @@ store.subscribe(_.throttle(() => {
   saveState(store.getState());
 }, 1000));
 
-//TODO: move this to a more appropriate place
-addSuggestions(loadSavedMeals().meals);
-
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
