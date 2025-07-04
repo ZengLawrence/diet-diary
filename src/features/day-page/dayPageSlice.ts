@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DayPage } from "../../model/diary";
 import { Food } from "../../model/Food";
 import { Target } from "../../model/Target";
@@ -90,7 +90,14 @@ export const toggleUnlimitedFruit = createAsyncThunk<DayPage>(
 const dayPageSlice = createSlice({
   name: 'dayPage',
   initialState: today.currentDay(), // initializer should not change state
-  reducers: {},
+  reducers: {
+    refresh: (state, action: PayloadAction<DayPage>) => {
+      if (state.date === action.payload.date) {
+        return action.payload;
+      }
+      return state; // do not change state if the date is different
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(back.fulfilled, (_state, action) => {
       return action.payload.day;
@@ -131,4 +138,5 @@ const dayPageSlice = createSlice({
   },
 });
 
+export const { refresh } = dayPageSlice.actions;
 export default dayPageSlice.reducer;
