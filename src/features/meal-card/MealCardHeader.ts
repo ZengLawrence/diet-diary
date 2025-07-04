@@ -5,7 +5,6 @@ import { MealCardHeader } from "../../components/meal-card/MealCardHeader";
 import { Meal } from "../../model/Food";
 import { enterMealEditMode, exitMealEditMode, hideSavedMealAlert, showSavedMealAlert } from "../day-page/pageOptionsSlice";
 import { deleteMeal } from "../day-page/dayPageSlice";
-import { addSuggestion } from "../suggestions/SavedMealSuggestion";
 import { savedMeals } from "../saved-meal";
 
 function inAddOrEditState(state: RootState, mealIndex: number) {

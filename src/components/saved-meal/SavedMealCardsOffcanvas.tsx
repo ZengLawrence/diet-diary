@@ -5,7 +5,6 @@ import { savedMeals } from "../../features/saved-meal";
 import { SavedMealCards } from "./SavedMealCards";
 import { SearchTermInput } from "./SearchTermInput";
 import { SavedMeal } from "../../model/SavedMeal";
-import { removeSuggestion } from "../../features/suggestions/SavedMealSuggestion";
 import { useAppDispatch } from "../../app/hooks";
 import { refresh } from "../../features/day-page/dayPageSlice";
 

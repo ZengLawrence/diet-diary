@@ -2,8 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import _ from 'lodash';
 import { loadState, saveState } from './localStorage';
 import reducer from './reducers';
-import { addSuggestions } from '../features/suggestions/SavedMealSuggestion';
-import { loadSavedMeals } from './savedMealLocalStorage';
 
 const persistedState = loadState();
 export const store = configureStore({
