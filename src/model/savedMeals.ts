@@ -35,14 +35,14 @@ function save<T extends BaseSavedMeal>(meals: T[], meal: T): T[] {
   return newMeals;
 }
 
-function selected<T extends BaseSavedMeal>(meals: T[], meal: T): T[] {
+function selected<T extends BaseSavedMeal>(meals: T[], meal: T): {meals: T[], found: boolean} {
   const index = meals.findIndex(m => _.isEqual(m, meal));
   if (index === -1) {
-    return meals;
+    return { meals, found: false };
   }
   const selected = meals.splice(index, 1);
   meals.unshift(selected[0]);
-  return meals;
+  return { meals, found: true };
 }
 
 function remove<T extends BaseSavedMeal>(meals: T[], meal: T): T[] {
@@ -94,8 +94,11 @@ export class SavedMeals {
 
   select(meal: SavedMeal): SavedMeal[] {
     const meals = this.loader.load();
-    const newMeals = mutation.selected(meals, meal);
+    const {meals: newMeals, found} = mutation.selected(meals, meal);
     this.saver.save(newMeals);
+    if (found) {
+      this.today.addSavedMeal(meal.foods);
+    }
     return newMeals;
   }
 

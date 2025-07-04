@@ -156,21 +156,24 @@ describe("mutation", () => {
     const mealC = { foods: [{ description: "C" }] };
 
     it("moves the selected meal to the beginning of the array", () => {
-      const result = mutation.selected([mealA, mealB, mealC], mealB);
+      const { meals: result, found } = mutation.selected([mealA, mealB, mealC], mealB);
+      expect(found).toBe(true);
       expect(result[0]).toBe(mealB);
       expect(result[1]).toBe(mealA);
       expect(result[2]).toBe(mealC);
     });
 
     it("does not change order if meal is already first", () => {
-      const result = mutation.selected([mealB, mealA, mealC], mealB);
+      const { meals: result, found } = mutation.selected([mealB, mealA, mealC], mealB);
+      expect(found).toBe(true);
       expect(result[0]).toBe(mealB);
       expect(result[1]).toBe(mealA);
       expect(result[2]).toBe(mealC);
     });
 
     it("does not change order if meal is not found", () => {
-      const result = mutation.selected([mealA, mealC], mealB);
+      const { meals: result, found } = mutation.selected([mealA, mealC], mealB);
+      expect(found).toBe(false);
       expect(result).toEqual([mealA, mealC]);
     });
   });
@@ -261,30 +264,36 @@ describe("SavedMeals class", () => {
     it("moves the selected meal to the front and saves the new list", () => {
       const loader = createMockLoader([mealA, mealB]);
       const saver = createMockSaver();
-      const savedMeals = new SavedMeals(loader, saver, createMockToday());
+      const today = createMockToday();
+      const savedMeals = new SavedMeals(loader, saver, today);
       const result = savedMeals.select(mealB);
       expect(result[0]).toBe(mealB);
       expect(result[1]).toBe(mealA);
       expect(getSavedMeals(saver)).toEqual([mealB, mealA]);
+      expect(today.addSavedMeal).toHaveBeenCalledWith(mealB.foods);
     });
 
     it("does not change order if meal is already first", () => {
       const loader = createMockLoader([mealB, mealA]);
       const saver = createMockSaver();
-      const savedMeals = new SavedMeals(loader, saver, createMockToday());
+      const today = createMockToday();
+      const savedMeals = new SavedMeals(loader, saver, today);
       const result = savedMeals.select(mealB);
       expect(result[0]).toBe(mealB);
       expect(result[1]).toBe(mealA);
       expect(getSavedMeals(saver)).toEqual([mealB, mealA]);
+      expect(today.addSavedMeal).toHaveBeenCalledWith(mealB.foods);
     });
 
     it("does not change order if meal is not found", () => {
       const loader = createMockLoader([mealA]);
       const saver = createMockSaver();
-      const savedMeals = new SavedMeals(loader, saver, createMockToday());
+      const today = createMockToday();
+      const savedMeals = new SavedMeals(loader, saver, today);
       const result = savedMeals.select(mealB);
       expect(result).toEqual([mealA]);
       expect(getSavedMeals(saver)).toEqual([mealA]);
+      expect(today.addSavedMeal).not.toHaveBeenCalled();
     });
   });
 
