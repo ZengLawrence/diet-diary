@@ -13,7 +13,6 @@ export const summaryTypeSelector = (state: RootState) => state.summaryType;
 const _targetStateSelector = (state: RootState) => state.targetState;
 export const showSavedMealsSelector = (state: RootState) => state.showSavedMeals;
 export const warningSelector = (state: RootState) => state.warning;
-export const savedMealStateSelector = (state: RootState) => state.savedMealState;
 export const customTargetsStateSelector = (state: RootState) => state.customTargets;
 const _pageOptionsSelector = (state: RootState) => state.pageOptions;
 const _dayPageSelector = (state: RootState) => state.dayPage;
