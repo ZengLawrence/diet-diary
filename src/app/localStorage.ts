@@ -1,13 +1,6 @@
-import { SavedMeal } from "../model/SavedMeal";
-import { saveSavedMeals } from "./savedMealLocalStorage";
 import { RootState } from "./store";
 
-type SerializedReduxState = RootState | RootState & { savedMeals: SavedMeal[] };
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function hasSavedMealsProperty(state: any): state is RootState & { savedMeals: SavedMeal[] } {
-  return state.savedMeals && Array.isArray(state.savedMeals);
-}
+type SerializedReduxState = RootState;
 
 function loadReduxState(): SerializedReduxState | null {
   try {
@@ -27,11 +20,6 @@ export const loadState = (): any => {
   const state = loadReduxState();
   if (state === null) {
     return undefined;
-  }
-  if (hasSavedMealsProperty(state)) {
-    saveSavedMeals({
-      meals: state.savedMeals,
-    });
   }
   return state;
 };
