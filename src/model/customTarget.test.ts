@@ -280,5 +280,61 @@ describe('CustomTargets class', () => {
             expect(mockLoader.load).toHaveBeenCalled();
             expect(mockSaver.save).not.toHaveBeenCalled();
         });
+
+                // Parameterized test for each food group.
+        const foodGroup: FoodGroup[] = ["vegetable", "fruit", "carbohydrate", "proteinDiary", "fat", "sweet"];
+        it.each(foodGroup)(
+            'should return false, and not call saver.save when %s serving value is outside lower limit of range',
+            (servingType) => {
+                const targets = [
+                    { calorie: 1200, serving: ZERO_SERVING }
+                ];
+                const mockLoader = {
+                    load: jest.fn().mockReturnValue(targets),
+                };
+                const mockSaver = {
+                    save: jest.fn(),
+                };
+                const customTargets = new CustomTargets(mockLoader, mockSaver);
+                const invalidTargetToUpdate = {
+                    calorie: 1200,
+                    serving: {
+                        ...ZERO_SERVING,
+                        [servingType]: -1
+                    }
+                };
+
+                expect(customTargets.update(invalidTargetToUpdate)).toBeFalsy();
+                expect(mockLoader.load).toHaveBeenCalled();
+                expect(mockSaver.save).not.toHaveBeenCalled();
+            }
+        );
+
+        it.each(foodGroup)(
+            'should return false, and not call saver.save when %s serving value is outside upper limit of range',
+            (servingType) => {
+                const targets = [
+                    { calorie: 1200, serving: ZERO_SERVING }
+                ];
+                const mockLoader = {
+                    load: jest.fn().mockReturnValue(targets),
+                };
+                const mockSaver = {
+                    save: jest.fn(),
+                };
+                const customTargets = new CustomTargets(mockLoader, mockSaver);
+                const invalidTargetToUpdate = {
+                    calorie: 1200,
+                    serving: {
+                        ...ZERO_SERVING,
+                        [servingType]: 10
+                    }
+                };
+
+                expect(customTargets.update(invalidTargetToUpdate)).toBeFalsy();
+                expect(mockLoader.load).toHaveBeenCalled();
+                expect(mockSaver.save).not.toHaveBeenCalled();
+            }
+        );
     });
 });
