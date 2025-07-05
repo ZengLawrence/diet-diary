@@ -252,5 +252,33 @@ describe('CustomTargets class', () => {
             expect(mockLoader.load).toHaveBeenCalled();
             expect(mockSaver.save).not.toHaveBeenCalled();
         });
+
+        it('should return false, and not call saver.save when the target exceeds calorie limit', () => {
+            const targets = [
+                { calorie: 2000, serving: ZERO_SERVING }
+            ];
+            const mockLoader = {
+                load: jest.fn().mockReturnValue(targets),
+            };
+            const mockSaver = {
+                save: jest.fn(),
+            };
+            const customTargets = new CustomTargets(mockLoader, mockSaver);
+            const targetToUpdate = {
+                calorie: 2000,
+                serving: {
+                    vegetable: 5,
+                    fruit: 4,
+                    carbohydrate: 5,
+                    proteinDiary: 9,
+                    fat: 3,
+                    sweet: 3
+                }
+            }; // Exceeds limit
+
+            expect(customTargets.update(targetToUpdate)).toBeFalsy();
+            expect(mockLoader.load).toHaveBeenCalled();
+            expect(mockSaver.save).not.toHaveBeenCalled();
+        });
     });
 });
