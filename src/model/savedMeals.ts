@@ -17,7 +17,7 @@ function includesAllWords(meal: BaseSavedMeal, words: string[]) {
  * @param searchTerm - The search term to match against meal descriptions.
  * @returns An array of meals that match the search term.
  */
-function byDescription<T extends BaseSavedMeal>(meals: T[], searchTerm: string): T[] {
+function byDescription(meals: SavedMeal[], searchTerm: string): SavedMeal[] {
   const words = _.words(searchTerm);
   return _.filter(meals, m => includesAllWords(m, words));
 }
@@ -28,7 +28,7 @@ export const search = {
 
 const MAX_SAVED_COUNT = 200;
 
-function save<T extends BaseSavedMeal>(meals: T[], meal: T): T[] {
+function save(meals: SavedMeal[], meal: SavedMeal): SavedMeal[] {
   const newMeals = [meal, ...meals];
   if (newMeals.length > MAX_SAVED_COUNT) {
     return newMeals.slice(0, MAX_SAVED_COUNT);
@@ -36,7 +36,7 @@ function save<T extends BaseSavedMeal>(meals: T[], meal: T): T[] {
   return newMeals;
 }
 
-function selected<T extends BaseSavedMeal>(meals: T[], meal: T): {meals: T[], found: boolean} {
+function selected(meals: SavedMeal[], meal: SavedMeal): {meals: SavedMeal[], found: boolean} {
   const index = meals.findIndex(m => _.isEqual(m, meal));
   if (index === -1) {
     return { meals, found: false };
@@ -46,7 +46,7 @@ function selected<T extends BaseSavedMeal>(meals: T[], meal: T): {meals: T[], fo
   return { meals, found: true };
 }
 
-function remove<T extends BaseSavedMeal>(meals: T[], meal: T): T[] {
+function remove(meals: SavedMeal[], meal: SavedMeal): SavedMeal[] {
   const index = meals.findIndex(m => _.isEqual(m, meal));
   if (index === -1) {
     return meals;

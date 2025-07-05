@@ -52,26 +52,26 @@ describe("search", () => {
     const meals = [
       {
         foods: [
-          { description: "Grilled Chicken Breast" },
-          { description: "Steamed Broccoli" },
-          { description: "Brown Rice" },
+          { description: "Grilled Chicken Breast", serving: {} },
+          { description: "Steamed Broccoli", serving: {} },
+          { description: "Brown Rice", serving: {} },
         ],
       },
       {
         foods: [
-          { description: "Beef Burger" },
-          { description: "French Fries" },
+          { description: "Beef Burger", serving: {} },
+          { description: "French Fries", serving: {} },
         ],
       },
       {
         foods: [
-          { description: "Salmon Sushi Roll" },
-          { description: "Miso Soup" },
+          { description: "Salmon Sushi Roll", serving: {} },
+          { description: "Miso Soup", serving: {} },
         ],
       },
       {
         foods: [
-          { description: "Chicken Caesar Salad" },
+          { description: "Chicken Caesar Salad", serving: {} },
         ],
       },
     ];
