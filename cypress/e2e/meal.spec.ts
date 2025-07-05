@@ -81,6 +81,7 @@ context("Meal operations", () => {
             cy.get("#inputFoodDescription")
               .type(foodDescription)
               .type("{esc}"); // escape to close combo dropdown so it does not block Add button
+            cy.wait(100); // wait for combo dropdown to close
             cy.contains("Add").click();
           })
       }
