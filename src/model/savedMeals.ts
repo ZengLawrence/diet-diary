@@ -55,14 +55,6 @@ function remove<T extends BaseSavedMeal>(meals: T[], meal: T): T[] {
   return meals;
 }
 
-export const mutation = {
-  save,
-  selected,
-  remove,
-}
-
-export default mutation;
-
 export interface SavedMealsLoader {
   load(): SavedMeal[];
 }
@@ -84,7 +76,7 @@ export class SavedMeals {
 
   add(meal: SavedMeal): SavedMeal[] {
     const meals = this.loader.load();
-    const newMeals = mutation.save(meals, meal);
+    const newMeals = save(meals, meal);
     this.saver.save(newMeals);
     this.suggestions.addSuggestion(meal);
     return newMeals;
@@ -92,7 +84,7 @@ export class SavedMeals {
 
   remove(meal: SavedMeal): SavedMeal[] {
     const meals = this.loader.load();
-    const newMeals = mutation.remove(meals, meal);
+    const newMeals = remove(meals, meal);
     this.saver.save(newMeals);
     this.suggestions.removeSuggestion(meal);
     return newMeals;
@@ -100,7 +92,7 @@ export class SavedMeals {
 
   select(meal: SavedMeal, callback: (today: DayPage) => void): SavedMeal[] {
     const meals = this.loader.load();
-    const {meals: newMeals, found} = mutation.selected(meals, meal);
+    const {meals: newMeals, found} = selected(meals, meal);
     this.saver.save(newMeals);
     if (found) {
       const updatedToday = this.today.addSavedMeal(meal.foods);
