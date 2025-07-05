@@ -337,4 +337,35 @@ describe('CustomTargets class', () => {
             }
         );
     });
+
+    describe('getAll', () => {
+        it('should return all targets loaded by the loader', () => {
+            const targets = [
+                { calorie: 1200, serving: ZERO_SERVING },
+                { calorie: 1400, serving: ZERO_SERVING }
+            ];
+            const mockLoader = {
+                load: jest.fn().mockReturnValue(targets),
+            };
+            const mockSaver = {
+                save: jest.fn(),
+            };
+            const customTargets = new CustomTargets(mockLoader, mockSaver);
+            expect(customTargets.getAll()).toEqual(targets);
+            expect(mockLoader.load).toHaveBeenCalled();
+        });
+
+        it('should return default targets if loader returns an empty array', () => {
+            const mockLoader = {
+                load: jest.fn().mockReturnValue([]),
+            };
+            const mockSaver = {
+                save: jest.fn(),
+            };
+            const customTargets = new CustomTargets(mockLoader, mockSaver);
+            const defaultTargets = mutation.initTargets();
+            expect(customTargets.getAll()).toEqual(defaultTargets);
+            expect(mockLoader.load).toHaveBeenCalled();
+            });
+        });
 });

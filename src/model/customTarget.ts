@@ -83,6 +83,14 @@ export class CustomTargets {
     private saver: CustomTargetsSaver,
   ) {}
 
+  getAll(): Target[] {
+    const targets = this.loader.load();
+    if (targets.length === 0) {
+      return defaultTargets();
+    }
+    return targets;
+  }
+
   update(target: Target): boolean {
     const targets = this.loader.load();
     const updated = mutation.update(targets, target);
