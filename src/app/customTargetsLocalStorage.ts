@@ -1,3 +1,5 @@
+import { CustomTargetsLoader, CustomTargetsSaver } from "../model/customTarget";
+import { Target } from "../model/Target";
 import { RootState } from "./store";
 
 export function loadCustomTargets(): RootState['customTargets'] | undefined {
@@ -21,3 +23,19 @@ export function saveCustomTargets(customTargets: RootState['customTargets']): vo
     // ignore write errors
   }
 }
+
+export class CustomTargetsLocalStorage implements CustomTargetsLoader, CustomTargetsSaver {
+  load(): Target[] {
+    const customTargets = loadCustomTargets();
+    if (!customTargets) {
+      return [];
+    }
+    return customTargets.targets;
+  }
+
+  save(targets: Target[]): void {
+    saveCustomTargets({ targets });
+  }
+}
+
+export const customTargetsLocalStorage = new CustomTargetsLocalStorage();
