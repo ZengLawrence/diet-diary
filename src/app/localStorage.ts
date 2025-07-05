@@ -1,3 +1,4 @@
+import { loadCustomTargets, saveCustomTargets } from "./customTargetsLocalStorage";
 import { RootState } from "./store";
 
 type SerializedReduxState = RootState | Omit<RootState, 'customTargets'>;
@@ -19,19 +20,6 @@ function loadReduxState(): SerializedReduxState | null {
   } catch (e) {
     console.error("Error loading state from localStorage", e);
     return null;
-  }
-}
-
-function loadCustomTargets(): RootState['customTargets'] | undefined {
-  try {
-    const serializedState = localStorage.getItem('customTargets');
-    if (serializedState === null) {
-      return undefined;
-    }
-    return JSON.parse(serializedState);
-  } catch (e) {
-    console.error("Error loading custom targets from localStorage", e);
-    return undefined;
   }
 }
 
@@ -57,15 +45,6 @@ export const loadState = (): any => {
       targets: [],
     },
   };
-}
-
-function saveCustomTargets(customTargets: RootState['customTargets']): void {
-  try {
-    const serializedState = JSON.stringify(customTargets);
-    localStorage.setItem('customTargets', serializedState);
-  } catch {
-    // ignore write errors
-  }
 }
 
 function removeCustomTargets(state: RootState): Omit<RootState, 'customTargets'> {
