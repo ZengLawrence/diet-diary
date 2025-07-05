@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import defaultExport, { mutation, retrieval, validation } from './customTarget';
+import defaultExport, { CustomTargets, mutation, retrieval, validation } from './customTarget';
 import { FoodGroup } from './Food';
 
 describe('validation', () => {
@@ -208,4 +208,164 @@ describe('default export', () => {
     it('should be the same as the named export mutation', () => {
         expect(defaultExport).toEqual(mutation);
     });
+});
+
+describe('CustomTargets class', () => {
+    describe('update', () => {
+        it('should return true, and call loader.load and saver.save when updating a target', () => {
+            const targets = [
+                { calorie: 1200, serving: ZERO_SERVING },
+                { calorie: 1400, serving: ZERO_SERVING }
+            ];
+            const mockLoader = {
+                load: jest.fn().mockReturnValue(targets),
+            };
+            const mockSaver = {
+                save: jest.fn(),
+            };
+            const customTargets = new CustomTargets(mockLoader, mockSaver);
+            const targetToUpdate = { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: 5 } };
+
+            expect(customTargets.update(targetToUpdate)).toBeTruthy();
+            expect(mockLoader.load).toHaveBeenCalled();
+            expect(mockSaver.save).toHaveBeenCalledWith([
+                { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: 5 } },
+                { calorie: 1400, serving: ZERO_SERVING },
+            ]);
+        });
+
+        it('should return false, and not call saver.save when the target does not exist', () => {
+            const targets = [
+                { calorie: 1200, serving: ZERO_SERVING },
+                { calorie: 1400, serving: ZERO_SERVING }
+            ];
+            const mockLoader = {
+                load: jest.fn().mockReturnValue(targets),
+            };
+            const mockSaver = {
+                save: jest.fn(),
+            };
+            const customTargets = new CustomTargets(mockLoader, mockSaver);
+            const targetToUpdate = { calorie: 1600, serving: ZERO_SERVING };
+
+            expect(customTargets.update(targetToUpdate)).toBeFalsy();
+            expect(mockLoader.load).toHaveBeenCalled();
+            expect(mockSaver.save).not.toHaveBeenCalled();
+        });
+
+        it('should return false, and not call saver.save when the target exceeds calorie limit', () => {
+            const targets = [
+                { calorie: 2000, serving: ZERO_SERVING }
+            ];
+            const mockLoader = {
+                load: jest.fn().mockReturnValue(targets),
+            };
+            const mockSaver = {
+                save: jest.fn(),
+            };
+            const customTargets = new CustomTargets(mockLoader, mockSaver);
+            const targetToUpdate = {
+                calorie: 2000,
+                serving: {
+                    vegetable: 5,
+                    fruit: 4,
+                    carbohydrate: 5,
+                    proteinDiary: 9,
+                    fat: 3,
+                    sweet: 3
+                }
+            }; // Exceeds limit
+
+            expect(customTargets.update(targetToUpdate)).toBeFalsy();
+            expect(mockLoader.load).toHaveBeenCalled();
+            expect(mockSaver.save).not.toHaveBeenCalled();
+        });
+
+                // Parameterized test for each food group.
+        const foodGroup: FoodGroup[] = ["vegetable", "fruit", "carbohydrate", "proteinDiary", "fat", "sweet"];
+        it.each(foodGroup)(
+            'should return false, and not call saver.save when %s serving value is outside lower limit of range',
+            (servingType) => {
+                const targets = [
+                    { calorie: 1200, serving: ZERO_SERVING }
+                ];
+                const mockLoader = {
+                    load: jest.fn().mockReturnValue(targets),
+                };
+                const mockSaver = {
+                    save: jest.fn(),
+                };
+                const customTargets = new CustomTargets(mockLoader, mockSaver);
+                const invalidTargetToUpdate = {
+                    calorie: 1200,
+                    serving: {
+                        ...ZERO_SERVING,
+                        [servingType]: -1
+                    }
+                };
+
+                expect(customTargets.update(invalidTargetToUpdate)).toBeFalsy();
+                expect(mockLoader.load).toHaveBeenCalled();
+                expect(mockSaver.save).not.toHaveBeenCalled();
+            }
+        );
+
+        it.each(foodGroup)(
+            'should return false, and not call saver.save when %s serving value is outside upper limit of range',
+            (servingType) => {
+                const targets = [
+                    { calorie: 1200, serving: ZERO_SERVING }
+                ];
+                const mockLoader = {
+                    load: jest.fn().mockReturnValue(targets),
+                };
+                const mockSaver = {
+                    save: jest.fn(),
+                };
+                const customTargets = new CustomTargets(mockLoader, mockSaver);
+                const invalidTargetToUpdate = {
+                    calorie: 1200,
+                    serving: {
+                        ...ZERO_SERVING,
+                        [servingType]: 10
+                    }
+                };
+
+                expect(customTargets.update(invalidTargetToUpdate)).toBeFalsy();
+                expect(mockLoader.load).toHaveBeenCalled();
+                expect(mockSaver.save).not.toHaveBeenCalled();
+            }
+        );
+    });
+
+    describe('getAll', () => {
+        it('should return all targets loaded by the loader', () => {
+            const targets = [
+                { calorie: 1200, serving: ZERO_SERVING },
+                { calorie: 1400, serving: ZERO_SERVING }
+            ];
+            const mockLoader = {
+                load: jest.fn().mockReturnValue(targets),
+            };
+            const mockSaver = {
+                save: jest.fn(),
+            };
+            const customTargets = new CustomTargets(mockLoader, mockSaver);
+            expect(customTargets.getAll()).toEqual(targets);
+            expect(mockLoader.load).toHaveBeenCalled();
+        });
+
+        it('should return default targets if loader returns an empty array', () => {
+            const mockLoader = {
+                load: jest.fn().mockReturnValue([]),
+            };
+            const mockSaver = {
+                save: jest.fn(),
+            };
+            const customTargets = new CustomTargets(mockLoader, mockSaver);
+            const defaultTargets = mutation.initTargets();
+            expect(customTargets.getAll()).toEqual(defaultTargets);
+            expect(mockLoader.load).toHaveBeenCalled();
+            });
+        });
 });
