@@ -48,6 +48,7 @@ export const loadState = (): any => {
 }
 
 function removeCustomTargets(state: RootState): Omit<RootState, 'customTargets'> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { customTargets: _unused, ...rest } = state;
   return rest;
 }
