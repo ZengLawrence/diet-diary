@@ -233,5 +233,24 @@ describe('CustomTargets class', () => {
                 { calorie: 1400, serving: ZERO_SERVING },
             ]);
         });
+
+        it('should return false, and not call saver.save when the target does not exist', () => {
+            const targets = [
+                { calorie: 1200, serving: ZERO_SERVING },
+                { calorie: 1400, serving: ZERO_SERVING }
+            ];
+            const mockLoader = {
+                load: jest.fn().mockReturnValue(targets),
+            };
+            const mockSaver = {
+                save: jest.fn(),
+            };
+            const customTargets = new CustomTargets(mockLoader, mockSaver);
+            const targetToUpdate = { calorie: 1600, serving: ZERO_SERVING };
+
+            expect(customTargets.update(targetToUpdate)).toBeFalsy();
+            expect(mockLoader.load).toHaveBeenCalled();
+            expect(mockSaver.save).not.toHaveBeenCalled();
+        });
     });
 });
