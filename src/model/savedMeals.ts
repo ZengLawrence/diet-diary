@@ -1,9 +1,9 @@
 import _ from "lodash";
-import { BaseSavedMeal, SavedMeal } from "./SavedMeal";
+import { SavedMeal } from "./SavedMeal";
 import { DayPage, Today } from "./diary";
 import { Suggestions } from "./suggestions";
 
-function includesAllWords(meal: BaseSavedMeal, words: string[]) {
+function includesAllWords(meal: { foods: { description: string }[] }, words: string[]) {
   const foodDescriptions = _.map(meal.foods, f => _.lowerCase(f.description));
   const lowerCaseWords = words.map(w => _.lowerCase(w));
   const wordIncludedInFoodDescription = (word: string) => foodDescriptions.some(desc => desc.includes(word));
