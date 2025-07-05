@@ -1,6 +1,6 @@
 import { Food } from "./Food";
 import { SavedMeal } from "./SavedMeal";
-import { search, mutation, SavedMeals, SavedMealsLoader, SavedMealsSaver } from "./savedMeals";
+import { search, SavedMeals, SavedMealsLoader, SavedMealsSaver } from "./savedMeals";
 import { Today } from "./diary";
 import { Suggestions } from "./suggestions";
 
@@ -52,26 +52,26 @@ describe("search", () => {
     const meals = [
       {
         foods: [
-          { description: "Grilled Chicken Breast" },
-          { description: "Steamed Broccoli" },
-          { description: "Brown Rice" },
+          { description: "Grilled Chicken Breast", serving: {} },
+          { description: "Steamed Broccoli", serving: {} },
+          { description: "Brown Rice", serving: {} },
         ],
       },
       {
         foods: [
-          { description: "Beef Burger" },
-          { description: "French Fries" },
+          { description: "Beef Burger", serving: {} },
+          { description: "French Fries", serving: {} },
         ],
       },
       {
         foods: [
-          { description: "Salmon Sushi Roll" },
-          { description: "Miso Soup" },
+          { description: "Salmon Sushi Roll", serving: {} },
+          { description: "Miso Soup", serving: {} },
         ],
       },
       {
         foods: [
-          { description: "Chicken Caesar Salad" },
+          { description: "Chicken Caesar Salad", serving: {} },
         ],
       },
     ];
@@ -102,81 +102,6 @@ describe("search", () => {
       expect(search.byDescription(meals, "")).toHaveLength(meals.length);
     });
   });
-});
-
-describe("mutation", () => {
-  describe("save", () => {
-    const mealA = { foods: [{ description: "A" }] };
-    const mealB = { foods: [{ description: "B" }] };
-    const mealC = { foods: [{ description: "C" }] };
-    const maxSavedCount = 200;
-
-    it("adds a meal to the beginning of the array", () => {
-      const result = mutation.save([mealA, mealB], mealC);
-      expect(result[0]).toBe(mealC);
-      expect(result[1]).toBe(mealA);
-      expect(result[2]).toBe(mealB);
-    });
-
-    it("does not exceed max limit", () => {
-      const manyMeals = Array(maxSavedCount).fill(mealA);
-      const result = mutation.save(manyMeals, mealB);
-      expect(result.length).toBe(maxSavedCount);
-      expect(result[0]).toBe(mealB);
-    });
-
-    it("returns all meals if under max limit", () => {
-      const fewMeals = [mealA, mealB];
-      const result = mutation.save(fewMeals, mealC);
-      expect(result.length).toBe(3);
-      expect(result).toEqual([mealC, mealA, mealB]);
-    });
-  });
-
-  describe("selected", () => {
-    const mealA = { foods: [{ description: "A" }] };
-    const mealB = { foods: [{ description: "B" }] };
-    const mealC = { foods: [{ description: "C" }] };
-
-    it("moves the selected meal to the beginning of the array", () => {
-      const { meals: result, found } = mutation.selected([mealA, mealB, mealC], mealB);
-      expect(found).toBe(true);
-      expect(result[0]).toBe(mealB);
-      expect(result[1]).toBe(mealA);
-      expect(result[2]).toBe(mealC);
-    });
-
-    it("does not change order if meal is already first", () => {
-      const { meals: result, found } = mutation.selected([mealB, mealA, mealC], mealB);
-      expect(found).toBe(true);
-      expect(result[0]).toBe(mealB);
-      expect(result[1]).toBe(mealA);
-      expect(result[2]).toBe(mealC);
-    });
-
-    it("does not change order if meal is not found", () => {
-      const { meals: result, found } = mutation.selected([mealA, mealC], mealB);
-      expect(found).toBe(false);
-      expect(result).toEqual([mealA, mealC]);
-    });
-  });
-
-  describe("remove", () => {
-    const mealA = { foods: [{ description: "A" }] };
-    const mealB = { foods: [{ description: "B" }] };
-    const mealC = { foods: [{ description: "C" }] };
-
-    it("removes the specified meal from the array", () => {
-      const result = mutation.remove([mealA, mealB, mealC], mealB);
-      expect(result).toEqual([mealA, mealC]);
-    });
-
-    it("does not change order if meal is not found", () => {
-      const result = mutation.remove([mealA, mealC], mealB);
-      expect(result).toEqual([mealA, mealC]);
-    });
-  });
-  
 });
 
 // Jest mocks for dependent interfaces
