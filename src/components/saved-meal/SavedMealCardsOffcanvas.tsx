@@ -29,6 +29,8 @@ function SavedMealCardsOffcanvas(props: Props) {
       dispatch(refresh(today));
     });
     setMeals(selectedMeals);
+    // clear out search term after selecting a meal
+    setSearchTerm("");
     props.onHide();
   }
 
