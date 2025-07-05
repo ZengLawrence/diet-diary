@@ -1,17 +1,14 @@
-import { useState } from "react";
 import Form from "react-bootstrap/Form";
 
 interface Props {
+  searchTerm: string;
   update: (s: string) => void;
 }
 
 export const SearchTermInput = (props: Props) => {
 
-  const [searchTerm, setSearchTerm] = useState("");
-
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTerm = e.target.value;
-    setSearchTerm(newTerm);
     props.update(newTerm);
   };
 
@@ -21,7 +18,7 @@ export const SearchTermInput = (props: Props) => {
         id="inputSearchTerm"
         type="text"
         placeholder="Type to search"
-        value={searchTerm}
+        value={props.searchTerm}
         onChange={handleOnChange}
       />
     </Form>
