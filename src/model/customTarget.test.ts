@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import defaultExport, { mutation, retrieval, validation } from './customTarget';
+import defaultExport, { CustomTargets, mutation, retrieval, validation } from './customTarget';
 import { FoodGroup } from './Food';
 
 describe('validation', () => {
@@ -207,5 +207,31 @@ describe('retrieval', () => {
 describe('default export', () => {
     it('should be the same as the named export mutation', () => {
         expect(defaultExport).toEqual(mutation);
+    });
+});
+
+describe('CustomTargets class', () => {
+    describe('update', () => {
+        it('should return true, and call loader.load and saver.save when updating a target', () => {
+            const targets = [
+                { calorie: 1200, serving: ZERO_SERVING },
+                { calorie: 1400, serving: ZERO_SERVING }
+            ];
+            const mockLoader = {
+                load: jest.fn().mockReturnValue(targets),
+            };
+            const mockSaver = {
+                save: jest.fn(),
+            };
+            const customTargets = new CustomTargets(mockLoader, mockSaver);
+            const targetToUpdate = { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: 5 } };
+
+            expect(customTargets.update(targetToUpdate)).toBeTruthy();
+            expect(mockLoader.load).toHaveBeenCalled();
+            expect(mockSaver.save).toHaveBeenCalledWith([
+                { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: 5 } },
+                { calorie: 1400, serving: ZERO_SERVING },
+            ]);
+        });
     });
 });
