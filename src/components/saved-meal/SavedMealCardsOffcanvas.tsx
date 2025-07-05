@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { savedMeals } from "../../features/saved-meal";
 import { SavedMealCards } from "./SavedMealCards";
@@ -15,19 +15,22 @@ interface Props {
 
 function SavedMealCardsOffcanvas(props: Props) {
 
+  const [searchTerm, setSearchTerm] = useState("");
   const [meals, setMeals] = useState([] as SavedMeal[]);
   const dispatch = useAppDispatch();
 
-  const handleSearchTermChange = (searchTerm: string) => {
-    const filteredMeals = savedMeals.searchByDescription(searchTerm);
-    setMeals(filteredMeals);
-  }
+  useEffect(() => {
+    const meals = savedMeals.searchByDescription(searchTerm);
+    setMeals(meals);
+  }, [searchTerm]);
 
   const handleSelectMeal = (meal: SavedMeal) => {
     const selectedMeals = savedMeals.select(meal, (today) => {
       dispatch(refresh(today));
     });
     setMeals(selectedMeals);
+    // clear out search term after selecting a meal
+    setSearchTerm("");
     props.onHide();
   }
 
@@ -42,7 +45,7 @@ function SavedMealCardsOffcanvas(props: Props) {
         <Offcanvas.Title>Saved Meals</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <SearchTermInput update={handleSearchTermChange} />
+        <SearchTermInput searchTerm={searchTerm} update={setSearchTerm} />
         <div>Total: {_.size(meals)}</div>
         <SavedMealCards meals={meals} selectMeal={handleSelectMeal} deleteMeal={handleDeleteMeal} />
       </Offcanvas.Body>
