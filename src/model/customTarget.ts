@@ -68,3 +68,27 @@ export default mutation;
 export const retrieval = {
   getDefaultTarget,
 }
+
+export interface CustomTargetsLoader {
+  load: () => Target[];
+}
+
+export interface CustomTargetsSaver {
+  save: (targets: Target[]) => void;
+}
+
+export class CustomTargets {
+  constructor(
+    private loader: CustomTargetsLoader,
+    private saver: CustomTargetsSaver,
+  ) {}
+
+  update(target: Target): boolean {
+    const targets = this.loader.load();
+    const updated = mutation.update(targets, target);
+    if (updated) {
+      this.saver.save(targets);
+    }
+    return updated;
+  }
+}
