@@ -68,7 +68,12 @@ function saveCustomTargets(customTargets: RootState['customTargets']): void {
   }
 }
 
-function saveReduxState(state: RootState): void {
+function removeCustomTargets(state: RootState): Omit<RootState, 'customTargets'> {
+  const { customTargets: _unused, ...rest } = state;
+  return rest;
+}
+
+function saveReduxState(state: Omit<RootState, 'customTargets'>): void {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('state', serializedState);
@@ -78,6 +83,6 @@ function saveReduxState(state: RootState): void {
 }
 
 export const saveState = (state: RootState) => {
-  saveReduxState(state);
+  saveReduxState(removeCustomTargets(state));
   saveCustomTargets(state.customTargets);
 };
