@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Row from "react-bootstrap/Row";
 import { customTargets } from "../../features/target";
-import { Target } from "../../model/customTarget";
+import { CustomTargetListener, Target } from "../../model/customTarget";
 import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
 import TargetEditForm from "./TargetEditForm";
 
@@ -45,7 +45,15 @@ const EditCustomTargetsOffcanvas = (props: Props) => {
 
   const [targets, setTargets] = useState([] as Target[]);
   useEffect(() => {
+    const listener: CustomTargetListener = {
+      targetsUpdated: (targets) => setTargets(targets),
+    }
+    customTargets.registerListener(listener);
     setTargets(customTargets.getAll());
+
+    return () => {
+      customTargets.unregisterListener(listener);
+    }
   }, []);
 
   return (
