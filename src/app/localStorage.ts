@@ -1,10 +1,11 @@
-import { loadCustomTargets, saveCustomTargets } from "./customTargetsLocalStorage";
+import { Target } from "../model/Target";
+import { saveCustomTargets } from "./customTargetsLocalStorage";
 import { RootState } from "./store";
 
-type SerializedReduxState = RootState | Omit<RootState, 'customTargets'>;
+type SerializedReduxState = RootState | RootState & {customTargets: {targets: Target[]}};
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
-function hasCustomTargets(state: any): state is RootState {
+function hasCustomTargets(state: any): state is RootState & {customTargets: {targets: Target[]}} {
   return ('customTargets' in state) 
     && Array.isArray(state.customTargets.targets) 
     && state.customTargets.targets.length > 0;
@@ -30,30 +31,14 @@ export const loadState = (): any => {
     return undefined;
   }
   if (hasCustomTargets(state)) {
-    return state;
+    const {customTargets, ...rest} = state;
+    saveCustomTargets(customTargets);
+    return rest;
   }
-  const customTargets = loadCustomTargets();
-  if (customTargets) {
-    return {
-      ...state,
-      customTargets,
-    };
-  }
-  return {
-    ...state,
-    customTargets: {
-      targets: [],
-    },
-  };
+  return state;
 }
 
-function removeCustomTargets(state: RootState): Omit<RootState, 'customTargets'> {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { customTargets: _unused, ...rest } = state;
-  return rest;
-}
-
-function saveReduxState(state: Omit<RootState, 'customTargets'>): void {
+function saveReduxState(state: RootState): void {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('state', serializedState);
@@ -63,6 +48,5 @@ function saveReduxState(state: Omit<RootState, 'customTargets'>): void {
 }
 
 export const saveState = (state: RootState) => {
-  saveReduxState(removeCustomTargets(state));
-  saveCustomTargets(state.customTargets);
+  saveReduxState(state);
 };
