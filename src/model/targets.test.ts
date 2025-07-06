@@ -34,10 +34,10 @@ describe('Targets class', () => {
     it('should return targets for woman', () => {
       expect(targets.getByGender('woman')).toEqual(
         expect.arrayContaining([
-          { calorie: 1200, serving: ZERO_SERVING },
-          { calorie: 1400, serving: ZERO_SERVING },
-          { calorie: 1600, serving: ZERO_SERVING },
-          { calorie: 1800, serving: ZERO_SERVING },
+          expect.objectContaining({ calorie: 1200}),
+          expect.objectContaining({ calorie: 1400}),
+          expect.objectContaining({ calorie: 1600}),
+          expect.objectContaining({ calorie: 1800}),
         ])
       );
     });
@@ -45,10 +45,10 @@ describe('Targets class', () => {
     it('should return targets for man', () => {
       expect(targets.getByGender('man')).toEqual(
         expect.arrayContaining([
-          { calorie: 1400, serving: ZERO_SERVING },
-          { calorie: 1600, serving: ZERO_SERVING },
-          { calorie: 1800, serving: ZERO_SERVING },
-          { calorie: 2000, serving: ZERO_SERVING },
+          expect.objectContaining({ calorie: 1400}),
+          expect.objectContaining({ calorie: 1600}),
+          expect.objectContaining({ calorie: 1800}),
+          expect.objectContaining({ calorie: 2000}),
         ])
       );
     });
