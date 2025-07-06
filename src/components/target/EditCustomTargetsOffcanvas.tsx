@@ -1,8 +1,9 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Row from "react-bootstrap/Row";
+import { customTargets } from "../../features/target";
 import { Target } from "../../model/customTarget";
 import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
 import TargetEditForm from "./TargetEditForm";
@@ -10,7 +11,6 @@ import TargetEditForm from "./TargetEditForm";
 interface Props {
   show: boolean,
   onHide: () => void,
-  targets: Target[],
 }
 
 const TargetPanel = (props: {
@@ -42,13 +42,19 @@ const TargetRow = (props: { target: Target }) => {
 }
 
 const EditCustomTargetsOffcanvas = (props: Props) => {
+
+  const [targets, setTargets] = useState([] as Target[]);
+  useEffect(() => {
+    setTargets(customTargets.getAll());
+  }, []);
+
   return (
     <Offcanvas id="savedMeals" show={props.show} onHide={props.onHide}>
       <Offcanvas.Header closeButton>
         <Offcanvas.Title>Custom Targets</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body className="container">
-        {props.targets.map(target => <TargetRow key={target.calorie} target={target} />)}
+        {targets.map(target => <TargetRow key={target.calorie} target={target} />)}
       </Offcanvas.Body>
     </Offcanvas>
   );
