@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import defaultExport, { CustomTargets, mutation, retrieval, validation } from './customTarget';
+import defaultExport, { CustomTargets, CustomTargetsLoader, CustomTargetsSaver, mutation, retrieval, validation } from './customTarget';
 import { FoodGroup } from './Food';
 
 describe('validation', () => {
@@ -211,19 +211,30 @@ describe('default export', () => {
 });
 
 describe('CustomTargets class', () => {
-    describe('update', () => {
-        it('should return true, and call loader.load and saver.save when updating a target', () => {
-            const targets = [
+    let mockLoader: jest.Mocked<CustomTargetsLoader>;
+    let mockSaver: jest.Mocked<CustomTargetsSaver>;
+    let customTargets: CustomTargets;
+
+    beforeEach(() => {
+        const targets = [
                 { calorie: 1200, serving: ZERO_SERVING },
-                { calorie: 1400, serving: ZERO_SERVING }
+                { calorie: 1400, serving: ZERO_SERVING },
+                { calorie: 1600, serving: ZERO_SERVING },
+                { calorie: 1800, serving: ZERO_SERVING },
+                { calorie: 2000, serving: ZERO_SERVING },
             ];
-            const mockLoader = {
+            mockLoader = {
                 load: jest.fn().mockReturnValue(targets),
             };
-            const mockSaver = {
+            mockSaver = {
                 save: jest.fn(),
             };
-            const customTargets = new CustomTargets(mockLoader, mockSaver);
+            customTargets = new CustomTargets(mockLoader, mockSaver);
+    })
+
+    describe('update', () => {
+        it('should return true, and call loader.load and saver.save when updating a target', () => {
+            
             const targetToUpdate = { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: 5 } };
 
             expect(customTargets.update(targetToUpdate)).toBeTruthy();
@@ -231,22 +242,14 @@ describe('CustomTargets class', () => {
             expect(mockSaver.save).toHaveBeenCalledWith([
                 { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: 5 } },
                 { calorie: 1400, serving: ZERO_SERVING },
+                { calorie: 1600, serving: ZERO_SERVING },
+                { calorie: 1800, serving: ZERO_SERVING },
+                { calorie: 2000, serving: ZERO_SERVING },
             ]);
         });
 
         it('should return false, and not call saver.save when the target does not exist', () => {
-            const targets = [
-                { calorie: 1200, serving: ZERO_SERVING },
-                { calorie: 1400, serving: ZERO_SERVING }
-            ];
-            const mockLoader = {
-                load: jest.fn().mockReturnValue(targets),
-            };
-            const mockSaver = {
-                save: jest.fn(),
-            };
-            const customTargets = new CustomTargets(mockLoader, mockSaver);
-            const targetToUpdate = { calorie: 1600, serving: ZERO_SERVING };
+            const targetToUpdate = { calorie: 0, serving: ZERO_SERVING };
 
             expect(customTargets.update(targetToUpdate)).toBeFalsy();
             expect(mockLoader.load).toHaveBeenCalled();
@@ -254,16 +257,6 @@ describe('CustomTargets class', () => {
         });
 
         it('should return false, and not call saver.save when the target exceeds calorie limit', () => {
-            const targets = [
-                { calorie: 2000, serving: ZERO_SERVING }
-            ];
-            const mockLoader = {
-                load: jest.fn().mockReturnValue(targets),
-            };
-            const mockSaver = {
-                save: jest.fn(),
-            };
-            const customTargets = new CustomTargets(mockLoader, mockSaver);
             const targetToUpdate = {
                 calorie: 2000,
                 serving: {
@@ -286,16 +279,6 @@ describe('CustomTargets class', () => {
         it.each(foodGroup)(
             'should return false, and not call saver.save when %s serving value is outside lower limit of range',
             (servingType) => {
-                const targets = [
-                    { calorie: 1200, serving: ZERO_SERVING }
-                ];
-                const mockLoader = {
-                    load: jest.fn().mockReturnValue(targets),
-                };
-                const mockSaver = {
-                    save: jest.fn(),
-                };
-                const customTargets = new CustomTargets(mockLoader, mockSaver);
                 const invalidTargetToUpdate = {
                     calorie: 1200,
                     serving: {
@@ -313,16 +296,6 @@ describe('CustomTargets class', () => {
         it.each(foodGroup)(
             'should return false, and not call saver.save when %s serving value is outside upper limit of range',
             (servingType) => {
-                const targets = [
-                    { calorie: 1200, serving: ZERO_SERVING }
-                ];
-                const mockLoader = {
-                    load: jest.fn().mockReturnValue(targets),
-                };
-                const mockSaver = {
-                    save: jest.fn(),
-                };
-                const customTargets = new CustomTargets(mockLoader, mockSaver);
                 const invalidTargetToUpdate = {
                     calorie: 1200,
                     serving: {
