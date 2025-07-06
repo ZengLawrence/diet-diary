@@ -77,18 +77,22 @@ export interface CustomTargetsSaver {
   save: (targets: Target[]) => void;
 }
 
-export class CustomTargets {
-  constructor(
-    private loader: CustomTargetsLoader,
-    private saver: CustomTargetsSaver,
-  ) {}
-
+export class ReadOnlyCustomTargets {
+  constructor(protected loader: CustomTargetsLoader) {}
   getAll(): Target[] {
     const targets = this.loader.load();
     if (targets.length === 0) {
       return defaultTargets();
     }
     return targets;
+  }
+}
+export class CustomTargets extends ReadOnlyCustomTargets {
+  constructor(
+    loader: CustomTargetsLoader,
+    private saver: CustomTargetsSaver,
+  ) {
+    super(loader);
   }
 
   update(target: Target): boolean {
