@@ -39,6 +39,15 @@ describe('Targets class', () => {
         { calorie: 1800, serving: ZERO_SERVING },
       ]);
     });
+
+    it('should return targets for man', () => {
+      expect(targets.getByGender('man')).toStrictEqual([
+        { calorie: 1400, serving: ZERO_SERVING },
+        { calorie: 1600, serving: ZERO_SERVING },
+        { calorie: 1800, serving: ZERO_SERVING },
+        { calorie: 2000, serving: ZERO_SERVING },
+      ]);
+    });
   });
 
 });
