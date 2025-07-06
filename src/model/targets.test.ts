@@ -14,7 +14,7 @@ const ZERO_SERVING = {
 describe('Targets class', () => {
   describe('getByGender', () => {
     it('should return targets for woman', () => {
-      const mockTargets: Target[] = [
+      const allTargets: Target[] = [
         { calorie: 1200, serving: ZERO_SERVING },
         { calorie: 1400, serving: ZERO_SERVING },
         { calorie: 1600, serving: ZERO_SERVING },
@@ -24,7 +24,7 @@ describe('Targets class', () => {
       const mockReadOnlyCustomTargets = {
         getAll: jest.fn(),
       } as unknown as jest.Mocked<ReadOnlyCustomTargets>;
-      mockReadOnlyCustomTargets.getAll.mockReturnValueOnce(mockTargets);
+      mockReadOnlyCustomTargets.getAll.mockReturnValueOnce(allTargets);
 
       const targets = new Targets(mockReadOnlyCustomTargets);
       expect(targets.getByGender('woman')).toStrictEqual([
