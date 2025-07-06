@@ -1,6 +1,5 @@
 import { CustomTargetsLoader, CustomTargetsSaver } from "../model/customTarget";
 import { Target } from "../model/Target";
-import { RootState } from "./store";
 
 export interface SerializedCustomTargets {
   targets: Target[];
