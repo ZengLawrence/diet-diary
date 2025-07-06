@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import defaultExport, { CustomTargets, CustomTargetsLoader, CustomTargetsSaver, mutation, retrieval, validation } from './customTarget';
+import defaultExport, { CustomTargetListener, CustomTargets, CustomTargetsLoader, CustomTargetsSaver, mutation, retrieval, validation } from './customTarget';
 import { FoodGroup } from './Food';
 
 describe('validation', () => {
@@ -217,24 +217,24 @@ describe('CustomTargets class', () => {
 
     beforeEach(() => {
         const targets = [
-                { calorie: 1200, serving: ZERO_SERVING },
-                { calorie: 1400, serving: ZERO_SERVING },
-                { calorie: 1600, serving: ZERO_SERVING },
-                { calorie: 1800, serving: ZERO_SERVING },
-                { calorie: 2000, serving: ZERO_SERVING },
-            ];
-            mockLoader = {
-                load: jest.fn().mockReturnValue(targets),
-            };
-            mockSaver = {
-                save: jest.fn(),
-            };
-            customTargets = new CustomTargets(mockLoader, mockSaver);
+            { calorie: 1200, serving: ZERO_SERVING },
+            { calorie: 1400, serving: ZERO_SERVING },
+            { calorie: 1600, serving: ZERO_SERVING },
+            { calorie: 1800, serving: ZERO_SERVING },
+            { calorie: 2000, serving: ZERO_SERVING },
+        ];
+        mockLoader = {
+            load: jest.fn().mockReturnValue(targets),
+        };
+        mockSaver = {
+            save: jest.fn(),
+        };
+        customTargets = new CustomTargets(mockLoader, mockSaver);
     })
 
     describe('update', () => {
         it('should return true, and call loader.load and saver.save when updating a target', () => {
-            
+
             const targetToUpdate = { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: 5 } };
 
             expect(customTargets.update(targetToUpdate)).toBeTruthy();
@@ -309,6 +309,63 @@ describe('CustomTargets class', () => {
                 expect(mockSaver.save).not.toHaveBeenCalled();
             }
         );
+    });
+
+    describe('listener notification', () => {
+        let listener: jest.Mocked<CustomTargetListener>;
+
+        beforeEach(() => {
+            listener = {
+                targetsUpdated: jest.fn(),
+            }
+        });
+
+        it('notify listener if there is an update', () => {
+            customTargets.registerListener(listener);
+
+            const targetToUpdate = { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: 5 } };
+            expect(customTargets.update(targetToUpdate)).toBeTruthy();
+            expect(listener.targetsUpdated).toHaveBeenCalledWith([
+                { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: 5 } },
+                { calorie: 1400, serving: ZERO_SERVING },
+                { calorie: 1600, serving: ZERO_SERVING },
+                { calorie: 1800, serving: ZERO_SERVING },
+                { calorie: 2000, serving: ZERO_SERVING },
+            ]);
+
+            // tear down
+            customTargets.unregisterListener(listener);
+        });
+
+        it('do not notify listener if no update', () => {
+            customTargets.registerListener(listener);
+
+            const invalidTarget = { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: -1 } };
+            expect(customTargets.update(invalidTarget)).toBeFalsy();
+            expect(listener.targetsUpdated).not.toHaveBeenCalled();
+
+            // tear down
+            customTargets.unregisterListener(listener);
+        });
+
+        it('do not notify listener if listener is not registered', () => {
+            const targetToUpdate = { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: 5 } };
+            expect(customTargets.update(targetToUpdate)).toBeTruthy();
+            expect(listener.targetsUpdated).not.toHaveBeenCalled();
+        });
+
+        it('do not notify listener after listener is unregistered', () => {
+            customTargets.registerListener(listener);
+            const targetToUpdate = { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: 5 } };
+            expect(customTargets.update(targetToUpdate)).toBeTruthy();
+            expect(listener.targetsUpdated).toHaveBeenCalled();
+
+            listener.targetsUpdated.mockClear();
+            
+            customTargets.unregisterListener(listener);
+            expect(customTargets.update(targetToUpdate)).toBeTruthy();
+            expect(listener.targetsUpdated).not.toHaveBeenCalled();
+        });
     });
 });
 
