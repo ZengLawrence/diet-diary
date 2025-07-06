@@ -281,7 +281,7 @@ describe('CustomTargets class', () => {
             expect(mockSaver.save).not.toHaveBeenCalled();
         });
 
-                // Parameterized test for each food group.
+        // Parameterized test for each food group.
         const foodGroup: FoodGroup[] = ["vegetable", "fruit", "carbohydrate", "proteinDiary", "fat", "sweet"];
         it.each(foodGroup)(
             'should return false, and not call saver.save when %s serving value is outside lower limit of range',
@@ -337,7 +337,9 @@ describe('CustomTargets class', () => {
             }
         );
     });
+});
 
+describe('ReadOnlyCustomTargets class', () => {
     describe('getAll', () => {
         it('should return all targets loaded by the loader', () => {
             const targets = [
@@ -366,6 +368,6 @@ describe('CustomTargets class', () => {
             const defaultTargets = mutation.initTargets();
             expect(customTargets.getAll()).toEqual(defaultTargets);
             expect(mockLoader.load).toHaveBeenCalled();
-            });
         });
-});
+    });
+}); 
