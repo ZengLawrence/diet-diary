@@ -1,10 +1,10 @@
+import { Fragment, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Row from "react-bootstrap/Row";
 import { Target } from "../../model/customTarget";
 import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
-import { Fragment, useState } from "react";
 import TargetEditForm from "./TargetEditForm";
 
 interface Props {
