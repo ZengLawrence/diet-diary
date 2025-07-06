@@ -87,6 +87,7 @@ export class ReadOnlyCustomTargets {
     return targets;
   }
 }
+
 export class CustomTargets extends ReadOnlyCustomTargets {
   constructor(
     loader: CustomTargetsLoader,
