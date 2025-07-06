@@ -21,13 +21,17 @@ const ALL_TARGETS: Target[] = [
 
 describe('Targets class', () => {
   describe('getByGender', () => {
-    it('should return targets for woman', () => {
+    let targets: Targets;
+
+    beforeEach(() => {
       const mockReadOnlyCustomTargets = {
         getAll: jest.fn(),
       } as unknown as jest.Mocked<ReadOnlyCustomTargets>;
       mockReadOnlyCustomTargets.getAll.mockReturnValueOnce(ALL_TARGETS);
+      targets = new Targets(mockReadOnlyCustomTargets);
+    });
 
-      const targets = new Targets(mockReadOnlyCustomTargets);
+    it('should return targets for woman', () => {
       expect(targets.getByGender('woman')).toStrictEqual([
         { calorie: 1200, serving: ZERO_SERVING },
         { calorie: 1400, serving: ZERO_SERVING },
