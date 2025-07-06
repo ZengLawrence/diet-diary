@@ -5,6 +5,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
+import { customTargets } from "../../features/target";
 import { calcFoodCalories } from "../../model/calorieFunction";
 import { retrieval, Target, validation } from "../../model/customTarget";
 import { FoodGroup, Serving } from "../../model/Food";
@@ -86,7 +87,6 @@ function hasError(error: Error): boolean {
 interface Props {
     target: Target;
     hide: () => void;
-    update: (target: Target) => void;
 }
 
 const { getDefaultTarget } = retrieval;
@@ -118,7 +118,7 @@ const TargetEditForm = (props: Props) => {
             return;
         }
 
-        props.update(target);
+        customTargets.update(target);
         props.hide();
     };
 

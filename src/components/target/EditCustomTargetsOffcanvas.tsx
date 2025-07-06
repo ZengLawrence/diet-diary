@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import { Target } from "../../model/customTarget";
 import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
 import { Fragment, useState } from "react";
-import TargetEditForm from "../../features/target/TargetEditForm";
+import TargetEditForm from "./TargetEditForm";
 
 interface Props {
   show: boolean,
