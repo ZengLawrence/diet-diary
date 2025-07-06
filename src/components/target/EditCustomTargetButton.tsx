@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import Button from "react-bootstrap/Button";
-import EditCustomTargetsOffcanvas from "../../features/target/EditCustomTargetsOffcanvas";
 import { VariantSecondary } from "../ButtonVariant";
+import EditCustomTargetsOffcanvas from "./EditCustomTargetsOffcanvas";
 
 const EditCustomTargetButton = () => {
   const [showEditCustomTargets, setShowEditCustomTargets] = useState(false);

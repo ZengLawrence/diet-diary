@@ -1,10 +1,11 @@
 import _ from "lodash";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import GenderToggle from "../../features/target/GenderToggle";
 import UnlimitedFruitCheckBox from "../../features/target/UnlimitedFruitCheckBox";
-import { Target } from "../../model/Target";
+import { Gender, Target } from "../../model/Target";
 import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
+import { targetsApi } from "../../features/target";
 
 const MenuItemLabel = (props: { target: Target }) => (
   <Fragment>
@@ -20,14 +21,20 @@ const menuItem = (target: Target) => (
 
 interface Props {
   selectedCalorie: number;
-  targets: Target[];
+  gender: Gender;
   onSelect: (target: Target) => void;
 }
 
 export const TargetDropDown = (props: Props) => {
+  const { gender } = props;
+  const [targets, setTargets] = useState([] as Target[]);
+  useEffect(() => {
+    setTargets(targetsApi.getByGender(gender));
+  }, [gender])
+
   const handleSelect = (eventKey: string | null) => {
     const selectedCalorie = _.toNumber(eventKey);
-    const selectedTarget = _.find(props.targets, { 'calorie': selectedCalorie });
+    const selectedTarget = _.find(targets, { 'calorie': selectedCalorie });
     if (selectedTarget) {
       props.onSelect(selectedTarget);
     }
@@ -40,7 +47,7 @@ export const TargetDropDown = (props: Props) => {
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        {_.map(props.targets, menuItem)}
+        {_.map(targets, menuItem)}
         <Dropdown.Divider />
         <div className="px-1">
           <UnlimitedFruitCheckBox />
