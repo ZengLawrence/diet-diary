@@ -32,7 +32,9 @@ describe('Targets class', () => {
     });
 
     it('should return targets for woman', () => {
-      expect(targets.getByGender('woman')).toEqual(
+      const result = targets.getByGender('woman');
+      expect(result.length).toBe(4);
+      expect(result).toEqual(
         expect.arrayContaining([
           expect.objectContaining({ calorie: 1200}),
           expect.objectContaining({ calorie: 1400}),
@@ -43,7 +45,9 @@ describe('Targets class', () => {
     });
 
     it('should return targets for man', () => {
-      expect(targets.getByGender('man')).toEqual(
+      const result = targets.getByGender('man');
+      expect(result.length).toBe(4);
+      expect(result).toEqual(
         expect.arrayContaining([
           expect.objectContaining({ calorie: 1400}),
           expect.objectContaining({ calorie: 1600}),
