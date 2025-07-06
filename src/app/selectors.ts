@@ -5,7 +5,7 @@ import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunct
 import { DayPage } from "../model/diary";
 import { Meal, Serving } from "../model/Food";
 import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServingSummary, calcServingDifference } from "../model/servingFunction";
-import { defaultGender, Gender, manTarget, Target, womanTarget } from "../model/Target";
+import { defaultGender, Gender, Target } from "../model/Target";
 import { RootState } from "./store";
 
 const _editModeSelector = (state: RootState) => state.editMode;
@@ -13,7 +13,6 @@ export const summaryTypeSelector = (state: RootState) => state.summaryType;
 const _targetStateSelector = (state: RootState) => state.targetState;
 export const showSavedMealsSelector = (state: RootState) => state.showSavedMeals;
 export const warningSelector = (state: RootState) => state.warning;
-export const customTargetsStateSelector = (state: RootState) => state.customTargets;
 const _pageOptionsSelector = (state: RootState) => state.pageOptions;
 const _dayPageSelector = (state: RootState) => state.dayPage;
 
@@ -230,19 +229,6 @@ export const historyDaysProgressSelector: (state: RootState) => { daysRemaining:
   _pageOptionsSelector,
   (pageOptions) => {
     return pageOptions.progress;
-  }
-);
-
-export const targetsSelector: (state: RootState) => Target[] = createSelector(
-  genderSelector,
-  customTargetsStateSelector,
-  (gender, customTargets) => {
-    const allTargets = customTargets.targets;
-    if (gender == "woman") {
-      return _.filter(allTargets, womanTarget);
-    } else {
-      return _.filter(allTargets, manTarget);
-    }
   }
 );
 
