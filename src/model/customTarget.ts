@@ -88,7 +88,13 @@ export class ReadOnlyCustomTargets {
   }
 }
 
+export interface CustomTargetListener {
+  targetsUpdated: (targets: Target[]) => void;
+}
+
 export class CustomTargets extends ReadOnlyCustomTargets {
+  private listener: CustomTargetListener | undefined = undefined;
+
   constructor(
     loader: CustomTargetsLoader,
     private saver: CustomTargetsSaver,
@@ -96,11 +102,22 @@ export class CustomTargets extends ReadOnlyCustomTargets {
     super(loader);
   }
 
+  registerListener(listener: CustomTargetListener) {
+    this.listener = listener;
+  }
+
+  unregisterListener(listener: CustomTargetListener) {
+    if (this.listener === listener) {
+      this.listener = undefined;
+    }
+  }
+  
   update(target: Target): boolean {
     const targets = this.loader.load();
     const updated = mutation.update(targets, target);
     if (updated) {
       this.saver.save(targets);
+      this.listener?.targetsUpdated(targets);
     }
     return updated;
   }
