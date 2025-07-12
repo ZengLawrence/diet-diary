@@ -37,19 +37,19 @@ function addMeal(day: DayPage): DayPage {
   }
 }
 
-function removeFirstEmptyMeal(day: DayPage): DayPage {
-  const firstMeal = day.meals[0];
-  if (firstMeal && firstMeal.foods.length === 0) {
+function removeLastEmptyMeal(day: DayPage): DayPage {
+  const lastMeal = _.last(day.meals);
+  if (lastMeal && lastMeal.foods.length === 0) {
     return {
       ...day,
-      meals: day.meals.slice(1),
+      meals: day.meals.slice(0, day.meals.length - 1),
     }
   }
   return day;
 }
 
 function addSavedMeal(day: DayPage, foods: Food[]): DayPage {
-  const _day = removeFirstEmptyMeal(day);
+  const _day = removeLastEmptyMeal(day);
   return {
     ..._day,
     meals: [..._day.meals, { ...newMeal(), foods }],
