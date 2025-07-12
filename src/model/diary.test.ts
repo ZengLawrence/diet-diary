@@ -19,8 +19,12 @@ describe("validation", () => {
 });
 
 describe("Today class", () => {
-  const mockDiaryHistory = Object.create(DiaryHistory.prototype);
-  mockDiaryHistory.add = jest.fn();
+  let mockDiaryHistory: DiaryHistory;
+
+  beforeEach(() => {
+    mockDiaryHistory = Object.create(DiaryHistory.prototype);
+    mockDiaryHistory.add = jest.fn();
+  });
 
   describe("newDay", () => {
     beforeEach(() => {
@@ -95,6 +99,33 @@ describe("Today class", () => {
       const updatedDay = today.addSavedMeal(savedFoods);
       expect(updatedDay.meals.length).toBe(1);
       expect(updatedDay.meals[0].foods).toEqual(savedFoods);
+    });
+
+    it("should replace last empty meal with saved meal", () => {
+      const lunch = {
+        mealTime: "lunch",
+        foods: [
+          { description: "Banana", serving: {} },
+        ],
+      };
+      const emptyMeal = {
+        mealTime: "empty",
+        foods: [],
+      }
+      const mockLoader: TodayLoader =
+      {
+        load: jest.fn().mockReturnValue({
+          date: new Date().toLocaleDateString(),
+          target: getDefaultTarget(),
+          meals: [lunch, emptyMeal],
+        })
+      };
+      const mockSaver: TodaySaver = { save: jest.fn() };
+      const today = new Today(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
+      const savedFoods: Food[] = [{ description: "Apple", serving: {} }];
+      const updatedDay = today.addSavedMeal(savedFoods);
+      expect(updatedDay.meals.length).toBe(2);
+      expect(updatedDay.meals[1].foods).toEqual(savedFoods);
     });
   });
 
