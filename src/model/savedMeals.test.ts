@@ -1,6 +1,6 @@
 import { Food } from "./Food";
 import { SavedMeal } from "./SavedMeal";
-import { search, SavedMeals, SavedMealsLoader, SavedMealsSaver, SavedMealsChangeListener } from "./savedMeals";
+import { search, SavedMeals, SavedMealsLoader, SavedMealsSaver } from "./savedMeals";
 import { Today } from "./diary";
 import { Suggestions } from "./suggestions";
 
