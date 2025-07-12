@@ -74,10 +74,11 @@ export class SavedMeals {
     private readonly saver: SavedMealsSaver,
     private readonly today: Today,
     private readonly suggestions: Suggestions,
-  ) {
-    suggestions.addSuggestions(loader.load());
-  }
+  ) { }
 
+  init() {
+    this.suggestions.addSuggestions(this.loader.load());
+  }
   register(listener: SavedMealsChangeListener): void {
     this.listener = listener;
   }

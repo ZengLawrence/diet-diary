@@ -127,13 +127,15 @@ describe("SavedMeals class", () => {
   const mealA: SavedMeal = { foods: [{ ...minimalFood, description: "A" }] };
   const mealB: SavedMeal = { foods: [{ ...minimalFood, description: "B" }] };
 
-  describe("constructor", () => {
+  describe("init", () => {
     it("loads meals from loader and adds them to suggestions", () => {
       const meals = [mealA, mealB];
       const loader = createMockLoader(meals);
       const saver = createMockSaver();
       const today = createMockToday();
       const savedMeals = new SavedMeals(loader, saver, today, suggestions);
+      savedMeals.init();
+      
       expect(loader.load).toHaveBeenCalled();
       expect(suggestions.addSuggestions).toHaveBeenCalledWith(meals);
       expect(savedMeals).toBeInstanceOf(SavedMeals);

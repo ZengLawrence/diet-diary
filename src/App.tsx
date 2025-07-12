@@ -3,6 +3,7 @@ import Script from 'next/script';
 import { Provider } from "react-redux";
 import store from "./app/store";
 import DayPage from "./features/day-page/DayPage";
+import * as api from "./features";
 
 const AutoDarkModeScript = () => (
   <Script
@@ -21,6 +22,8 @@ const AutoDarkModeScript = () => (
     })()`}
   </Script>
 );
+
+api.init();
 
 export default function Root() {
   return (
