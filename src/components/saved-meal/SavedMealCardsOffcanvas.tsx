@@ -7,6 +7,7 @@ import { SearchTermInput } from "./SearchTermInput";
 import { SavedMeal } from "../../model/SavedMeal";
 import { useAppDispatch } from "../../app/hooks";
 import { refresh } from "../../features/day-page/dayPageSlice";
+import { SavedMealsChangeListener } from "../../model/savedMeals";
 
 interface Props {
   show: boolean,
@@ -20,8 +21,20 @@ function SavedMealCardsOffcanvas(props: Props) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    const listener : SavedMealsChangeListener = {
+      added: () => {
+        const meals = savedMeals.searchByDescription(searchTerm);
+        setMeals(meals);
+      }
+    }
+    savedMeals.register(listener);
+
     const meals = savedMeals.searchByDescription(searchTerm);
     setMeals(meals);
+
+    return () => {
+      savedMeals.unregister(listener);
+    }
   }, [searchTerm]);
 
   const handleSelectMeal = (meal: SavedMeal) => {

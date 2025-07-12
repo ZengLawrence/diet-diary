@@ -167,6 +167,21 @@ describe("SavedMeals class", () => {
       expect(getSavedMeals(saver).length).toBe(200);
       expect(suggestions.addSuggestion).toHaveBeenCalledWith(mealB);
     });
+
+    it("should notify listener if there is a listener registered when adds a meal", () => {
+      const loader = createMockLoader([mealA]);
+      const saver = createMockSaver();
+      const savedMeals = new SavedMeals(loader, saver, createMockToday(), suggestions);
+      const mockListener = {
+        added: jest.fn(),
+      }
+      savedMeals.register(mockListener);
+
+      const result = savedMeals.add(mealB);
+      expect(result[0]).toBe(mealB);
+      expect(result[1]).toBe(mealA);
+      expect(mockListener.added).toHaveBeenCalled();
+    });
   });
 
   describe("remove a meal", () => {
