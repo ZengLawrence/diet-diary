@@ -19,8 +19,12 @@ describe("validation", () => {
 });
 
 describe("Today class", () => {
-  const mockDiaryHistory = Object.create(DiaryHistory.prototype);
-  mockDiaryHistory.add = jest.fn();
+  let mockDiaryHistory: DiaryHistory;
+
+  beforeEach(() => {
+    mockDiaryHistory = Object.create(DiaryHistory.prototype);
+    mockDiaryHistory.add = jest.fn();
+  });
 
   describe("newDay", () => {
     beforeEach(() => {
