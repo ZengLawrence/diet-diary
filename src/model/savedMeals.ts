@@ -63,7 +63,11 @@ export interface SavedMealsSaver {
   save(meals: SavedMeal[]): void;
 }
 
+export interface SavedMealsChangeListener {
+  added: () => void;
+}
 export class SavedMeals {
+  private listener: SavedMealsChangeListener | undefined;
 
   constructor(
     private readonly loader: SavedMealsLoader,
@@ -74,11 +78,22 @@ export class SavedMeals {
     suggestions.addSuggestions(loader.load());
   }
 
+  register(listener: SavedMealsChangeListener): void {
+    this.listener = listener;
+  }
+
+  unregister(listener: SavedMealsChangeListener): void {
+    if (this.listener == listener) {
+      this.listener = undefined;
+    }
+  }
+
   add(meal: SavedMeal): SavedMeal[] {
     const meals = this.loader.load();
     const newMeals = save(meals, meal);
     this.saver.save(newMeals);
     this.suggestions.addSuggestion(meal);
+    this.listener?.added();
     return newMeals;
   }
 
