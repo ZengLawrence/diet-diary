@@ -58,11 +58,6 @@ function update(targets: Target[], target: Target): boolean {
   return false;
 }
 
-export const mutation = {
-  initTargets: defaultTargets,
-  update,
-}
-
 export const retrieval = {
   getDefaultTarget,
 }
@@ -112,7 +107,7 @@ export class CustomTargets extends ReadOnlyCustomTargets {
   
   update(target: Target): boolean {
     const targets = this.loader.load();
-    const updated = mutation.update(targets, target);
+    const updated = update(targets, target);
     if (updated) {
       this.saver.save(targets);
       this.listener?.targetsUpdated(targets);

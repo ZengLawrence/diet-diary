@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { CustomTargetListener, CustomTargets, CustomTargetsLoader, CustomTargetsSaver, mutation, retrieval, validation } from './customTarget';
+import { CustomTargetListener, CustomTargets, CustomTargetsLoader, CustomTargetsSaver, retrieval, validation } from './customTarget';
 import { FoodGroup } from './Food';
 
 describe('validation', () => {
@@ -85,108 +85,6 @@ const ZERO_SERVING = {
     fat: 0,
     sweet: 0
 };
-
-describe('mutation', () => {
-
-    const { initTargets, update } = mutation;
-
-    describe('initTargets', () => {
-        it('should return default targets for calorie level 1200, 1400, 1600, 1800 and 2000', () => {
-            const targets = initTargets();
-            expect(targets).toEqual(expect.arrayContaining([
-                expect.objectContaining({ calorie: 1200 }),
-                expect.objectContaining({ calorie: 1400 }),
-                expect.objectContaining({ calorie: 1600 }),
-                expect.objectContaining({ calorie: 1800 }),
-                expect.objectContaining({ calorie: 2000 })
-            ]));
-        });
-    });
-
-    describe('update', () => {
-        it('should update the target in the array if it exists', () => {
-            const targets = [
-                { calorie: 1200, serving: ZERO_SERVING },
-                { calorie: 1400, serving: ZERO_SERVING }
-            ];
-            const targetToUpdate = { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: 5 } };
-            expect(update(targets, targetToUpdate)).toBeTruthy();
-            expect(targets[0]).toEqual(targetToUpdate);
-        });
-
-        it('should not update the target if it does not exist in the array', () => {
-            const targets = [
-                { calorie: 1200, serving: ZERO_SERVING },
-                { calorie: 1400, serving: ZERO_SERVING }
-            ];
-            const targetToUpdate = { calorie: 1600, serving: ZERO_SERVING };
-            const targetsBeforeUpdate = _.cloneDeep(targets);
-            expect(update(targets, targetToUpdate)).toBeFalsy();
-            expect(targets).toEqual(targetsBeforeUpdate);
-        });
-
-        it('should not update the target if it exceeds calorie limit', () => {
-            const targets = [
-                { calorie: 2000, serving: ZERO_SERVING }
-            ];
-            const targetToUpdate = {
-                calorie: 2000,
-                serving: {
-                    vegetable: 5,
-                    fruit: 4,
-                    carbohydrate: 5,
-                    proteinDiary: 9,
-                    fat: 3,
-                    sweet: 3
-                }
-            }; // Exceeds limit
-            const targetsBeforeUpdate = _.cloneDeep(targets);
-            expect(update(targets, targetToUpdate)).toBeFalsy();
-            expect(targets).toEqual(targetsBeforeUpdate);
-        });
-
-        // Parameterized test for each food group.
-        const foodGroup: FoodGroup[] = ["vegetable", "fruit", "carbohydrate", "proteinDiary", "fat", "sweet"];
-
-        it.each(foodGroup)(
-            'should not update the target if %s serving value is outside lower limit of range',
-            (servingType) => {
-                const targets = [
-                    { calorie: 1200, serving: ZERO_SERVING }
-                ];
-                const invalidTargetToUpdate = {
-                    calorie: 1200,
-                    serving: {
-                        ...ZERO_SERVING,
-                        [servingType]: -1
-                    }
-                };
-                const targetsBeforeUpdate = _.cloneDeep(targets);
-                expect(update(targets, invalidTargetToUpdate)).toBeFalsy();
-                expect(targets).toEqual(targetsBeforeUpdate);
-            }
-        );
-
-        it.each(foodGroup)(
-            'should not update the target if %s serving value is outside upper limit of range',
-            (servingType) => {
-                const targets = [
-                    { calorie: 1200, serving: ZERO_SERVING }
-                ];
-                const invalidTargetToUpdate = {
-                    calorie: 1200,
-                    serving: {
-                        ...ZERO_SERVING,
-                        [servingType]: 10
-                    }
-                };
-                const targetsBeforeUpdate = _.cloneDeep(targets);
-                expect(update(targets, invalidTargetToUpdate)).toBeFalsy();
-                expect(targets).toEqual(targetsBeforeUpdate);
-            }
-        );
-    });
-});
 
 describe('retrieval', () => {
     const { getDefaultTarget } = retrieval;
