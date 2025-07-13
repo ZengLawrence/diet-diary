@@ -25,4 +25,12 @@ describe("Preferences class", () => {
     });
   });
 
+  describe("set", () => {
+    it("should save with given value", () => {
+      const preference = { startDayWithCalorieLevel: 2000 };
+      prefs.set(preference);
+      expect(saver.save).toHaveBeenCalledWith(preference);
+    });
+  });
+
 });

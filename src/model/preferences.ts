@@ -20,4 +20,8 @@ export class Preferences {
     const pref = this.loader.load();
     return pref || { startDayWithCalorieLevel: undefined };
   }
+
+  set(preference: Preference): void {
+    this.saver.save(preference);
+  }
 }
