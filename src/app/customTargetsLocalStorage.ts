@@ -1,11 +1,11 @@
 import { CustomTargetsLoader, CustomTargetsSaver } from "../model/customTarget";
 import { Target } from "../model/Target";
 
-export interface SerializedCustomTargets {
+interface SerializedCustomTargets {
   targets: Target[];
 }
 
-export function loadCustomTargets(): SerializedCustomTargets | undefined {
+function loadCustomTargets(): SerializedCustomTargets | undefined {
   try {
     const serializedState = localStorage.getItem('customTargets');
     if (serializedState === null) {
@@ -18,7 +18,7 @@ export function loadCustomTargets(): SerializedCustomTargets | undefined {
   }
 }
 
-export function saveCustomTargets(customTargets: SerializedCustomTargets): void {
+function saveCustomTargets(customTargets: SerializedCustomTargets): void {
   try {
     const serializedState = JSON.stringify(customTargets);
     localStorage.setItem('customTargets', serializedState);
