@@ -118,7 +118,7 @@ export interface TodaySaver {
 
 export class ReadOnlyToday {
 
-  constructor(private loader: TodayLoader) {}
+  constructor(private loader: TodayLoader) { }
 
   protected _loadToday(): DayPage {
     return this.loader.load(() => newDay());
@@ -129,18 +129,28 @@ export class ReadOnlyToday {
   }
 }
 
-export class Today extends ReadOnlyToday {
-
-  constructor(loader: TodayLoader, private saver: TodaySaver, private diaryHistory: DiaryHistory) {
+abstract class AbstractToday extends ReadOnlyToday {
+  constructor(loader: TodayLoader, private readonly saver: TodaySaver) {
     super(loader);
   }
 
-  _saveToday(day: DayPage): void {
+  protected _saveToday(day: DayPage): void {
     this.saver.save(day);
   }
 
+}
+
+export class Diary extends AbstractToday {
+  constructor(
+    loader: TodayLoader, 
+    saver: TodaySaver, 
+    private diaryHistory: DiaryHistory,
+  ) {
+    super(loader, saver);
+  }
+
   newDay(): DayPage {
-    const currentDay = this._loadToday();
+    const currentDay = this.currentDay();
     if (isToday(currentDay.date)) {
       return currentDay;
     }
@@ -148,6 +158,13 @@ export class Today extends ReadOnlyToday {
     this.diaryHistory.add(currentDay);
     this._saveToday(day);
     return day;
+  }
+}
+
+export class Today extends AbstractToday {
+
+  constructor(loader: TodayLoader, saver: TodaySaver) {
+    super(loader, saver);
   }
 
   addMeal(): DayPage {

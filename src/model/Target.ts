@@ -116,3 +116,11 @@ export function getDefaultTarget(calorie: number = 1600) {
       return TARGET_1600_CALORIE;
   }
 }
+
+export function isValidCalorieTargetLevel(calorieLevel: number): boolean {
+  return calorieLevel === 1200 
+    || calorieLevel === 1400
+    || calorieLevel === 1600
+    || calorieLevel === 1800
+    || calorieLevel === 2000;
+}
