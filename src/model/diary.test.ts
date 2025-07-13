@@ -26,46 +26,6 @@ describe("Today class", () => {
     mockDiaryHistory.add = jest.fn();
   });
 
-  describe("newDay", () => {
-    beforeEach(() => {
-      jest.clearAllMocks();
-    });
-
-    it("should create a new DayPage with today's date", () => {
-      const currentDay = {
-        date: "6/1/2025",
-        target: getDefaultTarget(),
-        meals: [],
-      };
-      const mockLoader: TodayLoader =
-        { load: jest.fn().mockReturnValue(currentDay) };
-      const mockSaver: TodaySaver = { save: jest.fn() };
-      const today = new Today(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
-      const day = today.newDay();
-      const todayDate = new Date().toLocaleDateString();
-      expect(day.date).toBe(todayDate);
-      expect(mockDiaryHistory.add).toHaveBeenCalledWith(currentDay);
-      expect(mockSaver.save).toHaveBeenCalledWith(day);
-    });
-
-    it("should use the provided current day if it is today", () => {
-      const customTarget = { ...getDefaultTarget(), unlimitedFruit: true, calorie: 1234 };
-      const current = {
-        date: new Date().toLocaleDateString(),
-        target: customTarget,
-        meals: [newMeal()],
-      };
-      const mockLoader: TodayLoader =
-        { load: jest.fn().mockReturnValue(current) };
-      const mockSaver: TodaySaver = { save: jest.fn() };
-      const today = new Today(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
-      const day = today.newDay();
-      expect(day).toEqual(current);
-      expect(mockDiaryHistory.add).not.toHaveBeenCalled();
-      expect(mockSaver.save).not.toHaveBeenCalled();
-    });
-  });
-
   describe("addMeal", () => {
     it("should add a new meal to today's meals", () => {
       const mockLoader: TodayLoader =

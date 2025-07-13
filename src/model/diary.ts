@@ -163,17 +163,6 @@ export class Today extends AbstractToday {
     super(loader, saver);
   }
 
-  newDay(): DayPage {
-    const currentDay = this._loadToday();
-    if (isToday(currentDay.date)) {
-      return currentDay;
-    }
-    const day = newDay(currentDay);
-    this.diaryHistory.add(currentDay);
-    this._saveToday(day);
-    return day;
-  }
-
   addMeal(): DayPage {
     const newDay = addMeal(this._loadToday());
     this._saveToday(newDay);
