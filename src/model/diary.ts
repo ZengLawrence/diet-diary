@@ -140,6 +140,23 @@ abstract class AbstractToday extends ReadOnlyToday {
 
 }
 
+export class Diary extends AbstractToday {
+  constructor(loader: TodayLoader, saver: TodaySaver, private diaryHistory: DiaryHistory) {
+    super(loader, saver);
+  }
+
+  newDay(): DayPage {
+    const currentDay = this._loadToday();
+    if (isToday(currentDay.date)) {
+      return currentDay;
+    }
+    const day = newDay(currentDay);
+    this.diaryHistory.add(currentDay);
+    this._saveToday(day);
+    return day;
+  }
+}
+
 export class Today extends AbstractToday {
 
   constructor(loader: TodayLoader, saver: TodaySaver, private diaryHistory: DiaryHistory) {

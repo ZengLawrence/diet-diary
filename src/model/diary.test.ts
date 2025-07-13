@@ -1,4 +1,4 @@
-import { validation, Today, TodayLoader, TodaySaver, ReadOnlyToday } from "./diary";
+import { validation, Today, TodayLoader, TodaySaver, ReadOnlyToday, Diary } from "./diary";
 import { Food, newMeal } from "./Food";
 import { getDefaultTarget } from "./Target";
 import { DiaryHistory } from "./diaryHistory";
@@ -280,4 +280,54 @@ describe("ReadOnlyToday", () => {
       expect(currentDay.meals).toEqual([]);
     });
   });
+});
+
+describe("Diary class", () => {
+  let mockDiaryHistory: DiaryHistory;
+
+  beforeEach(() => {
+    mockDiaryHistory = Object.create(DiaryHistory.prototype);
+    mockDiaryHistory.add = jest.fn();
+  });
+
+  describe("newDay", () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it("should create a new DayPage with today's date", () => {
+      const currentDay = {
+        date: "6/1/2025",
+        target: getDefaultTarget(),
+        meals: [],
+      };
+      const mockLoader: TodayLoader =
+        { load: jest.fn().mockReturnValue(currentDay) };
+      const mockSaver: TodaySaver = { save: jest.fn() };
+      const diary = new Diary(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
+      const day = diary.newDay();
+      const todayDate = new Date().toLocaleDateString();
+      expect(day.date).toBe(todayDate);
+      expect(mockDiaryHistory.add).toHaveBeenCalledWith(currentDay);
+      expect(mockSaver.save).toHaveBeenCalledWith(day);
+    });
+
+    it("should use the provided current day if it is today", () => {
+      const customTarget = { ...getDefaultTarget(), unlimitedFruit: true, calorie: 1234 };
+      const current = {
+        date: new Date().toLocaleDateString(),
+        target: customTarget,
+        meals: [newMeal()],
+      };
+      const mockLoader: TodayLoader =
+        { load: jest.fn().mockReturnValue(current) };
+      const mockSaver: TodaySaver = { save: jest.fn() };
+      const diary = new Diary(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
+      const day = diary.newDay();
+      expect(day).toEqual(current);
+      expect(mockDiaryHistory.add).not.toHaveBeenCalled();
+      expect(mockSaver.save).not.toHaveBeenCalled();
+    });
+  });
+
 });
