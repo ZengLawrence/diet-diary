@@ -146,7 +146,7 @@ export class Diary extends AbstractToday {
   }
 
   newDay(): DayPage {
-    const currentDay = this._loadToday();
+    const currentDay = this.currentDay();
     if (isToday(currentDay.date)) {
       return currentDay;
     }
