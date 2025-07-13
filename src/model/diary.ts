@@ -159,7 +159,7 @@ export class Diary extends AbstractToday {
 
 export class Today extends AbstractToday {
 
-  constructor(loader: TodayLoader, saver: TodaySaver, private diaryHistory: DiaryHistory) {
+  constructor(loader: TodayLoader, saver: TodaySaver) {
     super(loader, saver);
   }
 

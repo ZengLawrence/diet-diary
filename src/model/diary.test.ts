@@ -37,7 +37,7 @@ describe("Today class", () => {
         })
       };
       const mockSaver: TodaySaver = { save: jest.fn() };
-      const today = new Today(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
+      const today = new Today(mockLoader, mockSaver);
       const updatedDay = today.addMeal();
       expect(updatedDay.meals.length).toBe(2);
     });
@@ -54,7 +54,7 @@ describe("Today class", () => {
         })
       };
       const mockSaver: TodaySaver = { save: jest.fn() };
-      const today = new Today(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
+      const today = new Today(mockLoader, mockSaver);
       const savedFoods: Food[] = [{ description: "Apple", serving: {} }];
       const updatedDay = today.addSavedMeal(savedFoods);
       expect(updatedDay.meals.length).toBe(1);
@@ -81,7 +81,7 @@ describe("Today class", () => {
         })
       };
       const mockSaver: TodaySaver = { save: jest.fn() };
-      const today = new Today(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
+      const today = new Today(mockLoader, mockSaver);
       const savedFoods: Food[] = [{ description: "Apple", serving: {} }];
       const updatedDay = today.addSavedMeal(savedFoods);
       expect(updatedDay.meals.length).toBe(2);
@@ -106,7 +106,7 @@ describe("Today class", () => {
         })
       };
       const mockSaver: TodaySaver = { save: jest.fn() };
-      const today = new Today(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
+      const today = new Today(mockLoader, mockSaver);
       const updatedDay = today.deleteMeal(mealToDelete);
       expect(updatedDay.meals.length).toBe(1);
     });
@@ -124,7 +124,7 @@ describe("Today class", () => {
         })
       };
       const mockSaver: TodaySaver = { save: jest.fn() };
-      const today = new Today(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
+      const today = new Today(mockLoader, mockSaver);
       const foodToAdd: Food = { description: "Apple", serving: {} };
       const updatedDay = today.addFood(meal, foodToAdd);
       expect(updatedDay.meals[0].foods.length).toBe(1);
@@ -146,7 +146,7 @@ describe("Today class", () => {
         })
       };
       const mockSaver: TodaySaver = { save: jest.fn() };
-      const today = new Today(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
+      const today = new Today(mockLoader, mockSaver);
       const foodToUpdate = food;
       const replacedFood: Food = { description: "Banana", serving: {} };
       const finalUpdatedDay = today.updateFood(meal, foodToUpdate, replacedFood);
@@ -168,7 +168,7 @@ describe("Today class", () => {
         })
       };
       const mockSaver: TodaySaver = { save: jest.fn() };
-      const today = new Today(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
+      const today = new Today(mockLoader, mockSaver);
       const finalUpdatedDay = today.deleteFood(meal, food);
       expect(finalUpdatedDay.meals[0].foods.length).toBe(0);
     });
@@ -184,7 +184,7 @@ describe("Today class", () => {
       const mockLoader: TodayLoader =
         { load: jest.fn().mockReturnValue(currentDay) };
       const mockSaver: TodaySaver = { save: jest.fn() };
-      const today = new Today(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
+      const today = new Today(mockLoader, mockSaver);
       const newTarget = { ...currentDay.target, calorie: 2500 };
       const updatedDay = today.updateTarget(newTarget);
       expect(updatedDay.target.calorie).toBe(2500);
@@ -202,7 +202,7 @@ describe("Today class", () => {
         })
       };
       const mockSaver: TodaySaver = { save: jest.fn() };
-      const today = new Today(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
+      const today = new Today(mockLoader, mockSaver);
       expect(today.toggleUnlimitedFruit().target.unlimitedFruit).toBeTruthy();
     });
 
@@ -216,7 +216,7 @@ describe("Today class", () => {
         })
       };
       const mockSaver: TodaySaver = { save: jest.fn() };
-      const today = new Today(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
+      const today = new Today(mockLoader, mockSaver);
       expect(today.toggleUnlimitedFruit().target.unlimitedFruit).toBeFalsy();
     });
   });
