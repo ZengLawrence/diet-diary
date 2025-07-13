@@ -1,5 +1,5 @@
 interface Preference {
-  startDayWithCalorieLevel: number | undefined;
+  startDayWithCalorieTargetLevel: number | undefined;
 }
 
 export interface PreferenceLoader {
@@ -18,7 +18,7 @@ export class Preferences {
 
   get(): Preference {
     const pref = this.loader.load();
-    return pref || { startDayWithCalorieLevel: undefined };
+    return pref || { startDayWithCalorieTargetLevel: undefined };
   }
 
   set(preference: Preference): void {
