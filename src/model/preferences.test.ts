@@ -1,4 +1,4 @@
-import { PreferenceLoader, Preferences, PreferenceSaver } from "./preferences";
+import { Preferences } from "./preferences";
 
 describe("Preferences class", () => {
   const loader = {
@@ -9,11 +9,19 @@ describe("Preferences class", () => {
   }
   const prefs = new Preferences(loader, saver);
 
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
   describe("get", () => {
     it("should get from loader", () => {
       loader.load.mockReturnValue({ startDayWithCalorieLevel: 1600 });
 
       expect(prefs.get()).toStrictEqual({ startDayWithCalorieLevel: 1600 });
+    });
+
+    it("should return default preference if loader returns undefined", () => {
+      expect(prefs.get()).toStrictEqual({ startDayWithCalorieLevel: undefined });
     });
   });
 
