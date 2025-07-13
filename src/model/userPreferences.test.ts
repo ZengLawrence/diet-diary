@@ -19,14 +19,26 @@ describe("UserPreferences class", () => {
     });
 
     it("should return target if preference is set", () => {
-      mockPreferences.get.mockReturnValue({ startDayWithCalorieTargetLevel: 1600 })
+      mockPreferences.get.mockReturnValue({ startDayWithCalorieTargetLevel: 1600 });
       mockTargets.getAll.mockReturnValue([
         { calorie: 1400, serving: {} },
         { calorie: 1600, serving: {} },
         { calorie: 1800, serving: {} },
-      ])
+      ]);
 
       expect(userPreferences.getStartDayTarget()).toEqual(expect.objectContaining({ calorie: 1600 }));
     });
+
+    it("should return undefined if startDayWithCalorieTargetLevel is undefined", () => {
+      mockPreferences.get.mockReturnValue({ startDayWithCalorieTargetLevel: undefined });
+      mockTargets.getAll.mockReturnValue([
+        { calorie: 1400, serving: {} },
+        { calorie: 1600, serving: {} },
+        { calorie: 1800, serving: {} },
+      ]);
+
+      expect(userPreferences.getStartDayTarget()).toBeUndefined();
+    });
+
   })
 });
