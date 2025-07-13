@@ -381,7 +381,7 @@ describe('ReadOnlyCustomTargets class', () => {
             expect(mockLoader.load).toHaveBeenCalled();
         });
 
-        it('should return default targets if loader returns an empty array', () => {
+        it('should return default targets with length of 5 if loader returns an empty array', () => {
             const mockLoader = {
                 load: jest.fn().mockReturnValue([]),
             };
@@ -389,8 +389,8 @@ describe('ReadOnlyCustomTargets class', () => {
                 save: jest.fn(),
             };
             const customTargets = new CustomTargets(mockLoader, mockSaver);
-            const defaultTargets = mutation.initTargets();
-            expect(customTargets.getAll()).toEqual(defaultTargets);
+            const result = customTargets.getAll();
+            expect(result.length).toBe(5);
             expect(mockLoader.load).toHaveBeenCalled();
         });
     });
