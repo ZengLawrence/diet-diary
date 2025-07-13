@@ -23,6 +23,12 @@ describe("Preferences class", () => {
     it("should return default preference if loader returns undefined", () => {
       expect(prefs.get()).toStrictEqual({ startDayWithCalorieTargetLevel: undefined });
     });
+
+    it("should return default preference if loader returns invalid calorie target level", () => {
+      loader.load.mockReturnValue({ startDayWithCalorieTargetLevel: 1000 });
+
+      expect(prefs.get()).toStrictEqual({ startDayWithCalorieTargetLevel: undefined });
+    });
   });
 
   describe("set", () => {
