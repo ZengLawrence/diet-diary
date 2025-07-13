@@ -1,3 +1,5 @@
+import { isValidCalorieTargetLevel } from "./Target";
+
 interface Preference {
   startDayWithCalorieTargetLevel: number | undefined;
 }
@@ -22,6 +24,10 @@ export class Preferences {
   }
 
   set(preference: Preference): void {
-    this.saver.save(preference);
+    if (preference.startDayWithCalorieTargetLevel === undefined
+      || isValidCalorieTargetLevel(preference.startDayWithCalorieTargetLevel)
+    ) {
+      this.saver.save(preference);
+    }
   }
 }

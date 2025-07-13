@@ -31,6 +31,17 @@ describe("Preferences class", () => {
       prefs.set(preference);
       expect(saver.save).toHaveBeenCalledWith(preference);
     });
+
+    it("should save with given value if startDayWithCalorieTargetLevel is undefined", () => {
+      const preference = { startDayWithCalorieTargetLevel: undefined };
+      prefs.set(preference);
+      expect(saver.save).toHaveBeenCalledWith(preference);
+    });
+
+    it("should not save if calorie target level is invalid", () => {
+      prefs.set({startDayWithCalorieTargetLevel: 1000});
+      expect(saver.save).not.toHaveBeenCalled();
+    });
   });
 
 });
