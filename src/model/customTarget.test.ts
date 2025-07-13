@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { CustomTargetListener, CustomTargets, CustomTargetsLoader, CustomTargetsSaver, retrieval, validation } from './customTarget';
 import { FoodGroup } from './Food';
 
