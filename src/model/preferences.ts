@@ -21,11 +21,8 @@ function isValid(preference: Preference) {
     || isValidCalorieTargetLevel(preference.startDayWithCalorieTargetLevel);
 }
 
-export class Preferences {
-  constructor(
-    private readonly loader: PreferenceLoader,
-    private readonly saver: PreferenceSaver
-  ) { }
+export class ReadonlyPreferences {
+  constructor(protected readonly loader: PreferenceLoader) { }
 
   get(): Preference {
     const pref = this.loader.load() || DEFAULT_PREFERENCE;
@@ -34,6 +31,16 @@ export class Preferences {
     } else {
       return DEFAULT_PREFERENCE;
     }
+  }
+
+}
+
+export class Preferences extends ReadonlyPreferences {
+  constructor(
+    loader: PreferenceLoader,
+    private readonly saver: PreferenceSaver
+  ) {
+    super(loader);
   }
 
   set(preference: Preference): void {
