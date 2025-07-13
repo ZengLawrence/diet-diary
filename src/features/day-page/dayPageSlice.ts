@@ -2,13 +2,13 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DayPage } from "../../model/diary";
 import { Food } from "../../model/Food";
 import { Target } from "../../model/Target";
-import { today } from "./api";
+import { diary, today } from "./api";
 import { back, goToToday, next } from "./pageOptionsSlice";
 
 export const newDay = createAsyncThunk<DayPage>(
   'dayPage/newDay',
   async () => {
-    return today.newDay();
+    return diary.newDay();
   }
 );
 
