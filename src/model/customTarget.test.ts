@@ -381,7 +381,7 @@ describe('ReadOnlyCustomTargets class', () => {
             expect(mockLoader.load).toHaveBeenCalled();
         });
 
-        it('should return default targets with length of 5 if loader returns an empty array', () => {
+        it('should return default targets with 5 calorie levels if loader returns an empty array', () => {
             const mockLoader = {
                 load: jest.fn().mockReturnValue([]),
             };
@@ -391,6 +391,13 @@ describe('ReadOnlyCustomTargets class', () => {
             const customTargets = new CustomTargets(mockLoader, mockSaver);
             const result = customTargets.getAll();
             expect(result.length).toBe(5);
+            expect(result).toEqual(expect.arrayContaining([
+                expect.objectContaining({ calorie: 1200 }),
+                expect.objectContaining({ calorie: 1400 }),
+                expect.objectContaining({ calorie: 1600 }),
+                expect.objectContaining({ calorie: 1800 }),
+                expect.objectContaining({ calorie: 2000 })
+            ]));
             expect(mockLoader.load).toHaveBeenCalled();
         });
     });
