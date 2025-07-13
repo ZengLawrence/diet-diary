@@ -1,13 +1,10 @@
-import { Preferences } from "./preferences";
+import { Preferences, ReadonlyPreferences } from "./preferences";
 
-describe("Preferences class", () => {
+describe("ReadonlyPreferences class", () => {
   const loader = {
     load: jest.fn(),
   };
-  const saver = {
-    save: jest.fn(),
-  }
-  const prefs = new Preferences(loader, saver);
+  const prefs = new ReadonlyPreferences(loader);
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -29,6 +26,20 @@ describe("Preferences class", () => {
 
       expect(prefs.get()).toStrictEqual({ startDayWithCalorieTargetLevel: undefined });
     });
+  });
+});
+
+describe("Preferences class", () => {
+  const loader = {
+    load: jest.fn(),
+  };
+  const saver = {
+    save: jest.fn(),
+  }
+  const prefs = new Preferences(loader, saver);
+
+  beforeEach(() => {
+    jest.resetAllMocks();
   });
 
   describe("set", () => {
