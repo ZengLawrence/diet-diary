@@ -16,7 +16,7 @@ describe("UserPreferences class", () => {
   describe("getStartDayTarget", () => {
     it("should return undefined if there is no preference", () => {
       expect(userPreferences.getStartDayTarget()).toBeUndefined();
-    })
+    });
 
     it("should return target if preference is set", () => {
       mockPreferences.get.mockReturnValue({ startDayWithCalorieTargetLevel: 1600 })
@@ -27,6 +27,6 @@ describe("UserPreferences class", () => {
       ])
 
       expect(userPreferences.getStartDayTarget()).toEqual(expect.objectContaining({ calorie: 1600 }));
-    })
+    });
   })
 });
