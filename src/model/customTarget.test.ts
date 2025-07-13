@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import defaultExport, { CustomTargetListener, CustomTargets, CustomTargetsLoader, CustomTargetsSaver, mutation, retrieval, validation } from './customTarget';
+import { CustomTargetListener, CustomTargets, CustomTargetsLoader, CustomTargetsSaver, mutation, retrieval, validation } from './customTarget';
 import { FoodGroup } from './Food';
 
 describe('validation', () => {
@@ -201,12 +201,6 @@ describe('retrieval', () => {
             const calorieLevel = 999;
             expect(getDefaultTarget(calorieLevel)).toEqual(expect.objectContaining({ calorie: 1600 }));
         });
-    });
-});
-
-describe('default export', () => {
-    it('should be the same as the named export mutation', () => {
-        expect(defaultExport).toEqual(mutation);
     });
 });
 
