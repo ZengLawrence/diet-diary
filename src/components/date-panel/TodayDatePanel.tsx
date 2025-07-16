@@ -1,13 +1,10 @@
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { useSelector } from "react-redux";
 import { viewOptionsSelector } from "../../app/selectors";
 import BackButton from "../button/BackButton";
 import NewDayButton from "../day-page/NewDayButton";
-import { VariantSecondary } from "../ButtonVariant";
+import HamburgerMenu from "./HamburgerMenu";
 
 const TodayDatePanel = (props: React.PropsWithChildren) => {
   const viewOptions = useSelector(viewOptionsSelector);
@@ -17,9 +14,7 @@ const TodayDatePanel = (props: React.PropsWithChildren) => {
   return (
     <Row className="flex-fill">
       <Col className="align-content-center">
-        <Button variant={VariantSecondary}>
-          <FontAwesomeIcon icon={faBars} />
-        </Button>
+        <HamburgerMenu />
       </Col>
       <Col xs="auto" className="align-content-center">
         {showBackButton && <BackButton />}
