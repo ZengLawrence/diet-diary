@@ -16,7 +16,7 @@ const TodayDatePanel = (props: React.PropsWithChildren) => {
 
   return (
     <Row className="flex-fill">
-      <Col>
+      <Col className="align-content-center">
         <Button variant={VariantSecondary}>
           <FontAwesomeIcon icon={faBars} />
         </Button>
