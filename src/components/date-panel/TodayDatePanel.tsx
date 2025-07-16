@@ -7,16 +7,17 @@ import { useSelector } from "react-redux";
 import { viewOptionsSelector } from "../../app/selectors";
 import BackButton from "../button/BackButton";
 import NewDayButton from "../day-page/NewDayButton";
+import { VariantSecondary } from "../ButtonVariant";
 
 const TodayDatePanel = (props: React.PropsWithChildren) => {
   const viewOptions = useSelector(viewOptionsSelector);
   const showNewDayButton = viewOptions.canAddNewDay;
   const showBackButton = viewOptions.hasHistory;
-  
+
   return (
     <Row className="flex-fill">
       <Col>
-        <Button>
+        <Button variant={VariantSecondary}>
           <FontAwesomeIcon icon={faBars} />
         </Button>
       </Col>
