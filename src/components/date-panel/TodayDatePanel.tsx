@@ -6,15 +6,26 @@ import BackButton from "../button/BackButton";
 import NewDayButton from "../day-page/NewDayButton";
 import HamburgerMenu from "./HamburgerMenu";
 
+function useQuery() {
+  return new URLSearchParams(window.location.search);
+}
+
+function useFeatureFlag(flagName: string) {
+  const query = useQuery();
+  return query.get(flagName) === 'true';
+}
+
 const TodayDatePanel = (props: React.PropsWithChildren) => {
   const viewOptions = useSelector(viewOptionsSelector);
   const showNewDayButton = viewOptions.canAddNewDay;
   const showBackButton = viewOptions.hasHistory;
 
+  const enableShowMenu = useFeatureFlag("showMenu");
+
   return (
     <Row className="flex-fill">
       <Col className="align-content-center">
-        <HamburgerMenu />
+        {enableShowMenu && <HamburgerMenu />}
       </Col>
       <Col xs="auto" className="align-content-center">
         {showBackButton && <BackButton />}
