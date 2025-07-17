@@ -5,13 +5,10 @@ import { viewOptionsSelector } from "../../app/selectors";
 import BackButton from "../button/BackButton";
 import NewDayButton from "../day-page/NewDayButton";
 import HamburgerMenu from "./HamburgerMenu";
-
-function useQuery() {
-  return new URLSearchParams(window.location.search);
-}
+import { useSearchParams } from "next/navigation";
 
 function useFeatureFlag(flagName: string) {
-  const query = useQuery();
+  const query = useSearchParams();
   return query.get(flagName) === 'true';
 }
 
