@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { viewOptionsSelector } from "../../app/selectors";
 import BackButton from "../button/BackButton";
 import NewDayButton from "../day-page/NewDayButton";
-import HamburgerMenu from "./HamburgerMenu";
+import HamburgerMenu from "../menu/HamburgerMenu";
 import { useSearchParams } from "next/navigation";
 
 function useFeatureFlag(flagName: string) {
