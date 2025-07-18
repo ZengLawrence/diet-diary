@@ -6,7 +6,10 @@ const PreferenceForm = () => (
   <Form>
     <Row>
       <Col xs="auto">
-        <Form.Check id="checkBoxStartDayCalorieLevel" label="Start day with" />
+        <Form.Check
+          id="checkBoxStartDayCalorieLevel"
+          label="Start day with"
+        />
       </Col>
       <Col>
         <Form.Select>
@@ -18,7 +21,7 @@ const PreferenceForm = () => (
         </Form.Select>
       </Col>
       <Col>
-      calories
+        calories
       </Col>
     </Row>
   </Form>
