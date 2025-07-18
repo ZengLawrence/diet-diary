@@ -30,7 +30,7 @@ const PreferenceForm = (props: Props) => {
             <option>1400</option>
             <option>1600</option>
             <option>1800</option>
-            <option>1000</option>
+            <option>2000</option>
           </Form.Select>
         </Col>
         <Col>
