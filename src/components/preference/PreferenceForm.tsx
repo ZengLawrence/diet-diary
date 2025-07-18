@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
 interface Props {
-  startDayCalorie: {
+  startDayCalorie?: {
     checked: boolean;
     toggleChecked: () => void;
     level: number | undefined;
@@ -21,14 +21,14 @@ const PreferenceForm = (props: Props) => {
           <Form.Check
             id="checkBoxStartDayCalorieLevel"
             label="Start day with"
-            checked={startDayCalorie.checked}
-            onChange={startDayCalorie.toggleChecked}
+            checked={startDayCalorie?.checked}
+            onChange={startDayCalorie?.toggleChecked}
           />
         </Col>
         <Col>
           <Form.Select
-            value={startDayCalorie.level}
-            onChange={e => startDayCalorie.setLevel(parseInt(e.target.value))}
+            value={startDayCalorie?.level}
+            onChange={e => startDayCalorie?.setLevel(parseInt(e.target.value))}
           >
             <option>1200</option>
             <option>1400</option>
