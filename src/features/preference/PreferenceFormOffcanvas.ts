@@ -4,7 +4,7 @@ import PreferenceFormOffcanvas from "../../components/preference/PreferenceFormO
 import { closePreferences } from "../overlays/overlaysSlice";
 
 const mapStateToProps = (state: RootState) => ({
-  show: state.overlays.showPreferences,
+  show: state.overlays.showType === "preferences",
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({

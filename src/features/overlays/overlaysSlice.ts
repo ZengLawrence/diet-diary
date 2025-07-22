@@ -1,13 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface OverlaysState {
-  showPreferences: boolean;
-  showCustomTargets: boolean;
+  showType: "preferences" | "customTargets" | undefined;
 }
 
 const initialState: OverlaysState = {
-  showPreferences: false,
-  showCustomTargets: false,
+  showType: undefined,
 };
 
 const overlaysSlice = createSlice({
@@ -15,16 +13,16 @@ const overlaysSlice = createSlice({
   initialState,
   reducers: {
     openPreferences(state) {
-      state.showPreferences = true;
+      state.showType = "preferences";
     },
     closePreferences(state) {
-      state.showPreferences = false;
+      state.showType = undefined;
     },
     openCustomTargets(state) {
-      state.showCustomTargets = true;
+      state.showType = "customTargets";
     },
     closeCustomTargets(state) {
-      state.showCustomTargets = false;
+      state.showType = undefined;
     },
   },
 });
