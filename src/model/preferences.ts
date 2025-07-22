@@ -1,6 +1,6 @@
 import { isValidCalorieTargetLevel } from "./Target";
 
-interface Preference {
+export interface Preference {
   startDayWithCalorieTargetLevel: number | undefined;
 }
 
