@@ -15,6 +15,7 @@ export const showSavedMealsSelector = (state: RootState) => state.showSavedMeals
 export const warningSelector = (state: RootState) => state.warning;
 const _pageOptionsSelector = (state: RootState) => state.pageOptions;
 const _dayPageSelector = (state: RootState) => state.dayPage;
+export const overlaysSelector = (state: RootState) => state.overlays;
 
 interface ViewOptions {
   canEdit: boolean,
