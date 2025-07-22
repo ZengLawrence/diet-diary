@@ -14,8 +14,8 @@ const HamburgerMenu = () => {
       </Button>
 
       <Dropdown.Menu>
-        <Dropdown.Item>Preferences</Dropdown.Item>
-        <Dropdown.Item>Custom targets</Dropdown.Item>
+        <Dropdown.Item onClick={() => setShow(false)}>Preferences</Dropdown.Item>
+        <Dropdown.Item onClick={() => setShow(false)}>Custom targets</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );
