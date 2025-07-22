@@ -1,6 +1,7 @@
 import Container from "react-bootstrap/Container";
 import AddMealButtons from "../../features/meal-card/AddMealButtons";
 import MealCards from "../../features/meal-card/MealCards";
+import PreferenceFormOffcanvas from "../../features/preference/PreferenceFormOffcanvas";
 import SavedMealCardsOffcanvas from "../../features/saved-meal/SavedMealCardsOffcanvas";
 import TabbedSummary from "../../features/summary/TabbedSummary";
 import Warnings from "../warning/Warnings";
@@ -33,6 +34,7 @@ function DayPage(props: Props) {
       </div>
 
       <SavedMealCardsOffcanvas />
+      <PreferenceFormOffcanvas />
 
     </Container>
   );

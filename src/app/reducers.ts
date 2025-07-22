@@ -6,6 +6,7 @@ import showSavedMeals from "../features/day-page/showSavedMealsSlice";
 import warning from "../features/warning/warningSlice";
 import pageOptions from "../features/day-page/pageOptionsSlice";
 import dayPage from "../features/day-page/dayPageSlice";
+import overlays from "../features/overlays/overlaysSlice";
 
 export default combineReducers(
   {
@@ -16,5 +17,6 @@ export default combineReducers(
     warning,
     pageOptions,
     dayPage,
+    overlays,
   }
 )
