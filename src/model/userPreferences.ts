@@ -9,10 +9,10 @@ export class UserPreferences {
   ) { }
 
   getStartDayTarget(): Target | undefined {
-    const pref = this.preferences.get();
-    if (pref) {
-      const calorieLevel = pref.startDayWithCalorieTargetLevel;
-      return _.find(this.targets.getAll(), {calorie: calorieLevel});
+    const startDayCalorieTarget = this.preferences.getStartDayCalorieTarget();
+    if (startDayCalorieTarget.enabled) {
+      const calorieLevel = startDayCalorieTarget.level;
+      return _.find(this.targets.getAll(), { calorie: calorieLevel }) || undefined;
     }
     return undefined;
   }

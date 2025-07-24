@@ -29,6 +29,20 @@ function isValid(preference: Preference) {
     || isValidCalorieTargetLevel(preference.startDayWithCalorieTargetLevel);
 }
 
+function loadPreference(loader: PreferenceLoader): Preference {
+  const pref = loader.load();
+  if (pref && isValid(pref)) {
+    return pref;
+  } else {
+    return DEFAULT_PREFERENCE;
+  }
+}
+
+function savePreference(saver: PreferenceSaver, preference: Preference): void {
+  if (isValid(preference)) {
+    saver.save(preference);
+  }
+}
 export class ReadonlyPreferences {
   constructor(protected readonly loader: PreferenceLoader) { }
 
@@ -42,7 +56,7 @@ export class ReadonlyPreferences {
   }
 
   getStartDayCalorieTarget(): Preference["startDayCalorieTarget"] {
-    const pref = this.get();
+    const pref = loadPreference(this.loader);
     return pref.startDayCalorieTarget;
   }
 }
@@ -65,13 +79,13 @@ export class Preferences extends ReadonlyPreferences {
     const startDayCalorieTarget = this.getStartDayCalorieTarget();
     const newEnabled = !startDayCalorieTarget.enabled;
     const newPreference: Preference = {
-      ...this.get(),
+      ...loadPreference(this.loader),
       startDayCalorieTarget: {
         ...startDayCalorieTarget,
         enabled: newEnabled
       }
     };
-    this.set(newPreference);
+    savePreference(this.saver, newPreference);
     return newEnabled;
   }
 
@@ -81,13 +95,13 @@ export class Preferences extends ReadonlyPreferences {
     }
     const startDayCalorieTarget = this.getStartDayCalorieTarget();
     const newPreference: Preference = {
-      ...this.get(),
+      ...loadPreference(this.loader),
       startDayCalorieTarget: {
         ...startDayCalorieTarget,
         level
       }
     };
-    this.set(newPreference);
+    savePreference(this.saver, newPreference);
     return level;
   }
 }
