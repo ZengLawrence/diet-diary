@@ -25,8 +25,11 @@ const DEFAULT_PREFERENCE = {
 }
 
 function isValid(preference: Preference) {
-  return preference.startDayWithCalorieTargetLevel === undefined
-    || isValidCalorieTargetLevel(preference.startDayWithCalorieTargetLevel);
+  return (preference.startDayWithCalorieTargetLevel === undefined
+    || isValidCalorieTargetLevel(preference.startDayWithCalorieTargetLevel))
+    && typeof preference.startDayCalorieTarget === "object"
+    && typeof preference.startDayCalorieTarget.enabled === "boolean"
+    && isValidCalorieTargetLevel(preference.startDayCalorieTarget.level);
 }
 
 function loadPreference(loader: PreferenceLoader): Preference {
