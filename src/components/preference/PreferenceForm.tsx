@@ -1,16 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
+import { preferencesApi } from "../../features/preference/api";
 
 const PreferenceForm = () => {
   const [checked, setChecked] = useState(false);
   const [calorieLevel, setCalorieLevel] = useState(undefined as number | undefined);
 
-  const handleToggleChecked = () => setChecked(!checked);
+  useEffect(() => {
+    const startDayCalorieTarget = preferencesApi.getStartDayCalorieTarget();
+    setChecked(startDayCalorieTarget.enabled);
+    setCalorieLevel(startDayCalorieTarget.level);
+  }, []);
+
+  const handleToggleChecked = () => {
+    const newValue = preferencesApi.toggleStartDayCalorieTarget();
+    setChecked(newValue);
+  };
   const handleCalorieLevelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const level = parseInt(e.target.value);
-    setCalorieLevel(level);
+    const newLevel = preferencesApi.setStartDayCalorieTargetLevel(level);
+    setCalorieLevel(newLevel);
   };
 
   return (
