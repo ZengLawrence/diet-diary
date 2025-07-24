@@ -1,7 +1,6 @@
 import { isValidCalorieTargetLevel } from "./Target";
 
 export interface Preference {
-  startDayWithCalorieTargetLevel: number | undefined;
   startDayCalorieTarget: {
     enabled: boolean;
     level: number;
@@ -17,7 +16,6 @@ export interface PreferenceSaver {
 }
 
 const DEFAULT_PREFERENCE = {
-  startDayWithCalorieTargetLevel: undefined,
   startDayCalorieTarget: {
     enabled: false,
     level: 1600
@@ -25,9 +23,7 @@ const DEFAULT_PREFERENCE = {
 }
 
 function isValid(preference: Preference) {
-  return (preference.startDayWithCalorieTargetLevel === undefined
-    || isValidCalorieTargetLevel(preference.startDayWithCalorieTargetLevel))
-    && typeof preference.startDayCalorieTarget === "object"
+  return typeof preference.startDayCalorieTarget === "object"
     && typeof preference.startDayCalorieTarget.enabled === "boolean"
     && isValidCalorieTargetLevel(preference.startDayCalorieTarget.level);
 }
