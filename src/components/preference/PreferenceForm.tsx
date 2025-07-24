@@ -1,18 +1,28 @@
+import { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
+import { preferencesApi } from "../../features/preference/api";
 
-interface Props {
-  startDayCalorie?: {
-    checked: boolean;
-    toggleChecked: () => void;
-    level: number | undefined;
-    setLevel: (calorieLevel: number) => void;
-  }
-}
+const PreferenceForm = () => {
+  const [checked, setChecked] = useState(false);
+  const [calorieLevel, setCalorieLevel] = useState(undefined as number | undefined);
 
-const PreferenceForm = (props: Props) => {
-  const { startDayCalorie } = props;
+  useEffect(() => {
+    const startDayCalorieTarget = preferencesApi.getStartDayCalorieTarget();
+    setChecked(startDayCalorieTarget.enabled);
+    setCalorieLevel(startDayCalorieTarget.level);
+  }, []);
+
+  const handleToggleChecked = () => {
+    const newValue = preferencesApi.toggleStartDayCalorieTarget();
+    setChecked(newValue);
+  };
+  const handleCalorieLevelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const level = parseInt(e.target.value);
+    const newLevel = preferencesApi.setStartDayCalorieTargetLevel(level);
+    setCalorieLevel(newLevel);
+  };
 
   return (
     <Form>
@@ -21,14 +31,14 @@ const PreferenceForm = (props: Props) => {
           <Form.Check
             id="checkBoxStartDayCalorieLevel"
             label="Start day with"
-            checked={startDayCalorie?.checked}
-            onChange={startDayCalorie?.toggleChecked}
+            checked={checked}
+            onChange={handleToggleChecked}
           />
         </Col>
         <Col>
           <Form.Select
-            value={startDayCalorie?.level}
-            onChange={e => startDayCalorie?.setLevel(parseInt(e.target.value))}
+            value={calorieLevel}
+            onChange={handleCalorieLevelChange}
           >
             <option>1200</option>
             <option>1400</option>
