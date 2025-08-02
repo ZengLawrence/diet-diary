@@ -2,6 +2,7 @@ import _ from "lodash";
 import { Food, Meal, newMeal } from "./Food";
 import { getDefaultTarget, Target } from "./Target";
 import { DiaryHistory } from "./diaryHistory";
+import { UserPreferences } from "./userPreferences";
 
 export interface DayPage {
   date: string,
@@ -21,8 +22,11 @@ export const validation = {
   isToday,
 }
 
-function newDay(current: DayPage | undefined = undefined): DayPage {
-  const target = current?.target || { unlimitedFruit: false, ...getDefaultTarget() };
+function newDay(current: DayPage | undefined = undefined, startDayTarget: Target | undefined = undefined): DayPage {
+  let target = current?.target || { unlimitedFruit: false, ...getDefaultTarget() };
+  if (startDayTarget) {
+    target = { ...target, ...startDayTarget };
+  }
   return {
     date: today(),
     target,
@@ -145,6 +149,7 @@ export class Diary extends AbstractToday {
     loader: TodayLoader, 
     saver: TodaySaver, 
     private diaryHistory: DiaryHistory,
+    private readonly userPreferences: UserPreferences,
   ) {
     super(loader, saver);
   }
@@ -154,7 +159,7 @@ export class Diary extends AbstractToday {
     if (isToday(currentDay.date)) {
       return currentDay;
     }
-    const day = newDay(currentDay);
+    const day = newDay(currentDay, this.userPreferences.getStartDayTarget());
     this.diaryHistory.add(currentDay);
     this._saveToday(day);
     return day;

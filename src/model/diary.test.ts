@@ -2,6 +2,7 @@ import { validation, Today, TodayLoader, TodaySaver, ReadOnlyToday, Diary } from
 import { Food, newMeal } from "./Food";
 import { getDefaultTarget } from "./Target";
 import { DiaryHistory } from "./diaryHistory";
+import { UserPreferences } from "./userPreferences";
 
 describe("validation", () => {
   describe("isToday", () => {
@@ -251,8 +252,17 @@ describe("Diary class", () => {
   });
 
   describe("newDay", () => {
+    let mockLoader: TodayLoader;
+    let mockSaver: TodaySaver;
+    let mockUserPreferences: UserPreferences;
+    let diary: Diary;
+
     beforeEach(() => {
-      jest.clearAllMocks();
+      mockLoader = { load: jest.fn() };
+      mockSaver = { save: jest.fn() };
+      mockUserPreferences = Object.create(UserPreferences.prototype);
+      mockUserPreferences.getStartDayTarget = jest.fn().mockReturnValue(undefined);
+      diary = new Diary(mockLoader, mockSaver, mockDiaryHistory, mockUserPreferences);
     });
 
     it("should create a new DayPage with today's date", () => {
@@ -261,10 +271,8 @@ describe("Diary class", () => {
         target: getDefaultTarget(),
         meals: [],
       };
-      const mockLoader: TodayLoader =
-        { load: jest.fn().mockReturnValue(currentDay) };
-      const mockSaver: TodaySaver = { save: jest.fn() };
-      const diary = new Diary(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
+      mockLoader.load = jest.fn().mockReturnValue(currentDay);
+      
       const day = diary.newDay();
       const todayDate = new Date().toLocaleDateString();
       expect(day.date).toBe(todayDate);
@@ -279,14 +287,28 @@ describe("Diary class", () => {
         target: customTarget,
         meals: [newMeal()],
       };
-      const mockLoader: TodayLoader =
-        { load: jest.fn().mockReturnValue(current) };
-      const mockSaver: TodaySaver = { save: jest.fn() };
-      const diary = new Diary(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
+      mockLoader.load = jest.fn().mockReturnValue(current);
+      
       const day = diary.newDay();
       expect(day).toEqual(current);
       expect(mockDiaryHistory.add).not.toHaveBeenCalled();
       expect(mockSaver.save).not.toHaveBeenCalled();
+    });
+
+    it("should create a new DayPage with user's start day target", () => {
+      const currentDay = {
+        date: "6/1/2025",
+        target: getDefaultTarget(),
+        meals: [],
+      };
+      mockLoader.load = jest.fn().mockReturnValue(currentDay);
+      const startDayTarget = { ...getDefaultTarget(), unlimitedFruit: true, calorie: 1500 };
+      mockUserPreferences.getStartDayTarget = jest.fn().mockReturnValue(startDayTarget);
+      
+      const day = diary.newDay();
+      expect(day.target).toEqual(startDayTarget);
+      expect(mockDiaryHistory.add).toHaveBeenCalledWith(currentDay);
+      expect(mockSaver.save).toHaveBeenCalledWith(day);
     });
   });
 
