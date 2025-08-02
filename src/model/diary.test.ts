@@ -252,8 +252,17 @@ describe("Diary class", () => {
   });
 
   describe("newDay", () => {
+    let mockLoader: TodayLoader;
+    let mockSaver: TodaySaver;
+    let mockUserPreferences: UserPreferences;
+    let diary: Diary;
+
     beforeEach(() => {
-      jest.clearAllMocks();
+      mockLoader = { load: jest.fn() };
+      mockSaver = { save: jest.fn() };
+      mockUserPreferences = Object.create(UserPreferences.prototype);
+      mockUserPreferences.getStartDayTarget = jest.fn().mockReturnValue(undefined);
+      diary = new Diary(mockLoader, mockSaver, mockDiaryHistory, mockUserPreferences);
     });
 
     it("should create a new DayPage with today's date", () => {
@@ -262,12 +271,8 @@ describe("Diary class", () => {
         target: getDefaultTarget(),
         meals: [],
       };
-      const mockLoader: TodayLoader =
-        { load: jest.fn().mockReturnValue(currentDay) };
-      const mockSaver: TodaySaver = { save: jest.fn() };
-      const mockUserPreferences: UserPreferences = Object.create(UserPreferences.prototype);
-      mockUserPreferences.getStartDayTarget = jest.fn().mockReturnValue(undefined);
-      const diary = new Diary(mockLoader, mockSaver, mockDiaryHistory, mockUserPreferences);
+      mockLoader.load = jest.fn().mockReturnValue(currentDay);
+      
       const day = diary.newDay();
       const todayDate = new Date().toLocaleDateString();
       expect(day.date).toBe(todayDate);
@@ -282,12 +287,8 @@ describe("Diary class", () => {
         target: customTarget,
         meals: [newMeal()],
       };
-      const mockLoader: TodayLoader =
-        { load: jest.fn().mockReturnValue(current) };
-      const mockSaver: TodaySaver = { save: jest.fn() };
-      const mockUserPreferences: UserPreferences = Object.create(UserPreferences.prototype);
-      mockUserPreferences.getStartDayTarget = jest.fn().mockReturnValue(undefined);
-      const diary = new Diary(mockLoader, mockSaver, mockDiaryHistory, mockUserPreferences);
+      mockLoader.load = jest.fn().mockReturnValue(current);
+      
       const day = diary.newDay();
       expect(day).toEqual(current);
       expect(mockDiaryHistory.add).not.toHaveBeenCalled();
