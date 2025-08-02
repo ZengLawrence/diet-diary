@@ -22,8 +22,11 @@ export const validation = {
   isToday,
 }
 
-function newDay(current: DayPage | undefined = undefined): DayPage {
-  const target = current?.target || { unlimitedFruit: false, ...getDefaultTarget() };
+function newDay(current: DayPage | undefined = undefined, startDayTarget: Target | undefined = undefined): DayPage {
+  let target = current?.target || { unlimitedFruit: false, ...getDefaultTarget() };
+  if (startDayTarget) {
+    target = { ...target, ...startDayTarget };
+  }
   return {
     date: today(),
     target,
@@ -156,7 +159,7 @@ export class Diary extends AbstractToday {
     if (isToday(currentDay.date)) {
       return currentDay;
     }
-    const day = newDay(currentDay);
+    const day = newDay(currentDay, this.userPreferences.getStartDayTarget());
     this.diaryHistory.add(currentDay);
     this._saveToday(day);
     return day;

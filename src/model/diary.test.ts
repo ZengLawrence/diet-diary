@@ -294,6 +294,22 @@ describe("Diary class", () => {
       expect(mockDiaryHistory.add).not.toHaveBeenCalled();
       expect(mockSaver.save).not.toHaveBeenCalled();
     });
+
+    it("should create a new DayPage with user's start day target", () => {
+      const currentDay = {
+        date: "6/1/2025",
+        target: getDefaultTarget(),
+        meals: [],
+      };
+      mockLoader.load = jest.fn().mockReturnValue(currentDay);
+      const startDayTarget = { ...getDefaultTarget(), unlimitedFruit: true, calorie: 1500 };
+      mockUserPreferences.getStartDayTarget = jest.fn().mockReturnValue(startDayTarget);
+      
+      const day = diary.newDay();
+      expect(day.target).toEqual(startDayTarget);
+      expect(mockDiaryHistory.add).toHaveBeenCalledWith(currentDay);
+      expect(mockSaver.save).toHaveBeenCalledWith(day);
+    });
   });
 
 });
