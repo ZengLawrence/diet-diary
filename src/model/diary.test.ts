@@ -2,6 +2,7 @@ import { validation, Today, TodayLoader, TodaySaver, ReadOnlyToday, Diary } from
 import { Food, newMeal } from "./Food";
 import { getDefaultTarget } from "./Target";
 import { DiaryHistory } from "./diaryHistory";
+import { UserPreferences } from "./userPreferences";
 
 describe("validation", () => {
   describe("isToday", () => {
@@ -264,7 +265,9 @@ describe("Diary class", () => {
       const mockLoader: TodayLoader =
         { load: jest.fn().mockReturnValue(currentDay) };
       const mockSaver: TodaySaver = { save: jest.fn() };
-      const diary = new Diary(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
+      const mockUserPreferences: UserPreferences = Object.create(UserPreferences.prototype);
+      mockUserPreferences.getStartDayTarget = jest.fn().mockReturnValue(undefined);
+      const diary = new Diary(mockLoader, mockSaver, mockDiaryHistory, mockUserPreferences);
       const day = diary.newDay();
       const todayDate = new Date().toLocaleDateString();
       expect(day.date).toBe(todayDate);
@@ -282,7 +285,9 @@ describe("Diary class", () => {
       const mockLoader: TodayLoader =
         { load: jest.fn().mockReturnValue(current) };
       const mockSaver: TodaySaver = { save: jest.fn() };
-      const diary = new Diary(mockLoader, mockSaver, mockDiaryHistory); // Mock DiaryHistory
+      const mockUserPreferences: UserPreferences = Object.create(UserPreferences.prototype);
+      mockUserPreferences.getStartDayTarget = jest.fn().mockReturnValue(undefined);
+      const diary = new Diary(mockLoader, mockSaver, mockDiaryHistory, mockUserPreferences);
       const day = diary.newDay();
       expect(day).toEqual(current);
       expect(mockDiaryHistory.add).not.toHaveBeenCalled();

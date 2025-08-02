@@ -2,6 +2,7 @@ import _ from "lodash";
 import { Food, Meal, newMeal } from "./Food";
 import { getDefaultTarget, Target } from "./Target";
 import { DiaryHistory } from "./diaryHistory";
+import { UserPreferences } from "./userPreferences";
 
 export interface DayPage {
   date: string,
@@ -145,6 +146,7 @@ export class Diary extends AbstractToday {
     loader: TodayLoader, 
     saver: TodaySaver, 
     private diaryHistory: DiaryHistory,
+    private readonly userPreferences: UserPreferences,
   ) {
     super(loader, saver);
   }
