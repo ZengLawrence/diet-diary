@@ -65,6 +65,7 @@ export interface SavedMealsSaver {
 
 export interface SavedMealsChangeListener {
   added: () => void;
+  deleted: () => void;
 }
 export class SavedMeals {
   private listener: SavedMealsChangeListener | undefined;
@@ -100,9 +101,13 @@ export class SavedMeals {
 
   remove(meal: SavedMeal): SavedMeal[] {
     const meals = this.loader.load();
+    const mealCount = _.size(meals);
     const newMeals = remove(meals, meal);
     this.saver.save(newMeals);
     this.suggestions.removeSuggestion(meal);
+    if (_.size(newMeals) < mealCount) {
+      this.listener?.deleted();
+    }
     return newMeals;
   }
 
