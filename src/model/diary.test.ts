@@ -192,6 +192,40 @@ describe("Today class", () => {
     });
   });
 
+  describe("updateTargetIfSameCalorie", () => {
+    it("should update the target if the calorie matches", () => {
+      const currentDay = {
+        date: new Date().toLocaleDateString(),
+        target: { unlimitedFruit: false, ...getDefaultTarget(2000) },
+        meals: [newMeal()],
+      }
+      const mockLoader: TodayLoader =
+        { load: jest.fn().mockReturnValue(currentDay) };
+      const mockSaver: TodaySaver = { save: jest.fn() };
+      const today = new Today(mockLoader, mockSaver);
+      const newTarget = { ...currentDay.target, calorie: 2000 };
+      const updatedDay = today.updateTargetIfSameCalorie(newTarget);
+      expect(updatedDay.target.calorie).toBe(2000);
+      expect(mockSaver.save).toHaveBeenCalledWith(updatedDay);
+    });
+
+    it("should not update the target if the calorie does not match", () => {
+      const currentDay = {
+        date: new Date().toLocaleDateString(),
+        target: { unlimitedFruit: false, ...getDefaultTarget(2000) },
+        meals: [newMeal()],
+      }
+      const mockLoader: TodayLoader =
+        { load: jest.fn().mockReturnValue(currentDay) };
+      const mockSaver: TodaySaver = { save: jest.fn() };
+      const today = new Today(mockLoader, mockSaver);
+      const newTarget = { ...currentDay.target, calorie: 2500 };
+      const updatedDay = today.updateTargetIfSameCalorie(newTarget);
+      expect(updatedDay.target.calorie).toBe(2000);
+      expect(mockSaver.save).not.toHaveBeenCalled();
+    }); 
+  });
+
   describe("toggleUnlimitedFruit", () => {
     it("should toggle to true if value is false", () => {
       const mockLoader: TodayLoader =

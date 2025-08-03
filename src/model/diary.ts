@@ -214,6 +214,17 @@ export class Today extends AbstractToday {
     return newDay;
   }
 
+  updateTargetIfSameCalorie(target: Target): DayPage {
+    const currentDay = this._loadToday();
+    if (currentDay.target.calorie === target.calorie) {
+      const newDay = updateTarget(currentDay, target);
+      this._saveToday(newDay);
+      return newDay;
+    } else {
+      return currentDay;
+    }
+  } 
+
   toggleUnlimitedFruit(): DayPage {
     const newDay = toggleUnlimitedFruit(this._loadToday());
     this._saveToday(newDay);
