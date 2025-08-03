@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Button, Dropdown } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { openPreferences } from "../../features/overlays/overlaysSlice";
+import { openCustomTargets, openPreferences } from "../../features/overlays/overlaysSlice";
 import { VariantSecondary } from "../ButtonVariant";
 
 const HamburgerMenu = () => {
@@ -14,6 +14,10 @@ const HamburgerMenu = () => {
     setShow(false);
     dispatch(openPreferences());
   };
+  const handleCustomTargetsItemClick = () => {
+    setShow(false);
+    dispatch(openCustomTargets());
+  };
 
   return (
     <Dropdown show={show}>
@@ -23,7 +27,7 @@ const HamburgerMenu = () => {
 
       <Dropdown.Menu>
         <Dropdown.Item onClick={handlePreferencesItemClick}>Preferences</Dropdown.Item>
-        <Dropdown.Item onClick={() => setShow(false)}>Custom targets</Dropdown.Item>
+        <Dropdown.Item onClick={handleCustomTargetsItemClick}>Custom targets</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );
