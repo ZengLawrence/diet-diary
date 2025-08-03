@@ -25,6 +25,10 @@ function SavedMealCardsOffcanvas(props: Props) {
       added: () => {
         const meals = savedMeals.searchByDescription(searchTerm);
         setMeals(meals);
+      },
+      deleted: () => {
+        const meals = savedMeals.searchByDescription(searchTerm);
+        setMeals(meals);
       }
     }
     savedMeals.register(listener);
@@ -48,8 +52,7 @@ function SavedMealCardsOffcanvas(props: Props) {
   }
 
   const handleDeleteMeal = (meal: SavedMeal) => {
-    const updatedMeals = savedMeals.remove(meal);
-    setMeals(updatedMeals);
+    savedMeals.remove(meal);
   }
   
   return (
