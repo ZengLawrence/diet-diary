@@ -176,6 +176,7 @@ describe("SavedMeals class", () => {
       const savedMeals = new SavedMeals(loader, saver, createMockToday(), suggestions);
       const mockListener = {
         added: jest.fn(),
+        deleted: jest.fn(),
       }
       savedMeals.register(mockListener);
 
