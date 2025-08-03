@@ -4,6 +4,7 @@ import MealCards from "../../features/meal-card/MealCards";
 import PreferenceFormOffcanvas from "../../features/preference/PreferenceFormOffcanvas";
 import SavedMealCardsOffcanvas from "../../features/saved-meal/SavedMealCardsOffcanvas";
 import TabbedSummary from "../../features/summary/TabbedSummary";
+import EditCustomTargetsOffcanvas from "../../features/target/EditCustomTargetsOffcanvas";
 import Warnings from "../warning/Warnings";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
@@ -35,6 +36,7 @@ function DayPage(props: Props) {
 
       <SavedMealCardsOffcanvas />
       <PreferenceFormOffcanvas />
+      <EditCustomTargetsOffcanvas />
 
     </Container>
   );
