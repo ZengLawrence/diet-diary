@@ -118,6 +118,10 @@ const createMockSaver = (): SavedMealsSaver & { savedMeals: SavedMeal[] } => {
   };
 };
 
+const createMockListener = () => ({
+  added: jest.fn(),
+  deleted: jest.fn(),
+});
 
 // Helper to get the last saved meals from the mock
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -174,10 +178,7 @@ describe("SavedMeals class", () => {
       const loader = createMockLoader([mealA]);
       const saver = createMockSaver();
       const savedMeals = new SavedMeals(loader, saver, createMockToday(), suggestions);
-      const mockListener = {
-        added: jest.fn(),
-        deleted: jest.fn(),
-      }
+      const mockListener = createMockListener();
       savedMeals.register(mockListener);
 
       const result = savedMeals.add(mealB);
@@ -196,10 +197,7 @@ describe("SavedMeals class", () => {
       const loader = createMockLoader([mealA, mealB]);
       const saver = createMockSaver();
       const savedMeals = new SavedMeals(loader, saver, createMockToday(), suggestions);
-      const mockListener = {
-        added: jest.fn(),
-        deleted: jest.fn(),
-      }
+      const mockListener = createMockListener();
       savedMeals.register(mockListener);
 
       const result = savedMeals.remove(mealA);
@@ -213,10 +211,7 @@ describe("SavedMeals class", () => {
       const loader = createMockLoader([mealA]);
       const saver = createMockSaver();
       const savedMeals = new SavedMeals(loader, saver, createMockToday(), suggestions);
-      const mockListener = {
-        added: jest.fn(),
-        deleted: jest.fn(),
-      }
+      const mockListener = createMockListener();
       savedMeals.register(mockListener);
 
       const result = savedMeals.remove(mealB);
