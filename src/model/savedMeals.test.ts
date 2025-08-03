@@ -196,20 +196,34 @@ describe("SavedMeals class", () => {
       const loader = createMockLoader([mealA, mealB]);
       const saver = createMockSaver();
       const savedMeals = new SavedMeals(loader, saver, createMockToday(), suggestions);
+      const mockListener = {
+        added: jest.fn(),
+        deleted: jest.fn(),
+      }
+      savedMeals.register(mockListener);
+
       const result = savedMeals.remove(mealA);
       expect(result).toEqual([mealB]);
       expect(getSavedMeals(saver)).toEqual([mealB]);
       expect(suggestions.removeSuggestion).toHaveBeenCalledWith(mealA);
+      expect(mockListener.deleted).toHaveBeenCalled();
     });
 
     it("does not change list if meal is not found", () => {
       const loader = createMockLoader([mealA]);
       const saver = createMockSaver();
       const savedMeals = new SavedMeals(loader, saver, createMockToday(), suggestions);
+      const mockListener = {
+        added: jest.fn(),
+        deleted: jest.fn(),
+      }
+      savedMeals.register(mockListener);
+
       const result = savedMeals.remove(mealB);
       expect(result).toEqual([mealA]);
       expect(getSavedMeals(saver)).toEqual([mealA]);
       expect(suggestions.removeSuggestion).toHaveBeenCalledWith(mealB);
+      expect(mockListener.deleted).not.toHaveBeenCalled();
     });
   });
 

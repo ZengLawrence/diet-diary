@@ -101,10 +101,13 @@ export class SavedMeals {
 
   remove(meal: SavedMeal): SavedMeal[] {
     const meals = this.loader.load();
+    const mealCount = _.size(meals);
     const newMeals = remove(meals, meal);
     this.saver.save(newMeals);
     this.suggestions.removeSuggestion(meal);
-    this.listener?.deleted();
+    if (_.size(newMeals) < mealCount) {
+      this.listener?.deleted();
+    }
     return newMeals;
   }
 
