@@ -3,7 +3,7 @@ import { Food, Meal, newMeal } from "./Food";
 import { getDefaultTarget, Target } from "./Target";
 import { DiaryHistory } from "./diaryHistory";
 import { UserPreferences } from "./userPreferences";
-import { CustomTargets } from "./customTarget";
+import { AbstractCustomTargetListener, CustomTargets } from "./customTarget";
 
 export interface DayPage {
   date: string,
@@ -157,6 +157,15 @@ export class Diary {
     const {current, previous} = this.today.newDay(this.userPreferences.getStartDayTarget());
     if (previous) this.diaryHistory.add(previous);
     return current;
+  }
+
+  listenToCustomTargetUpdate(customTargets: CustomTargets) {
+    const self = this;    
+    customTargets.registerListener(new class extends AbstractCustomTargetListener {
+      targetUpdated: (target: Target) => void = (target: Target) => {
+        self.today.updateTargetIfSameCalorie(target);
+      }
+    });
   }
 }
 
