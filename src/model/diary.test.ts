@@ -4,6 +4,7 @@ import { getDefaultTarget } from "./Target";
 import { DiaryHistory } from "./diaryHistory";
 import { UserPreferences } from "./userPreferences";
 import { today } from "../features/day-page/api";
+import { CustomTargets } from "./customTarget";
 
 describe("validation", () => {
   describe("isToday", () => {
@@ -291,12 +292,14 @@ describe("Diary class", () => {
 
   describe("newDay", () => {
     let mockUserPreferences: UserPreferences;
+    let mockCustomTargets: CustomTargets;
     let diary: Diary;
 
     beforeEach(() => {
       mockUserPreferences = Object.create(UserPreferences.prototype);
       mockUserPreferences.getStartDayTarget = jest.fn().mockReturnValue(undefined);
-      diary = new Diary(mockToday, mockDiaryHistory, mockUserPreferences);
+      mockCustomTargets = Object.create(CustomTargets.prototype);
+      diary = new Diary(mockToday, mockDiaryHistory, mockUserPreferences, mockCustomTargets);
     });
 
     it("should create a new DayPage with today's date", () => {

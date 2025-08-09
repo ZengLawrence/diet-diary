@@ -3,6 +3,7 @@ import { Food, Meal, newMeal } from "./Food";
 import { getDefaultTarget, Target } from "./Target";
 import { DiaryHistory } from "./diaryHistory";
 import { UserPreferences } from "./userPreferences";
+import { CustomTargets } from "./customTarget";
 
 export interface DayPage {
   date: string,
@@ -149,6 +150,7 @@ export class Diary {
     private readonly today: Today, 
     private readonly diaryHistory: DiaryHistory,
     private readonly userPreferences: UserPreferences,
+    private readonly customTargets: CustomTargets,
   ) { }
 
   newDay(): DayPage {
