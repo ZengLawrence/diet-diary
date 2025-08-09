@@ -208,6 +208,7 @@ describe('CustomTargets class', () => {
         beforeEach(() => {
             listener = {
                 targetsUpdated: jest.fn(),
+                targetUpdated: jest.fn(),
             }
         });
 

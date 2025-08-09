@@ -83,6 +83,17 @@ export class ReadOnlyCustomTargets {
 
 export interface CustomTargetListener {
   targetsUpdated: (targets: Target[]) => void;
+  targetUpdated: (target: Target) => void;
+}
+
+export class AbstractCustomTargetListener implements CustomTargetListener {
+  targetsUpdated(targets: Target[]): void {
+    // Default implementation (can be overridden)
+  }
+
+  targetUpdated(target: Target): void {
+    // Default implementation (can be overridden)
+  }
 }
 
 export class CustomTargets extends ReadOnlyCustomTargets {
@@ -108,7 +119,10 @@ export class CustomTargets extends ReadOnlyCustomTargets {
     const updated = update(targets, target);
     if (updated) {
       this.saver.save(targets);
-      this.listeners.forEach(listener => listener.targetsUpdated(targets));
+      this.listeners.forEach(listener => { 
+        listener.targetsUpdated(targets); 
+        listener.targetUpdated(target); 
+      });
     }
     return updated;
   }
