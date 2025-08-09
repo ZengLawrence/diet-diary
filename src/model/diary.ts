@@ -148,7 +148,7 @@ export class Diary extends AbstractToday {
   constructor(
     loader: TodayLoader, 
     saver: TodaySaver, 
-    private diaryHistory: DiaryHistory,
+    private readonly diaryHistory: DiaryHistory,
     private readonly userPreferences: UserPreferences,
   ) {
     super(loader, saver);
