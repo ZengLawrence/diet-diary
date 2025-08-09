@@ -144,25 +144,17 @@ abstract class AbstractToday extends ReadOnlyToday {
 
 }
 
-export class Diary extends AbstractToday {
+export class Diary {
   constructor(
-    loader: TodayLoader, 
-    saver: TodaySaver, 
+    private readonly today: Today, 
     private readonly diaryHistory: DiaryHistory,
     private readonly userPreferences: UserPreferences,
-  ) {
-    super(loader, saver);
-  }
+  ) { }
 
   newDay(): DayPage {
-    const currentDay = this.currentDay();
-    if (isToday(currentDay.date)) {
-      return currentDay;
-    }
-    const day = newDay(currentDay, this.userPreferences.getStartDayTarget());
-    this.diaryHistory.add(currentDay);
-    this._saveToday(day);
-    return day;
+    const {current, previous} = this.today.newDay(this.userPreferences.getStartDayTarget());
+    if (previous) this.diaryHistory.add(previous);
+    return current;
   }
 }
 
@@ -170,6 +162,17 @@ export class Today extends AbstractToday {
 
   constructor(loader: TodayLoader, saver: TodaySaver) {
     super(loader, saver);
+  }
+
+  newDay(startDayTarget: Target | undefined): {current: DayPage, previous: DayPage | undefined} {
+    const currentDay = this._loadToday();
+    if (isToday(currentDay.date)) {
+      return { current: currentDay, previous: undefined };
+    } else {
+      const current = newDay(currentDay, startDayTarget);
+      this._saveToday(current);
+      return { current , previous: currentDay };
+    }
   }
 
   addMeal(): DayPage {
