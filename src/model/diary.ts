@@ -183,6 +183,7 @@ export class Today extends ReadOnlyToday {
 
   private _saveToday(day: DayPage): void {
     this.saver.save(day);
+    this.listener?.updated(day);
   }
 
   newDay(startDayTarget: Target | undefined): {current: DayPage, previous: DayPage | undefined} {
