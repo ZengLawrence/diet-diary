@@ -192,6 +192,40 @@ describe("Today class", () => {
     });
   });
 
+  describe("updateTargetIfSameCalorie", () => {
+    it("should update the target if the calorie matches", () => {
+      const currentDay = {
+        date: new Date().toLocaleDateString(),
+        target: { unlimitedFruit: false, ...getDefaultTarget(2000) },
+        meals: [newMeal()],
+      }
+      const mockLoader: TodayLoader =
+        { load: jest.fn().mockReturnValue(currentDay) };
+      const mockSaver: TodaySaver = { save: jest.fn() };
+      const today = new Today(mockLoader, mockSaver);
+      const newTarget = { ...currentDay.target, calorie: 2000 };
+      const updatedDay = today.updateTargetIfSameCalorie(newTarget);
+      expect(updatedDay.target.calorie).toBe(2000);
+      expect(mockSaver.save).toHaveBeenCalledWith(updatedDay);
+    });
+
+    it("should not update the target if the calorie does not match", () => {
+      const currentDay = {
+        date: new Date().toLocaleDateString(),
+        target: { unlimitedFruit: false, ...getDefaultTarget(2000) },
+        meals: [newMeal()],
+      }
+      const mockLoader: TodayLoader =
+        { load: jest.fn().mockReturnValue(currentDay) };
+      const mockSaver: TodaySaver = { save: jest.fn() };
+      const today = new Today(mockLoader, mockSaver);
+      const newTarget = { ...currentDay.target, calorie: 2500 };
+      const updatedDay = today.updateTargetIfSameCalorie(newTarget);
+      expect(updatedDay.target.calorie).toBe(2000);
+      expect(mockSaver.save).not.toHaveBeenCalled();
+    }); 
+  });
+
   describe("toggleUnlimitedFruit", () => {
     it("should toggle to true if value is false", () => {
       const mockLoader: TodayLoader =
@@ -221,6 +255,33 @@ describe("Today class", () => {
       expect(today.toggleUnlimitedFruit().target.unlimitedFruit).toBeFalsy();
     });
   });
+
+  describe("TodayListener", () => {
+    it("should call updated with the current day", () => {
+      const current = {
+        date: "6/1/2025",
+        target: { unlimitedFruit: false, ...getDefaultTarget() },
+        meals: [],
+      };
+      const mockLoader: TodayLoader =
+      {
+        load: jest.fn().mockReturnValue(current),
+      };
+      const mockSaver: TodaySaver = { save: jest.fn() };
+      const today = new Today(mockLoader, mockSaver);
+      const listener = jest.fn();
+      today.registerListener({ updated: listener });
+
+      const newTarget = { ...current.target };
+      newTarget.serving.sweet = 0;
+      today.updateTargetIfSameCalorie(newTarget);
+      const updatedDay = {
+        ...current,
+        target: newTarget,
+      };
+      expect(listener).toHaveBeenCalledWith(updatedDay);
+    });
+  });
 });
 
 describe("ReadOnlyToday", () => {
@@ -245,39 +306,42 @@ describe("ReadOnlyToday", () => {
 
 describe("Diary class", () => {
   let mockDiaryHistory: DiaryHistory;
+  let mockToday: Today;
 
   beforeEach(() => {
     mockDiaryHistory = Object.create(DiaryHistory.prototype);
     mockDiaryHistory.add = jest.fn();
+    mockToday = Object.create(Today.prototype);
+    mockToday.newDay = jest.fn();
   });
 
   describe("newDay", () => {
-    let mockLoader: TodayLoader;
-    let mockSaver: TodaySaver;
     let mockUserPreferences: UserPreferences;
     let diary: Diary;
 
     beforeEach(() => {
-      mockLoader = { load: jest.fn() };
-      mockSaver = { save: jest.fn() };
       mockUserPreferences = Object.create(UserPreferences.prototype);
       mockUserPreferences.getStartDayTarget = jest.fn().mockReturnValue(undefined);
-      diary = new Diary(mockLoader, mockSaver, mockDiaryHistory, mockUserPreferences);
+      diary = new Diary(mockToday, mockDiaryHistory, mockUserPreferences);
     });
 
     it("should create a new DayPage with today's date", () => {
-      const currentDay = {
+      const previousDay = {
         date: "6/1/2025",
         target: getDefaultTarget(),
         meals: [],
       };
-      mockLoader.load = jest.fn().mockReturnValue(currentDay);
-      
-      const day = diary.newDay();
       const todayDate = new Date().toLocaleDateString();
+      const currentDay = {
+        date: todayDate,
+        target: getDefaultTarget(),
+        meals: [],
+      };
+      mockToday.newDay = jest.fn().mockReturnValue({ current: currentDay, previous: previousDay });
+
+      const day = diary.newDay();
       expect(day.date).toBe(todayDate);
-      expect(mockDiaryHistory.add).toHaveBeenCalledWith(currentDay);
-      expect(mockSaver.save).toHaveBeenCalledWith(day);
+      expect(mockDiaryHistory.add).toHaveBeenCalledWith(previousDay);
     });
 
     it("should use the provided current day if it is today", () => {
@@ -287,28 +351,31 @@ describe("Diary class", () => {
         target: customTarget,
         meals: [newMeal()],
       };
-      mockLoader.load = jest.fn().mockReturnValue(current);
-      
+      mockToday.newDay = jest.fn().mockReturnValue({ current, previous: undefined });
+
       const day = diary.newDay();
       expect(day).toEqual(current);
       expect(mockDiaryHistory.add).not.toHaveBeenCalled();
-      expect(mockSaver.save).not.toHaveBeenCalled();
     });
 
     it("should create a new DayPage with user's start day target", () => {
-      const currentDay = {
+      const previousDay = {
         date: "6/1/2025",
         target: getDefaultTarget(),
         meals: [],
       };
-      mockLoader.load = jest.fn().mockReturnValue(currentDay);
       const startDayTarget = { ...getDefaultTarget(), unlimitedFruit: true, calorie: 1500 };
+      const currentDay = {
+        date: new Date().toLocaleDateString(),
+        target: startDayTarget,
+        meals: [],
+      };
+      mockToday.newDay = jest.fn().mockReturnValue({ current: currentDay, previous: previousDay });
       mockUserPreferences.getStartDayTarget = jest.fn().mockReturnValue(startDayTarget);
       
       const day = diary.newDay();
       expect(day.target).toEqual(startDayTarget);
-      expect(mockDiaryHistory.add).toHaveBeenCalledWith(currentDay);
-      expect(mockSaver.save).toHaveBeenCalledWith(day);
+      expect(mockDiaryHistory.add).toHaveBeenCalledWith(previousDay);
     });
   });
 

@@ -1,11 +1,11 @@
-import { CustomTargets } from "./customTarget";
+import { ReadOnlyCustomTargets } from "./customTarget";
 import { Preferences } from "./preferences";
 import { UserPreferences } from "./userPreferences";
 
 describe("UserPreferences class", () => {
   const mockPreferences = Object.create(Preferences.prototype);
   mockPreferences.getStartDayCalorieTarget = jest.fn();
-  const mockTargets = Object.create(CustomTargets.prototype);
+  const mockTargets = Object.create(ReadOnlyCustomTargets.prototype);
   mockTargets.getAll = jest.fn();
   const userPreferences = new UserPreferences(mockPreferences, mockTargets);
 

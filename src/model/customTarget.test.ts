@@ -1,4 +1,4 @@
-import { CustomTargetListener, CustomTargets, CustomTargetsLoader, CustomTargetsSaver, retrieval, validation } from './customTarget';
+import { CustomTargetListener, CustomTargets, CustomTargetsLoader, CustomTargetsSaver, ReadOnlyCustomTargets, retrieval, validation } from './customTarget';
 import { FoodGroup } from './Food';
 
 describe('validation', () => {
@@ -208,6 +208,7 @@ describe('CustomTargets class', () => {
         beforeEach(() => {
             listener = {
                 targetsUpdated: jest.fn(),
+                targetUpdated: jest.fn(),
             }
         });
 
@@ -270,10 +271,7 @@ describe('ReadOnlyCustomTargets class', () => {
             const mockLoader = {
                 load: jest.fn().mockReturnValue(targets),
             };
-            const mockSaver = {
-                save: jest.fn(),
-            };
-            const customTargets = new CustomTargets(mockLoader, mockSaver);
+            const customTargets = new ReadOnlyCustomTargets(mockLoader);
             expect(customTargets.getAll()).toEqual(targets);
             expect(mockLoader.load).toHaveBeenCalled();
         });
@@ -282,10 +280,7 @@ describe('ReadOnlyCustomTargets class', () => {
             const mockLoader = {
                 load: jest.fn().mockReturnValue([]),
             };
-            const mockSaver = {
-                save: jest.fn(),
-            };
-            const customTargets = new CustomTargets(mockLoader, mockSaver);
+            const customTargets = new ReadOnlyCustomTargets(mockLoader);
             const result = customTargets.getAll();
             expect(result.length).toBe(5);
             expect(result).toEqual(expect.arrayContaining([

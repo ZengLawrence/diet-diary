@@ -3,6 +3,7 @@ import { Food, Meal, newMeal } from "./Food";
 import { getDefaultTarget, Target } from "./Target";
 import { DiaryHistory } from "./diaryHistory";
 import { UserPreferences } from "./userPreferences";
+import { AbstractCustomTargetListener, CustomTargets } from "./customTarget";
 
 export interface DayPage {
   date: string,
@@ -133,43 +134,67 @@ export class ReadOnlyToday {
   }
 }
 
-abstract class AbstractToday extends ReadOnlyToday {
-  constructor(loader: TodayLoader, private readonly saver: TodaySaver) {
-    super(loader);
-  }
-
-  protected _saveToday(day: DayPage): void {
-    this.saver.save(day);
-  }
-
-}
-
-export class Diary extends AbstractToday {
+export class Diary {
   constructor(
-    loader: TodayLoader, 
-    saver: TodaySaver, 
-    private diaryHistory: DiaryHistory,
+    private readonly today: Today, 
+    private readonly diaryHistory: DiaryHistory,
     private readonly userPreferences: UserPreferences,
-  ) {
-    super(loader, saver);
-  }
+  ) { }
 
   newDay(): DayPage {
-    const currentDay = this.currentDay();
-    if (isToday(currentDay.date)) {
-      return currentDay;
-    }
-    const day = newDay(currentDay, this.userPreferences.getStartDayTarget());
-    this.diaryHistory.add(currentDay);
-    this._saveToday(day);
-    return day;
+    const {current, previous} = this.today.newDay(this.userPreferences.getStartDayTarget());
+    if (previous) this.diaryHistory.add(previous);
+    return current;
   }
+
 }
 
-export class Today extends AbstractToday {
+function listenToCustomTargetUpdate(customTargets: CustomTargets, today: Today) {
+  customTargets.registerListener(new class extends AbstractCustomTargetListener {
+    targetUpdated: (target: Target) => void = (target: Target) => {
+      today.updateTargetIfSameCalorie(target);
+    }
+  });
+}
+
+export function createDiary(
+  today: Today,
+  diaryHistory: DiaryHistory,
+  userPreferences: UserPreferences,
+  customTargets: CustomTargets
+): Diary {
+  const diary = new Diary(today, diaryHistory, userPreferences);
+  listenToCustomTargetUpdate(customTargets, today);
+  return diary;
+}
+
+export interface TodayListener {
+  updated: (day: DayPage) => void;
+}
+
+export class Today extends ReadOnlyToday {
+  private readonly saver: TodaySaver;
+  private listener: TodayListener | undefined;
 
   constructor(loader: TodayLoader, saver: TodaySaver) {
-    super(loader, saver);
+    super(loader);
+    this.saver = saver;
+  }
+
+  private _saveToday(day: DayPage): void {
+    this.saver.save(day);
+    this.listener?.updated(day);
+  }
+
+  newDay(startDayTarget: Target | undefined): {current: DayPage, previous: DayPage | undefined} {
+    const currentDay = this._loadToday();
+    if (isToday(currentDay.date)) {
+      return { current: currentDay, previous: undefined };
+    } else {
+      const current = newDay(currentDay, startDayTarget);
+      this._saveToday(current);
+      return { current , previous: currentDay };
+    }
   }
 
   addMeal(): DayPage {
@@ -214,9 +239,30 @@ export class Today extends AbstractToday {
     return newDay;
   }
 
+  updateTargetIfSameCalorie(target: Target): DayPage {
+    const currentDay = this._loadToday();
+    if (currentDay.target.calorie === target.calorie) {
+      const newDay = updateTarget(currentDay, target);
+      this._saveToday(newDay);
+      return newDay;
+    } else {
+      return currentDay;
+    }
+  } 
+
   toggleUnlimitedFruit(): DayPage {
     const newDay = toggleUnlimitedFruit(this._loadToday());
     this._saveToday(newDay);
     return newDay;
+  }
+
+  registerListener(listener: TodayListener): void {
+    this.listener = listener;
+  }
+
+  unregisterListener(listener: TodayListener): void {
+    if (this.listener === listener) {
+      this.listener = undefined;
+    }
   }
 }

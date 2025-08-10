@@ -83,10 +83,23 @@ export class ReadOnlyCustomTargets {
 
 export interface CustomTargetListener {
   targetsUpdated: (targets: Target[]) => void;
+  targetUpdated: (target: Target) => void;
+}
+
+export class AbstractCustomTargetListener implements CustomTargetListener {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  targetsUpdated(_targets: Target[]): void {
+    // Default implementation (can be overridden)
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  targetUpdated(_target: Target): void {
+    // Default implementation (can be overridden)
+  }
 }
 
 export class CustomTargets extends ReadOnlyCustomTargets {
-  private listener: CustomTargetListener | undefined = undefined;
+  private listeners: CustomTargetListener[] = [];
 
   constructor(
     loader: CustomTargetsLoader,
@@ -96,13 +109,11 @@ export class CustomTargets extends ReadOnlyCustomTargets {
   }
 
   registerListener(listener: CustomTargetListener) {
-    this.listener = listener;
+    this.listeners.push(listener);
   }
 
   unregisterListener(listener: CustomTargetListener) {
-    if (this.listener === listener) {
-      this.listener = undefined;
-    }
+    this.listeners = this.listeners.filter(l => l !== listener);
   }
   
   update(target: Target): boolean {
@@ -110,7 +121,10 @@ export class CustomTargets extends ReadOnlyCustomTargets {
     const updated = update(targets, target);
     if (updated) {
       this.saver.save(targets);
-      this.listener?.targetsUpdated(targets);
+      this.listeners.forEach(listener => { 
+        listener.targetsUpdated(targets); 
+        listener.targetUpdated(target); 
+      });
     }
     return updated;
   }
