@@ -1,6 +1,6 @@
 import { HistoryLocalStorage } from "../../app/historyLocalStorage";
 import { TodayLocalStorage } from "../../app/todayLocalStorage";
-import { Diary, Today } from "../../model/diary";
+import { createDiary, Today } from "../../model/diary";
 import { DiaryHistory } from "../../model/diaryHistory";
 import { userPreferences } from "../preference/api";
 import { customTargets } from "../target";
@@ -11,5 +11,9 @@ const diaryHistory = new DiaryHistory(historyLocalStorage, historyLocalStorage);
 const todayLocalStorage = new TodayLocalStorage();
 export const today = new Today(todayLocalStorage, todayLocalStorage);
 
-export const diary = new Diary(today, diaryHistory, userPreferences);
-diary.listenToCustomTargetUpdate(customTargets);
+export const diary = createDiary(
+  today,
+  diaryHistory,
+  userPreferences,
+  customTargets
+);

@@ -134,9 +134,6 @@ export class ReadOnlyToday {
   }
 }
 
-
-
-
 export class Diary {
   constructor(
     private readonly today: Today, 
@@ -150,14 +147,25 @@ export class Diary {
     return current;
   }
 
-  listenToCustomTargetUpdate(customTargets: CustomTargets) {
-    const self = this;
-    customTargets.registerListener(new class extends AbstractCustomTargetListener {
-      targetUpdated: (target: Target) => void = (target: Target) => {
-        self.today.updateTargetIfSameCalorie(target);
-      }
-    });
-  }
+}
+
+function listenToCustomTargetUpdate(customTargets: CustomTargets, today: Today) {
+  customTargets.registerListener(new class extends AbstractCustomTargetListener {
+    targetUpdated: (target: Target) => void = (target: Target) => {
+      today.updateTargetIfSameCalorie(target);
+    }
+  });
+}
+
+export function createDiary(
+  today: Today,
+  diaryHistory: DiaryHistory,
+  userPreferences: UserPreferences,
+  customTargets: CustomTargets
+): Diary {
+  const diary = new Diary(today, diaryHistory, userPreferences);
+  listenToCustomTargetUpdate(customTargets, today);
+  return diary;
 }
 
 export class Today extends ReadOnlyToday {
