@@ -8,12 +8,32 @@ import EditCustomTargetsOffcanvas from "../../features/target/EditCustomTargetsO
 import Warnings from "../warning/Warnings";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
+import { useAppDispatch } from "../../app/hooks";
+import { useEffect } from "react";
+import { today } from "../../features/day-page/api";
+import { TodayListener } from "../../model/diary";
+import { refresh } from "../../features/day-page/dayPageSlice";
 
 interface Props {
   showButton: boolean;
 }
 
 const DayPage = (props: Props) => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const todayListener: TodayListener = {
+      updated: (day) => {
+        dispatch(refresh(day));
+      },
+    };
+    today.registerListener(todayListener);
+
+    return () => {
+      today.unregisterListener(todayListener);
+    };
+  }, [dispatch]);
+
   return (
     <Container fluid="md">
       <div>
