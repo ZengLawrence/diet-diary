@@ -257,6 +257,33 @@ describe("Today class", () => {
       expect(today.toggleUnlimitedFruit().target.unlimitedFruit).toBeFalsy();
     });
   });
+
+  describe("TodayListener", () => {
+    it("should call updated with the current day", () => {
+      const current = {
+        date: "6/1/2025",
+        target: { unlimitedFruit: false, ...getDefaultTarget() },
+        meals: [],
+      };
+      const mockLoader: TodayLoader =
+      {
+        load: jest.fn().mockReturnValue(current),
+      };
+      const mockSaver: TodaySaver = { save: jest.fn() };
+      const today = new Today(mockLoader, mockSaver);
+      const listener = jest.fn();
+      today.registerListener({ updated: listener });
+
+      const newTarget = { ...current.target };
+      newTarget.serving.sweet = 0;
+      today.updateTargetIfSameCalorie(newTarget);
+      const updatedDay = {
+        ...current,
+        target: newTarget,
+      };
+      expect(listener).toHaveBeenCalledWith(updatedDay);
+    });
+  });
 });
 
 describe("ReadOnlyToday", () => {
