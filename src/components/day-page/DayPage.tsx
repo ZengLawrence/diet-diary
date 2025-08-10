@@ -13,7 +13,7 @@ interface Props {
   showButton: boolean;
 }
 
-function DayPage(props: Props) {
+const DayPage = (props: Props) => {
   return (
     <Container fluid="md">
       <div>
