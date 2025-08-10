@@ -1,18 +1,18 @@
+import { useEffect } from "react";
 import Container from "react-bootstrap/Container";
+import { useAppDispatch } from "../../app/hooks";
+import { today } from "../../features/day-page/api";
+import { refresh } from "../../features/day-page/dayPageSlice";
 import AddMealButtons from "../../features/meal-card/AddMealButtons";
 import MealCards from "../../features/meal-card/MealCards";
 import PreferenceFormOffcanvas from "../../features/preference/PreferenceFormOffcanvas";
 import SavedMealCardsOffcanvas from "../../features/saved-meal/SavedMealCardsOffcanvas";
 import TabbedSummary from "../../features/summary/TabbedSummary";
 import EditCustomTargetsOffcanvas from "../../features/target/EditCustomTargetsOffcanvas";
+import { TodayListener } from "../../model/diary";
 import Warnings from "../warning/Warnings";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
-import { useAppDispatch } from "../../app/hooks";
-import { useEffect } from "react";
-import { today } from "../../features/day-page/api";
-import { TodayListener } from "../../model/diary";
-import { refresh } from "../../features/day-page/dayPageSlice";
 
 interface Props {
   showButton: boolean;
