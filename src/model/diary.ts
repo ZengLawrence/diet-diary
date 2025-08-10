@@ -134,16 +134,7 @@ export class ReadOnlyToday {
   }
 }
 
-abstract class AbstractToday extends ReadOnlyToday {
-  constructor(loader: TodayLoader, private readonly saver: TodaySaver) {
-    super(loader);
-  }
 
-  protected _saveToday(day: DayPage): void {
-    this.saver.save(day);
-  }
-
-}
 
 export class Diary {
   constructor(
@@ -169,10 +160,16 @@ export class Diary {
   }
 }
 
-export class Today extends AbstractToday {
+export class Today extends ReadOnlyToday {
+  private readonly saver: TodaySaver;
 
   constructor(loader: TodayLoader, saver: TodaySaver) {
-    super(loader, saver);
+    super(loader);
+    this.saver = saver;
+  }
+
+  private _saveToday(day: DayPage): void {
+    this.saver.save(day);
   }
 
   newDay(startDayTarget: Target | undefined): {current: DayPage, previous: DayPage | undefined} {
