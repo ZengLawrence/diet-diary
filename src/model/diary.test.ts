@@ -292,14 +292,12 @@ describe("Diary class", () => {
 
   describe("newDay", () => {
     let mockUserPreferences: UserPreferences;
-    let mockCustomTargets: CustomTargets;
     let diary: Diary;
 
     beforeEach(() => {
       mockUserPreferences = Object.create(UserPreferences.prototype);
       mockUserPreferences.getStartDayTarget = jest.fn().mockReturnValue(undefined);
-      mockCustomTargets = Object.create(CustomTargets.prototype);
-      diary = new Diary(mockToday, mockDiaryHistory, mockUserPreferences, mockCustomTargets);
+      diary = new Diary(mockToday, mockDiaryHistory, mockUserPreferences);
     });
 
     it("should create a new DayPage with today's date", () => {

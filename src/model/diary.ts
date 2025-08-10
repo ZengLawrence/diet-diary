@@ -136,12 +136,12 @@ export class ReadOnlyToday {
 
 
 
+
 export class Diary {
   constructor(
     private readonly today: Today, 
     private readonly diaryHistory: DiaryHistory,
     private readonly userPreferences: UserPreferences,
-    private readonly customTargets: CustomTargets,
   ) { }
 
   newDay(): DayPage {
@@ -151,7 +151,7 @@ export class Diary {
   }
 
   listenToCustomTargetUpdate(customTargets: CustomTargets) {
-    const self = this;    
+    const self = this;
     customTargets.registerListener(new class extends AbstractCustomTargetListener {
       targetUpdated: (target: Target) => void = (target: Target) => {
         self.today.updateTargetIfSameCalorie(target);

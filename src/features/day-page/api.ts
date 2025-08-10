@@ -11,5 +11,5 @@ const diaryHistory = new DiaryHistory(historyLocalStorage, historyLocalStorage);
 const todayLocalStorage = new TodayLocalStorage();
 export const today = new Today(todayLocalStorage, todayLocalStorage);
 
-export const diary = new Diary(today, diaryHistory, userPreferences, customTargets);
+export const diary = new Diary(today, diaryHistory, userPreferences);
 diary.listenToCustomTargetUpdate(customTargets);
