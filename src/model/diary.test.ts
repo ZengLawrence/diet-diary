@@ -3,8 +3,6 @@ import { Food, newMeal } from "./Food";
 import { getDefaultTarget } from "./Target";
 import { DiaryHistory } from "./diaryHistory";
 import { UserPreferences } from "./userPreferences";
-import { today } from "../features/day-page/api";
-import { CustomTargets } from "./customTarget";
 
 describe("validation", () => {
   describe("isToday", () => {

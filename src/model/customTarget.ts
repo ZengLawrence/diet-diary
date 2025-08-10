@@ -87,11 +87,13 @@ export interface CustomTargetListener {
 }
 
 export class AbstractCustomTargetListener implements CustomTargetListener {
-  targetsUpdated(targets: Target[]): void {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  targetsUpdated(_targets: Target[]): void {
     // Default implementation (can be overridden)
   }
 
-  targetUpdated(target: Target): void {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  targetUpdated(_target: Target): void {
     // Default implementation (can be overridden)
   }
 }
