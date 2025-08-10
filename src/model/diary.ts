@@ -134,6 +134,10 @@ export class ReadOnlyToday {
   }
 }
 
+interface TodayListener {
+  updated: (day: DayPage) => void;
+}
+
 export class Diary {
   constructor(
     private readonly today: Today, 
@@ -170,6 +174,7 @@ export function createDiary(
 
 export class Today extends ReadOnlyToday {
   private readonly saver: TodaySaver;
+  private listener: TodayListener | undefined;
 
   constructor(loader: TodayLoader, saver: TodaySaver) {
     super(loader);
@@ -248,5 +253,15 @@ export class Today extends ReadOnlyToday {
     const newDay = toggleUnlimitedFruit(this._loadToday());
     this._saveToday(newDay);
     return newDay;
+  }
+
+  registerListener(listener: TodayListener): void {
+    this.listener = listener;
+  }
+
+  unregisterListener(listener: TodayListener): void {
+    if (this.listener === listener) {
+      this.listener = undefined;
+    }
   }
 }
