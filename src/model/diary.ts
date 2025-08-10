@@ -134,10 +134,6 @@ export class ReadOnlyToday {
   }
 }
 
-interface TodayListener {
-  updated: (day: DayPage) => void;
-}
-
 export class Diary {
   constructor(
     private readonly today: Today, 
@@ -170,6 +166,10 @@ export function createDiary(
   const diary = new Diary(today, diaryHistory, userPreferences);
   listenToCustomTargetUpdate(customTargets, today);
   return diary;
+}
+
+export interface TodayListener {
+  updated: (day: DayPage) => void;
 }
 
 export class Today extends ReadOnlyToday {
