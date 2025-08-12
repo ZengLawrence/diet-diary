@@ -6,7 +6,7 @@ import { dayPageSelector } from "../../app/selectors";
 import { AppDispatch } from "../../app/store";
 import { newDay } from "../../features/day-page/dayPageSlice";
 import { setShowCanNotAddNewDayWarning } from "../../features/warning/warningSlice";
-import { validation } from "../../model/diary";
+import { validation } from "../../model/today";
 import { VariantDanger } from "../ButtonVariant";
 
 const NewDayButton = () => {

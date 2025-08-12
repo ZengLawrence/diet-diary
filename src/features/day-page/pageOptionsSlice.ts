@@ -3,7 +3,7 @@ import { HistoryLocalStorage } from "../../app/historyLocalStorage";
 import { TodayLocalStorage } from "../../app/todayLocalStorage";
 import { DayPage } from "../../model/DayPage";
 import { ReadOnlyDiaryHistory } from "../../model/diaryHistory";
-import { ReadOnlyToday } from "../../model/diary";
+import { ReadOnlyToday } from "../../model/today";
 import { DiaryTimeline } from "../../model/diaryTimeline";
 import { addMeal, deleteMeal, deleteFood, newDay } from "./dayPageSlice";
 import { exitEditMode } from "./editModeSlice";

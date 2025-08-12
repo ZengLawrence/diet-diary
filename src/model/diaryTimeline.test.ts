@@ -1,6 +1,6 @@
 import { DiaryTimeline } from "./diaryTimeline";
 import { ReadOnlyDiaryHistory } from "./diaryHistory";
-import { ReadOnlyToday } from "./diary";
+import { ReadOnlyToday } from "./today";
 
 describe("DiaryTimeline", () => {
   let history: jest.Mocked<ReadOnlyDiaryHistory>;

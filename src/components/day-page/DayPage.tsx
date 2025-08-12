@@ -9,7 +9,7 @@ import PreferenceFormOffcanvas from "../../features/preference/PreferenceFormOff
 import SavedMealCardsOffcanvas from "../../features/saved-meal/SavedMealCardsOffcanvas";
 import TabbedSummary from "../../features/summary/TabbedSummary";
 import EditCustomTargetsOffcanvas from "../../features/target/EditCustomTargetsOffcanvas";
-import { TodayListener } from "../../model/diary";
+import { TodayListener } from "../../model/today";
 import Warnings from "../warning/Warnings";
 import { Footer } from "./Footer";
 import { Header } from "./Header";

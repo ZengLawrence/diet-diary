@@ -1,5 +1,5 @@
 import { DayWithProgress, ReadOnlyDiaryHistory } from "./diaryHistory";
-import { ReadOnlyToday } from "./diary";
+import { ReadOnlyToday } from "./today";
 
 export class DiaryTimeline {
   constructor(

@@ -1,4 +1,4 @@
-import { validation, Today, TodayLoader, TodaySaver, ReadOnlyToday, Diary } from "./diary";
+import { validation, Today, TodayLoader, TodaySaver, ReadOnlyToday, Diary } from "./today";
 import { Food, newMeal } from "./Food";
 import { getDefaultTarget } from "./Target";
 import { DiaryHistory } from "./diaryHistory";

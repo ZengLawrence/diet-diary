@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { SavedMeal } from "./SavedMeal";
-import { Today } from "./diary";
+import { Today } from "./today";
 import { DayPage } from "./DayPage";
 import { Suggestions } from "./suggestions";
 
