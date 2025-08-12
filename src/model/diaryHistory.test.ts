@@ -1,5 +1,5 @@
 import { mutations, DiaryHistory, DiaryHistoryLoader, DiaryHistorySaver, ReadOnlyDiaryHistory } from "./diaryHistory";
-import { DayPage } from "./diary";
+import { DayPage } from "./DayPage";
 
 function makeDay(date: string): DayPage {
   return {

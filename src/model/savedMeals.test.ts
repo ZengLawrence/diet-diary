@@ -1,7 +1,7 @@
 import { Food } from "./Food";
 import { SavedMeal } from "./SavedMeal";
 import { search, SavedMeals, SavedMealsLoader, SavedMealsSaver } from "./savedMeals";
-import { Today } from "./diary";
+import { Today } from "./today";
 import { Suggestions } from "./suggestions";
 
 // Helper: minimal valid Food for tests

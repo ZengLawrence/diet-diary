@@ -1,4 +1,4 @@
-import { DayPage } from "../model/diary";
+import { DayPage } from "../model/DayPage";
 import { DiaryHistoryLoader, DiaryHistorySaver } from "../model/diaryHistory";
 
 interface SerializedHistory {

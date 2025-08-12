@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { DayPage } from "../../model/diary";
+import { DayPage } from "../../model/DayPage";
 import { Food } from "../../model/Food";
 import { Target } from "../../model/Target";
 import { diary, today } from "./api";
