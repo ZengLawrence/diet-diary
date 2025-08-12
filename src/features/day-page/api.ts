@@ -1,6 +1,7 @@
 import { HistoryLocalStorage } from "../../app/historyLocalStorage";
 import { TodayLocalStorage } from "../../app/todayLocalStorage";
-import { createDiary, Today } from "../../model/today";
+import { Today } from "../../model/today";
+import { createDiary } from "../../model/diary";
 import { DiaryHistory } from "../../model/diaryHistory";
 import { userPreferences } from "../preference/api";
 import { customTargets } from "../target";

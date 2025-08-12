@@ -1,9 +1,6 @@
 import _ from "lodash";
 import { Food, Meal, newMeal } from "./Food";
 import { getDefaultTarget, Target } from "./Target";
-import { DiaryHistory } from "./diaryHistory";
-import { UserPreferences } from "./userPreferences";
-import { AbstractCustomTargetListener, CustomTargets } from "./customTarget";
 import { DayPage } from "./DayPage";
 
 function today() {
@@ -127,40 +124,6 @@ export class ReadOnlyToday {
   currentDay(): DayPage {
     return this._loadToday();
   }
-}
-
-export class Diary {
-  constructor(
-    private readonly today: Today, 
-    private readonly diaryHistory: DiaryHistory,
-    private readonly userPreferences: UserPreferences,
-  ) { }
-
-  newDay(): DayPage {
-    const {current, previous} = this.today.newDay(this.userPreferences.getStartDayTarget());
-    if (previous) this.diaryHistory.add(previous);
-    return current;
-  }
-
-}
-
-function listenToCustomTargetUpdate(customTargets: CustomTargets, today: Today) {
-  customTargets.registerListener(new class extends AbstractCustomTargetListener {
-    targetUpdated: (target: Target) => void = (target: Target) => {
-      today.updateTargetIfSameCalorie(target);
-    }
-  });
-}
-
-export function createDiary(
-  today: Today,
-  diaryHistory: DiaryHistory,
-  userPreferences: UserPreferences,
-  customTargets: CustomTargets
-): Diary {
-  const diary = new Diary(today, diaryHistory, userPreferences);
-  listenToCustomTargetUpdate(customTargets, today);
-  return diary;
 }
 
 export interface TodayListener {
