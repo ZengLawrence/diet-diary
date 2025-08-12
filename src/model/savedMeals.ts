@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { SavedMeal } from "./SavedMeal";
-import { DayPage, Today } from "./diary";
+import { Today } from "./diary";
+import { DayPage } from "./DayPage";
 import { Suggestions } from "./suggestions";
 
 function includesAllWords(meal: { foods: { description: string }[] }, words: string[]) {

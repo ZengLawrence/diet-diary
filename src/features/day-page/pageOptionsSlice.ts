@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HistoryLocalStorage } from "../../app/historyLocalStorage";
 import { TodayLocalStorage } from "../../app/todayLocalStorage";
-import { DayPage } from "../../model/diary";
+import { DayPage } from "../../model/DayPage";
 import { ReadOnlyDiaryHistory } from "../../model/diaryHistory";
 import { ReadOnlyToday } from "../../model/diary";
 import { DiaryTimeline } from "../../model/diaryTimeline";

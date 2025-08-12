@@ -1,4 +1,4 @@
-import { DayPage } from "./diary";
+import { DayPage } from "./DayPage";
 
 const MAX_DAYS = 7;
 

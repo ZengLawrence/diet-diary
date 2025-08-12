@@ -1,4 +1,4 @@
-import { DayPage } from "../model/diary";
+import { DayPage } from "../model/DayPage";
 import { TodayLoader, TodaySaver } from "../model/diary";
 
 function loadToday(): DayPage | undefined {

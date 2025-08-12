@@ -2,7 +2,7 @@ import { createSelector } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { isToday, MealEditState, MealOptions } from "../features/day-page/pageOptionsSlice";
 import { calcCaloriesDifference, calcCaloriesTotal } from "../model/calorieFunction";
-import { DayPage } from "../model/diary";
+import { DayPage } from "../model/DayPage";
 import { Meal, Serving } from "../model/Food";
 import { calcBestChoiceServingSummary, calcMealsServingSummary, calcOthersServingSummary, calcServingDifference } from "../model/servingFunction";
 import { defaultGender, Gender, Target } from "../model/Target";

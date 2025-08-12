@@ -4,12 +4,7 @@ import { getDefaultTarget, Target } from "./Target";
 import { DiaryHistory } from "./diaryHistory";
 import { UserPreferences } from "./userPreferences";
 import { AbstractCustomTargetListener, CustomTargets } from "./customTarget";
-
-export interface DayPage {
-  date: string,
-  target: Target & { unlimitedFruit: boolean },
-  meals: Meal[],
-}
+import { DayPage } from "./DayPage";
 
 function today() {
   return new Date().toLocaleDateString();
