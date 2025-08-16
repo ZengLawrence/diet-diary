@@ -77,16 +77,23 @@ describe("DiaryHistory class", () => {
 });
 
 describe("ReadOnlyDiaryHistory", () => {
+  let loader: DiaryHistoryLoader;
+  let history: ReadOnlyDiaryHistory;
+
+  beforeEach(() => {
+    loader = {
+      load: jest.fn(),
+    };
+    history = new ReadOnlyDiaryHistory(loader);
+  });
+
   describe("dayBefore", () => {
     it("returns the previous day and progress if date is found and not the first", () => {
-      const loader: DiaryHistoryLoader = {
-        load: jest.fn().mockReturnValue([
+      loader.load = jest.fn().mockReturnValue([
           makeDay("2025-06-01"),
           makeDay("2025-05-31"),
           makeDay("2025-05-30"),
-        ]),
-      };
-      const history = new ReadOnlyDiaryHistory(loader);
+        ]);
       const result = history.dayBefore("2025-05-31");
       expect(result).toBeDefined();
       if (result) {
@@ -96,13 +103,10 @@ describe("ReadOnlyDiaryHistory", () => {
     });
 
     it("returns the next day and progress if date is the first in history", () => {
-      const loader: DiaryHistoryLoader = {
-        load: jest.fn().mockReturnValue([
-          makeDay("2025-06-01"),
-          makeDay("2025-05-31"),
-        ]),
-      };
-      const history = new ReadOnlyDiaryHistory(loader);
+      loader.load = jest.fn().mockReturnValue([
+        makeDay("2025-06-01"),
+        makeDay("2025-05-31"),
+      ]);
       const result = history.dayBefore("2025-06-01");
       expect(result).toBeDefined();
       if (result) {
@@ -112,13 +116,10 @@ describe("ReadOnlyDiaryHistory", () => {
     });
 
     it("returns the first day and progress if date is not found in history", () => {
-      const loader: DiaryHistoryLoader = {
-        load: jest.fn().mockReturnValue([
-          makeDay("2025-06-01"),
-          makeDay("2025-05-31"),
-        ]),
-      };
-      const history = new ReadOnlyDiaryHistory(loader);
+      loader.load = jest.fn().mockReturnValue([
+        makeDay("2025-06-01"),
+        makeDay("2025-05-31"),
+      ]);
       const result = history.dayBefore("2025-06-02");
       expect(result).toBeDefined();
       if (result) {
@@ -128,8 +129,7 @@ describe("ReadOnlyDiaryHistory", () => {
     });
 
     it("returns undefined if history is empty", () => {
-      const loader: DiaryHistoryLoader = { load: jest.fn().mockReturnValue([]) };
-      const history = new ReadOnlyDiaryHistory(loader);
+      loader.load = jest.fn().mockReturnValue([]);
       const result = history.dayBefore("2025-06-01");
       expect(result).toBeUndefined();
     });
@@ -137,14 +137,11 @@ describe("ReadOnlyDiaryHistory", () => {
 
   describe("dayAfter", () => {
     it("returns the next day and progress if date is found and not the last", () => {
-      const loader: DiaryHistoryLoader = {
-        load: jest.fn().mockReturnValue([
+      loader.load = jest.fn().mockReturnValue([
           makeDay("2025-06-01"),
           makeDay("2025-05-31"),
           makeDay("2025-05-30"),
-        ]),
-      };
-      const history = new ReadOnlyDiaryHistory(loader);
+        ]);
       const result = history.dayAfter("2025-05-30");
       expect(result).toBeDefined();
       if (result) {
@@ -161,32 +158,25 @@ describe("ReadOnlyDiaryHistory", () => {
     });
 
     it("returns undefined if date is the last in history", () => {
-      const loader: DiaryHistoryLoader = {
-        load: jest.fn().mockReturnValue([
-          makeDay("2025-06-01"),
-          makeDay("2025-05-31"),
-        ]),
-      };
-      const history = new ReadOnlyDiaryHistory(loader);
+      loader.load = jest.fn().mockReturnValue([
+        makeDay("2025-06-01"),
+        makeDay("2025-05-31"),
+      ]);
       const result = history.dayAfter("2025-06-01");
       expect(result).toBeUndefined();
     });
 
     it("returns undefined if date is not found in history", () => {
-      const loader: DiaryHistoryLoader = {
-        load: jest.fn().mockReturnValue([
-          makeDay("2025-06-01"),
-          makeDay("2025-05-31"),
-        ]),
-      };
-      const history = new ReadOnlyDiaryHistory(loader);
+      loader.load = jest.fn().mockReturnValue([
+        makeDay("2025-06-01"),
+        makeDay("2025-05-31"),
+      ]);
       const result = history.dayAfter("2025-06-02");
       expect(result).toBeUndefined();
     });
 
     it("returns undefined if history is empty", () => {
-      const loader: DiaryHistoryLoader = { load: jest.fn().mockReturnValue([]) };
-      const history = new ReadOnlyDiaryHistory(loader);
+      loader.load = jest.fn().mockReturnValue([]);
       const result = history.dayAfter("2025-06-01");
       expect(result).toBeUndefined();
     });
