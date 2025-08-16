@@ -3,7 +3,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { calcFoodCalories } from "../../model/calorieFunction";
-import { toIntString } from "../toIntString";
+import { toIntString } from "../stringUtil";
 import { Food } from "../../model/Food";
 import { VariantDanger, VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { FoodDescriptionComboBox } from "./FoodDescriptionComboBox";

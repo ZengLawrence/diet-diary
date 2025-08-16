@@ -1,4 +1,4 @@
-import { toString } from "../toIntString";
+import { toString } from "../stringUtil";
 
 export const WeightLossSummary = (props: { calories: number; }) => (
   <div className="d-flex flex-column justify-content-center border rounded bg-info text-white text-center p-1">
