@@ -47,16 +47,23 @@ describe("mutations", () => {
 });
 
 describe("DiaryHistory class", () => {
+  let loader: DiaryHistoryLoader;
+  let saver: DiaryHistorySaver;
+  let history: DiaryHistory;
+
+  beforeEach(() => {
+    loader = {
+      load: jest.fn(),
+    };
+    saver = {
+      save: jest.fn(),
+    };
+    history = new DiaryHistory(loader, saver);
+  });
+
   describe("load history before add and save after", () => {
     it("should load existing history, add a new day, and save the updated history", () => {
-      const loader: DiaryHistoryLoader = {
-        load: jest.fn().mockReturnValue([{ date: "2025-05-31", meals: [] }]),
-      };
-      const saver: DiaryHistorySaver = {
-        save: jest.fn(),
-      };
-      const history = new DiaryHistory(loader, saver);
-
+      loader.load = jest.fn().mockReturnValue([{ date: "2025-05-31", meals: [] }]);
       const newDay = makeDay("2025-06-01");
       const result = history.add(newDay);
 
