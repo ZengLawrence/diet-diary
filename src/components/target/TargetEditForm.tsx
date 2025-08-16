@@ -10,7 +10,7 @@ import { calcFoodCalories } from "../../model/calorieFunction";
 import { retrieval, Target, validation } from "../../model/customTarget";
 import { FoodGroup, Serving } from "../../model/Food";
 import { ServingInputControl } from "../form/ServingInputControl";
-import { toIntString } from "../toIntString";
+import { toIntString } from "../stringUtil";
 
 type FoodGroupServingAction = {
     type: FoodGroup;
