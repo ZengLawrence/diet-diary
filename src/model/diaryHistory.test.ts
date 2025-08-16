@@ -90,10 +90,10 @@ describe("ReadOnlyDiaryHistory", () => {
   describe("dayBefore", () => {
     it("returns the previous day and progress if date is found and not the first", () => {
       loader.load = jest.fn().mockReturnValue([
-          makeDay("2025-06-01"),
-          makeDay("2025-05-31"),
-          makeDay("2025-05-30"),
-        ]);
+        makeDay("2025-06-01"),
+        makeDay("2025-05-31"),
+        makeDay("2025-05-30"),
+      ]);
       const result = history.dayBefore("2025-05-31");
       expect(result).toBeDefined();
       if (result) {
@@ -138,10 +138,10 @@ describe("ReadOnlyDiaryHistory", () => {
   describe("dayAfter", () => {
     it("returns the next day and progress if date is found and not the last", () => {
       loader.load = jest.fn().mockReturnValue([
-          makeDay("2025-06-01"),
-          makeDay("2025-05-31"),
-          makeDay("2025-05-30"),
-        ]);
+        makeDay("2025-06-01"),
+        makeDay("2025-05-31"),
+        makeDay("2025-05-30"),
+      ]);
       const result = history.dayAfter("2025-05-30");
       expect(result).toBeDefined();
       if (result) {
@@ -179,6 +179,39 @@ describe("ReadOnlyDiaryHistory", () => {
       loader.load = jest.fn().mockReturnValue([]);
       const result = history.dayAfter("2025-06-01");
       expect(result).toBeUndefined();
+    });
+
+    describe("totalWeightLoss", () => {
+      beforeEach(() => {
+        loader.load = jest.fn().mockReturnValue([
+          {
+            ...makeDay("2025-06-01"), meals: [
+              { mealTime: "lunch", foods: [{ description: "salad", serving: { vegetable: 2, fat: 3 } }] }
+            ]
+          },
+          {
+            ...makeDay("2025-05-31"), meals: [
+              { mealTime: "dinner", foods: [{ description: "burger", serving: { proteinDiary: 2, fat: 2, carbohydrate: 3 } }] }
+            ]
+          },
+        ]);
+      });
+
+      it("calculates total weight loss for woman", () => {
+        const result = history.totalWeightLoss("woman");
+        expect(result).toBeCloseTo(-0.827, 3);
+      });
+
+      it("calculates total weight loss for man", () => {
+        const result = history.totalWeightLoss("man");
+        expect(result).toBeCloseTo(-0.941, 3);
+      });
+
+      it("returns 0 if history is empty", () => {
+        loader.load = jest.fn().mockReturnValue([]);
+        const result = history.totalWeightLoss("woman");
+        expect(result).toBe(0);
+      });
     });
   });
 });

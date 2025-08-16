@@ -1,4 +1,6 @@
+import { calcCaloriesDifference } from "./calorieFunction";
 import { DayPage } from "./DayPage";
+import { Gender } from "./Target";
 
 const MAX_DAYS = 7;
 
@@ -8,6 +10,10 @@ function add(history: DayPage[], day: DayPage): DayPage[] {
     return newHistory.slice(0, MAX_DAYS);
   }
   return newHistory;
+}
+
+function caloriesToPound(calories: number): number {
+  return calories / 3500;
 }
 
 export interface DiaryHistoryLoader {
@@ -62,6 +68,13 @@ export class ReadOnlyDiaryHistory {
     }
     const nextIndex = index - 1;
     return { day: history[nextIndex], progress: { daysRemaining: totalDays - (nextIndex + 1), totalDays } };
+  }
+
+  totalWeightLoss(gender: Gender): number {
+    const history = this._loadHistory();
+    const calorieTarget = gender == 'woman' ? 1800 : 2000;
+    const calorieDiff = history.reduce((acc, day) => acc + calcCaloriesDifference(day.meals, calorieTarget), 0);
+    return caloriesToPound(calorieDiff);
   }
 }
 
