@@ -10,12 +10,6 @@ function add(history: DayPage[], day: DayPage): DayPage[] {
   return newHistory;
 }
 
-export const mutations = {
-  add,
-};
-
-export default mutations;
-
 export interface DiaryHistoryLoader {
   load(): DayPage[];
 }
@@ -81,7 +75,7 @@ export class DiaryHistory extends ReadOnlyDiaryHistory {
 
   add(day: DayPage): DayPage[] {
     const history = this._loadHistory();
-    const newHistory = mutations.add(history, day);
+    const newHistory = add(history, day);
     this.saver.save(newHistory);
     return newHistory;
   }
