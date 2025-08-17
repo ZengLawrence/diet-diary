@@ -1,10 +1,11 @@
-import { isValidCalorieTargetLevel } from "./Target";
+import { Gender, isValidCalorieTargetLevel } from "./Target";
 
 export interface Preference {
   startDayCalorieTarget: {
     enabled: boolean;
     level: number;
-  }
+  };
+  gender: Gender;
 }
 
 export interface PreferenceLoader {
@@ -15,11 +16,12 @@ export interface PreferenceSaver {
   save: (preference: Preference) => void;
 }
 
-const DEFAULT_PREFERENCE = {
+const DEFAULT_PREFERENCE: Preference = {
   startDayCalorieTarget: {
     enabled: false,
     level: 1600
-  }
+  },
+  gender: "man"
 }
 
 function isValid(preference: Preference) {
@@ -87,5 +89,14 @@ export class Preferences extends ReadonlyPreferences {
     };
     savePreference(this.saver, newPreference);
     return level;
+  }
+
+  setGender(gender: Gender): Gender {
+    const newPreference: Preference = {
+      ...loadPreference(this.loader),
+      gender
+    };
+    savePreference(this.saver, newPreference);
+    return gender;
   }
 }

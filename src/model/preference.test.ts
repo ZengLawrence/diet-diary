@@ -115,4 +115,23 @@ describe("Preferences", () => {
     expect(() => preferences.setStartDayCalorieTargetLevel(1234)).toThrow("Invalid calorie target level: 1234");
     expect(saver.save).not.toHaveBeenCalled();
   });
+
+  it("sets gender", () => {
+    const initialPreference = {
+      startDayCalorieTarget: {
+        enabled: true,
+        level: 1800
+      },
+      gender: "man"
+    };
+    loader.load = jest.fn().mockReturnValue(initialPreference);
+    preferences.setGender("woman");
+    expect(saver.save).toHaveBeenCalledWith({
+      startDayCalorieTarget: {
+        enabled: true,
+        level: 1800
+      },
+      gender: "woman"
+    });
+  });
 });
