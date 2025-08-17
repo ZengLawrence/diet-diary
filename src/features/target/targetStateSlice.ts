@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Gender } from "../../model/Target";
+import { preferencesApi } from "../preference/api";
 
 interface TargetState {
   gender: Gender,
 }
 
 const initialState: TargetState = {
-  gender: "man",
+  gender: preferencesApi.getGender(),
 };
 
 const targetStateSlice = createSlice({
