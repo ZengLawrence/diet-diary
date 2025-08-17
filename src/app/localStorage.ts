@@ -20,7 +20,7 @@ function loadReduxState(): SerializedReduxState | null {
 function syncGenderInPreference(gender: Gender): void {
   const preferencesLocalStorage = new PreferencesLocalStorage();
   const preference = preferencesLocalStorage.load();
-  if (preference) {
+  if (preference && !('gender' in preference)) {
     const newPreference = { ...preference, gender };
     preferencesLocalStorage.save(newPreference);
   }
@@ -47,5 +47,4 @@ function saveReduxState(state: RootState): void {
 
 export const saveState = (state: RootState) => {
   saveReduxState(state);
-  syncGenderInPreference(state.targetState.gender);
 };
