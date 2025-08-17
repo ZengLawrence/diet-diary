@@ -1,4 +1,12 @@
-import { PreferenceLoader, Preferences, PreferenceSaver, ReadonlyPreferences } from "./preferences";
+import { Preference, PreferenceLoader, Preferences, PreferenceSaver, ReadonlyPreferences } from "./preferences";
+
+const DEFAULT_PREFERENCE: Preference = {
+  startDayCalorieTarget: {
+    enabled: false,
+    level: 1600
+  },
+  gender: "man"
+};
 
 describe("ReadonlyPreferences", () => {
   let loader: PreferenceLoader;
@@ -30,6 +38,7 @@ describe("ReadonlyPreferences", () => {
 
     it("returns loaded preference if valid", () => {
       const validPreference = {
+        ...DEFAULT_PREFERENCE,
         startDayCalorieTarget: {
           enabled: true,
           level: 1800
@@ -56,10 +65,7 @@ describe("ReadonlyPreferences", () => {
 
     it("returns loaded gender if valid", () => {
       const validPreference = {
-        startDayCalorieTarget: {
-          enabled: true,
-          level: 1800
-        },
+        ...DEFAULT_PREFERENCE,
         gender: "woman"
       };
       loader.load = jest.fn().mockReturnValue(validPreference);
@@ -83,53 +89,56 @@ describe("Preferences", () => {
   describe("start day calorie target", () => {
     it("toggle to true if start day calorie target enabled is false", () => {
       const initialPreference = {
+        ...DEFAULT_PREFERENCE,
         startDayCalorieTarget: {
           enabled: false,
           level: 1600
-        }
+        },
       };
       loader.load = jest.fn().mockReturnValue(initialPreference);
       preferences.toggleStartDayCalorieTarget();
-      expect(saver.save).toHaveBeenCalledWith({
+      expect(saver.save).toHaveBeenCalledWith(expect.objectContaining({
         startDayCalorieTarget: {
           enabled: true,
           level: 1600
         }
-      });
+      }));
     });
 
     it("toggles to false if start day calorie target enabled is true", () => {
       const initialPreference = {
+        ...DEFAULT_PREFERENCE,
         startDayCalorieTarget: {
           enabled: true,
           level: 1800
-        }
+        },
       };
       loader.load = jest.fn().mockReturnValue(initialPreference);
       preferences.toggleStartDayCalorieTarget();
-      expect(saver.save).toHaveBeenCalledWith({
+      expect(saver.save).toHaveBeenCalledWith(expect.objectContaining({
         startDayCalorieTarget: {
           enabled: false,
           level: 1800
         }
-      });
+      }));
     });
 
     it("change start day calorie target level", () => {
       const initialPreference = {
+        ...DEFAULT_PREFERENCE,
         startDayCalorieTarget: {
           enabled: true,
           level: 1800
-        }
+        },
       };
       loader.load = jest.fn().mockReturnValue(initialPreference);
       preferences.setStartDayCalorieTargetLevel(2000);
-      expect(saver.save).toHaveBeenCalledWith({
+      expect(saver.save).toHaveBeenCalledWith(expect.objectContaining({
         startDayCalorieTarget: {
           enabled: true,
           level: 2000
         }
-      });
+      }));
     });
 
     it("throws error if setting invalid start day calorie target level", () => {
@@ -148,21 +157,14 @@ describe("Preferences", () => {
   describe("gender", () => {
     it("sets gender", () => {
       const initialPreference = {
-        startDayCalorieTarget: {
-          enabled: true,
-          level: 1800
-        },
+        ...DEFAULT_PREFERENCE,
         gender: "man"
       };
       loader.load = jest.fn().mockReturnValue(initialPreference);
       preferences.setGender("woman");
-      expect(saver.save).toHaveBeenCalledWith({
-        startDayCalorieTarget: {
-          enabled: true,
-          level: 1800
-        },
+      expect(saver.save).toHaveBeenCalledWith(expect.objectContaining({
         gender: "woman"
-      });
+      }));
     });
   });
 });

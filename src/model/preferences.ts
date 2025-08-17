@@ -9,7 +9,7 @@ export interface Preference {
 }
 
 export interface PreferenceLoader {
-  load: () => Preference | undefined;
+  load: () => Partial<Preference> | undefined;
 }
 
 export interface PreferenceSaver {
@@ -24,10 +24,12 @@ const DEFAULT_PREFERENCE: Preference = {
   gender: "man"
 }
 
-function isValid(preference: Preference) {
+function isValid(preference: Partial<Preference>): preference is Preference {
   return typeof preference.startDayCalorieTarget === "object"
     && typeof preference.startDayCalorieTarget.enabled === "boolean"
-    && isValidCalorieTargetLevel(preference.startDayCalorieTarget.level);
+    && isValidCalorieTargetLevel(preference.startDayCalorieTarget.level)
+    && typeof preference.gender === "string"
+    && ["man", "woman"].includes(preference.gender);
 }
 
 function loadPreference(loader: PreferenceLoader): Preference {
