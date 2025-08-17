@@ -25,3 +25,10 @@ runs:
         start: npx --yes serve ./build --listen 3000
         config: baseUrl=http://localhost:3000/${{ inputs.base-path }}
         browser: chrome
+    - name: Upload Screenshots
+      uses: actions/upload-artifact@v4
+      with:
+        name: cypress-screenshots
+        path: cypress/screenshots
+        if: failure()
+        retention-days: 7
