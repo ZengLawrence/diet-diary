@@ -104,4 +104,15 @@ describe("Preferences", () => {
     });
   });
 
+  it("throws error if setting invalid start day calorie target level", () => {
+    const initialPreference = {
+      startDayCalorieTarget: {
+        enabled: true,
+        level: 1800
+      }
+    };
+    loader.load = jest.fn().mockReturnValue(initialPreference);
+    expect(() => preferences.setStartDayCalorieTargetLevel(1234)).toThrow("Invalid calorie target level: 1234");
+    expect(saver.save).not.toHaveBeenCalled();
+  });
 });
