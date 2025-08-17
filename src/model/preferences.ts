@@ -1,31 +1,35 @@
-import { isValidCalorieTargetLevel } from "./Target";
+import { Gender, isValidCalorieTargetLevel } from "./Target";
 
 export interface Preference {
   startDayCalorieTarget: {
     enabled: boolean;
     level: number;
-  }
+  };
+  gender: Gender;
 }
 
 export interface PreferenceLoader {
-  load: () => Preference | undefined;
+  load: () => Partial<Preference> | undefined;
 }
 
 export interface PreferenceSaver {
   save: (preference: Preference) => void;
 }
 
-const DEFAULT_PREFERENCE = {
+const DEFAULT_PREFERENCE: Preference = {
   startDayCalorieTarget: {
     enabled: false,
     level: 1600
-  }
+  },
+  gender: "man"
 }
 
-function isValid(preference: Preference) {
+function isValid(preference: Partial<Preference>): preference is Preference {
   return typeof preference.startDayCalorieTarget === "object"
     && typeof preference.startDayCalorieTarget.enabled === "boolean"
-    && isValidCalorieTargetLevel(preference.startDayCalorieTarget.level);
+    && isValidCalorieTargetLevel(preference.startDayCalorieTarget.level)
+    && typeof preference.gender === "string"
+    && ["man", "woman"].includes(preference.gender);
 }
 
 function loadPreference(loader: PreferenceLoader): Preference {
@@ -48,6 +52,11 @@ export class ReadonlyPreferences {
   getStartDayCalorieTarget(): Preference["startDayCalorieTarget"] {
     const pref = loadPreference(this.loader);
     return pref.startDayCalorieTarget;
+  }
+
+  getGender(): Gender {
+    const pref = loadPreference(this.loader);
+    return pref.gender;
   }
 }
 
@@ -87,5 +96,14 @@ export class Preferences extends ReadonlyPreferences {
     };
     savePreference(this.saver, newPreference);
     return level;
+  }
+
+  setGender(gender: Gender): Gender {
+    const newPreference: Preference = {
+      ...loadPreference(this.loader),
+      gender
+    };
+    savePreference(this.saver, newPreference);
+    return gender;
   }
 }
