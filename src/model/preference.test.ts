@@ -40,6 +40,33 @@ describe("ReadonlyPreferences", () => {
       expect(result).toEqual(validPreference.startDayCalorieTarget);
     });
   });
+
+  describe("getGender", () => {
+    it("returns default gender if loader returns undefined", () => {
+      loader.load = jest.fn().mockReturnValue(undefined);
+      const result = preferences.getGender();
+      expect(result).toEqual("man");
+    });
+
+    it("returns default gender if loader returns invalid preference", () => {
+      loader.load = jest.fn().mockReturnValue({ startDayCalorieTarget: {} });
+      const result = preferences.getGender();
+      expect(result).toEqual("man");
+    });
+
+    it("returns loaded gender if valid", () => {
+      const validPreference = {
+        startDayCalorieTarget: {
+          enabled: true,
+          level: 1800
+        },
+        gender: "woman"
+      };
+      loader.load = jest.fn().mockReturnValue(validPreference);
+      const result = preferences.getGender();
+      expect(result).toEqual(validPreference.gender);
+    });
+  });
 });
 
 describe("Preferences", () => {

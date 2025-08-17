@@ -51,6 +51,11 @@ export class ReadonlyPreferences {
     const pref = loadPreference(this.loader);
     return pref.startDayCalorieTarget;
   }
+
+  getGender(): Gender {
+    const pref = loadPreference(this.loader);
+    return pref.gender;
+  }
 }
 
 export class Preferences extends ReadonlyPreferences {
