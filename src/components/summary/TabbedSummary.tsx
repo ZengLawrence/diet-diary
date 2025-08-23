@@ -5,6 +5,7 @@ import { DifferenceSummary } from "./DifferenceSummary";
 import BestChoiceComparisonSummary from "../../features/summary/BestChoiceComparisonSummary";
 import WeightLossSummary from "./WeightLossSummary";
 import { useFeatureFlag } from "../../hooks";
+import summary from "../../features/summary/api";
 
 interface Props {
   type: SummaryType;
@@ -33,7 +34,7 @@ export const TabbedSummary = (props: Props) => {
         </Tab>
         {showWeightLoss && (
           <Tab eventKey="weight-loss" title="Weight Loss">
-            <WeightLossSummary weight={1.3} />
+            <WeightLossSummary weight={summary.totalWeightLoss()} />
           </Tab>
         )}
       </Tabs>
