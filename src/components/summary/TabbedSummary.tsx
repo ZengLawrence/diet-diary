@@ -4,6 +4,7 @@ import { TotalSummary } from "./TotalSummary";
 import { DifferenceSummary } from "./DifferenceSummary";
 import BestChoiceComparisonSummary from "../../features/summary/BestChoiceComparisonSummary";
 import WeightLossSummary from "./WeightLossSummary";
+import { useFeatureFlag } from "../../hooks";
 
 interface Props {
   type: SummaryType;
@@ -11,6 +12,8 @@ interface Props {
 }
 
 export const TabbedSummary = (props: Props) => {
+  const showWeightLoss = useFeatureFlag("weightLoss");
+  
   return (
     <div className="border rounded p-1">
       <Tabs
@@ -28,9 +31,11 @@ export const TabbedSummary = (props: Props) => {
         <Tab eventKey="best-choice" title="Best Choice">
           <BestChoiceComparisonSummary />
         </Tab>
-        <Tab eventKey="weight-loss" title="Weight Loss">
-          <WeightLossSummary weight={1.3} />
-        </Tab>
+        {showWeightLoss && (
+          <Tab eventKey="weight-loss" title="Weight Loss">
+            <WeightLossSummary weight={1.3} />
+          </Tab>
+        )}
       </Tabs>
     </div>);
 }
