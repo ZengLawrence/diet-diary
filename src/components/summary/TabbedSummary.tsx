@@ -10,26 +10,27 @@ interface Props {
   onSelect: (type: SummaryType) => void;
 }
 
-export const TabbedSummary = (props: Props) => (
-  <div className="border rounded p-1">
-    <Tabs
-      id="tab-summary"
-      activeKey={props.type}
-      onSelect={(key) => props.onSelect(key as SummaryType)}
-      variant="underline"
-    >
-      <Tab eventKey="total" title="Total">
-        <TotalSummary />
-      </Tab>
-      <Tab eventKey="difference" title="Difference">
-        <DifferenceSummary />
-      </Tab>
-      <Tab eventKey="best-choice" title="Best Choice">
-        <BestChoiceComparisonSummary />
-      </Tab>
-      <Tab eventKey="weight-loss" title="Weight Loss">
-        <WeightLossSummary weight={1.3} />
-      </Tab>
-    </Tabs>
-  </div>
-);
+export const TabbedSummary = (props: Props) => {
+  return (
+    <div className="border rounded p-1">
+      <Tabs
+        id="tab-summary"
+        activeKey={props.type}
+        onSelect={(key) => props.onSelect(key as SummaryType)}
+        variant="underline"
+      >
+        <Tab eventKey="total" title="Total">
+          <TotalSummary />
+        </Tab>
+        <Tab eventKey="difference" title="Difference">
+          <DifferenceSummary />
+        </Tab>
+        <Tab eventKey="best-choice" title="Best Choice">
+          <BestChoiceComparisonSummary />
+        </Tab>
+        <Tab eventKey="weight-loss" title="Weight Loss">
+          <WeightLossSummary weight={1.3} />
+        </Tab>
+      </Tabs>
+    </div>);
+}
