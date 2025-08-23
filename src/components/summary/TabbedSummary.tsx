@@ -3,6 +3,7 @@ import { SummaryType } from "../../model/SummaryType";
 import { TotalSummary } from "./TotalSummary";
 import { DifferenceSummary } from "./DifferenceSummary";
 import BestChoiceComparisonSummary from "../../features/summary/BestChoiceComparisonSummary";
+import WeightLossSummary from "./WeightLossSummary";
 
 export const TabbedSummary = (props: { type: SummaryType; onSelect:  (type: SummaryType) => void }) => (
   <div className="border rounded p-1">
@@ -20,6 +21,9 @@ export const TabbedSummary = (props: { type: SummaryType; onSelect:  (type: Summ
       </Tab>
       <Tab eventKey="best-choice" title="Best Choice">
         <BestChoiceComparisonSummary />
+      </Tab>
+      <Tab eventKey="weight-loss" title="Weight Loss">
+        <WeightLossSummary weight={1.3} />
       </Tab>
     </Tabs>
   </div>
