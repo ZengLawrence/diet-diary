@@ -5,7 +5,12 @@ import { DifferenceSummary } from "./DifferenceSummary";
 import BestChoiceComparisonSummary from "../../features/summary/BestChoiceComparisonSummary";
 import WeightLossSummary from "./WeightLossSummary";
 
-export const TabbedSummary = (props: { type: SummaryType; onSelect:  (type: SummaryType) => void }) => (
+interface Props {
+  type: SummaryType;
+  onSelect: (type: SummaryType) => void;
+}
+
+export const TabbedSummary = (props: Props) => (
   <div className="border rounded p-1">
     <Tabs
       id="tab-summary"
