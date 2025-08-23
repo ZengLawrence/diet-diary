@@ -7,7 +7,7 @@ import { userPreferences } from "../preference/api";
 import { customTargets } from "../target";
 
 const historyLocalStorage = new HistoryLocalStorage();
-const diaryHistory = new DiaryHistory(historyLocalStorage, historyLocalStorage);
+export const diaryHistory = new DiaryHistory(historyLocalStorage, historyLocalStorage);
 
 const todayLocalStorage = new TodayLocalStorage();
 export const today = new Today(todayLocalStorage, todayLocalStorage);
