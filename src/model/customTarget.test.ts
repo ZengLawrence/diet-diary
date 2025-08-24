@@ -139,6 +139,16 @@ describe('CustomTargets class', () => {
             ]);
         });
 
+        it('should return true, and call loader.load and saver.save when updating a target and loader returns empty array', () => {
+            mockLoader.load = jest.fn().mockReturnValue([]);
+            const targetToUpdate = { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: 5 } };
+
+            expect(customTargets.update(targetToUpdate)).toBeTruthy();
+            expect(mockSaver.save).toHaveBeenCalledWith(expect.arrayContaining([
+                { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: 5 } },
+            ]));
+        });
+
         it('should return false, and not call saver.save when the target does not exist', () => {
             const targetToUpdate = { calorie: 0, serving: ZERO_SERVING };
 
