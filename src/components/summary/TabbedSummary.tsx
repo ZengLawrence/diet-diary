@@ -12,6 +12,10 @@ interface Props {
   onSelect: (type: SummaryType) => void;
 }
 
+const WeightLossTabBody = () => {
+  return <WeightLossSummary weight={summary.totalWeightLoss()} />;
+};
+
 export const TabbedSummary = (props: Props) => {
   const showWeightLoss = useFeatureFlag("weightLoss");
   
@@ -34,7 +38,7 @@ export const TabbedSummary = (props: Props) => {
         </Tab>
         {showWeightLoss && (
           <Tab eventKey="weight-loss" title="Weight Loss">
-            <WeightLossSummary weight={summary.totalWeightLoss()} />
+            <WeightLossTabBody />
           </Tab>
         )}
       </Tabs>
