@@ -27,6 +27,7 @@ describe("DiaryHistory class", () => {
     loader = {
       load: jest.fn(),
     };
+    loader.load = jest.fn().mockReturnValue([]);
     saver = {
       save: jest.fn(),
     };
@@ -72,6 +73,18 @@ describe("DiaryHistory class", () => {
       expect(loader.load).toHaveBeenCalled();
       expect(saver.save).toHaveBeenCalledWith([newDay, { date: "2025-05-31", meals: [] }]);
       expect(result).toEqual([newDay, { date: "2025-05-31", meals: [] }]);
+    });
+
+    describe("notify listener if a listener is registered", () => {
+        const listener = {
+          dayAdded: jest.fn(),
+        };
+      it("should notify listeners when a new day is added", () => {
+        history.registerListener(listener);
+        const newDay = makeDay("2025-06-01");
+        history.add(newDay);
+        expect(listener.dayAdded).toHaveBeenCalled();
+      });
     });
   });
 });

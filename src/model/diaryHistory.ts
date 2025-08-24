@@ -78,15 +78,30 @@ export class ReadOnlyDiaryHistory {
   }
 }
 
+interface DiaryHistoryListener {
+  dayAdded(): void;
+}
+
 export class DiaryHistory extends ReadOnlyDiaryHistory {
+  private listeners: DiaryHistoryListener[] = [];
+
   constructor(loader: DiaryHistoryLoader, private readonly saver: DiaryHistorySaver) {
     super(loader);
+  }
+
+  registerListener(listener: DiaryHistoryListener): void {
+    this.listeners.push(listener);
+  }
+
+  unregisterListener(listener: DiaryHistoryListener): void {
+    this.listeners = this.listeners.filter(l => l !== listener);
   }
 
   add(day: DayPage): DayPage[] {
     const history = this._loadHistory();
     const newHistory = add(history, day);
     this.saver.save(newHistory);
+    this.listeners.forEach(listener => listener.dayAdded());
     return newHistory;
   }
 }
