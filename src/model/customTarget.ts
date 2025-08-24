@@ -73,7 +73,7 @@ export interface CustomTargetsSaver {
 export class ReadOnlyCustomTargets {
   constructor(protected loader: CustomTargetsLoader) {}
 
-  protected _loadTargets(): Target[] {
+  protected _load(): Target[] {
     const targets = this.loader.load();
     if (targets.length === 0) {
       return defaultTargets();
@@ -82,7 +82,7 @@ export class ReadOnlyCustomTargets {
   }
 
   getAll(): Target[] {
-    return this._loadTargets();
+    return this._load();
   }
 }
 
@@ -129,7 +129,7 @@ export class CustomTargets extends ReadOnlyCustomTargets {
   }
 
   update(target: Target): boolean {
-    const targets = this._loadTargets();
+    const targets = this._load();
     const updated = update(targets, target);
     if (updated) {
       this._save(targets);
