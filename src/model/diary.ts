@@ -1,10 +1,10 @@
-import { CustomTargets, AbstractCustomTargetListener } from "./customTarget";
+import { AbstractCustomTargetListener, CustomTargets } from "./customTarget";
 import { DayPage } from "./DayPage";
 import { DiaryHistory } from "./diaryHistory";
+import { Preferences } from "./preferences";
 import { Target } from "./Target";
-import { Today } from "./today";
 import { TargetPreferences } from "./TargetPreferences";
-
+import { Today } from "./today";
 
 export class Diary {
   constructor(
@@ -31,10 +31,11 @@ function listenToCustomTargetUpdate(customTargets: CustomTargets, today: Today) 
 export function createDiary(
   today: Today,
   diaryHistory: DiaryHistory,
-  userPreferences: TargetPreferences,
+  preferences: Preferences,
   customTargets: CustomTargets
 ): Diary {
-  const diary = new Diary(today, diaryHistory, userPreferences);
+  const targetPreferences = new TargetPreferences(preferences, customTargets);
+  const diary = new Diary(today, diaryHistory, targetPreferences);
   listenToCustomTargetUpdate(customTargets, today);
   return diary;
 }
