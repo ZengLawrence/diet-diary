@@ -79,11 +79,8 @@ export class ReadOnlyDiaryHistory {
 }
 
 export class DiaryHistory extends ReadOnlyDiaryHistory {
-  private saver: DiaryHistorySaver;
-
-  constructor(loader: DiaryHistoryLoader, saver: DiaryHistorySaver) {
+  constructor(loader: DiaryHistoryLoader, private readonly saver: DiaryHistorySaver) {
     super(loader);
-    this.saver = saver;
   }
 
   add(day: DayPage): DayPage[] {
