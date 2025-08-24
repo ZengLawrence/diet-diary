@@ -13,7 +13,9 @@ interface Props {
 }
 
 const WeightLossTabBody = () => {
-  return <WeightLossSummary weight={summary.totalWeightLoss()} />;
+  const weight = summary.totalWeightLoss();
+
+  return <WeightLossSummary weight={weight} />;
 };
 
 export const TabbedSummary = (props: Props) => {
