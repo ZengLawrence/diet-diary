@@ -1,11 +1,13 @@
+import { useEffect, useState } from "react";
 import { Tab, Tabs } from "react-bootstrap";
-import { SummaryType } from "../../model/SummaryType";
-import { TotalSummary } from "./TotalSummary";
-import { DifferenceSummary } from "./DifferenceSummary";
-import BestChoiceComparisonSummary from "../../features/summary/BestChoiceComparisonSummary";
-import WeightLossSummary from "./WeightLossSummary";
-import { useFeatureFlag } from "../../hooks";
 import summary from "../../features/summary/api";
+import BestChoiceComparisonSummary from "../../features/summary/BestChoiceComparisonSummary";
+import { useFeatureFlag } from "../../hooks";
+import { SummaryListener } from "../../model/summary";
+import { SummaryType } from "../../model/SummaryType";
+import { DifferenceSummary } from "./DifferenceSummary";
+import { TotalSummary } from "./TotalSummary";
+import WeightLossSummary from "./WeightLossSummary";
 
 interface Props {
   type: SummaryType;
@@ -13,7 +15,22 @@ interface Props {
 }
 
 const WeightLossTabBody = () => {
-  const weight = summary.totalWeightLoss();
+  const [weight, setWeight] = useState(0.0);
+
+  useEffect(() => {
+    setWeight(summary.totalWeightLoss());
+    const listener: SummaryListener = {
+      onTotalWeightLossUpdated: () => {
+        setWeight(summary.totalWeightLoss());
+      },
+    };
+    summary.registerListener(listener);
+    
+    return () => {
+      summary.unregisterListener(listener);
+      setWeight(0.0);
+    };
+  }, []);
 
   return <WeightLossSummary weight={weight} />;
 };
