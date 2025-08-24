@@ -78,7 +78,7 @@ export class ReadOnlyDiaryHistory {
   }
 }
 
-interface DiaryHistoryListener {
+export interface DiaryHistoryListener {
   dayAdded(): void;
 }
 
