@@ -72,12 +72,17 @@ export interface CustomTargetsSaver {
 
 export class ReadOnlyCustomTargets {
   constructor(protected loader: CustomTargetsLoader) {}
-  getAll(): Target[] {
+
+  protected _load(): Target[] {
     const targets = this.loader.load();
     if (targets.length === 0) {
       return defaultTargets();
     }
     return targets;
+  }
+
+  getAll(): Target[] {
+    return this._load();
   }
 }
 
@@ -115,14 +120,20 @@ export class CustomTargets extends ReadOnlyCustomTargets {
   unregisterListener(listener: CustomTargetListener) {
     this.listeners = this.listeners.filter(l => l !== listener);
   }
-  
-  update(target: Target): boolean {
-    const targets = this.loader.load();
-    const updated = update(targets, target);
-    if (updated) {
-      this.saver.save(targets);
+
+  private _save(targets: Target[]) {
+    this.saver.save(targets);
       this.listeners.forEach(listener => { 
         listener.targetsUpdated(targets); 
+      });
+  }
+
+  update(target: Target): boolean {
+    const targets = this._load();
+    const updated = update(targets, target);
+    if (updated) {
+      this._save(targets);
+      this.listeners.forEach(listener => { 
         listener.targetUpdated(target); 
       });
     }
