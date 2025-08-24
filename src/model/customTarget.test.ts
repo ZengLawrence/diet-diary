@@ -234,6 +234,7 @@ describe('CustomTargets class', () => {
                 { calorie: 1800, serving: ZERO_SERVING },
                 { calorie: 2000, serving: ZERO_SERVING },
             ]);
+            expect(listener.targetUpdated).toHaveBeenCalledWith(targetToUpdate);
 
             // tear down
             customTargets.unregisterListener(listener);

@@ -123,6 +123,9 @@ export class CustomTargets extends ReadOnlyCustomTargets {
 
   private _save(targets: Target[]) {
     this.saver.save(targets);
+      this.listeners.forEach(listener => { 
+        listener.targetsUpdated(targets); 
+      });
   }
 
   update(target: Target): boolean {
@@ -131,7 +134,6 @@ export class CustomTargets extends ReadOnlyCustomTargets {
     if (updated) {
       this._save(targets);
       this.listeners.forEach(listener => { 
-        listener.targetsUpdated(targets); 
         listener.targetUpdated(target); 
       });
     }
