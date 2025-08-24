@@ -1,6 +1,5 @@
 import { DiaryHistory, DiaryHistoryLoader, DiaryHistorySaver, ReadOnlyDiaryHistory } from "./diaryHistory";
 import { DayPage } from "./DayPage";
-import { forEach } from "lodash";
 
 function makeDay(date: string): DayPage {
   return {
