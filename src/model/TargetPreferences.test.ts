@@ -1,13 +1,13 @@
 import { ReadOnlyCustomTargets } from "./customTarget";
 import { Preferences } from "./preferences";
-import { UserPreferences } from "./userPreferences";
+import { TargetPreferences } from "./TargetPreferences";
 
-describe("UserPreferences class", () => {
+describe("TargetPreferences class", () => {
   const mockPreferences = Object.create(Preferences.prototype);
   mockPreferences.getStartDayCalorieTarget = jest.fn();
   const mockTargets = Object.create(ReadOnlyCustomTargets.prototype);
   mockTargets.getAll = jest.fn();
-  const userPreferences = new UserPreferences(mockPreferences, mockTargets);
+  const targetPreferences = new TargetPreferences(mockPreferences, mockTargets);
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -27,7 +27,7 @@ describe("UserPreferences class", () => {
         { calorie: 1800, serving: {} },
       ]);
 
-      expect(userPreferences.getStartDayTarget()).toEqual(expect.objectContaining({ calorie: 1600 }));
+      expect(targetPreferences.getStartDayTarget()).toEqual(expect.objectContaining({ calorie: 1600 }));
     });
 
     it("should return undefined if startDayCalorieTarget is disabled", () => {
@@ -43,7 +43,7 @@ describe("UserPreferences class", () => {
         { calorie: 1800, serving: {} },
       ]);
 
-      expect(userPreferences.getStartDayTarget()).toBeUndefined();
+      expect(targetPreferences.getStartDayTarget()).toBeUndefined();
     });
 
   })

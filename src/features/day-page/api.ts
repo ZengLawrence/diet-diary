@@ -3,7 +3,7 @@ import { TodayLocalStorage } from "../../app/todayLocalStorage";
 import { Today } from "../../model/today";
 import { createDiary } from "../../model/diary";
 import { DiaryHistory } from "../../model/diaryHistory";
-import { userPreferences } from "../preference/api";
+import { targetPreferences } from "../preference/api";
 import { customTargets } from "../target";
 
 const historyLocalStorage = new HistoryLocalStorage();
@@ -15,6 +15,6 @@ export const today = new Today(todayLocalStorage, todayLocalStorage);
 export const diary = createDiary(
   today,
   diaryHistory,
-  userPreferences,
+  targetPreferences,
   customTargets
 );

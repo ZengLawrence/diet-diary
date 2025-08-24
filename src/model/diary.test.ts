@@ -3,7 +3,7 @@ import { DiaryHistory } from "./diaryHistory";
 import { newMeal } from "./Food";
 import { getDefaultTarget } from "./Target";
 import { Today } from "./today";
-import { UserPreferences } from "./userPreferences";
+import { TargetPreferences } from "./TargetPreferences";
 
 describe("Diary class", () => {
   let mockDiaryHistory: DiaryHistory;
@@ -17,13 +17,13 @@ describe("Diary class", () => {
   });
 
   describe("newDay", () => {
-    let mockUserPreferences: UserPreferences;
+    let mockTargetPreferences: TargetPreferences;
     let diary: Diary;
 
     beforeEach(() => {
-      mockUserPreferences = Object.create(UserPreferences.prototype);
-      mockUserPreferences.getStartDayTarget = jest.fn().mockReturnValue(undefined);
-      diary = new Diary(mockToday, mockDiaryHistory, mockUserPreferences);
+      mockTargetPreferences = Object.create(TargetPreferences.prototype);
+      mockTargetPreferences.getStartDayTarget = jest.fn().mockReturnValue(undefined);
+      diary = new Diary(mockToday, mockDiaryHistory, mockTargetPreferences);
     });
 
     it("should create a new DayPage with today's date", () => {
@@ -72,7 +72,7 @@ describe("Diary class", () => {
         meals: [],
       };
       mockToday.newDay = jest.fn().mockReturnValue({ current: currentDay, previous: previousDay });
-      mockUserPreferences.getStartDayTarget = jest.fn().mockReturnValue(startDayTarget);
+      mockTargetPreferences.getStartDayTarget = jest.fn().mockReturnValue(startDayTarget);
 
       const day = diary.newDay();
       expect(day.target).toEqual(startDayTarget);
