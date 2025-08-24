@@ -120,12 +120,16 @@ export class CustomTargets extends ReadOnlyCustomTargets {
   unregisterListener(listener: CustomTargetListener) {
     this.listeners = this.listeners.filter(l => l !== listener);
   }
-  
+
+  private _save(targets: Target[]) {
+    this.saver.save(targets);
+  }
+
   update(target: Target): boolean {
     const targets = this._loadTargets();
     const updated = update(targets, target);
     if (updated) {
-      this.saver.save(targets);
+      this._save(targets);
       this.listeners.forEach(listener => { 
         listener.targetsUpdated(targets); 
         listener.targetUpdated(target); 
