@@ -85,7 +85,7 @@ describe("DiaryHistory class", () => {
         listener.dayAdded = jest.fn();
       });
 
-      it("should notify listeners when a new day is added", () => {
+      it("should notify listener when a new day is added", () => {
         history.registerListener(listener);
         const newDay = makeDay("2025-06-01");
         history.add(newDay);
