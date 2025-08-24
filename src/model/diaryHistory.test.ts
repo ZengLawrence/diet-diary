@@ -1,5 +1,6 @@
 import { DiaryHistory, DiaryHistoryLoader, DiaryHistorySaver, ReadOnlyDiaryHistory } from "./diaryHistory";
 import { DayPage } from "./DayPage";
+import { forEach } from "lodash";
 
 function makeDay(date: string): DayPage {
   return {
@@ -76,14 +77,26 @@ describe("DiaryHistory class", () => {
     });
 
     describe("notify listener if a listener is registered", () => {
-        const listener = {
-          dayAdded: jest.fn(),
-        };
+      const listener = {
+        dayAdded: jest.fn(),
+      };
+
+      beforeEach(() => {
+        listener.dayAdded = jest.fn();
+      });
+
       it("should notify listeners when a new day is added", () => {
         history.registerListener(listener);
         const newDay = makeDay("2025-06-01");
         history.add(newDay);
         expect(listener.dayAdded).toHaveBeenCalled();
+      });
+
+      it("should not notify listener if the listener is unregistered", () => {
+        history.unregisterListener(listener);
+        const newDay = makeDay("2025-06-02");
+        history.add(newDay);
+        expect(listener.dayAdded).not.toHaveBeenCalled();
       });
     });
   });
