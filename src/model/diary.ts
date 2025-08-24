@@ -1,20 +1,20 @@
-import { CustomTargets, AbstractCustomTargetListener } from "./customTarget";
+import { AbstractCustomTargetListener, CustomTargets } from "./customTarget";
 import { DayPage } from "./DayPage";
 import { DiaryHistory } from "./diaryHistory";
+import { Preferences } from "./preferences";
 import { Target } from "./Target";
+import { TargetPreferences } from "./TargetPreferences";
 import { Today } from "./today";
-import { UserPreferences } from "./userPreferences";
-
 
 export class Diary {
   constructor(
     private readonly today: Today,
     private readonly diaryHistory: DiaryHistory,
-    private readonly userPreferences: UserPreferences
+    private readonly targetPreferences: TargetPreferences
   ) { }
 
   newDay(): DayPage {
-    const { current, previous } = this.today.newDay(this.userPreferences.getStartDayTarget());
+    const { current, previous } = this.today.newDay(this.targetPreferences.getStartDayTarget());
     if (previous) this.diaryHistory.add(previous);
     return current;
   }
@@ -31,10 +31,11 @@ function listenToCustomTargetUpdate(customTargets: CustomTargets, today: Today) 
 export function createDiary(
   today: Today,
   diaryHistory: DiaryHistory,
-  userPreferences: UserPreferences,
+  preferences: Preferences,
   customTargets: CustomTargets
 ): Diary {
-  const diary = new Diary(today, diaryHistory, userPreferences);
+  const targetPreferences = new TargetPreferences(preferences, customTargets);
+  const diary = new Diary(today, diaryHistory, targetPreferences);
   listenToCustomTargetUpdate(customTargets, today);
   return diary;
 }

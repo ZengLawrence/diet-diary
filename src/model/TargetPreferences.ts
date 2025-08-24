@@ -2,7 +2,7 @@ import _ from "lodash";
 import { ReadOnlyCustomTargets, Target } from "./customTarget";
 import { ReadonlyPreferences } from "./preferences";
 
-export class UserPreferences {
+export class TargetPreferences {
   constructor(
     private readonly preferences: ReadonlyPreferences,
     private readonly targets: ReadOnlyCustomTargets,
