@@ -1,16 +1,16 @@
 import { Tab, Tabs } from "react-bootstrap";
-import { SummaryType } from "../../model/SummaryType";
-import { TotalSummary } from "./TotalSummary";
-import { DifferenceSummary } from "./DifferenceSummary";
 import BestChoiceComparisonSummary from "../../features/summary/BestChoiceComparisonSummary";
-import WeightLossSummary from "./WeightLossSummary";
 import { useFeatureFlag } from "../../hooks";
-import summary from "../../features/summary/api";
+import { SummaryType } from "../../model/SummaryType";
+import { DifferenceSummary } from "./DifferenceSummary";
+import { TotalSummary } from "./TotalSummary";
+import { WeightLossTabBody } from "./WeightLossTabBody";
 
 interface Props {
   type: SummaryType;
   onSelect: (type: SummaryType) => void;
 }
+
 
 export const TabbedSummary = (props: Props) => {
   const showWeightLoss = useFeatureFlag("weightLoss");
@@ -34,7 +34,7 @@ export const TabbedSummary = (props: Props) => {
         </Tab>
         {showWeightLoss && (
           <Tab eventKey="weight-loss" title="Weight Loss">
-            <WeightLossSummary weight={summary.totalWeightLoss()} />
+            <WeightLossTabBody />
           </Tab>
         )}
       </Tabs>
