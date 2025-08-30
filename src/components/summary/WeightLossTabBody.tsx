@@ -14,12 +14,17 @@ export const WeightLossTabBody = () => {
       },
     };
     summary.registerListener(listener);
-    
+
     return () => {
       summary.unregisterListener(listener);
       setWeight(0.0);
     };
   }, []);
 
-  return <WeightLossSummary weight={weight} />;
+  return (
+    <div className="d-flex">
+      <WeightLossSummary weight={weight} />
+      <div className="flex-fill" />
+    </div>
+  );
 };
