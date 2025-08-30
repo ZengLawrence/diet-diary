@@ -1,5 +1,3 @@
-import { Gender } from "../model/Target";
-import { PreferencesLocalStorage } from "./preferencesLocalStorage";
 import { RootState } from "./store";
 
 type SerializedReduxState = RootState;
@@ -17,22 +15,12 @@ function loadReduxState(): SerializedReduxState | null {
   }
 }
 
-function syncGenderInPreference(gender: Gender): void {
-  const preferencesLocalStorage = new PreferencesLocalStorage();
-  const preference = preferencesLocalStorage.load();
-  if (preference && !('gender' in preference)) {
-    const newPreference = { ...preference, gender };
-    preferencesLocalStorage.save(newPreference);
-  }
-}
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const loadState = (): any => {
   const state = loadReduxState();
   if (state === null) {
     return undefined;
   }
-  syncGenderInPreference(state.targetState.gender);
   return state;
 }
 
