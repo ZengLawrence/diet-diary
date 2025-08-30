@@ -48,7 +48,8 @@
     "start:ci": "npx --yes serve ./build --listen 3000",
     "test": "jest",
     "test:watch": "jest --watch",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "clean": "rm -r ./build"
   },
   "browserslist": {
     "production": [
