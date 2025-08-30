@@ -1,6 +1,5 @@
 import { Tab, Tabs } from "react-bootstrap";
 import BestChoiceComparisonSummary from "../../features/summary/BestChoiceComparisonSummary";
-import { useFeatureFlag } from "../../hooks";
 import { SummaryType } from "../../model/SummaryType";
 import { DifferenceSummary } from "./DifferenceSummary";
 import { TotalSummary } from "./TotalSummary";
@@ -13,8 +12,6 @@ interface Props {
 
 
 export const TabbedSummary = (props: Props) => {
-  const showWeightLoss = useFeatureFlag("weightLoss");
-  
   return (
     <div className="border rounded p-1">
       <Tabs
@@ -32,11 +29,9 @@ export const TabbedSummary = (props: Props) => {
         <Tab eventKey="best-choice" title="Best Choice">
           <BestChoiceComparisonSummary />
         </Tab>
-        {showWeightLoss && (
-          <Tab eventKey="weight-loss" title="Weight Loss">
-            <WeightLossSummary />
-          </Tab>
-        )}
+        <Tab eventKey="weight-loss" title="Weight Loss">
+          <WeightLossSummary />
+        </Tab>
       </Tabs>
     </div>);
 }
