@@ -4,7 +4,7 @@ import { useFeatureFlag } from "../../hooks";
 import { SummaryType } from "../../model/SummaryType";
 import { DifferenceSummary } from "./DifferenceSummary";
 import { TotalSummary } from "./TotalSummary";
-import { WeightLossSummary } from "./WeightLossTabBody";
+import WeightLossSummary from "./WeightLossTabBody";
 
 interface Props {
   type: SummaryType;

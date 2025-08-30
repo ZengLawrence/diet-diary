@@ -3,7 +3,7 @@ import summary from "../../features/summary/api";
 import { SummaryListener } from "../../model/summary";
 import WeightLossTotal from "./WeightLossTotal";
 
-export const WeightLossSummary = () => {
+const WeightLossSummary = () => {
   const [weight, setWeight] = useState(0.0);
 
   useEffect(() => {
@@ -28,3 +28,5 @@ export const WeightLossSummary = () => {
     </div>
   );
 };
+
+export default WeightLossSummary;
