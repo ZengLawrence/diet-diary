@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import summary from "../../features/summary/api";
 import { SummaryListener } from "../../model/summary";
-import WeightLossSummary from "./WeightLossSummary";
+import WeightLossTotal from "./WeightLossTotal";
 
-export const WeightLossTabBody = () => {
+const WeightLossSummary = () => {
   const [weight, setWeight] = useState(0.0);
 
   useEffect(() => {
@@ -14,12 +14,19 @@ export const WeightLossTabBody = () => {
       },
     };
     summary.registerListener(listener);
-    
+
     return () => {
       summary.unregisterListener(listener);
       setWeight(0.0);
     };
   }, []);
 
-  return <WeightLossSummary weight={weight} />;
+  return (
+    <div className="d-flex">
+      <WeightLossTotal weight={weight} />
+      <div className="flex-fill" />
+    </div>
+  );
 };
+
+export default WeightLossSummary;
