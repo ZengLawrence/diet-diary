@@ -4,7 +4,7 @@ import { useFeatureFlag } from "../../hooks";
 import { SummaryType } from "../../model/SummaryType";
 import { DifferenceSummary } from "./DifferenceSummary";
 import { TotalSummary } from "./TotalSummary";
-import { WeightLossTabBody } from "./WeightLossTabBody";
+import { WeightLossSummary } from "./WeightLossTabBody";
 
 interface Props {
   type: SummaryType;
@@ -34,7 +34,7 @@ export const TabbedSummary = (props: Props) => {
         </Tab>
         {showWeightLoss && (
           <Tab eventKey="weight-loss" title="Weight Loss">
-            <WeightLossTabBody />
+            <WeightLossSummary />
           </Tab>
         )}
       </Tabs>
