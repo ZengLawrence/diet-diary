@@ -1,8 +1,7 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { mock, MockProxy } from "jest-mock-extended";
+import { describe, expect, it, jest } from "@jest/globals";
+import { mock } from "jest-mock-extended";
 import { Food, newMeal } from "./Food";
 import { getDefaultTarget } from "./Target";
-import { DiaryHistory } from "./diaryHistory";
 import { ReadOnlyToday, Today, TodayLoader, TodaySaver, validation } from "./today";
 
 describe("validation", () => {
@@ -21,11 +20,6 @@ describe("validation", () => {
 });
 
 describe("Today class", () => {
-  let mockDiaryHistory: MockProxy<DiaryHistory>;
-
-  beforeEach(() => {
-    mockDiaryHistory = mock<DiaryHistory>();
-  });
 
   describe("addMeal", () => {
     it("should add a new meal to today's meals", () => {
