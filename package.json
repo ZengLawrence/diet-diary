@@ -12,7 +12,7 @@
     "bootstrap": "^5.3.3",
     "convert-units": "3.0.0-beta.2",
     "export-to-csv": "^1.4.0",
-    "fraction.js": "^4.3.7",
+    "fraction.js": "^5.3.4",
     "lodash": "^4.17.21",
     "minisearch": "^7.1.0",
     "next": "15.5.2",
