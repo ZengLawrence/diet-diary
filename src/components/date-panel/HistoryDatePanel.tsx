@@ -27,9 +27,7 @@ const DatePanelRow = (props: React.PropsWithChildren) => (
       </div>
     </Col>
     <Col xs="auto" className="align-content-center">
-      <Row>
-        <GoToTodayButton />
-      </Row>
+      <GoToTodayButton />
     </Col>
     <Col className="d-block d-none d-sm-block" />
   </Row>
