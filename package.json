@@ -1,6 +1,6 @@
 {
   "name": "diet-diary",
-  "version": "2.52.8",
+  "version": "2.52.9",
   "private": true,
   "homepage": ".",
   "dependencies": {
@@ -38,7 +38,7 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "ts-node": "^10.9.2",
-    "typescript": "~5.7.2"
+    "typescript": "^5.9.2"
   },
   "scripts": {
     "dev": "next dev --turbopack",
