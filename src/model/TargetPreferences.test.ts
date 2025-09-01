@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { ReadOnlyCustomTargets } from "./customTarget";
 import { Preferences } from "./preferences";
 import { TargetPreferences } from "./TargetPreferences";

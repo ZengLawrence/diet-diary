@@ -1,7 +1,9 @@
-import { validation, Today, TodayLoader, TodaySaver, ReadOnlyToday } from "./today";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { mock, MockProxy } from "jest-mock-extended";
 import { Food, newMeal } from "./Food";
 import { getDefaultTarget } from "./Target";
 import { DiaryHistory } from "./diaryHistory";
+import { ReadOnlyToday, Today, TodayLoader, TodaySaver, validation } from "./today";
 
 describe("validation", () => {
   describe("isToday", () => {
@@ -19,23 +21,20 @@ describe("validation", () => {
 });
 
 describe("Today class", () => {
-  let mockDiaryHistory: DiaryHistory;
+  let mockDiaryHistory: MockProxy<DiaryHistory>;
 
   beforeEach(() => {
-    mockDiaryHistory = Object.create(DiaryHistory.prototype);
-    mockDiaryHistory.add = jest.fn();
+    mockDiaryHistory = mock<DiaryHistory>();
   });
 
   describe("addMeal", () => {
     it("should add a new meal to today's meals", () => {
-      const mockLoader: TodayLoader =
-      {
-        load: jest.fn().mockReturnValue({
-          date: new Date().toLocaleDateString(),
-          target: getDefaultTarget(),
-          meals: [newMeal()],
-        })
-      };
+      const mockLoader = mock<TodayLoader>();
+      mockLoader.load.mockReturnValue({
+        date: new Date().toLocaleDateString(),
+        target: { ...getDefaultTarget(), unlimitedFruit: false },
+        meals: [newMeal()],
+      });
       const mockSaver: TodaySaver = { save: jest.fn() };
       const today = new Today(mockLoader, mockSaver);
       const updatedDay = today.addMeal();
@@ -44,15 +43,14 @@ describe("Today class", () => {
   });
 
   describe("addSavedMeal", () => {
+    const mockLoader = mock<TodayLoader>();
+
     it("should add a saved meal to today's meals", () => {
-      const mockLoader: TodayLoader =
-      {
-        load: jest.fn().mockReturnValue({
-          date: new Date().toLocaleDateString(),
-          target: getDefaultTarget(),
-          meals: [newMeal()],
-        })
-      };
+      mockLoader.load.mockReturnValue({
+        date: new Date().toLocaleDateString(),
+        target: { ...getDefaultTarget(), unlimitedFruit: false },
+        meals: [newMeal()],
+      });
       const mockSaver: TodaySaver = { save: jest.fn() };
       const today = new Today(mockLoader, mockSaver);
       const savedFoods: Food[] = [{ description: "Apple", serving: {} }];
@@ -71,15 +69,12 @@ describe("Today class", () => {
       const emptyMeal = {
         mealTime: "empty",
         foods: [],
-      }
-      const mockLoader: TodayLoader =
-      {
-        load: jest.fn().mockReturnValue({
-          date: new Date().toLocaleDateString(),
-          target: getDefaultTarget(),
-          meals: [lunch, emptyMeal],
-        })
       };
+      mockLoader.load.mockReturnValue({
+        date: new Date().toLocaleDateString(),
+        target: { ...getDefaultTarget(), unlimitedFruit: false },
+        meals: [lunch, emptyMeal],
+      });
       const mockSaver: TodaySaver = { save: jest.fn() };
       const today = new Today(mockLoader, mockSaver);
       const savedFoods: Food[] = [{ description: "Apple", serving: {} }];
@@ -90,6 +85,8 @@ describe("Today class", () => {
   });
 
   describe("deleteMeal", () => {
+    const mockLoader = mock<TodayLoader>();
+
     it("should delete a meal from today's meals", () => {
       const mealToDelete = {
         mealTime: "lunch",
@@ -97,14 +94,11 @@ describe("Today class", () => {
           { description: "Banana", serving: {} },
         ],
       };
-      const mockLoader: TodayLoader =
-      {
-        load: jest.fn().mockReturnValue({
+      mockLoader.load.mockReturnValue({
           date: new Date().toLocaleDateString(),
-          target: getDefaultTarget(),
+          target: { ...getDefaultTarget(), unlimitedFruit: false },
           meals: [newMeal(), mealToDelete],
-        })
-      };
+        });
       const mockSaver: TodaySaver = { save: jest.fn() };
       const today = new Today(mockLoader, mockSaver);
       const updatedDay = today.deleteMeal(mealToDelete);
@@ -115,14 +109,12 @@ describe("Today class", () => {
   describe("addFood", () => {
     it("should add food to a specific meal in today's meals", () => {
       const meal = newMeal();
-      const mockLoader: TodayLoader =
-      {
-        load: jest.fn().mockReturnValue({
-          date: new Date().toLocaleDateString(),
-          target: getDefaultTarget(),
-          meals: [meal],
-        })
-      };
+      const mockLoader = mock<TodayLoader>();
+      mockLoader.load.mockReturnValue({
+        date: new Date().toLocaleDateString(),
+        target: { ...getDefaultTarget(), unlimitedFruit: false },
+        meals: [meal],
+      });
       const mockSaver: TodaySaver = { save: jest.fn() };
       const today = new Today(mockLoader, mockSaver);
       const foodToAdd: Food = { description: "Apple", serving: {} };
@@ -137,14 +129,13 @@ describe("Today class", () => {
       const meal = newMeal();
       const food: Food = { description: "Apple", serving: {} };
       meal.foods.push(food);
-      const mockLoader: TodayLoader =
-      {
-        load: jest.fn().mockReturnValue({
+      const mockLoader = mock<TodayLoader>();
+      mockLoader.load.mockReturnValue({
           date: new Date().toLocaleDateString(),
-          target: getDefaultTarget(),
+          target: { ...getDefaultTarget(), unlimitedFruit: false },
           meals: [meal],
-        })
-      };
+        });
+
       const mockSaver: TodaySaver = { save: jest.fn() };
       const today = new Today(mockLoader, mockSaver);
       const foodToUpdate = food;
@@ -159,14 +150,12 @@ describe("Today class", () => {
       const meal = newMeal();
       const food: Food = { description: "Apple", serving: {} };
       meal.foods.push(food);
-      const mockLoader: TodayLoader =
-      {
-        load: jest.fn().mockReturnValue({
-          date: new Date().toLocaleDateString(),
-          target: getDefaultTarget(),
-          meals: [meal],
-        })
-      };
+      const mockLoader = mock<TodayLoader>();
+      mockLoader.load.mockReturnValue({
+        date: new Date().toLocaleDateString(),
+        target: { ...getDefaultTarget(), unlimitedFruit: false },
+        meals: [meal],
+        });
       const mockSaver: TodaySaver = { save: jest.fn() };
       const today = new Today(mockLoader, mockSaver);
       const finalUpdatedDay = today.deleteFood(meal, food);
@@ -181,8 +170,8 @@ describe("Today class", () => {
         target: { unlimitedFruit: false, ...getDefaultTarget(2000) },
         meals: [newMeal()],
       }
-      const mockLoader: TodayLoader =
-        { load: jest.fn().mockReturnValue(currentDay) };
+      const mockLoader = mock<TodayLoader>();
+      mockLoader.load.mockReturnValue(currentDay);
       const mockSaver: TodaySaver = { save: jest.fn() };
       const today = new Today(mockLoader, mockSaver);
       const newTarget = { ...currentDay.target, calorie: 2500 };
@@ -198,8 +187,8 @@ describe("Today class", () => {
         target: { unlimitedFruit: false, ...getDefaultTarget(2000) },
         meals: [newMeal()],
       }
-      const mockLoader: TodayLoader =
-        { load: jest.fn().mockReturnValue(currentDay) };
+      const mockLoader = mock<TodayLoader>();
+      mockLoader.load.mockReturnValue(currentDay);
       const mockSaver: TodaySaver = { save: jest.fn() };
       const today = new Today(mockLoader, mockSaver);
       const newTarget = { ...currentDay.target, calorie: 2000 };
@@ -214,41 +203,37 @@ describe("Today class", () => {
         target: { unlimitedFruit: false, ...getDefaultTarget(2000) },
         meals: [newMeal()],
       }
-      const mockLoader: TodayLoader =
-        { load: jest.fn().mockReturnValue(currentDay) };
+      const mockLoader = mock<TodayLoader>();
+      mockLoader.load.mockReturnValue(currentDay);
       const mockSaver: TodaySaver = { save: jest.fn() };
       const today = new Today(mockLoader, mockSaver);
       const newTarget = { ...currentDay.target, calorie: 2500 };
       const updatedDay = today.updateTargetIfSameCalorie(newTarget);
       expect(updatedDay.target.calorie).toBe(2000);
       expect(mockSaver.save).not.toHaveBeenCalled();
-    }); 
+    });
   });
 
   describe("toggleUnlimitedFruit", () => {
     it("should toggle to true if value is false", () => {
-      const mockLoader: TodayLoader =
-      {
-        load: jest.fn().mockReturnValue({
-          date: "6/1/2025",
-          target: { unlimitedFruit: false, ...getDefaultTarget() },
-          meals: [],
-        })
-      };
+      const mockLoader = mock<TodayLoader>();
+      mockLoader.load.mockReturnValue({
+        date: "6/1/2025",
+        target: { unlimitedFruit: false, ...getDefaultTarget() },
+        meals: [],
+      });
       const mockSaver: TodaySaver = { save: jest.fn() };
       const today = new Today(mockLoader, mockSaver);
       expect(today.toggleUnlimitedFruit().target.unlimitedFruit).toBeTruthy();
     });
 
     it("should toggle to false if value is true", () => {
-      const mockLoader: TodayLoader =
-      {
-        load: jest.fn().mockReturnValue({
-          date: "6/1/2025",
-          target: { unlimitedFruit: true, ...getDefaultTarget() },
-          meals: [],
-        })
-      };
+      const mockLoader = mock<TodayLoader>();
+      mockLoader.load.mockReturnValue({
+        date: "6/1/2025",
+        target: { unlimitedFruit: true, ...getDefaultTarget() },
+        meals: [],
+      });
       const mockSaver: TodaySaver = { save: jest.fn() };
       const today = new Today(mockLoader, mockSaver);
       expect(today.toggleUnlimitedFruit().target.unlimitedFruit).toBeFalsy();
@@ -262,10 +247,8 @@ describe("Today class", () => {
         target: { unlimitedFruit: false, ...getDefaultTarget() },
         meals: [],
       };
-      const mockLoader: TodayLoader =
-      {
-        load: jest.fn().mockReturnValue(current),
-      };
+      const mockLoader = mock<TodayLoader>();
+      mockLoader.load.mockReturnValue(current);
       const mockSaver: TodaySaver = { save: jest.fn() };
       const today = new Today(mockLoader, mockSaver);
       const listener = jest.fn();
@@ -286,19 +269,15 @@ describe("Today class", () => {
 describe("ReadOnlyToday", () => {
   describe("currentDay", () => {
     it("should return current day from loader", () => {
-      const mockLoader: TodayLoader =
-      {
-        load: jest.fn().mockReturnValue({
-          date: "6/1/2025",
-          target: getDefaultTarget(),
-          meals: []
-        })
+      const mockLoader = mock<TodayLoader>();
+      const currentDayFromLoader = {
+        date: "6/1/2025",
+        target: { ...getDefaultTarget(), unlimitedFruit: false },
+        meals: []
       };
+      mockLoader.load.mockReturnValue(currentDayFromLoader);
       const today = new ReadOnlyToday(mockLoader);
-      const currentDay = today.currentDay();
-      expect(currentDay.date).toBe("6/1/2025");
-      expect(currentDay.target).toEqual(getDefaultTarget());
-      expect(currentDay.meals).toEqual([]);
+      expect(today.currentDay()).toMatchObject(currentDayFromLoader);
     });
   });
 });

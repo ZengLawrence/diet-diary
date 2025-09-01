@@ -1,5 +1,7 @@
-import { DiaryHistory, DiaryHistoryLoader, DiaryHistorySaver, ReadOnlyDiaryHistory } from "./diaryHistory";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { mock } from "jest-mock-extended";
 import { DayPage } from "./DayPage";
+import { DiaryHistory, DiaryHistoryLoader, DiaryHistorySaver, ReadOnlyDiaryHistory } from "./diaryHistory";
 
 function makeDay(date: string): DayPage {
   return {
@@ -19,15 +21,12 @@ function makeDay(date: string): DayPage {
 }
 
 describe("DiaryHistory class", () => {
-  let loader: DiaryHistoryLoader;
+  const loader = mock<DiaryHistoryLoader>();
   let saver: DiaryHistorySaver;
   let history: DiaryHistory;
 
   beforeEach(() => {
-    loader = {
-      load: jest.fn(),
-    };
-    loader.load = jest.fn().mockReturnValue([]);
+    loader.load.mockReturnValue([]);
     saver = {
       save: jest.fn(),
     };
@@ -36,7 +35,7 @@ describe("DiaryHistory class", () => {
 
   describe("add", () => {
     it("adds a new day to empty history", () => {
-      loader.load = jest.fn().mockReturnValue([]);
+      loader.load.mockReturnValue([]);
       const day = makeDay("2025-06-01");
       const result = history.add(day);
       expect(result).toEqual([day]);
@@ -46,7 +45,7 @@ describe("DiaryHistory class", () => {
     it("adds a new day to non-empty history", () => {
       const day1 = makeDay("2025-05-31");
       const day2 = makeDay("2025-06-01");
-      loader.load = jest.fn().mockReturnValue([day1]);
+      loader.load.mockReturnValue([day1]);
       const result = history.add(day2);
       expect(result).toEqual([day2, day1]);
       expect(saver.save).toHaveBeenCalledWith([day2, day1]);
@@ -55,7 +54,7 @@ describe("DiaryHistory class", () => {
     it("keeps only the latest 7 days", () => {
       const days = Array.from({ length: 7 }, (_, i) => makeDay(`2025-05-${24 + i}`));
       const newDay = makeDay("2025-06-01");
-      loader.load = jest.fn().mockReturnValue(days);
+      loader.load.mockReturnValue(days);
       const result = history.add(newDay);
       expect(result.length).toBe(7);
       expect(result[0]).toBe(newDay);
@@ -66,13 +65,14 @@ describe("DiaryHistory class", () => {
 
   describe("load history before add and save after", () => {
     it("should load existing history, add a new day, and save the updated history", () => {
-      loader.load = jest.fn().mockReturnValue([{ date: "2025-05-31", meals: [] }]);
+      const previousDay = makeDay("2025-05-31");
+      loader.load.mockReturnValue([previousDay]);
       const newDay = makeDay("2025-06-01");
       const result = history.add(newDay);
 
       expect(loader.load).toHaveBeenCalled();
-      expect(saver.save).toHaveBeenCalledWith([newDay, { date: "2025-05-31", meals: [] }]);
-      expect(result).toEqual([newDay, { date: "2025-05-31", meals: [] }]);
+      expect(saver.save).toHaveBeenCalledWith([newDay, previousDay]);
+      expect(result).toEqual([newDay, previousDay]);
     });
 
     describe("notify listener if a listener is registered", () => {
@@ -102,19 +102,16 @@ describe("DiaryHistory class", () => {
 });
 
 describe("ReadOnlyDiaryHistory", () => {
-  let loader: DiaryHistoryLoader;
+  const loader = mock<DiaryHistoryLoader>();
   let history: ReadOnlyDiaryHistory;
 
   beforeEach(() => {
-    loader = {
-      load: jest.fn(),
-    };
     history = new ReadOnlyDiaryHistory(loader);
   });
 
   describe("dayBefore", () => {
     it("returns the previous day and progress if date is found and not the first", () => {
-      loader.load = jest.fn().mockReturnValue([
+      loader.load.mockReturnValue([
         makeDay("2025-06-01"),
         makeDay("2025-05-31"),
         makeDay("2025-05-30"),
@@ -128,7 +125,7 @@ describe("ReadOnlyDiaryHistory", () => {
     });
 
     it("returns the next day and progress if date is the first in history", () => {
-      loader.load = jest.fn().mockReturnValue([
+      loader.load.mockReturnValue([
         makeDay("2025-06-01"),
         makeDay("2025-05-31"),
       ]);
@@ -141,7 +138,7 @@ describe("ReadOnlyDiaryHistory", () => {
     });
 
     it("returns the first day and progress if date is not found in history", () => {
-      loader.load = jest.fn().mockReturnValue([
+      loader.load.mockReturnValue([
         makeDay("2025-06-01"),
         makeDay("2025-05-31"),
       ]);
@@ -154,7 +151,7 @@ describe("ReadOnlyDiaryHistory", () => {
     });
 
     it("returns undefined if history is empty", () => {
-      loader.load = jest.fn().mockReturnValue([]);
+      loader.load.mockReturnValue([]);
       const result = history.dayBefore("2025-06-01");
       expect(result).toBeUndefined();
     });
@@ -162,7 +159,7 @@ describe("ReadOnlyDiaryHistory", () => {
 
   describe("dayAfter", () => {
     it("returns the next day and progress if date is found and not the last", () => {
-      loader.load = jest.fn().mockReturnValue([
+      loader.load.mockReturnValue([
         makeDay("2025-06-01"),
         makeDay("2025-05-31"),
         makeDay("2025-05-30"),
@@ -183,7 +180,7 @@ describe("ReadOnlyDiaryHistory", () => {
     });
 
     it("returns undefined if date is the last in history", () => {
-      loader.load = jest.fn().mockReturnValue([
+      loader.load.mockReturnValue([
         makeDay("2025-06-01"),
         makeDay("2025-05-31"),
       ]);
@@ -192,7 +189,7 @@ describe("ReadOnlyDiaryHistory", () => {
     });
 
     it("returns undefined if date is not found in history", () => {
-      loader.load = jest.fn().mockReturnValue([
+      loader.load.mockReturnValue([
         makeDay("2025-06-01"),
         makeDay("2025-05-31"),
       ]);
@@ -201,14 +198,14 @@ describe("ReadOnlyDiaryHistory", () => {
     });
 
     it("returns undefined if history is empty", () => {
-      loader.load = jest.fn().mockReturnValue([]);
+      loader.load.mockReturnValue([]);
       const result = history.dayAfter("2025-06-01");
       expect(result).toBeUndefined();
     });
 
     describe("totalWeightLoss", () => {
       beforeEach(() => {
-        loader.load = jest.fn().mockReturnValue([
+        loader.load.mockReturnValue([
           {
             ...makeDay("2025-06-01"), meals: [
               { mealTime: "lunch", foods: [{ description: "salad", serving: { vegetable: 2, fat: 3 } }] }
@@ -233,7 +230,7 @@ describe("ReadOnlyDiaryHistory", () => {
       });
 
       it("returns 0 if history is empty", () => {
-        loader.load = jest.fn().mockReturnValue([]);
+        loader.load.mockReturnValue([]);
         const result = history.totalWeightLoss("woman");
         expect(result).toBe(0);
       });
