@@ -1,3 +1,5 @@
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { mock } from "jest-mock-extended";
 import { CustomTargetListener, CustomTargets, CustomTargetsLoader, CustomTargetsSaver, ReadOnlyCustomTargets, retrieval, validation } from './customTarget';
 import { FoodGroup } from './Food';
 
@@ -102,7 +104,7 @@ describe('retrieval', () => {
 });
 
 describe('CustomTargets class', () => {
-    let mockLoader: jest.Mocked<CustomTargetsLoader>;
+    const mockLoader = mock<CustomTargetsLoader>();
     let mockSaver: jest.Mocked<CustomTargetsSaver>;
     let customTargets: CustomTargets;
 
@@ -114,9 +116,7 @@ describe('CustomTargets class', () => {
             { calorie: 1800, serving: ZERO_SERVING },
             { calorie: 2000, serving: ZERO_SERVING },
         ];
-        mockLoader = {
-            load: jest.fn().mockReturnValue(targets),
-        };
+        mockLoader.load.mockReturnValue(targets);
         mockSaver = {
             save: jest.fn(),
         };
@@ -140,7 +140,7 @@ describe('CustomTargets class', () => {
         });
 
         it('should return true, and call loader.load and saver.save when updating a target and loader returns empty array', () => {
-            mockLoader.load = jest.fn().mockReturnValue([]);
+            mockLoader.load.mockReturnValueOnce([]);
             const targetToUpdate = { calorie: 1200, serving: { ...ZERO_SERVING, vegetable: 5 } };
 
             expect(customTargets.update(targetToUpdate)).toBeTruthy();
@@ -279,18 +279,16 @@ describe('ReadOnlyCustomTargets class', () => {
                 { calorie: 1200, serving: ZERO_SERVING },
                 { calorie: 1400, serving: ZERO_SERVING }
             ];
-            const mockLoader = {
-                load: jest.fn().mockReturnValue(targets),
-            };
+            const mockLoader = mock<CustomTargetsLoader>();
+            mockLoader.load.mockReturnValueOnce(targets);
             const customTargets = new ReadOnlyCustomTargets(mockLoader);
             expect(customTargets.getAll()).toEqual(targets);
             expect(mockLoader.load).toHaveBeenCalled();
         });
 
         it('should return default targets with 5 calorie levels if loader returns an empty array', () => {
-            const mockLoader = {
-                load: jest.fn().mockReturnValue([]),
-            };
+            const mockLoader = mock<CustomTargetsLoader>();
+            mockLoader.load.mockReturnValueOnce([]);
             const customTargets = new ReadOnlyCustomTargets(mockLoader);
             const result = customTargets.getAll();
             expect(result.length).toBe(5);

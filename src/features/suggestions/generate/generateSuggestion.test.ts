@@ -1,7 +1,8 @@
+import { expect, test } from "@jest/globals";
 import _ from "lodash";
 import React from "react";
-import { generateSuggestions } from "./generateSuggestion";
 import { Suggestion } from "../Suggestion";
+import { generateSuggestions } from "./generateSuggestion";
 
 class MockRefObject implements React.RefObject<string> {
   current: string;
@@ -55,7 +56,7 @@ test("search with more than 5 words suggestions e.g. 'pea' should return exactly
       expect(_.keys(suggestion).length).toEqual(1);
     }
     );
-    expect(suggestions).toContainEqual<Suggestion>({ foodName: "pea" });
+    expect(suggestions).toContainEqual({ foodName: "pea" });
   }
   generateSuggestions(new MockRefObject("pea"), assert);
 })
@@ -63,7 +64,7 @@ test("search with more than 5 words suggestions e.g. 'pea' should return exactly
 test("search with no match e.g. 'longan' should return exactly 1 row with 'longan'", () => {
   const assert = (suggestions: Suggestion[]) => {
     expect(_.size(suggestions)).toEqual(1);
-    expect(suggestions).toContainEqual<Suggestion>({ foodName: "longan" });
+    expect(suggestions).toContainEqual({ foodName: "longan" });
   }
   generateSuggestions(new MockRefObject("longan"), assert);
 })

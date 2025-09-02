@@ -1,3 +1,4 @@
+import { expect, test } from "@jest/globals";
 import decompose from './DecomposedFoodDescription';
 
 test("Given only food name not space at the end, then food name and unit completed flags are false", () => {

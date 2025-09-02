@@ -1,16 +1,23 @@
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { mock, MockProxy } from "jest-mock-extended";
 import { DiaryHistory, DiaryHistoryListener } from "./diaryHistory";
 import { ReadonlyPreferences } from "./preferences";
 import { Summary } from "./summary";
 
 describe("Summary class", () => {
-  const mockDiaryHistory = Object.create(DiaryHistory.prototype);
-  mockDiaryHistory.registerListener = jest.fn();
-  const mockPreferences = Object.create(ReadonlyPreferences.prototype);
-  const summary = new Summary(mockDiaryHistory, mockPreferences);
+  let mockDiaryHistory: MockProxy<DiaryHistory>;
+  let mockPreferences: MockProxy<ReadonlyPreferences>;
+  let summary: Summary;
+
+  beforeEach(() => {
+    mockDiaryHistory = mock<DiaryHistory>();
+    mockPreferences = mock<ReadonlyPreferences>();
+    summary = new Summary(mockDiaryHistory, mockPreferences);
+  });
 
   it("should calculate total weight loss from diary history", () => {
-    mockDiaryHistory.totalWeightLoss = jest.fn().mockReturnValue(5);
-    mockPreferences.getGender = jest.fn().mockReturnValue("woman");
+    mockDiaryHistory.totalWeightLoss.mockReturnValue(5);
+    mockPreferences.getGender.mockReturnValue("woman");
 
     const result = summary.totalWeightLoss();
 
@@ -22,7 +29,7 @@ describe("Summary class", () => {
       onTotalWeightLossUpdated: jest.fn(),
     };
     let historyListener: DiaryHistoryListener | undefined;
-    mockDiaryHistory.registerListener = jest.fn((listener) => {
+    mockDiaryHistory.registerListener.mockImplementation((listener) => {
       historyListener = listener;
     });
     // registering history listener in constructor
