@@ -1,3 +1,4 @@
+import { expect, test } from "@jest/globals";
 import { generateAutoSuggestion } from "./autoSuggestion";
 
 test("Auto completion has food name only e.g. 'broccoli' should add serving from suggestions", () => {
