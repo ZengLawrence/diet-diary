@@ -4,6 +4,11 @@ module.exports = {
   distDir: './build', // Changes the build output directory to `./dist`.
   images: {
     unoptimized: true,
+    localPatterns: [
+      {
+        pathname: '/app/apple-icon.png',
+      }
+    ],
   },
   webpack(config) {
     config.resolve.fallback = {
