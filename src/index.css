@@ -64,6 +64,10 @@ code {
   fill: #ced4da;
 }
 
+.dd-brand-background-color {
+  background-color: #0dcaf0;
+}
+
 @media (min-width: 576px) {
   .dd-serving-cell-calorie {
     font-size: calc(1.325rem + 0.9vw) !important;
