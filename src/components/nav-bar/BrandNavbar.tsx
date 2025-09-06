@@ -21,8 +21,8 @@ function BrandNavbar() {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link>Home</Nav.Link>
-            <Nav.Link>Link</Nav.Link>
+            <Nav.Link>Preferences</Nav.Link>
+            <Nav.Link>Custom Targets</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
