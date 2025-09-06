@@ -50,7 +50,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "cypress:open": "cypress open",
-    "clean": "rm -r ./build"
+    "clean": "rm -r ./build ./coverage"
   },
   "browserslist": {
     "production": [
