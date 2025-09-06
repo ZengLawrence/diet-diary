@@ -28,7 +28,6 @@
   },
   "include": [
     "src",
-    "./build/types/**/*.ts",
     ".next/types/**/*.ts"
   ],
   "exclude": [
