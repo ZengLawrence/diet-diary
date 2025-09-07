@@ -6,13 +6,13 @@ import NextButton from "../button/NextButton";
 import HistoryDaysProgressBar from "./HistoryDaysProgressBar";
 
 const ViewProgressBarRow = () => (
-  <Row className="flex-fill">
+  <Row>
     <HistoryDaysProgressBar />
   </Row>
 );
 
 const DatePanelRow = (props: React.PropsWithChildren) => (
-  <Row className="flex-fill g-2">
+  <Row className="g-2">
     <Col>
       <BackButton />
     </Col>
