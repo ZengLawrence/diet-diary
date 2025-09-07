@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import logo from '../../app/apple-icon.png';
 
-function BrandNavbar() {
+const BrandNavbar = () => {
   return (
     <Navbar expand="lg" className="dd-brand-background-color">
       <Container>
