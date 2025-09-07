@@ -11,19 +11,21 @@ const TodayDatePanel = (props: React.PropsWithChildren) => {
   const showBackButton = viewOptions.hasHistory;
 
   return (
-    <Row className="flex-fill">
-      <Col xs="auto" />
-      <Col xs="auto" className="align-content-center">
-        {showBackButton && <BackButton />}
-      </Col>
-      <Col xs="auto" className="align-content-center">
-        {props.children}
-      </Col>
-      <Col xs="auto" className="align-content-center">
-        {showNewDayButton && <NewDayButton />}
-      </Col>
-      {!showNewDayButton && <Col xs="auto" />}
-    </Row>
+    <div>
+      <Row className="flex-fill">
+        <Col xs="auto" />
+        <Col xs="auto" className="align-content-center">
+          {showBackButton && <BackButton />}
+        </Col>
+        <Col xs="auto" className="align-content-center">
+          {props.children}
+        </Col>
+        <Col xs="auto" className="align-content-center">
+          {showNewDayButton && <NewDayButton />}
+        </Col>
+        {!showNewDayButton && <Col xs="auto" />}
+      </Row>
+    </div>
   );
 }
 
