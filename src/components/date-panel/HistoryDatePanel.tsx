@@ -13,18 +13,16 @@ const ViewProgressBarRow = () => (
 
 const DatePanelRow = (props: React.PropsWithChildren) => (
   <Row className="flex-fill g-2">
-    <Col className="align-content-center">
+    <Col>
       <BackButton />
     </Col>
-    <Col className="align-content-center">
+    <Col>
       {props.children}
     </Col>
-    <Col className="align-content-center">
-      <div className="align-content-center">
-        <NextButton />
-      </div>
+    <Col>
+      <NextButton />
     </Col>
-    <Col className="align-content-center">
+    <Col>
       <GoToTodayButton />
     </Col>
   </Row>
