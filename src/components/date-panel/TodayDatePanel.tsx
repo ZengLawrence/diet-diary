@@ -12,18 +12,14 @@ const TodayDatePanel = (props: React.PropsWithChildren) => {
 
   return (
     <div>
-      <Row className="flex-fill g-2">
-        <Col xs="auto" />
-        <Col xs="auto" className="align-content-center">
+      <Row className="g-2">
+        <Col>
           {showBackButton && <BackButton />}
         </Col>
-        <Col xs="auto" className="align-content-center">
+        <Col>
           {props.children}
         </Col>
-        <Col xs="auto" className="align-content-center">
-          {showNewDayButton && <NewDayButton />}
-        </Col>
-        {!showNewDayButton && <Col xs="auto" />}
+        {showNewDayButton ? <NewDayButton /> : <Col />}
       </Row>
     </div>
   );
