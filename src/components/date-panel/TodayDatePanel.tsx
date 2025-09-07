@@ -19,7 +19,9 @@ const TodayDatePanel = (props: React.PropsWithChildren) => {
         <Col>
           {props.children}
         </Col>
-        {showNewDayButton ? <NewDayButton /> : <Col />}
+        <Col>
+          {showNewDayButton && <NewDayButton />}
+        </Col>
       </Row>
     </div>
   );
