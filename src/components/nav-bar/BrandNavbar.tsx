@@ -10,7 +10,11 @@ const BrandNavbar = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <Navbar expand="lg" className="dd-brand-background-color">
+    <Navbar
+      expand="lg"
+      collapseOnSelect={true}
+      className="dd-brand-background-color"
+    >
       <Container>
         <Navbar.Brand>
           <Image
@@ -25,13 +29,15 @@ const BrandNavbar = () => {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link 
+            <Nav.Link
+              eventKey="preferences"
               onClick={() => dispatch(openPreferences())}>
-                Preferences
+              Preferences
             </Nav.Link>
-            <Nav.Link 
+            <Nav.Link
+              eventKey="custom-targets"
               onClick={() => dispatch(openCustomTargets())}>
-                Custom Targets
+              Custom Targets
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
