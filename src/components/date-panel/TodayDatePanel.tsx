@@ -12,7 +12,7 @@ const TodayDatePanel = (props: React.PropsWithChildren) => {
 
   return (
     <div>
-      <Row className="flex-fill">
+      <Row className="flex-fill g-2">
         <Col xs="auto" />
         <Col xs="auto" className="align-content-center">
           {showBackButton && <BackButton />}
