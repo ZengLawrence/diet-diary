@@ -1,6 +1,6 @@
 {
   "name": "diet-diary",
-  "version": "2.53.0",
+  "version": "2.53.1",
   "private": true,
   "homepage": ".",
   "dependencies": {
@@ -50,7 +50,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "cypress:open": "cypress open",
-    "clean": "rm -r ./build ./coverage"
+    "clean": "rm -rf ./build ./coverage"
   },
   "browserslist": {
     "production": [

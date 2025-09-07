@@ -5,11 +5,10 @@ import { today } from "../../features/day-page/api";
 import { refresh } from "../../features/day-page/dayPageSlice";
 import AddMealButtons from "../../features/meal-card/AddMealButtons";
 import MealCards from "../../features/meal-card/MealCards";
-import PreferenceFormOffcanvas from "../../features/preference/PreferenceFormOffcanvas";
 import SavedMealCardsOffcanvas from "../../features/saved-meal/SavedMealCardsOffcanvas";
 import TabbedSummary from "../../features/summary/TabbedSummary";
-import EditCustomTargetsOffcanvas from "../../features/target/EditCustomTargetsOffcanvas";
 import { TodayListener } from "../../model/today";
+import BrandNavbar from "../nav-bar/BrandNavbar";
 import Warnings from "../warning/Warnings";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
@@ -37,6 +36,7 @@ const DayPage = (props: Props) => {
   return (
     <Container fluid="md">
       <div>
+        <BrandNavbar />
         <div className="d-flex flex-fill mb-2">
           <Header />
         </div>
@@ -55,8 +55,6 @@ const DayPage = (props: Props) => {
       </div>
 
       <SavedMealCardsOffcanvas />
-      <PreferenceFormOffcanvas />
-      <EditCustomTargetsOffcanvas />
 
     </Container>
   );

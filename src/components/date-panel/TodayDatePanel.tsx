@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { viewOptionsSelector } from "../../app/selectors";
 import BackButton from "../button/BackButton";
 import NewDayButton from "../day-page/NewDayButton";
-import HamburgerMenu from "../menu/HamburgerMenu";
 
 const TodayDatePanel = (props: React.PropsWithChildren) => {
   const viewOptions = useSelector(viewOptionsSelector);
@@ -13,9 +12,7 @@ const TodayDatePanel = (props: React.PropsWithChildren) => {
 
   return (
     <Row className="flex-fill">
-      <Col className="align-content-center">
-        <HamburgerMenu />
-      </Col>
+      <Col xs="auto" />
       <Col xs="auto" className="align-content-center">
         {showBackButton && <BackButton />}
       </Col>
@@ -26,7 +23,6 @@ const TodayDatePanel = (props: React.PropsWithChildren) => {
         {showNewDayButton && <NewDayButton />}
       </Col>
       {!showNewDayButton && <Col xs="auto" />}
-      <Col />
     </Row>
   );
 }
