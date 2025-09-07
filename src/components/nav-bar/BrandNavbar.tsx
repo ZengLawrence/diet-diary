@@ -3,8 +3,12 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import logo from '../../app/apple-icon.png';
+import { useAppDispatch } from '../../app/hooks';
+import { openCustomTargets, openPreferences } from '../../features/overlays/overlaysSlice';
 
 const BrandNavbar = () => {
+  const dispatch = useAppDispatch();
+
   return (
     <Navbar expand="lg" className="dd-brand-background-color">
       <Container>
@@ -21,8 +25,14 @@ const BrandNavbar = () => {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link>Preferences</Nav.Link>
-            <Nav.Link>Custom Targets</Nav.Link>
+            <Nav.Link 
+              onClick={() => dispatch(openPreferences())}>
+                Preferences
+            </Nav.Link>
+            <Nav.Link 
+              onClick={() => dispatch(openCustomTargets())}>
+                Custom Targets
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
