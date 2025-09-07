@@ -57,8 +57,6 @@ const DayPage = (props: Props) => {
       </div>
 
       <SavedMealCardsOffcanvas />
-      <PreferenceFormOffcanvas />
-      <EditCustomTargetsOffcanvas />
 
     </Container>
   );

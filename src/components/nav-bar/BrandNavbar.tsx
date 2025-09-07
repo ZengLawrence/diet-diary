@@ -5,6 +5,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import logo from '../../app/apple-icon.png';
 import { useAppDispatch } from '../../app/hooks';
 import { openCustomTargets, openPreferences } from '../../features/overlays/overlaysSlice';
+import PreferenceFormOffcanvas from '../../features/preference/PreferenceFormOffcanvas';
+import EditCustomTargetsOffcanvas from '../../features/target/EditCustomTargetsOffcanvas';
 
 const BrandNavbar = () => {
   const dispatch = useAppDispatch();
@@ -42,7 +44,10 @@ const BrandNavbar = () => {
           </Nav>
         </Navbar.Collapse>
       </Container>
-    </Navbar>
+
+      <PreferenceFormOffcanvas />
+      <EditCustomTargetsOffcanvas />
+  </Navbar>
   );
 }
 
