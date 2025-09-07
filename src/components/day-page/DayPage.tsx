@@ -10,6 +10,7 @@ import SavedMealCardsOffcanvas from "../../features/saved-meal/SavedMealCardsOff
 import TabbedSummary from "../../features/summary/TabbedSummary";
 import EditCustomTargetsOffcanvas from "../../features/target/EditCustomTargetsOffcanvas";
 import { TodayListener } from "../../model/today";
+import BrandNavbar from "../nav-bar/BrandNavbar";
 import Warnings from "../warning/Warnings";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
@@ -37,6 +38,7 @@ const DayPage = (props: Props) => {
   return (
     <Container fluid="md">
       <div>
+        <BrandNavbar />
         <div className="d-flex flex-fill mb-2">
           <Header />
         </div>
