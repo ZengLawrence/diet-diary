@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Ledger&display=swap');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -72,4 +74,18 @@ code {
   .dd-serving-cell-calorie {
     font-size: calc(1.325rem + 0.9vw) !important;
   }
+}
+
+.brand-font {
+  font-family: "Ledger", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.brand-yellow-color {
+  color: var(--bs-yellow);
+}
+
+.brand-white-color {
+  color: var(--bs-white);
 }
