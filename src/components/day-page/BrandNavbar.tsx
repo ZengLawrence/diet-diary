@@ -18,7 +18,7 @@ const BrandNavbar = () => {
       className="dd-brand-background-color"
     >
       <Container>
-        <Navbar.Brand className="brand-font">
+        <Navbar.Brand className="dd-brand-font">
           <Image
             src={logo}
             alt="Logo"
@@ -26,7 +26,7 @@ const BrandNavbar = () => {
             height="30"
             className="d-inline-block align-top"
           />{' '}
-          <span className="brand-yellow-color">Diet</span><span className="brand-white-color"> Diary</span>
+          <span className="dd-brand-yellow-color">Diet</span><span className="dd-brand-white-color"> Diary</span>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
