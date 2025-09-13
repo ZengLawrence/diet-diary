@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Allison&family=Caveat+Brush&family=Charm:wght@400;700&family=Cookie&family=Italianno&family=Leckerli+One&family=Parisienne&family=Sriracha&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ledger&display=swap');
 
 body {
   margin: 0;
@@ -77,8 +77,7 @@ code {
 }
 
 .brand-font {
-  font-family: "Italianno", cursive;
+  font-family: "Ledger", serif;
   font-weight: 700;
   font-style: normal;
-  font-size: 48px !important;
 }
