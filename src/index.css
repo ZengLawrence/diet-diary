@@ -81,3 +81,11 @@ code {
   font-weight: 700;
   font-style: normal;
 }
+
+.brand-yellow-color {
+  color: var(--bs-yellow);
+}
+
+.brand-white-color {
+  color: var(--bs-white);
+}
