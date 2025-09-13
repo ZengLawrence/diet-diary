@@ -30,5 +30,5 @@ runs:
       with:
         name: cypress-screenshots
         path: cypress/screenshots
-        if: failure()
+        if: ${{ failure() }}
         retention-days: 7
