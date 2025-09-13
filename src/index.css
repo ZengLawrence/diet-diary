@@ -68,6 +68,7 @@ code {
 
 .dd-brand-background-color {
   background-color: #0dcaf0;
+  background-image: var(--bs-gradient);
 }
 
 @media (min-width: 576px) {
