@@ -36,7 +36,9 @@ const DayPage = (props: Props) => {
   return (
     <Container fluid="md">
       <div>
-        <BrandNavbar />
+        <div className="mb-2">
+          <BrandNavbar />
+        </div>
         <div className="d-flex flex-fill mb-2">
           <Header />
         </div>
