@@ -25,6 +25,7 @@ const BrandNavbar = () => {
             width="30"
             height="30"
             priority={true}
+            className="d-inline-block align-top"
           />{' '}
           Diet Diary
         </Navbar.Brand>
