@@ -77,16 +77,16 @@ code {
   }
 }
 
-.brand-font {
+.dd-brand-font {
   font-family: "Ledger", serif;
   font-weight: 700;
   font-style: normal;
 }
 
-.brand-yellow-color {
+.dd-brand-yellow-color {
   color: var(--bs-yellow);
 }
-
-.brand-white-color {
+  
+.dd-brand-white-color {
   color: var(--bs-white);
 }
