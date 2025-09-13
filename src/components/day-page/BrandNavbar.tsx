@@ -18,7 +18,7 @@ const BrandNavbar = () => {
       className="dd-brand-background-color"
     >
       <Container>
-        <Navbar.Brand>
+        <Navbar.Brand className='brand-font'>
           <Image
             src={logo}
             alt="Logo"
