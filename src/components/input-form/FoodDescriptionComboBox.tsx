@@ -7,13 +7,14 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { Suggestion } from "../../features/suggestions/Suggestion";
+import { useFeatureFlag } from "../../hooks";
 import { Serving } from "../../model/Food";
 import { calcServingCalories } from "../../model/calorieFunction";
 import { BestChoiceLegend } from "../BestChoiceLegend";
 import { BlueStar } from "../BlueStar";
+import { VariantSecondary } from "../ButtonVariant";
 import { CalorieSpan } from "../CalorieSpan";
 import { FoodGroupServingBadgePanel } from "../panels/FoodGroupServingBadgePanel";
-import { VariantSecondary } from "../ButtonVariant";
 
 function foodDescription(suggestion: Suggestion) {
   if (suggestion.amount) {
@@ -113,6 +114,8 @@ export const FoodDescriptionComboBox = (props: Props) => {
     }
   };
 
+  const showExpandButton = useFeatureFlag("expand-food-input");
+
   return (
     <Dropdown ref={ref} show={showDropDown} onSelect={() => setShowDropDown(false)}>
 
@@ -130,13 +133,15 @@ export const FoodDescriptionComboBox = (props: Props) => {
           autoFocus
           ref={inputRef}
         />
-        <Button
-          variant={VariantSecondary}
-          onClick={props.onExpand}
-          className="d-sm-none"
-        >
-          <FontAwesomeIcon icon={faExpand} />
-        </Button>
+        {showExpandButton &&
+          <Button
+            variant={VariantSecondary}
+            onClick={props.onExpand}
+            className="d-sm-none"
+          >
+            <FontAwesomeIcon icon={faExpand} />
+          </Button>
+        }
       </InputGroup>
       <Form.Control.Feedback type="invalid">
         Please enter food description.
