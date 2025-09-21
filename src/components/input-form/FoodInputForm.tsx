@@ -36,13 +36,15 @@ const FoodDescriptionOffcanvas = (props: { show: boolean; onHide: () => void; })
 
 export const FoodInputForm = (props: Props) => {
   const [state, fns] = useFoodInputFormStateReducer(props.food, props.onSaveFood);
-  const { food, error, suggestions } = state;
+  const { food, error, suggestions, expand } = state;
   const {
     updateFoodDescription,
     updateFoodDescriptionServing,
     updateFoodGroupServing,
     toggleBestChoice,
-    handleSubmit } = fns;
+    handleSubmit,
+    setExpand,
+  } = fns;
 
   return (
     <Form
@@ -58,6 +60,7 @@ export const FoodInputForm = (props: Props) => {
           invalid={error.foodDescription}
           updateFoodDescription={updateFoodDescription}
           updateFoodDescriptionServing={updateFoodDescriptionServing}
+          onExpand={() => setExpand(true)}
         />
       </Form.Group>
 
@@ -106,7 +109,7 @@ export const FoodInputForm = (props: Props) => {
         </Col>
       </Row>
 
-      <FoodDescriptionOffcanvas show={true} onHide={() => { }} />
+      <FoodDescriptionOffcanvas show={expand} onHide={() => setExpand(false)} />
     </Form>
   )
 }
