@@ -1,12 +1,18 @@
+import { faExpand } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import { RefObject, useEffect, useRef, useState } from "react";
+import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 import { Suggestion } from "../../features/suggestions/Suggestion";
+import { useFeatureFlag } from "../../hooks";
 import { Serving } from "../../model/Food";
 import { calcServingCalories } from "../../model/calorieFunction";
 import { BestChoiceLegend } from "../BestChoiceLegend";
 import { BlueStar } from "../BlueStar";
+import { VariantSecondary } from "../ButtonVariant";
 import { CalorieSpan } from "../CalorieSpan";
 import { FoodGroupServingBadgePanel } from "../panels/FoodGroupServingBadgePanel";
 
@@ -60,6 +66,7 @@ interface Props {
   invalid?: boolean;
   updateFoodDescription: (desc: string) => void;
   updateFoodDescriptionServing: (desc: string, serving?: Serving, bestChoice?: boolean) => void;
+  onExpand?: () => void;
 }
 
 function useClickOutside(ref: RefObject<HTMLDivElement | null>, handler: () => void) {
@@ -107,22 +114,35 @@ export const FoodDescriptionComboBox = (props: Props) => {
     }
   };
 
+  const showExpandButton = useFeatureFlag("expand-food-input");
+
   return (
     <Dropdown ref={ref} show={showDropDown} onSelect={() => setShowDropDown(false)}>
 
       <Form.Label htmlFor="inputFoodDescription">Food description</Form.Label>
-      <Form.Control
-        id="inputFoodDescription"
-        type="text"
-        placeholder="Broccoli steamed 1 cup"
-        value={props.foodName}
-        onChange={handleChange}
-        onKeyDown={handleEscapeKeyDown}
-        required
-        isInvalid={props.invalid}
-        autoFocus
-        ref={inputRef}
-      />
+      <InputGroup>
+        <Form.Control
+          id="inputFoodDescription"
+          type="text"
+          placeholder="Broccoli steamed 1 cup"
+          value={props.foodName}
+          onChange={handleChange}
+          onKeyDown={handleEscapeKeyDown}
+          required
+          isInvalid={props.invalid}
+          autoFocus
+          ref={inputRef}
+        />
+        {showExpandButton &&
+          <Button
+            variant={VariantSecondary}
+            onClick={props.onExpand}
+            className="d-sm-none"
+          >
+            <FontAwesomeIcon icon={faExpand} />
+          </Button>
+        }
+      </InputGroup>
       <Form.Control.Feedback type="invalid">
         Please enter food description.
       </Form.Control.Feedback>

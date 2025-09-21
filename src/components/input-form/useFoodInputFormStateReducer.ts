@@ -83,17 +83,28 @@ const error = createSlice({
 })
 const { validationFailed } = error.actions;
 
+const expand = createSlice({
+  name: "expand",
+  initialState: false,
+  reducers: {
+    setExpand: (_state, action: PayloadAction<boolean>) => action.payload,
+  }
+})
+const { setExpand } = expand.actions;
+
 const reducer = combineReducers({
   food: food.reducer,
   error: error.reducer,
   suggestions: suggestions.reducer,
+  expand: expand.reducer,
 })
 
 function initialState(food: Food) {
   return {
     food,
     error: {},
-    suggestions: []
+    suggestions: [],
+    expand: false,
   };
 }
 
@@ -155,6 +166,7 @@ const handleSubmit = (
 }
 
 const _toggleBestChoice = (dispatch: React.Dispatch<Action>) => dispatch(toggleBestChoice());
+const _setExpand = (dispatch: React.Dispatch<Action>, expand: boolean) => dispatch(setExpand(expand));
 
 export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialFood, initialState);
@@ -179,6 +191,7 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
     updateFoodGroupServing: _.partial(updateFoodGroupServing, dispatch),
     handleSubmit: _.partial(handleSubmit, dispatch, state, onSaveFood),
     toggleBestChoice: _.partial(_toggleBestChoice, dispatch),
+    setExpand: _.partial(_setExpand, dispatch),
   }
   return [state, fns] as [typeof state, typeof fns];
 }
