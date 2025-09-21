@@ -65,6 +65,7 @@ interface Props {
   invalid?: boolean;
   updateFoodDescription: (desc: string) => void;
   updateFoodDescriptionServing: (desc: string, serving?: Serving, bestChoice?: boolean) => void;
+  onExpand?: () => void;
 }
 
 function useClickOutside(ref: RefObject<HTMLDivElement | null>, handler: () => void) {
@@ -129,7 +130,12 @@ export const FoodDescriptionComboBox = (props: Props) => {
           autoFocus
           ref={inputRef}
         />
-        <Button variant={VariantSecondary}><FontAwesomeIcon icon={faExpand} /></Button>
+        <Button
+          variant={VariantSecondary}
+          onClick={props.onExpand}
+        >
+          <FontAwesomeIcon icon={faExpand} />
+        </Button>
       </InputGroup>
       <Form.Control.Feedback type="invalid">
         Please enter food description.
