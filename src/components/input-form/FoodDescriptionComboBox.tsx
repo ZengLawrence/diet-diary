@@ -1,7 +1,11 @@
+import { faExpand } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import { RefObject, useEffect, useRef, useState } from "react";
+import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 import { Suggestion } from "../../features/suggestions/Suggestion";
 import { Serving } from "../../model/Food";
 import { calcServingCalories } from "../../model/calorieFunction";
@@ -9,6 +13,7 @@ import { BestChoiceLegend } from "../BestChoiceLegend";
 import { BlueStar } from "../BlueStar";
 import { CalorieSpan } from "../CalorieSpan";
 import { FoodGroupServingBadgePanel } from "../panels/FoodGroupServingBadgePanel";
+import { VariantSecondary } from "../ButtonVariant";
 
 function foodDescription(suggestion: Suggestion) {
   if (suggestion.amount) {
@@ -111,18 +116,21 @@ export const FoodDescriptionComboBox = (props: Props) => {
     <Dropdown ref={ref} show={showDropDown} onSelect={() => setShowDropDown(false)}>
 
       <Form.Label htmlFor="inputFoodDescription">Food description</Form.Label>
-      <Form.Control
-        id="inputFoodDescription"
-        type="text"
-        placeholder="Broccoli steamed 1 cup"
-        value={props.foodName}
-        onChange={handleChange}
-        onKeyDown={handleEscapeKeyDown}
-        required
-        isInvalid={props.invalid}
-        autoFocus
-        ref={inputRef}
-      />
+      <InputGroup>
+        <Form.Control
+          id="inputFoodDescription"
+          type="text"
+          placeholder="Broccoli steamed 1 cup"
+          value={props.foodName}
+          onChange={handleChange}
+          onKeyDown={handleEscapeKeyDown}
+          required
+          isInvalid={props.invalid}
+          autoFocus
+          ref={inputRef}
+        />
+        <Button variant={VariantSecondary}><FontAwesomeIcon icon={faExpand} /></Button>
+      </InputGroup>
       <Form.Control.Feedback type="invalid">
         Please enter food description.
       </Form.Control.Feedback>
