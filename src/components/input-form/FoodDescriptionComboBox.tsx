@@ -133,6 +133,7 @@ export const FoodDescriptionComboBox = (props: Props) => {
         <Button
           variant={VariantSecondary}
           onClick={props.onExpand}
+          className="d-sm-none"
         >
           <FontAwesomeIcon icon={faExpand} />
         </Button>
