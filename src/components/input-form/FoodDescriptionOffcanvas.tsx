@@ -1,13 +1,32 @@
-import { Offcanvas } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import Offcanvas from "react-bootstrap/Offcanvas";
 
-export const FoodDescriptionOffcanvas = (props: { show: boolean; onHide: () => void; }) => {
+interface Props {
+  show: boolean;
+  onHide: () => void;
+  foodName: string;
+  invalid?: boolean;
+  foodNameChanged: (name: string) => void;
+}
+
+export const FoodDescriptionOffcanvas = (props: Props) => {
   return (
     <Offcanvas show={props.show} onHide={props.onHide} placement="bottom">
       <Offcanvas.Header closeButton>
         <Offcanvas.Title>Food Description</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        This is a placeholder for food description input on small screens.
+        <Form.Control
+          id="inputFoodDescription"
+          type="text"
+          placeholder="Broccoli steamed 1 cup"
+          value={props.foodName}
+          onChange={(e) => props.foodNameChanged(e.target.value)}
+          required
+          isInvalid={props.invalid}
+          autoFocus
+        />
+
       </Offcanvas.Body>
     </Offcanvas>
   );

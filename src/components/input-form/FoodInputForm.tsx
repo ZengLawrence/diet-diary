@@ -97,7 +97,13 @@ export const FoodInputForm = (props: Props) => {
         </Col>
       </Row>
 
-      <FoodDescriptionOffcanvas show={expand} onHide={() => setExpand(false)} />
+      <FoodDescriptionOffcanvas
+        show={expand}
+        onHide={() => setExpand(false)}
+        foodName={food.description}
+        invalid={error.foodDescription}
+        foodNameChanged={updateFoodDescription}
+      />
     </Form>
   )
 }
