@@ -120,7 +120,7 @@ export const FoodDescriptionComboBox = (props: Props) => {
     <Dropdown ref={ref} show={showDropDown} onSelect={() => setShowDropDown(false)}>
 
       <Form.Label htmlFor="inputFoodDescription">Food description</Form.Label>
-      <InputGroup>
+      <InputGroup hasValidation>
         <Form.Control
           id="inputFoodDescription"
           type="text"
@@ -142,10 +142,10 @@ export const FoodDescriptionComboBox = (props: Props) => {
             <FontAwesomeIcon icon={faExpand} />
           </Button>
         }
+        <Form.Control.Feedback type="invalid">
+          Please enter food description.
+        </Form.Control.Feedback>
       </InputGroup>
-      <Form.Control.Feedback type="invalid">
-        Please enter food description.
-      </Form.Control.Feedback>
 
       <Dropdown.Menu>
         {props.suggestions.map((suggestion, index) => (
