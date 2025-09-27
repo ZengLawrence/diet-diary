@@ -51,7 +51,7 @@ export const FoodDescriptionOffcanvas = (props: Props) => {
   }
 
   return (
-    <Offcanvas show={props.show} onHide={props.onHide} placement="bottom">
+    <Offcanvas show={props.show} onHide={props.onHide} placement="start">
       <Offcanvas.Header closeButton>
         <Offcanvas.Title>Food Description</Offcanvas.Title>
       </Offcanvas.Header>
