@@ -1,3 +1,4 @@
+import _ from "lodash";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -17,6 +18,11 @@ function foodDescription(suggestion: Suggestion) {
     return suggestion.foodName;
   }
 }
+
+function hasBestChoice(suggestions: Suggestion[]) {
+  return _.findIndex(suggestions, { 'bestChoice': true }) >= 0;
+}
+
 
 const ItemText = (props: {
   suggestion: Suggestion;
@@ -91,6 +97,8 @@ export const FoodDescriptionOffcanvas = (props: Props) => {
               ))}
             </ListGroup>
           </Card.Body>
+          {hasBestChoice(props.suggestions)
+            && <Card.Footer><BlueStar /> Best Choice</Card.Footer>}
         </Card>
       </Offcanvas.Body>
     </Offcanvas>
