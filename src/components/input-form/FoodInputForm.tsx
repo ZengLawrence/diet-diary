@@ -102,7 +102,9 @@ export const FoodInputForm = (props: Props) => {
         onHide={() => setExpand(false)}
         foodName={food.description}
         invalid={error.foodDescription}
-        foodNameChanged={updateFoodDescription}
+        onFoodDescriptionChanged={updateFoodDescription}
+        suggestions={suggestions}
+        onFoodDescriptionServingChanged={updateFoodDescriptionServing}
       />
     </Form>
   )
