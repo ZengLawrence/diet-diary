@@ -47,14 +47,14 @@ interface Props {
   onHide: () => void;
   foodName: string;
   invalid?: boolean;
-  foodNameChanged: (name: string) => void;
+  onFoodDescriptionChanged: (name: string) => void;
   suggestions: Suggestion[];
-  updateFoodDescriptionServing: (desc: string, serving?: Serving, bestChoice?: boolean) => void;
+  onFoodDescriptionServingChanged: (desc: string, serving?: Serving, bestChoice?: boolean) => void;
 }
 
 export const FoodDescriptionOffcanvas = (props: Props) => {
   const handleItemClick = (suggestion: Suggestion) => {
-    props.updateFoodDescriptionServing(foodDescription(suggestion), suggestion.serving, suggestion.bestChoice);
+    props.onFoodDescriptionServingChanged(foodDescription(suggestion), suggestion.serving, suggestion.bestChoice);
     props.onHide();
   }
 
@@ -71,7 +71,7 @@ export const FoodDescriptionOffcanvas = (props: Props) => {
               type="text"
               placeholder="Broccoli steamed 1 cup"
               value={props.foodName}
-              onChange={(e) => props.foodNameChanged(e.target.value)}
+              onChange={(e) => props.onFoodDescriptionChanged(e.target.value)}
               required
               isInvalid={props.invalid}
               autoFocus
