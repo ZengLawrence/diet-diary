@@ -1,3 +1,4 @@
+import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import Offcanvas from "react-bootstrap/Offcanvas";
 
@@ -17,16 +18,21 @@ export const FoodDescriptionOffcanvas = (props: Props) => {
       </Offcanvas.Header>
       <Offcanvas.Body>
         <Form>
-          <Form.Control
-            id="inputFoodDescription"
-            type="text"
-            placeholder="Broccoli steamed 1 cup"
-            value={props.foodName}
-            onChange={(e) => props.foodNameChanged(e.target.value)}
-            required
-            isInvalid={props.invalid}
-            autoFocus
-          />
+          <InputGroup hasValidation>
+            <Form.Control
+              id="inputFoodDescription"
+              type="text"
+              placeholder="Broccoli steamed 1 cup"
+              value={props.foodName}
+              onChange={(e) => props.foodNameChanged(e.target.value)}
+              required
+              isInvalid={props.invalid}
+              autoFocus
+            />
+            <Form.Control.Feedback type="invalid">
+              Please enter food description.
+            </Form.Control.Feedback>
+          </InputGroup>
         </Form>
 
       </Offcanvas.Body>
