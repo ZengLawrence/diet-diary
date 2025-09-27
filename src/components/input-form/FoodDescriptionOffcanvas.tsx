@@ -1,3 +1,4 @@
+import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -74,18 +75,23 @@ export const FoodDescriptionOffcanvas = (props: Props) => {
             </Form.Control.Feedback>
           </InputGroup>
         </Form>
-        <ListGroup>
-          {props.suggestions.map((suggestion, index) => (
-            <ListGroup.Item
-              key={index}
-              action
-              onClick={() => handleItemClick(suggestion)}
-              className="text-wrap"
-            >
-              <ItemText suggestion={suggestion} />
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
+        <Card>
+          <Card.Header>Select one from the list below:</Card.Header>
+          <Card.Body>
+            <ListGroup variant="flush">
+              {props.suggestions.map((suggestion, index) => (
+                <ListGroup.Item
+                  key={index}
+                  action
+                  onClick={() => handleItemClick(suggestion)}
+                  className="text-wrap"
+                >
+                  <ItemText suggestion={suggestion} />
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+          </Card.Body>
+        </Card>
       </Offcanvas.Body>
     </Offcanvas>
   );
