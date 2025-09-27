@@ -1,12 +1,13 @@
-import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import ListGroup from "react-bootstrap/ListGroup";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Suggestion } from "../../features/suggestions";
-import { BlueStar } from "../BlueStar";
-import { FoodGroupServingBadgePanel } from "../panels/FoodGroupServingBadgePanel";
-import { CalorieSpan } from "../CalorieSpan";
 import { calcServingCalories } from "../../model/calorieFunction";
 import { Serving } from "../../model/Food";
+import { BlueStar } from "../BlueStar";
+import { CalorieSpan } from "../CalorieSpan";
+import { FoodGroupServingBadgePanel } from "../panels/FoodGroupServingBadgePanel";
 
 function foodDescription(suggestion: Suggestion) {
   if (suggestion.amount) {
@@ -56,7 +57,7 @@ export const FoodDescriptionOffcanvas = (props: Props) => {
         <Offcanvas.Title>Food Description</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <Form>
+        <Form className="mb-2">
           <InputGroup hasValidation>
             <Form.Control
               id="inputFoodDescription"
@@ -73,17 +74,18 @@ export const FoodDescriptionOffcanvas = (props: Props) => {
             </Form.Control.Feedback>
           </InputGroup>
         </Form>
-        <div>
-        {props.suggestions.map((suggestion, index) => (
-          <div
-            key={index}
-            onClick={() => handleItemClick(suggestion)}
-            className="text-wrap"
-          >
-            <ItemText suggestion={suggestion} />
-          </div>
-        ))}
-        </div>
+        <ListGroup>
+          {props.suggestions.map((suggestion, index) => (
+            <ListGroup.Item
+              key={index}
+              action
+              onClick={() => handleItemClick(suggestion)}
+              className="text-wrap"
+            >
+              <ItemText suggestion={suggestion} />
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
       </Offcanvas.Body>
     </Offcanvas>
   );
