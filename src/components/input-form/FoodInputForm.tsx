@@ -103,6 +103,8 @@ export const FoodInputForm = (props: Props) => {
         foodName={food.description}
         invalid={error.foodDescription}
         foodNameChanged={updateFoodDescription}
+        suggestions={suggestions}
+        updateFoodDescriptionServing={updateFoodDescriptionServing}
       />
     </Form>
   )

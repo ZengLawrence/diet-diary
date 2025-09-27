@@ -1,6 +1,38 @@
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import { Suggestion } from "../../features/suggestions";
+import { BlueStar } from "../BlueStar";
+import { FoodGroupServingBadgePanel } from "../panels/FoodGroupServingBadgePanel";
+import { CalorieSpan } from "../CalorieSpan";
+import { calcServingCalories } from "../../model/calorieFunction";
+import { Serving } from "../../model/Food";
+
+function foodDescription(suggestion: Suggestion) {
+  if (suggestion.amount) {
+    return suggestion.foodName + " " + suggestion.amount;
+  } else {
+    return suggestion.foodName;
+  }
+}
+
+const ItemText = (props: {
+  suggestion: Suggestion;
+}) => {
+  const { bestChoice, serving } = props.suggestion;
+  return (
+    <div>
+      {bestChoice && <BlueStar />}
+      {foodDescription(props.suggestion)}
+      {serving &&
+        <span className="ms-1">
+          <FoodGroupServingBadgePanel serving={serving} />
+          <CalorieSpan value={calcServingCalories(serving)} />
+        </span>
+      }
+    </div>
+  );
+}
 
 interface Props {
   show: boolean;
@@ -8,9 +40,16 @@ interface Props {
   foodName: string;
   invalid?: boolean;
   foodNameChanged: (name: string) => void;
+  suggestions: Suggestion[];
+  updateFoodDescriptionServing: (desc: string, serving?: Serving, bestChoice?: boolean) => void;
 }
 
 export const FoodDescriptionOffcanvas = (props: Props) => {
+  const handleItemClick = (suggestion: Suggestion) => {
+    props.updateFoodDescriptionServing(foodDescription(suggestion), suggestion.serving, suggestion.bestChoice);
+    props.onHide();
+  }
+
   return (
     <Offcanvas show={props.show} onHide={props.onHide} placement="bottom">
       <Offcanvas.Header closeButton>
@@ -34,7 +73,17 @@ export const FoodDescriptionOffcanvas = (props: Props) => {
             </Form.Control.Feedback>
           </InputGroup>
         </Form>
-
+        <div>
+        {props.suggestions.map((suggestion, index) => (
+          <div
+            key={index}
+            onClick={() => handleItemClick(suggestion)}
+            className="text-wrap"
+          >
+            <ItemText suggestion={suggestion} />
+          </div>
+        ))}
+        </div>
       </Offcanvas.Body>
     </Offcanvas>
   );
