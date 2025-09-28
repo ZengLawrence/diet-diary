@@ -1,5 +1,5 @@
 import { Action, combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import _, { max } from "lodash";
+import _ from "lodash";
 import { useEffect, useReducer, useRef } from "react";
 import { generateSuggestions, Suggestion } from "../../features/suggestions";
 import { Food, FoodGroup, hasMoreThanOneFoodGroup, Serving } from "../../model/Food";
