@@ -17,7 +17,8 @@ function unitOfMeasurement(amount?: string) {
 
 export function generateSuggestions(
   foodDescriptionRef: React.RefObject<string>,
-  callback: (suggestions: Suggestion[]) => void
+  callback: (suggestions: Suggestion[]) => void,
+  maxResults: number = 5
 ) {
   const foodDescription = decompose(foodDescriptionRef.current + "");
   const autoCompletions = findAutoCompletions(foodDescription);
@@ -27,6 +28,6 @@ export function generateSuggestions(
   const autoSuggestions = generateAutoSuggestion(firstAutoCompletion, servingSuggestions);
   const allSuggestions = _.concat(autoCompletions, autoSuggestions, servingSuggestions);
   const results = _.uniqWith(_.compact(allSuggestions), _.isEqual)
-    .slice(0, 5);
+    .slice(0, maxResults);
   return callback(results);
 }
