@@ -1,4 +1,4 @@
-import { faExpand } from "@fortawesome/free-solid-svg-icons";
+import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import { RefObject, useEffect, useRef, useState } from "react";
@@ -139,7 +139,7 @@ export const FoodDescriptionComboBox = (props: Props) => {
             onClick={props.onExpand}
             className="d-sm-none"
           >
-            <FontAwesomeIcon icon={faExpand} />
+            <FontAwesomeIcon icon={faRightToBracket} />
           </Button>
         }
         <Form.Control.Feedback type="invalid">
