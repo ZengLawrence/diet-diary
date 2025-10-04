@@ -59,9 +59,10 @@ function isSuggestionConvertible(suggestion: { amount: string }, fromUnit: Unit 
   return _.reduce(measurementsOf(suggestion), isAnyMeasurementConvertibleFromUnit, false);
 }
 
-export function findSuggestions(foodName: string, options?: { convertibleFrom?: Unit }) {
+export function findSuggestions(foodName: string, options?: { convertibleFrom?: Unit; maxResults?: number }) {
   const isSuggestionConvertibleFromUnit = _.partial(isSuggestionConvertible, _, options?.convertibleFrom);
-  const results = _.slice(searchFoodServingPortionSize(foodName), 0, 5)
+  const maxResults = options?.maxResults ?? 5;
+  const results = _.slice(searchFoodServingPortionSize(foodName), 0, maxResults)
     .filter(isSuggestionConvertibleFromUnit);
   const ranked = _.sortBy(_.map(results, _.partial(rank, _, _, foodName)),
     [
