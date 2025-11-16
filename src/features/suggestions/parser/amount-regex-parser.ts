@@ -35,16 +35,16 @@ function toNumber(str: string): number {
   return str.includes('/') ? new Fraction(str).valueOf() : _.toNumber(str);
 }
 
-function parse(amount: string) {
+function parseMeasurement(measurementText: string) {
   const amountRegex = /^(\d*\.?\d+|\d+\s+\d+\/\d+|\d+\/\d+)((?=\s).+|)$/;
-  const match = amount.match(amountRegex);
+  const match = measurementText.match(amountRegex);
   if (match) {
     const quantityText = match[1];
     const quantity = toNumber(quantityText);
     const unitText = match[2].trim() || undefined;
     return { quantity, quantityText, unitText };
   } else {
-    return { quantity: 1, unitText: amount };
+    return { quantity: 1, unitText: measurementText };
   }
 }
 
@@ -62,7 +62,7 @@ function createMeasurement(measurement?: Measurement) {
 }
 
 export default function decompose(amount: string): DecomposedAmount {
-  const measurement = parse(amount);
+  const measurement = parseMeasurement(amount);
   return {
     measurement: createMeasurement(measurement),
   }
