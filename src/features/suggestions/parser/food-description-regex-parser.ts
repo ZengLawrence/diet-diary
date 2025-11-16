@@ -23,6 +23,15 @@ function isUnitCompleted(foodDescription: string) {
   return isEndedWithSpace(foodDescription) || isEndedWithRightParenthesis(foodDescription);
 }
 
+function parseUnit(s: string | undefined): string | undefined {
+  const unitRegex = /(?<=\d[\d\.\/]*\s+)(.+)/;
+  const match = s?.match(unitRegex);
+  if (match) {
+    return match[0];
+  }
+  return undefined;
+}
+
 export default function parse(input: string): DecomposedFoodDescription {
   const foodNameRegex = /^([-a-zA-Z\s,]+|\d+%|\([a-zA-Z]+\))+/;
   const match = input.match(foodNameRegex);
@@ -31,10 +40,11 @@ export default function parse(input: string): DecomposedFoodDescription {
     const rest = input.slice(match[0].length);
     const amount = rest.length > 0 ? rest : undefined;
     const foodNameCompleted = isSpaceAfter(input, _.size(foodName));
-    const unitCompleted = amount ? isUnitCompleted(input) : false;
+    const unit = parseUnit(amount);
+    const unitCompleted = unit ? isUnitCompleted(unit) : false;
     return {
       foodName,
-      amount,
+      amount: amount ? amount.trimEnd() : undefined,
       foodNameCompleted,
       unitCompleted,
     };
