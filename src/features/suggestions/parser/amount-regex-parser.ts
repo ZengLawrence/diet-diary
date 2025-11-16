@@ -61,9 +61,29 @@ function createMeasurement(measurement?: Measurement) {
   }
 }
 
+// parse amount string into two measurements when joined by "or"
+function parseAmount(input: string) : {
+  measurement? : Measurement,
+  alternateMeasurement?: Measurement,
+} {
+  const orSeparatorRegex = /\s+or\s+/i;
+  const parts = input.split(orSeparatorRegex).map(part => part.trim());
+  if (parts.length === 2) {
+    return {
+      measurement: parseMeasurement(parts[0]),
+      alternateMeasurement: parseMeasurement(parts[1]),
+    };
+  } else {
+    return {
+      measurement: parseMeasurement(input),
+    };
+  }
+}
+
 export default function decompose(amount: string): DecomposedAmount {
-  const measurement = parseMeasurement(amount);
+  const { measurement, alternateMeasurement } = parseAmount(amount);
   return {
     measurement: createMeasurement(measurement),
+    alternateMeasurement: alternateMeasurement ? createMeasurement(alternateMeasurement) : undefined, 
   }
 }
