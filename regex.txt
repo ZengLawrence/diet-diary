@@ -1,8 +1,0 @@
-// match food name
-/^([-a-zA-Z\s,]+|\d+%|\([a-zA-Z]+\))+/g
-
-// match food name and serving
-^([-a-zA-Z\s,]+|\d+%|\([a-zA-Z]+\))+(.*)$ // not working
-
-// match quantity and unit (optional)
-/(\d*\.?\d+|\d+\s+\d+\/\d+|\d+\/\d+)((?=\s).+|)$/gm // need to trim off starting space
