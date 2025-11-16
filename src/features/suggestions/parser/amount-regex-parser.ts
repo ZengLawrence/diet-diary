@@ -9,33 +9,33 @@ interface Measurement {
 }
 
 export type DecomposedAmount = {
-    measurement: {
-        quantity: number;
-        unit: Unit;
-        unitText: string | undefined;
-        amountWithUnitText: (unitText: string) => string;
-    };
-    alternateMeasurement?: undefined;
+  measurement: {
+    quantity: number;
+    unit: Unit;
+    unitText: string | undefined;
+    amountWithUnitText: (unitText: string) => string;
+  };
+  alternateMeasurement?: undefined;
 } | {
-    measurement: {
-        quantity: number;
-        unit: Unit;
-        unitText: string | undefined;
-        amountWithUnitText: (unitText: string) => string;
-    };
-    alternateMeasurement: {
-        quantity: number;
-        unit: Unit;
-        unitText: string | undefined;
-        amountWithUnitText: (unitText: string) => string;
-    };
+  measurement: {
+    quantity: number;
+    unit: Unit;
+    unitText: string | undefined;
+    amountWithUnitText: (unitText: string) => string;
+  };
+  alternateMeasurement: {
+    quantity: number;
+    unit: Unit;
+    unitText: string | undefined;
+    amountWithUnitText: (unitText: string) => string;
+  };
 }
 
 function toNumber(str: string): number {
   return str.includes('/') ? new Fraction(str).valueOf() : _.toNumber(str);
 }
 
-function parse(amount: string): Measurement | undefined {
+function parse(amount: string) {
   const amountRegex = /^(\d*\.?\d+|\d+\s+\d+\/\d+|\d+\/\d+)((?=\s).+|)$/;
   const match = amount.match(amountRegex);
   if (match) {
@@ -43,8 +43,9 @@ function parse(amount: string): Measurement | undefined {
     const quantity = toNumber(quantityText);
     const unitText = match[2].trim() || undefined;
     return { quantity, quantityText, unitText };
+  } else {
+    return { quantity: 1, unitText: amount };
   }
-  return undefined
 }
 
 function compose(quantityText: string | undefined, unitText: string) {
