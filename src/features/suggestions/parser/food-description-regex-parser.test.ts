@@ -1,4 +1,7 @@
-import { expect, test } from "@jest/globals";
+import { describe, expect, test } from "@jest/globals";
+import { parse } from 'csv-parse/sync';
+import fs from 'fs';
+import path from 'path';
 import decompose from './food-description-regex-parser';
 
 test("Given only food name not space at the end, then food name and unit completed flags are false", () => {
@@ -88,3 +91,29 @@ test("Given 'egg rolls 1 2-ounce roll', then food name completed is true and uni
     unitCompleted: false,
   });
 })
+
+type TestData = {
+  input: string;
+  food_name: string;
+  amount: string;
+}
+
+function loadTestData(): TestData[] {
+  const filePath = path.resolve(__dirname, 'food-description-data.csv');
+  const fileContent = fs.readFileSync(filePath, 'utf-8');
+  return parse(fileContent, {
+    columns: true,
+    skip_empty_lines: true
+  });
+}
+
+describe("Food description regex parser data-driven tests", () => {
+  const testData = loadTestData();
+  testData.forEach(({input, food_name, amount}) => {
+    test(`Given input "${input}", then food name is "${food_name}" and amount is "${amount}"`, () => {
+      const result = decompose(input);
+      expect(result.foodName).toBe(food_name);
+      expect(result.amount ?? "").toBe(amount);
+    });
+  });
+});
