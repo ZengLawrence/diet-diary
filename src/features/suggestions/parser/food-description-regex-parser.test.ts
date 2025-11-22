@@ -99,7 +99,7 @@ type TestData = {
 }
 
 function loadTestData(): TestData[] {
-  const filePath = path.resolve(__dirname, 'food-description-data.csv');
+  const filePath = path.resolve(__dirname, 'food-description-test-data.csv');
   const fileContent = fs.readFileSync(filePath, 'utf-8');
   return parse(fileContent, {
     columns: true,
