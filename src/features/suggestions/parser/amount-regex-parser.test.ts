@@ -82,6 +82,26 @@ test("alternate measurement in amount", () => {
   });
 })
 
+test("mixed fraction in amount", () => {
+  expect(parseAmount("1 1/2 cup")).toMatchObject({
+    measurement: {
+      quantity: 1.5,
+      unit: "cup",
+      unitText: "cup",
+    }
+  });
+})
+
+test("decimal with no digits after decimal point in amount", () => {
+  expect(parseAmount("1. cup")).toMatchObject({
+    measurement: {
+      quantity: 1,
+      unit: "cup",
+      unitText: "cup",
+    }
+  });
+})
+
 test("variable unit e.g. diameter unit '12-inch'", () => {
   expect(parseAmount("1/8 of 14-inch")).toMatchObject({
     measurement: {

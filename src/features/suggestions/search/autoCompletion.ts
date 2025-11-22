@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import parseAmount, { DecomposedAmount } from '../parser/DecomposedAmount';
+import parseAmount, { DecomposedAmount } from '../parser/amount-regex-parser';
 import { createSuggestion, Suggestion } from '../Suggestion';
 import autoCompleteUnit from './unitMiniSearch';
 import { DecomposedFoodDescription } from '../parser/DecomposedFoodDescription';

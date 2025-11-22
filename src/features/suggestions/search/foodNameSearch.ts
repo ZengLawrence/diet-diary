@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { isMeasurementConvertible, Unit } from "../convert";
-import parseAmount from "../parser/DecomposedAmount";
+import parseAmount from "../parser/amount-regex-parser";
 import portions from "../portion/portions";
 import servings from "../serving/servings";
 import fnms from "./foodNameMiniSearch";
