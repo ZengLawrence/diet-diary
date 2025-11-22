@@ -1,4 +1,7 @@
-import { expect, test } from "@jest/globals";
+import { describe, expect, test } from "@jest/globals";
+import { parse } from 'csv-parse/sync';
+import fs from 'fs';
+import path from 'path';
 import _ from "lodash";
 import { StandardUnit } from "../convert/standard-unit";
 import parseAmount from "./amount-regex-parser";
@@ -196,3 +199,37 @@ function testCases(unit: string, abbr: StandardUnit, commonAbbreviations: string
     }
   }
 }
+
+type TestData = {
+  input: string;
+  quantity_1: string;
+  unit_1: string;
+  quantity_2: string;
+  unit_2: string;
+}
+
+function loadTestData(): TestData[] {
+  const filePath = path.resolve(__dirname, 'amount-test-data.csv');
+  const fileContent = fs.readFileSync(filePath, 'utf-8');
+  return parse(fileContent, {
+    columns: true,
+    skip_empty_lines: true
+  });
+}
+
+describe("Amount regex parser data-driven tests", () => {
+  const testData = loadTestData();
+  testData.forEach(({input, quantity_1, unit_1, quantity_2, unit_2}) => {
+    test(`Given input "${input}", then quantity_1 is "${quantity_1}", unit_1 is "${unit_1}", quantity_2 is "${quantity_2}", unit_2 is "${unit_2}"`, () => {
+      const result = parseAmount(input);
+      expect(result.measurement.quantity.toString()).toBe(quantity_1);
+      expect(result.measurement.unitText ?? "").toBe(unit_1);
+      if (quantity_2 && unit_2) {
+        expect(result.alternateMeasurement?.quantity.toString() ?? "").toBe(quantity_2);
+        expect(result.alternateMeasurement?.unitText ?? "").toBe(unit_2);
+      } else {
+        expect(result.alternateMeasurement).toBeUndefined();
+      }
+    });
+  });
+});
