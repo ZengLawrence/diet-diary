@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { Food } from "../../model/Food";
-import decompose from "./parser/DecomposedFoodDescription";
+import decompose from "./parser/food-description-regex-parser";
 import { addOrReplace, remove } from "./search/foodNameSearch";
 import { PredefinedSuggestion } from "./search/PredefinedSuggestion";
 import { Suggestions } from "../../model/suggestions";
