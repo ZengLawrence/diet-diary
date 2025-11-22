@@ -36,7 +36,7 @@ function toNumber(str: string): number {
 }
 
 function parseMeasurement(measurementText: string) {
-  const amountRegex = /^(\d*\.?\d+|\d+\s+\d+\/\d+|\d+\/\d+)((?=\s).+|)$/;
+  const amountRegex = /^(\d+\s+\d+\/\d+|\d+\/\d+|\d*\.?\d+)((?=\s)[^\d].+|)$/;
   const match = measurementText.match(amountRegex);
   if (match) {
     const quantityText = match[1];
