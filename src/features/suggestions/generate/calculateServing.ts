@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { Serving } from '../../../model/Food';
 import { multiply } from '../../../model/servingFunction';
-import parseAmount, { DecomposedAmount } from '../parser/DecomposedAmount';
+import parseAmount, { DecomposedAmount } from '../parser/amount-regex-parser';
 import convert, { isMeasurementConvertible, Unit } from '../convert';
 
 function measurementFor(unit: Unit, { measurement, alternateMeasurement }: DecomposedAmount, prepMethod?: string) {
