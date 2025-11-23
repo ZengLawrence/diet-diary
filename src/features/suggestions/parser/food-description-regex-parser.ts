@@ -33,7 +33,7 @@ function parseUnit(s: string | undefined): string | undefined {
 }
 
 export default function parse(input: string): DecomposedFoodDescription {
-  const foodNameRegex = /^(.*?)\s+(\d[\d\.\/]*|\.\d+|\d+-[a-zA-Z]+)(?=\s|$)/;
+  const foodNameRegex = /^(.*?)\s+(?:\d[\d\.\/]*|\.\d+|\d+-[a-zA-Z]+)(?=\s|$)/;
   const match = input.match(foodNameRegex);
   if (match) {
     const foodName = match[1];
