@@ -40,8 +40,7 @@ export default function parse(input: string): DecomposedFoodDescription {
     const foodName = match[1];
     // there is no indices support for capturing groups in javascript regex
     // take the length of the first capturing group to slice the rest string and trim leading spaces
-    const rest = input.slice(match[1].length).trimStart();
-    const amount = rest.length > 0 ? rest : undefined;
+    const amount = input.slice(match[1].length).trimStart();
     const foodNameCompleted = true;
     const unit = parseUnit(amount);
     const unitCompleted = unit ? isUnitCompleted(unit) : false;
