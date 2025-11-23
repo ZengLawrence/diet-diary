@@ -33,6 +33,9 @@ function parseUnit(s: string | undefined): string | undefined {
 }
 
 export default function parse(input: string): DecomposedFoodDescription {
+  // use quantity pattern to identify the food name part
+  // food name is the part before the quantity
+  // e.g. "broccoli 1 cup" -> "broccoli" + "1 cup"
   const foodNameRegex = /^(.*?)\s+(?:\d[\d\.\/]*|\.\d+|\d+-[a-zA-Z]+)(?=\s|$)/;
   const match = input.match(foodNameRegex);
   if (match) {
