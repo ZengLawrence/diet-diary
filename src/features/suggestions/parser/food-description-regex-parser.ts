@@ -1,4 +1,5 @@
 import _ from "lodash";
+import { start } from "repl";
 
 export type DecomposedFoodDescription = {
     foodName: string;
@@ -33,11 +34,13 @@ function parseUnit(s: string | undefined): string | undefined {
 }
 
 export default function parse(input: string): DecomposedFoodDescription {
-  const foodNameRegex = /^([-a-zA-Z\s,]+|\d+%|\([a-zA-Z]+\))+/;
+  const foodNameRegex = /^(.*?)\s+(\d[\d\.\/]*|\.\d+|\d+-[a-zA-Z]+)(?=\s|$)/;
   const match = input.match(foodNameRegex);
   if (match) {
-    const foodName = match[0].trimEnd();
-    const rest = input.slice(match[0].length);
+    const foodName = match[1];
+    // there is no indices support for capturing groups in javascript regex
+    // take the length of the first capturing group to slice the rest string and trim leading spaces
+    const rest = input.slice(match[1].length).trimStart();
     const amount = rest.length > 0 ? rest : undefined;
     const foodNameCompleted = isSpaceAfter(input, _.size(foodName));
     const unit = parseUnit(amount);
@@ -49,10 +52,12 @@ export default function parse(input: string): DecomposedFoodDescription {
       unitCompleted,
     };
   } else { 
+    const foodName = input.trimEnd();
+    const foodNameCompleted = isSpaceAfter(input, _.size(foodName));
     return {
-      foodName: input,
+      foodName,
       amount: undefined,
-      foodNameCompleted: false,
+      foodNameCompleted,
       unitCompleted: false,
     };
   }
