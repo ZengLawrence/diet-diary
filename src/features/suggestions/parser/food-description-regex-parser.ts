@@ -42,7 +42,7 @@ export default function parse(input: string): DecomposedFoodDescription {
     // take the length of the first capturing group to slice the rest string and trim leading spaces
     const rest = input.slice(match[1].length).trimStart();
     const amount = rest.length > 0 ? rest : undefined;
-    const foodNameCompleted = isSpaceAfter(input, _.size(foodName));
+    const foodNameCompleted = true;
     const unit = parseUnit(amount);
     const unitCompleted = unit ? isUnitCompleted(unit) : false;
     return {
