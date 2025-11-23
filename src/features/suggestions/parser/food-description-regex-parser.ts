@@ -33,13 +33,17 @@ function parseUnit(s: string | undefined): string | undefined {
 }
 
 export default function parse(input: string): DecomposedFoodDescription {
-  const foodNameRegex = /^([-a-zA-Z\s,]+|\d+%|\([a-zA-Z]+\))+/;
+  // use quantity pattern to identify the food name part
+  // food name is the part before the quantity
+  // e.g. "broccoli 1 cup" -> "broccoli" + "1 cup"
+  const foodNameRegex = /^(.*?)\s+(?:\d[\d\.\/]*|\.\d+|\d+-[a-zA-Z]+)(?=\s|$)/;
   const match = input.match(foodNameRegex);
   if (match) {
-    const foodName = match[0].trimEnd();
-    const rest = input.slice(match[0].length);
-    const amount = rest.length > 0 ? rest : undefined;
-    const foodNameCompleted = isSpaceAfter(input, _.size(foodName));
+    const foodName = match[1];
+    // there is no indices support for capturing groups in javascript regex
+    // take the length of the first capturing group to slice the rest string and trim leading spaces
+    const amount = input.slice(match[1].length).trimStart();
+    const foodNameCompleted = true;
     const unit = parseUnit(amount);
     const unitCompleted = unit ? isUnitCompleted(unit) : false;
     return {
@@ -49,10 +53,12 @@ export default function parse(input: string): DecomposedFoodDescription {
       unitCompleted,
     };
   } else { 
+    const foodName = input.trimEnd();
+    const foodNameCompleted = isSpaceAfter(input, _.size(foodName));
     return {
-      foodName: input,
+      foodName,
       amount: undefined,
-      foodNameCompleted: false,
+      foodNameCompleted,
       unitCompleted: false,
     };
   }
