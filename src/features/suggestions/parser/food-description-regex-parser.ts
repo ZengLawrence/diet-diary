@@ -1,5 +1,4 @@
 import _ from "lodash";
-import { start } from "repl";
 
 export type DecomposedFoodDescription = {
     foodName: string;
