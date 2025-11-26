@@ -49,7 +49,7 @@ function parseMeasurement(measurementText: string) {
 }
 
 function compose(quantityText: string | undefined, unitText: string) {
-  return quantityText + " " + unitText;
+  return quantityText ? quantityText + " " + unitText : unitText;
 }
 
 function createMeasurement(measurement?: Measurement) {
