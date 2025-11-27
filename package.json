@@ -8,7 +8,6 @@
     "@fortawesome/free-solid-svg-icons": "^7.0.0",
     "@fortawesome/react-fontawesome": "^3.0.1",
     "@reduxjs/toolkit": "^2.5.0",
-    "antlr4": "~4.13.2",
     "bootstrap": "^5.3.3",
     "convert-units": "3.0.0-beta.2",
     "export-to-csv": "^1.4.0",
