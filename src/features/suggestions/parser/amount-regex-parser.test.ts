@@ -137,11 +137,13 @@ test("parenthesis in unit includes /", () => {
   });
 })
 
-test("ounce unit with no quantity, default quantity to 1", () => {
+test("n-ounce unit with no quantity, default quantity to 1", () => {
   expect(parseAmount("2-ounce roll")).toMatchObject({
     measurement: {
       quantity: 1,
-      unit: "unknown",
+      unit: {
+        ounce: 2,
+      },
       unitText: "2-ounce roll",
     }
   });
