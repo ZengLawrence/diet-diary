@@ -18,7 +18,9 @@ const { areUnitsConvertible } = functions;
     expect(result).toBeTruthy();
   });
   test("when one is not NOunceUnit should return false", () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     expect(areUnitsConvertible({ ounce: 10 }, "ounce" as any)).toBeFalsy();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     expect(areUnitsConvertible("ounce" as any, { ounce: 20 })).toBeFalsy();
   });
 });

@@ -12,4 +12,5 @@ const parsers = composeParser<VariableUnit>(
   diameterUnitFunctions,
   nOunceUnitFunctions,
 );
-export default { ...converters, ...parsers };
+const functions = { ...converters, ...parsers };
+export default functions;
