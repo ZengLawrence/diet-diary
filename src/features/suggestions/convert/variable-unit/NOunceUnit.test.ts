@@ -1,9 +1,8 @@
 import { describe, expect, test } from "@jest/globals";
 import functions from "./NOunceUnit"
 
-const { isSupportedUnitType } = functions;
-
 describe("isSupportedUnitType", () => {
+  const { isSupportedUnitType } = functions;
   test("should identify NOunceUnit", () => {
     expect(isSupportedUnitType({ ounce: 5 })).toBeTruthy();
     expect(isSupportedUnitType({})).toBeFalsy();
@@ -12,8 +11,8 @@ describe("isSupportedUnitType", () => {
   });
 });
 
-const { areUnitsConvertible } = functions;
 describe("areUnitsConvertible", () => {
+const { areUnitsConvertible } = functions;
   test("when both are NOunceUnit should return true", () => {
     const result = areUnitsConvertible({ ounce: 10 }, { ounce: 20 });
     expect(result).toBeTruthy();
