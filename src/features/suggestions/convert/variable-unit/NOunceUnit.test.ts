@@ -4,7 +4,7 @@ import functions from "./NOunceUnit"
 const { isSupportedUnitType } = functions;
 
 describe("isSupportedUnitType", () => {
-  test("isSupportedUnitType should identify NOunceUnit", () => {
+  test("should identify NOunceUnit", () => {
     expect(isSupportedUnitType({ ounce: 5 })).toBeTruthy();
     expect(isSupportedUnitType({})).toBeFalsy();
     expect(isSupportedUnitType(null)).toBeFalsy();
