@@ -1,5 +1,15 @@
+import composeConverter from "../ConvertFunctions";
+import composeParser from "../ParserFunctions";
 import diameterUnitFunctions, { DiameterUnit } from "./DiameterUnit";
+import nOunceUnitFunctions, { NOunceUnit } from "./NOunceUnit";
 
-export type VariableUnit = DiameterUnit;
-const functions = diameterUnitFunctions;
-export default functions;
+export type VariableUnit = DiameterUnit | NOunceUnit;
+const converters = composeConverter<VariableUnit>(
+  diameterUnitFunctions,
+  nOunceUnitFunctions,
+);
+const parsers = composeParser<VariableUnit>(
+  diameterUnitFunctions,
+  nOunceUnitFunctions,
+);
+export default { ...converters, ...parsers };

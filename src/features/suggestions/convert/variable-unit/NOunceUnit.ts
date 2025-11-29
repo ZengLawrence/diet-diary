@@ -2,7 +2,7 @@ import _ from "lodash";
 import { ConvertFunctions } from "../ConvertFunctions";
 import { ParserFunctions } from "../ParserFunctions";
 
-interface NOunceUnit {
+export interface NOunceUnit {
   ounce: number;
 }
 
