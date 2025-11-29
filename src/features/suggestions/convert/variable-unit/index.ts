@@ -4,6 +4,7 @@ import diameterUnitFunctions, { DiameterUnit } from "./DiameterUnit";
 import nOunceUnitFunctions, { NOunceUnit } from "./NOunceUnit";
 
 export type VariableUnit = DiameterUnit | NOunceUnit;
+
 const converters = composeConverter<VariableUnit>(
   diameterUnitFunctions,
   nOunceUnitFunctions,
