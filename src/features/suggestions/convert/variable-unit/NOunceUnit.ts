@@ -17,11 +17,18 @@ function convert(quantity: number, fromUnit: NOunceUnit, toUnit: NOunceUnit): nu
   return quantity * (fromUnit.ounce / toUnit.ounce);
 }
 
+function canParse(_unitText: string | undefined): boolean {
+  if (_unitText) {
+    return /^\d+-ounce(?:$|\s)/.test(_unitText);
+  }
+  return false;
+}
+
 const functions: ConvertFunctions<NOunceUnit> & ParserFunctions<NOunceUnit> = {
   isSupportedUnitType: isNOunceUnit,
   areUnitsConvertible,
   convert,
-  canParse: () => false,
+  canParse,
   parse: () => ({ ounce: 0 }),
 }
 export default functions;

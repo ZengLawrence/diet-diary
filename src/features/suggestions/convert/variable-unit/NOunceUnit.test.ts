@@ -30,3 +30,19 @@ describe("convert", () => {
     expect(result).toBe(2.5);
   });
 });
+
+describe("canParse", () => {
+  const { canParse } = functions;
+  test("'3-ounce' should return true", () => {
+    expect(canParse("3-ounce")).toBeTruthy();
+  });
+  test("'3-ounce fillet' should return true", () => {
+    expect(canParse("3-ounce fillet")).toBeTruthy();
+  });
+  test("invalid text should return false", () => {
+    expect(canParse("3 ounce")).toBeFalsy();
+    expect(canParse("ounce")).toBeFalsy();
+    expect(canParse("")).toBeFalsy();
+    expect(canParse(undefined)).toBeFalsy();
+  });
+});
