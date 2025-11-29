@@ -22,3 +22,11 @@ const { areUnitsConvertible } = functions;
     expect(areUnitsConvertible("ounce" as any, { ounce: 20 })).toBeFalsy();
   });
 });
+
+describe("convert", () => {
+  const { convert } = functions;
+  test("given 5 units of 10-ounce when convert to 20-ounce should return 2.5", () => {
+    const result = convert(5, { ounce: 10 }, { ounce: 20 });
+    expect(result).toBe(2.5);
+  });
+});

@@ -13,10 +13,14 @@ function areUnitsConvertible(fromUnit: unknown, toUnit: unknown): boolean {
   return isNOunceUnit(fromUnit) && isNOunceUnit(toUnit);
 }
 
+function convert(quantity: number, fromUnit: NOunceUnit, toUnit: NOunceUnit): number {
+  return quantity * (fromUnit.ounce / toUnit.ounce);
+}
+
 const functions: ConvertFunctions<NOunceUnit> & ParserFunctions<NOunceUnit> = {
   isSupportedUnitType: isNOunceUnit,
   areUnitsConvertible,
-  convert: () => 0,
+  convert,
   canParse: () => false,
   parse: () => ({ ounce: 0 }),
 }
