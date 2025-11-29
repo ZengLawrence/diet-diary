@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { ConvertFunctions } from "../ConvertFunctions";
 import { ParserFunctions } from "../ParserFunctions";
 
@@ -17,11 +18,21 @@ function convert(quantity: number, fromUnit: NOunceUnit, toUnit: NOunceUnit): nu
   return quantity * (fromUnit.ounce / toUnit.ounce);
 }
 
+const PATTERN_N_OUNCE = /^(\d+)-ounce(?:$|\s)/;
 function canParse(_unitText: string | undefined): boolean {
   if (_unitText) {
-    return /^\d+-ounce(?:$|\s)/.test(_unitText);
+    return PATTERN_N_OUNCE.test(_unitText);
   }
   return false;
+}
+
+function parse(unitText: string | undefined): NOunceUnit {
+  const match = unitText?.match(PATTERN_N_OUNCE);
+  if (match) {
+    const ounce = _.toNumber(match[1]);
+    return { ounce };
+  }
+  return { ounce: NaN };
 }
 
 const functions: ConvertFunctions<NOunceUnit> & ParserFunctions<NOunceUnit> = {
@@ -29,6 +40,6 @@ const functions: ConvertFunctions<NOunceUnit> & ParserFunctions<NOunceUnit> = {
   areUnitsConvertible,
   convert,
   canParse,
-  parse: () => ({ ounce: 0 }),
+  parse,
 }
 export default functions;

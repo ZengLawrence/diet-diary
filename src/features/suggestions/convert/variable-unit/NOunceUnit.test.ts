@@ -46,3 +46,13 @@ describe("canParse", () => {
     expect(canParse(undefined)).toBeFalsy();
   });
 });
+
+describe("parse", () => {
+  const { parse } = functions;
+  test("'5-ounce' should return ounce of 5", () => {
+    expect(parse("5-ounce")).toMatchObject({ ounce: 5 });
+  });
+  test("'10-ounce fillet' should return ounce of 10", () => {
+    expect(parse("10-ounce fillet")).toMatchObject({ ounce: 10 });
+  });
+});
