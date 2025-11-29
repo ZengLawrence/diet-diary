@@ -11,3 +11,15 @@ describe("isSupportedUnitType", () => {
     expect(isSupportedUnitType(undefined)).toBeFalsy();
   });
 });
+
+const { areUnitsConvertible } = functions;
+describe("areUnitsConvertible", () => {
+  test("when both are NOunceUnit should return true", () => {
+    const result = areUnitsConvertible({ ounce: 10 }, { ounce: 20 });
+    expect(result).toBeTruthy();
+  });
+  test("when one is not NOunceUnit should return false", () => {
+    expect(areUnitsConvertible({ ounce: 10 }, "ounce" as any)).toBeFalsy();
+    expect(areUnitsConvertible("ounce" as any, { ounce: 20 })).toBeFalsy();
+  });
+});
