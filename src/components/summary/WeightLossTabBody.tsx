@@ -7,7 +7,12 @@ const WeightLossSummary = () => {
   const [weight, setWeight] = useState(0.0);
 
   useEffect(() => {
-    setWeight(summary.totalWeightLoss());
+    const getTotalWeightLoss = async () => {
+      return summary.totalWeightLoss();
+    }
+    getTotalWeightLoss().then((val) => {
+      setWeight(val);
+    });
     const listener: SummaryListener = {
       onTotalWeightLossUpdated: () => {
         setWeight(summary.totalWeightLoss());
