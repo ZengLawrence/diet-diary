@@ -100,7 +100,10 @@ export const FoodDescriptionComboBox = (props: Props) => {
   }
 
   useEffect(() => {
-    if (invalid) { setShowDropDown(false); }
+    if (invalid) {
+      const hideDropdown = async () => setShowDropDown(false); 
+      void hideDropdown(); 
+    }
   }, [invalid]);
 
   const ref = useRef<HTMLDivElement>(null);
