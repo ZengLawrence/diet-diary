@@ -19,7 +19,7 @@ export function generateSuggestions(
   foodDescriptionRef: React.RefObject<string>,
   callback: (suggestions: Suggestion[]) => void,
   maxResults: number = 5
-) {
+): void {
   const foodDescription = decompose(foodDescriptionRef.current + "");
   const autoCompletions = findAutoCompletions(foodDescription);
 
@@ -33,5 +33,5 @@ export function generateSuggestions(
   const allSuggestions = _.concat(autoCompletions, autoSuggestions, servingSuggestions);
   const results = _.uniqWith(_.compact(allSuggestions), _.isEqual)
     .slice(0, maxResults);
-  return callback(results);
+  callback(results);
 }
