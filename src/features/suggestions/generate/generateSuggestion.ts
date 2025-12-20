@@ -16,19 +16,19 @@ function unitOfMeasurement(amount?: string) {
 }
 
 export function generateSuggestions(
-  foodDescriptionRef: React.RefObject<string>,
+  foodDescription: string,
   callback: (suggestions: Suggestion[]) => void,
   maxResults: number = 5
 ): void {
-  const foodDescription = decompose(foodDescriptionRef.current + "");
-  const autoCompletions = findAutoCompletions(foodDescription);
+  const decomposedDesc = decompose(foodDescription + "");
+  const autoCompletions = findAutoCompletions(decomposedDesc);
 
   const firstAutoCompletion = autoCompletions[0];
   const options = { 
     convertibleFrom: unitOfMeasurement(firstAutoCompletion?.amount),
     maxResults
    };
-  const servingSuggestions = findSuggestions(foodDescription.foodName, options);
+  const servingSuggestions = findSuggestions(decomposedDesc.foodName, options);
   const autoSuggestions = generateAutoSuggestion(firstAutoCompletion, servingSuggestions);
   const allSuggestions = _.concat(autoCompletions, autoSuggestions, servingSuggestions);
   const results = _.uniqWith(_.compact(allSuggestions), _.isEqual)

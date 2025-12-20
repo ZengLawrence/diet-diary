@@ -1,15 +1,7 @@
 import { expect, test } from "@jest/globals";
 import _ from "lodash";
-import React from "react";
 import { Suggestion } from "../Suggestion";
 import { generateSuggestions } from "./generateSuggestion";
-
-class MockRefObject implements React.RefObject<string> {
-  current: string;
-  constructor(val: string) {
-    this.current = val;
-  }
-}
 
 test("search for full name e.g. 'broccoli' should return at least 3 rows.  First 3 rows: 1) 'broccoli' word suggestion, 2) 'broccoli' word suggestion with serving, 3) serving suggestion", () => {
   const assert = (suggestions: Suggestion[]) => {
@@ -30,7 +22,7 @@ test("search for full name e.g. 'broccoli' should return at least 3 rows.  First
       }
     );
   }
-  generateSuggestions(new MockRefObject("broccoli"), assert);
+  generateSuggestions("broccoli", assert);
 })
 
 test("search for exact name e.g. 'Broccoli' should return at least 2 rows.  First 2 rows: 1) 'broccoli' word suggestion, 2) serving suggestion", () => {
@@ -45,7 +37,7 @@ test("search for exact name e.g. 'Broccoli' should return at least 2 rows.  Firs
       }
     );
   }
-  generateSuggestions(new MockRefObject("Broccoli"), assert);
+  generateSuggestions("Broccoli", assert);
 })
 
 test("search with more than 5 words suggestions e.g. 'pea' should return exactly 5 rows with just 'foodName' key in objects, and one of them should be 'pea'", () => {
@@ -58,7 +50,7 @@ test("search with more than 5 words suggestions e.g. 'pea' should return exactly
     );
     expect(suggestions).toContainEqual({ foodName: "pea" });
   }
-  generateSuggestions(new MockRefObject("pea"), assert);
+  generateSuggestions("pea", assert);
 })
 
 test("search with no match e.g. 'longan' should return exactly 1 row with 'longan'", () => {
@@ -66,7 +58,7 @@ test("search with no match e.g. 'longan' should return exactly 1 row with 'longa
     expect(_.size(suggestions)).toEqual(1);
     expect(suggestions).toContainEqual({ foodName: "longan" });
   }
-  generateSuggestions(new MockRefObject("longan"), assert);
+  generateSuggestions("longan", assert);
 })
 
 test("search with multiple matches e.g. 'peanut butter' should auto suggest with amount and serving from food name starts with 'peanut butter'", () => {
@@ -83,7 +75,7 @@ test("search with multiple matches e.g. 'peanut butter' should auto suggest with
       }
     );
   }
-  generateSuggestions(new MockRefObject("peanut butter"), assert);
+  generateSuggestions("peanut butter", assert);
 })
 
 test("search with multiple matches and word is completed i.e space after the word e.g. 'peas ' should auto suggest with amount and serving from food name starts with 'peas'", () => {
@@ -100,7 +92,7 @@ test("search with multiple matches and word is completed i.e space after the wor
       }
     );
   }
-  generateSuggestions(new MockRefObject("peas "), assert);
+  generateSuggestions("peas ", assert);
 })
 
 test("search with multiple matches and word is completed i.e space after the word, with capitalized letter e.g. 'Peas ' should auto suggest with amount and serving from food name starts with 'peas'", () => {
@@ -117,7 +109,7 @@ test("search with multiple matches and word is completed i.e space after the wor
       }
     );
   }
-  generateSuggestions(new MockRefObject("Peas "), assert);
+  generateSuggestions("Peas ", assert);
 })
 
 test("search with multiple matches and with capitalized letter e.g. 'Peas' should auto suggest names with capitalized letter", () => {
@@ -127,7 +119,7 @@ test("search with multiple matches and with capitalized letter e.g. 'Peas' shoul
       expect(foodName).toMatch(_.capitalize(foodName));
     });
   }
-  generateSuggestions(new MockRefObject("Peas"), assert);
+  generateSuggestions("Peas", assert);
 })
 
 test("search with auto complete unit e.g. 'milk 8 flu' should auto suggest 'milk 8 fluid'", () => {
@@ -140,7 +132,7 @@ test("search with auto complete unit e.g. 'milk 8 flu' should auto suggest 'milk
       }
     );
   }
-  generateSuggestions(new MockRefObject("milk 8 flu"), assert);
+  generateSuggestions("milk 8 flu", assert);
 })
 
 test("stop auto completion if space after unit e.g. 'peanuts 8 wholes '", () => {
@@ -162,7 +154,7 @@ test("stop auto completion if space after unit e.g. 'peanuts 8 wholes '", () => 
       }
     );
   }
-  generateSuggestions(new MockRefObject("peanuts 8 wholes "), assert);
+  generateSuggestions("peanuts 8 wholes ", assert);
 })
 
 test("keep suggestions with convertible unit", () => {
@@ -195,7 +187,7 @@ test("keep suggestions with convertible unit", () => {
       }
     );
   }
-  generateSuggestions(new MockRefObject("chocolate whole milk 8 fluid ounces"), assert);
+  generateSuggestions("chocolate whole milk 8 fluid ounces", assert);
 
 })
 
@@ -231,7 +223,7 @@ test("no deduplicate suggestions", () => {
   }
   // extra space to stop auto complete for food name
   // unit must be one of un-convertible unit
-  generateSuggestions(new MockRefObject("Nuts, peanuts 8 wholes "), assert);
+  generateSuggestions("Nuts, peanuts 8 wholes ", assert);
 
 })
 
@@ -256,7 +248,7 @@ test("size suggestions", () => {
     );
 
   }
-  generateSuggestions(new MockRefObject("apple 1 large "), assert);
+  generateSuggestions("apple 1 large ", assert);
 
 })
 
@@ -281,7 +273,7 @@ test("use alternate measurement to match", () => {
     );
 
   }
-  generateSuggestions(new MockRefObject("orange 1 large "), assert);
+  generateSuggestions("orange 1 large ", assert);
 
 })
 
@@ -309,7 +301,7 @@ test("diameter size calculation", () => {
     );
 
   }
-  generateSuggestions(new MockRefObject("cheese pizza 1/8 of 12-inch "), assert);
+  generateSuggestions("cheese pizza 1/8 of 12-inch ", assert);
 
 })
 
@@ -334,6 +326,6 @@ test("use prep method -- word after unit e.g. 1 cup cooked to determine the meas
     );
 
   }
-  generateSuggestions(new MockRefObject("cabbage, green or red 1 cup cooked"), assert);
+  generateSuggestions("cabbage, green or red 1 cup cooked", assert);
 
 })
