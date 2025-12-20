@@ -10,9 +10,8 @@ const WeightLossSummary = () => {
     const getTotalWeightLoss = async () => {
       return summary.totalWeightLoss();
     }
-    getTotalWeightLoss().then((val) => {
-      setWeight(val);
-    });
+    getTotalWeightLoss().then(setWeight);
+    
     const listener: SummaryListener = {
       onTotalWeightLossUpdated: () => {
         setWeight(summary.totalWeightLoss());
