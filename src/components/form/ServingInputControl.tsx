@@ -17,7 +17,10 @@ function useSyncedLocalState(props: Props) {
 
   useEffect(() => {
     // syncing with parent state
-    setServingStr(_.get(serving, foodGroup) || '');
+    const syncWithParentState = async () => {
+      setServingStr(_.get(serving, foodGroup, ''));
+    };
+    void syncWithParentState();
   }, [foodGroup, serving]);
 
   return { servingStr, handleChange };

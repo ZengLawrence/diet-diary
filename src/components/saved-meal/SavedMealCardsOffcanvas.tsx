@@ -20,9 +20,8 @@ function SavedMealCardsOffcanvas(props: Props) {
   const [meals, setMeals] = useState([] as SavedMeal[]);
   const dispatch = useAppDispatch();
 
-  const filterMeals = (searchTerm: string): void => {
-    const filtered = savedMeals.searchByDescription(searchTerm);
-    setMeals(filtered);
+  const filterMeals = async (searchTerm: string) => {
+    return savedMeals.searchByDescription(searchTerm);
   }
 
   useEffect(() => {
@@ -32,7 +31,7 @@ function SavedMealCardsOffcanvas(props: Props) {
     }
     savedMeals.register(listener);
 
-    filterMeals(searchTerm);
+    filterMeals(searchTerm).then(setMeals);
 
     return () => {
       savedMeals.unregister(listener);

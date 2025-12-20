@@ -1,6 +1,6 @@
 import { Action, combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash";
-import { useEffect, useReducer, useRef } from "react";
+import { useEffect, useReducer } from "react";
 import { generateSuggestions, Suggestion } from "../../features/suggestions";
 import { Food, FoodGroup, hasMoreThanOneFoodGroup, Serving } from "../../model/Food";
 
@@ -175,7 +175,6 @@ function maxResults(expanded: boolean) {
 export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (food: Food) => void) {
   const [state, dispatch] = useReducer(reducer, initialFood, initialState);
 
-  const descRef = useRef(initialFood.description);
   const expanded = state.expand;
 
   const setSuggestionsCallback = (suggestions: Suggestion[]) => {
@@ -183,13 +182,12 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
   }
 
   const generateSuggestions = (desc: string) => {
-    descRef.current = desc;
-    debouncedGenerateSuggestions(descRef, setSuggestionsCallback, maxResults(expanded));
+    debouncedGenerateSuggestions(desc, setSuggestionsCallback, maxResults(expanded));
   }
 
   useEffect(() => {
-    debouncedGenerateSuggestions(descRef, setSuggestionsCallback, maxResults(expanded));
-  }, [descRef, dispatch, expanded])
+    debouncedGenerateSuggestions(initialFood.description, setSuggestionsCallback, maxResults(expanded));
+  }, [initialFood.description, dispatch, expanded])
 
   const fns = {
     updateFoodDescription: _.partial(updateFoodDescription, dispatch, generateSuggestions),
