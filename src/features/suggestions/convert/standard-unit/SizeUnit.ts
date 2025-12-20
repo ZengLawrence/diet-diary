@@ -1,4 +1,4 @@
-import { Measure, Unit } from "convert-units";
+import type { Measure, Unit } from "convert-units";
 
 export type SizeSystems = "size";
 

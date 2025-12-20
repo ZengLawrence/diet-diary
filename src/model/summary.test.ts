@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { mock, MockProxy } from "jest-mock-extended";
-import { DiaryHistory, DiaryHistoryListener } from "./diaryHistory";
-import { ReadonlyPreferences } from "./preferences";
+import type { MockProxy } from "jest-mock-extended";
+import { mock } from "jest-mock-extended";
+import type { DiaryHistory, DiaryHistoryListener } from "./diaryHistory";
+import type { ReadonlyPreferences } from "./preferences";
 import { Summary } from "./summary";
 
 describe("Summary class", () => {

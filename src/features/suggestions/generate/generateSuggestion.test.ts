@@ -1,6 +1,6 @@
 import { expect, test } from "@jest/globals";
 import _ from "lodash";
-import { Suggestion } from "../Suggestion";
+import type { Suggestion } from "../Suggestion";
 import { generateSuggestions } from "./generateSuggestion";
 
 test("search for full name e.g. 'broccoli' should return at least 3 rows.  First 3 rows: 1) 'broccoli' word suggestion, 2) 'broccoli' word suggestion with serving, 3) serving suggestion", () => {

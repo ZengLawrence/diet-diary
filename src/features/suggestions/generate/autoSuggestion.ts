@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import { Suggestion } from "../Suggestion";
+import type { Suggestion } from "../Suggestion";
 import baseOn from './calculateServing';
-import { PredefinedSuggestion } from "../search/PredefinedSuggestion";
+import type { PredefinedSuggestion } from "../search/PredefinedSuggestion";
 import { isAmountParsable } from './isAmountParsable';
 
 export function generateAutoSuggestion(autoCompletion: Suggestion, suggestions: PredefinedSuggestion[]) {

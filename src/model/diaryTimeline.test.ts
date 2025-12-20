@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { ReadOnlyDiaryHistory } from "./diaryHistory";
+import type { ReadOnlyDiaryHistory } from "./diaryHistory";
 import { DiaryTimeline } from "./diaryTimeline";
-import { ReadOnlyToday } from "./today";
+import type { ReadOnlyToday } from "./today";
 
 describe("DiaryTimeline", () => {
   let history: jest.Mocked<ReadOnlyDiaryHistory>;

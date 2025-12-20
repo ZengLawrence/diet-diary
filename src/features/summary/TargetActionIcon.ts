@@ -1,9 +1,10 @@
 import _ from "lodash";
 import { connect } from "react-redux";
 import { targetSelector, totalServingSelector, unlimitedFruitSelector } from "../../app/selectors";
-import { RootState } from "../../app/store";
-import { TargetAction, TargetActionIcon } from "../../components/summary/TargetActionIcon";
-import { FoodGroup, Serving } from "../../model/Food";
+import type { RootState } from "../../app/store";
+import type { TargetAction} from "../../components/summary/TargetActionIcon";
+import { TargetActionIcon } from "../../components/summary/TargetActionIcon";
+import type { FoodGroup, Serving } from "../../model/Food";
 import { isMinLimit } from "../target/isMinLimit";
 
 function servingForFoodGroup(serving: Serving, foodGroup: FoodGroup) {

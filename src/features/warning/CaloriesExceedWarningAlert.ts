@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { AppDispatch, RootState } from "../../app/store";
+import type { AppDispatch, RootState } from "../../app/store";
 import { WarningAlert } from "../../components/warning/WarningAlert";
 import { isCritical, shouldShow } from "./warnings";
 import { dismissWarning } from "./warningSlice";

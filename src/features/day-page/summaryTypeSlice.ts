@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { SummaryType } from "../../model/SummaryType";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import type { SummaryType } from "../../model/SummaryType";
 
 const summaryTypeSlice = createSlice({
   name: "summaryType",

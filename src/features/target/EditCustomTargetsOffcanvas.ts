@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { AppDispatch, RootState } from "../../app/store";
+import type { AppDispatch, RootState } from "../../app/store";
 import EditCustomTargetsOffcanvas from "../../components/target/EditCustomTargetsOffcanvas";
 import { closeCustomTargets } from "../overlays/overlaysSlice";
 

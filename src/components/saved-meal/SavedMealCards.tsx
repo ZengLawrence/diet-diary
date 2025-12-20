@@ -2,7 +2,7 @@ import _ from "lodash";
 import { Card, ListGroup } from "react-bootstrap";
 import { FoodListGroupItems } from "../meal-card/FoodListGroupItems";
 import { MealCardHeader } from "./MealCardHeader";
-import { SavedMeal } from "../../model/SavedMeal";
+import type { SavedMeal } from "../../model/SavedMeal";
 
 interface Props {
   meals: SavedMeal[];

@@ -1,7 +1,8 @@
 import _ from "lodash";
 import { calcFoodCalories } from "./calorieFunction";
-import { Serving } from "./Food";
-import { Target, defaultTargets, getDefaultTarget } from "./Target";
+import type { Serving } from "./Food";
+import type { Target} from "./Target";
+import { defaultTargets, getDefaultTarget } from "./Target";
 
 export type { Target };
 

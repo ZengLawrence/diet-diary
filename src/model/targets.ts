@@ -1,6 +1,7 @@
 import _ from "lodash";
-import { ReadOnlyCustomTargets } from "./customTarget";
-import { Gender, manTarget, Target, womanTarget } from "./Target";
+import type { ReadOnlyCustomTargets } from "./customTarget";
+import type { Gender, Target} from "./Target";
+import { manTarget, womanTarget } from "./Target";
 
 export class Targets {
   constructor(private customTargets: ReadOnlyCustomTargets) { }

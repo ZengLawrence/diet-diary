@@ -3,7 +3,7 @@ import parseAmount from '../parser/amount-regex-parser';
 import decompose from '../parser/food-description-regex-parser';
 import findAutoCompletions from '../search/autoCompletion';
 import { findSuggestions } from '../search/foodNameSearch';
-import { Suggestion } from '../Suggestion';
+import type { Suggestion } from '../Suggestion';
 import { generateAutoSuggestion } from './autoSuggestion';
 import { isAmountParsable } from './isAmountParsable';
 

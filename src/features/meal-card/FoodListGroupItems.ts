@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { mealsSelector, mealStatesSelector } from "../../app/selectors";
-import { RootState } from "../../app/store";
+import type { RootState } from "../../app/store";
 import { FoodListGroupItems } from "../../components/meal-card/FoodListGroupItems";
 
 const mapStateToProps = (state: RootState, ownProps: { mealIndex: number; }) => ({

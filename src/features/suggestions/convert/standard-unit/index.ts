@@ -1,9 +1,12 @@
-import configureMeasurements, { mass, MassSystems, MassUnits, volume, VolumeSystems, VolumeUnits } from "convert-units";
+import type { MassSystems, MassUnits, VolumeSystems, VolumeUnits } from "convert-units";
+import configureMeasurements, { mass, volume } from "convert-units";
 import _ from "lodash";
-import size, { SizeSystems, SizeUnits } from "./SizeUnit";
-import unknown, { UnknownSystems, UnknownUnits } from "./UnknownUnit";
-import { ConvertFunctions } from "../ConvertFunctions";
-import { ParserFunctions } from "../ParserFunctions";
+import type { SizeSystems, SizeUnits } from "./SizeUnit";
+import size from "./SizeUnit";
+import type { UnknownSystems, UnknownUnits } from "./UnknownUnit";
+import unknown from "./UnknownUnit";
+import type { ConvertFunctions } from "../ConvertFunctions";
+import type { ParserFunctions } from "../ParserFunctions";
 
 type Measures = "volume" | "mass" | "size" | "unknown";
 type Systems = VolumeSystems | MassSystems | SizeSystems | UnknownSystems;

@@ -1,5 +1,6 @@
 import _ from "lodash";
-import MiniSearch, { SearchOptions } from "minisearch";
+import type { SearchOptions } from "minisearch";
+import MiniSearch from "minisearch";
 import portions from "../portion/portions";
 import servings from "../serving/servings";
 

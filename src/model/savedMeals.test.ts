@@ -1,9 +1,10 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { Food } from "./Food";
-import { SavedMeal } from "./SavedMeal";
-import { SavedMeals, SavedMealsLoader, SavedMealsSaver, search } from "./savedMeals";
-import { Suggestions } from "./suggestions";
-import { Today } from "./today";
+import type { Food } from "./Food";
+import type { SavedMeal } from "./SavedMeal";
+import type { SavedMealsLoader, SavedMealsSaver} from "./savedMeals";
+import { SavedMeals, search } from "./savedMeals";
+import type { Suggestions } from "./suggestions";
+import type { Today } from "./today";
 
 // Helper: minimal valid Food for tests
 const minimalFood: Food = { description: "desc", serving: {} };

@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { mock } from "jest-mock-extended";
-import { CustomTargetListener, CustomTargets, CustomTargetsLoader, CustomTargetsSaver, ReadOnlyCustomTargets, retrieval, validation } from './customTarget';
-import { FoodGroup } from './Food';
+import type { CustomTargetListener, CustomTargetsLoader, CustomTargetsSaver} from './customTarget';
+import { CustomTargets, ReadOnlyCustomTargets, retrieval, validation } from './customTarget';
+import type { FoodGroup } from './Food';
 
 describe('validation', () => {
 

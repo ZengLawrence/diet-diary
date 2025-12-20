@@ -1,4 +1,4 @@
-import { Preference, PreferenceLoader, PreferenceSaver } from "../model/preferences";
+import type { Preference, PreferenceLoader, PreferenceSaver } from "../model/preferences";
 
 export class PreferencesLocalStorage implements PreferenceLoader, PreferenceSaver {
   load(): Preference | Omit<Preference, "gender"> | undefined {

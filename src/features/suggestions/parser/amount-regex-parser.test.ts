@@ -3,7 +3,7 @@ import { parse } from 'csv-parse/sync';
 import fs from 'fs';
 import path from 'path';
 import _ from "lodash";
-import { StandardUnit } from "../convert/standard-unit";
+import type { StandardUnit } from "../convert/standard-unit";
 import parseAmount from "./amount-regex-parser";
 
 test("unit pound(s) -> lb", () => {

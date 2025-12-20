@@ -1,6 +1,6 @@
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import { Serving } from "../../model/Food";
+import type { Serving } from "../../model/Food";
 import { ServingCell } from "./ServingCell";
 
 export const ServingSummary = (props: { serving: Serving; }) => (

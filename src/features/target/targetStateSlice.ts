@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Gender } from "../../model/Target";
+import type { Gender } from "../../model/Target";
 import { preferencesApi } from "../preference/api";
 
 interface TargetState {

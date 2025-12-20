@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 import { genderSelector } from "../../app/selectors";
-import { AppDispatch, RootState } from "../../app/store";
+import type { AppDispatch, RootState } from "../../app/store";
 import { GenderToggle } from "../../components/target/GenderToggle";
-import { Gender } from "../../model/Target";
+import type { Gender } from "../../model/Target";
 import { changeGender } from "./targetStateSlice";
 
 const mapStateToProps = (state: RootState) => ({

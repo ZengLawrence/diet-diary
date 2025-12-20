@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { calcFoodCalories } from "../../model/calorieFunction";
 import { toIntString } from "../stringUtil";
-import { Food } from "../../model/Food";
+import type { Food } from "../../model/Food";
 import { VariantDanger, VariantPrimary, VariantSecondary } from "../ButtonVariant";
 import { FoodDescriptionComboBox } from "./FoodDescriptionComboBox";
 import { ServingInputControl } from "../form/ServingInputControl";

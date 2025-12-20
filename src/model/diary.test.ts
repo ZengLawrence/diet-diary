@@ -1,11 +1,12 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
-import { mock, MockProxy } from "jest-mock-extended";
+import type { MockProxy } from "jest-mock-extended";
+import { mock } from "jest-mock-extended";
 import { Diary } from "./diary";
-import { DiaryHistory } from "./diaryHistory";
+import type { DiaryHistory } from "./diaryHistory";
 import { newMeal } from "./Food";
 import { getDefaultTarget } from "./Target";
-import { TargetPreferences } from "./TargetPreferences";
-import { Today } from "./today";
+import type { TargetPreferences } from "./TargetPreferences";
+import type { Today } from "./today";
 
 describe("Diary class", () => {
   let mockDiaryHistory: MockProxy<DiaryHistory>;

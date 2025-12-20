@@ -7,8 +7,9 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import { customTargets } from "../../features/target";
 import { calcFoodCalories } from "../../model/calorieFunction";
-import { retrieval, Target, validation } from "../../model/customTarget";
-import { FoodGroup, Serving } from "../../model/Food";
+import type { Target} from "../../model/customTarget";
+import { retrieval, validation } from "../../model/customTarget";
+import type { FoodGroup, Serving } from "../../model/Food";
 import { ServingInputControl } from "../form/ServingInputControl";
 import { toIntString } from "../stringUtil";
 

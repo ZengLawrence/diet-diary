@@ -1,5 +1,5 @@
-import { DiaryHistory } from "./diaryHistory";
-import { ReadonlyPreferences } from "./preferences";
+import type { DiaryHistory } from "./diaryHistory";
+import type { ReadonlyPreferences } from "./preferences";
 
 export interface SummaryListener {
   onTotalWeightLossUpdated(): void;

@@ -1,8 +1,10 @@
 import _ from 'lodash';
-import { Serving } from '../../../model/Food';
+import type { Serving } from '../../../model/Food';
 import { multiply } from '../../../model/servingFunction';
-import parseAmount, { DecomposedAmount } from '../parser/amount-regex-parser';
-import convert, { isMeasurementConvertible, Unit } from '../convert';
+import type { DecomposedAmount } from '../parser/amount-regex-parser';
+import parseAmount from '../parser/amount-regex-parser';
+import type { Unit } from '../convert';
+import convert, { isMeasurementConvertible } from '../convert';
 
 function measurementFor(unit: Unit, { measurement, alternateMeasurement }: DecomposedAmount, prepMethod?: string) {
   const isUnitConvertibleTo = _.partial(isMeasurementConvertible, unit);

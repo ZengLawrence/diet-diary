@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { mealStatesSelector } from "../../app/selectors";
-import { RootState } from "../../app/store";
+import type { RootState } from "../../app/store";
 import { MealButtons } from "../../components/meal-card/MealButtons";
 
 const mapStateToProps = (state: RootState, ownProps: { mealIndex: number; }) => ({

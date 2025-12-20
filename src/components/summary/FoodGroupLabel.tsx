@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { FoodGroup } from "../../model/Food";
+import type { FoodGroup } from "../../model/Food";
 import { FoodGroupLabelBadge } from "../badge";
 import { FoodGroupLegend } from "../FoodGroupLegend";
 

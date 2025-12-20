@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 import { genderSelector, targetSelector } from "../../app/selectors";
-import { AppDispatch, RootState } from "../../app/store";
+import type { AppDispatch, RootState } from "../../app/store";
 import { TargetDropDown } from "../../components/target/TargetDropDown";
-import { Target } from "../../model/Target";
+import type { Target } from "../../model/Target";
 import { changeTarget } from "../day-page/dayPageSlice";
 
 const mapStateToProps = (state: RootState) => ({

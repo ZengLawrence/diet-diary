@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { targetSelector } from "../../app/selectors";
-import { RootState } from "../../app/store";
+import type { RootState } from "../../app/store";
 import { TargetLabel } from "../../components/target/TargetLabel";
 
 const mapStateToProps = (state: RootState) => ({

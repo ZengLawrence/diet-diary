@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { Preference, PreferenceLoader, Preferences, PreferenceSaver, ReadonlyPreferences } from "./preferences";
+import type { Preference, PreferenceLoader, PreferenceSaver} from "./preferences";
+import { Preferences, ReadonlyPreferences } from "./preferences";
 import { mock } from "jest-mock-extended";
 
 const DEFAULT_PREFERENCE: Preference = {

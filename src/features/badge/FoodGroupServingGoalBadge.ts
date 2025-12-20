@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { unlimitedFruitSelector } from "../../app/selectors";
-import { RootState } from "../../app/store";
+import type { RootState } from "../../app/store";
 import { FoodGroupServingGoalBadge } from "../../components/badge";
 
 const mapStateToProps = (state: RootState) => ({

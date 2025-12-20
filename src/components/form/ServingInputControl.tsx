@@ -2,7 +2,7 @@ import _ from "lodash";
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { getCalories } from "../../model/calorieFunction";
-import { FoodGroup, Serving } from "../../model/Food";
+import type { FoodGroup, Serving } from "../../model/Food";
 import { FoodGroupLabelBadge } from "../badge";
 
 function useSyncedLocalState(props: Props) {

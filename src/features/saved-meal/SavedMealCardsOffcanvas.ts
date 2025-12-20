@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { showSavedMealsSelector } from "../../app/selectors";
-import { AppDispatch, RootState } from "../../app/store";
+import type { AppDispatch, RootState } from "../../app/store";
 import SavedMealCardsOffcanvas from "../../components/saved-meal/SavedMealCardsOffcanvas";
 import { hide } from "../day-page/showSavedMealsSlice";
 

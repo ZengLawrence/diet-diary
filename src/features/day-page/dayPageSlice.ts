@@ -1,7 +1,8 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { DayPage } from "../../model/DayPage";
-import { Food } from "../../model/Food";
-import { Target } from "../../model/Target";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import type { DayPage } from "../../model/DayPage";
+import type { Food } from "../../model/Food";
+import type { Target } from "../../model/Target";
 import { diary, today } from "./api";
 import { back, goToToday, next } from "./pageOptionsSlice";
 

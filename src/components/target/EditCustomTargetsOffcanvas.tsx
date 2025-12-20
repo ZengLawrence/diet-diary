@@ -4,7 +4,8 @@ import Col from "react-bootstrap/Col";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Row from "react-bootstrap/Row";
 import { customTargets } from "../../features/target";
-import { AbstractCustomTargetListener, CustomTargetListener, Target } from "../../model/customTarget";
+import type { CustomTargetListener, Target } from "../../model/customTarget";
+import { AbstractCustomTargetListener } from "../../model/customTarget";
 import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
 import TargetEditForm from "./TargetEditForm";
 

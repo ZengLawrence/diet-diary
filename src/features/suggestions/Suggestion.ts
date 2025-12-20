@@ -1,4 +1,4 @@
-import { Serving } from '../../model/Food';
+import type { Serving } from '../../model/Food';
 
 export interface Suggestion {
   foodName: string;
