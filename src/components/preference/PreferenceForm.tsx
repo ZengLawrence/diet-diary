@@ -9,9 +9,13 @@ const PreferenceForm = () => {
   const [calorieLevel, setCalorieLevel] = useState(undefined as number | undefined);
 
   useEffect(() => {
-    const startDayCalorieTarget = preferencesApi.getStartDayCalorieTarget();
-    setChecked(startDayCalorieTarget.enabled);
-    setCalorieLevel(startDayCalorieTarget.level);
+    const getStartDayCalorieTarget = async () => {
+      return preferencesApi.getStartDayCalorieTarget();
+    };
+    getStartDayCalorieTarget().then(startDayCalorieTarget => {
+      setChecked(startDayCalorieTarget.enabled);
+      setCalorieLevel(startDayCalorieTarget.level);
+    });
   }, []);
 
   const handleToggleChecked = () => {
