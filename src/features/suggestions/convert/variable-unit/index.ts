@@ -1,7 +1,9 @@
 import composeConverter from "../ConvertFunctions";
 import composeParser from "../ParserFunctions";
-import diameterUnitFunctions, { DiameterUnit } from "./DiameterUnit";
-import nOunceUnitFunctions, { NOunceUnit } from "./NOunceUnit";
+import type { DiameterUnit } from "./DiameterUnit";
+import diameterUnitFunctions from "./DiameterUnit";
+import type { NOunceUnit } from "./NOunceUnit";
+import nOunceUnitFunctions from "./NOunceUnit";
 
 export type VariableUnit = DiameterUnit | NOunceUnit;
 

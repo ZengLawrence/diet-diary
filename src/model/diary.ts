@@ -1,10 +1,11 @@
-import { AbstractCustomTargetListener, CustomTargets } from "./customTarget";
-import { DayPage } from "./DayPage";
-import { DiaryHistory } from "./diaryHistory";
-import { Preferences } from "./preferences";
-import { Target } from "./Target";
+import type { CustomTargets } from "./customTarget";
+import { AbstractCustomTargetListener } from "./customTarget";
+import type { DayPage } from "./DayPage";
+import type { DiaryHistory } from "./diaryHistory";
+import type { Preferences } from "./preferences";
+import type { Target } from "./Target";
 import { TargetPreferences } from "./TargetPreferences";
-import { Today } from "./today";
+import type { Today } from "./today";
 
 export class Diary {
   constructor(

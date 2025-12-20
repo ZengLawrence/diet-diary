@@ -1,6 +1,6 @@
 import { calcCaloriesDifference } from "./calorieFunction";
-import { DayPage } from "./DayPage";
-import { Gender } from "./Target";
+import type { DayPage } from "./DayPage";
+import type { Gender } from "./Target";
 
 const MAX_DAYS = 7;
 

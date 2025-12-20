@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { AppDispatch } from "../../app/store";
+import type { AppDispatch } from "../../app/store";
 import { AddMealButtons } from "../../components/meal-card/AddMealButtons";
 import { show } from "../day-page/showSavedMealsSlice";
 

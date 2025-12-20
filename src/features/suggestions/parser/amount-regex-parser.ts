@@ -1,5 +1,6 @@
 import Fraction from "fraction.js";
-import { parseUnit, Unit } from "../convert";
+import type { Unit } from "../convert";
+import { parseUnit } from "../convert";
 import _ from "lodash";
 
 interface Measurement {

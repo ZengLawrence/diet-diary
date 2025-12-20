@@ -4,10 +4,10 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { savedMeals } from "../../features/saved-meal";
 import { SavedMealCards } from "./SavedMealCards";
 import { SearchTermInput } from "./SearchTermInput";
-import { SavedMeal } from "../../model/SavedMeal";
+import type { SavedMeal } from "../../model/SavedMeal";
 import { useAppDispatch } from "../../app/hooks";
 import { refresh } from "../../features/day-page/dayPageSlice";
-import { SavedMealsChangeListener } from "../../model/savedMeals";
+import type { SavedMealsChangeListener } from "../../model/savedMeals";
 
 interface Props {
   show: boolean,

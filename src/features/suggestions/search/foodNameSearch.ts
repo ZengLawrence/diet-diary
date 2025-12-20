@@ -1,10 +1,11 @@
 import _ from "lodash";
-import { isMeasurementConvertible, Unit } from "../convert";
+import type { Unit } from "../convert";
+import { isMeasurementConvertible } from "../convert";
 import parseAmount from "../parser/amount-regex-parser";
 import portions from "../portion/portions";
 import servings from "../serving/servings";
 import fnms from "./foodNameMiniSearch";
-import { PredefinedSuggestion } from "./PredefinedSuggestion";
+import type { PredefinedSuggestion } from "./PredefinedSuggestion";
 
 const suggestions = fnms.buildDocuments(_.concat(servings, portions));
 

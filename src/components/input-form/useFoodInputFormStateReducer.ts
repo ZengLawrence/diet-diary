@@ -1,8 +1,11 @@
-import { Action, combineReducers, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import type { Action, PayloadAction } from "@reduxjs/toolkit";
+import { combineReducers, createSlice } from "@reduxjs/toolkit";
 import _ from "lodash";
 import { useEffect, useReducer } from "react";
-import { generateSuggestions, Suggestion } from "../../features/suggestions";
-import { Food, FoodGroup, hasMoreThanOneFoodGroup, Serving } from "../../model/Food";
+import type { Suggestion } from "../../features/suggestions";
+import { generateSuggestions } from "../../features/suggestions";
+import type { Food, FoodGroup, Serving } from "../../model/Food";
+import { hasMoreThanOneFoodGroup } from "../../model/Food";
 
 interface ValidationError {
   foodDescription?: boolean;

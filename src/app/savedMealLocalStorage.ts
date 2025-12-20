@@ -1,5 +1,5 @@
-import { SavedMeal } from "../model/SavedMeal";
-import { SavedMealsLoader, SavedMealsSaver } from "../model/savedMeals";
+import type { SavedMeal } from "../model/SavedMeal";
+import type { SavedMealsLoader, SavedMealsSaver } from "../model/savedMeals";
 
 interface SerializedSavedMeals {
   meals: SavedMeal[];

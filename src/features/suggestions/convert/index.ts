@@ -1,7 +1,9 @@
 import composeConverter from "./ConvertFunctions";
 import composeParser from "./ParserFunctions";
-import standardUnitFunctions, { StandardUnit } from "./standard-unit";
-import variableUnitFunctions, { VariableUnit } from "./variable-unit";
+import type { StandardUnit } from "./standard-unit";
+import standardUnitFunctions from "./standard-unit";
+import type { VariableUnit } from "./variable-unit";
+import variableUnitFunctions from "./variable-unit";
 
 export type Unit = StandardUnit | VariableUnit;
 

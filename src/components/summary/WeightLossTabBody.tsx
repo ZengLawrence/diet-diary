@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import summary from "../../features/summary/api";
-import { SummaryListener } from "../../model/summary";
+import type { SummaryListener } from "../../model/summary";
 import WeightLossTotal from "./WeightLossTotal";
 
 const WeightLossSummary = () => {

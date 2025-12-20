@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { FoodGroup, Serving } from "../../model/Food";
+import type { FoodGroup, Serving } from "../../model/Food";
 import { FoodGroupServingBadge } from "../badge";
 import { Fragment } from "react";
 

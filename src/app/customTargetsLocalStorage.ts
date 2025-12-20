@@ -1,5 +1,5 @@
-import { CustomTargetsLoader, CustomTargetsSaver } from "../model/customTarget";
-import { Target } from "../model/Target";
+import type { CustomTargetsLoader, CustomTargetsSaver } from "../model/customTarget";
+import type { Target } from "../model/Target";
 
 interface SerializedCustomTargets {
   targets: Target[];

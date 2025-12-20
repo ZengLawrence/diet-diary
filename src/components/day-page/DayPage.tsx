@@ -7,7 +7,7 @@ import AddMealButtons from "../../features/meal-card/AddMealButtons";
 import MealCards from "../../features/meal-card/MealCards";
 import SavedMealCardsOffcanvas from "../../features/saved-meal/SavedMealCardsOffcanvas";
 import TabbedSummary from "../../features/summary/TabbedSummary";
-import { TodayListener } from "../../model/today";
+import type { TodayListener } from "../../model/today";
 import BrandNavbar from "./BrandNavbar";
 import Warnings from "../warning/Warnings";
 import { Footer } from "./Footer";

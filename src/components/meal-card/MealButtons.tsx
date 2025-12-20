@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import Button from "react-bootstrap/Button";
-import { MealEditState } from "../../features/day-page/pageOptionsSlice";
+import type { MealEditState } from "../../features/day-page/pageOptionsSlice";
 import { VariantPrimary, VariantSecondary } from "../ButtonVariant";
 
 interface Props {

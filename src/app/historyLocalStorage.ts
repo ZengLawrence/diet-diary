@@ -1,5 +1,5 @@
-import { DayPage } from "../model/DayPage";
-import { DiaryHistoryLoader, DiaryHistorySaver } from "../model/diaryHistory";
+import type { DayPage } from "../model/DayPage";
+import type { DiaryHistoryLoader, DiaryHistorySaver } from "../model/diaryHistory";
 
 interface SerializedHistory {
   days: DayPage[];

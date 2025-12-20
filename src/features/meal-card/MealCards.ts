@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { connect } from "react-redux";
 import { mealStatesSelector } from "../../app/selectors";
-import { RootState } from "../../app/store";
+import type { RootState } from "../../app/store";
 import { MealCards } from "../../components/meal-card/MealCards";
 
 const mapStateToProps = (state: RootState) => ({

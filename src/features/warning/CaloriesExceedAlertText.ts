@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { RootState } from "../../app/store";
+import type { RootState } from "../../app/store";
 import CaloriesExceedAlertText from "../../components/warning/CaloriesExceedAlertText";
 import { percentage } from "./warnings";
 

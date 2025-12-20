@@ -1,5 +1,6 @@
 import _ from "lodash";
-import { displayName, FoodGroup } from "../model/Food";
+import type { FoodGroup } from "../model/Food";
+import { displayName } from "../model/Food";
 import { FoodGroupLabelBadge } from "./badge";
 import { Legend } from "./Legend";
 

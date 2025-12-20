@@ -1,4 +1,4 @@
-import { Food } from "./Food";
+import type { Food } from "./Food";
 
 export interface Suggestions {
   addSuggestion(meal: { foods: Food[]; }): void;

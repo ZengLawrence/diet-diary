@@ -1,6 +1,6 @@
 import { Tab, Tabs } from "react-bootstrap";
 import BestChoiceComparisonSummary from "../../features/summary/BestChoiceComparisonSummary";
-import { SummaryType } from "../../model/SummaryType";
+import type { SummaryType } from "../../model/SummaryType";
 import { DifferenceSummary } from "./DifferenceSummary";
 import { TotalSummary } from "./TotalSummary";
 import WeightLossSummary from "./WeightLossTabBody";

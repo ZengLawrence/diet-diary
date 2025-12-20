@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { RootState, AppDispatch } from "../../app/store";
+import type { RootState, AppDispatch } from "../../app/store";
 import PreferenceFormOffcanvas from "../../components/preference/PreferenceFormOffcanvas";
 import { closePreferences } from "../overlays/overlaysSlice";
 

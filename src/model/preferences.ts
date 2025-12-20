@@ -1,4 +1,5 @@
-import { Gender, isValidCalorieTargetLevel } from "./Target";
+import type { Gender} from "./Target";
+import { isValidCalorieTargetLevel } from "./Target";
 
 export interface Preference {
   startDayCalorieTarget: {

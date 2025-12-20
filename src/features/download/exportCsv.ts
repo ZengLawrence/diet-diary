@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { mkConfig, generateCsv, download } from 'export-to-csv';
-import { Food, Meal } from "../../model/Food";
+import type { Food, Meal } from "../../model/Food";
 import { calcFoodCalories } from "../../model/calorieFunction";
 
 const denormalizeFood = (food: Food) => ({

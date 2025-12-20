@@ -1,4 +1,4 @@
-import { FoodGroup } from "../../model/Food";
+import type { FoodGroup } from "../../model/Food";
 
 export function isMinLimit(foodGroup: FoodGroup, unlimitedFruit: boolean) {
   return (foodGroup === "vegetable"

@@ -3,12 +3,12 @@ import { Fragment } from "react";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
-import { MealEditState } from "../../features/day-page/pageOptionsSlice";
+import type { MealEditState } from "../../features/day-page/pageOptionsSlice";
 import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
 import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
 import EditFoodButton from "../../features/meal-card/EditFoodButton";
 import NewFoodButton from "../../features/meal-card/NewFoodButton";
-import { Food } from "../../model/Food";
+import type { Food } from "../../model/Food";
 import { VariantPrimary } from "../ButtonVariant";
 import { FoodItem } from "../FoodItem";
 

@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { FoodGroup, Serving } from "../../model/Food";
+import type { FoodGroup, Serving } from "../../model/Food";
 import { BestChoiceComparisonChart } from "./BestChoiceComparisonChart";
 import { FoodGroupLabel } from "./FoodGroupLabel";
 

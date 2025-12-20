@@ -1,4 +1,4 @@
-import { Serving } from "../../model/Food";
+import type { Serving } from "../../model/Food";
 import { FoodGroupServingBadgePanel } from "./FoodGroupServingBadgePanel";
 import { CalorieSpan } from "../CalorieSpan";
 

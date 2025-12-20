@@ -1,6 +1,6 @@
 import _ from "lodash";
-import { ReadOnlyCustomTargets, Target } from "./customTarget";
-import { ReadonlyPreferences } from "./preferences";
+import type { ReadOnlyCustomTargets, Target } from "./customTarget";
+import type { ReadonlyPreferences } from "./preferences";
 
 export class TargetPreferences {
   constructor(

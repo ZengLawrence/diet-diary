@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import MealButtons from "../../features/meal-card/MealButtons";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
 import CaloriesExceedWarningAlert from "../../features/warning/CaloriesExceedWarningAlert";
-import { Meal } from "../../model/Food";
+import type { Meal } from "../../model/Food";
 import { VariantDanger } from "../ButtonVariant";
 import CaloriesExceedAlertText from "../../features/warning/CaloriesExceedAlertText";
 

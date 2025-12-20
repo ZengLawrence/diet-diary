@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { mock } from "jest-mock-extended";
-import { DayPage } from "./DayPage";
-import { DiaryHistory, DiaryHistoryLoader, DiaryHistorySaver, ReadOnlyDiaryHistory } from "./diaryHistory";
+import type { DayPage } from "./DayPage";
+import type { DiaryHistoryLoader, DiaryHistorySaver} from "./diaryHistory";
+import { DiaryHistory, ReadOnlyDiaryHistory } from "./diaryHistory";
 
 function makeDay(date: string): DayPage {
   return {

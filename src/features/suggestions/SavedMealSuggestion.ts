@@ -1,9 +1,9 @@
 import _ from "lodash";
-import { Food } from "../../model/Food";
+import type { Food } from "../../model/Food";
 import decompose from "./parser/food-description-regex-parser";
 import { addOrReplace, remove } from "./search/foodNameSearch";
-import { PredefinedSuggestion } from "./search/PredefinedSuggestion";
-import { Suggestions } from "../../model/suggestions";
+import type { PredefinedSuggestion } from "./search/PredefinedSuggestion";
+import type { Suggestions } from "../../model/suggestions";
 
 function isSingleFoodMeal(meal: { foods: Food[]; }): boolean {
   const { foods } = meal;

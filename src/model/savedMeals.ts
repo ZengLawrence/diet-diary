@@ -1,8 +1,8 @@
 import _ from "lodash";
-import { SavedMeal } from "./SavedMeal";
-import { Today } from "./today";
-import { DayPage } from "./DayPage";
-import { Suggestions } from "./suggestions";
+import type { SavedMeal } from "./SavedMeal";
+import type { Today } from "./today";
+import type { DayPage } from "./DayPage";
+import type { Suggestions } from "./suggestions";
 
 function includesAllWords(meal: { foods: { description: string }[] }, words: string[]) {
   const foodDescriptions = _.map(meal.foods, f => _.lowerCase(f.description));

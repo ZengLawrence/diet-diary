@@ -1,5 +1,5 @@
 import { totalCaloriesSelector, targetSelector } from "../../app/selectors";
-import { RootState } from "../../app/store";
+import type { RootState } from "../../app/store";
 
 export function shouldShow(state: RootState): boolean {
   const total = totalCaloriesSelector(state);

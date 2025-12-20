@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import MealCalorieServingPanel from "../../features/meal-card/MealCalorieServingPanel";
 import { VariantDanger, VariantSecondary } from "../ButtonVariant";
-import { SavedMeal } from "../../model/SavedMeal";
+import type { SavedMeal } from "../../model/SavedMeal";
 
 interface Props {
   meal: SavedMeal;

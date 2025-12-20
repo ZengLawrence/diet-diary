@@ -1,5 +1,6 @@
 import _ from "lodash";
-import { abbreviation, FoodGroup, Serving } from "../../model/Food";
+import type { FoodGroup, Serving } from "../../model/Food";
+import { abbreviation } from "../../model/Food";
 import { displayServingValue } from "../../model/servingFunction";
 import { isMinLimit } from "../../features/target/isMinLimit";
 

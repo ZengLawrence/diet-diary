@@ -1,6 +1,7 @@
 import _ from 'lodash';
-import MiniSearch, { SearchOptions, SearchResult } from 'minisearch';
-import { PredefinedSuggestion } from './PredefinedSuggestion';
+import type { SearchOptions, SearchResult } from 'minisearch';
+import MiniSearch from 'minisearch';
+import type { PredefinedSuggestion } from './PredefinedSuggestion';
 
 function addIndexAsId(obj: object, i: number) { return _.set(obj, "id", _.toString(i)); }
 

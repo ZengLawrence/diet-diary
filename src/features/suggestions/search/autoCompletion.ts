@@ -1,8 +1,10 @@
 import _ from 'lodash';
-import parseAmount, { DecomposedAmount } from '../parser/amount-regex-parser';
-import { createSuggestion, Suggestion } from '../Suggestion';
+import type { DecomposedAmount } from '../parser/amount-regex-parser';
+import parseAmount from '../parser/amount-regex-parser';
+import type { Suggestion } from '../Suggestion';
+import { createSuggestion } from '../Suggestion';
 import autoCompleteUnit from './unitMiniSearch';
-import { DecomposedFoodDescription } from '../parser/food-description-regex-parser';
+import type { DecomposedFoodDescription } from '../parser/food-description-regex-parser';
 import { findNameSuggestions } from './foodNameSearch';
 import { isAmountParsable } from '../generate/isAmountParsable';
 

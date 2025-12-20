@@ -1,13 +1,14 @@
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import { RefObject, useEffect, useRef, useState } from "react";
+import type { RefObject} from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import { Suggestion } from "../../features/suggestions/Suggestion";
-import { Serving } from "../../model/Food";
+import type { Suggestion } from "../../features/suggestions/Suggestion";
+import type { Serving } from "../../model/Food";
 import { calcServingCalories } from "../../model/calorieFunction";
 import { BestChoiceLegend } from "../BestChoiceLegend";
 import { BlueStar } from "../BlueStar";

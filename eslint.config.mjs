@@ -24,6 +24,11 @@ export default defineConfig([
       reactHooks.configs.flat.recommended,
       // reactRefresh.configs.vite,
     ],
+    rules: {
+      // Enable extra rules outside of the recommended set
+      '@typescript-eslint/consistent-type-exports': 'error',
+      '@typescript-eslint/consistent-type-imports': 'error',
+    },
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,

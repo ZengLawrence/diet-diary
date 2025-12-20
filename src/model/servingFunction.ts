@@ -1,6 +1,6 @@
 import _ from "lodash";
 import numeral from "numeral";
-import { Food, FoodGroup, Meal, Serving } from "./Food";
+import type { Food, FoodGroup, Meal, Serving } from "./Food";
 
 function _add(n1: number | undefined, n2: number | undefined) {
   return _.defaultTo(n1, 0) + _.defaultTo(n2, 0);

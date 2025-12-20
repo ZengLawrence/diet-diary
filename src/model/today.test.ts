@@ -1,8 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { mock } from "jest-mock-extended";
-import { Food, newMeal } from "./Food";
+import type { Food} from "./Food";
+import { newMeal } from "./Food";
 import { getDefaultTarget } from "./Target";
-import { ReadOnlyToday, Today, TodayLoader, TodaySaver, validation } from "./today";
+import type { TodayLoader, TodaySaver} from "./today";
+import { ReadOnlyToday, Today, validation } from "./today";
 
 describe("validation", () => {
   describe("isToday", () => {

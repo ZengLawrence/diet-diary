@@ -1,5 +1,5 @@
-import { Meal } from "./Food";
-import { Target } from "./Target";
+import type { Meal } from "./Food";
+import type { Target } from "./Target";
 
 
 export interface DayPage {

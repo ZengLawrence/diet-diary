@@ -3,7 +3,7 @@ import { Fragment, useEffect, useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import GenderToggle from "../../features/target/GenderToggle";
 import UnlimitedFruitCheckBox from "../../features/target/UnlimitedFruitCheckBox";
-import { Gender, Target } from "../../model/Target";
+import type { Gender, Target } from "../../model/Target";
 import { FoodGroupServingGoalBadgePanel } from "../panels/FoodGroupServingGoalBadgePanel";
 import { targetsApi } from "../../features/target";
 

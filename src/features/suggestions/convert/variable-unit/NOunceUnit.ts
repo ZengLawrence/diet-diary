@@ -1,6 +1,6 @@
 import _ from "lodash";
-import { ConvertFunctions } from "../ConvertFunctions";
-import { ParserFunctions } from "../ParserFunctions";
+import type { ConvertFunctions } from "../ConvertFunctions";
+import type { ParserFunctions } from "../ParserFunctions";
 
 export interface NOunceUnit {
   ounce: number;

@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { FoodGroup, Serving, Food, Meal } from "./Food";
+import type { FoodGroup, Serving, Food, Meal } from "./Food";
 
 const FOOD_GROUP_CALORIES = {
   "vegetable": 25,

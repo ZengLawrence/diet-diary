@@ -1,6 +1,6 @@
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import { Food } from "../model/Food";
+import type { Food } from "../model/Food";
 import { FoodGroupServingBadgePanel } from "./panels/FoodGroupServingBadgePanel";
 import { BlueStar } from "./BlueStar";
 

@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
-import { AppDispatch } from "../../app/store";
-import { ButtonLabel, FoodInputForm } from "../../components/input-form/FoodInputForm";
-import { Food } from "../../model/Food";
+import type { AppDispatch } from "../../app/store";
+import type { ButtonLabel} from "../../components/input-form/FoodInputForm";
+import { FoodInputForm } from "../../components/input-form/FoodInputForm";
+import type { Food } from "../../model/Food";
 import { exitFoodEditMode } from "../day-page/pageOptionsSlice";
 import { deleteFood, updateFood } from "../day-page/dayPageSlice";
 

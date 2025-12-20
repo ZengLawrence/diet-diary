@@ -1,5 +1,5 @@
 import TargetActionIcon from "../../features/summary/TargetActionIcon";
-import { FoodGroup } from "../../model/Food";
+import type { FoodGroup } from "../../model/Food";
 import { displayServingValue } from "../../model/servingFunction";
 import { FoodGroupLabel } from "./FoodGroupLabel";
 

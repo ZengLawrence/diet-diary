@@ -1,7 +1,9 @@
 import _ from "lodash";
-import { Food, Meal, newMeal } from "./Food";
-import { getDefaultTarget, Target } from "./Target";
-import { DayPage } from "./DayPage";
+import type { Food, Meal} from "./Food";
+import { newMeal } from "./Food";
+import type { Target } from "./Target";
+import { getDefaultTarget } from "./Target";
+import type { DayPage } from "./DayPage";
 
 function today() {
   return new Date().toLocaleDateString();

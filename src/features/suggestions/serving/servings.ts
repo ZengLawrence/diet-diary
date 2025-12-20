@@ -4,7 +4,7 @@ import carbohydrate from "./carbohydrate-serving.json";
 import fat from "./fat-serving.json";
 import fruit from "./fruit-serving.json";
 import proteinDiary from "./protein-diary-serving.json";
-import { ServingSuggestion } from "./ServingSuggestion";
+import type { ServingSuggestion } from "./ServingSuggestion";
 import sweet from "./sweet-serving.json";
 import vegetable from "./vegetable-serving.json";
 

@@ -1,5 +1,5 @@
 import { ToggleButton, ToggleButtonGroup } from "react-bootstrap";
-import { Gender } from "../../model/Target";
+import type { Gender } from "../../model/Target";
 import { VariantPrimary } from "../ButtonVariant";
 
 export const GenderToggle = (props: { value: string; onChange: (val: Gender) => void }) => (

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { viewOptionsSelector } from "../../app/selectors";
-import { RootState } from "../../app/store";
+import type { RootState } from "../../app/store";
 import ReadOnlyViewButtons from "../../components/day-page/ReadOnlyViewButtons";
 
 
