@@ -31,6 +31,7 @@
     "@typescript-eslint/eslint-plugin": "^8.19.1",
     "@typescript-eslint/parser": "^8.19.1",
     "baseline-browser-mapping": "^2.9.11",
+    "@vitejs/plugin-react": "^5.1.2",
     "csv-parse": "^6.1.0",
     "cypress": "^14.5.4",
     "eslint": "^9.39.2",
@@ -47,7 +48,7 @@
     "vite": "^7.3.0"
   },
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "vite",
     "build": "next build",
     "lint": "eslint .",
     "start": "npx --yes serve ./build --listen 3000",
