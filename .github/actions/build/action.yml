@@ -20,5 +20,5 @@ runs:
     - run: npm test
       shell: bash
     - name: Builds the app for production
-      run: npm run build -- base=${{ inputs.base-path }}
+      run: npm run build -- --base=${{ inputs.base-path }}
       shell: bash
