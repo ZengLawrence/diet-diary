@@ -1,6 +1,6 @@
 {
   "name": "diet-diary",
-  "version": "2.56.2",
+  "version": "2.56.3",
   "private": true,
   "homepage": ".",
   "dependencies": {
@@ -14,7 +14,6 @@
     "fraction.js": "^5.3.4",
     "lodash": "^4.17.21",
     "minisearch": "^7.1.0",
-    "next": "^15.5.9",
     "numeral": "^2.0.6",
     "react": "19.1.1",
     "react-bootstrap": "^2.10.7",
@@ -30,6 +29,7 @@
     "@types/react-dom": "19.1.9",
     "@typescript-eslint/eslint-plugin": "^8.19.1",
     "@typescript-eslint/parser": "^8.19.1",
+    "@vitejs/plugin-react": "^5.1.2",
     "baseline-browser-mapping": "^2.9.11",
     "csv-parse": "^6.1.0",
     "cypress": "^14.5.4",
@@ -42,15 +42,16 @@
     "jest": "^30.1.3",
     "jest-environment-jsdom": "^30.1.2",
     "jest-mock-extended": "^4.0.0",
+    "next": "^15.5.9",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "vite": "^7.3.0"
   },
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
+    "dev": "vite",
+    "build": "eslint . && tsc -b && vite build",
     "lint": "eslint .",
-    "start": "npx --yes serve ./build --listen 3000",
-    "start:ci": "npx --yes serve ./build --listen 3000",
+    "preview": "vite preview",
     "test": "jest",
     "test:watch": "jest --watch",
     "cypress:open": "cypress open",
