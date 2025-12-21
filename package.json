@@ -48,7 +48,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "eslint . && tsc -b && vite build",
     "lint": "eslint .",
     "start": "npx --yes serve ./build --listen 3000",
     "start:ci": "npx --yes serve ./build --listen 3000",
