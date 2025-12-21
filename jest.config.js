@@ -1,18 +1,18 @@
-/** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-  roots: ["<rootDir>/src"],
-  testEnvironment: "jsdom",
+  roots: [
+    '<rootDir>/src',
+  ],
+  testEnvironment: 'jsdom',
   moduleNameMapper: {
-    '\\.(css|less|sass|scss|png|jpg|gif|ttf|woff|woff2|svg)$': 'jest-transform-stub', // Handle asset files
-    '^@App/(.*)$': '<rootDir>/src/$1', // Map TS path aliases
+    '\\.(css|less|sass|scss|png|jpg|gif|ttf|woff|woff2|svg)$': 'jest-transform-stub',
+    '^@App/(.*)$': '<rootDir>/src/$1',
   },
-  // setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"], // Optional: for extra setup (e.g., jest-dom)
   transform: {
-    "^.+\\.tsx?$": [
-      "ts-jest",
+    '^.+\\.tsx?$': [
+      'ts-jest',
       {
-        tsConfig: "<rootDir>/tsconfig.test.json",
+        tsconfig: '<rootDir>/tsconfig.test.json',
       },
     ],
   },
-};
+}
