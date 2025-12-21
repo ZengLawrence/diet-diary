@@ -1,6 +1,4 @@
-import { useSearchParams } from "next/navigation";
-
 export function useFeatureFlag(name: string): boolean {
-  const query = useSearchParams();
+  const query = new URLSearchParams(window.location.search);
   return query.has(name);
 }
