@@ -52,6 +52,8 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Build app
         uses: ./.github/actions/build
+        with:
+          base-path: '/diet-diary/'
       - name: Upload production build
         uses: actions/upload-artifact@v4
         with:
