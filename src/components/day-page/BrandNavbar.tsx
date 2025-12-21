@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -19,7 +18,7 @@ const BrandNavbar = () => {
     >
       <Container>
         <Navbar.Brand className="dd-brand-font">
-          <Image
+          <img
             src={logo}
             alt="Logo"
             width="30"
