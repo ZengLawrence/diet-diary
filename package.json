@@ -51,7 +51,6 @@
     "build": "eslint . && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start:ci": "npx --yes serve ./build --listen 3000",
     "test": "jest",
     "test:watch": "jest --watch",
     "cypress:open": "cypress open",
