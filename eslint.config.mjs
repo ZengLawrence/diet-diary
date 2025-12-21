@@ -6,7 +6,6 @@ import reactX from 'eslint-plugin-react-x'
 import { defineConfig, globalIgnores } from 'eslint/config'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
-import nextPlugin from '@next/eslint-plugin-next'
 
 export default defineConfig([
   globalIgnores(['dist']),
@@ -36,15 +35,6 @@ export default defineConfig([
         project: './tsconfig.json',
         tsconfigRootDir: import.meta.dirname,
       },
-    },
-  },
-  {
-    files: ['src/**/*.{js,jsx,ts,tsx}'],
-    plugins: {
-      '@next/next': nextPlugin,
-    },
-    rules: {
-      ...nextPlugin.configs.recommended.rules,
     },
   },
 ])
