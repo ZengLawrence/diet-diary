@@ -179,6 +179,7 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
   const [state, dispatch] = useReducer(reducer, initialFood, initialState);
 
   const expanded = state.expand;
+  const food = state.food;
 
   const setSuggestionsCallback = (suggestions: Suggestion[]) => {
     dispatch(setSuggestions(suggestions));
@@ -189,8 +190,8 @@ export function useFoodInputFormStateReducer(initialFood: Food, onSaveFood: (foo
   }
 
   useEffect(() => {
-    debouncedGenerateSuggestions(initialFood.description, setSuggestionsCallback, maxResults(expanded));
-  }, [initialFood.description, dispatch, expanded])
+    debouncedGenerateSuggestions(food.description, setSuggestionsCallback, maxResults(expanded));
+  }, [food, dispatch, expanded])
 
   const fns = {
     updateFoodDescription: _.partial(updateFoodDescription, dispatch, generateSuggestions),
