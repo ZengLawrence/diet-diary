@@ -13,8 +13,7 @@ export default defineConfig([
     files: ['src/**/*.{ts,tsx}'],
     extends: [
       js.configs.recommended,
-      tseslint.configs.recommended,
-      // tseslint.configs.strictTypeChecked,
+      tseslint.configs.recommendedTypeChecked,
       // tseslint.configs.stylisticTypeChecked,
       // Enable lint rules for React
       reactX.configs['recommended-typescript'],
@@ -32,7 +31,7 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
       parserOptions: {
-        project: ['./tsconfig.app.json', './tsconfig.node.json'],
+        projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
     },
