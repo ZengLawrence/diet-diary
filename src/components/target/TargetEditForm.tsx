@@ -100,7 +100,8 @@ const TargetEditForm = (props: Props) => {
 
     const [target, dispatch] = useReducer(reducer, props.target);
     const [error, dispatchError] = useReducer(errorReducer, INIT_ERROR_STATE);
-    const [totalExceeds, setTotalExceeds] = useState(exceedsTotalCaloriesLimit(target, calorieLevel));
+    const [totalExceeds, setTotalExceeds] = useState(() => exceedsTotalCaloriesLimit(target, calorieLevel));
+    
     useEffect(() => {
         setTotalExceeds(exceedsTotalCaloriesLimit(target, calorieLevel));
     }, [target, calorieLevel]);

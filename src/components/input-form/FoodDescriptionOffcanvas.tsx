@@ -58,6 +58,7 @@ export const FoodDescriptionOffcanvas = (props: Props) => {
     props.onHide();
   }
 
+  /* eslint-disable react-x/no-array-index-key */
   return (
     <Offcanvas show={props.show} onHide={props.onHide} placement="start">
       <Offcanvas.Header closeButton>
@@ -103,4 +104,5 @@ export const FoodDescriptionOffcanvas = (props: Props) => {
       </Offcanvas.Body>
     </Offcanvas>
   );
+  /* eslint-enable react-x/no-array-index-key */
 }
