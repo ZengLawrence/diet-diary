@@ -117,6 +117,7 @@ export const FoodDescriptionComboBox = (props: Props) => {
     }
   };
 
+  /* eslint-disable react-x/no-array-index-key */
   return (
     <Dropdown ref={ref} show={showDropDown} onSelect={() => setShowDropDown(false)}>
 
@@ -163,4 +164,5 @@ export const FoodDescriptionComboBox = (props: Props) => {
       </Dropdown.Menu>
     </Dropdown>
   );
+  /* eslint-enable react-x/no-array-index-key */
 }
