@@ -37,6 +37,7 @@ interface Props {
 export const FoodListGroupItems = (props: Props) => {
   switch (props.editState) {
     case "add":
+      /* eslint-disable react-x/no-array-index-key */
       return (
         <Fragment>
           {props.foods.map((food, index) => (
@@ -49,8 +50,10 @@ export const FoodListGroupItems = (props: Props) => {
           </ListGroup.Item>
         </Fragment>
       );
+    /* eslint-enable react-x/no-array-index-key */
 
     case "edit":
+      /* eslint-disable react-x/no-array-index-key */
       return (
         <Fragment>
           {
@@ -68,8 +71,10 @@ export const FoodListGroupItems = (props: Props) => {
           </ListGroup.Item>
         </Fragment>
       );
+    /* eslint-enable react-x/no-array-index-key */
 
     default:
+      /* eslint-disable react-x/no-array-index-key */
       return (
         <Fragment>
           {props.foods.map((food, index) => (
@@ -79,5 +84,6 @@ export const FoodListGroupItems = (props: Props) => {
           ))}
         </Fragment>
       );
+      /* eslint-enable react-x/no-array-index-key */
   }
 }
