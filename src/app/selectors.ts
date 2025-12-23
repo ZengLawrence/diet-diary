@@ -146,7 +146,7 @@ function toDayPageState(dayHistory: DayPage): DayPageState {
   });
 }
 
-const _currentDateSelector: (state: RootState) => string | "today" = createSelector(
+const _currentDateSelector: (state: RootState) => string = createSelector(
   _pageOptionsSelector,
   (pageOptions) => pageOptions.currentDate,
 );
