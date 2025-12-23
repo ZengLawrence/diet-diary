@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { ReadOnlyCustomTargets, type Target } from "./customTarget";
-import { Preferences } from "./preferences";
+import type { ReadOnlyCustomTargets} from "./customTarget";
+import { type Target } from "./customTarget";
+import type { Preferences } from "./preferences";
 import { TargetPreferences } from "./TargetPreferences";
 
 const DEFAULT_TARGET: Target = {
