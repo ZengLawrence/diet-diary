@@ -12,8 +12,8 @@ const initialState: TargetState = {
 
 export const changeGender = createAsyncThunk(
   "targetState/changeGender",
-  async (gender: Gender) => {
-    return preferencesApi.setGender(gender);
+  (gender: Gender) => {
+    return Promise.resolve(preferencesApi.setGender(gender));
   }
 );
 

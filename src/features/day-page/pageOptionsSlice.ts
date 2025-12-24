@@ -71,26 +71,26 @@ interface PartialRootState {
 
 export const back = createAsyncThunk(
   'pageOptions/back',
-  async (_, { getState }) => {
+  (_, { getState }) => {
     const state = getState() as PartialRootState;
     const { currentDate } = state.pageOptions;
-    return diaryTimeline.dayBefore(currentDate);
+    return Promise.resolve(diaryTimeline.dayBefore(currentDate));
   }
 );
 
 export const next = createAsyncThunk(
   'pageOptions/next',
-  async (_, { getState }) => {
+  (_, { getState }) => {
     const state = getState() as PartialRootState;
     const { currentDate } = state.pageOptions;
-    return diaryTimeline.dayAfter(currentDate);
+    return Promise.resolve(diaryTimeline.dayAfter(currentDate));
   }
 );
 
 export const goToToday = createAsyncThunk(
   'pageOptions/goToToday',
-  async () => {
-    return diaryTimeline.goToToday();
+  () => {
+    return Promise.resolve(diaryTimeline.goToToday());
   }
 );
 function initialState(): PageOptions {
