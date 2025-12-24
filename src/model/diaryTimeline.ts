@@ -7,7 +7,7 @@ export class DiaryTimeline {
     private today: ReadOnlyToday
   ) {}
 
-  dayBefore(date: string): DayWithProgress & { currentDate: string | "today" } {
+  dayBefore(date: string): DayWithProgress & { currentDate: string } {
     const historyDay = this.history.dayBefore(date);
     if (historyDay) {
       return {...historyDay, currentDate: historyDay.day.date };
@@ -22,7 +22,7 @@ export class DiaryTimeline {
     };
   }
 
-  dayAfter(date: string): DayWithProgress & { currentDate: string | "today" } {
+  dayAfter(date: string): DayWithProgress & { currentDate: string } {
     const historyDay = this.history.dayAfter(date);
     if (historyDay) {
       return {...historyDay, currentDate: historyDay.day.date };
@@ -37,7 +37,7 @@ export class DiaryTimeline {
     };
   }
 
-  goToToday(): DayWithProgress & { currentDate: string | "today" } {
+  goToToday(): DayWithProgress & { currentDate: string } {
     const todayDay = this.today.currentDay();
     return {
       day: todayDay,

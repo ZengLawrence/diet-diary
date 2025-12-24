@@ -66,7 +66,7 @@ const error = createSlice({
   name: "error",
   initialState: {} as ValidationError,
   reducers: {
-    validationFailed: (state, action) => _.assign(state, action.payload),
+    validationFailed: (state, action) => { _.assign(state, action.payload); },
   },
   extraReducers: builder => {
     builder

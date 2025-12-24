@@ -111,12 +111,9 @@ const createMockLoader = (meals: SavedMeal[]): SavedMealsLoader => ({
   load: jest.fn(() => meals),
 });
 
-const createMockSaver = (): SavedMealsSaver & { savedMeals: SavedMeal[] } => {
+const createMockSaver = (): jest.Mocked<SavedMealsSaver> => {
   return {
-    savedMeals: [] as SavedMeal[],
-    save: jest.fn(function (this: {savedMeals: SavedMeal[]}, meals: SavedMeal[]) {
-      this.savedMeals = meals;
-    }),
+    save: jest.fn(),
   };
 };
 
@@ -126,8 +123,15 @@ const createMockListener = () => ({
 });
 
 // Helper to get the last saved meals from the mock
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getSavedMeals = (saver: any) => saver.save.mock.calls.length > 0 ? saver.save.mock.calls[saver.save.mock.calls.length - 1][0] : undefined;
+const getSavedMeals = (saver: jest.Mocked<SavedMealsSaver>): SavedMeal[] | undefined => {
+  const saveFnCalls = saver.save.mock.calls; 
+  if (saveFnCalls.length > 0) {
+    const lastCall = saveFnCalls[saveFnCalls.length - 1];
+    const savedMeals = lastCall[0];
+    return savedMeals;
+  }
+  return undefined;
+};
 
 describe("SavedMeals class", () => {
   const mealA: SavedMeal = { foods: [{ ...minimalFood, description: "A" }] };
@@ -172,7 +176,7 @@ describe("SavedMeals class", () => {
       const result = savedMeals.add(mealB);
       expect(result.length).toBe(200);
       expect(result[0]).toBe(mealB);
-      expect(getSavedMeals(saver).length).toBe(200);
+      expect(getSavedMeals(saver)?.length).toBe(200);
       expect(suggestions.addSuggestion).toHaveBeenCalledWith(mealB);
     });
 

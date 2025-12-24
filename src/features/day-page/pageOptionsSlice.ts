@@ -13,7 +13,7 @@ export type MealEditState = "add" | "edit" | undefined;
 
 export interface PageOptions {
   mealOptions: MealOptions;
-  currentDate: string | "today";
+  currentDate: string;
   progress: {
     daysRemaining: number;
     totalDays: number;
@@ -53,7 +53,7 @@ function defaultMealOptions(): DefaultMealOptions {
   };
 }
 
-export function isToday(date: string | "today"): date is "today" {
+export function isToday(date: string): boolean {
   return date === "today";
 }
 
@@ -149,7 +149,7 @@ const pageOptionsSlice = createSlice({
     hideSavedMealAlert(state) {
       state.mealOptions = defaultMealOptions();
     },
-    setCurrentDate(state, action: PayloadAction<string | "today">) {
+    setCurrentDate(state, action: PayloadAction<string>) {
       state.currentDate = action.payload;
     },
     setProgress(state, action: PayloadAction<{ daysRemaining: number; totalDays: number }>) {

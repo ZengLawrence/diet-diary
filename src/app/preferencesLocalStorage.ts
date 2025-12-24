@@ -4,7 +4,8 @@ export class PreferencesLocalStorage implements PreferenceLoader, PreferenceSave
   load(): Preference | Omit<Preference, "gender"> | undefined {
     const json = localStorage.getItem("preferences");
     if (!json) return undefined;
-    return JSON.parse(json);
+    const preferences: Preference | Omit<Preference, "gender"> = JSON.parse(json);
+    return preferences;
   }
 
   save(preferences: Preference): void {
