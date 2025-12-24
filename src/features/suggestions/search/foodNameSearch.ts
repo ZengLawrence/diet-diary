@@ -19,8 +19,7 @@ function foodNameStartsWith(suggestion: { foodName: string }, foodName: string) 
 }
 
 function minTermDistance(suggestion: PredefinedSuggestion, terms: string[]) {
-  // eslint-disable-next-line @typescript-eslint/unbound-method
-  const distances = _.map(_.map(terms, _.lowerCase), function (term) {
+  const distances = _.map(_.map(terms, s => _.lowerCase(s)), function (term) {
     const pos = _.lowerCase(suggestion.foodName).indexOf(term);
     const notFound = pos < 0;
     return notFound ? Number.MAX_SAFE_INTEGER : pos;
@@ -30,8 +29,7 @@ function minTermDistance(suggestion: PredefinedSuggestion, terms: string[]) {
 
 function matchedWordCount(suggestion: PredefinedSuggestion, terms: string[]) {
   const words = _.words(_.lowerCase(suggestion.foodName));
-  // eslint-disable-next-line @typescript-eslint/unbound-method
-  return _.sum(_.map(_.map(terms, _.lowerCase), word => words.includes(word) ? 1 : 0));
+  return _.sum(_.map(_.map(terms, s => _.lowerCase(s)), word => words.includes(word) ? 1 : 0));
 }
 
 function rank(suggestion: PredefinedSuggestion, searchRank: number, foodName: string) {
