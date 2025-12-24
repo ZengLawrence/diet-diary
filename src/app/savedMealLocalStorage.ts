@@ -7,11 +7,12 @@ interface SerializedSavedMeals {
 
 function loadSavedMeals(): SerializedSavedMeals {
   try {
-    const serializedMeals = localStorage.getItem('savedMeals');
-    if (serializedMeals === null) {
+    const savedMealsJson = localStorage.getItem('savedMeals');
+    if (savedMealsJson === null) {
       return { meals: [] };
     }
-    return JSON.parse(serializedMeals);
+    const serializedSavedMeals: SerializedSavedMeals = JSON.parse(savedMealsJson);
+    return serializedSavedMeals;
   } catch (e) {
     console.error("Error loading saved meals from localStorage", e);
     return { meals: [] };

@@ -8,7 +8,8 @@ function loadReduxState(): SerializedReduxState | null {
     if (serializedState === null) {
       return null;
     }
-    return JSON.parse(serializedState);
+    const serializedReduxState: SerializedReduxState = JSON.parse(serializedState);
+    return serializedReduxState;
   } catch (e) {
     console.error("Error loading state from localStorage", e);
     return null;

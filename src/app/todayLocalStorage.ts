@@ -7,7 +7,8 @@ function loadToday(): DayPage | undefined {
     if (serializedState === null) {
       return undefined;
     }
-    return JSON.parse(serializedState);
+    const dayPage: DayPage = JSON.parse(serializedState);
+    return dayPage;
   } catch (e) {
     console.error("Error loading today from localStorage", e);
     return undefined;
