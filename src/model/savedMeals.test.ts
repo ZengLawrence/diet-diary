@@ -127,7 +127,13 @@ const createMockListener = () => ({
 
 // Helper to get the last saved meals from the mock
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getSavedMeals = (saver: any) => saver.save.mock.calls.length > 0 ? saver.save.mock.calls[saver.save.mock.calls.length - 1][0] : undefined;
+const getSavedMeals = (saver: any): SavedMeal[] | undefined => { 
+  if (saver.save.mock.calls.length > 0) {
+    const savedMeals: SavedMeal[] = saver.save.mock.calls[saver.save.mock.calls.length - 1][0];
+    return savedMeals;
+  }
+  return undefined;
+};
 
 describe("SavedMeals class", () => {
   const mealA: SavedMeal = { foods: [{ ...minimalFood, description: "A" }] };
@@ -172,7 +178,7 @@ describe("SavedMeals class", () => {
       const result = savedMeals.add(mealB);
       expect(result.length).toBe(200);
       expect(result[0]).toBe(mealB);
-      expect(getSavedMeals(saver).length).toBe(200);
+      expect(getSavedMeals(saver)?.length).toBe(200);
       expect(suggestions.addSuggestion).toHaveBeenCalledWith(mealB);
     });
 
