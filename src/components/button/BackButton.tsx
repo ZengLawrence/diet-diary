@@ -9,7 +9,7 @@ const BackButton = () => {
 
   const dispatch = useAppDispatch();
   const handleClick = () => {
-    dispatch(back());
+    void dispatch(back());
   }
 
   return (

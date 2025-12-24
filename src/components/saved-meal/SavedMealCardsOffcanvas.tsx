@@ -20,18 +20,18 @@ function SavedMealCardsOffcanvas(props: Props) {
   const [meals, setMeals] = useState([] as SavedMeal[]);
   const dispatch = useAppDispatch();
 
-  const filterMeals = async (searchTerm: string) => {
-    return savedMeals.searchByDescription(searchTerm);
+  const filterMeals = (searchTerm: string) => {
+    return Promise.resolve(savedMeals.searchByDescription(searchTerm));
   }
 
   useEffect(() => {
-    const listener : SavedMealsChangeListener = {
-        added: () => filterMeals(searchTerm).then(setMeals),
-        deleted: () => filterMeals(searchTerm).then(setMeals),
+    const listener: SavedMealsChangeListener = {
+      added: () => { void filterMeals(searchTerm).then(setMeals); },
+      deleted: () => { void filterMeals(searchTerm).then(setMeals); },
     }
     savedMeals.register(listener);
 
-    filterMeals(searchTerm).then(setMeals);
+    void filterMeals(searchTerm).then(setMeals);
 
     return () => {
       savedMeals.unregister(listener);
@@ -51,7 +51,7 @@ function SavedMealCardsOffcanvas(props: Props) {
   const handleDeleteMeal = (meal: SavedMeal) => {
     savedMeals.remove(meal);
   }
-  
+
   return (
     <Offcanvas id="savedMeals" show={props.show} onHide={props.onHide}>
       <Offcanvas.Header closeButton>

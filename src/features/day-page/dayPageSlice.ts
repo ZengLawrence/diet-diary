@@ -8,16 +8,15 @@ import { back, goToToday, next } from "./pageOptionsSlice";
 
 export const newDay = createAsyncThunk<DayPage>(
   'dayPage/newDay',
-  async () => {
-    return diary.newDay();
+  () => {
+    return Promise.resolve(diary.newDay());
   }
 );
 
 export const addMeal = createAsyncThunk<DayPage>(
   'dayPage/addMeal',
-  async () => {
-    const newDay = today.addMeal();
-    return newDay;
+  () => {
+    return Promise.resolve(today.addMeal());
   }
 );
 
@@ -30,54 +29,53 @@ function getMeal(state: DayPage, index: number) {
 
 export const deleteMeal = createAsyncThunk<DayPage, number>(
   'dayPage/deleteMeal',
-  async (mealIndex, { getState }) => {
+  (mealIndex, { getState }) => {
     const state = getState() as { dayPage: DayPage };
     const meal = getMeal(state.dayPage, mealIndex);
-    return today.deleteMeal(meal);
+    return Promise.resolve(today.deleteMeal(meal));
   }
 );
 
 export const addFood = createAsyncThunk<DayPage, { mealIndex: number, food: Food }>(
   'dayPage/addFood',
-  async (payload, { getState }) => {
+  (payload, { getState }) => {
     const state = getState() as { dayPage: DayPage };
     const meal = getMeal(state.dayPage, payload.mealIndex);
-    return today.addFood(meal, payload.food);
+    return Promise.resolve(today.addFood(meal, payload.food));
   }
 );
 
 export const updateFood = createAsyncThunk<DayPage, { mealIndex: number, foodIndex: number, food: Food }>(
   'dayPage/updateFood',
-  async (payload, { getState }) => {
+  (payload, { getState }) => {
     const state = getState() as { dayPage: DayPage };
     const meal = getMeal(state.dayPage, payload.mealIndex);
     const foodToReplace = meal.foods[payload.foodIndex];
-    return today.updateFood(meal, foodToReplace, payload.food);
+    return Promise.resolve(today.updateFood(meal, foodToReplace, payload.food));
   }
 );
 
 export const deleteFood = createAsyncThunk<DayPage, { mealIndex: number, foodIndex: number }>(
   'dayPage/deleteFood',
-  async (payload, { getState }) => {
+  (payload, { getState }) => {
     const state = getState() as { dayPage: DayPage };
     const meal = getMeal(state.dayPage, payload.mealIndex);
     const food = meal.foods[payload.foodIndex];
-    const newDay = today.deleteFood(meal, food);
-    return newDay;
+    return Promise.resolve(today.deleteFood(meal, food));
   }
 );
 
 export const changeTarget = createAsyncThunk<DayPage, Target>(
   'dayPage/changeTarget',
-  async (target) => {
-    return today.updateTarget(target);
+  (target) => {
+    return Promise.resolve(today.updateTarget(target));
   }
 );
 
 export const toggleUnlimitedFruit = createAsyncThunk<DayPage>(
   'dayPage/toggleUnlimitedFruit',
-  async () => {
-    return today.toggleUnlimitedFruit();
+  () => {
+    return Promise.resolve(today.toggleUnlimitedFruit());
   }
 );
 
@@ -96,36 +94,36 @@ const dayPageSlice = createSlice({
     builder.addCase(back.fulfilled, (_state, action) => {
       return action.payload.day;
     })
-    .addCase(next.fulfilled, (_state, action) => {
-      return action.payload.day;
-    })
-    .addCase(newDay.fulfilled, (_state, action) => {
-      return action.payload;
-    })
-    .addCase(addMeal.fulfilled, (_state, action) => {
-      return action.payload;
-    })
-    .addCase(deleteMeal.fulfilled, (_state, action) => {
-      return action.payload;
-    })
-    .addCase(addFood.fulfilled, (_state, action) => {
-      return action.payload;
-    })
-    .addCase(updateFood.fulfilled, (_state, action) => {
-      return action.payload;
-    })
-    .addCase(deleteFood.fulfilled, (_state, action) => {
-      return action.payload;
-    })
-    .addCase(changeTarget.fulfilled, (_state, action) => {
-      return action.payload;
-    })
-    .addCase(toggleUnlimitedFruit.fulfilled, (_state, action) => {
-      return action.payload;
-    })
-    .addCase(goToToday.fulfilled, (_state, action) => {
-      return action.payload.day;
-    });
+      .addCase(next.fulfilled, (_state, action) => {
+        return action.payload.day;
+      })
+      .addCase(newDay.fulfilled, (_state, action) => {
+        return action.payload;
+      })
+      .addCase(addMeal.fulfilled, (_state, action) => {
+        return action.payload;
+      })
+      .addCase(deleteMeal.fulfilled, (_state, action) => {
+        return action.payload;
+      })
+      .addCase(addFood.fulfilled, (_state, action) => {
+        return action.payload;
+      })
+      .addCase(updateFood.fulfilled, (_state, action) => {
+        return action.payload;
+      })
+      .addCase(deleteFood.fulfilled, (_state, action) => {
+        return action.payload;
+      })
+      .addCase(changeTarget.fulfilled, (_state, action) => {
+        return action.payload;
+      })
+      .addCase(toggleUnlimitedFruit.fulfilled, (_state, action) => {
+        return action.payload;
+      })
+      .addCase(goToToday.fulfilled, (_state, action) => {
+        return action.payload.day;
+      });
   },
 });
 
