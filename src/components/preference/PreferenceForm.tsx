@@ -12,7 +12,7 @@ const PreferenceForm = () => {
     const getStartDayCalorieTarget = async () => {
       return preferencesApi.getStartDayCalorieTarget();
     };
-    getStartDayCalorieTarget().then(startDayCalorieTarget => {
+    void getStartDayCalorieTarget().then(startDayCalorieTarget => {
       setChecked(startDayCalorieTarget.enabled);
       setCalorieLevel(startDayCalorieTarget.level);
     });
