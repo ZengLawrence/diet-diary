@@ -27,7 +27,6 @@ export default defineConfig([
       '@typescript-eslint/consistent-type-exports': 'error',
       '@typescript-eslint/consistent-type-imports': 'error',
       // Disable rules to help fixing errors
-      '@typescript-eslint/no-floating-promises': 'off',
       '@typescript-eslint/require-await': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',

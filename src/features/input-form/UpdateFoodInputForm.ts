@@ -14,11 +14,11 @@ const mapDispatchToProps = (dispatch: AppDispatch, ownProps: { mealIndex: number
   const { mealIndex, foodIndex } = ownProps;
   return {
     onSaveFood: (food: Food) => {
-      dispatch(updateFood({ mealIndex, foodIndex, food }));
-      dispatch(exitFoodEditMode());
+      void dispatch(updateFood({ mealIndex, foodIndex, food }));
+      void dispatch(exitFoodEditMode());
     },
-    onCancel: () => dispatch(exitFoodEditMode()),
-    onDeleteFood: () => dispatch(deleteFood({ mealIndex, foodIndex })),
+    onCancel: () => void dispatch(exitFoodEditMode()),
+    onDeleteFood: () => void dispatch(deleteFood({ mealIndex, foodIndex })),
   }
 }
 

@@ -9,7 +9,7 @@ import { VariantSecondary } from "../ButtonVariant";
 const GoToTodayButton = () => {
   const dispatch = useDispatch<AppDispatch>();
   const handleClick = () => {
-    dispatch(goToToday());
+    void dispatch(goToToday());
   }
 
   return (

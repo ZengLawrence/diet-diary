@@ -8,7 +8,7 @@ import { VariantSecondary } from "../ButtonVariant";
 const NextButton = () => {
   const dispatch = useAppDispatch();
   const handleClick = () => {
-    dispatch(next());
+    void dispatch(next());
   }
 
   return (

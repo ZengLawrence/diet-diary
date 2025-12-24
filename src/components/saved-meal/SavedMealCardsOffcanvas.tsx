@@ -26,12 +26,12 @@ function SavedMealCardsOffcanvas(props: Props) {
 
   useEffect(() => {
     const listener: SavedMealsChangeListener = {
-      added: () => { filterMeals(searchTerm).then(setMeals); },
-      deleted: () => { filterMeals(searchTerm).then(setMeals); },
+      added: () => { void filterMeals(searchTerm).then(setMeals); },
+      deleted: () => { void filterMeals(searchTerm).then(setMeals); },
     }
     savedMeals.register(listener);
 
-    filterMeals(searchTerm).then(setMeals);
+    void filterMeals(searchTerm).then(setMeals);
 
     return () => {
       savedMeals.unregister(listener);

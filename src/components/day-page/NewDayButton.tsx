@@ -15,9 +15,9 @@ const NewDayButton = () => {
   const dispatch = useDispatch<AppDispatch>();
   const handleClick = () => {
     if (validation.isToday(dayPage.date)) {
-      dispatch(setShowCanNotAddNewDayWarning(true));
+      void dispatch(setShowCanNotAddNewDayWarning(true));
     } else {
-      dispatch(newDay());
+      void dispatch(newDay());
     }
   };
 
