@@ -3,11 +3,13 @@ import _ from 'lodash';
 import { loadState, saveState } from './localStorage';
 import reducer from './reducers';
 
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 const persistedState = loadState();
 export const store = configureStore({
   reducer,
   preloadedState: persistedState,
 })
+/* eslint-enable @typescript-eslint/no-unsafe-assignment */
 
 store.subscribe(_.throttle(() => {
   saveState(store.getState());

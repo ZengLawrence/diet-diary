@@ -11,7 +11,7 @@ function loadCustomTargets(): SerializedCustomTargets | undefined {
     if (serializedState === null) {
       return undefined;
     }
-    const customTargets: SerializedCustomTargets = JSON.parse(serializedState);
+    const customTargets: SerializedCustomTargets = JSON.parse(serializedState) as SerializedCustomTargets;
     return customTargets;
   } catch (e) {
     console.error("Error loading custom targets from localStorage", e);

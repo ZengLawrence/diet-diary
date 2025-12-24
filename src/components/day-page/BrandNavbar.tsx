@@ -1,7 +1,6 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import logo from '../../app/apple-icon.png';
 import { useAppDispatch } from '../../app/hooks';
 import { openCustomTargets, openPreferences } from '../../features/overlays/overlaysSlice';
 import PreferenceFormOffcanvas from '../../features/preference/PreferenceFormOffcanvas';
@@ -19,7 +18,7 @@ const BrandNavbar = () => {
       <Container>
         <Navbar.Brand className="dd-brand-font">
           <img
-            src={logo}
+            src="apple-icon.png"
             alt="Logo"
             width="30"
             height="30"

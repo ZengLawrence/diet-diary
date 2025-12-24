@@ -11,7 +11,7 @@ function loadSavedMeals(): SerializedSavedMeals {
     if (savedMealsJson === null) {
       return { meals: [] };
     }
-    const serializedSavedMeals: SerializedSavedMeals = JSON.parse(savedMealsJson);
+    const serializedSavedMeals = JSON.parse(savedMealsJson) as SerializedSavedMeals;
     return serializedSavedMeals;
   } catch (e) {
     console.error("Error loading saved meals from localStorage", e);
