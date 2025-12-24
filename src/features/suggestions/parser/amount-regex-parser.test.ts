@@ -6,6 +6,7 @@ import _ from "lodash";
 import type { StandardUnit } from "../convert/standard-unit";
 import parseAmount from "./amount-regex-parser";
 
+/* eslint-disable jest/expect-expect */
 test("unit pound(s) -> lb", () => {
   testCases("pound", "lb").run();
 })
@@ -69,6 +70,7 @@ test("unit medium -> medium", () => {
 test("unit large -> large", () => {
   givenPluralHasSameSpelling().testCases("large", "large").run();
 })
+/* eslint-enable jest/expect-expect */
 
 test("alternate measurement in amount", () => {
   expect(parseAmount("3/4 cup or 1 medium")).toMatchObject({
@@ -226,12 +228,8 @@ describe("Amount regex parser data-driven tests", () => {
       const result = parseAmount(input);
       expect(result.measurement.quantity.toString()).toBe(quantity_1);
       expect(result.measurement.unitText ?? "").toBe(unit_1);
-      if (quantity_2 && unit_2) {
-        expect(result.alternateMeasurement?.quantity.toString() ?? "").toBe(quantity_2);
-        expect(result.alternateMeasurement?.unitText ?? "").toBe(unit_2);
-      } else {
-        expect(result.alternateMeasurement).toBeUndefined();
-      }
+      expect(result.alternateMeasurement?.quantity.toString() ?? "").toBe(quantity_2);
+      expect(result.alternateMeasurement?.unitText ?? "").toBe(unit_2);
     });
   });
 });
