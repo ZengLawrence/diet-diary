@@ -20,8 +20,8 @@ function SavedMealCardsOffcanvas(props: Props) {
   const [meals, setMeals] = useState([] as SavedMeal[]);
   const dispatch = useAppDispatch();
 
-  const filterMeals = async (searchTerm: string) => {
-    return savedMeals.searchByDescription(searchTerm);
+  const filterMeals = (searchTerm: string) => {
+    return Promise.resolve(savedMeals.searchByDescription(searchTerm));
   }
 
   useEffect(() => {

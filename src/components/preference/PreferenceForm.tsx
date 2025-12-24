@@ -9,8 +9,8 @@ const PreferenceForm = () => {
   const [calorieLevel, setCalorieLevel] = useState(undefined as number | undefined);
 
   useEffect(() => {
-    const getStartDayCalorieTarget = async () => {
-      return preferencesApi.getStartDayCalorieTarget();
+    const getStartDayCalorieTarget = () => {
+      return Promise.resolve(preferencesApi.getStartDayCalorieTarget());
     };
     void getStartDayCalorieTarget().then(startDayCalorieTarget => {
       setChecked(startDayCalorieTarget.enabled);
