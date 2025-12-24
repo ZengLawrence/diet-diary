@@ -123,9 +123,11 @@ const createMockListener = () => ({
 });
 
 // Helper to get the last saved meals from the mock
-const getSavedMeals = (saver: jest.Mocked<SavedMealsSaver>): SavedMeal[] | undefined => { 
-  if (saver.save.mock.calls.length > 0) {
-    const savedMeals: SavedMeal[] = saver.save.mock.calls[saver.save.mock.calls.length - 1][0];
+const getSavedMeals = (saver: jest.Mocked<SavedMealsSaver>): SavedMeal[] | undefined => {
+  const saveFnCalls = saver.save.mock.calls; 
+  if (saveFnCalls.length > 0) {
+    const lastCall = saveFnCalls[saveFnCalls.length - 1];
+    const savedMeals = lastCall[0];
     return savedMeals;
   }
   return undefined;
