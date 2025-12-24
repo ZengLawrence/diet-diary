@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import type { SearchOptions, SearchResult } from 'minisearch';
 import MiniSearch from 'minisearch';
+import type { Serving } from '../../../model/Food';
 import type { PredefinedSuggestion } from './PredefinedSuggestion';
 
 function addIndexAsId(obj: object, i: number) { return _.set(obj, "id", _.toString(i)); }
@@ -30,10 +31,10 @@ function perform(miniSearch: MiniSearch<PredefinedSuggestion>, foodName: string)
 
 function toSuggestion(res: SearchResult): PredefinedSuggestion {
   return {
-    foodName: _.get(res, 'foodName'),
-    amount: _.get(res, 'amount'),
-    serving: _.get(res, 'serving'),
-    bestChoice: _.get(res, 'bestChoice'),
+    foodName: _.get(res, 'foodName') as string,
+    amount: _.get(res, 'amount') as string,
+    serving: _.get(res, 'serving') as Serving,
+    bestChoice: _.get(res, 'bestChoice') as boolean | undefined,
   }
 }
 
