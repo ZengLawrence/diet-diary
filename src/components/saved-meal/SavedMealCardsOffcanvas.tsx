@@ -25,9 +25,9 @@ function SavedMealCardsOffcanvas(props: Props) {
   }
 
   useEffect(() => {
-    const listener : SavedMealsChangeListener = {
-        added: () => filterMeals(searchTerm).then(setMeals),
-        deleted: () => filterMeals(searchTerm).then(setMeals),
+    const listener: SavedMealsChangeListener = {
+      added: () => { filterMeals(searchTerm).then(setMeals); },
+      deleted: () => { filterMeals(searchTerm).then(setMeals); },
     }
     savedMeals.register(listener);
 
@@ -51,7 +51,7 @@ function SavedMealCardsOffcanvas(props: Props) {
   const handleDeleteMeal = (meal: SavedMeal) => {
     savedMeals.remove(meal);
   }
-  
+
   return (
     <Offcanvas id="savedMeals" show={props.show} onHide={props.onHide}>
       <Offcanvas.Header closeButton>
