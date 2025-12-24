@@ -111,7 +111,7 @@ const createMockLoader = (meals: SavedMeal[]): SavedMealsLoader => ({
   load: jest.fn(() => meals),
 });
 
-const createMockSaver = (): SavedMealsSaver => {
+const createMockSaver = (): jest.Mocked<SavedMealsSaver> => {
   return {
     save: jest.fn(),
   };
@@ -123,8 +123,7 @@ const createMockListener = () => ({
 });
 
 // Helper to get the last saved meals from the mock
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getSavedMeals = (saver: any): SavedMeal[] | undefined => { 
+const getSavedMeals = (saver: jest.Mocked<SavedMealsSaver>): SavedMeal[] | undefined => { 
   if (saver.save.mock.calls.length > 0) {
     const savedMeals: SavedMeal[] = saver.save.mock.calls[saver.save.mock.calls.length - 1][0];
     return savedMeals;
