@@ -5,6 +5,7 @@ import type { SavedMealsLoader, SavedMealsSaver} from "./savedMeals";
 import { SavedMeals, search } from "./savedMeals";
 import type { Suggestions } from "./suggestions";
 import type { Today } from "./today";
+import { mock } from "jest-mock-extended";
 
 // Helper: minimal valid Food for tests
 const minimalFood: Food = { description: "desc", serving: {} };
@@ -134,6 +135,7 @@ const getSavedMeals = (saver: jest.Mocked<SavedMealsSaver>): SavedMeal[] | undef
 };
 
 describe("SavedMeals class", () => {
+  const suggestions: Suggestions = mock<Suggestions>();
   const mealA: SavedMeal = { foods: [{ ...minimalFood, description: "A" }] };
   const mealB: SavedMeal = { foods: [{ ...minimalFood, description: "B" }] };
 
@@ -311,11 +313,3 @@ describe("SavedMeals class", () => {
     });
   });
 });
-
-// Jest mock for Suggestions
-const suggestions: Suggestions = {
-  addSuggestion: jest.fn(),
-  addSuggestions: jest.fn(),
-  removeSuggestion: jest.fn(),
-};
-

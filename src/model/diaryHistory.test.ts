@@ -119,10 +119,8 @@ describe("ReadOnlyDiaryHistory", () => {
       ]);
       const result = history.dayBefore("2025-05-31");
       expect(result).toBeDefined();
-      if (result) {
-        expect(result.day.date).toBe("2025-05-30");
-        expect(result.progress).toEqual({ daysRemaining: 0, totalDays: 3 });
-      }
+      expect(result?.day.date).toBe("2025-05-30");
+      expect(result?.progress).toEqual({ daysRemaining: 0, totalDays: 3 });
     });
 
     it("returns the next day and progress if date is the first in history", () => {
@@ -132,10 +130,8 @@ describe("ReadOnlyDiaryHistory", () => {
       ]);
       const result = history.dayBefore("2025-06-01");
       expect(result).toBeDefined();
-      if (result) {
-        expect(result.day.date).toBe("2025-05-31");
-        expect(result.progress).toEqual({ daysRemaining: 0, totalDays: 2 });
-      }
+      expect(result?.day.date).toBe("2025-05-31");
+      expect(result?.progress).toEqual({ daysRemaining: 0, totalDays: 2 });
     });
 
     it("returns the first day and progress if date is not found in history", () => {
@@ -145,10 +141,8 @@ describe("ReadOnlyDiaryHistory", () => {
       ]);
       const result = history.dayBefore("2025-06-02");
       expect(result).toBeDefined();
-      if (result) {
-        expect(result.day.date).toBe("2025-06-01");
-        expect(result.progress).toEqual({ daysRemaining: 1, totalDays: 2 });
-      }
+      expect(result?.day.date).toBe("2025-06-01");
+      expect(result?.progress).toEqual({ daysRemaining: 1, totalDays: 2 });
     });
 
     it("returns undefined if history is empty", () => {
@@ -167,17 +161,13 @@ describe("ReadOnlyDiaryHistory", () => {
       ]);
       const result = history.dayAfter("2025-05-30");
       expect(result).toBeDefined();
-      if (result) {
-        expect(result.day.date).toBe("2025-05-31");
-        expect(result.progress).toEqual({ daysRemaining: 1, totalDays: 3 });
-      }
+      expect(result?.day.date).toBe("2025-05-31");
+      expect(result?.progress).toEqual({ daysRemaining: 1, totalDays: 3 });
 
       const result2 = history.dayAfter("2025-05-31");
       expect(result2).toBeDefined();
-      if (result2) {
-        expect(result2.day.date).toBe("2025-06-01");
-        expect(result2.progress).toEqual({ daysRemaining: 2, totalDays: 3 });
-      }
+      expect(result2?.day.date).toBe("2025-06-01");
+      expect(result2?.progress).toEqual({ daysRemaining: 2, totalDays: 3 });
     });
 
     it("returns undefined if date is the last in history", () => {

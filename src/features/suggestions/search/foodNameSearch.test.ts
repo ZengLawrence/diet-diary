@@ -1,4 +1,4 @@
-import { describe, expect, it, test } from "@jest/globals";
+import { describe, expect, test } from "@jest/globals";
 import _ from "lodash";
 import { addOrReplace, findNameSuggestions, findSuggestions, remove } from "./foodNameSearch";
 
@@ -145,7 +145,7 @@ describe("dynamically add new suggestions", () => {
     expect(results[0]).toMatchObject({ foodName: "Mangosteen", amount: "2 fruits", serving: { fruit: 1 } });
   })
 
-  describe("given a suggestion is added then removed", () => {
+  test("given a suggestion is added then removed, when search for it should NOT get it back", () => {
     const suggestion = { foodName: "Mangosteen", amount: "3 fruits", serving: { fruit: 1 } };
     addOrReplace(suggestion);
     const results = findNameSuggestions("Mango");
@@ -155,14 +155,10 @@ describe("dynamically add new suggestions", () => {
 
     remove(suggestion);
 
-    describe("when search for it", () => {
-      const results = findNameSuggestions("Mango");
-
-      it("should NOT get it back", () => {
-        expect(_.size(results)).toEqual(1);
-        expect(results[0]).toMatchObject({ foodName: "Mango" });
-      });
-    });
+    // when search for it, should NOT get it back
+    const results2 = findNameSuggestions("Mango");
+    expect(_.size(results2)).toEqual(1);
+    expect(results2[0]).toMatchObject({ foodName: "Mango" });
   })
 
 });

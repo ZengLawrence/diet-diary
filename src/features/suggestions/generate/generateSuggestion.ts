@@ -31,7 +31,7 @@ export function generateSuggestions(
   const servingSuggestions = findSuggestions(decomposedDesc.foodName, options);
   const autoSuggestions = generateAutoSuggestion(firstAutoCompletion, servingSuggestions);
   const allSuggestions = _.concat(autoCompletions, autoSuggestions, servingSuggestions);
-  const results = _.uniqWith(_.compact(allSuggestions), _.isEqual)
+  const results = _.uniqWith(_.compact(allSuggestions), (a, b) => _.isEqual(a, b))
     .slice(0, maxResults);
   callback(results);
 }
