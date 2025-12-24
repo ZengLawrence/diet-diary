@@ -11,7 +11,7 @@ function loadHistory(): SerializedHistory | undefined {
     if (history === null) {
       return undefined;
     }
-    const serializedHistory: SerializedHistory = JSON.parse(history);
+    const serializedHistory: SerializedHistory = JSON.parse(history) as SerializedHistory;
     return serializedHistory;
   } catch (e) {
     console.error("Error loading history from localStorage", e);
