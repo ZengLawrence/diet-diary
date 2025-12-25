@@ -52,6 +52,7 @@
   "scripts": {
     "dev": "vite",
     "build": "eslint . && tsc -b && vite build",
+    "build:only": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "jest",
