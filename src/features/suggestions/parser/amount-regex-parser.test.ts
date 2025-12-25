@@ -172,14 +172,6 @@ function testCases(unit: string, abbr: StandardUnit, commonAbbreviations: string
       }
     }
   };
-  const abbreviation = {
-    input: "3 " + abbr,
-    output: {
-      measurement: {
-        unit: abbr
-      }
-    }
-  };
   return {
     run: () => {
       test(`singular unit: ${singular.input} -> ${singular.output.measurement.unit}`, () => {
