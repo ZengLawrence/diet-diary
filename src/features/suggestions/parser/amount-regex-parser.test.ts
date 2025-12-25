@@ -7,11 +7,11 @@ import type { StandardUnit } from "../convert/standard-unit";
 import parseAmount from "./amount-regex-parser";
 
 describe("unit pound(s) -> lb", () => {
-  testCases("pound", "lb").run();
+  testCases("pound", "lb", ["lb"]).run();
 })
 
 describe("unit ounce(s) -> oz", () => {
-  testCases("ounce", "oz").run();
+  testCases("ounce", "oz", ["oz"]).run();
 })
 
 describe("unit fluid ounce(s) -> fl-oz", () => {
@@ -27,7 +27,7 @@ describe("unit pint(s) -> pnt", () => {
 })
 
 describe("unit quart(s) -> qt", () => {
-  testCases("quart", "qt").run();
+  testCases("quart", "qt", ["qt"]).run();
 })
 
 describe("unit gallon(s) -> gal", () => {
@@ -35,7 +35,7 @@ describe("unit gallon(s) -> gal", () => {
 })
 
 describe("unit teaspoon(s) -> tsp", () => {
-  testCases("teaspoon", "tsp").run();
+  testCases("teaspoon", "tsp", ["tsp"]).run();
 })
 
 describe("unit tablespoon(s) -> Tbs", () => {
@@ -43,19 +43,19 @@ describe("unit tablespoon(s) -> Tbs", () => {
 })
 
 describe("unit gram(s) -> g", () => {
-  testCases("gram", "g").run();
+  testCases("gram", "g", ["g"]).run();
 })
 
 describe("unit kilogram(s) -> g", () => {
-  testCases("kilogram", "kg").run();
+  testCases("kilogram", "kg", ["kg"]).run();
 })
 
 describe("unit milliliter(s) -> ml", () => {
-  testCases("milliliter", "ml").run();
+  testCases("milliliter", "ml", ["ml"]).run();
 })
 
 describe("unit liter(s) -> l", () => {
-  testCases("liter", "l").run();
+  testCases("liter", "l", ["l"]).run();
 })
 
 describe("unit small -> small", () => {
