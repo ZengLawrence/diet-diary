@@ -20,6 +20,11 @@ export default defineConfig({
           'bootstrap': ['bootstrap'],
           'react-bootstrap': ['react-bootstrap'],
           'minisearch': ['minisearch'],
+          'fortawesome': [
+            '@fortawesome/fontawesome-svg-core',
+            '@fortawesome/free-solid-svg-icons',
+            '@fortawesome/react-fontawesome',
+          ],
         },
       },
     },
