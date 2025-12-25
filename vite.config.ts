@@ -25,6 +25,7 @@ export default defineConfig({
             '@fortawesome/free-solid-svg-icons',
             '@fortawesome/react-fontawesome',
           ],
+          'convert-units': ['convert-units'],
         },
       },
     },
