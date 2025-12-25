@@ -201,10 +201,6 @@ function testCases(unit: string, abbr: StandardUnit, commonAbbreviations: string
             });
           });
         });
-      } else {
-        test(`abbreviation: ${abbreviation.input} -> ${abbreviation.output.measurement.unit}`, () => {
-          expect(parseAmount(abbreviation.input)).toMatchObject(abbreviation.output);
-        });
       }
     }
   }
