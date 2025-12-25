@@ -6,71 +6,69 @@ import _ from "lodash";
 import type { StandardUnit } from "../convert/standard-unit";
 import parseAmount from "./amount-regex-parser";
 
-/* eslint-disable jest/expect-expect */
-test("unit pound(s) -> lb", () => {
+describe("unit pound(s) -> lb", () => {
   testCases("pound", "lb").run();
 })
 
-test("unit ounce(s) -> oz", () => {
+describe("unit ounce(s) -> oz", () => {
   testCases("ounce", "oz").run();
 })
 
-test("unit fluid ounce(s) -> fl-oz", () => {
+describe("unit fluid ounce(s) -> fl-oz", () => {
   testCases("fluid ounce", "fl-oz", ["fl oz"]).run();
 })
 
-test("unit cup(s) -> cup", () => {
+describe("unit cup(s) -> cup", () => {
   testCases("cup", "cup").run();
 })
 
-test("unit pint(s) -> pnt", () => {
+describe("unit pint(s) -> pnt", () => {
   testCases("pint", "pnt", ["pt"]).run();
 })
 
-test("unit quart(s) -> qt", () => {
+describe("unit quart(s) -> qt", () => {
   testCases("quart", "qt").run();
 })
 
-test("unit gallon(s) -> gal", () => {
+describe("unit gallon(s) -> gal", () => {
   testCases("gallon", "gal").run();
 })
 
-test("unit teaspoon(s) -> tsp", () => {
+describe("unit teaspoon(s) -> tsp", () => {
   testCases("teaspoon", "tsp").run();
 })
 
-test("unit tablespoon(s) -> Tbs", () => {
+describe("unit tablespoon(s) -> Tbs", () => {
   testCases("tablespoon", "Tbs", ["tbsp"]).run();
 })
 
-test("unit gram(s) -> g", () => {
+describe("unit gram(s) -> g", () => {
   testCases("gram", "g").run();
 })
 
-test("unit kilogram(s) -> g", () => {
+describe("unit kilogram(s) -> g", () => {
   testCases("kilogram", "kg").run();
 })
 
-test("unit milliliter(s) -> ml", () => {
+describe("unit milliliter(s) -> ml", () => {
   testCases("milliliter", "ml").run();
 })
 
-test("unit liter(s) -> l", () => {
+describe("unit liter(s) -> l", () => {
   testCases("liter", "l").run();
 })
 
-test("unit small -> small", () => {
+describe("unit small -> small", () => {
   givenPluralHasSameSpelling().testCases("small", "small").run();
 })
 
-test("unit medium -> medium", () => {
+describe("unit medium -> medium", () => {
   givenPluralHasSameSpelling().testCases("medium", "medium").run();
 })
 
-test("unit large -> large", () => {
+describe("unit large -> large", () => {
   givenPluralHasSameSpelling().testCases("large", "large").run();
 })
-/* eslint-enable jest/expect-expect */
 
 test("alternate measurement in amount", () => {
   expect(parseAmount("3/4 cup or 1 medium")).toMatchObject({
@@ -184,21 +182,29 @@ function testCases(unit: string, abbr: StandardUnit, commonAbbreviations: string
   };
   return {
     run: () => {
-      expect(parseAmount(singular.input)).toMatchObject(singular.output);
+      test(`singular unit: ${singular.input} -> ${singular.output.measurement.unit}`, () => {
+        expect(parseAmount(singular.input)).toMatchObject(singular.output);
+      });
       if (!options.pluralSameSpelling) {
-        expect(parseAmount(plural.input)).toMatchObject(plural.output);
+        test(`plural unit: ${plural.input} -> ${plural.output.measurement.unit}`, () => {
+          expect(parseAmount(plural.input)).toMatchObject(plural.output);
+        });
       }
       if (commonAbbreviations) {
         _.forEach(commonAbbreviations, function (_abbr) {
           const input = "4 " + _abbr;
-          expect(parseAmount(input)).toMatchObject({ 
-            measurement: {
-              unit: abbr,
-            }
+          test(`abbreviation: ${input} -> ${abbr}`, () => {
+            expect(parseAmount(input)).toMatchObject({
+              measurement: {
+                unit: abbr,
+              }
+            });
           });
-        })
+        });
       } else {
-        expect(parseAmount(abbreviation.input)).toMatchObject(abbreviation.output);
+        test(`abbreviation: ${abbreviation.input} -> ${abbreviation.output.measurement.unit}`, () => {
+          expect(parseAmount(abbreviation.input)).toMatchObject(abbreviation.output);
+        });
       }
     }
   }
@@ -223,7 +229,7 @@ function loadTestData(): TestData[] {
 
 describe("Amount regex parser data-driven tests", () => {
   const testData = loadTestData();
-  testData.forEach(({input, quantity_1, unit_1, quantity_2, unit_2}) => {
+  testData.forEach(({ input, quantity_1, unit_1, quantity_2, unit_2 }) => {
     test(`Given input "${input}", then quantity_1 is "${quantity_1}", unit_1 is "${unit_1}", quantity_2 is "${quantity_2}", unit_2 is "${unit_2}"`, () => {
       const result = parseAmount(input);
       expect(result.measurement.quantity.toString()).toBe(quantity_1);
