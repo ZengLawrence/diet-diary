@@ -19,6 +19,7 @@ export default defineConfig({
           'lodash': ['lodash'],
           'bootstrap': ['bootstrap'],
           'react-bootstrap': ['react-bootstrap'],
+          'minisearch': ['minisearch'],
         },
       },
     },
