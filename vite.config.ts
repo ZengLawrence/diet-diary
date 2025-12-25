@@ -26,6 +26,7 @@ export default defineConfig({
             '@fortawesome/react-fontawesome',
           ],
           'convert-units': ['convert-units'],
+          'export-to-csv': ['export-to-csv'],
         },
       },
     },
