@@ -28,6 +28,7 @@ export default defineConfig({
           'convert-units': ['convert-units'],
           'export-to-csv': ['export-to-csv'],
           'fraction.js': ['fraction.js'],
+          'numeral': ['numeral'],
         },
       },
     },
