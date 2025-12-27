@@ -7,4 +7,10 @@ import('react-dom/client').then(({ createRoot }) => {
       <App />
     </StrictMode>,
   );
+}).catch((error) => {
+  console.error('Failed to load ReactDOM:', error);
+  const fallbackContainer = document.getElementById('root');
+    if (fallbackContainer) {
+        fallbackContainer.textContent = 'Sorry, the application could not load. Please refresh your browser.';
+    }
 });
