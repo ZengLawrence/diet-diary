@@ -1,16 +1,12 @@
-import { StrictMode } from 'react'
-import App from './App'
+import { lazy, StrictMode, Suspense } from 'react'
+import { createRoot } from 'react-dom/client'
 
-import('react-dom/client').then(({ createRoot }) => {
-  createRoot(document.getElementById('root')!).render(
-    <StrictMode>
+const App = lazy(() => import('./App'));
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <Suspense fallback={<div>Loading...</div>}>
       <App />
-    </StrictMode>,
-  );
-}).catch((error) => {
-  console.error('Failed to load ReactDOM:', error);
-  const fallbackContainer = document.getElementById('root');
-    if (fallbackContainer) {
-        fallbackContainer.textContent = 'Sorry, the application could not load. Please refresh your browser.';
-    }
-});
+    </Suspense>
+  </StrictMode>,
+);
