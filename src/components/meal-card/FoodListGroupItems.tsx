@@ -1,17 +1,16 @@
 import _ from "lodash";
-import { Fragment, lazy, Suspense } from "react";
+import { Fragment } from "react";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
 import type { MealEditState } from "../../features/day-page/pageOptionsSlice";
+import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
+import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
 import EditFoodButton from "../../features/meal-card/EditFoodButton";
 import NewFoodButton from "../../features/meal-card/NewFoodButton";
 import type { Food } from "../../model/Food";
 import { VariantPrimary } from "../ButtonVariant";
 import { FoodItem } from "../FoodItem";
-
-const AddFoodInputForm = lazy(() => import("../../features/input-form/AddFoodInputForm"));
-const UpdateFoodInputForm = lazy(() => import("../../features/input-form/UpdateFoodInputForm"));
 
 const EditableFoodItem = (props: {
   food: Food;
@@ -47,9 +46,7 @@ export const FoodListGroupItems = (props: Props) => {
             </ListGroup.Item>
           ))}
           <ListGroup.Item key={_.size(props.foods)}>
-            <Suspense fallback={<div>Loading...</div>}>
-              <AddFoodInputForm mealIndex={props.mealIndex} />
-            </Suspense>
+            <AddFoodInputForm mealIndex={props.mealIndex} />
           </ListGroup.Item>
         </Fragment>
       );
@@ -63,9 +60,7 @@ export const FoodListGroupItems = (props: Props) => {
             props.foods.map((food, index) => (
               <ListGroup.Item key={index} data-cy="foodItem">
                 {index === props.foodEditIndex
-                  ? <Suspense fallback={<div>Loading...</div>}>
-                    <UpdateFoodInputForm food={food} mealIndex={props.mealIndex} foodIndex={index} />
-                  </Suspense>
+                  ? <UpdateFoodInputForm food={food} mealIndex={props.mealIndex} foodIndex={index} />
                   : <EditableFoodItem food={food} mealIndex={props.mealIndex} foodIndex={index} />
                 }
               </ListGroup.Item>

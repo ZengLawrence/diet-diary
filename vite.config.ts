@@ -5,33 +5,6 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   build: {
     outDir: 'build',
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'react': [
-            'react',
-            'react-dom',
-          ],
-          'redux': [
-            '@reduxjs/toolkit',
-            'react-redux',
-          ],
-          'lodash': ['lodash'],
-          'bootstrap': ['bootstrap'],
-          'react-bootstrap': ['react-bootstrap'],
-          'minisearch': ['minisearch'],
-          'fortawesome': [
-            '@fortawesome/fontawesome-svg-core',
-            '@fortawesome/free-solid-svg-icons',
-            '@fortawesome/react-fontawesome',
-          ],
-          'convert-units': ['convert-units'],
-          'export-to-csv': ['export-to-csv'],
-          'fraction.js': ['fraction.js'],
-          'numeral': ['numeral'],
-        },
-      },
-    },
   },
   plugins: [
     react(),
