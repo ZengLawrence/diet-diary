@@ -183,13 +183,13 @@ describe("SavedMeals class", () => {
     });
 
     it("delete multi-food meal first when exceed max saved count", () => {
-      const multiFoodMeal = {
+      const multiFoodMeal: SavedMeal = {
         foods: [
           { ...minimalFood, description: "food 1" },
           { ...minimalFood, description: "food 2" },
         ]
       }
-      const singleFoodMeals = Array(199).fill(mealA);
+      const singleFoodMeals = Array<SavedMeal>(199).fill(mealA);
       const manyMeals = [multiFoodMeal, ...singleFoodMeals];
       const loader = createMockLoader(manyMeals);
       const saver = createMockSaver();
