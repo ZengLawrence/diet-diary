@@ -182,6 +182,26 @@ describe("SavedMeals class", () => {
       expect(suggestions.addSuggestion).toHaveBeenCalledWith(mealB);
     });
 
+    it("delete multi-food meal first when exceed max saved count", () => {
+      const multiFoodMeal = {
+        foods: [
+          { ...minimalFood, description: "food 1" },
+          { ...minimalFood, description: "food 2" },
+        ]
+      }
+      const singleFoodMeals = Array(199).fill(mealA);
+      const manyMeals = [multiFoodMeal, ...singleFoodMeals];
+      const loader = createMockLoader(manyMeals);
+      const saver = createMockSaver();
+      const savedMeals = new SavedMeals(loader, saver, createMockToday(), suggestions);
+      const result = savedMeals.add(mealB);
+      expect(result.length).toBe(200);
+      expect(result[0]).toBe(mealB);
+      expect(result.slice(1)).toEqual(singleFoodMeals);
+      expect(getSavedMeals(saver)?.length).toBe(200);
+      expect(suggestions.addSuggestion).toHaveBeenCalledWith(mealB);
+    });
+
     it("should notify listener if there is a listener registered when adds a meal", () => {
       const loader = createMockLoader([mealA]);
       const saver = createMockSaver();
