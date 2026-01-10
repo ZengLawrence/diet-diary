@@ -1,7 +1,7 @@
 import _ from "lodash";
 import type { RefObject } from "react";
 import { useEffect, useRef, useState } from "react";
-import { ArrowsAngleExpand } from "react-bootstrap-icons";
+import { ArrowsFullscreen } from "react-bootstrap-icons";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
@@ -139,7 +139,7 @@ export const FoodDescriptionComboBox = (props: Props) => {
           onClick={props.onExpand}
           className="d-sm-none"
         >
-          <ArrowsAngleExpand />
+          <ArrowsFullscreen />
         </Button>
         <Form.Control.Feedback type="invalid">
           Please enter food description.
