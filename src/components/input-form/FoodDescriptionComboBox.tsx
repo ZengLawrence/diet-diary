@@ -1,8 +1,7 @@
-import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import type { RefObject} from "react";
+import type { RefObject } from "react";
 import { useEffect, useRef, useState } from "react";
+import { ArrowsAngleExpand } from "react-bootstrap-icons";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
@@ -140,7 +139,7 @@ export const FoodDescriptionComboBox = (props: Props) => {
           onClick={props.onExpand}
           className="d-sm-none"
         >
-          <FontAwesomeIcon icon={faRightToBracket} />
+          <ArrowsAngleExpand />
         </Button>
         <Form.Control.Feedback type="invalid">
           Please enter food description.
