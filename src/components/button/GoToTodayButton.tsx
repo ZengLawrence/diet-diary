@@ -1,5 +1,4 @@
-import { faForwardStep } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SkipEndFill } from "react-bootstrap-icons";
 import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../app/store";
@@ -16,7 +15,7 @@ const GoToTodayButton = () => {
     <Button
       variant={VariantSecondary}
       onClick={handleClick}>
-      <FontAwesomeIcon icon={faForwardStep} />
+      <SkipEndFill />
     </Button>
   );
 }
