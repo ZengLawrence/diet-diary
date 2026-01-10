@@ -1,5 +1,4 @@
-import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CaretLeftFill } from "react-bootstrap-icons";
 import Button from "react-bootstrap/Button";
 import { useAppDispatch } from "../../app/hooks";
 import { back } from "../../features/day-page/pageOptionsSlice";
@@ -16,7 +15,7 @@ const BackButton = () => {
     <Button
       variant={VariantSecondary}
       onClick={handleClick}>
-      <FontAwesomeIcon icon={faCaretLeft} />
+      <CaretLeftFill />
     </Button>
   );
 }

@@ -1,6 +1,5 @@
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { StarFill } from "react-bootstrap-icons";
 
 export const BlueStar = () => (
-  <FontAwesomeIcon icon={faStar} className="dd-blue-color" />
+  <StarFill className="dd-fill-blue" />
 );

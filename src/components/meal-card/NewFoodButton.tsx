@@ -1,6 +1,5 @@
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "react-bootstrap";
+import { PlusLg } from "react-bootstrap-icons";
 import { VariantPrimary } from "../ButtonVariant";
 
 interface Props { 
@@ -10,6 +9,6 @@ interface Props {
 
 export const NewFoodButton = (props: Props) => (
   <Button variant={VariantPrimary}  data-cy="buttonNewFood" onClick={props.onClick}>
-    <FontAwesomeIcon icon={faPlus} />
+    <PlusLg />
   </Button>
 )

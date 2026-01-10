@@ -1,5 +1,4 @@
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { PlusLg } from "react-bootstrap-icons";
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { dayPageSelector } from "../../app/selectors";
@@ -26,7 +25,7 @@ const NewDayButton = () => {
       <Button
         variant={VariantDanger}
         onClick={handleClick} >
-        <FontAwesomeIcon icon={faPlus} />
+        <PlusLg />
       </Button>
     </div>
   );
