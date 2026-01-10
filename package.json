@@ -1,6 +1,6 @@
 {
   "name": "diet-diary",
-  "version": "2.58.1",
+  "version": "2.59.0",
   "private": true,
   "homepage": ".",
   "dependencies": {
