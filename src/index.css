@@ -54,8 +54,8 @@ code {
   min-width: 90px;
 }
 
-.dd-blue-color {
-  color: var(--bs-blue);
+.dd-blue-star {
+  fill: var(--bs-blue);
 }
 
 .dd-chart-best-choice-column {
