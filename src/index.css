@@ -54,7 +54,7 @@ code {
   min-width: 90px;
 }
 
-.dd-blue-star {
+.dd-fill-blue {
   fill: var(--bs-blue);
 }
 
