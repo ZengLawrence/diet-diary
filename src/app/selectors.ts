@@ -66,16 +66,9 @@ function applyOptions(mealOptions: MealOptions, mealIndex: number): Pick<MealSta
       }
       break;
     case "review":
-      if (mealIndex === mealOptions.showMealSavedAlertIndex) {
-        mealState = {
-          editState: mealOptions.editState,
-          showMealSavedAlert: true,
-        }
-      } else {
-        mealState = {
-          editState: mealOptions.editState,
-        }
-      }
+      mealState = {
+        editState: mealOptions.editState,
+      };
       break;
     default:
       if (mealIndex === mealOptions.showMealSavedAlertIndex) {
@@ -100,7 +93,7 @@ const _mealStatesSelector: (state: RootState) => MealState[] = createSelector(
     }));
 
     // set last meal in add state if meal index is -1
-    if (mealOptions.editState === "add" 
+    if (mealOptions.editState === "add"
       && mealOptions.mealIndex === -1
       && mealStatesWithOptions.length > 0) {
       const lastMealIndex = mealStatesWithOptions.length - 1;

@@ -34,7 +34,6 @@ export interface EditMealOptions {
 
 export interface ReviewMealOptions {
   editState: "review";
-  showMealSavedAlertIndex: number;
 }
 
 export interface DefaultMealOptions {
@@ -54,7 +53,6 @@ function newMealOptions(): AddMealOptions {
 function reviewMealOptions(): ReviewMealOptions {
   return {
     editState: "review",
-    showMealSavedAlertIndex: -1,
   };
 }
 
@@ -159,7 +157,7 @@ const pageOptionsSlice = createSlice({
       }
     },
     hideSavedMealAlert(state) {
-      state.mealOptions = reviewMealOptions();
+      state.mealOptions = defaultMealOptions();
     },
     setCurrentDate(state, action: PayloadAction<string>) {
       state.currentDate = action.payload;
