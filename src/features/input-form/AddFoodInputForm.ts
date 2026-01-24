@@ -14,7 +14,7 @@ const mapStateToProps = () => ({
 
 const mapDispatchToProps = (dispatch: AppDispatch, { mealIndex }: { mealIndex: number }) => ({
   onSaveFood: (food: Food) => dispatch(addFood({ mealIndex, food })),
-  onCancel: () => dispatch(exitFoodAddMode()),
+  onCancel: () => dispatch(exitFoodAddMode({ mealIndex })),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FoodInputForm);

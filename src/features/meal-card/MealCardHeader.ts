@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch: AppDispatch, ownProps: { mealIndex: number
   hideMealSavedAlert: () => dispatch(hideSavedMealAlert()),
   deleteMeal: () => dispatch(deleteMeal(ownProps.mealIndex)),
   editMeal: (mealIndex: number) => dispatch(enterMealEditMode({ mealIndex })),
-  doneEdit: () => dispatch(exitMealEditMode()),
+  doneEdit: () => dispatch(exitMealEditMode({ mealIndex: ownProps.mealIndex })),
   saveMeal: (mealIndex: number, meal: Meal) => {
     savedMeals.add(meal);
     dispatch(showSavedMealAlert(mealIndex));

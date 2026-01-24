@@ -34,6 +34,7 @@ export interface EditMealOptions {
 
 export interface ReviewMealOptions {
   editState: "review";
+  mealIndex: number;
 }
 
 export interface DefaultMealOptions {
@@ -47,12 +48,6 @@ function newMealOptions(): AddMealOptions {
   return {
     editState: "add",
     mealIndex: -1,
-  };
-}
-
-function reviewMealOptions(): ReviewMealOptions {
-  return {
-    editState: "review",
   };
 }
 
@@ -133,8 +128,11 @@ const pageOptionsSlice = createSlice({
         mealIndex,
       }
     },
-    exitMealEditMode(state) {
-      state.mealOptions = reviewMealOptions();
+    exitMealEditMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
+      state.mealOptions = {
+        editState: "review",
+        mealIndex,
+      };
     },
     enterFoodEditMode(state, action: PayloadAction<{ mealIndex: number; foodIndex: number }>) {
       state.mealOptions = {
@@ -147,8 +145,11 @@ const pageOptionsSlice = createSlice({
         state.mealOptions.foodIndex = -1;
       }
     },
-    exitFoodAddMode(state) {
-      state.mealOptions = reviewMealOptions();
+    exitFoodAddMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
+      state.mealOptions = {
+        editState: "review",
+        mealIndex,
+      };
     },
     showSavedMealAlert(state, action: PayloadAction<number>) {
       state.mealOptions = {
@@ -184,7 +185,7 @@ const pageOptionsSlice = createSlice({
         state.mealOptions = newMealOptions();
       })
       .addCase(deleteMeal.fulfilled, (state) => {
-        state.mealOptions = reviewMealOptions();
+        state.mealOptions = defaultMealOptions();
       })
       .addCase(back.fulfilled, (state, action) => {
         state.currentDate = action.payload.currentDate;
@@ -202,7 +203,7 @@ const pageOptionsSlice = createSlice({
         state.currentDate = action.payload.currentDate;
         state.progress = action.payload.progress;
       });
-    }
+  }
 });
 
 export const {
