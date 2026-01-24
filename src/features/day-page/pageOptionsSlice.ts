@@ -9,7 +9,7 @@ import { DiaryTimeline } from "../../model/diaryTimeline";
 import { addMeal, deleteMeal, deleteFood, newDay } from "./dayPageSlice";
 import { exitEditMode } from "./editModeSlice";
 
-export type MealEditState = "add" | "edit" | undefined;
+export type MealEditState = "add" | "edit" | "review" | undefined;
 
 export interface PageOptions {
   mealOptions: MealOptions;
@@ -32,12 +32,17 @@ export interface EditMealOptions {
   foodIndex: number;
 }
 
+export interface ReviewMealOptions {
+  editState: "review";
+  mealIndex: number;
+}
+
 export interface DefaultMealOptions {
   editState: undefined;
   showMealSavedAlertIndex: number;
 }
 
-export type MealOptions = AddMealOptions | EditMealOptions | DefaultMealOptions;
+export type MealOptions = AddMealOptions | EditMealOptions | ReviewMealOptions | DefaultMealOptions;
 
 function newMealOptions(): AddMealOptions {
   return {
@@ -123,8 +128,11 @@ const pageOptionsSlice = createSlice({
         mealIndex,
       }
     },
-    exitMealEditMode(state) {
-      state.mealOptions = defaultMealOptions();
+    exitMealEditMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
+      state.mealOptions = {
+        editState: "review",
+        mealIndex,
+      };
     },
     enterFoodEditMode(state, action: PayloadAction<{ mealIndex: number; foodIndex: number }>) {
       state.mealOptions = {
@@ -137,8 +145,11 @@ const pageOptionsSlice = createSlice({
         state.mealOptions.foodIndex = -1;
       }
     },
-    exitFoodAddMode(state) {
-      state.mealOptions = defaultMealOptions();
+    exitFoodAddMode(state, { payload: { mealIndex } }: PayloadAction<{ mealIndex: number; }>) {
+      state.mealOptions = {
+        editState: "review",
+        mealIndex,
+      };
     },
     showSavedMealAlert(state, action: PayloadAction<number>) {
       state.mealOptions = {
@@ -192,7 +203,7 @@ const pageOptionsSlice = createSlice({
         state.currentDate = action.payload.currentDate;
         state.progress = action.payload.progress;
       });
-    }
+  }
 });
 
 export const {
