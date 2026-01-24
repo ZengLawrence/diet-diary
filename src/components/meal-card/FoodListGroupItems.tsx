@@ -88,9 +88,9 @@ export const FoodListGroupItems = (props: Props) => {
       );
     /* eslint-enable react-x/no-array-index-key */
 
-    case "review":
-      /* eslint-disable react-x/no-array-index-key */
+    case "review": {
       const isSavedFoodEnabled = isFeatureFlagEnabled("savedFoodEnabled");
+      /* eslint-disable react-x/no-array-index-key */
       return (
         <Fragment>
           {props.foods.map((food, index) => (
@@ -103,8 +103,8 @@ export const FoodListGroupItems = (props: Props) => {
           ))}
         </Fragment>
       );
-    /* eslint-enable react-x/no-array-index-key */
-
+      /* eslint-enable react-x/no-array-index-key */
+    }
     default:
       /* eslint-disable react-x/no-array-index-key */
       return (
