@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
+import { isFeatureFlagEnabled } from "../../features";
 import type { MealEditState } from "../../features/day-page/pageOptionsSlice";
 import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
 import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
@@ -89,11 +90,15 @@ export const FoodListGroupItems = (props: Props) => {
 
     case "review":
       /* eslint-disable react-x/no-array-index-key */
+      const isSavedFoodEnabled = isFeatureFlagEnabled("savedFoodEnabled");
       return (
         <Fragment>
           {props.foods.map((food, index) => (
             <ListGroup.Item key={index} data-cy="foodItem">
-              <ReviewFoodItem food={food} />
+              {isSavedFoodEnabled
+                ? <ReviewFoodItem food={food} />
+                : <FoodItem food={food} />
+              }
             </ListGroup.Item>
           ))}
         </Fragment>
