@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { Fragment } from "react";
+import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
@@ -23,6 +24,19 @@ const EditableFoodItem = (props: {
     </Col>
     <Col xs="auto">
       <EditFoodButton variant={VariantPrimary} mealIndex={props.mealIndex} foodIndex={props.foodIndex} label="Edit" />
+    </Col>
+  </Row>
+);
+
+const ReviewFoodItem = (props: {
+  food: Food;
+}) => (
+  <Row>
+    <Col>
+      <FoodItem food={props.food} />
+    </Col>
+    <Col xs="auto">
+      <Button variant={VariantPrimary} >Save</Button>
     </Col>
   </Row>
 );
@@ -69,6 +83,19 @@ export const FoodListGroupItems = (props: Props) => {
           <ListGroup.Item>
             <NewFoodButton mealIndex={props.mealIndex} />
           </ListGroup.Item>
+        </Fragment>
+      );
+    /* eslint-enable react-x/no-array-index-key */
+
+    case "review":
+      /* eslint-disable react-x/no-array-index-key */
+      return (
+        <Fragment>
+          {props.foods.map((food, index) => (
+            <ListGroup.Item key={index} data-cy="foodItem">
+              <ReviewFoodItem food={food} />
+            </ListGroup.Item>
+          ))}
         </Fragment>
       );
     /* eslint-enable react-x/no-array-index-key */

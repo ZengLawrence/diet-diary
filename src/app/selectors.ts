@@ -65,6 +65,18 @@ function applyOptions(mealOptions: MealOptions, mealIndex: number): Pick<MealSta
         }
       }
       break;
+    case "review":
+      if (mealIndex === mealOptions.showMealSavedAlertIndex) {
+        mealState = {
+          editState: mealOptions.editState,
+          showMealSavedAlert: true,
+        }
+      } else {
+        mealState = {
+          editState: mealOptions.editState,
+        }
+      }
+      break;
     default:
       if (mealIndex === mealOptions.showMealSavedAlertIndex) {
         mealState = {

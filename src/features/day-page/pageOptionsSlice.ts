@@ -9,7 +9,7 @@ import { DiaryTimeline } from "../../model/diaryTimeline";
 import { addMeal, deleteMeal, deleteFood, newDay } from "./dayPageSlice";
 import { exitEditMode } from "./editModeSlice";
 
-export type MealEditState = "add" | "edit" | undefined;
+export type MealEditState = "add" | "edit" | "review" | undefined;
 
 export interface PageOptions {
   mealOptions: MealOptions;
@@ -32,17 +32,29 @@ export interface EditMealOptions {
   foodIndex: number;
 }
 
+export interface ReviewMealOptions {
+  editState: "review";
+  showMealSavedAlertIndex: number;
+}
+
 export interface DefaultMealOptions {
   editState: undefined;
   showMealSavedAlertIndex: number;
 }
 
-export type MealOptions = AddMealOptions | EditMealOptions | DefaultMealOptions;
+export type MealOptions = AddMealOptions | EditMealOptions | ReviewMealOptions | DefaultMealOptions;
 
 function newMealOptions(): AddMealOptions {
   return {
     editState: "add",
     mealIndex: -1,
+  };
+}
+
+function reviewMealOptions(): ReviewMealOptions {
+  return {
+    editState: "review",
+    showMealSavedAlertIndex: -1,
   };
 }
 
@@ -124,7 +136,7 @@ const pageOptionsSlice = createSlice({
       }
     },
     exitMealEditMode(state) {
-      state.mealOptions = defaultMealOptions();
+      state.mealOptions = reviewMealOptions();
     },
     enterFoodEditMode(state, action: PayloadAction<{ mealIndex: number; foodIndex: number }>) {
       state.mealOptions = {
@@ -138,7 +150,7 @@ const pageOptionsSlice = createSlice({
       }
     },
     exitFoodAddMode(state) {
-      state.mealOptions = defaultMealOptions();
+      state.mealOptions = reviewMealOptions();
     },
     showSavedMealAlert(state, action: PayloadAction<number>) {
       state.mealOptions = {
@@ -147,7 +159,7 @@ const pageOptionsSlice = createSlice({
       }
     },
     hideSavedMealAlert(state) {
-      state.mealOptions = defaultMealOptions();
+      state.mealOptions = reviewMealOptions();
     },
     setCurrentDate(state, action: PayloadAction<string>) {
       state.currentDate = action.payload;
@@ -174,7 +186,7 @@ const pageOptionsSlice = createSlice({
         state.mealOptions = newMealOptions();
       })
       .addCase(deleteMeal.fulfilled, (state) => {
-        state.mealOptions = defaultMealOptions();
+        state.mealOptions = reviewMealOptions();
       })
       .addCase(back.fulfilled, (state, action) => {
         state.currentDate = action.payload.currentDate;
