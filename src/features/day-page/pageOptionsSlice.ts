@@ -6,7 +6,7 @@ import type { DayPage } from "../../model/DayPage";
 import { ReadOnlyDiaryHistory } from "../../model/diaryHistory";
 import { ReadOnlyToday } from "../../model/today";
 import { DiaryTimeline } from "../../model/diaryTimeline";
-import { addMeal, deleteMeal, deleteFood, newDay } from "./dayPageSlice";
+import { addMeal, deleteMeal, deleteFood, newDay, saveFood } from "./dayPageSlice";
 import { exitEditMode } from "./editModeSlice";
 
 export type MealEditState = "add" | "edit" | "review" | undefined;
@@ -205,6 +205,11 @@ const pageOptionsSlice = createSlice({
       .addCase(goToToday.fulfilled, (state, action) => {
         state.currentDate = action.payload.currentDate;
         state.progress = action.payload.progress;
+      })
+      .addCase(saveFood.fulfilled, (state, action) => {
+        if (state.mealOptions.editState === "review") {
+          state.mealOptions.savedFoodsIndexes.push(action.payload.foodIndex);
+        }
       });
   }
 });
