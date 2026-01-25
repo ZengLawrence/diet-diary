@@ -40,6 +40,7 @@ export interface MealState {
   editState?: MealEditState;
   foodEditIndex?: number;
   showMealSavedAlert?: boolean;
+  savedFoodsIndexes?: number[];
 }
 
 const _mealOptionsSelector: (state: RootState) => MealOptions = createSelector(
@@ -47,7 +48,7 @@ const _mealOptionsSelector: (state: RootState) => MealOptions = createSelector(
   (pageOptions) => pageOptions.mealOptions
 );
 
-function applyOptions(mealOptions: MealOptions, mealIndex: number): Pick<MealState, 'editState' | 'foodEditIndex' | 'showMealSavedAlert'> {
+function applyOptions(mealOptions: MealOptions, mealIndex: number): Pick<MealState, 'editState' | 'foodEditIndex' | 'showMealSavedAlert' | 'savedFoodsIndexes'> {
   let mealState = undefined;
   switch (mealOptions.editState) {
     case "add":
@@ -69,6 +70,7 @@ function applyOptions(mealOptions: MealOptions, mealIndex: number): Pick<MealSta
       if (mealIndex === mealOptions.mealIndex) {
         mealState = {
           editState: mealOptions.editState,
+          savedFoodsIndexes: mealOptions.savedFoodsIndexes,
         };
       }
       break;

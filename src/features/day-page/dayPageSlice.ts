@@ -66,14 +66,14 @@ export const deleteFood = createAsyncThunk<DayPage, { mealIndex: number, foodInd
 );
 
 // TODO find a better place for this
-export const saveFood = createAsyncThunk<DayPage, { mealIndex: number, foodIndex: number }>(
+export const saveFood = createAsyncThunk<{ mealIndex: number, foodIndex: number }, { mealIndex: number, foodIndex: number }>(
   'dayPage/saveFood',
   (payload, { getState }) => {
     const state = getState() as { dayPage: DayPage };
     const meal = getMeal(state.dayPage, payload.mealIndex);
     const food = meal.foods[payload.foodIndex];
     savedFoods.add(food);
-    return Promise.resolve(state.dayPage);
+    return Promise.resolve(payload);
   }
 );
 
@@ -127,8 +127,9 @@ const dayPageSlice = createSlice({
       .addCase(deleteFood.fulfilled, (_state, action) => {
         return action.payload;
       })
-      .addCase(saveFood.fulfilled, (_state, action) => {
-        return action.payload;
+      .addCase(saveFood.fulfilled, (state) => {
+        // no state change
+        return state;
       })
       .addCase(changeTarget.fulfilled, (_state, action) => {
         return action.payload;

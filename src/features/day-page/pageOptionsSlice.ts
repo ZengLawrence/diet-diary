@@ -6,7 +6,7 @@ import type { DayPage } from "../../model/DayPage";
 import { ReadOnlyDiaryHistory } from "../../model/diaryHistory";
 import { ReadOnlyToday } from "../../model/today";
 import { DiaryTimeline } from "../../model/diaryTimeline";
-import { addMeal, deleteMeal, deleteFood, newDay } from "./dayPageSlice";
+import { addMeal, deleteMeal, deleteFood, newDay, saveFood } from "./dayPageSlice";
 import { exitEditMode } from "./editModeSlice";
 
 export type MealEditState = "add" | "edit" | "review" | undefined;
@@ -35,6 +35,7 @@ export interface EditMealOptions {
 export interface ReviewMealOptions {
   editState: "review";
   mealIndex: number;
+  savedFoodsIndexes: number[];
 }
 
 export interface DefaultMealOptions {
@@ -132,6 +133,7 @@ const pageOptionsSlice = createSlice({
       state.mealOptions = {
         editState: "review",
         mealIndex,
+        savedFoodsIndexes: [],
       };
     },
     enterFoodEditMode(state, action: PayloadAction<{ mealIndex: number; foodIndex: number }>) {
@@ -149,6 +151,7 @@ const pageOptionsSlice = createSlice({
       state.mealOptions = {
         editState: "review",
         mealIndex,
+        savedFoodsIndexes: [],
       };
     },
     showSavedMealAlert(state, action: PayloadAction<number>) {
@@ -202,6 +205,11 @@ const pageOptionsSlice = createSlice({
       .addCase(goToToday.fulfilled, (state, action) => {
         state.currentDate = action.payload.currentDate;
         state.progress = action.payload.progress;
+      })
+      .addCase(saveFood.fulfilled, (state, action) => {
+        if (state.mealOptions.editState === "review") {
+          state.mealOptions.savedFoodsIndexes.push(action.payload.foodIndex);
+        }
       });
   }
 });
