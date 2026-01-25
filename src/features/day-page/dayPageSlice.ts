@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { DayPage } from "../../model/DayPage";
 import type { Food } from "../../model/Food";
 import type { Target } from "../../model/Target";
-import { diary, today } from "./api";
+import { diary, savedFoods, today } from "./api";
 import { back, goToToday, next } from "./pageOptionsSlice";
 
 export const newDay = createAsyncThunk<DayPage>(
@@ -65,6 +65,18 @@ export const deleteFood = createAsyncThunk<DayPage, { mealIndex: number, foodInd
   }
 );
 
+// TODO find a better place for this
+export const saveFood = createAsyncThunk<DayPage, { mealIndex: number, foodIndex: number }>(
+  'dayPage/saveFood',
+  (payload, { getState }) => {
+    const state = getState() as { dayPage: DayPage };
+    const meal = getMeal(state.dayPage, payload.mealIndex);
+    const food = meal.foods[payload.foodIndex];
+    savedFoods.add(food);
+    return Promise.resolve(state.dayPage);
+  }
+);
+
 export const changeTarget = createAsyncThunk<DayPage, Target>(
   'dayPage/changeTarget',
   (target) => {
@@ -113,6 +125,9 @@ const dayPageSlice = createSlice({
         return action.payload;
       })
       .addCase(deleteFood.fulfilled, (_state, action) => {
+        return action.payload;
+      })
+      .addCase(saveFood.fulfilled, (_state, action) => {
         return action.payload;
       })
       .addCase(changeTarget.fulfilled, (_state, action) => {

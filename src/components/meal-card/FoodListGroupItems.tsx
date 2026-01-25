@@ -1,6 +1,5 @@
 import _ from "lodash";
 import { Fragment } from "react";
-import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
@@ -13,6 +12,7 @@ import NewFoodButton from "../../features/meal-card/NewFoodButton";
 import type { Food } from "../../model/Food";
 import { VariantPrimary } from "../ButtonVariant";
 import { FoodItem } from "../FoodItem";
+import SaveFoodButton from "../../features/meal-card/SaveFoodButton";
 
 const EditableFoodItem = (props: {
   food: Food;
@@ -31,13 +31,15 @@ const EditableFoodItem = (props: {
 
 const ReviewFoodItem = (props: {
   food: Food;
+  mealIndex: number;
+  foodIndex: number;
 }) => (
   <Row>
     <Col>
       <FoodItem food={props.food} />
     </Col>
     <Col xs="auto">
-      <Button variant={VariantPrimary} >Save</Button>
+      <SaveFoodButton variant={VariantPrimary} mealIndex={props.mealIndex} foodIndex={props.foodIndex} label="Save" />
     </Col>
   </Row>
 );
@@ -96,7 +98,7 @@ export const FoodListGroupItems = (props: Props) => {
           {props.foods.map((food, index) => (
             <ListGroup.Item key={index} data-cy="foodItem">
               {isSavedFoodEnabled
-                ? <ReviewFoodItem food={food} />
+                ? <ReviewFoodItem food={food} mealIndex={props.mealIndex} foodIndex={index}/>
                 : <FoodItem food={food} />
               }
             </ListGroup.Item>
