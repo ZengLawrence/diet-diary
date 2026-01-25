@@ -35,6 +35,7 @@ export interface EditMealOptions {
 export interface ReviewMealOptions {
   editState: "review";
   mealIndex: number;
+  savedFoodsIndexes: number[];
 }
 
 export interface DefaultMealOptions {
@@ -132,6 +133,7 @@ const pageOptionsSlice = createSlice({
       state.mealOptions = {
         editState: "review",
         mealIndex,
+        savedFoodsIndexes: [],
       };
     },
     enterFoodEditMode(state, action: PayloadAction<{ mealIndex: number; foodIndex: number }>) {
@@ -149,6 +151,7 @@ const pageOptionsSlice = createSlice({
       state.mealOptions = {
         editState: "review",
         mealIndex,
+        savedFoodsIndexes: [],
       };
     },
     showSavedMealAlert(state, action: PayloadAction<number>) {

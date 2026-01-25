@@ -58,6 +58,10 @@ code {
   fill: var(--bs-blue);
 }
 
+.dd-fill-success {
+  fill: var(--bs-success);
+}
+
 .dd-chart-best-choice-column {
   fill: var(--bs-blue);
 }
