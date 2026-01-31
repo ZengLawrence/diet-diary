@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ListGroup from "react-bootstrap/ListGroup";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { savedFoods } from "../../features/day-page/api";
 import type { Food } from "../../model/Food";
@@ -27,9 +28,13 @@ function SavedFoodsOffcanvas(props: Props) {
         <Offcanvas.Title>Saved Foods</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        {foods.map((food, index) => (
-          <FoodItem food={food} key={index} />
-        ))}
+        <ListGroup>
+          {foods.map((food, index) => (
+            <ListGroup.Item key={index}>
+              <FoodItem food={food} />
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
       </Offcanvas.Body>
     </Offcanvas>
   );
