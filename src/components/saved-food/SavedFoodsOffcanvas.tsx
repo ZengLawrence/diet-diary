@@ -14,7 +14,7 @@ function SavedFoodsOffcanvas(props: Props) {
   const [foods, setFoods] = useState<Food[]>([]);
 
   useEffect(() => {
-    const loadedFoods = Promise.resolve(savedFoods.getAll());
+    const loadedFoods = new Promise<Food[]>((resolve) => resolve(savedFoods.getAll()));
     void loadedFoods.then((foods) => setFoods(foods));
   }, [props.show]);
 
