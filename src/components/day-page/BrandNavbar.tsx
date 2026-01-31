@@ -39,13 +39,18 @@ const BrandNavbar = () => {
               onClick={() => dispatch(openCustomTargets())}>
               Custom Targets
             </Nav.Link>
+            <Nav.Link
+              eventKey="saved-foods"
+            >
+              Saved Foods
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
 
       <PreferenceFormOffcanvas />
       <EditCustomTargetsOffcanvas />
-  </Navbar>
+    </Navbar>
   );
 }
 
