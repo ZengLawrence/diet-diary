@@ -2,8 +2,9 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useAppDispatch } from '../../app/hooks';
-import { openCustomTargets, openPreferences } from '../../features/overlays/overlaysSlice';
+import { openCustomTargets, openPreferences, openSavedFoods } from '../../features/overlays/overlaysSlice';
 import PreferenceFormOffcanvas from '../../features/preference/PreferenceFormOffcanvas';
+import SavedFoodsOffcanvas from '../../features/saved-food/SavedFoodsOffcanvas';
 import EditCustomTargetsOffcanvas from '../../features/target/EditCustomTargetsOffcanvas';
 
 const BrandNavbar = () => {
@@ -41,6 +42,7 @@ const BrandNavbar = () => {
             </Nav.Link>
             <Nav.Link
               eventKey="saved-foods"
+              onClick={() => dispatch(openSavedFoods())}
             >
               Saved Foods
             </Nav.Link>
@@ -50,6 +52,7 @@ const BrandNavbar = () => {
 
       <PreferenceFormOffcanvas />
       <EditCustomTargetsOffcanvas />
+      <SavedFoodsOffcanvas />
     </Navbar>
   );
 }
