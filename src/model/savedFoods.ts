@@ -22,4 +22,8 @@ export class SavedFoods {
   add(food: Food): void {
     this.saver.save([food].concat(this.load()));
   }
+
+  getAll(): Food[] {
+    return this.load();
+  }
 }
