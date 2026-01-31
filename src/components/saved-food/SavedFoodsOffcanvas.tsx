@@ -18,6 +18,7 @@ function SavedFoodsOffcanvas(props: Props) {
     void loadedFoods.then((foods) => setFoods(foods));
   }, [props.show]);
 
+  /* eslint-disable react-x/no-array-index-key */
   return (
     <Offcanvas
       show={props.show}
@@ -38,6 +39,7 @@ function SavedFoodsOffcanvas(props: Props) {
       </Offcanvas.Body>
     </Offcanvas>
   );
+  /* eslint-enable react-x/no-array-index-key */
 }
 
 export default SavedFoodsOffcanvas;
