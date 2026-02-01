@@ -1,3 +1,4 @@
+import { NoOpsSuggestions, type Suggestions } from "../features/suggestions/SavedFoodSuggestion";
 import type { Food } from "./Food";
 
 export interface SavedFoodsLoader {
@@ -13,6 +14,7 @@ export class SavedFoods {
   constructor(
     private readonly loader: SavedFoodsLoader,
     private readonly saver: SavedFoodsSaver,
+    private readonly suggestions: Suggestions = NoOpsSuggestions,
   ) { }
 
   private load(): Food[] {
@@ -21,6 +23,7 @@ export class SavedFoods {
 
   add(food: Food): void {
     this.saver.save([food].concat(this.load()));
+    this.suggestions.addSuggestion(food);
   }
 
   getAll(): Food[] {

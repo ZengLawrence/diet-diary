@@ -6,6 +6,7 @@ import type { Food } from "../../model/Food";
 import { SavedFoods, type SavedFoodsLoader, type SavedFoodsSaver } from "../../model/savedFoods";
 import { Today } from "../../model/today";
 import { preferencesApi } from "../preference/api";
+import { suggestions } from "../suggestions/SavedFoodSuggestion";
 import { customTargets } from "../target";
 
 const historyLocalStorage = new HistoryLocalStorage();
@@ -34,7 +35,7 @@ function createInMemorySavedFoods() {
 
   const loader = new InMemoryPersistence();
   const saver = loader;
-  return new SavedFoods(loader, saver);
+  return new SavedFoods(loader, saver, suggestions);
 }
 
 export const savedFoods = createInMemorySavedFoods();
