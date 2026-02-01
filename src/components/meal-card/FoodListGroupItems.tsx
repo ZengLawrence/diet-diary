@@ -106,7 +106,7 @@ export const FoodListGroupItems = (props: Props) => {
     /* eslint-enable react-x/no-array-index-key */
 
     case "review": {
-      const isSavedFoodEnabled = isFeatureFlagEnabled("savedFoodEnabled");
+      const isSavedFoodEnabled = isFeatureFlagEnabled("saved-food-enabled");
       /* eslint-disable react-x/no-array-index-key */
       return (
         <Fragment>
