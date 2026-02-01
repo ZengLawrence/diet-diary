@@ -23,6 +23,7 @@ export class SavedFoods {
 
   add(food: Food): void {
     this.saver.save([food].concat(this.load()));
+    this.suggestions.addSuggestion(food);
   }
 
   getAll(): Food[] {
