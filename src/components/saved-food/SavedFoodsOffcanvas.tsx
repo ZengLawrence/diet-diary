@@ -1,11 +1,14 @@
 import { useEffect, useReducer } from "react";
 import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import Row from "react-bootstrap/Row";
 import { savedFoods } from "../../features/day-page/api";
 import type { Food } from "../../model/Food";
-import { FoodItem } from "../FoodItem";
 import { VariantSecondary } from "../ButtonVariant";
+import { FoodItem } from "../FoodItem";
 
 interface State {
   foods: Food[];
@@ -16,7 +19,7 @@ type SetFoodsAction = { type: 'set-foods', foods: Food[] };
 type EnterSelectModeAction = { type: 'enter-select-mode' };
 type ExitSelectModeAction = { type: 'exit-select-mode' };
 
-type Action = SetFoodsAction | EnterSelectModeAction | ExitSelectModeAction;  
+type Action = SetFoodsAction | EnterSelectModeAction | ExitSelectModeAction;
 function reducer(state: State, action: Action) {
   switch (action.type) {
     case 'set-foods':
@@ -60,17 +63,26 @@ function SavedFoodsOffcanvas(props: Props) {
       </Offcanvas.Header>
       <Offcanvas.Body>
         <div className="mb-2 d-flex flex-row-reverse">
-          <Button 
+          <Button
             onClick={() => dispatch({ type: inSelectMode ? 'exit-select-mode' : 'enter-select-mode' })}
             variant={VariantSecondary}
-            >
+          >
             {inSelectMode ? 'Cancel' : 'Select'}
           </Button>
         </div>
         <ListGroup>
           {foods.map((food, index) => (
             <ListGroup.Item key={index}>
-              <FoodItem food={food} />
+              <Row>
+                {inSelectMode && (
+                  <Col xs="auto">
+                    <Form.Check />
+                  </Col>
+                )}
+                <Col>
+                  <FoodItem food={food} />
+                </Col>
+              </Row>
             </ListGroup.Item>
           ))}
         </ListGroup>
