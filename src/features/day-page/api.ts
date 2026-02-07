@@ -1,9 +1,9 @@
 import { HistoryLocalStorage } from "../../app/historyLocalStorage";
+import { SavedFoodLocalStorage } from "../../app/savedFoodLocalStorage";
 import { TodayLocalStorage } from "../../app/todayLocalStorage";
 import { createDiary } from "../../model/diary";
 import { DiaryHistory } from "../../model/diaryHistory";
-import type { Food } from "../../model/Food";
-import { SavedFoods, type SavedFoodsLoader, type SavedFoodsSaver } from "../../model/savedFoods";
+import { SavedFoods } from "../../model/savedFoods";
 import { Today } from "../../model/today";
 import { preferencesApi } from "../preference/api";
 import { suggestions } from "../suggestions/SavedFoodSuggestion";
@@ -23,17 +23,7 @@ export const diary = createDiary(
 );
 
 function createInMemorySavedFoods() {
-  class InMemoryPersistence implements SavedFoodsLoader, SavedFoodsSaver {
-    private foods: Food[] = [];
-    load(): Food[] {
-      return this.foods;
-    }
-    save(foods: Food[]): void {
-      this.foods = foods;
-    }
-  }
-
-  const loader = new InMemoryPersistence();
+  const loader = new SavedFoodLocalStorage();
   const saver = loader;
   return new SavedFoods(loader, saver, suggestions);
 }
