@@ -25,5 +25,6 @@ function migrateSavedFoods() {
     if (foods.length > 0) {
       savedFoods.addAll(foods);
     }
+    savedMeals.removeSingleFoodSavedMeals();
   }
 }

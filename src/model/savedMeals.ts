@@ -138,5 +138,12 @@ export class SavedMeals {
     const meals = this.loader.load();
     return meals.filter(m => m.foods.length === 1);
   }
-  
+
+  removeSingleFoodSavedMeals(): SavedMeal[] {
+    const meals = this.loader.load();
+    const newMeals = meals.filter(m => m.foods.length > 1);
+    this.saver.save(newMeals);
+    return newMeals;
+  }
+
 }
