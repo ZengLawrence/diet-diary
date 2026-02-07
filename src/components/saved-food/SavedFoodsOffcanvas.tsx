@@ -22,11 +22,11 @@ type ExitSelectModeAction = { type: 'exit-select-mode' };
 type ToggleSelectIndexAction = { type: 'toggle-select-index', index: number };
 type ClearSelectedIndexesAction = { type: 'clear-selected-indexes' };
 
-type Action = SetFoodsAction 
-| EnterSelectModeAction 
-| ExitSelectModeAction 
-| ToggleSelectIndexAction 
-| ClearSelectedIndexesAction;
+type Action = SetFoodsAction
+  | EnterSelectModeAction
+  | ExitSelectModeAction
+  | ToggleSelectIndexAction
+  | ClearSelectedIndexesAction;
 
 function reducer(state: State, action: Action) {
   switch (action.type) {
@@ -73,7 +73,15 @@ function SavedFoodsOffcanvas(props: Props) {
   }, [props.show]);
 
   const handleDelete = () => {
-    dispatch({ type: 'clear-selected-indexes' });
+    const deleteFoods = new Promise<Food[]>((resolve) => {
+      savedFoods.removeByIndexes(selectedIndexes);
+      const updatedFoods = savedFoods.getAll();
+      resolve(updatedFoods);
+    });
+    void deleteFoods.then((foods) => {
+      dispatch({ type: 'clear-selected-indexes' });
+      dispatch({ type: 'set-foods', foods });
+    });
   };
 
   /* eslint-disable react-x/no-array-index-key */
