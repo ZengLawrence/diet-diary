@@ -7,7 +7,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import Row from "react-bootstrap/Row";
 import { savedFoods } from "../../features/day-page/api";
 import type { Food } from "../../model/Food";
-import { VariantSecondary } from "../ButtonVariant";
+import { VariantDanger, VariantSecondary } from "../ButtonVariant";
 import { FoodItem } from "../FoodItem";
 
 interface State {
@@ -75,7 +75,13 @@ function SavedFoodsOffcanvas(props: Props) {
         <Offcanvas.Title>Saved Foods</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <div className="mb-2 d-flex flex-row-reverse">
+        <div className={"mb-2 d-flex " + (inSelectMode ? "justify-content-between" : "justify-content-end")}>
+          {inSelectMode &&
+            <Button
+              variant={VariantDanger}
+            >
+              Delete
+            </Button>}
           <Button
             onClick={() => dispatch({ type: inSelectMode ? 'exit-select-mode' : 'enter-select-mode' })}
             variant={VariantSecondary}
