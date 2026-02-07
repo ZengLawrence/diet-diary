@@ -36,7 +36,7 @@ function reducer(state: State, action: Action) {
       return { ...state, inSelectMode: true };
     case 'exit-select-mode':
       return { ...state, inSelectMode: false, selectedIndexes: [] };
-    case 'toggle-select-index':
+    case 'toggle-select-index': {
       const index = action.index;
       const selectedIndexes = [...state.selectedIndexes];
       const indexInSelected = selectedIndexes.indexOf(index);
@@ -46,6 +46,7 @@ function reducer(state: State, action: Action) {
         selectedIndexes.push(index);
       }
       return { ...state, selectedIndexes };
+    }
     case 'clear-selected-indexes':
       return { ...state, selectedIndexes: [] };
     default:
