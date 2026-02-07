@@ -13,13 +13,15 @@ import { FoodItem } from "../FoodItem";
 interface State {
   foods: Food[];
   inSelectMode: boolean;
+  selectedIndexes: number[];
 }
 
 type SetFoodsAction = { type: 'set-foods', foods: Food[] };
 type EnterSelectModeAction = { type: 'enter-select-mode' };
 type ExitSelectModeAction = { type: 'exit-select-mode' };
+type ToggleSelectIndexAction = { type: 'toggle-select-index', index: number };
 
-type Action = SetFoodsAction | EnterSelectModeAction | ExitSelectModeAction;
+type Action = SetFoodsAction | EnterSelectModeAction | ExitSelectModeAction | ToggleSelectIndexAction;
 function reducer(state: State, action: Action) {
   switch (action.type) {
     case 'set-foods':
@@ -27,7 +29,17 @@ function reducer(state: State, action: Action) {
     case 'enter-select-mode':
       return { ...state, inSelectMode: true };
     case 'exit-select-mode':
-      return { ...state, inSelectMode: false };
+      return { ...state, inSelectMode: false, selectedIndexes: [] };
+    case 'toggle-select-index':
+      const index = action.index;
+      const selectedIndexes = [...state.selectedIndexes];
+      const indexInSelected = selectedIndexes.indexOf(index);
+      if (indexInSelected !== -1) {
+        selectedIndexes.splice(indexInSelected, 1);
+      } else {
+        selectedIndexes.push(index);
+      }
+      return { ...state, selectedIndexes };
     default:
       return state;
   }
@@ -41,10 +53,11 @@ interface Props {
 const initialState: State = {
   foods: [],
   inSelectMode: false,
+  selectedIndexes: [],
 };
 
 function SavedFoodsOffcanvas(props: Props) {
-  const [{ foods, inSelectMode }, dispatch] = useReducer(reducer, initialState);
+  const [{ foods, inSelectMode, selectedIndexes }, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     const loadedFoods = new Promise<Food[]>((resolve) => resolve(savedFoods.getAll()));
@@ -76,7 +89,10 @@ function SavedFoodsOffcanvas(props: Props) {
               <Row>
                 {inSelectMode && (
                   <Col xs="auto">
-                    <Form.Check />
+                    <Form.Check
+                      checked={selectedIndexes.includes(index)}
+                      onChange={() => dispatch({ type: 'toggle-select-index', index })}
+                    />
                   </Col>
                 )}
                 <Col>
