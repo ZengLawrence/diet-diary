@@ -6,12 +6,16 @@ import { savedFoods } from "../../features/day-page/api";
 import type { Food } from "../../model/Food";
 import { FoodItem } from "../FoodItem";
 
+interface State {
+  foods: Food[];
+}
+
 type SetFoodsAction = { type: 'set-foods', foods: Food[] };
 
-function reducer(state: Food[], action: SetFoodsAction) {
+function reducer(state: State, action: SetFoodsAction) {
   switch (action.type) {
     case 'set-foods':
-      return action.foods;
+      return { foods: action.foods };
     default:
       return state;
   }
@@ -23,7 +27,7 @@ interface Props {
 }
 
 function SavedFoodsOffcanvas(props: Props) {
-  const [foods, dispatch] = useReducer(reducer, []);
+  const [{ foods }, dispatch] = useReducer(reducer, { foods: [] });
 
   useEffect(() => {
     const loadedFoods = new Promise<Food[]>((resolve) => resolve(savedFoods.getAll()));
