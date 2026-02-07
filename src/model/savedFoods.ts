@@ -21,6 +21,10 @@ export class SavedFoods {
     return this.loader.load();
   }
 
+  init() {
+    this.suggestions.addSuggestions(this.load());
+  }
+
   add(food: Food): void {
     this.saver.save([food].concat(this.load()));
     this.suggestions.addSuggestion(food);
