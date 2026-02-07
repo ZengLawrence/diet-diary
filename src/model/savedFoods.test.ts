@@ -43,6 +43,24 @@ describe("SavedFoods Class", () => {
     });
   });
 
+  describe("addAll foods to saved foods", () => {
+    it("should add foods to saved foods with latest in the beginning, and add to suggestions", () => {
+      const existingFoods = [{ description: "existing food", serving: {} }];
+      const persistence = new InMemoryPersistence(existingFoods);
+      const savedFoods = new SavedFoods(persistence, persistence, mockSuggestions);
+      const newFoods = [
+        { description: "new food 1", serving: {} },
+        { description: "new food 2", serving: {} }
+      ];
+
+      savedFoods.addAll(newFoods);
+
+      expect(savedFoods.getAll()).toEqual([...newFoods, ...existingFoods]);
+      expect(mockSuggestions.addSuggestion).toHaveBeenCalledWith(newFoods[0]);
+      expect(mockSuggestions.addSuggestion).toHaveBeenCalledWith(newFoods[1]);
+    });
+  });
+  
   describe("remove a food from saved foods", () => {
     it("should remove a food from saved foods and suggestions", () => {
       const existingFoods = [

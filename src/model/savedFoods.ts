@@ -31,6 +31,11 @@ export class SavedFoods {
     this.suggestions.addSuggestion(food);
   }
 
+  addAll(foods: Food[]): void {
+    this.saver.save(foods.concat(this.load()));
+    foods.forEach(food => this.suggestions.addSuggestion(food));
+  }
+
   remove(food: Food): void {
     const foods = this.load();
     const index = foods.findIndex(f => _.isEqual(f, food));
