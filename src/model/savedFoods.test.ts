@@ -1,4 +1,4 @@
-import { describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import type { SavedFoodsLoader, SavedFoodsSaver } from "./savedFoods";
 import { SavedFoods } from "./savedFoods";
 import type { Food } from "./Food";
@@ -7,14 +7,14 @@ class InMemoryPersistence implements SavedFoodsLoader, SavedFoodsSaver {
   private foods: Food[];
 
   constructor(initialFoods: Food[] = []) {
-    this.foods = initialFoods;
+    this.foods = [...initialFoods];
   }
 
   load(): Food[] {
     return this.foods;
   }
   save(foods: Food[]): void {
-    this.foods = foods;
+    this.foods = [...foods];
   }
 }
 
@@ -25,6 +25,10 @@ describe("SavedFoods Class", () => {
     removeSuggestion: jest.fn()
   };
 
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+  
   describe("add a food to saved foods", () => {
     it("should add a food to saved foods with latest in the beginning, and add to suggestions", () => {
       const existingFoods = [{ description: "existing food", serving: {} }];
@@ -36,6 +40,35 @@ describe("SavedFoods Class", () => {
 
       expect(savedFoods.getAll()).toEqual([newFood, ...existingFoods]);
       expect(mockSuggestions.addSuggestion).toHaveBeenCalledWith(newFood);
+    });
+  });
+
+  describe("remove a food from saved foods", () => {
+    it("should remove a food from saved foods and suggestions", () => {
+      const existingFoods = [
+        { description: "food to remove", serving: {} },
+        { description: "other food", serving: {} }
+      ];
+      const persistence = new InMemoryPersistence(existingFoods);
+      const savedFoods = new SavedFoods(persistence, persistence, mockSuggestions);
+      const foodToRemove = { description: "food to remove", serving: {} };
+
+      savedFoods.remove(foodToRemove);
+
+      expect(savedFoods.getAll()).toEqual([existingFoods[1]]);
+      expect(mockSuggestions.removeSuggestion).toHaveBeenCalledWith(foodToRemove);
+    });
+
+    it("should do nothing if the food to remove is not in saved foods", () => {
+      const existingFoods = [{ description: "existing food", serving: {} }];
+      const persistence = new InMemoryPersistence(existingFoods);
+      const savedFoods = new SavedFoods(persistence, persistence, mockSuggestions);
+      const nonExistingFood = { description: "non-existing food", serving: {} };
+
+      savedFoods.remove(nonExistingFood);
+
+      expect(savedFoods.getAll()).toEqual(existingFoods);
+      expect(mockSuggestions.removeSuggestion).not.toHaveBeenCalled();
     });
   });
 

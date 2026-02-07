@@ -1,11 +1,11 @@
 import { connect } from "react-redux";
 import type { AppDispatch } from "../../app/store";
 import SaveFoodIcon from "../../components/meal-card/SaveFoodIcon";
-import { saveFood } from "../day-page/dayPageSlice";
+import { deleteSavedFood, saveFood } from "../day-page/dayPageSlice";
 
 function handleClick(dispatch: AppDispatch, { isSaved, mealIndex, foodIndex }: { isSaved?: boolean; mealIndex: number; foodIndex: number }) {
   if (isSaved) {
-    return;
+    void dispatch(deleteSavedFood({ mealIndex, foodIndex }));
   } else {
     void dispatch(saveFood({ mealIndex, foodIndex }));
   }

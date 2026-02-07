@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { NoOpsSuggestions, type Suggestions } from "../features/suggestions/SavedFoodSuggestion";
 import type { Food } from "./Food";
 
@@ -28,6 +29,17 @@ export class SavedFoods {
   add(food: Food): void {
     this.saver.save([food].concat(this.load()));
     this.suggestions.addSuggestion(food);
+  }
+
+  remove(food: Food): void {
+    const foods = this.load();
+    const index = foods.findIndex(f => _.isEqual(f, food));
+    if (index === -1) {
+      return;
+    }
+    foods.splice(index, 1);
+    this.saver.save(foods);
+    this.suggestions.removeSuggestion(food);
   }
 
   getAll(): Food[] {
