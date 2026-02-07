@@ -1,6 +1,5 @@
 import _ from "lodash";
 import { Fragment } from "react";
-import { Save2 } from "react-bootstrap-icons";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
@@ -10,7 +9,7 @@ import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
 import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
 import EditFoodButton from "../../features/meal-card/EditFoodButton";
 import NewFoodButton from "../../features/meal-card/NewFoodButton";
-import SaveFoodButton from "../../features/meal-card/SaveFoodButton";
+import SaveFoodIcon from "../../features/meal-card/SaveFoodIcon";
 import type { Food } from "../../model/Food";
 import { VariantPrimary } from "../ButtonVariant";
 import { FoodItem } from "../FoodItem";
@@ -41,13 +40,11 @@ const ReviewFoodItem = (props: {
       <FoodItem food={props.food} />
     </Col>
     <Col xs="auto">
-      {props.isSaved
-        ? <Save2 size={24} className="dd-fill-success" />
-        : <SaveFoodButton
-          variant={VariantPrimary}
-          mealIndex={props.mealIndex}
-          foodIndex={props.foodIndex}
-          label="Save" />}
+      <SaveFoodIcon
+        mealIndex={props.mealIndex}
+        foodIndex={props.foodIndex}
+        isSaved={props.isSaved}
+      />
     </Col>
   </Row>
 );

@@ -62,6 +62,10 @@ code {
   fill: var(--bs-success);
 }
 
+.dd-fill-secondary {
+  fill: var(--bs-secondary);
+}
+
 .dd-chart-best-choice-column {
   fill: var(--bs-blue);
 }
