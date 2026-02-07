@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import type { AppDispatch } from "../../app/store";
-import SavedFoodIcon from "../../components/meal-card/SaveFoodIcon";
+import SaveFoodIcon from "../../components/meal-card/SaveFoodIcon";
 import { saveFood } from "../day-page/dayPageSlice";
 
 function handleClick(dispatch: AppDispatch, { isSaved, mealIndex, foodIndex }: { isSaved?: boolean; mealIndex: number; foodIndex: number }) {
@@ -15,4 +15,4 @@ const mapDispatchToProps = (dispatch: AppDispatch, ownProps: { isSaved?: boolean
   onClick: () => handleClick(dispatch, ownProps),
 })
 
-export default connect(null, mapDispatchToProps)(SavedFoodIcon);
+export default connect(null, mapDispatchToProps)(SaveFoodIcon);

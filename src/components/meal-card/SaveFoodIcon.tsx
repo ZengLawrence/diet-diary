@@ -1,6 +1,6 @@
 import { Save2, Save2Fill } from "react-bootstrap-icons";
 
-function SavedFoodIcon(props: {
+function SaveFoodIcon(props: {
   mealIndex: number;
   foodIndex: number;
   isSaved?: boolean;
@@ -13,4 +13,4 @@ function SavedFoodIcon(props: {
   };
 }
 
-export default SavedFoodIcon;
+export default SaveFoodIcon;
