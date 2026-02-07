@@ -19,18 +19,24 @@ function addSuggestion(food: Food): void {
   addOrReplace(toSuggestion(food));
 }
 
+function addSuggestions(foods: Food[]): void {
+  foods.forEach(food => addSuggestion(food));
+}
+
 function removeSuggestion(food: Food): void {
   remove(toSuggestion(food));
 }
 
 export const suggestions = {
   addSuggestion,
-  removeSuggestion
+  addSuggestions,
+  removeSuggestion,
 };
 
 export type Suggestions = typeof suggestions;
 
 export const NoOpsSuggestions: Suggestions = {
   addSuggestion: () => { },
+  addSuggestions: () => { },
   removeSuggestion: () => { }
 };
