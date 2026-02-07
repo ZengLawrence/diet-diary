@@ -20,8 +20,14 @@ type SetFoodsAction = { type: 'set-foods', foods: Food[] };
 type EnterSelectModeAction = { type: 'enter-select-mode' };
 type ExitSelectModeAction = { type: 'exit-select-mode' };
 type ToggleSelectIndexAction = { type: 'toggle-select-index', index: number };
+type ClearSelectedIndexesAction = { type: 'clear-selected-indexes' };
 
-type Action = SetFoodsAction | EnterSelectModeAction | ExitSelectModeAction | ToggleSelectIndexAction;
+type Action = SetFoodsAction 
+| EnterSelectModeAction 
+| ExitSelectModeAction 
+| ToggleSelectIndexAction 
+| ClearSelectedIndexesAction;
+
 function reducer(state: State, action: Action) {
   switch (action.type) {
     case 'set-foods':
@@ -40,6 +46,8 @@ function reducer(state: State, action: Action) {
         selectedIndexes.push(index);
       }
       return { ...state, selectedIndexes };
+    case 'clear-selected-indexes':
+      return { ...state, selectedIndexes: [] };
     default:
       return state;
   }
@@ -64,6 +72,10 @@ function SavedFoodsOffcanvas(props: Props) {
     void loadedFoods.then((foods) => dispatch({ type: 'set-foods', foods }));
   }, [props.show]);
 
+  const handleDelete = () => {
+    dispatch({ type: 'clear-selected-indexes' });
+  };
+
   /* eslint-disable react-x/no-array-index-key */
   return (
     <Offcanvas
@@ -78,6 +90,7 @@ function SavedFoodsOffcanvas(props: Props) {
         <div className={"mb-2 d-flex " + (inSelectMode ? "justify-content-between" : "justify-content-end")}>
           {inSelectMode &&
             <Button
+              onClick={handleDelete}
               variant={VariantDanger}
             >
               Delete
