@@ -6,6 +6,7 @@ import { openCustomTargets, openPreferences, openSavedFoods } from '../../featur
 import PreferenceFormOffcanvas from '../../features/preference/PreferenceFormOffcanvas';
 import SavedFoodsOffcanvas from '../../features/saved-food/SavedFoodsOffcanvas';
 import EditCustomTargetsOffcanvas from '../../features/target/EditCustomTargetsOffcanvas';
+import { isSavedFoodEnabled } from '../../features/flags';
 
 const BrandNavbar = () => {
   const dispatch = useAppDispatch();
@@ -40,12 +41,13 @@ const BrandNavbar = () => {
               onClick={() => dispatch(openCustomTargets())}>
               Custom Targets
             </Nav.Link>
-            <Nav.Link
-              eventKey="saved-foods"
-              onClick={() => dispatch(openSavedFoods())}
-            >
-              Saved Foods
-            </Nav.Link>
+            {isSavedFoodEnabled() &&
+              <Nav.Link
+                eventKey="saved-foods"
+                onClick={() => dispatch(openSavedFoods())}
+              >
+                Saved Foods
+              </Nav.Link>}
           </Nav>
         </Navbar.Collapse>
       </Container>

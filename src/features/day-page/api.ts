@@ -22,10 +22,10 @@ export const diary = createDiary(
   customTargets
 );
 
-function createInMemorySavedFoods() {
+function createSavedFoods() {
   const loader = new SavedFoodLocalStorage();
   const saver = loader;
   return new SavedFoods(loader, saver, suggestions);
 }
 
-export const savedFoods = createInMemorySavedFoods();
+export const savedFoods = createSavedFoods();
