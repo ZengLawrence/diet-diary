@@ -1,4 +1,5 @@
 import { savedFoods } from "./day-page/api";
+import { isSavedFoodEnabled } from "./flags";
 import { savedMeals } from "./saved-meal";
 
 export function init() {
@@ -7,15 +8,6 @@ export function init() {
     savedFoods.init();
     migrateSavedFoods();
   }
-}
-
-function isFeatureFlagEnabled(name: string): boolean {
-  const query = new URLSearchParams(window.location.search);
-  return query.has(name);
-}
-
-export function isSavedFoodEnabled() {
-  return isFeatureFlagEnabled("saved-food-enabled");
 }
 
 function migrateSavedFoods() {
