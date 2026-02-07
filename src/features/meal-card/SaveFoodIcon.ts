@@ -7,7 +7,7 @@ function handleClick(dispatch: AppDispatch, { isSaved, mealIndex, foodIndex }: {
   if (isSaved) {
     return;
   } else {
-    dispatch(saveFood({ mealIndex, foodIndex }));
+    void dispatch(saveFood({ mealIndex, foodIndex }));
   }
 }
 
