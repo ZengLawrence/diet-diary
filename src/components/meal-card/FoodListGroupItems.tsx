@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
-import { isFeatureFlagEnabled } from "../../features";
+import { isSavedFoodEnabled } from "../../features";
 import type { MealEditState } from "../../features/day-page/pageOptionsSlice";
 import AddFoodInputForm from "../../features/input-form/AddFoodInputForm";
 import UpdateFoodInputForm from "../../features/input-form/UpdateFoodInputForm";
@@ -102,14 +102,13 @@ export const FoodListGroupItems = (props: Props) => {
       );
     /* eslint-enable react-x/no-array-index-key */
 
-    case "review": {
-      const isSavedFoodEnabled = isFeatureFlagEnabled("saved-food-enabled");
+    case "review":
       /* eslint-disable react-x/no-array-index-key */
       return (
         <Fragment>
           {props.foods.map((food, index) => (
             <ListGroup.Item key={index} data-cy="foodItem">
-              {isSavedFoodEnabled
+              {isSavedFoodEnabled()
                 ? <ReviewFoodItem
                   food={food}
                   mealIndex={props.mealIndex}
@@ -122,8 +121,8 @@ export const FoodListGroupItems = (props: Props) => {
           ))}
         </Fragment>
       );
-      /* eslint-enable react-x/no-array-index-key */
-    }
+    /* eslint-enable react-x/no-array-index-key */
+
     default:
       /* eslint-disable react-x/no-array-index-key */
       return (

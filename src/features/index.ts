@@ -3,10 +3,16 @@ import { savedMeals } from "./saved-meal";
 
 export function init() {
   savedMeals.init();
-  savedFoods.init();
+  if (isSavedFoodEnabled()) {
+    savedFoods.init();
+  }
 }
 
-export function isFeatureFlagEnabled(name: string): boolean {
+function isFeatureFlagEnabled(name: string): boolean {
   const query = new URLSearchParams(window.location.search);
   return query.has(name);
+}
+
+export function isSavedFoodEnabled() {
+  return isFeatureFlagEnabled("saved-food-enabled");
 }
