@@ -65,6 +65,30 @@ const initialState: State = {
   selectedIndexes: [],
 };
 
+function ButtonsBand(props: { 
+  inSelectMode: boolean, 
+  onDelete: () => void, 
+  onToggleSelectMode: () => void 
+}) {
+  return (
+    <div className={"px-3 d-flex " + (props.inSelectMode ? "justify-content-between" : "justify-content-end")}>
+      {props.inSelectMode &&
+        <Button
+          onClick={props.onDelete}
+          variant={VariantDanger}
+        >
+          Delete
+        </Button>}
+      <Button
+        onClick={props.onToggleSelectMode}
+        variant={VariantSecondary}
+      >
+        {props.inSelectMode ? 'Cancel' : 'Select'}
+      </Button>
+    </div>
+  );
+}
+
 function SavedFoodsOffcanvas(props: Props) {
   const [{ foods, inSelectMode, selectedIndexes }, dispatch] = useReducer(reducer, initialState);
 
@@ -85,6 +109,10 @@ function SavedFoodsOffcanvas(props: Props) {
     });
   };
 
+  const handleToggleSelectMode = () => {
+    dispatch({ type: inSelectMode ? 'exit-select-mode' : 'enter-select-mode' });
+  };
+
   /* eslint-disable react-x/no-array-index-key */
   return (
     <Offcanvas
@@ -95,21 +123,11 @@ function SavedFoodsOffcanvas(props: Props) {
       <Offcanvas.Header closeButton>
         <Offcanvas.Title>Saved Foods</Offcanvas.Title>
       </Offcanvas.Header>
-      <div className={"px-3 d-flex " + (inSelectMode ? "justify-content-between" : "justify-content-end")}>
-        {inSelectMode &&
-          <Button
-            onClick={handleDelete}
-            variant={VariantDanger}
-          >
-            Delete
-          </Button>}
-        <Button
-          onClick={() => dispatch({ type: inSelectMode ? 'exit-select-mode' : 'enter-select-mode' })}
-          variant={VariantSecondary}
-        >
-          {inSelectMode ? 'Cancel' : 'Select'}
-        </Button>
-      </div>
+      <ButtonsBand
+        inSelectMode={inSelectMode}
+        onDelete={handleDelete}
+        onToggleSelectMode={handleToggleSelectMode}
+      />
       <Offcanvas.Body>
         <div>
           Total: {foods.length}
