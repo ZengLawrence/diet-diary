@@ -11,7 +11,8 @@ export interface SavedFoodsSaver {
 }
 
 function add(foods: Food[], food: Food): Food[] {
-  return [food].concat(foods);
+  const dedupedFoods = foods.filter(f => f.description !== food.description);
+  return [food].concat(dedupedFoods);
 }
 
 function addAll(foods: Food[], newFoods: Food[]): Food[] {

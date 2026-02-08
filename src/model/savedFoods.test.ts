@@ -28,7 +28,7 @@ describe("SavedFoods Class", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
-  
+
   describe("add a food to saved foods", () => {
     it("should add a food to saved foods with latest in the beginning, and add to suggestions", () => {
       const existingFoods = [{ description: "existing food", serving: {} }];
@@ -39,6 +39,18 @@ describe("SavedFoods Class", () => {
       savedFoods.add(newFood);
 
       expect(savedFoods.getAll()).toEqual([newFood, ...existingFoods]);
+      expect(mockSuggestions.addSuggestion).toHaveBeenCalledWith(newFood);
+    });
+
+    it("should add a food to saved foods and suggestions, removing duplicates in saved foods", () => {
+      const existingFoods = [{ description: "existing food", serving: {} }];
+      const persistence = new InMemoryPersistence(existingFoods);
+      const savedFoods = new SavedFoods(persistence, persistence, mockSuggestions);
+      const newFood = { description: "existing food", serving: { fat: 1 } };
+
+      savedFoods.add(newFood);
+
+      expect(savedFoods.getAll()).toEqual([newFood]);
       expect(mockSuggestions.addSuggestion).toHaveBeenCalledWith(newFood);
     });
   });
@@ -59,8 +71,24 @@ describe("SavedFoods Class", () => {
       expect(mockSuggestions.addSuggestion).toHaveBeenCalledWith(newFoods[0]);
       expect(mockSuggestions.addSuggestion).toHaveBeenCalledWith(newFoods[1]);
     });
+
+    it("should add foods to saved foods and suggestions, removing duplicates in saved foods", () => {
+      const existingFoods = [{ description: "existing food", serving: {} }];
+      const persistence = new InMemoryPersistence(existingFoods);
+      const savedFoods = new SavedFoods(persistence, persistence, mockSuggestions);
+      const newFoods = [
+        { description: "existing food", serving: { fat: 1 } },
+        { description: "new food", serving: {} }
+      ];
+
+      savedFoods.addAll(newFoods);
+
+      expect(savedFoods.getAll()).toEqual([newFoods[0], newFoods[1]]);
+      expect(mockSuggestions.addSuggestion).toHaveBeenCalledWith(newFoods[0]);
+      expect(mockSuggestions.addSuggestion).toHaveBeenCalledWith(newFoods[1]);
+    });
   });
-  
+
   describe("remove a food from saved foods", () => {
     it("should remove a food from saved foods and suggestions", () => {
       const existingFoods = [
