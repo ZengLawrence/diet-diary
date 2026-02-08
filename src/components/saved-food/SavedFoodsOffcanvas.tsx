@@ -95,22 +95,22 @@ function SavedFoodsOffcanvas(props: Props) {
       <Offcanvas.Header closeButton>
         <Offcanvas.Title>Saved Foods</Offcanvas.Title>
       </Offcanvas.Header>
-      <Offcanvas.Body>
-        <div className={"mb-2 d-flex " + (inSelectMode ? "justify-content-between" : "justify-content-end")}>
-          {inSelectMode &&
-            <Button
-              onClick={handleDelete}
-              variant={VariantDanger}
-            >
-              Delete
-            </Button>}
+      <div className={"px-3 mb-2 d-flex " + (inSelectMode ? "justify-content-between" : "justify-content-end")}>
+        {inSelectMode &&
           <Button
-            onClick={() => dispatch({ type: inSelectMode ? 'exit-select-mode' : 'enter-select-mode' })}
-            variant={VariantSecondary}
+            onClick={handleDelete}
+            variant={VariantDanger}
           >
-            {inSelectMode ? 'Cancel' : 'Select'}
-          </Button>
-        </div>
+            Delete
+          </Button>}
+        <Button
+          onClick={() => dispatch({ type: inSelectMode ? 'exit-select-mode' : 'enter-select-mode' })}
+          variant={VariantSecondary}
+        >
+          {inSelectMode ? 'Cancel' : 'Select'}
+        </Button>
+      </div>
+      <Offcanvas.Body>
         <div>
           Total: {foods.length}
         </div>
