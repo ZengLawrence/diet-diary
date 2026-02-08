@@ -95,7 +95,7 @@ function SavedFoodsOffcanvas(props: Props) {
       <Offcanvas.Header closeButton>
         <Offcanvas.Title>Saved Foods</Offcanvas.Title>
       </Offcanvas.Header>
-      <div className={"px-3 mb-2 d-flex " + (inSelectMode ? "justify-content-between" : "justify-content-end")}>
+      <div className={"px-3 d-flex " + (inSelectMode ? "justify-content-between" : "justify-content-end")}>
         {inSelectMode &&
           <Button
             onClick={handleDelete}
