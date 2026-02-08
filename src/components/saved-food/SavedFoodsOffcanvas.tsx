@@ -111,6 +111,9 @@ function SavedFoodsOffcanvas(props: Props) {
             {inSelectMode ? 'Cancel' : 'Select'}
           </Button>
         </div>
+        <div>
+          Total: {foods.length}
+        </div>
         <ListGroup>
           {foods.map((food, index) => (
             <ListGroup.Item key={index}>
