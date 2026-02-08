@@ -113,7 +113,6 @@ function SavedFoodsOffcanvas(props: Props) {
     dispatch({ type: inSelectMode ? 'exit-select-mode' : 'enter-select-mode' });
   };
 
-  /* eslint-disable react-x/no-array-index-key */
   return (
     <Offcanvas
       show={props.show}
@@ -134,7 +133,7 @@ function SavedFoodsOffcanvas(props: Props) {
         </div>
         <ListGroup>
           {foods.map((food, index) => (
-            <ListGroup.Item key={index}>
+            <ListGroup.Item key={food.description}>
               <Row>
                 {inSelectMode && (
                   <Col xs="auto">
@@ -154,7 +153,6 @@ function SavedFoodsOffcanvas(props: Props) {
       </Offcanvas.Body>
     </Offcanvas>
   );
-  /* eslint-enable react-x/no-array-index-key */
 }
 
 export default SavedFoodsOffcanvas;
