@@ -10,6 +10,18 @@ export interface SavedFoodsSaver {
   save(foods: Food[]): void;
 }
 
+function add(foods: Food[], food: Food): Food[] {
+  return [food].concat(foods);
+}
+
+function addAll(foods: Food[], newFoods: Food[]): Food[] {
+  let updatedFoods = foods;
+  // keep same order if add in batch
+  [...newFoods].reverse().forEach(food => {
+    updatedFoods = add(updatedFoods, food);
+  });
+  return updatedFoods;
+}
 export class SavedFoods {
 
   constructor(
@@ -27,12 +39,12 @@ export class SavedFoods {
   }
 
   add(food: Food): void {
-    this.saver.save([food].concat(this.load()));
+    this.saver.save(add(this.load(), food));
     this.suggestions.addSuggestion(food);
   }
 
   addAll(foods: Food[]): void {
-    this.saver.save(foods.concat(this.load()));
+    this.saver.save(addAll(this.load(), foods));
     foods.forEach(food => this.suggestions.addSuggestion(food));
   }
 
