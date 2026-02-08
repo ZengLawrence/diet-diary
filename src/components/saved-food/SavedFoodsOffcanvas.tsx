@@ -66,13 +66,13 @@ const initialState: State = {
 };
 
 function ButtonsBand(props: { 
-  inSelectMode: boolean, 
+  showDeleteButton: boolean, 
   onDelete: () => void, 
   onToggleSelectMode: () => void 
 }) {
   return (
-    <div className={"px-3 d-flex " + (props.inSelectMode ? "justify-content-between" : "justify-content-end")}>
-      {props.inSelectMode &&
+    <div className={"px-3 d-flex " + (props.showDeleteButton ? "justify-content-between" : "justify-content-end")}>
+      {props.showDeleteButton &&
         <Button
           onClick={props.onDelete}
           variant={VariantDanger}
@@ -83,7 +83,7 @@ function ButtonsBand(props: {
         onClick={props.onToggleSelectMode}
         variant={VariantSecondary}
       >
-        {props.inSelectMode ? 'Cancel' : 'Select'}
+        {props.showDeleteButton ? 'Cancel' : 'Select'}
       </Button>
     </div>
   );
@@ -124,7 +124,7 @@ function SavedFoodsOffcanvas(props: Props) {
         <Offcanvas.Title>Saved Foods</Offcanvas.Title>
       </Offcanvas.Header>
       <ButtonsBand
-        inSelectMode={inSelectMode}
+        showDeleteButton={inSelectMode}
         onDelete={handleDelete}
         onToggleSelectMode={handleToggleSelectMode}
       />
