@@ -24,17 +24,18 @@ function addAll(foods: Food[], newFoods: Food[]): Food[] {
   return updatedFoods;
 }
 
-function remove(foods: Food[], foodToRemove: Food): Food[] {
-  return foods.filter(food => food.description !== foodToRemove.description);
+function remove(foods: Food[], foodToRemove: Food): {updatedFoods: Food[], removed: boolean} {
+  const updatedFoods = foods.filter(food => food.description !== foodToRemove.description);
+  return { updatedFoods, removed: updatedFoods.length < foods.length };
 }
 
 function removeAll(foods: Food[], foodsToRemove: Food[]): { updatedFoods: Food[], removedFoods: Food[] } {
   let updatedFoods = foods;
   const removedFoods: Food[] = [];
   foodsToRemove.forEach(food => {
-    const beforeCount = updatedFoods.length;
-    updatedFoods = remove(updatedFoods, food);
-    if (updatedFoods.length < beforeCount) {
+    const { updatedFoods: updatedFoodsAfterRemove, removed } = remove(updatedFoods, food);
+    updatedFoods = updatedFoodsAfterRemove;
+    if (removed) {
       removedFoods.push(food);
     }
   });
@@ -70,9 +71,9 @@ export class SavedFoods {
 
   remove(food: Food): void {
     const existingFoods = this.load();
-    const updatedFoods = remove(existingFoods, food);
+    const { updatedFoods, removed } = remove(existingFoods, food);
     this.saver.save(updatedFoods);
-    if (existingFoods.length !== updatedFoods.length) {
+    if (removed) {
       this.suggestions.removeSuggestion(food);
     }
   }
