@@ -23,6 +23,11 @@ function addAll(foods: Food[], newFoods: Food[]): Food[] {
   });
   return updatedFoods;
 }
+
+function remove(foods: Food[], foodToRemove: Food): Food[] {
+  return foods.filter(food => food.description !== foodToRemove.description);
+}
+
 export class SavedFoods {
 
   constructor(
@@ -50,14 +55,12 @@ export class SavedFoods {
   }
 
   remove(food: Food): void {
-    const foods = this.load();
-    const index = foods.findIndex(f => _.isEqual(f, food));
-    if (index === -1) {
-      return;
+    const existingFoods = this.load();
+    const updatedFoods = remove(existingFoods, food);
+    this.saver.save(updatedFoods);
+    if (existingFoods.length !== updatedFoods.length) {
+      this.suggestions.removeSuggestion(food);
     }
-    foods.splice(index, 1);
-    this.saver.save(foods);
-    this.suggestions.removeSuggestion(food);
   }
 
   getAll(): Food[] {
