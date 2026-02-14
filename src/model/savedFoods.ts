@@ -28,6 +28,20 @@ function remove(foods: Food[], foodToRemove: Food): Food[] {
   return foods.filter(food => food.description !== foodToRemove.description);
 }
 
+function removeAll(foods: Food[], foodsToRemove: Food[]): { updatedFoods: Food[], removedFoods: Food[] } {
+  let updatedFoods = foods;
+  const removedFoods: Food[] = [];
+  foodsToRemove.forEach(food => {
+    const beforeCount = updatedFoods.length;
+    updatedFoods = remove(updatedFoods, food);
+    if (updatedFoods.length < beforeCount) {
+      removedFoods.push(food);
+    }
+  });
+  return { updatedFoods, removedFoods };
+}
+
+
 export class SavedFoods {
 
   constructor(
@@ -60,6 +74,14 @@ export class SavedFoods {
     this.saver.save(updatedFoods);
     if (existingFoods.length !== updatedFoods.length) {
       this.suggestions.removeSuggestion(food);
+    }
+  }
+
+  removeAll(foods: Food[]): void {
+    const { updatedFoods, removedFoods } = removeAll(this.load(), foods);
+    this.saver.save(updatedFoods);
+    if (removedFoods.length > 0) {
+      removedFoods.forEach(food => this.suggestions.removeSuggestion(food));
     }
   }
 
