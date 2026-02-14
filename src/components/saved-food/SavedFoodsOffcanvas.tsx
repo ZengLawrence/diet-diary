@@ -14,23 +14,18 @@ import _ from "lodash";
 interface State {
   foods: Food[];
   inSelectMode: boolean;
-  selectedIndexes: number[];
   selectedFoods: Food[];
 }
 
 type SetFoodsAction = { type: 'set-foods', foods: Food[] };
 type EnterSelectModeAction = { type: 'enter-select-mode' };
 type ExitSelectModeAction = { type: 'exit-select-mode' };
-type ToggleSelectIndexAction = { type: 'toggle-select-index', index: number };
-type ClearSelectedIndexesAction = { type: 'clear-selected-indexes' };
 type ToggleSelectedFoodAction = { type: 'toggle-selected-food', food: Food };
 type ClearSelectedFoodsAction = { type: 'clear-selected-foods' };
 
 type Action = SetFoodsAction
   | EnterSelectModeAction
   | ExitSelectModeAction
-  | ToggleSelectIndexAction
-  | ClearSelectedIndexesAction
   | ToggleSelectedFoodAction
   | ClearSelectedFoodsAction;
 
@@ -41,27 +36,7 @@ function reducer(state: State, action: Action) {
     case 'enter-select-mode':
       return { ...state, inSelectMode: true };
     case 'exit-select-mode':
-      return { ...state, inSelectMode: false, selectedIndexes: [] };
-    case 'toggle-select-index': {
-      const index = action.index;
-      const selectedIndexes = [...state.selectedIndexes];
-      const selectedFoods = [...state.selectedFoods];
-      const indexInSelected = selectedIndexes.indexOf(index);
-      if (indexInSelected !== -1) {
-        selectedIndexes.splice(indexInSelected, 1);
-        const food = state.foods[index];
-        const foodIndexInSelectedFoods = selectedFoods.findIndex(f => _.isEqual(f, food));
-        if (foodIndexInSelectedFoods !== -1) {
-          selectedFoods.splice(foodIndexInSelectedFoods, 1);
-        }
-      } else {
-        selectedIndexes.push(index);
-        selectedFoods.push(state.foods[index]);
-      }
-      return { ...state, selectedIndexes, selectedFoods };
-    }
-    case 'clear-selected-indexes':
-      return { ...state, selectedIndexes: [], selectedFoods: [] };
+      return { ...state, inSelectMode: false, selectedFoods: [] };
     case 'toggle-selected-food': {
       const food = action.food;
       const selectedFoods = [...state.selectedFoods];
@@ -88,7 +63,6 @@ interface Props {
 const initialState: State = {
   foods: [],
   inSelectMode: false,
-  selectedIndexes: [],
   selectedFoods: [],
 };
 
@@ -131,7 +105,7 @@ function SavedFoodsOffcanvas(props: Props) {
       resolve(updatedFoods);
     });
     void deleteFoods.then((foods) => {
-      dispatch({ type: 'clear-selected-indexes' });
+      dispatch({ type: 'clear-selected-foods' });
       dispatch({ type: 'set-foods', foods });
     });
   };
