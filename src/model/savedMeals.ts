@@ -76,11 +76,6 @@ export class SavedMeals {
     private readonly today: Today,
   ) { }
 
-  // deprecated
-  init() {
-    this.loader.load();
-  }
-
   register(listener: SavedMealsChangeListener): void {
     this.listener = listener;
   }
