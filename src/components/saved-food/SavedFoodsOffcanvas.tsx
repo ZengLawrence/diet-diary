@@ -100,7 +100,7 @@ function SavedFoodsOffcanvas(props: Props) {
 
   const handleDelete = () => {
     const deleteFoods = new Promise<Food[]>((resolve) => {
-      selectedFoods.forEach(food => savedFoods.remove(food));
+      savedFoods.removeAll(selectedFoods);
       const updatedFoods = savedFoods.getAll();
       resolve(updatedFoods);
     });
