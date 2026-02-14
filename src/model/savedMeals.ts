@@ -1,8 +1,7 @@
 import _ from "lodash";
+import type { DayPage } from "./DayPage";
 import type { SavedMeal } from "./SavedMeal";
 import type { Today } from "./today";
-import type { DayPage } from "./DayPage";
-import type { Suggestions } from "./suggestions";
 
 function includesAllWords(meal: { foods: { description: string }[] }, words: string[]) {
   const foodDescriptions = _.map(meal.foods, f => _.lowerCase(f.description));
@@ -75,14 +74,8 @@ export class SavedMeals {
     private readonly loader: SavedMealsLoader,
     private readonly saver: SavedMealsSaver,
     private readonly today: Today,
-    // deprecated
-    private readonly suggestions: Suggestions,
   ) { }
 
-  // deprecated
-  init() {
-    this.suggestions.addSuggestions(this.loader.load());
-  }
   register(listener: SavedMealsChangeListener): void {
     this.listener = listener;
   }
@@ -97,7 +90,6 @@ export class SavedMeals {
     const meals = this.loader.load();
     const newMeals = save(meals, meal);
     this.saver.save(newMeals);
-    this.suggestions.addSuggestion(meal);
     this.listener?.added();
     return newMeals;
   }
@@ -107,7 +99,6 @@ export class SavedMeals {
     const mealCount = _.size(meals);
     const newMeals = remove(meals, meal);
     this.saver.save(newMeals);
-    this.suggestions.removeSuggestion(meal);
     if (_.size(newMeals) < mealCount) {
       this.listener?.deleted();
     }
