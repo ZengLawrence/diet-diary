@@ -23,12 +23,16 @@ type EnterSelectModeAction = { type: 'enter-select-mode' };
 type ExitSelectModeAction = { type: 'exit-select-mode' };
 type ToggleSelectIndexAction = { type: 'toggle-select-index', index: number };
 type ClearSelectedIndexesAction = { type: 'clear-selected-indexes' };
+type ToggleSelectedFoodAction = { type: 'toggle-selected-food', food: Food };
+type ClearSelectedFoodsAction = { type: 'clear-selected-foods' };
 
 type Action = SetFoodsAction
   | EnterSelectModeAction
   | ExitSelectModeAction
   | ToggleSelectIndexAction
-  | ClearSelectedIndexesAction;
+  | ClearSelectedIndexesAction
+  | ToggleSelectedFoodAction
+  | ClearSelectedFoodsAction;
 
 function reducer(state: State, action: Action) {
   switch (action.type) {
@@ -58,6 +62,19 @@ function reducer(state: State, action: Action) {
     }
     case 'clear-selected-indexes':
       return { ...state, selectedIndexes: [], selectedFoods: [] };
+    case 'toggle-selected-food': {
+      const food = action.food;
+      const selectedFoods = [...state.selectedFoods];
+      const indexInSelectedFoods = selectedFoods.findIndex(f => _.isEqual(f, food));
+      if (indexInSelectedFoods !== -1) {
+        selectedFoods.splice(indexInSelectedFoods, 1);
+      } else {
+        selectedFoods.push(food);
+      }
+      return { ...state, selectedFoods };
+    }
+    case 'clear-selected-foods':
+      return { ...state, selectedFoods: [] };
     default:
       return state;
   }
@@ -100,7 +117,7 @@ function ButtonsBand(props: {
 }
 
 function SavedFoodsOffcanvas(props: Props) {
-  const [{ foods, inSelectMode, selectedIndexes }, dispatch] = useReducer(reducer, initialState);
+  const [{ foods, inSelectMode, selectedFoods }, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     const loadedFoods = new Promise<Food[]>((resolve) => resolve(savedFoods.getAll()));
@@ -109,7 +126,7 @@ function SavedFoodsOffcanvas(props: Props) {
 
   const handleDelete = () => {
     const deleteFoods = new Promise<Food[]>((resolve) => {
-      savedFoods.removeByIndexes(selectedIndexes);
+      selectedFoods.forEach(food => savedFoods.remove(food));
       const updatedFoods = savedFoods.getAll();
       resolve(updatedFoods);
     });
@@ -142,14 +159,14 @@ function SavedFoodsOffcanvas(props: Props) {
           Total: {foods.length}
         </div>
         <ListGroup>
-          {foods.map((food, index) => (
+          {foods.map((food) => (
             <ListGroup.Item key={food.description}>
               <Row>
                 {inSelectMode && (
                   <Col xs="auto">
                     <Form.Check
-                      checked={selectedIndexes.includes(index)}
-                      onChange={() => dispatch({ type: 'toggle-select-index', index })}
+                      checked={selectedFoods.some(f => _.isEqual(f, food))}
+                      onChange={() => dispatch({ type: 'toggle-selected-food', food })}
                     />
                   </Col>
                 )}
