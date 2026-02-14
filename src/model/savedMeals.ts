@@ -32,18 +32,12 @@ const MAX_SAVED_COUNT = 200;
 function save(meals: SavedMeal[], meal: SavedMeal): SavedMeal[] {
   const newMeals = [meal, ...meals];
   if (newMeals.length > MAX_SAVED_COUNT) {
-    const indexToRemove = newMeals.findIndex(sm => sm.foods.length > 1)
-    if (indexToRemove == -1) {
-      return newMeals.slice(0, MAX_SAVED_COUNT);
-    } else {
-      newMeals.splice(indexToRemove, 1);
-      return newMeals;
-    }
+    return newMeals.slice(0, MAX_SAVED_COUNT);
   }
   return newMeals;
 }
 
-function selected(meals: SavedMeal[], meal: SavedMeal): {meals: SavedMeal[], found: boolean} {
+function selected(meals: SavedMeal[], meal: SavedMeal): { meals: SavedMeal[], found: boolean } {
   const index = meals.findIndex(m => _.isEqual(m, meal));
   if (index === -1) {
     return { meals, found: false };
@@ -122,7 +116,7 @@ export class SavedMeals {
 
   select(meal: SavedMeal, callback: (today: DayPage) => void): SavedMeal[] {
     const meals = this.loader.load();
-    const {meals: newMeals, found} = selected(meals, meal);
+    const { meals: newMeals, found } = selected(meals, meal);
     this.saver.save(newMeals);
     if (found) {
       const updatedToday = this.today.addSavedMeal(meal.foods);
