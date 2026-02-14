@@ -45,9 +45,6 @@ const createMockToday = (): Today & { addSavedMeal: jest.Mock } => {
   } as unknown as Today & { addSavedMeal: jest.Mock };
 };
 
-// Jest mock for Today class
-
-
 describe("search", () => {
   describe("by description", () => {
     const meals = [
