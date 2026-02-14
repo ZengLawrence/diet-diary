@@ -81,9 +81,11 @@ export class SavedMeals {
     private readonly loader: SavedMealsLoader,
     private readonly saver: SavedMealsSaver,
     private readonly today: Today,
+    // deprecated
     private readonly suggestions: Suggestions,
   ) { }
 
+  // deprecated
   init() {
     this.suggestions.addSuggestions(this.loader.load());
   }
