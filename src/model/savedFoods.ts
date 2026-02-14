@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { NoOpsSuggestions, type Suggestions } from "../features/suggestions/SavedFoodSuggestion";
 import type { Food } from "./Food";
 
@@ -23,6 +22,26 @@ function addAll(foods: Food[], newFoods: Food[]): Food[] {
   });
   return updatedFoods;
 }
+
+function remove(foods: Food[], foodToRemove: Food): {updatedFoods: Food[], removed: boolean} {
+  const updatedFoods = foods.filter(food => food.description !== foodToRemove.description);
+  return { updatedFoods, removed: updatedFoods.length < foods.length };
+}
+
+function removeAll(foods: Food[], foodsToRemove: Food[]): { updatedFoods: Food[], removedFoods: Food[] } {
+  let updatedFoods = foods;
+  const removedFoods: Food[] = [];
+  foodsToRemove.forEach(food => {
+    const { updatedFoods: updatedFoodsAfterRemove, removed } = remove(updatedFoods, food);
+    updatedFoods = updatedFoodsAfterRemove;
+    if (removed) {
+      removedFoods.push(food);
+    }
+  });
+  return { updatedFoods, removedFoods };
+}
+
+
 export class SavedFoods {
 
   constructor(
@@ -50,28 +69,22 @@ export class SavedFoods {
   }
 
   remove(food: Food): void {
-    const foods = this.load();
-    const index = foods.findIndex(f => _.isEqual(f, food));
-    if (index === -1) {
-      return;
+    const existingFoods = this.load();
+    const { updatedFoods, removed } = remove(existingFoods, food);
+    this.saver.save(updatedFoods);
+    if (removed) {
+      this.suggestions.removeSuggestion(food);
     }
-    foods.splice(index, 1);
-    this.saver.save(foods);
-    this.suggestions.removeSuggestion(food);
   }
 
-  removeByIndexes(indexes: number[]): void {
-    const foods = this.load();
-    indexes.forEach(index => {
-      const food = foods[index];
-      if (food) {
-        this.suggestions.removeSuggestion(food);
-      }
-    });
-    const remainingFoods = foods.filter((_, index) => !indexes.includes(index));
-    this.saver.save(remainingFoods);
+  removeAll(foods: Food[]): void {
+    const { updatedFoods, removedFoods } = removeAll(this.load(), foods);
+    this.saver.save(updatedFoods);
+    if (removedFoods.length > 0) {
+      removedFoods.forEach(food => this.suggestions.removeSuggestion(food));
+    }
   }
-  
+
   getAll(): Food[] {
     return this.load();
   }

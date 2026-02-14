@@ -118,26 +118,43 @@ describe("SavedFoods Class", () => {
     });
   });
 
-  describe("remove foods by indexes from saved foods", () => {
-    it("should remove foods by indexes from saved foods and suggestions", () => {
+  describe("removeAll foods from saved foods", () => {
+    it("should remove foods from saved foods and suggestions", () => {
       const existingFoods = [
-        { description: "food 1", serving: {} },
         { description: "food to remove 1", serving: {} },
-        { description: "food 2", serving: {} },
-        { description: "food to remove 2", serving: {} }
+        { description: "food to remove 2", serving: {} },
+        { description: "other food", serving: {} }
       ];
       const persistence = new InMemoryPersistence(existingFoods);
       const savedFoods = new SavedFoods(persistence, persistence, mockSuggestions);
-      const indexesToRemove = [1, 3];
+      const foodsToRemove = [
+        { description: "food to remove 1", serving: {} },
+        { description: "food to remove 2", serving: {} }
+      ];
 
-      savedFoods.removeByIndexes(indexesToRemove);
+      savedFoods.removeAll(foodsToRemove);
 
-      expect(savedFoods.getAll()).toEqual([existingFoods[0], existingFoods[2]]);
-      expect(mockSuggestions.removeSuggestion).toHaveBeenCalledWith(existingFoods[1]);
-      expect(mockSuggestions.removeSuggestion).toHaveBeenCalledWith(existingFoods[3]);
+      expect(savedFoods.getAll()).toEqual([existingFoods[2]]);
+      expect(mockSuggestions.removeSuggestion).toHaveBeenCalledWith(foodsToRemove[0]);
+      expect(mockSuggestions.removeSuggestion).toHaveBeenCalledWith(foodsToRemove[1]);
+    });
+
+    it("should do nothing if the foods to remove are not in saved foods", () => {
+      const existingFoods = [{ description: "existing food", serving: {} }];
+      const persistence = new InMemoryPersistence(existingFoods);
+      const savedFoods = new SavedFoods(persistence, persistence, mockSuggestions);
+      const nonExistingFoods = [
+        { description: "non-existing food 1", serving: {} },
+        { description: "non-existing food 2", serving: {} }
+      ];
+
+      savedFoods.removeAll(nonExistingFoods);
+
+      expect(savedFoods.getAll()).toEqual(existingFoods);
+      expect(mockSuggestions.removeSuggestion).not.toHaveBeenCalled();
     });
   });
-
+  
   describe("init", () => {
     it("should add all saved foods to suggestions", () => {
       const existingFoods = [

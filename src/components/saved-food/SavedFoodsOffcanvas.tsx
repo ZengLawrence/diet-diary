@@ -9,24 +9,25 @@ import { savedFoods } from "../../features/day-page/api";
 import type { Food } from "../../model/Food";
 import { VariantDanger, VariantSecondary } from "../ButtonVariant";
 import { FoodItem } from "../FoodItem";
+import _ from "lodash";
 
 interface State {
   foods: Food[];
   inSelectMode: boolean;
-  selectedIndexes: number[];
+  selectedFoods: Food[];
 }
 
 type SetFoodsAction = { type: 'set-foods', foods: Food[] };
 type EnterSelectModeAction = { type: 'enter-select-mode' };
 type ExitSelectModeAction = { type: 'exit-select-mode' };
-type ToggleSelectIndexAction = { type: 'toggle-select-index', index: number };
-type ClearSelectedIndexesAction = { type: 'clear-selected-indexes' };
+type ToggleSelectedFoodAction = { type: 'toggle-selected-food', food: Food };
+type ClearSelectedFoodsAction = { type: 'clear-selected-foods' };
 
 type Action = SetFoodsAction
   | EnterSelectModeAction
   | ExitSelectModeAction
-  | ToggleSelectIndexAction
-  | ClearSelectedIndexesAction;
+  | ToggleSelectedFoodAction
+  | ClearSelectedFoodsAction;
 
 function reducer(state: State, action: Action) {
   switch (action.type) {
@@ -35,20 +36,20 @@ function reducer(state: State, action: Action) {
     case 'enter-select-mode':
       return { ...state, inSelectMode: true };
     case 'exit-select-mode':
-      return { ...state, inSelectMode: false, selectedIndexes: [] };
-    case 'toggle-select-index': {
-      const index = action.index;
-      const selectedIndexes = [...state.selectedIndexes];
-      const indexInSelected = selectedIndexes.indexOf(index);
-      if (indexInSelected !== -1) {
-        selectedIndexes.splice(indexInSelected, 1);
+      return { ...state, inSelectMode: false, selectedFoods: [] };
+    case 'toggle-selected-food': {
+      const food = action.food;
+      const selectedFoods = [...state.selectedFoods];
+      const indexInSelectedFoods = selectedFoods.findIndex(f => _.isEqual(f, food));
+      if (indexInSelectedFoods !== -1) {
+        selectedFoods.splice(indexInSelectedFoods, 1);
       } else {
-        selectedIndexes.push(index);
+        selectedFoods.push(food);
       }
-      return { ...state, selectedIndexes };
+      return { ...state, selectedFoods };
     }
-    case 'clear-selected-indexes':
-      return { ...state, selectedIndexes: [] };
+    case 'clear-selected-foods':
+      return { ...state, selectedFoods: [] };
     default:
       return state;
   }
@@ -62,7 +63,7 @@ interface Props {
 const initialState: State = {
   foods: [],
   inSelectMode: false,
-  selectedIndexes: [],
+  selectedFoods: [],
 };
 
 function ButtonsBand(props: { 
@@ -90,7 +91,7 @@ function ButtonsBand(props: {
 }
 
 function SavedFoodsOffcanvas(props: Props) {
-  const [{ foods, inSelectMode, selectedIndexes }, dispatch] = useReducer(reducer, initialState);
+  const [{ foods, inSelectMode, selectedFoods }, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     const loadedFoods = new Promise<Food[]>((resolve) => resolve(savedFoods.getAll()));
@@ -99,12 +100,12 @@ function SavedFoodsOffcanvas(props: Props) {
 
   const handleDelete = () => {
     const deleteFoods = new Promise<Food[]>((resolve) => {
-      savedFoods.removeByIndexes(selectedIndexes);
+      savedFoods.removeAll(selectedFoods);
       const updatedFoods = savedFoods.getAll();
       resolve(updatedFoods);
     });
     void deleteFoods.then((foods) => {
-      dispatch({ type: 'clear-selected-indexes' });
+      dispatch({ type: 'clear-selected-foods' });
       dispatch({ type: 'set-foods', foods });
     });
   };
@@ -132,14 +133,14 @@ function SavedFoodsOffcanvas(props: Props) {
           Total: {foods.length}
         </div>
         <ListGroup>
-          {foods.map((food, index) => (
+          {foods.map((food) => (
             <ListGroup.Item key={food.description}>
               <Row>
                 {inSelectMode && (
                   <Col xs="auto">
                     <Form.Check
-                      checked={selectedIndexes.includes(index)}
-                      onChange={() => dispatch({ type: 'toggle-select-index', index })}
+                      checked={selectedFoods.some(f => _.isEqual(f, food))}
+                      onChange={() => dispatch({ type: 'toggle-selected-food', food })}
                     />
                   </Col>
                 )}
