@@ -1,7 +1,6 @@
 import { SavedMealsLocalStorage } from "../../app/savedMealLocalStorage";
 import { SavedMeals } from "../../model/savedMeals";
 import { today } from "../day-page/api";
-import { isSavedFoodEnabled } from "../flags";
 import { suggestions } from "../suggestions/SavedMealSuggestion";
 
 const savedMealLocalStorage = new SavedMealsLocalStorage();
@@ -12,8 +11,7 @@ let _suggestions: SuggestionsType = {
   addSuggestion: () => { },
   removeSuggestion: () => { },
 }
-if (!isSavedFoodEnabled()) {
-  _suggestions = suggestions;
-}
+// TODO remove adding Saved Meal to suggestion search
+_suggestions = suggestions;
 
 export const savedMeals = new SavedMeals(savedMealLocalStorage, savedMealLocalStorage, today, _suggestions);
