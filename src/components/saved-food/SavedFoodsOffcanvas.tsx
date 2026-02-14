@@ -14,6 +14,7 @@ interface State {
   foods: Food[];
   inSelectMode: boolean;
   selectedIndexes: number[];
+  selectedFoods: Food[];
 }
 
 type SetFoodsAction = { type: 'set-foods', foods: Food[] };
@@ -63,6 +64,7 @@ const initialState: State = {
   foods: [],
   inSelectMode: false,
   selectedIndexes: [],
+  selectedFoods: [],
 };
 
 function ButtonsBand(props: { 
