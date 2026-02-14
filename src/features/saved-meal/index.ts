@@ -14,4 +14,4 @@ let _suggestions: SuggestionsType = {
 // TODO remove adding Saved Meal to suggestion search
 _suggestions = suggestions;
 
-export const savedMeals = new SavedMeals(savedMealLocalStorage, savedMealLocalStorage, today, _suggestions);
+export const savedMeals = new SavedMeals(savedMealLocalStorage, savedMealLocalStorage, today);
