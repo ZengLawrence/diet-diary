@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { NoOpsSuggestions, type Suggestions } from "../features/suggestions/SavedFoodSuggestion";
 import type { Food } from "./Food";
 
