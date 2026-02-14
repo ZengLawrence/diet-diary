@@ -9,6 +9,7 @@ import { savedFoods } from "../../features/day-page/api";
 import type { Food } from "../../model/Food";
 import { VariantDanger, VariantSecondary } from "../ButtonVariant";
 import { FoodItem } from "../FoodItem";
+import _ from "lodash";
 
 interface State {
   foods: Food[];
@@ -40,16 +41,23 @@ function reducer(state: State, action: Action) {
     case 'toggle-select-index': {
       const index = action.index;
       const selectedIndexes = [...state.selectedIndexes];
+      const selectedFoods = [...state.selectedFoods];
       const indexInSelected = selectedIndexes.indexOf(index);
       if (indexInSelected !== -1) {
         selectedIndexes.splice(indexInSelected, 1);
+        const food = state.foods[index];
+        const foodIndexInSelectedFoods = selectedFoods.findIndex(f => _.isEqual(f, food));
+        if (foodIndexInSelectedFoods !== -1) {
+          selectedFoods.splice(foodIndexInSelectedFoods, 1);
+        }
       } else {
         selectedIndexes.push(index);
+        selectedFoods.push(state.foods[index]);
       }
-      return { ...state, selectedIndexes };
+      return { ...state, selectedIndexes, selectedFoods };
     }
     case 'clear-selected-indexes':
-      return { ...state, selectedIndexes: [] };
+      return { ...state, selectedIndexes: [], selectedFoods: [] };
     default:
       return state;
   }
