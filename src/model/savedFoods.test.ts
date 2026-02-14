@@ -118,26 +118,6 @@ describe("SavedFoods Class", () => {
     });
   });
 
-  describe("remove foods by indexes from saved foods", () => {
-    it("should remove foods by indexes from saved foods and suggestions", () => {
-      const existingFoods = [
-        { description: "food 1", serving: {} },
-        { description: "food to remove 1", serving: {} },
-        { description: "food 2", serving: {} },
-        { description: "food to remove 2", serving: {} }
-      ];
-      const persistence = new InMemoryPersistence(existingFoods);
-      const savedFoods = new SavedFoods(persistence, persistence, mockSuggestions);
-      const indexesToRemove = [1, 3];
-
-      savedFoods.removeByIndexes(indexesToRemove);
-
-      expect(savedFoods.getAll()).toEqual([existingFoods[0], existingFoods[2]]);
-      expect(mockSuggestions.removeSuggestion).toHaveBeenCalledWith(existingFoods[1]);
-      expect(mockSuggestions.removeSuggestion).toHaveBeenCalledWith(existingFoods[3]);
-    });
-  });
-
   describe("init", () => {
     it("should add all saved foods to suggestions", () => {
       const existingFoods = [

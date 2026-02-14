@@ -60,18 +60,6 @@ export class SavedFoods {
     this.suggestions.removeSuggestion(food);
   }
 
-  removeByIndexes(indexes: number[]): void {
-    const foods = this.load();
-    indexes.forEach(index => {
-      const food = foods[index];
-      if (food) {
-        this.suggestions.removeSuggestion(food);
-      }
-    });
-    const remainingFoods = foods.filter((_, index) => !indexes.includes(index));
-    this.saver.save(remainingFoods);
-  }
-  
   getAll(): Food[] {
     return this.load();
   }
