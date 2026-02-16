@@ -10,7 +10,9 @@ const PreferenceForm = () => {
 
   useEffect(() => {
     const getStartDayCalorieTarget = () => {
-      return Promise.resolve(preferencesApi.getStartDayCalorieTarget());
+      return new Promise<{ enabled: boolean, level: number }>(resolve => {
+        resolve(preferencesApi.getStartDayCalorieTarget());
+      });
     };
     void getStartDayCalorieTarget().then(startDayCalorieTarget => {
       setChecked(startDayCalorieTarget.enabled);
