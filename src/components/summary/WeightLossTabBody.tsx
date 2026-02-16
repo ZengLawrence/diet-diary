@@ -8,7 +8,9 @@ const WeightLossSummary = () => {
 
   useEffect(() => {
     const getTotalWeightLoss = () => {
-      return Promise.resolve(summary.totalWeightLoss());
+      return new Promise<number>(resolve => {
+        resolve(summary.totalWeightLoss());
+      });
     }
     void getTotalWeightLoss().then(setWeight);
     
