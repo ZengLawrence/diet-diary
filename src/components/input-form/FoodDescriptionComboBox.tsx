@@ -101,7 +101,10 @@ export const FoodDescriptionComboBox = (props: Props) => {
 
   useEffect(() => {
     if (invalid) {
-      const hideDropdown = () => Promise.resolve(setShowDropDown(false)); 
+      const hideDropdown = () => new Promise(resolve => {
+        setShowDropDown(false);
+        resolve(undefined);
+      });
       void hideDropdown(); 
     }
   }, [invalid]);

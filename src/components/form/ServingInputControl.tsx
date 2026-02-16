@@ -17,8 +17,10 @@ function useSyncedLocalState(props: Props) {
 
   useEffect(() => {
     // syncing with parent state
-    const getFoodGroupServing = () => {
-      return Promise.resolve(_.get(serving, foodGroup, '') || '');
+    const getFoodGroupServing = (): Promise<number | string> => {
+      return new Promise(resolve => {
+        resolve(_.get(serving, foodGroup, ''));
+      });
     };
     void getFoodGroupServing().then(setServingStr);
   }, [foodGroup, serving]);
