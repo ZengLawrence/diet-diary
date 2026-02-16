@@ -21,7 +21,9 @@ function SavedMealCardsOffcanvas(props: Props) {
   const dispatch = useAppDispatch();
 
   const filterMeals = (searchTerm: string) => {
-    return Promise.resolve(savedMeals.searchByDescription(searchTerm));
+    return new Promise<SavedMeal[]>(resolve => {
+      resolve(savedMeals.searchByDescription(searchTerm));
+    });
   }
 
   useEffect(() => {
