@@ -13,7 +13,6 @@ export default combineReducers(
     summaryType,
     editMode,
     targetState,
-    showSavedMeals,
     warning,
     pageOptions,
     dayPage,

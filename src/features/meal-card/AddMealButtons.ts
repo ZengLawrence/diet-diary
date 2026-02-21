@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
 import type { AppDispatch } from "../../app/store";
 import { AddMealButtons } from "../../components/meal-card/AddMealButtons";
-import { show } from "../day-page/showSavedMealsSlice";
+import { openSavedMeals } from "../overlays/overlaysSlice";
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  showSavedMeals: () => dispatch(show()),
+  showSavedMeals: () => dispatch(openSavedMeals()),
 })
 
 export default connect(null, mapDispatchToProps)(AddMealButtons);
