@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface OverlaysState {
-  showType: "preferences" | "customTargets" | "savedFoods" | undefined;
+  showType: "preferences" | "customTargets" | "savedFoods" | "savedMeals" | undefined;
 }
 
 const initialState: OverlaysState = {
@@ -30,6 +30,12 @@ const overlaysSlice = createSlice({
     closeSavedFoods(state) {
       state.showType = undefined;
     },
+    openSavedMeals(state) {
+      state.showType = "savedMeals";
+    },
+    closeSavedMeals(state) {
+      state.showType = undefined;
+    },
   },
 });
 
@@ -40,6 +46,8 @@ export const {
   closeCustomTargets,
   openSavedFoods,
   closeSavedFoods,
+  openSavedMeals,
+  closeSavedMeals,
 } = overlaysSlice.actions;
 
 export default overlaysSlice.reducer;

@@ -1,15 +1,15 @@
 import { connect } from "react-redux";
-import { showSavedMealsSelector } from "../../app/selectors";
+import { overlaysSelector } from "../../app/selectors";
 import type { AppDispatch, RootState } from "../../app/store";
 import SavedMealCardsOffcanvas from "../../components/saved-meal/SavedMealCardsOffcanvas";
-import { hide } from "../day-page/showSavedMealsSlice";
+import { closeSavedMeals } from "../overlays/overlaysSlice";
 
 const mapStateToProps = (state: RootState) => ({
-  show: showSavedMealsSelector(state),
+  show: overlaysSelector(state).showType == "savedMeals",
 })
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  onHide: () => dispatch(hide()),
+  onHide: () => dispatch(closeSavedMeals()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SavedMealCardsOffcanvas);
