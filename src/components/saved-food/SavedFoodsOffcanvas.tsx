@@ -16,6 +16,7 @@ interface State {
   foods: Food[];
   inSelectMode: boolean;
   selectedFoods: Food[];
+  searchTerm: string;
 }
 
 type SetFoodsAction = { type: 'set-foods', foods: Food[] };
@@ -23,12 +24,14 @@ type EnterSelectModeAction = { type: 'enter-select-mode' };
 type ExitSelectModeAction = { type: 'exit-select-mode' };
 type ToggleSelectedFoodAction = { type: 'toggle-selected-food', food: Food };
 type ClearSelectedFoodsAction = { type: 'clear-selected-foods' };
+type UpdateSearchTermAction = { type: 'update-search-term', searchTerm: string };
 
 type Action = SetFoodsAction
   | EnterSelectModeAction
   | ExitSelectModeAction
   | ToggleSelectedFoodAction
-  | ClearSelectedFoodsAction;
+  | ClearSelectedFoodsAction
+  | UpdateSearchTermAction;
 
 function reducer(state: State, action: Action) {
   switch (action.type) {
@@ -51,6 +54,8 @@ function reducer(state: State, action: Action) {
     }
     case 'clear-selected-foods':
       return { ...state, selectedFoods: [] };
+    case 'update-search-term':
+      return { ...state, searchTerm: action.searchTerm };
     default:
       return state;
   }
@@ -65,6 +70,7 @@ const initialState: State = {
   foods: [],
   inSelectMode: false,
   selectedFoods: [],
+  searchTerm: "",
 };
 
 function ButtonsBand(props: {
@@ -92,7 +98,10 @@ function ButtonsBand(props: {
 }
 
 function SavedFoodsOffcanvas(props: Props) {
-  const [{ foods, inSelectMode, selectedFoods }, dispatch] = useReducer(reducer, initialState);
+  const [
+    { foods, inSelectMode, selectedFoods, searchTerm }, 
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
   useEffect(() => {
     const loadedFoods = new Promise<Food[]>((resolve) => resolve(savedFoods.getAll()));
@@ -125,8 +134,8 @@ function SavedFoodsOffcanvas(props: Props) {
         <Offcanvas.Title>Saved Foods</Offcanvas.Title>
       </Offcanvas.Header>
       <SearchTermInput
-        searchTerm={""}
-        update={() => { }}
+        searchTerm={searchTerm}
+        update={(newSearchTerm) => dispatch({ type: 'update-search-term', searchTerm: newSearchTerm })}
         className="px-3 mb-1"
       />
       <ButtonsBand
