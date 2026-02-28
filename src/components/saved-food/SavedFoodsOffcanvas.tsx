@@ -127,6 +127,7 @@ function SavedFoodsOffcanvas(props: Props) {
       <SearchTermInput
         searchTerm={""}
         update={() => { }}
+        className="px-3 mb-1"
       />
       <ButtonsBand
         showDeleteButton={inSelectMode}
