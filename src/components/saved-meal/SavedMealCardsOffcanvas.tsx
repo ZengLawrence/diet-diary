@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { savedMeals } from "../../features/saved-meal";
 import { SavedMealCards } from "./SavedMealCards";
-import { SearchTermInput } from "./SearchTermInput";
+import { SearchTermInput } from "../form/SearchTermInput";
 import type { SavedMeal } from "../../model/SavedMeal";
 import { useAppDispatch } from "../../app/hooks";
 import { refresh } from "../../features/day-page/dayPageSlice";

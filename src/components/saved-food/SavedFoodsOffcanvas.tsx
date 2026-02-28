@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { useEffect, useReducer } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -9,12 +10,13 @@ import { savedFoods } from "../../features/day-page/api";
 import type { Food } from "../../model/Food";
 import { VariantDanger, VariantSecondary } from "../ButtonVariant";
 import { FoodItem } from "../FoodItem";
-import _ from "lodash";
+import { SearchTermInput } from "../form/SearchTermInput";
 
 interface State {
   foods: Food[];
   inSelectMode: boolean;
   selectedFoods: Food[];
+  searchTerm: string;
 }
 
 type SetFoodsAction = { type: 'set-foods', foods: Food[] };
@@ -22,12 +24,14 @@ type EnterSelectModeAction = { type: 'enter-select-mode' };
 type ExitSelectModeAction = { type: 'exit-select-mode' };
 type ToggleSelectedFoodAction = { type: 'toggle-selected-food', food: Food };
 type ClearSelectedFoodsAction = { type: 'clear-selected-foods' };
+type UpdateSearchTermAction = { type: 'update-search-term', searchTerm: string };
 
 type Action = SetFoodsAction
   | EnterSelectModeAction
   | ExitSelectModeAction
   | ToggleSelectedFoodAction
-  | ClearSelectedFoodsAction;
+  | ClearSelectedFoodsAction
+  | UpdateSearchTermAction;
 
 function reducer(state: State, action: Action) {
   switch (action.type) {
@@ -50,6 +54,8 @@ function reducer(state: State, action: Action) {
     }
     case 'clear-selected-foods':
       return { ...state, selectedFoods: [] };
+    case 'update-search-term':
+      return { ...state, searchTerm: action.searchTerm };
     default:
       return state;
   }
@@ -64,12 +70,13 @@ const initialState: State = {
   foods: [],
   inSelectMode: false,
   selectedFoods: [],
+  searchTerm: "",
 };
 
-function ButtonsBand(props: { 
-  showDeleteButton: boolean, 
-  onDelete: () => void, 
-  onToggleSelectMode: () => void 
+function ButtonsBand(props: {
+  showDeleteButton: boolean,
+  onDelete: () => void,
+  onToggleSelectMode: () => void
 }) {
   return (
     <div className={"px-3 d-flex " + (props.showDeleteButton ? "justify-content-between" : "justify-content-end")}>
@@ -91,17 +98,20 @@ function ButtonsBand(props: {
 }
 
 function SavedFoodsOffcanvas(props: Props) {
-  const [{ foods, inSelectMode, selectedFoods }, dispatch] = useReducer(reducer, initialState);
+  const [
+    { foods, inSelectMode, selectedFoods, searchTerm }, 
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    const loadedFoods = new Promise<Food[]>((resolve) => resolve(savedFoods.getAll()));
-    void loadedFoods.then((foods) => dispatch({ type: 'set-foods', foods }));
-  }, [props.show]);
+    const updatedFoods = savedFoods.searchByDescription(searchTerm);
+    dispatch({ type: 'set-foods', foods: updatedFoods });
+  }, [props.show, searchTerm]);
 
   const handleDelete = () => {
     const deleteFoods = new Promise<Food[]>((resolve) => {
       savedFoods.removeAll(selectedFoods);
-      const updatedFoods = savedFoods.getAll();
+      const updatedFoods = savedFoods.searchByDescription(searchTerm);
       resolve(updatedFoods);
     });
     void deleteFoods.then((foods) => {
@@ -114,6 +124,10 @@ function SavedFoodsOffcanvas(props: Props) {
     dispatch({ type: inSelectMode ? 'exit-select-mode' : 'enter-select-mode' });
   };
 
+  const handleSearchTermUpdate = (newSearchTerm: string) => {
+    dispatch({ type: 'update-search-term', searchTerm: newSearchTerm });
+  };
+
   return (
     <Offcanvas
       show={props.show}
@@ -123,6 +137,11 @@ function SavedFoodsOffcanvas(props: Props) {
       <Offcanvas.Header closeButton>
         <Offcanvas.Title>Saved Foods</Offcanvas.Title>
       </Offcanvas.Header>
+      <SearchTermInput
+        searchTerm={searchTerm}
+        update={handleSearchTermUpdate}
+        className="px-3 mb-1"
+      />
       <ButtonsBand
         showDeleteButton={inSelectMode}
         onDelete={handleDelete}

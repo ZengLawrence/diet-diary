@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 interface Props {
   searchTerm: string;
   update: (s: string) => void;
+  className?: string;
 }
 
 export const SearchTermInput = (props: Props) => {
@@ -13,7 +14,7 @@ export const SearchTermInput = (props: Props) => {
   };
 
   return (
-    <Form>
+    <Form className={props.className}>
       <Form.Control
         id="inputSearchTerm"
         type="text"
