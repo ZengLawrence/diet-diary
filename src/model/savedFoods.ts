@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { NoOpsSuggestions, type Suggestions } from "../features/suggestions/SavedFoodSuggestion";
 import type { Food } from "./Food";
 
@@ -41,6 +42,25 @@ function removeAll(foods: Food[], foodsToRemove: Food[]): { updatedFoods: Food[]
   return { updatedFoods, removedFoods };
 }
 
+
+function includesAllWords(food: { description: string }, words: string[]) {
+  const foodDescription = _.lowerCase(food.description);
+  const lowerCaseWords = words.map(w => _.lowerCase(w));
+  const wordIncludedInFoodDescription = (word: string) => foodDescription.includes(word);
+  return lowerCaseWords.every(wordIncludedInFoodDescription);
+}
+
+/**
+ * Filters foods based on a search term, returning only those that contain all words in the term. Comparison is case-insensitive.
+ * 
+ * @param foods - Array of foods to filter.
+ * @param searchTerm - The search term to match against food descriptions.
+ * @returns An array of foods that match the search term.
+ */
+function byDescription(foods: Food[], searchTerm: string): Food[] {
+  const words = _.words(searchTerm);
+  return _.filter(foods, f => includesAllWords(f, words));
+}
 
 export class SavedFoods {
 
@@ -87,5 +107,10 @@ export class SavedFoods {
 
   getAll(): Food[] {
     return this.load();
+  }
+
+  searchByDescription(searchTerm: string): Food[] {
+    const foods = this.load();
+    return byDescription(foods, searchTerm);
   }
 }

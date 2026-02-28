@@ -124,6 +124,12 @@ function SavedFoodsOffcanvas(props: Props) {
     dispatch({ type: inSelectMode ? 'exit-select-mode' : 'enter-select-mode' });
   };
 
+  const handleSearchTermUpdate = (newSearchTerm: string) => {
+    dispatch({ type: 'update-search-term', searchTerm: newSearchTerm });
+    const filteredFoods = savedFoods.searchByDescription(newSearchTerm);
+    dispatch({ type: 'set-foods', foods: filteredFoods });
+  };
+
   return (
     <Offcanvas
       show={props.show}
@@ -135,7 +141,7 @@ function SavedFoodsOffcanvas(props: Props) {
       </Offcanvas.Header>
       <SearchTermInput
         searchTerm={searchTerm}
-        update={(newSearchTerm) => dispatch({ type: 'update-search-term', searchTerm: newSearchTerm })}
+        update={handleSearchTermUpdate}
         className="px-3 mb-1"
       />
       <ButtonsBand

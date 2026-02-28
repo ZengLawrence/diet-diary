@@ -170,4 +170,34 @@ describe("SavedFoods Class", () => {
     });
   });
 
+  describe("searchByDescription", () => {
+    it("should return foods that match the search term", () => {
+      const existingFoods = [
+        { description: "apple", serving: {} },
+        { description: "banana", serving: {} },
+        { description: "grape", serving: {} }
+      ];
+      const persistence = new InMemoryPersistence(existingFoods);
+      const savedFoods = new SavedFoods(persistence, persistence, mockSuggestions);
+
+      const result = savedFoods.searchByDescription("ap");
+
+      expect(result).toEqual([existingFoods[0], existingFoods[2]]);
+    });
+
+    it("should return an empty array if no foods match the search term", () => {
+      const existingFoods = [
+        { description: "apple", serving: {} },
+        { description: "banana", serving: {} },
+        { description: "grape", serving: {} }
+      ];
+      const persistence = new InMemoryPersistence(existingFoods);
+      const savedFoods = new SavedFoods(persistence, persistence, mockSuggestions);
+
+      const result = savedFoods.searchByDescription("orange");
+
+      expect(result).toEqual([]);
+    });
+  });
+
 });
