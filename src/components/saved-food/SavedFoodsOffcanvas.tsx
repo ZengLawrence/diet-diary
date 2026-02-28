@@ -126,8 +126,6 @@ function SavedFoodsOffcanvas(props: Props) {
 
   const handleSearchTermUpdate = (newSearchTerm: string) => {
     dispatch({ type: 'update-search-term', searchTerm: newSearchTerm });
-    const filteredFoods = savedFoods.searchByDescription(newSearchTerm);
-    dispatch({ type: 'set-foods', foods: filteredFoods });
   };
 
   return (
