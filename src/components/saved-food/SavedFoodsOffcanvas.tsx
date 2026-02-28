@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { useEffect, useReducer } from "react";
+import { useReducer } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -73,6 +73,11 @@ const initialState: State = {
   searchTerm: "",
 };
 
+function init(initialState: State): State {
+  const foods = savedFoods.searchByDescription(initialState.searchTerm);
+  return { ...initialState, foods };
+}
+
 function ButtonsBand(props: {
   showDeleteButton: boolean,
   onDelete: () => void,
@@ -101,12 +106,7 @@ function SavedFoodsOffcanvas(props: Props) {
   const [
     { foods, inSelectMode, selectedFoods, searchTerm }, 
     dispatch,
-  ] = useReducer(reducer, initialState);
-
-  useEffect(() => {
-    const loadedFoods = new Promise<Food[]>((resolve) => resolve(savedFoods.getAll()));
-    void loadedFoods.then((foods) => dispatch({ type: 'set-foods', foods }));
-  }, [props.show]);
+  ] = useReducer(reducer, initialState, init);
 
   const handleDelete = () => {
     const deleteFoods = new Promise<Food[]>((resolve) => {
