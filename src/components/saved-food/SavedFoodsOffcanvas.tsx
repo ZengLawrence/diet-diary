@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { useEffect, useReducer } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -9,7 +10,7 @@ import { savedFoods } from "../../features/day-page/api";
 import type { Food } from "../../model/Food";
 import { VariantDanger, VariantSecondary } from "../ButtonVariant";
 import { FoodItem } from "../FoodItem";
-import _ from "lodash";
+import { SearchTermInput } from "../form/SearchTermInput";
 
 interface State {
   foods: Food[];
@@ -66,10 +67,10 @@ const initialState: State = {
   selectedFoods: [],
 };
 
-function ButtonsBand(props: { 
-  showDeleteButton: boolean, 
-  onDelete: () => void, 
-  onToggleSelectMode: () => void 
+function ButtonsBand(props: {
+  showDeleteButton: boolean,
+  onDelete: () => void,
+  onToggleSelectMode: () => void
 }) {
   return (
     <div className={"px-3 d-flex " + (props.showDeleteButton ? "justify-content-between" : "justify-content-end")}>
@@ -123,6 +124,10 @@ function SavedFoodsOffcanvas(props: Props) {
       <Offcanvas.Header closeButton>
         <Offcanvas.Title>Saved Foods</Offcanvas.Title>
       </Offcanvas.Header>
+      <SearchTermInput
+        searchTerm={""}
+        update={() => { }}
+      />
       <ButtonsBand
         showDeleteButton={inSelectMode}
         onDelete={handleDelete}
