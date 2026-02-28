@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -108,6 +108,11 @@ function SavedFoodsOffcanvas(props: Props) {
     dispatch,
   ] = useReducer(reducer, initialState, init);
 
+  useEffect(() => {
+    const updatedFoods = savedFoods.searchByDescription(searchTerm);
+    dispatch({ type: 'set-foods', foods: updatedFoods });
+  }, [props.show]);
+  
   const handleDelete = () => {
     const deleteFoods = new Promise<Food[]>((resolve) => {
       savedFoods.removeAll(selectedFoods);
