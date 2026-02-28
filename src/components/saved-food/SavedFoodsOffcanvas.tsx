@@ -73,11 +73,6 @@ const initialState: State = {
   searchTerm: "",
 };
 
-function init(initialState: State): State {
-  const foods = savedFoods.searchByDescription(initialState.searchTerm);
-  return { ...initialState, foods };
-}
-
 function ButtonsBand(props: {
   showDeleteButton: boolean,
   onDelete: () => void,
@@ -106,13 +101,13 @@ function SavedFoodsOffcanvas(props: Props) {
   const [
     { foods, inSelectMode, selectedFoods, searchTerm }, 
     dispatch,
-  ] = useReducer(reducer, initialState, init);
+  ] = useReducer(reducer, initialState);
 
   useEffect(() => {
     const updatedFoods = savedFoods.searchByDescription(searchTerm);
     dispatch({ type: 'set-foods', foods: updatedFoods });
-  }, [props.show]);
-  
+  }, [props.show, searchTerm]);
+
   const handleDelete = () => {
     const deleteFoods = new Promise<Food[]>((resolve) => {
       savedFoods.removeAll(selectedFoods);
