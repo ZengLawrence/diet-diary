@@ -1,5 +1,5 @@
 ---
-name: hello world
+name: hello-world
 description: A simple skill to responds to when user enter the phrase 'hello world'.
 ---
 
